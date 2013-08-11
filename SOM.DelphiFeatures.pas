@@ -21,6 +21,12 @@ type
   UInt64 = type Int64;
 {$ENDIF}
 
+{$IFNDEF DELPHI_HAS_INTPTR}
+type
+  IntPtr = type LongInt;
+  UIntPtr = type LongWord;
+{$ENDIF}
+
 implementation
 
 {$IFNDEF DELPHI_IS_UNICODE}

@@ -18,3 +18,7 @@
 {$IF CompilerVersion >= 21.0}
   {$DEFINE DELPHI_HAS_RTTI}
 {$IFEND}
+
+{$IF CompilerVersion >= 23.0}
+  {$DEFINE DELPHI_HAS_INTPTR}
+{$IFEND}
