@@ -38,8 +38,9 @@ type
 
 // #include <somtypes.h>
 
+  somMethodTabPtr = ^somMethodTab;
   SOMAny = record
-    mtab: Pointer; // somMethodTabPtr;
+    mtab: somMethodTabPtr;
     body: array[0 .. 0] of integer4;
   end;
   SOMAny_struct = SOMAny;
@@ -59,21 +60,21 @@ type
 
 (* Control the printing of method and procedure entry messages, *)
 (* 0-none, 1-user, 2-core&user *)
-function SOM_TraceLevel: PInteger;
+// function SOM_TraceLevel: PInteger; // (moved down)
 
 (* Control the printing of warning messages, 0-none, 1-all *)
-function SOM_WarnLevel: PInteger;
+// function SOM_WarnLevel: PInteger; // (moved down)
 
 (* Control the printing of successful assertions, 0-none, 1-user, *)
 (* 2-core&user *)
-function SOM_AssertLevel: PInteger;
+// function SOM_AssertLevel: PInteger; // (moved down)
 
 (*
  *  Scans argv looking for flags -somt, -somtc, -soma -somac -somw setting
  *  SOM_TraceLevel, SOM_AssertLevel and SOM_WarnLevel as appropriate.
  *  argv is not modified
  *)
-procedure somCheckArgs(argc: Integer; argv: PPAnsiChar); stdcall;
+// procedure somCheckArgs(argc: Integer; argv: PPAnsiChar); stdcall;
 
 
 (*----------------------------------------------------------------------
@@ -84,47 +85,46 @@ procedure somCheckArgs(argc: Integer; argv: PPAnsiChar); stdcall;
  * Externals used in the implementation of SOM_Test and SOM_Assert,
  * but not part of the SOM API.
  *)
-procedure somTest (
-    condition: Integer;
-    severity: Integer;
-    fileName: PAnsiChar;
-    lineNum: Integer;
-    msg: PAnsiChar); stdcall;
+// procedure somTest(
+//     condition: Integer;
+//     severity: Integer;
+//     fileName: PAnsiChar;
+//     lineNum: Integer;
+//     msg: PAnsiChar); stdcall; // (moved down)
 
-procedure somAssert (
-    condition: Integer;
-    ecode: Integer;
-    fileName: PAnsiChar;
-    lineNum: Integer;
-    msg: PAnsiChar); stdcall;
+// procedure somAssert(
+//     condition: Integer;
+//     ecode: Integer;
+//     fileName: PAnsiChar;
+//     lineNum: Integer;
+//     msg: PAnsiChar); stdcall; // (moved down)
 
 (*
  *  Error severity codes, these are added to the base error number to
  *  produce the full error code
  *)
 
-const
-  SOM_Ok            = $0;
-  SOM_Warn          = $1;
-  SOM_Ignore        = $2; (* don't do anything *)
-  SOM_Fatal         = $9; (* terminate the program *)
-  SOM_Template      = $5; (* use to identify msg templates *)
-
-  SOM_EB = 20000;
-function SOM_FatalCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-function SOM_WarnCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-function SOM_IgnoreCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-function SOM_OkCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-function SOM_TemplateCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-function SOM_MsgCode(ecode: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-
-const
-  SOMERROR_MustOverride = SOM_EB + 18 * 10 + SOM_Fatal;
+// const
+//   SOM_Ok            = $0;
+//   SOM_Warn          = $1;
+//   SOM_Ignore        = $2; (* don't do anything *)
+//   SOM_Fatal         = $9; (* terminate the program *)
+//   SOM_Template      = $5; (* use to identify msg templates *)
+//
+//   SOM_EB = 20000; // (moved down)
+// function SOM_FatalCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+// function SOM_WarnCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+// function SOM_IgnoreCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+// function SOM_OkCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+// function SOM_TemplateCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+// function SOM_MsgCode(ecode: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+//
+// const
+//   SOMERROR_MustOverride = SOM_EB + 18 * 10 + SOM_Fatal; // (moved down)
 
 // #include <somcorba.h>
 
 (* CORBA 5.7, p.89 *)
-type
   octet = Byte;
   CORBAString = PAnsiChar;
   CORBABoolean = ByteBool;
@@ -148,18 +148,16 @@ type
  * for representing IDL enums is used in the CORBA 2.0 * C++ mappings.
  *)
   exception_type = type LongInt;          (* ensure mapped as 4 bytes *)
-const
-  NO_EXCEPTION     = exception_type(0);
-  USER_EXCEPTION   = exception_type(1);
-  SYSTEM_EXCEPTION = exception_type(2);
-type
+// const
+//   NO_EXCEPTION     = exception_type(0);
+//   USER_EXCEPTION   = exception_type(1);
+//   SYSTEM_EXCEPTION = exception_type(2); // (moved down)
   completion_status = type LongInt;       (* ensure mapped as 4 bytes *)
-const
-  YES   = completion_status(0);
-  NO    = completion_status(1);
-  MAYBE = completion_status(2);
+// const
+//   YES   = completion_status(0);
+//   NO    = completion_status(1);
+//   MAYBE = completion_status(2); // (moved down)
 
-type
   StExcep = record
     minor: LongWord;
     completed: completion_status;
@@ -175,61 +173,60 @@ type
 
 (* CORBA 7.6.1, p.139 plus 5.7, p.89 enum Data Type Mapping *)
   TCKind = type LongWord;
-const
-  TypeCode_tk_null      = TCKind(1);
-  TypeCode_tk_void      = TCKind(2);
-  TypeCode_tk_short     = TCKind(3);
-  TypeCode_tk_long      = TCKind(4);
-  TypeCode_tk_ushort    = TCKind(5);
-  TypeCode_tk_ulong     = TCKind(6);
-  TypeCode_tk_float     = TCKind(7);
-  TypeCode_tk_double    = TCKind(8);
-  TypeCode_tk_boolean   = TCKind(9);
-  TypeCode_tk_char      = TCKind(10);
-  TypeCode_tk_octet     = TCKind(11);
-  TypeCode_tk_any       = TCKind(12);
-  TypeCode_tk_TypeCode  = TCKind(13);
-  TypeCode_tk_Principal = TCKind(14);
-  TypeCode_tk_objref    = TCKind(15);
-  TypeCode_tk_struct    = TCKind(16);
-  TypeCode_tk_union     = TCKind(17);
-  TypeCode_tk_enum      = TCKind(18);
-  TypeCode_tk_string    = TCKind(19);
-  TypeCode_tk_sequence  = TCKind(20);
-  TypeCode_tk_array     = TCKind(21);
+// const
+//   TypeCode_tk_null      = TCKind(1);
+//   TypeCode_tk_void      = TCKind(2);
+//   TypeCode_tk_short     = TCKind(3);
+//   TypeCode_tk_long      = TCKind(4);
+//   TypeCode_tk_ushort    = TCKind(5);
+//   TypeCode_tk_ulong     = TCKind(6);
+//   TypeCode_tk_float     = TCKind(7);
+//   TypeCode_tk_double    = TCKind(8);
+//   TypeCode_tk_boolean   = TCKind(9);
+//   TypeCode_tk_char      = TCKind(10);
+//   TypeCode_tk_octet     = TCKind(11);
+//   TypeCode_tk_any       = TCKind(12);
+//   TypeCode_tk_TypeCode  = TCKind(13);
+//   TypeCode_tk_Principal = TCKind(14);
+//   TypeCode_tk_objref    = TCKind(15);
+//   TypeCode_tk_struct    = TCKind(16);
+//   TypeCode_tk_union     = TCKind(17);
+//   TypeCode_tk_enum      = TCKind(18);
+//   TypeCode_tk_string    = TCKind(19);
+//   TypeCode_tk_sequence  = TCKind(20);
+//   TypeCode_tk_array     = TCKind(21);
+//
+//   TypeCode_tk_pointer   = TCKind(101); (* SOM extension *)
+//   TypeCode_tk_self      = TCKind(102); (* SOM extension *)
+//   TypeCode_tk_foreign   = TCKind(103); (* SOM extension *)
+//
+// (* Short forms of tk_<x> enumerators *)
+//
+//   tk_null      = TypeCode_tk_null;
+//   tk_void      = TypeCode_tk_void;
+//   tk_short     = TypeCode_tk_short;
+//   tk_long      = TypeCode_tk_long;
+//   tk_ushort    = TypeCode_tk_ushort;
+//   tk_ulong     = TypeCode_tk_ulong;
+//   tk_float     = TypeCode_tk_float;
+//   tk_double    = TypeCode_tk_double;
+//   tk_boolean   = TypeCode_tk_boolean;
+//   tk_char      = TypeCode_tk_char;
+//   tk_octet     = TypeCode_tk_octet;
+//   tk_any       = TypeCode_tk_any;
+//   tk_TypeCode  = TypeCode_tk_TypeCode;
+//   tk_Principal = TypeCode_tk_Principal;
+//   tk_objref    = TypeCode_tk_objref;
+//   tk_struct    = TypeCode_tk_struct;
+//   tk_union     = TypeCode_tk_union;
+//   tk_enum      = TypeCode_tk_enum;
+//   tk_string    = TypeCode_tk_string;
+//   tk_sequence  = TypeCode_tk_sequence;
+//   tk_array     = TypeCode_tk_array;
+//   tk_pointer   = TypeCode_tk_pointer;
+//   tk_self      = TypeCode_tk_self;
+//   tk_foreign   = TypeCode_tk_foreign; // (moved down)
 
-  TypeCode_tk_pointer   = TCKind(101); (* SOM extension *)
-  TypeCode_tk_self      = TCKind(102); (* SOM extension *)
-  TypeCode_tk_foreign   = TCKind(103); (* SOM extension *)
-
-(* Short forms of tk_<x> enumerators *)
-
-  tk_null      = TypeCode_tk_null;
-  tk_void      = TypeCode_tk_void;
-  tk_short     = TypeCode_tk_short;
-  tk_long      = TypeCode_tk_long;
-  tk_ushort    = TypeCode_tk_ushort;
-  tk_ulong     = TypeCode_tk_ulong;
-  tk_float     = TypeCode_tk_float;
-  tk_double    = TypeCode_tk_double;
-  tk_boolean   = TypeCode_tk_boolean;
-  tk_char      = TypeCode_tk_char;
-  tk_octet     = TypeCode_tk_octet;
-  tk_any       = TypeCode_tk_any;
-  tk_TypeCode  = TypeCode_tk_TypeCode;
-  tk_Principal = TypeCode_tk_Principal;
-  tk_objref    = TypeCode_tk_objref;
-  tk_struct    = TypeCode_tk_struct;
-  tk_union     = TypeCode_tk_union;
-  tk_enum      = TypeCode_tk_enum;
-  tk_string    = TypeCode_tk_string;
-  tk_sequence  = TypeCode_tk_sequence;
-  tk_array     = TypeCode_tk_array;
-  tk_pointer   = TypeCode_tk_pointer;
-  tk_self      = TypeCode_tk_self;
-  tk_foreign   = TypeCode_tk_foreign;
-
-type
   TypeCode = Pointer;
 
 (* CORBA 5.7, p.89 *)
@@ -238,27 +235,26 @@ type
     _value: Pointer;
   end;
 
-function somExceptionId(ev: PEnvironment): PAnsiChar; stdcall;
-function somExceptionValue(ev: PEnvironment): Pointer; stdcall;
-procedure somExceptionFree(ev: PEnvironment); stdcall;
-procedure somSetException(ev: PEnvironment;
-    major: exception_type; exception_name: PAnsiChar; params: Pointer); stdcall;
-function somGetGlobalEnvironment: PEnvironment; stdcall;
+// function somExceptionId(ev: PEnvironment): PAnsiChar; stdcall; // (moved down)
+// function somExceptionValue(ev: PEnvironment): Pointer; stdcall; // (moved down)
+// procedure somExceptionFree(ev: PEnvironment); stdcall; // (moved down)
+// procedure somSetException(ev: PEnvironment;
+//     major: exception_type; exception_name: PAnsiChar; params: Pointer); stdcall; // (moved down)
+// function somGetGlobalEnvironment: PEnvironment; stdcall; // (moved down)
 
 // #include <somapi.h>
 
 (*  SOM Version Numbers  *)
-function SOM_MajorVersion: LongInt; stdcall;
-function SOM_MinorVersion: LongInt; stdcall;
+// function SOM_MajorVersion: LongInt; stdcall; // (moved down)
+// function SOM_MinorVersion: LongInt; stdcall; // (moved down)
 
 (*  SOM Thread Support  *)
-function SOM_MaxThreads: LongInt; stdcall;
+// function SOM_MaxThreads: LongInt; stdcall; // (moved down)
 
 (*----------------------------------------
  * Typedefs for pointers to functions
  *----------------------------------------*)
 
-type
   somTD_SOMOutCharRoutine = function(C: AnsiChar): Integer; stdcall;
   PsomTD_SOMOutCharRoutine = ^somTD_SOMOutCharRoutine;
   somTD_SOMLoadModule = function(
@@ -318,11 +314,11 @@ type
  *
  *  Returns the SOMClassMgrObject
  *)
-function somEnvironmentNew: PSOMClassMgr; stdcall;
+// function somEnvironmentNew: PSOMClassMgr; stdcall; // (moved down)
 
-procedure somEnvironmentEnd; stdcall;
-function somMainProgram: PSOMClassMgr; stdcall;
-function somAbnormalEnd: ByteBool; stdcall;
+// procedure somEnvironmentEnd; stdcall; // (moved down)
+// function somMainProgram: PSOMClassMgr; stdcall; // (moved down)
+// function somAbnormalEnd: ByteBool; stdcall; // (moved down)
 
 (*
  *  Replaceable SOM Memory Management Interfaces
@@ -330,15 +326,15 @@ function somAbnormalEnd: ByteBool; stdcall;
  *  External procedure variables SOMCalloc, SOMFree, SOMMalloc, SOMRealloc
  *  have the same interface as their standard C-library analogs.
  *)
-function SOMCalloc: PsomTD_SOMCalloc;
-function SOMFree: PsomTD_SOMFree;
-function SOMMalloc: PsomTD_SOMMalloc;
-function SOMRealloc: PsomTD_SOMRealloc;
+// function SOMCalloc: PsomTD_SOMCalloc; // (moved down)
+// function SOMFree: PsomTD_SOMFree; // (moved down)
+// function SOMMalloc: PsomTD_SOMMalloc; // (moved down)
+// function SOMRealloc: PsomTD_SOMRealloc; // (moved down)
 
 (*
  *  Replaceable SOM Error handler
  *)
-function SOMError: PsomTD_SOMError;
+// function SOMError: PsomTD_SOMError; // (moved down)
 
 (*
  *  Replaceable SOM Semaphore Operations
@@ -347,10 +343,10 @@ function SOMError: PsomTD_SOMError;
  *  state changes to internal resources and for synchronization between
  *  the SOM services process and client SOM processes.
  *)
-function SOMCreateMutexSem: PsomTD_SOMCreateMutexSem;
-function SOMRequestMutexSem: PsomTD_SOMRequestMutexSem;
-function SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem;
-function SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
+// function SOMCreateMutexSem: PsomTD_SOMCreateMutexSem; // (moved down)
+// function SOMRequestMutexSem: PsomTD_SOMRequestMutexSem; // (moved down)
+// function SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem; // (moved down)
+// function SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem; // (moved down)
 
 (*
  * 18260 -- other thread-related routines used by the kernel were
@@ -364,7 +360,7 @@ function SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
  *  currently executing thread.  It must return a small integer that
  *  uniquely represents the current thread within the current process.
  *)
-function SOMGetThreadId: PsomTD_SOMGetThreadId;
+// function SOMGetThreadId: PsomTD_SOMGetThreadId; // (moved down)
 
 
 (*----------------------------------------------------------------------
@@ -374,7 +370,7 @@ function SOMGetThreadId: PsomTD_SOMGetThreadId;
 (*
  * Global class manager object
  *)
-function SOMClassMgrObject: PPSOMClassMgr;
+// function SOMClassMgrObject: PPSOMClassMgr; // (moved down)
 
 (*
  * The somRegisterClassLibrary function is provided for use in SOM class
@@ -393,17 +389,17 @@ function SOMClassMgrObject: PPSOMClassMgr;
  * during the _somFindClass method (for libraries that are dynamically
  * loaded).
  *)
-procedure somRegisterClassLibrary(
-    libraryName: PAnsiChar;
-    libraryInitRtn: somMethodProc); stdcall;
-procedure somUnregisterClassLibrary(libraryName: PAnsiChar); stdcall;
+// procedure somRegisterClassLibrary(
+//     libraryName: PAnsiChar;
+//     libraryInitRtn: somMethodProc); stdcall; // (moved down)
+// procedure somUnregisterClassLibrary(libraryName: PAnsiChar); stdcall; // (moved down)
 
 (*
  * Pointers to routines used to do dynamic code loading and deleting
  *)
-function SOMLoadModule: PsomTD_SOMLoadModule;
-function SOMDeleteModule: PsomTD_SOMDeleteModule;
-function SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
+// function SOMLoadModule: PsomTD_SOMLoadModule; // (moved down)
+// function SOMDeleteModule: PsomTD_SOMDeleteModule; // (moved down)
+// function SOMClassInitFuncName: PsomTD_SOMClassInitFuncName; // (moved down)
 
 
 (*----------------------------------------------------------------------
@@ -415,27 +411,27 @@ function SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
  * ANSI C style format.  Returns the number of characters output.
  *)
 
-function somPrintf(fmt: PAnsiChar): Integer; cdecl; varargs;
+// function somPrintf(fmt: PAnsiChar): Integer; cdecl; varargs; // (moved down)
 
 (*
  * vprint form of somPrintf
  *)
-function somVprintf(fmt: PAnsiChar; ap: va_list): Integer; stdcall;
+// function somVprintf(fmt: PAnsiChar; ap: va_list): Integer; stdcall; // (moved down)
 
 (*
  * Outputs (via somPrintf) blanks to prefix a line at the indicated level
  *)
-procedure somPrefixLevel(level: LongInt); stdcall;
+// procedure somPrefixLevel(level: LongInt); stdcall; // (moved down)
 
 (*
  * Combines somPrefixLevel and somPrintf
  *)
-function somLPrintf(level: Integer; fmt: PAnsiChar): Integer; cdecl; varargs;
+// function somLPrintf(level: Integer; fmt: PAnsiChar): Integer; cdecl; varargs; // (moved down)
 
 (*
  * Specify a thread-specific user-defined SOMOutCharRoutine
  *)
-procedure somSetOutChar(outch: somTD_SOMOutCharRoutine); stdcall;
+// procedure somSetOutChar(outch: somTD_SOMOutCharRoutine); stdcall; // (moved down)
 
 (*
  *  Replaceable character output handler.
@@ -443,7 +439,7 @@ procedure somSetOutChar(outch: somTD_SOMOutCharRoutine); stdcall;
  *  support.  Initialized to <somOutChar>, but may be reset at anytime.
  *  Should return 0 (false) if an error occurs and 1 (true) otherwise.
  *)
-function SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
+// function SOMOutCharRoutine: PsomTD_SOMOutCharRoutine; // (moved down)
 
 
 (*--------------
@@ -457,7 +453,6 @@ function SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
  * data structures.
  *)
 
-type
   somInitInfo = record
     cls: PSOMClass;     (* class whose introduced data is to be initialized *)
     defaultInit: somMethodProc;
@@ -627,6 +622,148 @@ type
 
 
 
+//!---- constants and functions
+// SOM API has forward type definitions across different headers
+// Starting from SOMAny, every type has to be defined in a single
+// type block to make it valid in Delphi.
+// Procedures and constants were commented and moved here to make
+// type block contiguous
+function SOM_TraceLevel: PInteger;
+function SOM_WarnLevel: PInteger;
+function SOM_AssertLevel: PInteger;
+procedure somCheckArgs(argc: Integer; argv: PPAnsiChar); stdcall;
+procedure somTest(
+    condition: Integer;
+    severity: Integer;
+    fileName: PAnsiChar;
+    lineNum: Integer;
+    msg: PAnsiChar); stdcall;
+procedure somAssert(
+    condition: Integer;
+    ecode: Integer;
+    fileName: PAnsiChar;
+    lineNum: Integer;
+    msg: PAnsiChar); stdcall;
+const
+  SOM_Ok            = $0;
+  SOM_Warn          = $1;
+  SOM_Ignore        = $2; (* don't do anything *)
+  SOM_Fatal         = $9; (* terminate the program *)
+  SOM_Template      = $5; (* use to identify msg templates *)
+
+  SOM_EB = 20000;
+function SOM_FatalCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOM_WarnCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOM_IgnoreCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOM_OkCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOM_TemplateCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOM_MsgCode(ecode: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+const
+  SOMERROR_MustOverride = SOM_EB + 18 * 10 + SOM_Fatal;
+const
+  NO_EXCEPTION     = exception_type(0);
+  USER_EXCEPTION   = exception_type(1);
+  SYSTEM_EXCEPTION = exception_type(2);
+const
+  YES   = completion_status(0);
+  NO    = completion_status(1);
+  MAYBE = completion_status(2);
+const
+  TypeCode_tk_null      = TCKind(1);
+  TypeCode_tk_void      = TCKind(2);
+  TypeCode_tk_short     = TCKind(3);
+  TypeCode_tk_long      = TCKind(4);
+  TypeCode_tk_ushort    = TCKind(5);
+  TypeCode_tk_ulong     = TCKind(6);
+  TypeCode_tk_float     = TCKind(7);
+  TypeCode_tk_double    = TCKind(8);
+  TypeCode_tk_boolean   = TCKind(9);
+  TypeCode_tk_char      = TCKind(10);
+  TypeCode_tk_octet     = TCKind(11);
+  TypeCode_tk_any       = TCKind(12);
+  TypeCode_tk_TypeCode  = TCKind(13);
+  TypeCode_tk_Principal = TCKind(14);
+  TypeCode_tk_objref    = TCKind(15);
+  TypeCode_tk_struct    = TCKind(16);
+  TypeCode_tk_union     = TCKind(17);
+  TypeCode_tk_enum      = TCKind(18);
+  TypeCode_tk_string    = TCKind(19);
+  TypeCode_tk_sequence  = TCKind(20);
+  TypeCode_tk_array     = TCKind(21);
+
+  TypeCode_tk_pointer   = TCKind(101); (* SOM extension *)
+  TypeCode_tk_self      = TCKind(102); (* SOM extension *)
+  TypeCode_tk_foreign   = TCKind(103); (* SOM extension *)
+
+(* Short forms of tk_<x> enumerators *)
+
+  tk_null      = TypeCode_tk_null;
+  tk_void      = TypeCode_tk_void;
+  tk_short     = TypeCode_tk_short;
+  tk_long      = TypeCode_tk_long;
+  tk_ushort    = TypeCode_tk_ushort;
+  tk_ulong     = TypeCode_tk_ulong;
+  tk_float     = TypeCode_tk_float;
+  tk_double    = TypeCode_tk_double;
+  tk_boolean   = TypeCode_tk_boolean;
+  tk_char      = TypeCode_tk_char;
+  tk_octet     = TypeCode_tk_octet;
+  tk_any       = TypeCode_tk_any;
+  tk_TypeCode  = TypeCode_tk_TypeCode;
+  tk_Principal = TypeCode_tk_Principal;
+  tk_objref    = TypeCode_tk_objref;
+  tk_struct    = TypeCode_tk_struct;
+  tk_union     = TypeCode_tk_union;
+  tk_enum      = TypeCode_tk_enum;
+  tk_string    = TypeCode_tk_string;
+  tk_sequence  = TypeCode_tk_sequence;
+  tk_array     = TypeCode_tk_array;
+  tk_pointer   = TypeCode_tk_pointer;
+  tk_self      = TypeCode_tk_self;
+  tk_foreign   = TypeCode_tk_foreign;
+function somExceptionId(ev: PEnvironment): PAnsiChar; stdcall;
+function somExceptionValue(ev: PEnvironment): Pointer; stdcall;
+procedure somExceptionFree(ev: PEnvironment); stdcall;
+procedure somSetException(ev: PEnvironment;
+    major: exception_type; exception_name: PAnsiChar; params: Pointer); stdcall;
+function somGetGlobalEnvironment: PEnvironment; stdcall;
+function SOM_MajorVersion: LongInt; stdcall;
+function SOM_MinorVersion: LongInt; stdcall;
+function SOM_MaxThreads: LongInt; stdcall;
+function somEnvironmentNew: PSOMClassMgr; stdcall;
+procedure somEnvironmentEnd; stdcall;
+function somMainProgram: PSOMClassMgr; stdcall;
+function somAbnormalEnd: ByteBool; stdcall;
+function SOMCalloc: PsomTD_SOMCalloc;
+function SOMFree: PsomTD_SOMFree;
+function SOMMalloc: PsomTD_SOMMalloc;
+function SOMRealloc: PsomTD_SOMRealloc;
+function SOMError: PsomTD_SOMError;
+function SOMCreateMutexSem: PsomTD_SOMCreateMutexSem;
+function SOMRequestMutexSem: PsomTD_SOMRequestMutexSem;
+function SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem;
+function SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
+function SOMGetThreadId: PsomTD_SOMGetThreadId;
+function SOMClassMgrObject: PPSOMClassMgr;
+procedure somRegisterClassLibrary(
+    libraryName: PAnsiChar;
+    libraryInitRtn: somMethodProc); stdcall;
+procedure somUnregisterClassLibrary(libraryName: PAnsiChar); stdcall;
+function SOMLoadModule: PsomTD_SOMLoadModule;
+function SOMDeleteModule: PsomTD_SOMDeleteModule;
+function SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
+function somPrintf(fmt: PAnsiChar): Integer; cdecl; varargs;
+function somVprintf(fmt: PAnsiChar; ap: va_list): Integer; stdcall;
+procedure somPrefixLevel(level: LongInt); stdcall;
+function somLPrintf(level: Integer; fmt: PAnsiChar): Integer; cdecl; varargs;
+procedure somSetOutChar(outch: somTD_SOMOutCharRoutine); stdcall;
+function SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
+
+
+
+
+
+
 
 
 
@@ -637,6 +774,9 @@ type
 // #include <somobj.h>
 // #include <somcls.h>
 // #include <somcm.h>
+
+
+
 
 implementation
 
