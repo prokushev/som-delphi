@@ -619,6 +619,60 @@ type
 (*
  * (Generic) Auxiliary Class Data Structure
  *)
+  somCClassDataStructure = record
+    parentMtab: som3ClassDetailsPtr; (* so named for historical reasons *)
+    instanceDataToken: somDToken;
+    wrappers: array[0 .. 0] of somMethodProc; (* for valist methods *)
+  end;
+  somCClassDataStruct = somCClassDataStructure;
+  somCClassDataStructurePtr = ^somCClassDataStructure;
+
+
+(*---------------------------------
+ * Method & Data Resolution
+ *--------------------------------*)
+
+(*
+ * Offset-based method resolution functions
+ *)
+// function somResolve(obj: PSOMObject;
+//                     mdata: somMToken): somMethodProc; stdcall; // (moved down)
+// function somPCallResolve(obj: PSOMObject;
+//                          callingCls: PSOMClass;
+//                          method: somMToken): somMethodProc; stdcall; // (moved down)
+// function somParentResolve(parentMtabs: somMethodTabs;
+//                           mToken: somMToken): somMethodProc; stdcall; // (moved down)
+// function somParentNumResolve(parentMtabs: somMethodTabs;
+//                              parentNum: Integer;
+//                              mToken: somMToken): somMethodProc; stdcall; // (moved down)
+// function somClassResolve(cls: PSOMClass;
+//                          mdata: somMToken): somMethodProc; stdcall; // (moved down)
+// function somResolveTerminal(cls: PSOMClass;
+//                             mdata: somMToken): somMethodProc; stdcall; // (moved down)
+// function somAncestorResolve(obj: PSOMObject;(* the object *)
+//                             ccds: somCClassDataStructurePtr; (* id the ancestor *)
+//                             mToken: somMToken): somMethodProc; stdcall; // (moved down)
+// function somResolveByName(obj: PSOMObject,
+//                           methodName: PAnsiChar): somMethodProc; stdcall; // (moved down)
+
+(*
+ * Offset-based data resolution functions
+ *)
+// function somDataResolve(
+//     obj: PSOMObject;
+//     dataId: somDToken): somToken; stdcall; // (moved down)
+// function somDataResolveChk(
+//     obj: PSOMObject;
+//     dataId: somDToken): somToken; stdcall; // (moved down)
+
+
+(*-----------------------------------
+ * Method Stubs -- Signature Support
+ *-----------------------------------*)
+
+
+
+
 
 
 
@@ -758,6 +812,31 @@ procedure somPrefixLevel(level: LongInt); stdcall;
 function somLPrintf(level: Integer; fmt: PAnsiChar): Integer; cdecl; varargs;
 procedure somSetOutChar(outch: somTD_SOMOutCharRoutine); stdcall;
 function SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
+function somResolve(obj: PSOMObject;
+                    mdata: somMToken): somMethodProc; stdcall;
+function somPCallResolve(obj: PSOMObject;
+                         callingCls: PSOMClass;
+                         method: somMToken): somMethodProc; stdcall;
+function somParentResolve(parentMtabs: somMethodTabs;
+                          mToken: somMToken): somMethodProc; stdcall;
+function somParentNumResolve(parentMtabs: somMethodTabs;
+                             parentNum: Integer;
+                             mToken: somMToken): somMethodProc; stdcall;
+function somClassResolve(cls: PSOMClass;
+                         mdata: somMToken): somMethodProc; stdcall;
+function somResolveTerminal(cls: PSOMClass;
+                            mdata: somMToken): somMethodProc; stdcall;
+function somAncestorResolve(obj: PSOMObject;(* the object *)
+                            ccds: somCClassDataStructurePtr; (* id the ancestor *)
+                            mToken: somMToken): somMethodProc; stdcall;
+function somResolveByName(obj: PSOMObject,
+                          methodName: PAnsiChar): somMethodProc; stdcall;
+function somDataResolve(
+    obj: PSOMObject;
+    dataId: somDToken): somToken; stdcall;
+function somDataResolveChk(
+    obj: PSOMObject;
+    dataId: somDToken): somToken; stdcall;
 
 
 
@@ -1110,6 +1189,18 @@ begin
     Result := SOM_DLL_SOMOutCharRoutine;
   end;
 end;
+
+function somResolve; external SOM_DLL_Name;
+function somPCallResolve; external SOM_DLL_Name;
+function somParentResolve; external SOM_DLL_Name;
+function somParentNumResolve; external SOM_DLL_Name;
+function somClassResolve; external SOM_DLL_Name;
+function somResolveTerminal; external SOM_DLL_Name;
+function somAncestorResolve; external SOM_DLL_Name;
+function somResolveByName; external SOM_DLL_Name;
+function somDataResolve; external SOM_DLL_Name;
+function somDataResolveChk; external SOM_DLL_Name;
+
 
 // #include <somobj.h>
 // #include <somcls.h>
