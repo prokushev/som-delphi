@@ -18,9 +18,10 @@ type
 
 // #include <sombtype.h>
 
-  somMethodProc = function(var somSelf): Pointer; cdecl;
+  somMethodProc = function(var somSelf): Pointer; stdcall;
   somMethodPtr = somMethodProc;
-  somTP_somClassInitFunc = procedure(var somSelf);
+  somMethodPtrPtr = ^somMethodPtr;
+  somTP_somClassInitFunc = procedure(var somSelf); stdcall;
 
   integer1 = Byte;                     (* char is unsigned by default in VisualAge C++ *)
   integer2 = SmallInt;
@@ -32,14 +33,13 @@ type
   zString = PAnsiChar;                 (* NULL terminated string *)
   fString = PAnsiChar;                 (* non-terminated string  *)
   somId = ^PAnsiChar;
-  somToken = Pointer;                  (* Uninterpretted value   *)
+  somToken = type Pointer;             (* Uninterpretted value   *)
   signed_char = ShortInt;
 
 // #include <somtypes.h>
 
-  somMethodTabStruct = record end;
   SOMAny = record
-    mtab: ^somMethodTabStruct;
+    mtab: Pointer; // somMethodTabPtr;
     body: array[0 .. 0] of integer4;
   end;
   SOMAny_struct = SOMAny;
@@ -47,8 +47,10 @@ type
 (* SOM Primitive Classes *)
   SOMObject = type SOMAny;
   PSOMObject = ^SOMObject;
+  PPSOMObject = ^PSOMObject;
   SOMClass = type SOMObject;
   PSOMClass = ^SOMClass;
+  PPSOMClass = ^PSOMClass;
   SOMClassMgr = type SOMClass;
   PSOMClassMgr = ^SOMClassMgr;
   PPSOMClassMgr = ^PSOMClassMgr;
@@ -515,6 +517,115 @@ type
   end;
   somAssignCtrlStruct = somAssignCtrl;
   som3AssignCtrl = somAssignCtrl;
+
+(*-----------------------------------------------
+ * Common Typedefs & Data Structures for SOM
+ *----------------------------------------------*)
+
+(*
+ *  The Method Table Structure
+ *)
+(* -- to specify an embedded object (or array of objects). *)
+  somEmbeddedObjStruct = record
+    copp: PPSOMClass;    (* address of class object ptr *)
+    cnt: LongInt;        (* object count *)
+    offset: LongInt;     (* Offset to pointer (to embedded objs) *)
+  end;
+  somEmbeddedObjStructPtr = ^somEmbeddedObjStruct;
+
+  somClassInfo = type somToken;
+  PsomClassInfo = ^somClassInfo;
+
+(* -- Method/Data Tokens -- For locating methods and data members. *)
+  somMToken = type somToken;
+  somDToken = type somToken;
+
+  somMethodTab = record
+    classObject: PSOMClass;
+    classInfo: PsomClassInfo;
+    className: PAnsiChar;
+    instanceSize: LongInt; (* free *)
+    dataAlignment: LongInt;
+    mtabSize: LongInt; (* free *)
+    protectedDataOffset: LongInt; (* from class's introduced data *)
+    protectedDataToken: somDToken;
+    embeddedObjs: somEmbeddedObjStructPtr;
+    (* remaining structure is opaque *)
+    entries: array[0 .. 0] of somMethodProc;
+  end;
+  somMethodTabStruct = somMethodTabsomMethodTabStruct;
+  somMethodTabPtr = ^somMethodTab;
+  somMethodTabPtrPtr = ^somMethodTabPtr;
+
+(* -- For building lists of class objects *)
+  somClasses = ^somClassList;
+  somClassList = record
+    cls: PSOMClass;
+    next: somClasses;
+  end;
+
+
+(* -- For building lists of objects *)
+  somObjects = ^somObjectList;
+  somObjectList = record
+    obj: PSOMObject;
+    next: somObjects;
+  end;
+
+(*
+ * The Class Data Structures -- these are used to implement static
+ * method and data interfaces to SOM objects.
+ *)
+(* -- (Generic) Class data Structure *)
+  somClassDataStructure = record
+    SOMClass *classObject; /* changed by shadowing */
+    somToken tokens[1];    /* method tokens, etc. */
+  end;
+  somClassDataStruct = somClassDataStructure;
+  somClassDataStructurePtr = ^somClassDataStructure;
+
+
+(*
+ * A special info access structure pointed to by
+ * the parentMtab entry of somCClassDataStructure.
+ *)
+  somTP_somRenewNoInitNoZeroThunk = procedure(var somSelf); stdcall;
+  somTD_somRenewNoInitNoZeroThunk = somTP_somRenewNoInitNoZeroThunk;
+  SOM_CIBPtr = ^SOM_CIB;
+  som3ClassDetails = record
+    mtab: somMethodTabPtr; (* this class' mtab -- changed by shadowing *)
+    next: somMethodTabPtrPtr; (* parentMtabs array *)
+    cib: SOM_CIBPtr;
+    somRenewNoInitNoZeroThunk: somTD_somRenewNoInitNoZeroThunk; (* changed by shadowing *)
+    instanceSize: LongInt;   (* changed by shadowing *)
+    resolvedInits: somMethodPtrPtr;(* resolved initializers in releaseorder *)
+    resolvedMTokens: somClassDataStructurePtr;   (* resolved methods for ABI2 *)
+    initCtrl: somInitCtrl;
+    destructCtrl: somDestructCtrl;
+    assignCtrl: somAssignCtrl;
+    layoutVersion: LongInt;
+    extension: Pointer;
+    publicDataToken: somDToken;
+    protectedDataToken: somDToken;
+    instanceAlignment: LongInt;
+  end;
+  som3ClassDetailsStruct = som3ClassDetails;
+  som3ClassDetailsPtr = ^som3ClassDetails;
+  somMethodTabs = som3ClassDetailsPtr;
+  somParentMtabStructPtr = som3ClassDetailsPtr; (* 22552 *)
+
+  som3ClassInfoStruct = record
+    classObject: PSOMClass;
+    classDetails: som3ClassDetailsPtr;
+  end;
+  som3ClassInfoStructPtr = ^som3ClassInfoStruct;
+
+
+(*
+ * (Generic) Auxiliary Class Data Structure
+ *)
+
+
 
 
 
