@@ -51,12 +51,15 @@ type
   SOMObject = type SOMAny;
   PSOMObject = ^SOMObject;
   PPSOMObject = ^PSOMObject;
+  PPPSOMObject = ^PPSOMObject;
   SOMClass = type SOMObject;
   PSOMClass = ^SOMClass;
   PPSOMClass = ^PSOMClass;
+  PPPSOMClass = ^PPSOMClass;
   SOMClassMgr = type SOMClass;
   PSOMClassMgr = ^SOMClassMgr;
   PPSOMClassMgr = ^PSOMClassMgr;
+  PPPSOMClassMgr = ^PPSOMClassMgr;
 
 // #include <somcdev.h>
 
@@ -541,7 +544,7 @@ type
 
   somMethodTab = record
     classObject: PSOMClass;
-    classInfo: PsomClassInfoPtr;
+    classInfo: somClassInfoPtr;
     className: PAnsiChar;
     instanceSize: LongInt; (* free *)
     dataAlignment: LongInt;
@@ -552,8 +555,7 @@ type
     (* remaining structure is opaque *)
     entries: array[0 .. 0] of somMethodProc;
   end;
-  somMethodTabStruct = somMethodTabsomMethodTabStruct;
-  somMethodTabPtr = ^somMethodTab;
+  somMethodTabStruct = somMethodTab;
   somMethodTabPtrPtr = ^somMethodTabPtr;
 
 (* -- For building lists of class objects *)
@@ -577,8 +579,8 @@ type
  *)
 (* -- (Generic) Class data Structure *)
   somClassDataStructure = record
-    SOMClass *classObject; /* changed by shadowing */
-    somToken tokens[1];    /* method tokens, etc. */
+    classObject: PSOMClass; (* changed by shadowing *)
+    tokens: array[0 .. 0] of somToken;    (* method tokens, etc. *)
   end;
   somClassDataStruct = somClassDataStructure;
   somClassDataStructurePtr = ^somClassDataStructure;
@@ -618,6 +620,7 @@ type
     classDetails: som3ClassDetailsPtr;
   end;
   som3ClassInfoStructPtr = ^som3ClassInfoStruct;
+  som3ClassInfoStructPtrPtr = ^som3ClassInfoStructPtr;
 
 
 (*
@@ -1078,6 +1081,7 @@ type
     mToken: somMTokenPtr; (* for parentNumresolve *)
   end;
   somInheritedMethod_t = somInheritedMethodStruct;
+  somInheritedMethodStructPtr = ^somInheritedMethodStruct;
 
 (* to register a method that has been moved from this *)
 (* class <cls> upwards in the class hierachy to class <dest> *)
@@ -1088,6 +1092,7 @@ type
                               (* the method token here will be copied to <cls> *)
   end;
   somMigratedMethod_t = somMigratedMethodStruct;
+  somMigratedMethodStructPtr = ^somMigratedMethodStruct;
 
 (* to specify non-internal data *)
   somNonInternalDataStruct = record
@@ -1139,6 +1144,7 @@ type
     applyStub: somMethodProc;
   end;
   somMethods_t = somMethodStruct;
+  somMethodStructPtr = ^somMethodStruct;
 
 (* to specify a varargs function *)
   somVarargsFuncsStruct = record
@@ -1146,6 +1152,7 @@ type
     vEntry: somMethodProc;
   end;
   somVarargsFuncs_t = somVarargsFuncsStruct;
+  somVarargsFuncsStructPtr = ^somVarargsFuncsStruct;
 
 (* to specify dynamically computed information (incl. embbeded objs) *)
   somDynamicSCI = record
@@ -1154,6 +1161,7 @@ type
     dataAlignment: LongInt;                (* true alignment *)
     embeddedObjs: somEmbeddedObjStructPtr; (* array end == null copp *)
   end;
+  somDynamicSCIPtr = ^somDynamicSCI;
 
 (*
  * to specify a DTS class, use the somDTSClass entry in the following
@@ -1188,38 +1196,271 @@ type
     nitReferenceBase: PAnsiChar;
     nit: somNonInternalDataStructPtr; (* datatokens for instance data *)
     pmt: somProcMethodsStructPtr;     (* Arbitrary ClassData members *)
-    somVarargsFuncs_t      *vft; (* varargs stubs *)
-    somTP_somClassInitFunc *cif; (* class init function *)
+    vft: somVarargsFuncsStructPtr; (* varargs stubs *)
+    cif: somTP_somClassInitFunc; (* class init function *)
     (* end of layout version 1 *)
 
     (* begin layout version 2 extensions *)
-    long dataAlignment; (* the desired byte alignment for instance data *)
+    dataAlignment: LongInt; (* the desired byte alignment for instance data *)
     (* end of layout version 2 *)
 
-#define SOMSCIVERSION 1
+// const
+//   SOMSCIVERSION = 1; // (moved down)
 
     (* begin layout version 3 extensions *)
-    long numDirectInitClasses;
-    somId *directInitClasses;
-    unsigned long numMethods; (* general (including nonstatic) methods for mtab *)
-    somMethods_t       *mt;
-    unsigned long protectedDataOffset; (* access = resolve(instanceDataToken) + offset *)
-    unsigned long somSCIVersion;  (* used during development. currently = 1 *)
-    unsigned long numInheritedMethods;
-    somInheritedMethod_t *imt; (* inherited method implementations *)
-    unsigned long numClassDataEntries; (* should always be filled in *)
-    somId *classDataEntryNames; (* either NULL or ptr to an array of somIds *)
-    unsigned long numMigratedMethods;
-    somMigratedMethod_t *mmt; (* migrated method implementations *)
-    unsigned long numInitializers; (* the initializers for this class *)
-    somId *initializers;     (* in order of release *)
-    unsigned long somDTSClass; (* used to identify a DirectToSOM class *)
-    somDynamicSCI *dsci;  (* used to register dynamically computed info *)
+    numDirectInitClasses: LongInt;
+    directInitClasses: somIdPtr;
+    numMethods: LongWord; (* general (including nonstatic) methods for mtab *)
+    mt: somMethodStructPtr;
+    protectedDataOffset: LongWord; (* access = resolve(instanceDataToken) + offset *)
+    somSCIVersion: LongWord;  (* used during development. currently = 1 *)
+    numInheritedMethods: LongWord;
+    imt: somInheritedMethodStructPtr; (* inherited method implementations *)
+    numClassDataEntries: LongWord; (* should always be filled in *)
+    classDataEntryNames: somIdPtr; (* either NULL or ptr to an array of somIds *)
+    numMigratedMethods: LongWord;
+    mmt: somMigratedMethodStructPtr; (* migrated method implementations *)
+    numInitializers: LongWord; (* the initializers for this class *)
+    initializers: somIdPtr;     (* in order of release *)
+    somDTSClass: LongWord; (* used to identify a DirectToSOM class *)
+    dsci: somDynamicSCIPtr;  (* used to register dynamically computed info *)
     (* end of layout version 3 *)
 
   end;
   somStaticClassInfoStruct = somStaticClassInfo;
   somStaticClassInfoPtr = ^somStaticClassInfo;
+
+// function somBuildClass(inherit_vars: LongInt;
+//                        sci: somStaticClassInfoPtr;
+//                        majorVersion, minorVersion: LongInt): PSOMClass; stdcall; // (moved down)
+
+
+(*
+ * -- somBuildClass2
+ *
+ * somBuildClass2 was added in SOM 3.0 to allow reuse of static class
+ * information to hold a class's instance variables. This speeds class
+ * creation, and reduces the need for dynamically allocated memory. The
+ * static class information structures are accumulated into a CIB (class
+ * initialization block) instead of the SCI structure used with
+ * somBuildClass.
+ *)
+
+(*
+ * to register a method that has been moved from this
+ * class <orig> upwards in the class hierachy to class <dest>
+ *)
+  somMigratedMethod_t2 = record
+    methodId: somId;            (* id of the method being migrated *)
+    abi2TokenAddr: somMTokenPtr; (* if abi2, this class's classData field addr *)
+    abi3SymbolAddr: somTokenPtr;  (* if abi3, this class's method symbol addr *)
+  end;
+  somMigratedMethodStruct_t2 = somMigratedMethod_t2;
+  somMigratedMethodPtr_t2 = ^somMigratedMethod_t2;
+
+(*
+ * to select a specific ancestor's implementation for an inherited method
+ *)
+  somInheritedMethod_t2 = record
+    methodId: somId;
+    parentNum: LongInt;
+    ancestorClass: PPSOMClass;
+  end;
+  somInheritedMethodStruct_t2 = somInheritedMethod_t2;
+  somInheritedMethodPtr_t2 = ^somInheritedMethod_t2;
+
+(*
+ * to register a normal method override
+ *)
+  somOverrideMethod_t2 = record
+    methodId: somId;
+    pcall: somMethodPtrPtr;
+    pcallResolve: somMethodPtr;
+    methodProc: somMethodPtr;
+  end;
+  somOverideMethodStruct_t2 = somOverrideMethod_t2;
+  somOverrideMethodPtr_t2 = ^somOverrideMethod_t2;
+
+  somRedispatchInfo = record
+    md: somMethodData;
+    dispatchFcn: somMethodProc;
+    (* ... arbitrary remaining structure known to dispatchFcn *)
+  end;
+  somRedispatchInfoPtr = ^somRedispatchInfo;
+
+(*
+ * to register information for a new method
+ *)
+  somMethodDefn = record
+    md_type: LongWord;
+    descriptor: somId;
+    mToken: somMToken; (* address of method symbol if one exists *)
+    method: somMethodPtr; (* address of method proc *)
+    redispatchStub: somMethodPtr;    (* either these 2 *)
+    applyStub: somMethodPtr;
+    methodInfo: somMethodInfoPtr;    (* or this 1 *)
+    tokenLoc: somMTokenPtr;          (* address of ClassData field *)
+    redispatchInfo: somRedispatchInfoPtr; (* rdstub desired (we'll fill in md) *)
+    layoutVersion: LongInt;
+  end;
+  somMethodDefnPtr = ^somMethodDefn;
+
+
+(*
+ * class variables that don't change after class intialization
+ *)
+  somClassVars1 = record
+    layoutVersion: LongInt; (* 1 *)
+    extension: Pointer;
+    dataSize: LongInt;
+    dataAlignment: LongInt;
+    classAllocate: somMethodProc;
+    classDeallocate: somMethodProc;
+  end;
+  somClassVars1Struct = somClassVars1;
+  somClassVars1Ptr = ^somClassVars1;
+
+
+(*
+ * storage addressed by a method symbol
+ *)
+  somMethodSymbol = record
+    content: array[0 .. 3] of AnsiChar;
+  end;
+  somMethodSymbolBindingStruct = somMethodSymbol;
+  somMethodSymbolBinding = ^somMethodSymbol;
+
+(*
+ * Overrides for SOMObject Specials
+ *)
+  somSpecialOverrides = record
+    ctorThunk: somMethodSymbolBinding;
+    resolvedThunk: somMethodSymbolBinding; (* #13082 *)
+    methodProc: somMethodPtr;
+  end;
+  somSpecialOverridesStruct = somSpecialOverrides;
+  somSpecialOverridesPtr = ^somSpecialOverrides;
+
+(*
+ * (non-SOMObject) initializer symbols (#13082)
+ *)
+  somInitSymbols = record
+    methodId: somId;
+    ctorThunk: somMethodSymbolBinding;
+    resolvedThunk: somMethodSymbolBinding;
+  end;
+  somInitSymbolsStruct = somInitSymbols;
+  somInitSymbolsPtr = ^somInitSymbols;
+
+
+(*
+ * CIB
+ *)
+
+  SOM_CIB = record
+    layoutVersion:          LongInt;
+    classVars1:             somClassVars1Ptr;
+    unsharedVars:           PPointer;
+    majorVersion:           LongInt;
+    minorVersion:           LongInt;
+    constFlags:             LongWord;
+    inheritVars:            LongWord;
+    classMeta:              PPSOMClass;
+    classInit:              somMethodPtr;
+    classUninit:            somMethodPtr;
+    legacyInit:             somMethodPtr;
+    legacyUninit:           somMethodPtr;
+    udaAssign:              somMethodPtr;
+    udaConstAssign:         somMethodPtr;
+    protectedDataOffset:    LongInt;
+    numEmbeddedObjs:        LongInt;
+    embeddedObjs:           somEmbeddedObjStructPtr;
+    numRegIds:              LongInt;
+    regIds:                 PPAnsiChar;
+    numClassDataEntries:    LongInt;
+    somClassData:           somClassDataStructurePtr;
+    somCClassData:          somCClassDataStructurePtr;
+    som3ClassInfo:          som3ClassInfoStructPtr;
+    numParents:             LongInt;
+    parents:                PPPSOMClass;
+    numDirectInitClasses:   LongInt;
+    directInitClasses:      PPPSOMClass;
+    numNewInitializers:     LongInt;
+    newInitializerSymbols:  somInitSymbolsPtr;
+    numOvInitializers:      LongInt;
+    ovInitializerSymbols:   somInitSymbolsPtr;
+    specialOverrides:       somSpecialOverridesPtr;
+    maxNDMethods:           LongInt;
+    newNDMethods:           somMethodDefnPtr;
+    numOverrides:           LongInt;
+    overrides:              somOverrideMethodPtr_t2;
+    numInheritedSelections: LongInt;
+    inheritedSelections:    somInheritedMethodPtr_t2;
+    numMigratedMethods:     LongInt;
+    migratedMethods:        somMigratedMethodPtr_t2;
+  end;
+
+
+// function somBuildClass2(cib: SOM_CIBPtr,
+//                         requestedMajorVersion,
+//                         requestedMinorVersion: LongInt): PSOMClass; stdcall; // (moved down)
+
+(*
+ *  Used by old single-inheritance emitters to make class creation
+ *  an atomic operation. Kept for backwards compatability only.
+ *)
+  somTD_classInitRoutine = procedure(
+    parent_class,
+    metaclass: PSOMClass); stdcall;
+// procedure somConstructClass(
+//     classInitRoutine: somTD_classInitRoutine;
+//     parentClass,
+//     metaClass: PSOMClass;
+//     cds: somClassDataStructurePtr); stdcall; // (moved down)
+
+(*
+ * somRegisterLibraryClasses - the parameters are defined as follows:
+ * 1. libHandle is the operating system-dependent library handle that
+ *    is returned by the operating system's "load library" function.
+ *    See somplatf.h for the definition of the somLibraryHandle type.
+ * 2. numClasses is the number of SOM classes in the library.
+ * 3. classInfoStructs is a pointer to an array of pointers to
+ *    som3ClassInfoStruct (one for each class in the library).
+ *    The array must be a static variable, so the pointer to this
+ *    array will be valid after the call has completed.
+ * 4. userInitRoutine may either be NULL or the address of an
+ *    initialization function to be called.
+ *)
+  userInitTermProc = procedure(libHandle: somLibraryHandle; num: LongWord); stdcall;
+
+// function somRegisterLibraryClasses(
+//                           libHandle: somLibraryHandle;
+//                           numClasses: LongInt;
+//                           classInfoStructs: som3ClassInfoStructPtrPtr;
+//                           userInitTermRoutine: userInitTermProc): LongInt; stdcall; // (moved down)
+// function somUnregisterLibraryClasses(libHandle: somLibraryHandle): LongInt; stdcall; // (moved down)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1391,7 +1632,7 @@ function somResolveTerminal(cls: PSOMClass;
 function somAncestorResolve(obj: PSOMObject;(* the object *)
                             ccds: somCClassDataStructurePtr; (* id the ancestor *)
                             mToken: somMToken): somMethodProc; stdcall;
-function somResolveByName(obj: PSOMObject,
+function somResolveByName(obj: PSOMObject;
                           methodName: PAnsiChar): somMethodProc; stdcall;
 function somDataResolve(
     obj: PSOMObject;
@@ -1453,6 +1694,30 @@ function somUniqueKey(id: somId): LongWord; stdcall;
 procedure somBeginPersistentIds; stdcall;
 procedure somEndPersistentIds; stdcall;
 procedure somRelocateIds(id: somId; idCount: LongInt); stdcall;
+const
+  SOMSCIVERSION = 1;
+function somBuildClass(inherit_vars: LongInt;
+                       sci: somStaticClassInfoPtr;
+                       majorVersion, minorVersion: LongInt): PSOMClass; stdcall;
+function somBuildClass2(cib: SOM_CIBPtr;
+                        requestedMajorVersion,
+                        requestedMinorVersion: LongInt): PSOMClass; stdcall;
+procedure somConstructClass(
+    classInitRoutine: somTD_classInitRoutine;
+    parentClass,
+    metaClass: PSOMClass;
+    cds: somClassDataStructurePtr); stdcall;
+function somRegisterLibraryClasses(
+                          libHandle: somLibraryHandle;
+                          numClasses: LongInt;
+                          classInfoStructs: som3ClassInfoStructPtrPtr;
+                          userInitTermRoutine: userInitTermProc): LongInt; stdcall;
+function somUnregisterLibraryClasses(libHandle: somLibraryHandle): LongInt; stdcall;
+
+
+
+
+
 
 
 
@@ -1839,6 +2104,25 @@ function somGetClassFromMToken; external SOM_DLL_Name;
 function somRegisterId; external SOM_DLL_Name;
 function somCheckId; external SOM_DLL_Name;
 procedure somRegisterIds; external SOM_DLL_Name;
+function somIdFromString; external SOM_DLL_Name;
+function somIdFromStringNoFree; external SOM_DLL_Name;
+function somStringFromId; external SOM_DLL_Name;
+function somCompareIds; external SOM_DLL_Name;
+function somTotalRegIds; external SOM_DLL_Name;
+procedure somSetExpectedIds; external SOM_DLL_Name;
+function somUniqueKey; external SOM_DLL_Name;
+procedure somBeginPersistentIds; external SOM_DLL_Name;
+procedure somEndPersistentIds; external SOM_DLL_Name;
+procedure somRelocateIds; external SOM_DLL_Name;
+function somBuildClass; external SOM_DLL_Name;
+function somBuildClass2; external SOM_DLL_Name;
+procedure somConstructClass; external SOM_DLL_Name;
+function somRegisterLibraryClasses; external SOM_DLL_Name;
+function somUnregisterLibraryClasses; external SOM_DLL_Name;
+
+
+
+
 
 
 
