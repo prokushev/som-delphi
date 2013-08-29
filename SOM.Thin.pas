@@ -1454,53 +1454,84 @@ type
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //!---- constants and functions
 // SOM API has forward type definitions across different headers
 // Starting from SOMAny, every type has to be defined in a single
 // type block to make it valid in Delphi.
 // Procedures and constants were commented and moved here to make
 // type block contiguous
+
+// #include <somtypes.h>
+
+//   somMethodTabPtr = ^somMethodTab;
+//   SOMAny = record
+//     mtab: somMethodTabPtr;
+//     body: array[0 .. 0] of integer4;
+//   end;
+//   SOMAny_struct = SOMAny;
+
+(* SOM Primitive Classes *)
+//   SOMObject = type SOMAny;
+//   PSOMObject = ^SOMObject;
+//   PPSOMObject = ^PSOMObject;
+//   PPPSOMObject = ^PPSOMObject;
+//   SOMClass = type SOMObject;
+//   PSOMClass = ^SOMClass;
+//   PPSOMClass = ^PSOMClass;
+//   PPPSOMClass = ^PPSOMClass;
+//   SOMClassMgr = type SOMClass;
+//   PSOMClassMgr = ^SOMClassMgr;
+//   PPSOMClassMgr = ^PSOMClassMgr;
+//   PPPSOMClassMgr = ^PPSOMClassMgr;
+
+// #include <somcdev.h>
+
+(* Control the printing of method and procedure entry messages, *)
+(* 0-none, 1-user, 2-core&user *)
 function SOM_TraceLevel: PInteger;
+
+(* Control the printing of warning messages, 0-none, 1-all *)
 function SOM_WarnLevel: PInteger;
+
+(* Control the printing of successful assertions, 0-none, 1-user, *)
+(* 2-core&user *)
 function SOM_AssertLevel: PInteger;
+
+(*
+ *  Scans argv looking for flags -somt, -somtc, -soma -somac -somw setting
+ *  SOM_TraceLevel, SOM_AssertLevel and SOM_WarnLevel as appropriate.
+ *  argv is not modified
+ *)
 procedure somCheckArgs(argc: Integer; argv: PPAnsiChar); stdcall;
+
+
+(*----------------------------------------------------------------------
+ * SOM Implementation Section
+ *---------------------------------------------------------------------*)
+
+(*
+ * Externals used in the implementation of SOM_Test and SOM_Assert,
+ * but not part of the SOM API.
+ *)
 procedure somTest(
     condition: Integer;
     severity: Integer;
     fileName: PAnsiChar;
     lineNum: Integer;
     msg: PAnsiChar); stdcall;
+
 procedure somAssert(
     condition: Integer;
     ecode: Integer;
     fileName: PAnsiChar;
     lineNum: Integer;
     msg: PAnsiChar); stdcall;
+
+(*
+ *  Error severity codes, these are added to the base error number to
+ *  produce the full error code
+ *)
+
 const
   SOM_Ok            = $0;
   SOM_Warn          = $1;
@@ -1515,16 +1546,61 @@ function SOM_IgnoreCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inli
 function SOM_OkCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function SOM_TemplateCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function SOM_MsgCode(ecode: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
 const
   SOMERROR_MustOverride = SOM_EB + 18 * 10 + SOM_Fatal;
+
+// #include <somcorba.h>
+
+(* CORBA 5.7, p.89 *)
+//   octet = Byte;
+//   CORBAString = PAnsiChar;
+//   CORBABoolean = ByteBool;
+
+
+
+(* CORBA 7.5.1, p. 129 *)
+//   Identifier = CORBAString;
+
+(* CORBA 4.13, p. 80 *)
+(*
+ * Generated SOM usage bindings for IDL enums start at 1, but
+ * somcorba.h is not generated, and the original SOM 2.0 somcorba.h
+ * used C enum typedefs to define the exception_type and
+ * completion_status enumerations.  As a result, to maintain backwards
+ * binary compatibility, the mapping for these enums starts at 0
+ * (which is also the mapping specified by CORBA 2.0).
+ *
+ * The additional value enum_name_MAX is needed to ensure that all
+ * compilers will allocate 4 bytes for these enums.  This technique
+ * for representing IDL enums is used in the CORBA 2.0 * C++ mappings.
+ *)
+//   exception_type = type LongInt;          (* ensure mapped as 4 bytes *)
 const
   NO_EXCEPTION     = exception_type(0);
   USER_EXCEPTION   = exception_type(1);
   SYSTEM_EXCEPTION = exception_type(2);
+//   completion_status = type LongInt;       (* ensure mapped as 4 bytes *)
 const
   YES   = completion_status(0);
   NO    = completion_status(1);
   MAYBE = completion_status(2);
+
+//   StExcep = record
+//     minor: LongWord;
+//     completed: completion_status;
+//   end;
+
+//   Environment = record
+//     _major: exception_type;
+//     exception_exception_name: PAnsiChar;
+//     exception_params: Pointer;
+//     _somdAnchor: Pointer;
+//   end;
+//   PEnvironment = ^Environment;
+
+(* CORBA 7.6.1, p.139 plus 5.7, p.89 enum Data Type Mapping *)
+//   TCKind = type LongWord;
 const
   TypeCode_tk_null      = TCKind(1);
   TypeCode_tk_void      = TCKind(2);
@@ -1578,43 +1654,240 @@ const
   tk_pointer   = TypeCode_tk_pointer;
   tk_self      = TypeCode_tk_self;
   tk_foreign   = TypeCode_tk_foreign;
+
+//   TypeCode = Pointer;
+
+(* CORBA 5.7, p.89 *)
+//   any = record
+//     _type: TypeCode;
+//     _value: Pointer;
+//   end;
+
 function somExceptionId(ev: PEnvironment): PAnsiChar; stdcall;
 function somExceptionValue(ev: PEnvironment): Pointer; stdcall;
 procedure somExceptionFree(ev: PEnvironment); stdcall;
 procedure somSetException(ev: PEnvironment;
     major: exception_type; exception_name: PAnsiChar; params: Pointer); stdcall;
 function somGetGlobalEnvironment: PEnvironment; stdcall;
+
+// #include <somapi.h>
+
+(*  SOM Version Numbers  *)
 function SOM_MajorVersion: LongInt; stdcall;
 function SOM_MinorVersion: LongInt; stdcall;
+
+(*  SOM Thread Support  *)
 function SOM_MaxThreads: LongInt; stdcall;
+
+(*----------------------------------------
+ * Typedefs for pointers to functions
+ *----------------------------------------*)
+
+//   somTD_SOMOutCharRoutine = function(C: AnsiChar): Integer; stdcall;
+//   PsomTD_SOMOutCharRoutine = ^somTD_SOMOutCharRoutine;
+//   somTD_SOMLoadModule = function(
+//     className: PAnsiChar;
+//     fileName: PAnsiChar;
+//     functionName: PAnsiChar;
+//     majorVersion: LongInt;
+//     minorVersion: LongInt;
+//     out modHandle: somToken): Integer; stdcall;
+//   PsomTD_SOMLoadModule = ^somTD_SOMLoadModule;
+//   somTD_SOMDeleteModule = function(modHandle: somToken): Integer; stdcall;
+//   PsomTD_SOMDeleteModule = ^somTD_SOMDeleteModule;
+//   somTD_SOMClassInitFuncName = function: PAnsiChar; stdcall;
+//   PsomTD_SOMClassInitFuncName = ^somTD_SOMClassInitFuncName;
+//   somTD_SOMMalloc = function(nbytes: UIntPtr): somToken; stdcall;
+//   PsomTD_SOMMalloc = ^somTD_SOMMalloc;
+//   somTD_SOMCalloc = function(
+//     element_count: UIntPtr;
+//     element_size: UIntPtr): somToken; stdcall;
+//   PsomTD_SOMCalloc = ^somTD_SOMCalloc;
+//   somTD_SOMRealloc = function(
+//     memory: somToken;
+//     nbytes: UIntPtr): somToken; stdcall;
+//   PsomTD_SOMRealloc = ^somTD_SOMRealloc;
+//   somTD_SOMFree = procedure(memory: somToken); stdcall;
+//   PsomTD_SOMFree = ^somTD_SOMFree;
+//   somTD_SOMError = procedure(
+//     code: Integer;
+//     fileName: PAnsiChar;
+//     lineNum: Integer); stdcall;
+//   PsomTD_SOMError = ^somTD_SOMError;
+
+
+//   somTD_SOMCreateMutexSem = function(out sem: somToken): LongWord; stdcall;
+//   PsomTD_SOMCreateMutexSem = ^somTD_SOMCreateMutexSem;
+//   somTD_SOMRequestMutexSem = function(sem: somToken): LongWord; stdcall;
+//   PsomTD_SOMRequestMutexSem = ^somTD_SOMRequestMutexSem;
+//   somTD_SOMReleaseMutexSem = function(sem: somToken): LongWord; stdcall;
+//   PsomTD_SOMReleaseMutexSem = ^somTD_SOMReleaseMutexSem;
+//   somTD_SOMDestroyMutexSem = function(sem: somToken): LongWord; stdcall;
+//   PsomTD_SOMDestroyMutexSem = ^somTD_SOMDestroyMutexSem;
+//   somTD_SOMGetThreadId = function: LongWord; stdcall;
+//   PsomTD_SOMGetThreadId = ^somTD_SOMGetThreadId;
+
+
+(*----------------------------------------------------------------------
+ * SOM Environment Initialization Section
+ *---------------------------------------------------------------------*)
+
+(*
+ *  Create and initialize the SOM environment.
+ *
+ *  This function is idempotent (may be invoked redundantly)
+ *
+ *  Will be called automatically when first object (including a class
+ *  object) is created, if it has not already been done.
+ *
+ *  Returns the SOMClassMgrObject
+ *)
 function somEnvironmentNew: PSOMClassMgr; stdcall;
+
 procedure somEnvironmentEnd; stdcall;
 function somMainProgram: PSOMClassMgr; stdcall;
 function somAbnormalEnd: ByteBool; stdcall;
+
+(*
+ *  Replaceable SOM Memory Management Interfaces
+ *
+ *  External procedure variables SOMCalloc, SOMFree, SOMMalloc, SOMRealloc
+ *  have the same interface as their standard C-library analogs.
+ *)
 function SOMCalloc: PsomTD_SOMCalloc;
 function SOMFree: PsomTD_SOMFree;
 function SOMMalloc: PsomTD_SOMMalloc;
 function SOMRealloc: PsomTD_SOMRealloc;
+
+(*
+ *  Replaceable SOM Error handler
+ *)
 function SOMError: PsomTD_SOMError;
+
+(*
+ *  Replaceable SOM Semaphore Operations
+ *
+ *  These operations are used by the SOM Kernel to make thread-safe
+ *  state changes to internal resources and for synchronization between
+ *  the SOM services process and client SOM processes.
+ *)
 function SOMCreateMutexSem: PsomTD_SOMCreateMutexSem;
 function SOMRequestMutexSem: PsomTD_SOMRequestMutexSem;
 function SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem;
 function SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
+
+(*
+ * 18260 -- other thread-related routines used by the kernel were
+ * moved to somkp.h, to keep them local to the kernel.
+ *)
+
+(*
+ *  Replaceable SOM Thread Identifier Operation
+ *
+ *  This operation is used by the SOM Kernel to index data unique to the
+ *  currently executing thread.  It must return a small integer that
+ *  uniquely represents the current thread within the current process.
+ *)
 function SOMGetThreadId: PsomTD_SOMGetThreadId;
+
+
+(*----------------------------------------------------------------------
+ * SOM Class Manager Section
+ *---------------------------------------------------------------------*)
+
+(*
+ * Global class manager object
+ *)
 function SOMClassMgrObject: PPSOMClassMgr;
+
+(*
+ * The somRegisterClassLibrary function is provided for use in SOM class
+ * libraries on platforms that have loader-invoked entry points
+ * associated with shared libraries (DLLs).
+ *
+ * This function registers a SOM Class Library with the SOM Kernel.
+ * The library is identified by its file name and a pointer to its
+ * initialization routine.  Since this call may occur prior to the
+ * invocation of somEnvironmentNew, its actions are deferred until the
+ * SOM environment has been initialized.  At that time, the
+ * SOMClassMgrObject is informed of all pending library initializations
+ * via the _somRegisterClassLibrary method.  The actual invocation of
+ * the library's initialization routine will occur during the execution
+ * of the SOM_MainProgram macro (for statically linked libraries), or
+ * during the _somFindClass method (for libraries that are dynamically
+ * loaded).
+ *)
 procedure somRegisterClassLibrary(
     libraryName: PAnsiChar;
     libraryInitRtn: somMethodProc); stdcall;
 procedure somUnregisterClassLibrary(libraryName: PAnsiChar); stdcall;
+
+(*
+ * Pointers to routines used to do dynamic code loading and deleting
+ *)
 function SOMLoadModule: PsomTD_SOMLoadModule;
 function SOMDeleteModule: PsomTD_SOMDeleteModule;
 function SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
+
+
+(*----------------------------------------------------------------------
+ * SOM Stream Output Section
+ *---------------------------------------------------------------------*)
+
+(*
+ * Uses <SOMOutCharRoutine> to output its arguments under control of the
+ * ANSI C style format.  Returns the number of characters output.
+ *)
+
 function somPrintf(fmt: PAnsiChar): Integer; cdecl; varargs;
+
+(*
+ * vprint form of somPrintf
+ *)
 function somVprintf(fmt: PAnsiChar; ap: va_list): Integer; stdcall;
+
+(*
+ * Outputs (via somPrintf) blanks to prefix a line at the indicated level
+ *)
 procedure somPrefixLevel(level: LongInt); stdcall;
+
+(*
+ * Combines somPrefixLevel and somPrintf
+ *)
 function somLPrintf(level: Integer; fmt: PAnsiChar): Integer; cdecl; varargs;
+
+(*
+ * Specify a thread-specific user-defined SOMOutCharRoutine
+ *)
 procedure somSetOutChar(outch: somTD_SOMOutCharRoutine); stdcall;
+
+(*
+ *  Replaceable character output handler.
+ *  Points to the character output routine to be used in development
+ *  support.  Initialized to <somOutChar>, but may be reset at anytime.
+ *  Should return 0 (false) if an error occurs and 1 (true) otherwise.
+ *)
 function SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
+
+
+(*--------------
+ * Initializers
+ *--------------*)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function somResolve(obj: PSOMObject;
                     mdata: somMToken): somMethodProc; stdcall;
 function somPCallResolve(obj: PSOMObject;
