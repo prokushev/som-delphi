@@ -41,25 +41,22 @@ type
 // #include <somtypes.h>
 
   somMethodTabPtr = ^somMethodTab;
-  SOMAny = record
+  SOMAnyStrict = record
     mtab: somMethodTabPtr;
     body: array[0 .. 0] of integer4;
   end;
-  SOMAny_struct = SOMAny;
+  SOMAny_struct = SOMAnyStrict;
 
 (* SOM Primitive Classes *)
-  SOMObject = type SOMAny;
+  SOMObject = ^SOMAnyStrict;
   PSOMObject = ^SOMObject;
   PPSOMObject = ^PSOMObject;
-  PPPSOMObject = ^PPSOMObject;
   SOMClass = type SOMObject;
   PSOMClass = ^SOMClass;
   PPSOMClass = ^PSOMClass;
-  PPPSOMClass = ^PPSOMClass;
   SOMClassMgr = type SOMClass;
   PSOMClassMgr = ^SOMClassMgr;
   PPSOMClassMgr = ^PSOMClassMgr;
-  PPPSOMClassMgr = ^PPSOMClassMgr;
 
 // #include <somcdev.h>
 
@@ -459,7 +456,7 @@ type
  *)
 
   somInitInfo = record
-    cls: PSOMClass;     (* class whose introduced data is to be initialized *)
+    cls: SOMClass;     (* class whose introduced data is to be initialized *)
     defaultInit: somMethodProc;
     defaultCopyInit: somMethodProc;
     defaultConstCopyInit: somMethodProc;
@@ -470,7 +467,7 @@ type
   PsomInitInfo = ^somInitInfo;
 
   somDestructInfo = record
-    cls: PSOMClass;     (* class whose introduced data is to be destroyed *)
+    cls: SOMClass;     (* class whose introduced data is to be destroyed *)
     defaultDestruct: somMethodProc;
     dataOffset: LongInt;
     legacyUninit: somMethodProc;
@@ -478,7 +475,7 @@ type
   PsomDestructInfo = ^somDestructInfo;
 
   somAssignInfo = record
-    cls: PSOMClass;     (* class whose introduced data is to be assigned *)
+    cls: SOMClass;     (* class whose introduced data is to be assigned *)
     defaultAssign: somMethodProc;
     defaultConstAssign: somMethodProc;
     defaultNCArgAssign: somMethodProc;
@@ -527,7 +524,7 @@ type
  *)
 (* -- to specify an embedded object (or array of objects). *)
   somEmbeddedObjStruct = record
-    copp: PPSOMClass;    (* address of class object ptr *)
+    copp: PSOMClass;    (* address of class object ptr *)
     cnt: LongInt;        (* object count *)
     offset: LongInt;     (* Offset to pointer (to embedded objs) *)
   end;
@@ -543,7 +540,7 @@ type
   somDTokenPtr = ^somDToken;
 
   somMethodTab = record
-    classObject: PSOMClass;
+    classObject: SOMClass;
     classInfo: somClassInfoPtr;
     className: PAnsiChar;
     instanceSize: LongInt; (* free *)
@@ -561,7 +558,7 @@ type
 (* -- For building lists of class objects *)
   somClasses = ^somClassList;
   somClassList = record
-    cls: PSOMClass;
+    cls: SOMClass;
     next: somClasses;
   end;
 
@@ -569,7 +566,7 @@ type
 (* -- For building lists of objects *)
   somObjects = ^somObjectList;
   somObjectList = record
-    obj: PSOMObject;
+    obj: SOMObject;
     next: somObjects;
   end;
 
@@ -579,7 +576,7 @@ type
  *)
 (* -- (Generic) Class data Structure *)
   somClassDataStructure = record
-    classObject: PSOMClass; (* changed by shadowing *)
+    classObject: SOMClass; (* changed by shadowing *)
     tokens: array[0 .. 0] of somToken;    (* method tokens, etc. *)
   end;
   somClassDataStruct = somClassDataStructure;
@@ -616,7 +613,7 @@ type
   somParentMtabStructPtr = som3ClassDetailsPtr; (* 22552 *)
 
   som3ClassInfoStruct = record
-    classObject: PSOMClass;
+    classObject: SOMClass;
     classDetails: som3ClassDetailsPtr;
   end;
   som3ClassInfoStructPtr = ^som3ClassInfoStruct;
@@ -1264,7 +1261,7 @@ type
   somInheritedMethod_t2 = record
     methodId: somId;
     parentNum: LongInt;
-    ancestorClass: PPSOMClass;
+    ancestorClass: PSOMClass;
   end;
   somInheritedMethodStruct_t2 = somInheritedMethod_t2;
   somInheritedMethodPtr_t2 = ^somInheritedMethod_t2;
@@ -1365,7 +1362,7 @@ type
     minorVersion:           LongInt;
     constFlags:             LongWord;
     inheritVars:            LongWord;
-    classMeta:              PPSOMClass;
+    classMeta:              PSOMClass;
     classInit:              somMethodPtr;
     classUninit:            somMethodPtr;
     legacyInit:             somMethodPtr;
@@ -1382,9 +1379,9 @@ type
     somCClassData:          somCClassDataStructurePtr;
     som3ClassInfo:          som3ClassInfoStructPtr;
     numParents:             LongInt;
-    parents:                PPPSOMClass;
+    parents:                PPSOMClass;
     numDirectInitClasses:   LongInt;
-    directInitClasses:      PPPSOMClass;
+    directInitClasses:      PPSOMClass;
     numNewInitializers:     LongInt;
     newInitializerSymbols:  somInitSymbolsPtr;
     numOvInitializers:      LongInt;
@@ -1411,7 +1408,7 @@ type
  *)
   somTD_classInitRoutine = procedure(
     parent_class,
-    metaclass: PSOMClass); stdcall;
+    metaclass: SOMClass); stdcall;
 // procedure somConstructClass(
 //     classInitRoutine: somTD_classInitRoutine;
 //     parentClass,
@@ -1733,10 +1730,10 @@ function SOM_MaxThreads: LongInt; stdcall;
  *
  *  Returns the SOMClassMgrObject
  *)
-function somEnvironmentNew: PSOMClassMgr; stdcall;
+function somEnvironmentNew: SOMClassMgr; stdcall;
 
 procedure somEnvironmentEnd; stdcall;
-function somMainProgram: PSOMClassMgr; stdcall;
+function somMainProgram: SOMClassMgr; stdcall;
 function somAbnormalEnd: ByteBool; stdcall;
 
 (*
@@ -1789,7 +1786,7 @@ function SOMGetThreadId: PsomTD_SOMGetThreadId;
 (*
  * Global class manager object
  *)
-function SOMClassMgrObject: PPSOMClassMgr;
+function SOMClassMgrObject: PSOMClassMgr;
 
 (*
  * The somRegisterClassLibrary function is provided for use in SOM class
@@ -2056,34 +2053,34 @@ function SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
 (*
  * Offset-based method resolution functions
  *)
-function somResolve(obj: PSOMObject;
+function somResolve(obj: SOMObject;
                     mdata: somMToken): somMethodProc; stdcall;
-function somPCallResolve(obj: PSOMObject;
-                         callingCls: PSOMClass;
+function somPCallResolve(obj: SOMObject;
+                         callingCls: SOMClass;
                          method: somMToken): somMethodProc; stdcall;
 function somParentResolve(parentMtabs: somMethodTabs;
                           mToken: somMToken): somMethodProc; stdcall;
 function somParentNumResolve(parentMtabs: somMethodTabs;
                              parentNum: Integer;
                              mToken: somMToken): somMethodProc; stdcall;
-function somClassResolve(cls: PSOMClass;
+function somClassResolve(cls: SOMClass;
                          mdata: somMToken): somMethodProc; stdcall;
-function somResolveTerminal(cls: PSOMClass;
+function somResolveTerminal(cls: SOMClass;
                             mdata: somMToken): somMethodProc; stdcall;
-function somAncestorResolve(obj: PSOMObject;(* the object *)
+function somAncestorResolve(obj: SOMObject;(* the object *)
                             ccds: somCClassDataStructurePtr; (* id the ancestor *)
                             mToken: somMToken): somMethodProc; stdcall;
-function somResolveByName(obj: PSOMObject;
+function somResolveByName(obj: SOMObject;
                           methodName: PAnsiChar): somMethodProc; stdcall;
 
 (*
  * Offset-based data resolution functions
  *)
 function somDataResolve(
-    obj: PSOMObject;
+    obj: SOMObject;
     dataId: somDToken): somToken; stdcall;
 function somDataResolveChk(
-    obj: PSOMObject;
+    obj: SOMObject;
     dataId: somDToken): somToken; stdcall;
 
 
@@ -2224,7 +2221,7 @@ const
 //   somMethodDataPtr = ^somMethodData;
 
 function somApply(
-    somSelf: PSOMObject;
+    somSelf: SOMObject;
     var retVal: somToken;
     mdPtr: somMethodDataPtr;
     ap: va_list): CORBABoolean; stdcall;
@@ -2296,16 +2293,16 @@ function somIsObj(obj: somToken): CORBABoolean; stdcall;
  * SOM_TestOn is defined.
  *)
 function somTestCls(
-    obj: PSOMObject;
-    classObj: PSOMClass;
+    obj: SOMObject;
+    classObj: SOMClass;
     fileName: CORBAString;
-    lineNumber: Integer): PSOMObject; stdcall;
+    lineNumber: Integer): SOMObject; stdcall;
 
 (*
  * Return the class that introduced the method represented by a given
  * method token.
  *)
-function somGetClassFromMToken(mToken: somMToken): PSOMClass; stdcall;
+function somGetClassFromMToken(mToken: somMToken): SOMClass; stdcall;
 
 
 (*----------------------------------------------------------------------
@@ -2646,7 +2643,7 @@ const
 
 function somBuildClass(inherit_vars: LongInt;
                        sci: somStaticClassInfoPtr;
-                       majorVersion, minorVersion: LongInt): PSOMClass; stdcall;
+                       majorVersion, minorVersion: LongInt): SOMClass; stdcall;
 
 
 (*
@@ -2817,7 +2814,7 @@ function somBuildClass(inherit_vars: LongInt;
 
 function somBuildClass2(cib: SOM_CIBPtr;
                         requestedMajorVersion,
-                        requestedMinorVersion: LongInt): PSOMClass; stdcall;
+                        requestedMinorVersion: LongInt): SOMClass; stdcall;
 
 (*
  *  Used by old single-inheritance emitters to make class creation
@@ -2829,7 +2826,7 @@ function somBuildClass2(cib: SOM_CIBPtr;
 procedure somConstructClass(
     classInitRoutine: somTD_classInitRoutine;
     parentClass,
-    metaClass: PSOMClass;
+    metaClass: SOMClass;
     cds: somClassDataStructurePtr); stdcall;
 
 (*
@@ -3118,9 +3115,9 @@ begin
 end;
 
 var
-  SOM_DLL_SOMClassMgrObject: PPSOMClassMgr;
+  SOM_DLL_SOMClassMgrObject: PSOMClassMgr;
 
-function SOMClassMgrObject: PPSOMClassMgr;
+function SOMClassMgrObject: PSOMClassMgr;
 begin
   if Assigned(SOM_DLL_SOMClassMgrObject) then
     Result := SOM_DLL_SOMClassMgrObject
