@@ -496,6 +496,7 @@ type
   end;
   somInitCtrlStruct = somInitCtrl;
   som3InitCtrl = somInitCtrl;
+  som3InitCtrlPtr = ^somInitCtrl;
 
   somDestructCtrl = record
     mask: somBooleanVector; (* an array of booleans to control ancestor calls *)
@@ -505,6 +506,7 @@ type
   end;
   somDestructCtrlStruct = somDestructCtrl;
   som3DestructCtrl = somDestructCtrl;
+  som3DestructCtrlPtr = ^somDestructCtrl;
 
   somAssignCtrl = record
     mask: somBooleanVector; (* an array of booleans to control ancestor calls *)
@@ -2854,6 +2856,139 @@ function somUnregisterLibraryClasses(libHandle: somLibraryHandle): LongInt; stdc
 
 
 // #include <somobj.h>
+
+const
+  SOMObject_MajorVersion = 1;
+  SOMObject_MinorVersion = 7;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMObjectNewClass(somtmajorVersion, somtminorVersion: integer4): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMObjectClassDataStructure = record
+	classObject:              SOMClass;
+	somInit:                  somMToken;
+	somUninit:                somMToken;
+	somFree:                  somMToken;
+	somDefaultVCopyInit:      somMToken;
+	somGetClassName:          somMToken;
+	somGetClass:              somMToken;
+	somIsA:                   somMToken;
+	somRespondsTo:            somMToken;
+	somIsInstanceOf:          somMToken;
+	somGetSize:               somMToken;
+	somDumpSelf:              somMToken;
+	somDumpSelfInt:           somMToken;
+	somPrintSelf:             somMToken;
+	somDefaultConstVCopyInit: somMToken;
+	somoPrivate1:             somMToken;
+	somoPrivate2:             somMToken;
+	somoPrivate3:             somMToken;
+	somoPrivate4:             somMToken;
+	somDispatch:              somMToken;
+	somClassDispatch:         somMToken;
+	somCastObj:               somMToken;
+	somResetObj:              somMToken;
+	somDefaultInit:           somMToken;
+	somDestruct:              somMToken;
+	somoPrivate5:             somMToken;
+	somoPrivate6:             somMToken;
+	somDefaultCopyInit:       somMToken;
+	somDefaultConstCopyInit:  somMToken;
+	somDefaultAssign:         somMToken;
+	somDefaultConstAssign:    somMToken;
+	somDefaultVAssign:        somMToken;
+	somDefaultConstVAssign:   somMToken;
+	somoPrivate7:             somMToken;
+	somoPrivate8:             somMToken;
+	somoPrivate9:             somMToken;
+	somoPrivate10:            somMToken;
+	somoPrivate11:            somMToken;
+	somoPrivate12:            somMToken;
+	somoPrivate13:            somMToken;
+	somoPrivate14:            somMToken;
+end;
+PSOMObjectClassDataStructure = ^SOMObjectClassDataStructure;
+function SOMObjectClassData: PSOMObjectClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMObjectCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+	somDispatch: somMethodProc;
+	somClassDispatch: somMethodProc;
+end;
+PSOMObjectCClassDataStructure = ^SOMObjectCClassDataStructure;
+function SOMObjectCClassData: PSOMObjectCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMObject: SOMClass;
+
+(*
+ * New and Renew macros for SOMObject
+ *)
+function SOMObjectNew: SOMObject;
+function SOMObjectRenew(buf: Pointer): SOMObject;
+
+(*
+ * New Method: somDefaultInit
+ *)
+type
+  somTP_SOMObject_somDefaultInit = procedure(somSelf: SOMObject;
+		ctrl: som3InitCtrlPtr); stdcall;
+  somTD_SOMObject_somDefaultInit = somTP_SOMObject_somDefaultInit;
+(*
+ *  A default initializer for a SOM object. Passing a null ctrl
+ *  indicates to the receiver that its class is the class of the
+ *  object being initialized, whereby the initializer will determine
+ *  an appropriate control structure.
+ *)
+procedure SOMObject_somDefaultInit(somSelf: SOMObject; ctrl: som3InitCtrlPtr);
+
+(*
+ * New Method: somDestruct
+ *)
+type
+  somTP_SOMObject_somDestruct = procedure(somSelf: SOMObject;
+		doFree: octet;
+		ctrl: som3DestructCtrlPtr); stdcall;
+  somTD_SOMObject_somDestruct = somTP_SOMObject_somDestruct;
+(*
+ *  The default destructor for a SOM object. A nonzero <doFree>
+ *  indicates that the object storage should be freed by the
+ *  object's class (via somDeallocate) after uninitialization.
+ *  As with somDefaultInit, a null ctrl can be passed.
+ *)
+procedure SOMObject_somDestruct(somSelf: SOMObject;
+		doFree: octet; ctrl: som3DestructCtrlPtr);
+
+(*
+ * New Method: somFree
+ *)
+type
+  somTP_SOMObject_somFree = procedure(somSelf: SOMObject); stdcall;
+  somTD_SOMObject_somFree = somTP_SOMObject_somFree;
+(*
+ *  The default implementation just calls somDestruct.
+ *)
+procedure SOMObject_somFree(somSelf: SOMObject);
+
+
+
+
+
+
+
+
+
 // #include <somcls.h>
 // #include <somcm.h>
 
@@ -3244,12 +3379,43 @@ function somUnregisterLibraryClasses; external SOM_DLL_Name;
 
 
 
-
-
-
-
-
 // #include <somobj.h>
+
+function SOMObjectNewClass; external SOM_DLL_Name;
+
+var
+  SOM_DLL_SOMObjectClassData: PSOMObjectClassDataStructure;
+
+function SOMObjectClassData: PSOMObjectClassDataStructure;
+begin
+  if Assigned(SOM_DLL_SOMObjectClassData) then
+    Result := SOM_DLL_SOMObjectClassData
+  else
+  begin
+    SOM_Load_Variable(SOM_DLL_SOMObjectClassData, 'SOMObjectClassData');
+    Result := SOM_DLL_SOMObjectClassData;
+  end;
+end;
+
+var
+  SOM_DLL_SOMObjectCClassData: PSOMObjectCClassDataStructure;
+
+function SOMObjectCClassData: PSOMObjectCClassDataStructure;
+begin
+  if Assigned(SOM_DLL_SOMObjectCClassData) then
+    Result := SOM_DLL_SOMObjectCClassData
+  else
+  begin
+    SOM_Load_Variable(SOM_DLL_SOMObjectCClassData, 'SOMObjectCClassData');
+    Result := SOM_DLL_SOMObjectCClassData;
+  end;
+end;
+
+function _SOMObject: SOMClass;
+begin
+  Result := SOMObjectClassData.classObject;
+end;
+
 // #include <somcls.h>
 // #include <somcm.h>
 
