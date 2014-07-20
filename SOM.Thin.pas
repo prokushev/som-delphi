@@ -61,6 +61,37 @@ type
 
 // #include <somcdev.h>
 
+(*
+ *  Method and Data Resolution macros
+ *)
+
+(*
+ *  Method Resolution. Methods are invoked on an object o of some
+ *  object class oc, where oc has immediate ancestor classes
+ *  called parent classes. Macro arguments include method names
+ *  (e.g., mn), object class and parent class names (e.g., ocn, pcn)
+ *  and parent class positions (e.g., pcp), expressed in terms of the
+ *  left-to-right ordering (beginning with 1, for the first parent)
+ *  used when declaring oc's parents. The choice of resolution
+ *  macro determines the method table from which methods are selected.
+ *
+ *  Macros are available to select a method from ...
+ *)
+
+(* from oc's mtbl, with verification of o *)
+   (*  call somresolve_ but test that the object is well formed and an
+       instance of the specified class or a class derived from that class *)
+
+// function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMethodProc): somMethodProc; // (moved down)
+
+(* Check the validity of method resolution using the specified target  *)
+(* object.  Note: this macro makes programs bigger and slower.	After  *)
+(* you are confident that your program is running correctly you should *)
+(* turn off this macro by defining SOM_NoTest, or adding -DSOM_NoTest  *)
+(* to your makefile.						       *)
+
+// function SOM_TestCls(obj: SOMObject; cls: SOMClass): SOMObject; // (moved down)
+
 (* Control the printing of method and procedure entry messages, *)
 (* 0-none, 1-user, 2-core&user *)
 // function SOM_TraceLevel: PInteger; // (moved down)
@@ -882,10 +913,10 @@ type
  * SOM_TestOn is defined.
  *)
 // function somTestCls(
-//     obj: PSOMObject;
-//     classObj: PSOMClass;
+//     obj: SOMObject;
+//     classObj: SOMClass;
 //     fileName: CORBAString;
-//     lineNumber: Integer): PSOMObject; stdcall; // (moved down)
+//     lineNumber: Integer): SOMObject; stdcall; // (moved down)
 
 (*
  * Return the class that introduced the method represented by a given
@@ -1476,6 +1507,37 @@ type
 //   PPPSOMClassMgr = ^PPSOMClassMgr;
 
 // #include <somcdev.h>
+
+(*
+ *  Method and Data Resolution macros
+ *)
+
+(*
+ *  Method Resolution. Methods are invoked on an object o of some
+ *  object class oc, where oc has immediate ancestor classes
+ *  called parent classes. Macro arguments include method names
+ *  (e.g., mn), object class and parent class names (e.g., ocn, pcn)
+ *  and parent class positions (e.g., pcp), expressed in terms of the
+ *  left-to-right ordering (beginning with 1, for the first parent)
+ *  used when declaring oc's parents. The choice of resolution
+ *  macro determines the method table from which methods are selected.
+ *
+ *  Macros are available to select a method from ...
+ *)
+
+(* from oc's mtbl, with verification of o *)
+   (*  call somresolve_ but test that the object is well formed and an
+       instance of the specified class or a class derived from that class *)
+
+function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMethodProc): somMethodProc;
+
+(* Check the validity of method resolution using the specified target  *)
+(* object.  Note: this macro makes programs bigger and slower.	After  *)
+(* you are confident that your program is running correctly you should *)
+(* turn off this macro by defining SOM_NoTest, or adding -DSOM_NoTest  *)
+(* to your makefile.						       *)
+
+function SOM_TestCls(obj: SOMObject; cls: SOMClass): SOMObject;
 
 (* Control the printing of method and procedure entry messages, *)
 (* 0-none, 1-user, 2-core&user *)
@@ -3155,6 +3217,20 @@ PSOMClassCClassDataStructure = ^SOMClassCClassDataStructure;
 function SOMClassCClassData: PSOMClassCClassDataStructure;
 
 
+(*
+ * New Method: somNew
+ *)
+type
+  somTP_SOMClass_somNew = function(somSelf: SOMClass): SOMObject; stdcall;
+  somTD_SOMClass_somNew = somTP_SOMClass_somNew;
+(*
+ *  Uses somAllocate to allocate storage for a new
+ *  instance of the receiving class, calls somRenewNoInitNoZero
+ *  to load the new object's method table pointer, and then
+ *  calls somDefaultInit to initialize the new object.
+ *  Overrides are not expected. NULL is returned on failure.
+ *)
+function SOMClass_somNew(somSelf: SOMClass): SOMObject;
 
 
 
@@ -3194,6 +3270,18 @@ begin
 end;
 
 // #include <somcdev.h>
+
+function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMethodProc): somMethodProc;
+begin
+  SOM_TestCls(o, oc);
+  Result := m;
+end;
+
+function SOM_TestCls(obj: SOMObject; cls: SOMClass): SOMObject;
+begin
+  Result := somTestCls(obj, cls, '??', 0);
+end;
+
 var
   SOM_DLL_SOM_TraceLevel: PInteger;
 
@@ -3689,8 +3777,15 @@ begin
   end;
 end;
 
-
-
+function SOMClass_somNew(somSelf: SOMClass): SOMObject;
+begin
+  Result :=
+    somTD_SOMClass_somNew
+     (SOM_Resolve
+       (somSelf,
+        SOMClassClassData.classObject,
+        SOMClassClassData.somNew))(somSelf);
+end;
 
 // #include <somcm.h>
 
