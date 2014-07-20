@@ -2982,15 +2982,188 @@ type
  *)
 (* procedure SOMObject_somFree(somSelf: SOMObject); *)
 
-
-
-
-
-
-
+// TODO: the rest of SOMObject
 
 
 // #include <somcls.h>
+
+(*
+ * Start of bindings for IDL types
+ *)
+type
+  _IDL_SEQUENCE_somToken = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: somTokenPtr;
+  end;
+  SOMClass_somTokenSequence = _IDL_SEQUENCE_somToken ;
+(*
+ *  a (generic) sequence of somTokens
+ *)
+
+  _IDL_SEQUENCE_SOMClass = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PSOMClass;
+  end;
+  SOMClass_SOMClassSequence = _IDL_SEQUENCE_SOMClass;
+(*
+ *  a sequence of classes
+ *)
+
+  SOMClass_somOffsetInfo = record
+    cls: SOMClass;
+    offset: LongInt;
+  end;
+  PSOMClass_somOffsetInfo = ^SOMClass_somOffsetInfo;
+(*
+ *  a structure to describe a class-related offset
+ *)
+
+  _IDL_SEQUENCE_SOMClass_somOffsetInfo = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PSOMClass_somOffsetInfo;
+  end;
+  SOMClass_somOffsets = _IDL_SEQUENCE_SOMClass_somOffsetInfo ;
+(*
+ *  a sequence of class-related offsets
+ *)
+
+  _IDL_SEQUENCE_somId = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: somIdPtr;
+  end;
+  SOMClass_somIdSequence = _IDL_SEQUENCE_somId;
+(*
+ *  a sequence of somIds
+ *)
+
+(*
+ * End of bindings for IDL types.
+ *)
+
+const
+  SOMClass_MajorVersion = 1;
+  SOMClass_MinorVersion = 6;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMClassNewClass(somtmajorVersion,
+  somtminorVersion: integer4): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMClassClassDataStructure = record
+	classObject:                   SOMClass;
+	somNew:                        somMToken;
+	somRenew:                      somMToken;
+	somcPrivate1:                  somMToken;
+	somClassReady:                 somMToken;
+	somGetName:                    somMToken;
+	somcPrivate2:                  somMToken;
+	somDescendedFrom:              somMToken;
+	somCheckVersion:               somMToken;
+	somFindMethod:                 somMToken;
+	somFindMethodOk:               somMToken;
+	somSupportsMethod:             somMToken;
+	somGetNumMethods:              somMToken;
+	somGetInstanceSize:            somMToken;
+	somcPrivate3:                  somMToken;
+	somGetInstancePartSize:        somMToken;
+	somGetMethodIndex:             somMToken;
+	somGetNumStaticMethods:        somMToken;
+	somGetPClsMtab:                somMToken;
+	somGetClassMtab:               somMToken;
+	somAddStaticMethod:            somMToken;
+	somOverrideSMethod:            somMToken;
+	somAddDynamicMethod:           somMToken;
+	somcUnused1:                   somMToken;
+	somGetApplyStub:               somMToken;
+	somFindSMethod:                somMToken;
+	somFindSMethodOk:              somMToken;
+	somGetMethodDescriptor:        somMToken;
+	somGetNthMethodInfo:           somMToken;
+	somSetClassData:               somMToken;
+	somGetClassData:               somMToken;
+	somNewNoInit:                  somMToken;
+	somRenewNoInit:                somMToken;
+	somGetInstanceToken:           somMToken;
+	somGetMemberToken:             somMToken;
+	somcUnused2:                   somMToken;
+	somGetMethodData:              somMToken;
+	somOverrideMtab:               somMToken;
+	somGetMethodToken:             somMToken;
+	somGetParents:                 somMToken;
+	somUnused3:                    somMToken;
+	somInitMIClass:                somMToken;
+	somGetVersionNumbers:          somMToken;
+	somLookupMethod:               somMToken;
+	_get_somInstanceDataOffsets:   somMToken;
+	somRenewNoZero:                somMToken;
+	somRenewNoInitNoZero:          somMToken;
+	somAllocate:                   somMToken;
+	somDeallocate:                 somMToken;
+	somGetRdStub:                  somMToken;
+	somGetNthMethodData:           somMToken;
+	somcPrivate8:                  somMToken;
+	somcPrivate9:                  somMToken;
+	_get_somDirectInitClasses:     somMToken;
+	somcPrivate10:                 somMToken;
+	somcPrivate11:                 somMToken;
+	somcPrivate12:                 somMToken;
+	somcPrivate13:                 somMToken;
+	somcPrivate14:                 somMToken;
+	somMethodImplOwner:            somMToken;
+	somcPrivate15:                 somMToken;
+	somcPrivate16:                 somMToken;
+	somDefinedMethod:              somMToken;
+	somcPrivate17:                 somMToken;
+	somcPrivate18:                 somMToken;
+	somcPrivate19:                 somMToken;
+	somClassOfNewClassWithParents: somMethodProc;
+	somcPrivate20:                 somMToken;
+	somcUnused5:                   somMToken;
+	somcUnused6:                   somMToken;
+	somcUnused7:                   somMToken;
+	_get_somDataAlignment:         somMToken;
+	somcPrivate21:                 somMToken;
+	somcUnused8:                   somMToken;
+	somcPrivate22:                 somMToken;
+	somcUnused9:                   somMToken;
+	somcUnused10:                  somMToken;
+	somGetMarshalPlan:             somMToken;
+	somcUnused11:                  somMToken;
+	somPrivate23:                  somMToken;
+	somJoin:                       somMToken;
+	somEndow:                      somMToken;
+end;
+PSOMClassClassDataStructure = ^SOMClassClassDataStructure;
+function SOMClassClassData: PSOMClassClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMClassCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMClassCClassDataStructure = ^SOMClassCClassDataStructure;
+function SOMClassCClassData: PSOMClassCClassDataStructure;
+
+
+
+
+
+
+
+
+
+
+
 // #include <somcm.h>
 
 
@@ -3485,6 +3658,40 @@ begin
 end; *)
 
 // #include <somcls.h>
+
+function SOMClassNewClass; external SOM_DLL_Name;
+
+var
+  SOM_DLL_SOMClassClassData: PSOMClassClassDataStructure;
+
+function SOMClassClassData: PSOMClassClassDataStructure;
+begin
+  if Assigned(SOM_DLL_SOMClassClassData) then
+    Result := SOM_DLL_SOMClassClassData
+  else
+  begin
+    SOM_Load_Variable(SOM_DLL_SOMClassClassData, 'SOMClassClassData');
+    Result := SOM_DLL_SOMClassClassData;
+  end;
+end;
+
+var
+  SOM_DLL_SOMClassCClassData: PSOMClassCClassDataStructure;
+
+function SOMClassCClassData: PSOMClassCClassDataStructure;
+begin
+  if Assigned(SOM_DLL_SOMClassCClassData) then
+    Result := SOM_DLL_SOMClassCClassData
+  else
+  begin
+    SOM_Load_Variable(SOM_DLL_SOMClassCClassData, 'SOMClassCClassData');
+    Result := SOM_DLL_SOMClassCClassData;
+  end;
+end;
+
+
+
+
 // #include <somcm.h>
 
 initialization
