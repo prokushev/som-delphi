@@ -1,4 +1,5 @@
 {$R-}
+{$WARN UNSAFE_TYPE OFF}
 
 unit SOM.Thin;
 
@@ -247,11 +248,11 @@ type
 // #include <somapi.h>
 
 (*  SOM Version Numbers  *)
-// function SOM_MajorVersion: LongInt; stdcall; // (moved down)
-// function SOM_MinorVersion: LongInt; stdcall; // (moved down)
+// function SOM_MajorVersion: PLongInt; // (moved down)
+// function SOM_MinorVersion: PLongInt; // (moved down)
 
 (*  SOM Thread Support  *)
-// function SOM_MaxThreads: LongInt; stdcall; // (moved down)
+// function SOM_MaxThreads: PLongInt; // (moved down)
 
 (*----------------------------------------
  * Typedefs for pointers to functions
@@ -1663,11 +1664,11 @@ function somGetGlobalEnvironment: PEnvironment; stdcall;
 // #include <somapi.h>
 
 (*  SOM Version Numbers  *)
-function SOM_MajorVersion: LongInt; stdcall;
-function SOM_MinorVersion: LongInt; stdcall;
+function SOM_MajorVersion: PLongInt;
+function SOM_MinorVersion: PLongInt;
 
 (*  SOM Thread Support  *)
-function SOM_MaxThreads: LongInt; stdcall;
+function SOM_MaxThreads: PLongInt;
 
 (*----------------------------------------
  * Typedefs for pointers to functions
@@ -2935,8 +2936,8 @@ function _SOMObject: SOMClass;
 (*
  * New and Renew macros for SOMObject
  *)
-function SOMObjectNew: SOMObject;
-function SOMObjectRenew(buf: Pointer): SOMObject;
+(* function SOMObjectNew: SOMObject;
+function SOMObjectRenew(buf: Pointer): SOMObject; *)
 
 (*
  * New Method: somDefaultInit
@@ -2951,7 +2952,7 @@ type
  *  object being initialized, whereby the initializer will determine
  *  an appropriate control structure.
  *)
-procedure SOMObject_somDefaultInit(somSelf: SOMObject; ctrl: som3InitCtrlPtr);
+(* procedure SOMObject_somDefaultInit(somSelf: SOMObject; ctrl: som3InitCtrlPtr); *)
 
 (*
  * New Method: somDestruct
@@ -2967,8 +2968,8 @@ type
  *  object's class (via somDeallocate) after uninitialization.
  *  As with somDefaultInit, a null ctrl can be passed.
  *)
-procedure SOMObject_somDestruct(somSelf: SOMObject;
-		doFree: octet; ctrl: som3DestructCtrlPtr);
+(* procedure SOMObject_somDestruct(somSelf: SOMObject;
+		doFree: octet; ctrl: som3DestructCtrlPtr); *)
 
 (*
  * New Method: somFree
@@ -2979,7 +2980,7 @@ type
 (*
  *  The default implementation just calls somDestruct.
  *)
-procedure SOMObject_somFree(somSelf: SOMObject);
+(* procedure SOMObject_somFree(somSelf: SOMObject); *)
 
 
 
@@ -3101,9 +3102,48 @@ function somGetGlobalEnvironment; external SOM_DLL_Name;
 
 // #include <somapi.h>
 
-function SOM_MajorVersion; external SOM_DLL_Name;
-function SOM_MinorVersion; external SOM_DLL_Name;
-function SOM_MaxThreads; external SOM_DLL_Name;
+var
+  SOM_DLL_SOM_MajorVersion: PLongInt;
+
+function SOM_MajorVersion: PLongInt;
+begin
+  if Assigned(SOM_DLL_SOM_MajorVersion) then
+    Result := SOM_DLL_SOM_MajorVersion
+  else
+  begin
+    SOM_Load_Variable(SOM_DLL_SOM_MajorVersion, 'SOM_MajorVersion');
+    Result := SOM_DLL_SOM_MajorVersion;
+  end;
+end;
+
+var
+  SOM_DLL_SOM_MinorVersion: PLongInt;
+
+function SOM_MinorVersion: PLongInt;
+begin
+  if Assigned(SOM_DLL_SOM_MinorVersion) then
+    Result := SOM_DLL_SOM_MinorVersion
+  else
+  begin
+    SOM_Load_Variable(SOM_DLL_SOM_MinorVersion, 'SOM_MinorVersion');
+    Result := SOM_DLL_SOM_MinorVersion;
+  end;
+end;
+
+var
+  SOM_DLL_SOM_MaxThreads: PLongInt;
+
+function SOM_MaxThreads: PLongInt;
+begin
+  if Assigned(SOM_DLL_SOM_MaxThreads) then
+    Result := SOM_DLL_SOM_MaxThreads
+  else
+  begin
+    SOM_Load_Variable(SOM_DLL_SOM_MaxThreads, 'SOM_MaxThreads');
+    Result := SOM_DLL_SOM_MaxThreads;
+  end;
+end;
+
 function somEnvironmentNew; external SOM_DLL_Name;
 procedure somEnvironmentEnd; external SOM_DLL_Name;
 function somMainProgram; external SOM_DLL_Name;
@@ -3415,6 +3455,34 @@ function _SOMObject: SOMClass;
 begin
   Result := SOMObjectClassData.classObject;
 end;
+
+(* function SOMObjectNew: SOMObject;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMObject;
+  if not Assigned(cls) then
+  begin
+	  SOMObjectNewClass(
+  		SOMObject_MajorVersion,
+	  	SOMObject_MinorVersion);
+  end;
+  Result := _somNew(_SOMObject);
+end;
+
+function SOMObjectRenew(buf: Pointer): SOMObject;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMObject;
+  if not Assigned(cls) then
+  begin
+	  SOMObjectNewClass(
+  		SOMObject_MajorVersion,
+	  	SOMObject_MinorVersion);
+  end;
+	Result := _somRenew(_SOMObject, buf);
+end; *)
 
 // #include <somcls.h>
 // #include <somcm.h>

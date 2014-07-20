@@ -3,11 +3,23 @@ program SOMClientTest;
 {$APPTYPE CONSOLE}
 
 uses
-  SysUtils,
+  SysUtils, TypInfo,
   SOM in 'SOM.pas',
   SOM.Thin in 'SOM.Thin.pas',
   SOM.DelphiFeatures in 'SOM.DelphiFeatures.pas';
 
+procedure TestSOM_Basic;
+begin
+  WriteLn('Testing SOM v', SOM_MajorVersion^, '.', SOM_MinorVersion^);
+end;
+
 begin
   { TODO -oUser -cConsole Main : Insert code here }
+  try
+    TestSOM_Basic;
+  except
+    on e: Exception do
+      WriteLn(GetTypeData(e.ClassInfo).UnitName + '.' + e.ClassName + ':' + e.Message);
+  end;
+  ReadLn;
 end.
