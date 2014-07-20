@@ -9,8 +9,14 @@ uses
   SOM.DelphiFeatures in 'SOM.DelphiFeatures.pas';
 
 procedure TestSOM_Basic;
+var
+  ev: PEnvironment;
 begin
   WriteLn('Testing SOM v', SOM_MajorVersion^, '.', SOM_MinorVersion^);
+  ev := somGetGlobalEnvironment;
+
+  SOMObjectNewClass(SOMObject_MajorVersion, SOMObject_MinorVersion);
+  
 end;
 
 begin

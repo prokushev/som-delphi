@@ -2993,13 +2993,13 @@ function SOMObjectCClassData: PSOMObjectCClassDataStructure;
 (*
  * Class Object and Method Token Macros
  *)
-function _SOMObject: SOMClass;
+function _SOMCLASS_SOMObject: SOMClass;
 
 (*
  * New and Renew macros for SOMObject
  *)
-(* function SOMObjectNew: SOMObject;
-function SOMObjectRenew(buf: Pointer): SOMObject; *)
+function SOMObjectNew: SOMObject;
+(* function SOMObjectRenew(buf: Pointer): SOMObject; *)
 
 (*
  * New Method: somDefaultInit
@@ -3712,30 +3712,30 @@ begin
   end;
 end;
 
-function _SOMObject: SOMClass;
+function _SOMCLASS_SOMObject: SOMClass;
 begin
   Result := SOMObjectClassData.classObject;
 end;
 
-(* function SOMObjectNew: SOMObject;
+function SOMObjectNew: SOMObject;
 var
   cls: SOMClass;
 begin
-  cls := _SOMObject;
+  cls := _SOMCLASS_SOMObject;
   if not Assigned(cls) then
   begin
 	  SOMObjectNewClass(
   		SOMObject_MajorVersion,
 	  	SOMObject_MinorVersion);
   end;
-  Result := _somNew(_SOMObject);
+  Result := SOMClass_somNew(_SOMCLASS_SOMObject);
 end;
 
-function SOMObjectRenew(buf: Pointer): SOMObject;
+(* function SOMObjectRenew(buf: Pointer): SOMObject;
 var
   cls: SOMClass;
 begin
-  cls := _SOMObject;
+  cls := _SOMCLASS_SOMObject;
   if not Assigned(cls) then
   begin
 	  SOMObjectNewClass(
