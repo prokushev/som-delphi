@@ -3044,7 +3044,15 @@ type
  *)
 (* procedure SOMObject_somFree(somSelf: SOMObject); *)
 
-// TODO: the rest of SOMObject
+(*
+ * New Method: somGetClassName
+ *)
+type
+  somTP_SOMObject_somGetClassName = function(somSelf: SOMObject): CORBAString; stdcall;
+  somTD_SOMObject_somGetClassName = somTP_SOMObject_somGetClassName;
+(*
+ *  Return the name of the receiver's class.
+ *)
 
 
 // #include <somcls.h>
