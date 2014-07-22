@@ -3198,6 +3198,32 @@ type
 		doFree: octet; ctrl: som3DestructCtrlPtr); *)
 
 (*
+ * New Method: somInit
+ *)
+type
+  somTP_SOMObject_somInit = procedure(somSelf: SOMObject); stdcall;
+  somTD_SOMObject_somInit = somTP_SOMObject_somInit;
+(*
+ *  Obsolete but still supported. Override somDefaultInit instead of somInit.
+ *)
+const
+  somMD_SOMObject_somInit = '::SOMObject::somInit';
+procedure SOMObject_somInit(somSelf: SOMObject);
+
+(*
+ * New Method: somUninit
+ *)
+type
+  somTP_SOMObject_somUninit = procedure(somSelf: SOMObject); stdcall;
+  somTD_SOMObject_somUninit = somTP_SOMObject_somUninit;
+(*
+ *  Obsolete but still supported. Override somDestruct instead of somUninit.
+ *)
+const
+  somMD_SOMObject_somUninit = '::SOMObject::somUninit';
+procedure SOMObject_somUninit(somSelf: SOMObject);
+
+(*
  * New Method: somFree
  *)
 type
@@ -4089,6 +4115,24 @@ begin
     cls := _SOMCLASS_SOMObject;
   end;
 	Result := SOMClass_somRenew(cls, buf);
+end;
+
+procedure SOMObject_somInit(somSelf: SOMObject);
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  somTD_SOMObject_somFree
+   (SOM_Resolve(somSelf, cd.classObject, cd.somInit))(somSelf);
+end;
+
+procedure SOMObject_somUninit(somSelf: SOMObject);
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  somTD_SOMObject_somFree
+   (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))(somSelf);
 end;
 
 procedure SOMObject_somFree(somSelf: SOMObject);

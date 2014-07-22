@@ -2,6 +2,7 @@ program SOMClientTest;
 
 {$APPTYPE CONSOLE}
 {$WARN UNSAFE_TYPE OFF}
+{$WARN UNSAFE_CODE OFF}
 
 uses
   SysUtils, TypInfo,
@@ -25,8 +26,20 @@ begin
 end;
 
 procedure TestSOM_Renew;
+var
+  a: array of Byte;
+  Size: LongInt;
+  o: SOMObject;
+  s: CORBAString;
 begin
-  Writeln('SOMObject''s size is ', SOMClass_somGetInstanceSize(_SOMCLASS_SOMObject));
+  Size := SOMClass_somGetInstanceSize(_SOMCLASS_SOMObject);
+  WriteLn('SOMObject''s size is ', Size);
+  SetLength(a, Size);
+  o := SOMObjectRenew(@(a[0]));
+  s := SOMObject_somGetClassName(o);
+  WriteLn('Object''s class name is ', s);
+  SOMFree(s);
+  SOMObject_somUninit(o);
 end;
 
 begin
