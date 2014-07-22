@@ -279,11 +279,14 @@ type
 // #include <somapi.h>
 
 (*  SOM Version Numbers  *)
-// function SOM_MajorVersion: PLongInt; // (moved down)
-// function SOM_MinorVersion: PLongInt; // (moved down)
+// function Replaceable_SOM_MajorVersion: PLongInt; // (moved down)
+// function SOM_MajorVersion: LongInt; // (moved down)
+// function Replaceable_SOM_MinorVersion: PLongInt; // (moved down)
+// function SOM_MinorVersion: LongInt; // (moved down)
 
 (*  SOM Thread Support  *)
-// function SOM_MaxThreads: PLongInt; // (moved down)
+// function Replaceable_SOM_MaxThreads: PLongInt; // (moved down)
+// function SOM_MaxThreads: LongInt; // (moved down)
 
 (*----------------------------------------
  * Typedefs for pointers to functions
@@ -351,7 +354,7 @@ type
 // function somEnvironmentNew: PSOMClassMgr; stdcall; // (moved down)
 
 // procedure somEnvironmentEnd; stdcall; // (moved down)
-// function somMainProgram: PSOMClassMgr; stdcall; // (moved down)
+// function somMainProgram: SOMClassMgr; stdcall; // (moved down)
 // function somAbnormalEnd: ByteBool; stdcall; // (moved down)
 
 (*
@@ -360,15 +363,23 @@ type
  *  External procedure variables SOMCalloc, SOMFree, SOMMalloc, SOMRealloc
  *  have the same interface as their standard C-library analogs.
  *)
-// function SOMCalloc: PsomTD_SOMCalloc; // (moved down)
-// function SOMFree: PsomTD_SOMFree; // (moved down)
-// function SOMMalloc: PsomTD_SOMMalloc; // (moved down)
-// function SOMRealloc: PsomTD_SOMRealloc; // (moved down)
+// function Replaceable_SOMCalloc: PsomTD_SOMCalloc; // (moved down)
+// function SOMCalloc(element_count, element_size: UIntPtr): somToken; // (moved down)
+// function Replaceable_SOMFree: PsomTD_SOMFree; // (moved down)
+// procedure SOMFree(memory: somToken); // (moved down)
+// function Replaceable_SOMMalloc: PsomTD_SOMMalloc; // (moved down)
+// function SOMMalloc(nbytes: UIntPtr): somToken; // (moved down)
+// function Replaceable_SOMRealloc: PsomTD_SOMRealloc; // (moved down)
+// function SOMRealloc(memory: somToken; nbytes: UIntPtr): somToken; // (moved down)
 
 (*
  *  Replaceable SOM Error handler
  *)
-// function SOMError: PsomTD_SOMError; // (moved down)
+// function Replaceable_SOMError: PsomTD_SOMError; // (moved down)
+// procedure SOMError(
+//     code: Integer;
+//     fileName: PAnsiChar;
+//     lineNum: Integer); // (moved down)
 
 (*
  *  Replaceable SOM Semaphore Operations
@@ -377,10 +388,14 @@ type
  *  state changes to internal resources and for synchronization between
  *  the SOM services process and client SOM processes.
  *)
-// function SOMCreateMutexSem: PsomTD_SOMCreateMutexSem; // (moved down)
-// function SOMRequestMutexSem: PsomTD_SOMRequestMutexSem; // (moved down)
-// function SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem; // (moved down)
-// function SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem; // (moved down)
+// function Replaceable_SOMCreateMutexSem: PsomTD_SOMCreateMutexSem; // (moved down)
+// function SOMCreateMutexSem(out sem: somToken): LongWord; // (moved down)
+// function Replaceable_SOMRequestMutexSem: PsomTD_SOMRequestMutexSem; // (moved down)
+// function SOMRequestMutexSem(sem: somToken): LongWord; // (moved down)
+// function Replaceable_SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem; // (moved down)
+// function SOMReleaseMutexSem(sem: somToken): LongWord; // (moved down)
+// function Replaceable_SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem; // (moved down)
+// function SOMDestroyMutexSem(sem: somToken): LongWord; // (moved down)
 
 (*
  * 18260 -- other thread-related routines used by the kernel were
@@ -394,7 +409,8 @@ type
  *  currently executing thread.  It must return a small integer that
  *  uniquely represents the current thread within the current process.
  *)
-// function SOMGetThreadId: PsomTD_SOMGetThreadId; // (moved down)
+// function Replaceable_SOMGetThreadId: PsomTD_SOMGetThreadId; // (moved down)
+// function SOMGetThreadId: LongWord; // (moved down)
 
 
 (*----------------------------------------------------------------------
@@ -431,9 +447,18 @@ type
 (*
  * Pointers to routines used to do dynamic code loading and deleting
  *)
-// function SOMLoadModule: PsomTD_SOMLoadModule; // (moved down)
-// function SOMDeleteModule: PsomTD_SOMDeleteModule; // (moved down)
-// function SOMClassInitFuncName: PsomTD_SOMClassInitFuncName; // (moved down)
+// function Replaceable_SOMLoadModule: PsomTD_SOMLoadModule; // (moved down)
+// function SOMLoadModule(
+//     className: PAnsiChar;
+//     fileName: PAnsiChar;
+//     functionName: PAnsiChar;
+//     majorVersion: LongInt;
+//     minorVersion: LongInt;
+//     out modHandle: somToken): Integer; // (moved down)
+// function Replaceable_SOMDeleteModule: PsomTD_SOMDeleteModule; // (moved down)
+// function SOMDeleteModule(modHandle: somToken): Integer; // (moved down)
+// function Replaceable_SOMClassInitFuncName: PsomTD_SOMClassInitFuncName; // (moved down)
+// function SOMClassInitFuncName: PAnsiChar; // (moved down)
 
 
 (*----------------------------------------------------------------------
@@ -473,7 +498,8 @@ type
  *  support.  Initialized to <somOutChar>, but may be reset at anytime.
  *  Should return 0 (false) if an error occurs and 1 (true) otherwise.
  *)
-// function SOMOutCharRoutine: PsomTD_SOMOutCharRoutine; // (moved down)
+// function Replaceable_SOMOutCharRoutine: PsomTD_SOMOutCharRoutine; // (moved down)
+// function SOMOutCharRoutine(C: AnsiChar): Integer; // (moved down)
 
 
 (*--------------
@@ -1726,11 +1752,14 @@ function somGetGlobalEnvironment: PEnvironment; stdcall;
 // #include <somapi.h>
 
 (*  SOM Version Numbers  *)
-function SOM_MajorVersion: PLongInt;
-function SOM_MinorVersion: PLongInt;
+function Replaceable_SOM_MajorVersion: PLongInt;
+function SOM_MajorVersion: LongInt;
+function Replaceable_SOM_MinorVersion: PLongInt;
+function SOM_MinorVersion: LongInt;
 
 (*  SOM Thread Support  *)
-function SOM_MaxThreads: PLongInt;
+function Replaceable_SOM_MaxThreads: PLongInt;
+function SOM_MaxThreads: LongInt;
 
 (*----------------------------------------
  * Typedefs for pointers to functions
@@ -1807,15 +1836,23 @@ function somAbnormalEnd: ByteBool; stdcall;
  *  External procedure variables SOMCalloc, SOMFree, SOMMalloc, SOMRealloc
  *  have the same interface as their standard C-library analogs.
  *)
-function SOMCalloc: PsomTD_SOMCalloc;
-function SOMFree: PsomTD_SOMFree;
-function SOMMalloc: PsomTD_SOMMalloc;
-function SOMRealloc: PsomTD_SOMRealloc;
+function Replaceable_SOMCalloc: PsomTD_SOMCalloc;
+function SOMCalloc(element_count, element_size: UIntPtr): somToken;
+function Replaceable_SOMFree: PsomTD_SOMFree;
+procedure SOMFree(memory: somToken);
+function Replaceable_SOMMalloc: PsomTD_SOMMalloc;
+function SOMMalloc(nbytes: UIntPtr): somToken;
+function Replaceable_SOMRealloc: PsomTD_SOMRealloc;
+function SOMRealloc(memory: somToken; nbytes: UIntPtr): somToken;
 
 (*
  *  Replaceable SOM Error handler
  *)
-function SOMError: PsomTD_SOMError;
+function Replaceable_SOMError: PsomTD_SOMError;
+procedure SOMError(
+    code: Integer;
+    fileName: PAnsiChar;
+    lineNum: Integer);
 
 (*
  *  Replaceable SOM Semaphore Operations
@@ -1824,10 +1861,14 @@ function SOMError: PsomTD_SOMError;
  *  state changes to internal resources and for synchronization between
  *  the SOM services process and client SOM processes.
  *)
-function SOMCreateMutexSem: PsomTD_SOMCreateMutexSem;
-function SOMRequestMutexSem: PsomTD_SOMRequestMutexSem;
-function SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem;
-function SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
+function Replaceable_SOMCreateMutexSem: PsomTD_SOMCreateMutexSem;
+function SOMCreateMutexSem(out sem: somToken): LongWord;
+function Replaceable_SOMRequestMutexSem: PsomTD_SOMRequestMutexSem;
+function SOMRequestMutexSem(sem: somToken): LongWord;
+function Replaceable_SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem;
+function SOMReleaseMutexSem(sem: somToken): LongWord;
+function Replaceable_SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
+function SOMDestroyMutexSem(sem: somToken): LongWord;
 
 (*
  * 18260 -- other thread-related routines used by the kernel were
@@ -1841,7 +1882,8 @@ function SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
  *  currently executing thread.  It must return a small integer that
  *  uniquely represents the current thread within the current process.
  *)
-function SOMGetThreadId: PsomTD_SOMGetThreadId;
+function Replaceable_SOMGetThreadId: PsomTD_SOMGetThreadId;
+function SOMGetThreadId: LongWord;
 
 
 (*----------------------------------------------------------------------
@@ -1878,9 +1920,18 @@ procedure somUnregisterClassLibrary(libraryName: PAnsiChar); stdcall;
 (*
  * Pointers to routines used to do dynamic code loading and deleting
  *)
-function SOMLoadModule: PsomTD_SOMLoadModule;
-function SOMDeleteModule: PsomTD_SOMDeleteModule;
-function SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
+function Replaceable_SOMLoadModule: PsomTD_SOMLoadModule;
+function SOMLoadModule(
+    className: PAnsiChar;
+    fileName: PAnsiChar;
+    functionName: PAnsiChar;
+    majorVersion: LongInt;
+    minorVersion: LongInt;
+    out modHandle: somToken): Integer;
+function Replaceable_SOMDeleteModule: PsomTD_SOMDeleteModule;
+function SOMDeleteModule(modHandle: somToken): Integer;
+function Replaceable_SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
+function SOMClassInitFuncName: PAnsiChar;
 
 
 (*----------------------------------------------------------------------
@@ -1920,7 +1971,8 @@ procedure somSetOutChar(outch: somTD_SOMOutCharRoutine); stdcall;
  *  support.  Initialized to <somOutChar>, but may be reset at anytime.
  *  Should return 0 (false) if an error occurs and 1 (true) otherwise.
  *)
-function SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
+function Replaceable_SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
+function SOMOutCharRoutine(C: AnsiChar): Integer;
 
 
 (*--------------
@@ -2927,7 +2979,9 @@ const
 (*
  * Declare the class creation procedure
  *)
-function SOMObjectNewClass(somtmajorVersion, somtminorVersion: integer4): SOMClass; stdcall;
+function SOMObjectNewClass(
+  somtmajorVersion: integer4 = SOMObject_MajorVersion;
+  somtminorVersion: integer4 = SOMObject_MinorVersion): SOMClass; stdcall;
 
 (*
  * Declare the ABI 2 ClassData structure
@@ -3042,6 +3096,8 @@ type
 (*
  *  The default implementation just calls somDestruct.
  *)
+const
+  somMD_SOMObject_somFree = '::SOMObject::somFree';
 procedure SOMObject_somFree(somSelf: SOMObject);
 
 (*
@@ -3053,6 +3109,8 @@ type
 (*
  *  Return the name of the receiver's class.
  *)
+const
+  somMD_SOMObject_somGetClassName = '::SOMObject::somGetClassName';
 function SOMObject_somGetClassName(somSelf: SOMObject): CORBAString;
 
 // #include <somcls.h>
@@ -3121,8 +3179,9 @@ const
 (*
  * Declare the class creation procedure
  *)
-function SOMClassNewClass(somtmajorVersion,
-  somtminorVersion: integer4): SOMClass; stdcall;
+function SOMClassNewClass(
+  somtmajorVersion: integer4 = SOMClass_MajorVersion;
+  somtminorVersion: integer4 = SOMClass_MinorVersion): SOMClass; stdcall;
 
 (*
  * Declare the ABI 2 ClassData structure
@@ -3238,12 +3297,25 @@ type
  *  calls somDefaultInit to initialize the new object.
  *  Overrides are not expected. NULL is returned on failure.
  *)
+const
+  somMD_SOMClass_somNew = '::SOMClass::somNew';
 function SOMClass_somNew(somSelf: SOMClass): SOMObject;
 
-
-
-
-
+(*
+ * New Method: somRenew
+ *)
+type
+  somTP_SOMClass_somRenew = function(somSelf: SOMClass;
+		obj: Pointer): SOMObject; stdcall;
+  somTD_SOMClass_somRenew = somTP_SOMClass_somRenew;
+(*
+ *  Equivalent to somNew except that storage is not allocated.
+ *  <obj> is taken as the address of the new object.
+ *  Overrides are not expected.
+ *)
+const
+  somMD_SOMClass_somRenew = '::SOMClass::somRenew';
+function SOMClass_somRenew(somSelf: SOMClass; obj: Pointer): SOMObject;
 
 
 
@@ -3374,7 +3446,7 @@ function somGetGlobalEnvironment; external SOM_DLL_Name;
 var
   SOM_DLL_SOM_MajorVersion: PLongInt;
 
-function SOM_MajorVersion: PLongInt;
+function Replaceable_SOM_MajorVersion: PLongInt;
 begin
   if Assigned(SOM_DLL_SOM_MajorVersion) then
     Result := SOM_DLL_SOM_MajorVersion
@@ -3385,10 +3457,15 @@ begin
   end;
 end;
 
+function SOM_MajorVersion: LongInt;
+begin
+  Result := Replaceable_SOM_MajorVersion^;
+end;
+
 var
   SOM_DLL_SOM_MinorVersion: PLongInt;
 
-function SOM_MinorVersion: PLongInt;
+function Replaceable_SOM_MinorVersion: PLongInt;
 begin
   if Assigned(SOM_DLL_SOM_MinorVersion) then
     Result := SOM_DLL_SOM_MinorVersion
@@ -3399,10 +3476,15 @@ begin
   end;
 end;
 
+function SOM_MinorVersion: LongInt;
+begin
+  Result := Replaceable_SOM_MinorVersion^;
+end;
+
 var
   SOM_DLL_SOM_MaxThreads: PLongInt;
 
-function SOM_MaxThreads: PLongInt;
+function Replaceable_SOM_MaxThreads: PLongInt;
 begin
   if Assigned(SOM_DLL_SOM_MaxThreads) then
     Result := SOM_DLL_SOM_MaxThreads
@@ -3413,6 +3495,11 @@ begin
   end;
 end;
 
+function SOM_MaxThreads: LongInt;
+begin
+  Result := Replaceable_SOM_MaxThreads^;
+end;
+
 function somEnvironmentNew; external SOM_DLL_Name;
 procedure somEnvironmentEnd; external SOM_DLL_Name;
 function somMainProgram; external SOM_DLL_Name;
@@ -3421,7 +3508,7 @@ function somAbnormalEnd; external SOM_DLL_Name;
 var
   SOM_DLL_SOMCalloc: PsomTD_SOMCalloc;
 
-function SOMCalloc: PsomTD_SOMCalloc;
+function Replaceable_SOMCalloc: PsomTD_SOMCalloc;
 begin
   if Assigned(SOM_DLL_SOMCalloc) then
     Result := SOM_DLL_SOMCalloc
@@ -3432,10 +3519,15 @@ begin
   end;
 end;
 
+function SOMCalloc(element_count, element_size: UIntPtr): somToken;
+begin
+  Result := Replaceable_SOMCalloc^(element_count, element_size);
+end;
+
 var
   SOM_DLL_SOMFree: PsomTD_SOMFree;
 
-function SOMFree: PsomTD_SOMFree;
+function Replaceable_SOMFree: PsomTD_SOMFree;
 begin
   if Assigned(SOM_DLL_SOMFree) then
     Result := SOM_DLL_SOMFree
@@ -3446,10 +3538,15 @@ begin
   end;
 end;
 
+procedure SOMFree(memory: somToken);
+begin
+  Replaceable_SOMFree^(memory);
+end;
+
 var
   SOM_DLL_SOMMalloc: PsomTD_SOMMalloc;
 
-function SOMMalloc: PsomTD_SOMMalloc;
+function Replaceable_SOMMalloc: PsomTD_SOMMalloc;
 begin
   if Assigned(SOM_DLL_SOMMalloc) then
     Result := SOM_DLL_SOMMalloc
@@ -3460,10 +3557,15 @@ begin
   end;
 end;
 
+function SOMMalloc(nbytes: UIntPtr): somToken;
+begin
+  Result := Replaceable_SOMMalloc^(nbytes);
+end;
+
 var
   SOM_DLL_SOMRealloc: PsomTD_SOMRealloc;
 
-function SOMRealloc: PsomTD_SOMRealloc;
+function Replaceable_SOMRealloc: PsomTD_SOMRealloc;
 begin
   if Assigned(SOM_DLL_SOMRealloc) then
     Result := SOM_DLL_SOMRealloc
@@ -3474,10 +3576,15 @@ begin
   end;
 end;
 
+function SOMRealloc(memory: somToken; nbytes: UIntPtr): somToken;
+begin
+  Result := Replaceable_SOMRealloc^(memory, nbytes);
+end;
+
 var
   SOM_DLL_SOMError: PsomTD_SOMError;
 
-function SOMError: PsomTD_SOMError;
+function Replaceable_SOMError: PsomTD_SOMError;
 begin
   if Assigned(SOM_DLL_SOMError) then
     Result := SOM_DLL_SOMError
@@ -3488,10 +3595,18 @@ begin
   end;
 end;
 
+procedure SOMError(
+    code: Integer;
+    fileName: PAnsiChar;
+    lineNum: Integer);
+begin
+  Replaceable_SOMError^(code, fileName, lineNum);
+end;
+
 var
   SOM_DLL_SOMCreateMutexSem: PsomTD_SOMCreateMutexSem;
 
-function SOMCreateMutexSem: PsomTD_SOMCreateMutexSem;
+function Replaceable_SOMCreateMutexSem: PsomTD_SOMCreateMutexSem;
 begin
   if Assigned(SOM_DLL_SOMCreateMutexSem) then
     Result := SOM_DLL_SOMCreateMutexSem
@@ -3502,10 +3617,15 @@ begin
   end;
 end;
 
+function SOMCreateMutexSem(out sem: somToken): LongWord;
+begin
+  Result := Replaceable_SOMCreateMutexSem^(sem);
+end;
+
 var
   SOM_DLL_SOMRequestMutexSem: PsomTD_SOMRequestMutexSem;
 
-function SOMRequestMutexSem: PsomTD_SOMRequestMutexSem;
+function Replaceable_SOMRequestMutexSem: PsomTD_SOMRequestMutexSem;
 begin
   if Assigned(SOM_DLL_SOMRequestMutexSem) then
     Result := SOM_DLL_SOMRequestMutexSem
@@ -3516,10 +3636,15 @@ begin
   end;
 end;
 
+function SOMRequestMutexSem(sem: somToken): LongWord;
+begin
+  Result := Replaceable_SOMRequestMutexSem^(sem);
+end;
+
 var
   SOM_DLL_SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem;
 
-function SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem;
+function Replaceable_SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem;
 begin
   if Assigned(SOM_DLL_SOMReleaseMutexSem) then
     Result := SOM_DLL_SOMReleaseMutexSem
@@ -3530,10 +3655,15 @@ begin
   end;
 end;
 
+function SOMReleaseMutexSem(sem: somToken): LongWord;
+begin
+  Result := Replaceable_SOMReleaseMutexSem^(sem);
+end;
+
 var
   SOM_DLL_SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
 
-function SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
+function Replaceable_SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
 begin
   if Assigned(SOM_DLL_SOMDestroyMutexSem) then
     Result := SOM_DLL_SOMDestroyMutexSem
@@ -3544,10 +3674,15 @@ begin
   end;
 end;
 
+function SOMDestroyMutexSem(sem: somToken): LongWord;
+begin
+  Result := Replaceable_SOMDestroyMutexSem^(sem);
+end;
+
 var
   SOM_DLL_SOMGetThreadId: PsomTD_SOMGetThreadId;
 
-function SOMGetThreadId: PsomTD_SOMGetThreadId;
+function Replaceable_SOMGetThreadId: PsomTD_SOMGetThreadId;
 begin
   if Assigned(SOM_DLL_SOMGetThreadId) then
     Result := SOM_DLL_SOMGetThreadId
@@ -3556,6 +3691,11 @@ begin
     SOM_Load_Variable(SOM_DLL_SOMGetThreadId, 'SOMGetThreadId');
     Result := SOM_DLL_SOMGetThreadId;
   end;
+end;
+
+function SOMGetThreadId: LongWord;
+begin
+  Result := Replaceable_SOMGetThreadId^();
 end;
 
 var
@@ -3578,7 +3718,7 @@ procedure somUnregisterClassLibrary; external SOM_DLL_Name;
 var
   SOM_DLL_SOMLoadModule: PsomTD_SOMLoadModule;
 
-function SOMLoadModule: PsomTD_SOMLoadModule;
+function Replaceable_SOMLoadModule: PsomTD_SOMLoadModule;
 begin
   if Assigned(SOM_DLL_SOMLoadModule) then
     Result := SOM_DLL_SOMLoadModule
@@ -3589,10 +3729,22 @@ begin
   end;
 end;
 
+function SOMLoadModule(
+    className: PAnsiChar;
+    fileName: PAnsiChar;
+    functionName: PAnsiChar;
+    majorVersion: LongInt;
+    minorVersion: LongInt;
+    out modHandle: somToken): Integer;
+begin
+  Result := Replaceable_SOMLoadModule^(className, fileName, functionName,
+    majorVersion, minorVersion, modHandle);
+end;
+
 var
   SOM_DLL_SOMDeleteModule: PsomTD_SOMDeleteModule;
 
-function SOMDeleteModule: PsomTD_SOMDeleteModule;
+function Replaceable_SOMDeleteModule: PsomTD_SOMDeleteModule;
 begin
   if Assigned(SOM_DLL_SOMDeleteModule) then
     Result := SOM_DLL_SOMDeleteModule
@@ -3603,10 +3755,15 @@ begin
   end;
 end;
 
+function SOMDeleteModule(modHandle: somToken): Integer;
+begin
+  Result := Replaceable_SOMDeleteModule^(modHandle);
+end;
+
 var
   SOM_DLL_SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
 
-function SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
+function Replaceable_SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
 begin
   if Assigned(SOM_DLL_SOMClassInitFuncName) then
     Result := SOM_DLL_SOMClassInitFuncName
@@ -3615,6 +3772,11 @@ begin
     SOM_Load_Variable(SOM_DLL_SOMClassInitFuncName, 'SOMClassInitFuncName');
     Result := SOM_DLL_SOMClassInitFuncName;
   end;
+end;
+
+function SOMClassInitFuncName: PAnsiChar;
+begin
+  Result := Replaceable_SOMClassInitFuncName^();
 end;
 
 function somPrintf; external SOM_DLL_Name;
@@ -3626,7 +3788,7 @@ procedure somSetOutChar; external SOM_DLL_Name;
 var
   SOM_DLL_SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
 
-function SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
+function Replaceable_SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
 begin
   if Assigned(SOM_DLL_SOMOutCharRoutine) then
     Result := SOM_DLL_SOMOutCharRoutine
@@ -3635,6 +3797,11 @@ begin
     SOM_Load_Variable(SOM_DLL_SOMOutCharRoutine, 'SOMOutCharRoutine');
     Result := SOM_DLL_SOMOutCharRoutine;
   end;
+end;
+
+function SOMOutCharRoutine(C: AnsiChar): Integer;
+begin
+  Result := Replaceable_SOMOutCharRoutine^(C);
 end;
 
 function somResolve; external SOM_DLL_Name;
@@ -3813,6 +3980,16 @@ begin
   Result :=
     somTD_SOMClass_somNew
      (SOM_Resolve(SOMObject(somSelf), cd.classObject, cd.somNew))(somSelf);
+end;
+
+function SOMClass_somRenew(somSelf: SOMClass; obj: Pointer): SOMObject;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somRenew
+     (SOM_Resolve(SOMObject(somSelf), cd.classObject, cd.somRenew))(somSelf, obj);
 end;
 
 // #include <somcm.h>
