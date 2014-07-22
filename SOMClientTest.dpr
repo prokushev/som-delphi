@@ -26,7 +26,7 @@ end;
 
 procedure TestSOM_Renew;
 begin
-
+  Writeln('SOMObject''s size is ', SOMClass_somGetInstanceSize(_SOMCLASS_SOMObject));
 end;
 
 begin
@@ -37,7 +37,7 @@ begin
     ev := somGetGlobalEnvironment;
     SOMObjectNewClass;
     TestSOM_Basic;
-
+    TestSOM_Renew;
   except
     on e: Exception do
       WriteLn(GetTypeData(e.ClassInfo).UnitName + '.' + e.ClassName + ':' + e.Message);

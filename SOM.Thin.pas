@@ -3163,7 +3163,7 @@ function _SOMCLASS_SOMObject: SOMClass;
  * New and Renew macros for SOMObject
  *)
 function SOMObjectNew: SOMObject;
-(* function SOMObjectRenew(buf: Pointer): SOMObject; *)
+function SOMObjectRenew(buf: Pointer): SOMObject;
 
 (*
  * New Method: somDefaultInit
@@ -3427,6 +3427,19 @@ const
   somMD_SOMClass_somRenew = '::SOMClass::somRenew';
 function SOMClass_somRenew(somSelf: SOMClass; obj: Pointer): SOMObject;
 
+(*
+ * New Method: somGetInstanceSize
+ *)
+type
+  somTP_SOMClass_somGetInstanceSize = function(somSelf: SOMClass): LongInt; stdcall;
+  somTD_SOMClass_somGetInstanceSize = somTP_SOMClass_somGetInstanceSize;
+(*
+ *  The total size of an instance of the receiving class.
+ *  Overrides are not expected.
+ *)
+const
+  somMD_SOMClass_somGetInstanceSize = '::SOMClass::somGetInstanceSize';
+function SOMClass_somGetInstanceSize(somSelf: SOMClass): LongInt;
 
 
 
@@ -4059,26 +4072,24 @@ begin
   cls := _SOMCLASS_SOMObject;
   if not Assigned(cls) then
   begin
-	  SOMObjectNewClass(
-  		SOMObject_MajorVersion,
-	  	SOMObject_MinorVersion);
+    SOMObjectNewClass;
+    cls := _SOMCLASS_SOMObject;
   end;
   Result := SOMClass_somNew(cls);
 end;
 
-(* function SOMObjectRenew(buf: Pointer): SOMObject;
+function SOMObjectRenew(buf: Pointer): SOMObject;
 var
   cls: SOMClass;
 begin
   cls := _SOMCLASS_SOMObject;
   if not Assigned(cls) then
   begin
-	  SOMObjectNewClass(
-  		SOMObject_MajorVersion,
-	  	SOMObject_MinorVersion);
+	  SOMObjectNewClass;
+    cls := _SOMCLASS_SOMObject;
   end;
-	Result := _somRenew(_SOMObject, buf);
-end; *)
+	Result := SOMClass_somRenew(cls, buf);
+end;
 
 procedure SOMObject_somFree(somSelf: SOMObject);
 var
@@ -4149,6 +4160,16 @@ begin
   Result :=
     somTD_SOMClass_somRenew
      (SOM_Resolve(somSelf, cd.classObject, cd.somRenew))(somSelf, obj);
+end;
+
+function SOMClass_somGetInstanceSize(somSelf: SOMClass): LongInt;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetInstanceSize
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceSize))(somSelf);
 end;
 
 // #include <somcm.h>
