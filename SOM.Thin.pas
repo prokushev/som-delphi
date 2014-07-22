@@ -82,7 +82,7 @@ type
    (*  call somresolve_ but test that the object is well formed and an
        instance of the specified class or a class derived from that class *)
 
-// function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMethodProc): somMethodProc; // (moved down)
+// function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; // (moved down)
 
 (* Check the validity of method resolution using the specified target  *)
 (* object.  Note: this macro makes programs bigger and slower.	After  *)
@@ -1529,7 +1529,7 @@ type
    (*  call somresolve_ but test that the object is well formed and an
        instance of the specified class or a class derived from that class *)
 
-function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMethodProc): somMethodProc;
+function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
 
 (* Check the validity of method resolution using the specified target  *)
 (* object.  Note: this macro makes programs bigger and slower.	After  *)
@@ -3042,7 +3042,7 @@ type
 (*
  *  The default implementation just calls somDestruct.
  *)
-(* procedure SOMObject_somFree(somSelf: SOMObject); *)
+procedure SOMObject_somFree(somSelf: SOMObject);
 
 (*
  * New Method: somGetClassName
@@ -3053,7 +3053,7 @@ type
 (*
  *  Return the name of the receiver's class.
  *)
-
+function SOMObject_somGetClassName(somSelf: SOMObject): CORBAString;
 
 // #include <somcls.h>
 
@@ -3279,7 +3279,7 @@ end;
 
 // #include <somcdev.h>
 
-function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMethodProc): somMethodProc;
+function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
 begin
   SOM_TestCls(o, oc);
   Result := m;
@@ -3736,7 +3736,7 @@ begin
   		SOMObject_MajorVersion,
 	  	SOMObject_MinorVersion);
   end;
-  Result := SOMClass_somNew(_SOMCLASS_SOMObject);
+  Result := SOMClass_somNew(cls);
 end;
 
 (* function SOMObjectRenew(buf: Pointer): SOMObject;
@@ -3752,6 +3752,26 @@ begin
   end;
 	Result := _somRenew(_SOMObject, buf);
 end; *)
+
+procedure SOMObject_somFree(somSelf: SOMObject);
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  somTD_SOMObject_somFree
+   (SOM_Resolve(SOMObject(somSelf), cd.classObject, cd.somFree))(somSelf);
+end;
+
+function SOMObject_somGetClassName(somSelf: SOMObject): CORBAString;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somGetClassName
+     (SOM_Resolve
+       (SOMObject(somSelf), cd.classObject, cd.somGetClassName))(somSelf);
+end;
 
 // #include <somcls.h>
 
@@ -3786,13 +3806,13 @@ begin
 end;
 
 function SOMClass_somNew(somSelf: SOMClass): SOMObject;
+var
+  cd: PSOMClassClassDataStructure;
 begin
+  cd := SOMClassClassData;
   Result :=
     somTD_SOMClass_somNew
-     (SOM_Resolve
-       (somSelf,
-        SOMClassClassData.classObject,
-        SOMClassClassData.somNew))(somSelf);
+     (SOM_Resolve(SOMObject(somSelf), cd.classObject, cd.somNew))(somSelf);
 end;
 
 // #include <somcm.h>

@@ -1,6 +1,7 @@
 program SOMClientTest;
 
 {$APPTYPE CONSOLE}
+{$WARN UNSAFE_TYPE OFF}
 
 uses
   SysUtils, TypInfo,
@@ -11,12 +12,18 @@ uses
 procedure TestSOM_Basic;
 var
   ev: PEnvironment;
+  o: SOMObject;
+  s: CORBAString;
 begin
   WriteLn('Testing SOM v', SOM_MajorVersion^, '.', SOM_MinorVersion^);
   ev := somGetGlobalEnvironment;
 
   SOMObjectNewClass(SOMObject_MajorVersion, SOMObject_MinorVersion);
-  
+  o := SOMObjectNew;
+  s := SOMObject_somGetClassName(o);
+  WriteLn('Object''s class name is ', s);
+  SOMFree^(s);
+  SOMObject_somFree(o);
 end;
 
 begin
