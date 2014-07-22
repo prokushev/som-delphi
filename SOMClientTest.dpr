@@ -33,6 +33,7 @@ begin
   { TODO -oUser -cConsole Main : Insert code here }
   try
     WriteLn('Testing SOMObject v', SOM_MajorVersion, '.', SOM_MinorVersion);
+    SOM_MainProgram;
     ev := somGetGlobalEnvironment;
     SOMObjectNewClass;
     TestSOM_Basic;

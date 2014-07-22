@@ -42,20 +42,20 @@ type
 // #include <somtypes.h>
 
   somMethodTabPtr = ^somMethodTab;
-  SOMAnyStrict = record
+  SOMAnyStruct = record
     mtab: somMethodTabPtr;
     body: array[0 .. 0] of integer4;
   end;
-  SOMAny_struct = SOMAnyStrict;
+  SOMAny_struct = SOMAnyStruct;
 
 (* SOM Primitive Classes *)
-  SOMObject = ^SOMAnyStrict;
+  SOMObject = ^SOMAnyStruct;
   PSOMObject = ^SOMObject;
   PPSOMObject = ^PSOMObject;
-  SOMClass = type SOMObject;
+  SOMClass = SOMObject;
   PSOMClass = ^SOMClass;
   PPSOMClass = ^PSOMClass;
-  SOMClassMgr = type SOMClass;
+  SOMClassMgr = SOMClass;
   PSOMClassMgr = ^SOMClassMgr;
   PPSOMClassMgr = ^PSOMClassMgr;
 
@@ -83,6 +83,26 @@ type
        instance of the specified class or a class derived from that class *)
 
 // function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; // (moved down)
+
+(* from oc's mtbl, without verification of o *)
+// function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; // (moved down)
+
+  (*
+   * Main programs should register for SOM cleanup at exit
+   *)
+
+// function SOM_MainProgram: SOMClassMgr; // (moved down)
+
+(*
+ * Macro to get class object
+ *)
+// function SOM_GetClass(obj: SOMObject): SOMClass; // (moved down)
+
+(*
+ * This macro is used throughout the generated source
+ * to prevent compiler warnings for unreferenced variables
+ *)
+// procedure SOM_IgnoreWarning(var v); // (moved down)
 
 (* Check the validity of method resolution using the specified target  *)
 (* object.  Note: this macro makes programs bigger and slower.	After  *)
@@ -275,6 +295,41 @@ type
 // procedure somSetException(ev: PEnvironment;
 //     major: exception_type; exception_name: PAnsiChar; params: Pointer); stdcall; // (moved down)
 // function somGetGlobalEnvironment: PEnvironment; stdcall; // (moved down)
+
+(* Exception function names per CORBA 5.19, p.99 *)
+// function exception_id(ev: PEnvironment): PAnsiChar; stdcall; // (moved down)
+// function exception_value(ev: PEnvironment): Pointer; stdcall; // (moved down)
+// procedure exception_free(ev: PEnvironment); stdcall; // (moved down)
+
+{ #define SOM_InterfaceRepository\
+    (__get_somInterfaceRepository(SOMClassMgrObject)) }
+
+(*  Convenience macros for manipulating environment structures
+ *
+ *  SOM_CreateLocalEnvironment returns a pointer to an Environment.
+ *  The other 3 macros all expect a single argument that is also
+ *  a pointer to an Environment.  Use the create/destroy forms for
+ *  a dynamic local environment and the init/uninit forms for a stack-based
+ *  local environment.
+ *
+ *  For example
+ *
+ *      Environment *ev;
+ *      ev = SOM_CreateLocalEnvironment ();
+ *      ... Use ev in methods
+ *      SOM_DestroyLocalEnvironment (ev);
+ *
+ *  or
+ *
+ *      Environment ev;
+ *      SOM_InitEnvironment (&ev);
+ *      ... Use &ev in methods
+ *      SOM_UninitEnvironment (&ev);
+ *)
+// function SOM_CreateLocalEnvironment: PEnvironment; // (moved down)
+// procedure SOM_DestroyLocalEnvironment(ev: PEnvironment); // (moved down)
+// procedure SOM_InitEnvironment(ev: PEnvironment); // (moved down)
+// procedure SOM_UninitEnvironment(ev: PEnvironment); // (moved down)
 
 // #include <somapi.h>
 
@@ -1557,6 +1612,26 @@ type
 
 function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
 
+(* from oc's mtbl, without verification of o *)
+function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
+
+  (*
+   * Main programs should register for SOM cleanup at exit
+   *)
+
+function SOM_MainProgram: SOMClassMgr;
+
+(*
+ * Macro to get class object
+ *)
+function SOM_GetClass(obj: SOMObject): SOMClass;
+
+(*
+ * This macro is used throughout the generated source
+ * to prevent compiler warnings for unreferenced variables
+ *)
+procedure SOM_IgnoreWarning(var v);
+
 (* Check the validity of method resolution using the specified target  *)
 (* object.  Note: this macro makes programs bigger and slower.	After  *)
 (* you are confident that your program is running correctly you should *)
@@ -1748,6 +1823,41 @@ procedure somExceptionFree(ev: PEnvironment); stdcall;
 procedure somSetException(ev: PEnvironment;
     major: exception_type; exception_name: PAnsiChar; params: Pointer); stdcall;
 function somGetGlobalEnvironment: PEnvironment; stdcall;
+
+(* Exception function names per CORBA 5.19, p.99 *)
+function exception_id(ev: PEnvironment): PAnsiChar; stdcall;
+function exception_value(ev: PEnvironment): Pointer; stdcall;
+procedure exception_free(ev: PEnvironment); stdcall;
+
+{ #define SOM_InterfaceRepository\
+    (__get_somInterfaceRepository(SOMClassMgrObject)) }
+
+(*  Convenience macros for manipulating environment structures
+ *
+ *  SOM_CreateLocalEnvironment returns a pointer to an Environment.
+ *  The other 3 macros all expect a single argument that is also
+ *  a pointer to an Environment.  Use the create/destroy forms for
+ *  a dynamic local environment and the init/uninit forms for a stack-based
+ *  local environment.
+ *
+ *  For example
+ *
+ *      Environment *ev;
+ *      ev = SOM_CreateLocalEnvironment ();
+ *      ... Use ev in methods
+ *      SOM_DestroyLocalEnvironment (ev);
+ *
+ *  or
+ *
+ *      Environment ev;
+ *      SOM_InitEnvironment (&ev);
+ *      ... Use &ev in methods
+ *      SOM_UninitEnvironment (&ev);
+ *)
+function SOM_CreateLocalEnvironment: PEnvironment;
+procedure SOM_DestroyLocalEnvironment(ev: PEnvironment);
+procedure SOM_InitEnvironment(ev: PEnvironment);
+procedure SOM_UninitEnvironment(ev: PEnvironment);
 
 // #include <somapi.h>
 
@@ -3332,9 +3442,11 @@ uses
 
 const
   SOM_DLL_Name = 'som.dll';
+
 var
   SOM_DLL: System.HMODULE = 0;
   DLLLoad_CriticalSection : Windows.TRTLCriticalSection;
+  SOM_MainProgram_Called : Boolean = False;
 
 procedure SOM_Load_Variable(var V_Pointer; const Var_Name: AnsiString);
 begin
@@ -3355,6 +3467,26 @@ function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
 begin
   SOM_TestCls(o, oc);
   Result := m;
+end;
+
+function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
+begin
+  Result := m;
+end;
+
+function SOM_MainProgram: SOMClassMgr;
+begin
+  SOM_MainProgram_Called := True;
+  Result := somMainProgram;
+end;
+
+function SOM_GetClass(obj: SOMObject): SOMClass;
+begin
+  Result := obj.mtab.classObject;
+end;
+
+procedure SOM_IgnoreWarning(var v);
+begin
 end;
 
 function SOM_TestCls(obj: SOMObject; cls: SOMClass): SOMObject;
@@ -3440,6 +3572,34 @@ function somExceptionValue; external SOM_DLL_Name;
 procedure somExceptionFree; external SOM_DLL_Name;
 procedure somSetException; external SOM_DLL_Name;
 function somGetGlobalEnvironment; external SOM_DLL_Name;
+function exception_id; external SOM_DLL_Name name 'somExceptionId';
+function exception_value; external SOM_DLL_Name name 'somExceptionValue';
+procedure exception_free; external SOM_DLL_Name name 'somExceptionFree';
+
+function SOM_CreateLocalEnvironment: PEnvironment;
+begin
+  Result := PEnvironment(SOMCalloc(1, SizeOf(Environment)));
+end;
+
+procedure SOM_DestroyLocalEnvironment(ev: PEnvironment);
+begin
+  somExceptionFree(ev);
+  if somGetGlobalEnvironment <> ev then
+    SOMFree(ev);
+end;
+
+procedure SOM_InitEnvironment(ev: PEnvironment);
+begin
+  if somGetGlobalEnvironment <> ev then
+  begin
+    FillChar(ev^, SizeOf(Environment), 0);
+  end;
+end;
+
+procedure SOM_UninitEnvironment(ev: PEnvironment);
+begin
+  somExceptionFree(ev);
+end;
 
 // #include <somapi.h>
 
@@ -3926,7 +4086,7 @@ var
 begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
-   (SOM_Resolve(SOMObject(somSelf), cd.classObject, cd.somFree))(somSelf);
+   (SOM_Resolve(somSelf, cd.classObject, cd.somFree))(somSelf);
 end;
 
 function SOMObject_somGetClassName(somSelf: SOMObject): CORBAString;
@@ -3936,8 +4096,7 @@ begin
   cd := SOMObjectClassData;
   Result :=
     somTD_SOMObject_somGetClassName
-     (SOM_Resolve
-       (SOMObject(somSelf), cd.classObject, cd.somGetClassName))(somSelf);
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))(somSelf);
 end;
 
 // #include <somcls.h>
@@ -3979,7 +4138,7 @@ begin
   cd := SOMClassClassData;
   Result :=
     somTD_SOMClass_somNew
-     (SOM_Resolve(SOMObject(somSelf), cd.classObject, cd.somNew))(somSelf);
+     (SOM_Resolve(somSelf, cd.classObject, cd.somNew))(somSelf);
 end;
 
 function SOMClass_somRenew(somSelf: SOMClass; obj: Pointer): SOMObject;
@@ -3989,7 +4148,7 @@ begin
   cd := SOMClassClassData;
   Result :=
     somTD_SOMClass_somRenew
-     (SOM_Resolve(SOMObject(somSelf), cd.classObject, cd.somRenew))(somSelf, obj);
+     (SOM_Resolve(somSelf, cd.classObject, cd.somRenew))(somSelf, obj);
 end;
 
 // #include <somcm.h>
@@ -3998,6 +4157,10 @@ initialization
   Windows.InitializeCriticalSection(DLLLoad_CriticalSection);
 
 finalization
+  if SOM_MainProgram_Called then
+  begin
+    somEnvironmentEnd;
+  end;
   if SOM_DLL <> 0 then
   begin
     Windows.EnterCriticalSection(DLLLoad_CriticalSection);
