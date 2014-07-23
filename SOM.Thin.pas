@@ -406,7 +406,7 @@ type
  *
  *  Returns the SOMClassMgrObject
  *)
-// function somEnvironmentNew: PSOMClassMgr; stdcall; // (moved down)
+// function somEnvironmentNew: SOMClassMgr; stdcall; // (moved down)
 
 // procedure somEnvironmentEnd; stdcall; // (moved down)
 // function somMainProgram: SOMClassMgr; stdcall; // (moved down)
@@ -475,7 +475,8 @@ type
 (*
  * Global class manager object
  *)
-// function SOMClassMgrObject: PPSOMClassMgr; // (moved down)
+// function Replaceable_SOMClassMgrObject: PSOMClassMgr; // (moved down)
+// function SOMClassMgrObject: SOMClassMgr; // (moved down)
 
 (*
  * The somRegisterClassLibrary function is provided for use in SOM class
@@ -629,6 +630,7 @@ type
   end;
   somAssignCtrlStruct = somAssignCtrl;
   som3AssignCtrl = somAssignCtrl;
+  som3AssignCtrlPtr = ^somAssignCtrl;
 
 (*-----------------------------------------------
  * Common Typedefs & Data Structures for SOM
@@ -1578,11 +1580,11 @@ type
 //   PSOMObject = ^SOMObject;
 //   PPSOMObject = ^PSOMObject;
 //   PPPSOMObject = ^PPSOMObject;
-//   SOMClass = type SOMObject;
+//   SOMClass = SOMObject;
 //   PSOMClass = ^SOMClass;
 //   PPSOMClass = ^PSOMClass;
 //   PPPSOMClass = ^PPSOMClass;
-//   SOMClassMgr = type SOMClass;
+//   SOMClassMgr = SOMClass;
 //   PSOMClassMgr = ^SOMClassMgr;
 //   PPSOMClassMgr = ^PSOMClassMgr;
 //   PPPSOMClassMgr = ^PPSOMClassMgr;
@@ -2003,7 +2005,8 @@ function SOMGetThreadId: LongWord;
 (*
  * Global class manager object
  *)
-function SOMClassMgrObject: PSOMClassMgr;
+function Replaceable_SOMClassMgrObject: PSOMClassMgr;
+function SOMClassMgrObject: SOMClassMgr;
 
 (*
  * The somRegisterClassLibrary function is provided for use in SOM class
@@ -3178,15 +3181,15 @@ type
  *  object being initialized, whereby the initializer will determine
  *  an appropriate control structure.
  *)
-(* procedure SOMObject_somDefaultInit(somSelf: SOMObject; ctrl: som3InitCtrlPtr); *)
+const somMD_SOMObject_somDefaultInit = '::SOMObject::somDefaultInit';
+procedure SOMObject_somDefaultInit(somSelf: SOMObject; ctrl: som3InitCtrlPtr);
 
 (*
  * New Method: somDestruct
  *)
 type
   somTP_SOMObject_somDestruct = procedure(somSelf: SOMObject;
-		doFree: octet;
-		ctrl: som3DestructCtrlPtr); stdcall;
+		doFree: octet; ctrl: som3DestructCtrlPtr); stdcall;
   somTD_SOMObject_somDestruct = somTP_SOMObject_somDestruct;
 (*
  *  The default destructor for a SOM object. A nonzero <doFree>
@@ -3194,8 +3197,123 @@ type
  *  object's class (via somDeallocate) after uninitialization.
  *  As with somDefaultInit, a null ctrl can be passed.
  *)
-(* procedure SOMObject_somDestruct(somSelf: SOMObject;
-		doFree: octet; ctrl: som3DestructCtrlPtr); *)
+const somMD_SOMObject_somDestruct = '::SOMObject::somDestruct';
+procedure SOMObject_somDestruct(somSelf: SOMObject;
+		doFree: octet; ctrl: som3DestructCtrlPtr);
+
+(*
+ * New Method: somDefaultCopyInit
+ *)
+type
+  somTP_SOMObject_somDefaultCopyInit = procedure(somSelf: SOMObject;
+		ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
+  somTD_SOMObject_somDefaultCopyInit = somTP_SOMObject_somDefaultCopyInit;
+(*
+ *  A default copy constructor. Use this to make copies of objects for
+ *  calling methods with "by-value" argument semantics.
+ *)
+const somMD_SOMObject_somDefaultCopyInit = '::SOMObject::somDefaultCopyInit';
+procedure SOMObject_somDefaultCopyInit(somSelf: SOMObject;
+	ctrl: som3InitCtrlPtr; fromObj: SOMObject);
+
+(*
+ * New Method: somDefaultAssign
+ *)
+type
+  somTP_SOMObject_somDefaultAssign = function(somSelf: SOMObject;
+		ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; stdcall;
+  somTD_SOMObject_somDefaultAssign = somTP_SOMObject_somDefaultAssign;
+(*
+ *  A default assignment operator. Use this to "assign" the state of one
+ *  object to another.
+ *)
+const somMD_SOMObject_somDefaultAssign = '::SOMObject::somDefaultAssign';
+function SOMObject_somDefaultAssign(somSelf: SOMObject;
+	ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject;
+
+(*
+ * New Method: somDefaultConstCopyInit
+ *)
+type
+  somTP_SOMObject_somDefaultConstCopyInit = procedure(somSelf: SOMObject;
+		ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
+  somTD_SOMObject_somDefaultConstCopyInit = somTP_SOMObject_somDefaultConstCopyInit;
+(*
+ *  A default copy constructor that uses a const fromObj.
+ *)
+const somMD_SOMObject_somDefaultConstCopyInit = '::SOMObject::somDefaultConstCopyInit';
+procedure SOMObject_somDefaultConstCopyInit(somSelf: SOMObject;
+	ctrl: som3InitCtrlPtr; fromObj: SOMObject);
+
+(*
+ * New Method: somDefaultVCopyInit
+ *)
+type
+  somTP_SOMObject_somDefaultVCopyInit = procedure(somSelf: SOMObject;
+		ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
+  somTD_SOMObject_somDefaultVCopyInit = somTP_SOMObject_somDefaultVCopyInit;
+(*
+ *  A default copy constructor that uses a volatile fromObj.
+ *)
+const somMD_SOMObject_somDefaultVCopyInit = '::SOMObject::somDefaultVCopyInit';
+procedure SOMObject_somDefaultVCopyInit(somSelf: SOMObject;
+	ctrl: som3InitCtrlPtr; fromObj: SOMObject);
+
+(*
+ * New Method: somDefaultConstVCopyInit
+ *)
+type
+  somTP_SOMObject_somDefaultConstVCopyInit = procedure(somSelf: SOMObject;
+		ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
+  somTD_SOMObject_somDefaultConstVCopyInit = somTP_SOMObject_somDefaultConstVCopyInit;
+(*
+ *  A default copy constructor that uses a const volatile fromObj.
+ *)
+const somMD_SOMObject_somDefaultConstVCopyInit = '::SOMObject::somDefaultConstVCopyInit';
+procedure SOMObject_somDefaultConstVCopyInit(somSelf: SOMObject;
+		ctrl: som3InitCtrlPtr; fromObj: SOMObject);
+
+(*
+ * New Method: somDefaultConstAssign
+ *)
+type
+  somTP_SOMObject_somDefaultConstAssign = function(somSelf: SOMObject;
+    ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; stdcall;
+  somTD_SOMObject_somDefaultConstAssign = somTP_SOMObject_somDefaultConstAssign;
+(*
+ *  A default assignment operator that uses a const fromObj.
+ *)
+const somMD_SOMObject_somDefaultConstAssign = '::SOMObject::somDefaultConstAssign';
+function SOMObject_somDefaultConstAssign(somSelf: SOMObject;
+  ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject;
+
+(*
+ * New Method: somDefaultVAssign
+ *)
+type
+  somTP_SOMObject_somDefaultVAssign = function(somSelf: SOMObject;
+  	ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; stdcall;
+  somTD_SOMObject_somDefaultVAssign = somTP_SOMObject_somDefaultVAssign;
+(*
+ *  A default assignment operator that uses a volatile fromObj.
+ *)
+const somMD_SOMObject_somDefaultVAssign = '::SOMObject::somDefaultVAssign';
+function SOMObject_somDefaultVAssign(somSelf: SOMObject;
+  ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject;
+
+(*
+ * New Method: somDefaultConstVAssign
+ *)
+type
+  somTP_SOMObject_somDefaultConstVAssign = function(somSelf: SOMObject;
+		ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; stdcall;
+  somTD_SOMObject_somDefaultConstVAssign = somTP_SOMObject_somDefaultConstVAssign;
+(*
+ *  A default assignment operator that uses a const volatile fromObj.
+ *)
+const somMD_SOMObject_somDefaultConstVAssign = '::SOMObject::somDefaultConstVAssign';
+function SOMObject_somDefaultConstVAssign(somSelf: SOMObject;
+	ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject;
 
 (*
  * New Method: somInit
@@ -3206,8 +3324,7 @@ type
 (*
  *  Obsolete but still supported. Override somDefaultInit instead of somInit.
  *)
-const
-  somMD_SOMObject_somInit = '::SOMObject::somInit';
+const somMD_SOMObject_somInit = '::SOMObject::somInit';
 procedure SOMObject_somInit(somSelf: SOMObject);
 
 (*
@@ -3219,8 +3336,7 @@ type
 (*
  *  Obsolete but still supported. Override somDestruct instead of somUninit.
  *)
-const
-  somMD_SOMObject_somUninit = '::SOMObject::somUninit';
+const somMD_SOMObject_somUninit = '::SOMObject::somUninit';
 procedure SOMObject_somUninit(somSelf: SOMObject);
 
 (*
@@ -3232,9 +3348,20 @@ type
 (*
  *  The default implementation just calls somDestruct.
  *)
-const
-  somMD_SOMObject_somFree = '::SOMObject::somFree';
+const somMD_SOMObject_somFree = '::SOMObject::somFree';
 procedure SOMObject_somFree(somSelf: SOMObject);
+
+(*
+ * New Method: somGetClass
+ *)
+type
+  somTP_SOMObject_somGetClass = function(somSelf: SOMObject): SOMClass; stdcall;
+  somTD_SOMObject_somGetClass = somTP_SOMObject_somGetClass;
+(*
+ *  Return the receiver's class.
+ *)
+const somMD_SOMObject_somGetClass = '::SOMObject::somGetClass';
+function SOMObject_somGetClass(somSelf: SOMObject): SOMClass;
 
 (*
  * New Method: somGetClassName
@@ -3245,9 +3372,213 @@ type
 (*
  *  Return the name of the receiver's class.
  *)
-const
-  somMD_SOMObject_somGetClassName = '::SOMObject::somGetClassName';
+const somMD_SOMObject_somGetClassName = '::SOMObject::somGetClassName';
 function SOMObject_somGetClassName(somSelf: SOMObject): CORBAString;
+
+(*
+ * New Method: somGetSize
+ *)
+type
+  somTP_SOMObject_somGetSize = function(somSelf: SOMObject): LongInt; stdcall;
+  somTD_SOMObject_somGetSize = somTP_SOMObject_somGetSize;
+(*
+ *  Return the size of the receiver.
+ *)
+const somMD_SOMObject_somGetSize = '::SOMObject::somGetSize';
+function SOMObject_somGetSize(somSelf: SOMObject): LongInt;
+
+(*
+ * New Method: somIsA
+ *)
+type
+  somTP_SOMObject_somIsA = function(somSelf: SOMObject;
+		aClassObj: SOMClass): CORBABoolean; stdcall;
+  somTD_SOMObject_somIsA = somTP_SOMObject_somIsA;
+(*
+ *  Returns 1 (true) if the receiver responds to methods
+ *  introduced by <aClassObj>, and 0 (false) otherwise.
+ *)
+const somMD_SOMObject_somIsA = '::SOMObject::somIsA';
+function SOMObject_somIsA(somSelf: SOMObject;
+  aClassObj: SOMClass): CORBABoolean;
+
+(*
+ * New Method: somIsInstanceOf
+ *)
+type
+  somTP_SOMObject_somIsInstanceOf = function(somSelf: SOMObject;
+		aClassObj: SOMClass): CORBABoolean; stdcall;
+  somTD_SOMObject_somIsInstanceOf = somTP_SOMObject_somIsInstanceOf;
+(*
+ *  Returns 1 (true) if the receiver is an instance of
+ *  <aClassObj> and 0 (false) otherwise.
+ *)
+const somMD_SOMObject_somIsInstanceOf = '::SOMObject::somIsInstanceOf';
+function SOMObject_somIsInstanceOf(somSelf: SOMObject;
+	aClassObj: SOMClass): CORBABoolean;
+
+(*
+ * New Method: somRespondsTo
+ *)
+type
+  somTP_SOMObject_somRespondsTo = function(somSelf: SOMObject;
+		mId: somId): CORBABoolean; stdcall;
+  somTD_SOMObject_somRespondsTo = somTP_SOMObject_somRespondsTo;
+(*
+ *  Returns 1 (true) if the indicated method can be invoked
+ *  on the receiver and 0 (false) otherwise.
+ *)
+const somMD_SOMObject_somRespondsTo = '::SOMObject::somRespondsTo';
+function SOMObject_somRespondsTo(somSelf: SOMObject;
+	mId: somId): CORBABoolean;
+
+(*
+ * New Method: somDispatch
+ *)
+type
+  somTP_SOMObject_somDispatch = function(somSelf: SOMObject;
+		retValue: somTokenPtr;
+		methodId: somId;
+		ap: va_list): CORBABoolean; stdcall;
+  somTD_SOMObject_somDispatch = somTP_SOMObject_somDispatch;
+(*
+ *  This method provides a generic, class-specific dispatch mechanism.
+ *  It accepts as input <retValue> a pointer to the memory area to be
+ *  loaded with the result of dispatching the method indicated by
+ *  <methodId> using the arguments in <ap>. <ap> contains the object
+ *  on which the method is to be invoked as the first argument.
+ *
+ *  Default redispatch stubs invoke this method.
+ *)
+const somMD_SOMObject_somDispatch = '::SOMObject::somDispatch';
+function SOMObject_somDispatch(somSelf: SOMObject;
+	retValue: somTokenPtr;
+	methodId: somId;
+	ap: va_list): CORBABoolean;
+
+(*
+ * normal vararg stubs
+ *)
+function somva_SOMObject_somDispatch(somSelf: SOMObject;
+	retValue: somTokenPtr;
+	methodId: somId): CORBABoolean; cdecl; varargs;
+
+(*
+ * New Method: somClassDispatch
+ *)
+type
+  somTP_SOMObject_somClassDispatch = function(somSelf: SOMObject;
+		clsObj: SOMClass;
+		retValue: somTokenPtr;
+		methodId: somId;
+		ap: va_list): CORBABoolean; stdcall;
+  somTD_SOMObject_somClassDispatch = somTP_SOMObject_somClassDispatch;
+(*
+ *  Like somDispatch, but method resolution for static methods is done
+ *  according to the clsObj instance method table.
+ *)
+const somMD_SOMObject_somClassDispatch = '::SOMObject::somClassDispatch';
+function SOMObject_somClassDispatch(somSelf: SOMObject;
+	clsObj: SOMClass;
+	retValue: somTokenPtr;
+	methodId: somId;
+	ap: va_list): CORBABoolean;
+
+(*
+ * normal vararg stubs
+ *)
+function somva_SOMObject_somClassDispatch(somSelf: SOMObject;
+	clsObj: SOMClass;
+	retValue: somTokenPtr;
+	methodId: somId): CORBABoolean; cdecl; varargs;
+
+(*
+ * New Method: somCastObj
+ *)
+type
+  somTP_SOMObject_somCastObj = function(somSelf: SOMObject;
+		castedCls: SOMClass): CORBABoolean; stdcall;
+  somTD_SOMObject_somCastObj = somTP_SOMObject_somCastObj;
+(*
+ *  Changes the behavior of the target object to that implemented
+ *  by castedCls. This is possible when all concrete data in castedCls
+ *  is also concrete in the true class of the target object.
+ *  Returns true (1) on success, and false (0) otherwise.
+ *)
+const somMD_SOMObject_somCastObj = '::SOMObject::somCastObj';
+function SOMObject_somCastObj(somSelf: SOMObject;
+	castedCls: SOMClass): CORBABoolean;
+
+(*
+ * New Method: somResetObj
+ *)
+type
+  somTP_SOMObject_somResetObj = function(somSelf: SOMObject): CORBABoolean; stdcall;
+  somTD_SOMObject_somResetObj = somTP_SOMObject_somResetObj;
+(*
+ *  reset an object to its true class. Returns true always.
+ *)
+const somMD_SOMObject_somResetObj = '::SOMObject::somResetObj';
+function SOMObject_somResetObj(somSelf: SOMObject): CORBABoolean;
+
+(*
+ * New Method: somPrintSelf
+ *)
+type
+  somTP_SOMObject_somPrintSelf = function(somSelf: SOMObject): SOMObject; stdcall;
+  somTD_SOMObject_somPrintSelf = somTP_SOMObject_somPrintSelf;
+(*
+ *  Uses <SOMOutCharRoutine> to write a brief string with identifying
+ *  information about this object.  The default implementation just gives
+ *  the object's class name and its address in memory.
+ *  <self> is returned.
+ *)
+const somMD_SOMObject_somPrintSelf = '::SOMObject::somPrintSelf';
+function SOMObject_somPrintSelf(somSelf: SOMObject): SOMObject;
+
+(*
+ * New Method: somDumpSelf
+ *)
+type
+  somTP_SOMObject_somDumpSelf = procedure(somSelf: SOMObject;
+		level: LongInt); stdcall;
+  somTD_SOMObject_somDumpSelf = somTP_SOMObject_somDumpSelf;
+(*
+ *  Uses <SOMOutCharRoutine> to write a detailed description of this object
+ *  and its current state.
+ *
+ *  <level> indicates the nesting level for describing compound objects
+ *  it must be greater than or equal to zero.  All lines in the
+ *  description will be preceeded by <2*level> spaces.
+ *
+ *  This routine only actually writes the data that concerns the object
+ *  as a whole, such as class, and uses <somDumpSelfInt> to describe
+ *  the object's current state.  This approach allows readable
+ *  descriptions of compound objects to be constructed.
+ *
+ *  Generally it is not necessary to override this method, if it is
+ *  overriden it generally must be completely replaced.
+ *)
+const somMD_SOMObject_somDumpSelf = '::SOMObject::somDumpSelf';
+procedure SOMObject_somDumpSelf(somSelf: SOMObject; level: LongInt);
+
+(*
+ * New Method: somDumpSelfInt
+ *)
+type
+  somTP_SOMObject_somDumpSelfInt = procedure(somSelf: SOMObject;
+		level: LongInt); stdcall;
+  somTD_SOMObject_somDumpSelfInt = somTP_SOMObject_somDumpSelfInt;
+(*
+ *  Uses <SOMOutCharRoutine> to write in the current state of this object.
+ *  Generally this method will need to be overridden.  When overriding
+ *  it, begin by calling the parent class form of this method and then
+ *  write in a description of your class's instance data. This will
+ *  result in a description of all the object's instance data going
+ *  from its root ancestor class to its specific class.
+ *)
+const somMD_SOMObject_somDumpSelfInt = '::SOMObject::somDumpSelfInt';
+procedure SOMObject_somDumpSelfInt(somSelf: SOMObject; level: LongInt);
 
 // #include <somcls.h>
 
@@ -3433,8 +3764,7 @@ type
  *  calls somDefaultInit to initialize the new object.
  *  Overrides are not expected. NULL is returned on failure.
  *)
-const
-  somMD_SOMClass_somNew = '::SOMClass::somNew';
+const somMD_SOMClass_somNew = '::SOMClass::somNew';
 function SOMClass_somNew(somSelf: SOMClass): SOMObject;
 
 (*
@@ -3449,8 +3779,7 @@ type
  *  <obj> is taken as the address of the new object.
  *  Overrides are not expected.
  *)
-const
-  somMD_SOMClass_somRenew = '::SOMClass::somRenew';
+const somMD_SOMClass_somRenew = '::SOMClass::somRenew';
 function SOMClass_somRenew(somSelf: SOMClass; obj: Pointer): SOMObject;
 
 (*
@@ -3463,8 +3792,7 @@ type
  *  The total size of an instance of the receiving class.
  *  Overrides are not expected.
  *)
-const
-  somMD_SOMClass_somGetInstanceSize = '::SOMClass::somGetInstanceSize';
+const somMD_SOMClass_somGetInstanceSize = '::SOMClass::somGetInstanceSize';
 function SOMClass_somGetInstanceSize(somSelf: SOMClass): LongInt;
 
 
@@ -3900,7 +4228,7 @@ end;
 var
   SOM_DLL_SOMClassMgrObject: PSOMClassMgr;
 
-function SOMClassMgrObject: PSOMClassMgr;
+function Replaceable_SOMClassMgrObject: PSOMClassMgr;
 begin
   if Assigned(SOM_DLL_SOMClassMgrObject) then
     Result := SOM_DLL_SOMClassMgrObject
@@ -3909,6 +4237,11 @@ begin
     SOM_Load_Variable(SOM_DLL_SOMClassMgrObject, 'SOMClassMgrObject');
     Result := SOM_DLL_SOMClassMgrObject;
   end;
+end;
+
+function SOMClassMgrObject: SOMClassMgr;
+begin
+  Result := Replaceable_SOMClassMgrObject^;
 end;
 
 procedure somRegisterClassLibrary; external SOM_DLL_Name;
@@ -4117,12 +4450,123 @@ begin
 	Result := SOMClass_somRenew(cls, buf);
 end;
 
+procedure SOMObject_somDefaultInit(somSelf: SOMObject; ctrl: som3InitCtrlPtr);
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  somTD_SOMObject_somDefaultInit
+   (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))(somSelf, ctrl);
+end;
+
+procedure SOMObject_somDestruct(somSelf: SOMObject;
+		doFree: octet; ctrl: som3DestructCtrlPtr);
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  somTD_SOMObject_somDestruct
+   (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))(somSelf, doFree, ctrl);
+end;
+
+procedure SOMObject_somDefaultCopyInit(somSelf: SOMObject;
+	ctrl: som3InitCtrlPtr; fromObj: SOMObject);
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  somTD_SOMObject_somDefaultCopyInit
+   (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
+     (somSelf, ctrl, fromObj);
+end;
+
+function SOMObject_somDefaultAssign(somSelf: SOMObject;
+	ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somDefaultAssign
+     (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
+       (somSelf, ctrl, fromObj);
+end;
+
+procedure SOMObject_somDefaultConstCopyInit(somSelf: SOMObject;
+	ctrl: som3InitCtrlPtr; fromObj: SOMObject);
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  somTD_SOMObject_somDefaultConstCopyInit
+   (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
+     (somSelf, ctrl, fromObj);
+end;
+
+procedure SOMObject_somDefaultVCopyInit(somSelf: SOMObject;
+	ctrl: som3InitCtrlPtr; fromObj: SOMObject);
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  somTD_SOMObject_somDefaultVCopyInit
+   (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
+     (somSelf, ctrl, fromObj);
+end;
+
+procedure SOMObject_somDefaultConstVCopyInit(somSelf: SOMObject;
+		ctrl: som3InitCtrlPtr; fromObj: SOMObject);
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  somTD_SOMObject_somDefaultConstVCopyInit
+   (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
+     (somSelf, ctrl, fromObj);
+end;
+
+function SOMObject_somDefaultConstAssign(somSelf: SOMObject;
+  ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somDefaultConstAssign
+     (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
+       (somSelf, ctrl, fromObj);
+end;
+
+function SOMObject_somDefaultVAssign(somSelf: SOMObject;
+  ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somDefaultVAssign
+     (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
+       (somSelf, ctrl, fromObj);
+end;
+
+function SOMObject_somDefaultConstVAssign(somSelf: SOMObject;
+	ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somDefaultConstVAssign
+     (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
+       (somSelf, ctrl, fromObj);
+end;
+
 procedure SOMObject_somInit(somSelf: SOMObject);
 var
   cd: PSOMObjectClassDataStructure;
 begin
   cd := SOMObjectClassData;
-  somTD_SOMObject_somFree
+  somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))(somSelf);
 end;
 
@@ -4131,7 +4575,7 @@ var
   cd: PSOMObjectClassDataStructure;
 begin
   cd := SOMObjectClassData;
-  somTD_SOMObject_somFree
+  somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))(somSelf);
 end;
 
@@ -4144,6 +4588,16 @@ begin
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))(somSelf);
 end;
 
+function SOMObject_somGetClass(somSelf: SOMObject): SOMClass;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somGetClass
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))(somSelf);
+end;
+
 function SOMObject_somGetClassName(somSelf: SOMObject): CORBAString;
 var
   cd: PSOMObjectClassDataStructure;
@@ -4152,6 +4606,132 @@ begin
   Result :=
     somTD_SOMObject_somGetClassName
      (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))(somSelf);
+end;
+
+function SOMObject_somGetSize(somSelf: SOMObject): LongInt;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somGetSize
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))(somSelf);
+end;
+
+function SOMObject_somIsA(somSelf: SOMObject;
+  aClassObj: SOMClass): CORBABoolean;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somIsA
+     (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))(somSelf, aClassObj);
+end;
+
+function SOMObject_somIsInstanceOf(somSelf: SOMObject;
+	aClassObj: SOMClass): CORBABoolean;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somIsInstanceOf
+     (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
+       (somSelf, aClassObj);
+end;
+
+function SOMObject_somRespondsTo(somSelf: SOMObject;
+  mId: somId): CORBABoolean;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somRespondsTo
+     (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))(somSelf, mId);
+end;
+
+function SOMObject_somDispatch(somSelf: SOMObject;
+	retValue: somTokenPtr;
+	methodId: somId;
+	ap: va_list): CORBABoolean;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somDispatch
+     (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
+       (somSelf, retValue, methodId, ap);
+end;
+
+function somva_SOMObject_somDispatch; external SOM_DLL_Name;
+
+function SOMObject_somClassDispatch(somSelf: SOMObject;
+	clsObj: SOMClass;
+	retValue: somTokenPtr;
+	methodId: somId;
+	ap: va_list): CORBABoolean;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somClassDispatch
+     (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
+       (somSelf, clsObj, retValue, methodId, ap);
+end;
+
+function somva_SOMObject_somClassDispatch; external SOM_DLL_Name;
+
+function SOMObject_somCastObj(somSelf: SOMObject;
+	castedCls: SOMClass): CORBABoolean;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somCastObj
+     (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))(somSelf, castedCls);
+end;
+
+function SOMObject_somResetObj(somSelf: SOMObject): CORBABoolean;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somResetObj
+     (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))(somSelf);
+end;
+
+function SOMObject_somPrintSelf(somSelf: SOMObject): SOMObject;
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  Result :=
+    somTD_SOMObject_somPrintSelf
+     (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))(somSelf);
+end;
+
+procedure SOMObject_somDumpSelf(somSelf: SOMObject; level: LongInt);
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  somTD_SOMObject_somDumpSelf
+   (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))(somSelf, level);
+end;
+
+procedure SOMObject_somDumpSelfInt(somSelf: SOMObject; level: LongInt);
+var
+  cd: PSOMObjectClassDataStructure;
+begin
+  cd := SOMObjectClassData;
+  somTD_SOMObject_somDumpSelfInt
+   (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))(somSelf, level);
 end;
 
 // #include <somcls.h>
