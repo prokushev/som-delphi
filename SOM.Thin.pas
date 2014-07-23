@@ -180,6 +180,7 @@ type
 
 (* CORBA 5.7, p.89 *)
   octet = Byte;
+  Poctet = PByte;
   CORBAString = PAnsiChar;
   CORBABoolean = ByteBool;
 
@@ -1710,6 +1711,7 @@ const
 
 (* CORBA 5.7, p.89 *)
 //   octet = Byte;
+//   Poctet = PByte;
 //   CORBAString = PAnsiChar;
 //   CORBABoolean = ByteBool;
 
@@ -3084,6 +3086,57 @@ function somUnregisterLibraryClasses(libHandle: somLibraryHandle): LongInt; stdc
 
 
 // #include <somobj.h>
+
+(*
+ *  This is the SOM root class, all SOM classes must be descended from
+ *  <SOMObject>. <SOMObject> has no instance data so there is no
+ *  per-instance cost to to being descended from it.
+ *  a sequence of SOM Objects
+ *)
+
+(*
+ * Start of bindings for IDL types
+ *)
+
+type
+  _IDL_SEQUENCE_SOMObject = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PSOMObject;
+  end;
+  SOMObject_SOMObjectSequence = _IDL_SEQUENCE_SOMObject;
+(*
+ *  a sequence of booleans.
+ *)
+
+type
+  _IDL_SEQUENCE_octet = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: Poctet;
+  end;
+  SOMObject_BooleanSequence = _IDL_SEQUENCE_octet;
+(*
+ *  a structure to describe an object-related offset, and
+ *  a sequence of class-related offsets
+ *)
+
+type
+  SOMObject_somObjectOffset = record
+    obj: SOMObject;
+    offset: LongInt;
+  end;
+  PSOMObject_somObjectOffset = ^SOMObject_somObjectOffset;
+  _IDL_SEQUENCE_SOMObject_somObjectOffset = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PSOMObject_somObjectOffset;
+  end;
+  SOMObject_somObjectOffsets = _IDL_SEQUENCE_SOMObject_somObjectOffset;
+
+(*
+ * End of bindings for IDL types.
+ *)
 
 const
   SOMObject_MajorVersion = 1;
