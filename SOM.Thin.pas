@@ -55,7 +55,7 @@ type
   SOMClass = SOMObject;
   PSOMClass = ^SOMClass;
   PPSOMClass = ^PSOMClass;
-  SOMClassMgr = SOMClass;
+  SOMClassMgr = SOMObject;
   PSOMClassMgr = ^SOMClassMgr;
   PPSOMClassMgr = ^PSOMClassMgr;
 
@@ -4713,11 +4713,486 @@ type
 const somMD_SOMClass_somOverrideMtab = '::SOMClass::somOverrideMtab';
 procedure SOMClass_somOverrideMtab(somSelf: SOMClass);
 
-
-
-
-
 // #include <somcm.h>
+
+(*
+ *  [Basic Functions Group]
+ *)
+
+(*
+ * Start of bindings for IDL types
+ *)
+type
+  Repository = SOMObject;
+  SOMClassMgr_SOMClassArray = PSOMClass;
+(*
+ *  Used for SOM 1.0 binary compatibility
+ *)
+
+(*
+ * End of bindings for IDL types.
+ *)
+
+const
+  SOMClassMgr_MajorVersion = 1;
+  SOMClassMgr_MinorVersion = 6;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMClassMgrNewClass(
+  somtmajorVersion: integer4 = SOMClassMgr_MajorVersion;
+	somtminorVersion: integer4 = SOMClassMgr_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMClassMgrClassDataStructure = record
+	classObject: SOMClass;
+	somFindClsInFile: somMToken;
+	somFindClass: somMToken;
+	somClassFromId: somMToken;
+	somRegisterClass: somMToken;
+	somUnregisterClass: somMToken;
+	somLocateClassFile: somMToken;
+	somLoadClassFile: somMToken;
+	somUnloadClassFile: somMToken;
+	somGetInitFunction: somMToken;
+	somMergeInto: somMToken;
+	somGetRelatedClasses: somMToken;
+	somSubstituteClass: somMToken;
+	_get_somInterfaceRepository: somMToken;
+	_set_somInterfaceRepository: somMToken;
+	_get_somRegisteredClasses: somMToken;
+	somBeginPersistentClasses: somMToken;
+	somEndPersistentClasses: somMToken;
+	somcmPrivate1: somMToken;
+	somcmPrivate2: somMToken;
+	somRegisterClassLibrary: somMToken;
+	somJoinAffinityGroup: somMToken;
+	somUnregisterClassLibrary: somMToken;
+	somImportObject: somMToken;
+	somcmPrivate3: somMToken;
+	somcmPrivate4: somMToken;
+end;
+PSOMClassMgrClassDataStructure = ^SOMClassMgrClassDataStructure;
+function SOMClassMgrClassData: PSOMClassMgrClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMClassMgrCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMClassMgrCClassDataStructure = ^SOMClassMgrCClassDataStructure;
+function SOMClassMgrCClassData: PSOMClassMgrCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMClassMgr: SOMClass;
+
+(*
+ * New and Renew macros for SOMObject
+ *)
+function SOMClassMgrNew: SOMClassMgr;
+function SOMClassMgrRenew(buf: Pointer): SOMClassMgr;
+
+(*
+ * New Method: somLoadClassFile
+ *)
+type
+  somTP_SOMClassMgr_somLoadClassFile = function(somSelf: SOMClassMgr;
+    classId: somId; majorVersion, minorVersion: LongInt;
+    fileName: CORBAString): SOMClass; stdcall;
+  somTD_SOMClassMgr_somLoadClassFile = somTP_SOMClassMgr_somLoadClassFile;
+(*
+ *  Loads the class' code and initializes the class object.
+ *)
+const somMD_SOMClassMgr_somLoadClassFile = '::SOMClassMgr::somLoadClassFile';
+function SOMClassMgr_somLoadClassFile(somSelf: SOMClassMgr; classId: somId;
+  majorVersion, minorVersion: LongInt; fileName: CORBAString): SOMClass;
+
+(*
+ * New Method: somLocateClassFile
+ *)
+type
+  somTP_SOMClassMgr_somLocateClassFile = function(somSelf: SOMClassMgr;
+		classId: somId;	majorVersion,	minorVersion: LongInt): CORBAString; stdcall;
+  somTD_SOMClassMgr_somLocateClassFile = somTP_SOMClassMgr_somLocateClassFile;
+(*
+ *  Real implementation supplied by subclasses.  Default implementation
+ *  will lookup the class name in the Interface Repository (if one is
+ *  available) to determine the implementation file name (ie, DLL name).
+ *  If this information is not available, the class name itself is
+ *  returned as the file name.   Subclasses may use version number
+ *  info to assist in deriving the file name.
+ *)
+const somMD_SOMClassMgr_somLocateClassFile = '::SOMClassMgr::somLocateClassFile';
+function SOMClassMgr_somLocateClassFile(somSelf: SOMClassMgr;	classId: somId;
+  majorVersion,	minorVersion: LongInt): CORBAString;
+
+(*
+ * New Method: somRegisterClass
+ *)
+type
+  somTP_SOMClassMgr_somRegisterClass = procedure(somSelf: SOMClassMgr;
+		classObj: SOMClass); stdcall;
+  somTD_SOMClassMgr_somRegisterClass = somTP_SOMClassMgr_somRegisterClass;
+(*
+ *  Lets the class manager know that the specified class is installed
+ *  and tells it where the class object is.
+ *)
+const somMD_SOMClassMgr_somRegisterClass = '::SOMClassMgr::somRegisterClass';
+procedure SOMClassMgr_somRegisterClass(somSelf: SOMClassMgr;
+  classObj: SOMClass);
+
+(*
+ * New Method: somRegisterClassLibrary
+ *)
+type
+  somTP_SOMClassMgr_somRegisterClassLibrary = procedure(somSelf: SOMClassMgr;
+		libraryName: CORBAString; libraryInitRtn: somMethodPtr); stdcall;
+  somTD_SOMClassMgr_somRegisterClassLibrary =
+    somTP_SOMClassMgr_somRegisterClassLibrary;
+(*
+ *  Informs the class manager that a class library has been loaded.
+ *  "libraryName" is the name associated with the file containing the
+ *  implementation(s) of the class(es) in the class library.
+ *  "libraryInitRtn" is the entry point of a SOMInitModule function
+ *  that can be used to initialize the class library.  For platforms
+ *  that have the capability to automatically invoke a library
+ *  initialization function whenever a library is loaded, a call
+ *  to this method should occur within the library's automatic init
+ *  function.
+ *)
+const somMD_SOMClassMgr_somRegisterClassLibrary = '::SOMClassMgr::somRegisterClassLibrary';
+procedure SOMClassMgr_somRegisterClassLibrary(somSelf: SOMClassMgr;
+  libraryName: CORBAString; libraryInitRtn: somMethodPtr);
+
+(*
+ * New Method: somUnregisterClassLibrary
+ *)
+type
+  somTP_SOMClassMgr_somUnregisterClassLibrary = procedure(somSelf: SOMClassMgr;
+    libraryName: CORBAString); stdcall;
+  somTD_SOMClassMgr_somUnregisterClassLibrary =
+    somTP_SOMClassMgr_somUnregisterClassLibrary;
+(*
+ *  Informs the class manager that a class library has been unloaded.
+ *  "libraryName" is the name associated with the file containing the
+ *  implementation(s) of the class(es) in the class library.
+ *  For platforms that have the capability to automatically invoke a
+ *  library termination function whenever a library is unloaded, a call
+ *  to this method should occur within the library's automatic
+ *  termination function.
+ *)
+const somMD_SOMClassMgr_somUnregisterClassLibrary = '::SOMClassMgr::somUnregisterClassLibrary';
+procedure SOMClassMgr_somUnregisterClassLibrary(somSelf: SOMClassMgr;
+  libraryName: CORBAString);
+
+(*
+ * New Method: somUnloadClassFile
+ *)
+type
+  somTP_SOMClassMgr_somUnloadClassFile = function(somSelf: SOMClassMgr;
+		classObj: SOMClass): LongInt; stdcall;
+  somTD_SOMClassMgr_somUnloadClassFile = somTP_SOMClassMgr_somUnloadClassFile;
+(*
+ *  Releases the class' code and unregisters all classes in the
+ *  same affinity group (see somGetRelatedClasses below).
+ *)
+const somMD_SOMClassMgr_somUnloadClassFile = '::SOMClassMgr::somUnloadClassFile';
+function SOMClassMgr_somUnloadClassFile(somSelf: SOMClassMgr;
+  classObj: SOMClass): LongInt;
+
+(*
+ * New Method: somUnregisterClass
+ *)
+type
+  somTP_SOMClassMgr_somUnregisterClass = function(somSelf: SOMClassMgr;
+    classObj: SOMClass): LongInt; stdcall;
+  somTD_SOMClassMgr_somUnregisterClass = somTP_SOMClassMgr_somUnregisterClass;
+(*
+ *  Free the class object and removes the class from the SOM registry.
+ *  If the class caused dynamic loading to occur, it is also unloaded
+ *  (causing its entire affinity group to be unregistered as well).
+ *)
+const somMD_SOMClassMgr_somUnregisterClass = '::SOMClassMgr::somUnregisterClass';
+function SOMClassMgr_somUnregisterClass(somSelf: SOMClassMgr;
+  classObj: SOMClass): LongInt;
+
+(*
+ * New Method: somBeginPersistentClasses
+ *)
+type
+  somTP_SOMClassMgr_somBeginPersistentClasses = procedure(somSelf: SOMClassMgr);
+    stdcall;
+  somTD_SOMClassMgr_somBeginPersistentClasses =
+    somTP_SOMClassMgr_somBeginPersistentClasses;
+(*
+ *  Starts a bracket for the current thread wherein all classes
+ *  that are registered are marked as permanant and cannot be
+ *  unregistered or unloaded.  Persistent classes brackets may be
+ *  nested.
+ *)
+const somMD_SOMClassMgr_somBeginPersistentClasses = '::SOMClassMgr::somBeginPersistentClasses';
+procedure SOMClassMgr_somBeginPersistentClasses(somSelf: SOMClassMgr);
+
+(*
+ * New Method: somEndPersistentClasses
+ *)
+type
+  somTP_SOMClassMgr_somEndPersistentClasses = procedure(somSelf: SOMClassMgr);
+    stdcall;
+  somTD_SOMClassMgr_somEndPersistentClasses =
+    somTP_SOMClassMgr_somEndPersistentClasses;
+(*
+ *  Ends a persistent classes bracket for the current thread.
+ *)
+const somMD_SOMClassMgr_somEndPersistentClasses = '::SOMClassMgr::somEndPersistentClasses';
+procedure SOMClassMgr_somEndPersistentClasses(somSelf: SOMClassMgr);
+
+(*
+ * New Method: somJoinAffinityGroup
+ *)
+type
+  somTP_SOMClassMgr_somJoinAffinityGroup = function(somSelf: SOMClassMgr;
+    newClass, affClass: SOMClass): CORBABoolean; stdcall;
+  somTD_SOMClassMgr_somJoinAffinityGroup = somTP_SOMClassMgr_somJoinAffinityGroup;
+(*
+ *  If <affClass> is a member of an affinity group, and <newClass> is not a
+ *  member of any affinity group, this method adds <newClass> to the
+ *  same affinity group as <affClass>.  If the method succeeds it returns
+ *  TRUE, otherwise it returns FALSE.  Adding a class to an affinity group
+ *  effectively equates its lifetime with that of the other members of
+ *  the affinity group.
+ *  [Access Group]
+ *)
+const somMD_SOMClassMgr_somJoinAffinityGroup = '::SOMClassMgr::somJoinAffinityGroup';
+function SOMClassMgr_somJoinAffinityGroup(somSelf: SOMClassMgr;
+  newClass, affClass: SOMClass): CORBABoolean;
+
+(*
+ * New Method: somGetInitFunction
+ *)
+type
+  somTP_SOMClassMgr_somGetInitFunction = function(somSelf: SOMClassMgr):
+    CORBAString; stdcall;
+  somTD_SOMClassMgr_somGetInitFunction = somTP_SOMClassMgr_somGetInitFunction;
+(*
+ *  The name of the initialization function in the class' code file.
+ *  Default implementation returns (*SOMClassInitFuncName)().
+ *)
+const somMD_SOMClassMgr_somGetInitFunction = '::SOMClassMgr::somGetInitFunction';
+function SOMClassMgr_somGetInitFunction(somSelf: SOMClassMgr): CORBAString;
+
+(*
+ * New Method: _get_somInterfaceRepository
+ *)
+type
+  somTP_SOMClassMgr__get_somInterfaceRepository = function(
+    somSelf: SOMClassMgr): Repository; stdcall;
+  somTD_SOMClassMgr__get_somInterfaceRepository =
+    somTP_SOMClassMgr__get_somInterfaceRepository;
+(*
+ *  The Repository object that provides access to the Interface Repository,
+ *  If no Interface Repository has yet been assigned to this attribute,
+ *  and the SOMClassMgr is unable to load and instantiate it, the attribute
+ *  will have the value NULL.  When finished using the Repository object
+ *  you should release your reference using the somDestruct method with
+ *  a non-zero <doFree> parameter.
+ *)
+const somMD_SOMClassMgr__get_somInterfaceRepository = '::SOMClassMgr::_get_somInterfaceRepository';
+function SOMClassMgr__get_somInterfaceRepository(somSelf: SOMClassMgr):
+  Repository;
+
+(*
+ * New Method: _set_somInterfaceRepository
+ *)
+type
+  somTP_SOMClassMgr__set_somInterfaceRepository = procedure(
+    somSelf: SOMClassMgr; somInterfaceRepository: Repository); stdcall;
+  somTD_SOMClassMgr__set_somInterfaceRepository =
+    somTP_SOMClassMgr__set_somInterfaceRepository;
+(*
+ *  The Repository object that provides access to the Interface Repository,
+ *  If no Interface Repository has yet been assigned to this attribute,
+ *  and the SOMClassMgr is unable to load and instantiate it, the attribute
+ *  will have the value NULL.  When finished using the Repository object
+ *  you should release your reference using the somDestruct method with
+ *  a non-zero <doFree> parameter.
+ *)
+const somMD_SOMClassMgr__set_somInterfaceRepository = '::SOMClassMgr::_set_somInterfaceRepository';
+procedure SOMClassMgr__set_somInterfaceRepository(somSelf: SOMClassMgr;
+  somInterfaceRepository: Repository);
+
+(*
+ * New Method: _get_somRegisteredClasses
+ *)
+type
+  somTP_SOMClassMgr__get_somRegisteredClasses = function(somSelf: SOMClassMgr):
+    _IDL_SEQUENCE_SOMClass; stdcall;
+  somTD_SOMClassMgr__get_somRegisteredClasses =
+    somTP_SOMClassMgr__get_somRegisteredClasses;
+(*
+ *  A list of all classes currently registered in this process.
+ *)
+const somMD_SOMClassMgr__get_somRegisteredClasses = '::SOMClassMgr::_get_somRegisteredClasses';
+function SOMClassMgr__get_somRegisteredClasses(somSelf: SOMClassMgr):
+  _IDL_SEQUENCE_SOMClass;
+
+(*
+ * New Method: somGetRelatedClasses
+ *)
+type
+  somTP_SOMClassMgr_somGetRelatedClasses = function(somSelf: SOMClassMgr;
+		classObj: SOMClass): SOMClassMgr_SOMClassArray; stdcall;
+  somTD_SOMClassMgr_somGetRelatedClasses =
+    somTP_SOMClassMgr_somGetRelatedClasses;
+(*
+ *  Returns an array of class objects that were all registered during
+ *  the dynamic loading of a class.    These classes are considered to
+ *  define an affinity group.  Any class is a member of at most one
+ *  affinity group.    The affinity group returned by this call is the
+ *  one containing the class identified by classObj.  The first element
+ *  in the array is the class that caused the group to be loaded, or the
+ *  special value -1 which means that the SOMClassMgr is currently in the
+ *  process of unregistering and deleting the affinity group (only
+ *  SOMClassMgr subclasses would ever see this value).
+ *  The remainder of the array (elements one thru n) consists of
+ *  pointers to class objects ordered in reverse chronological sequence
+ *  to that in which they were originally registered.  This list includes
+ *  the given argument, classObj, as one of its elements, as well as the
+ *  class, if any, returned as element[0] above.  The array is terminated
+ *  by a NULL pointer as the last element.  Use SOMFree to release the
+ *  array when it is no longer needed.  If the supplied class was not
+ *  dynamically loaded, it is not a member of any affinity
+ *  group and NULL is returned.
+ *  [Dynamic Group]
+ *)
+const somMD_SOMClassMgr_somGetRelatedClasses = '::SOMClassMgr::somGetRelatedClasses';
+function SOMClassMgr_somGetRelatedClasses(somSelf: SOMClassMgr;
+  classObj: SOMClass): SOMClassMgr_SOMClassArray;
+
+(*
+ * New Method: somClassFromId
+ *)
+type
+  somTP_SOMClassMgr_somClassFromId = function(somSelf: SOMClassMgr;
+    classId: somId): SOMClass; stdcall;
+  somTD_SOMClassMgr_somClassFromId = somTP_SOMClassMgr_somClassFromId;
+(*
+ *  Finds the class object, given its Id, if it already exists.
+ *  Does not load the class.  Returns NULL if the class object does
+ *  not yet exist.
+ *)
+const somMD_SOMClassMgr_somClassFromId = '::SOMClassMgr::somClassFromId';
+function SOMClassMgr_somClassFromId(somSelf: SOMClassMgr; classId: somId):
+  SOMClass;
+
+(*
+ * New Method: somFindClass
+ *)
+type
+  somTP_SOMClassMgr_somFindClass = function(somSelf: SOMClassMgr;
+		classId: somId; majorVersion, minorVersion: LongInt): SOMClass; stdcall;
+  somTD_SOMClassMgr_somFindClass = somTP_SOMClassMgr_somFindClass;
+(*
+ *  Returns the class object for the specified class.  This may result
+ *  in dynamic loading.  Uses somLocateClassFile to obtain the name of
+ *  the file where the class' code resides, then uses somFindClsInFile.
+ *)
+const somMD_SOMClassMgr_somFindClass = '::SOMClassMgr::somFindClass';
+function SOMClassMgr_somFindClass(somSelf: SOMClassMgr; classId: somId;
+  majorVersion, minorVersion: LongInt): SOMClass;
+
+(*
+ * New Method: somFindClsInFile
+ *)
+type
+  somTP_SOMClassMgr_somFindClsInFile = function(somSelf: SOMClassMgr;
+    classId: somId; majorVersion, minorVersion: LongInt; fileName: CORBAString):
+    SOMClass; stdcall;
+  somTD_SOMClassMgr_somFindClsInFile = somTP_SOMClassMgr_somFindClsInFile;
+(*
+ *  Returns the class object for the specified class.  This may result
+ *  in dynamic loading.  If the class already exists <file> is ignored,
+ *  otherwise it is used to locate and dynamically load the class.
+ *  Values of 0 for major and minor version numbers bypass version checking.
+ *)
+const somMD_SOMClassMgr_somFindClsInFile = '::SOMClassMgr::somFindClsInFile';
+function SOMClassMgr_somFindClsInFile(somSelf: SOMClassMgr; classId: somId;
+  majorVersion, minorVersion: LongInt; fileName: CORBAString): SOMClass;
+
+(*
+ * New Method: somMergeInto
+ *)
+type
+  somTP_SOMClassMgr_somMergeInto = procedure(somSelf: SOMClassMgr;
+    targetObj: SOMObject); stdcall;
+  somTD_SOMClassMgr_somMergeInto = somTP_SOMClassMgr_somMergeInto;
+(*
+ *  Merges the SOMClassMgr registry information from the receiver to
+ *  <targetObj>.  <targetObj> is required to be an instance of SOMClassMgr
+ *  or one of its subclasses.  At the completion of this operation,
+ *  the <targetObj> should be able to function as a replacement for the
+ *  receiver.  At the end of the operation the receiver object (which is
+ *  then in a newly uninitialized state) is freed.  Subclasses that
+ *  override this method should similarly transfer their sections of
+ *  the object and pass this method to their parent as the final step.
+ *  If the receiving object is the distinguished instance pointed to
+ *  from the global variable SOMClassMgrObject, SOMCLassMgrObject is
+ *  then reassigned to point to <targetObj>.
+ *)
+const somMD_SOMClassMgr_somMergeInto = '::SOMClassMgr::somMergeInto';
+procedure SOMClassMgr_somMergeInto(somSelf: SOMClassMgr; targetObj: SOMObject);
+
+(*
+ * New Method: somSubstituteClass
+ *)
+type
+  somTP_SOMClassMgr_somSubstituteClass = function(somSelf: SOMClassMgr;
+		origClassName, newClassName: CORBAString): LongInt; stdcall;
+  somTD_SOMClassMgr_somSubstituteClass = somTP_SOMClassMgr_somSubstituteClass;
+(*
+ *  This method causes the somFindClass, somFindClsInFile, and
+ *  somClassFromId methods to return the class named newClassName
+ *  whenever they would have normally returned the class named
+ *  origClassName.  This effectively results in class <newClassName>
+ *  replacing or substituting itself for class <origClassName>.
+ *  Some restrictions are enforced to insure that this works well.
+ *  Both class <origClassName> and class <newClassName> must
+ *  have been already registered before issuing this method, and newClass
+ *  must be an immediate child of origClass.  In addition (although not
+ *  enforceable), no instances should exist of either class at the time
+ *  this method is invoked.    A return value of zero indicates success;
+ *  a non-zero value indicates an error was detected.
+ *)
+const somMD_SOMClassMgr_somSubstituteClass = '::SOMClassMgr::somSubstituteClass';
+function SOMClassMgr_somSubstituteClass(somSelf: SOMClassMgr;
+  origClassName, newClassName: CORBAString): LongInt;
+
+(*
+ * New Method: somImportObject
+ *)
+type
+  somTP_SOMClassMgr_somImportObject = function(somSelf: SOMClassMgr;
+		objToBeShared: SOMObject): CORBABoolean; stdcall;
+  somTD_SOMClassMgr_somImportObject = somTP_SOMClassMgr_somImportObject;
+(*
+ *  This method causes the local class manager to load the
+ *  dlls that are required for sharing the object <objToBeShared>.
+ *  The returned boolean indicates whether or not the operation succeeded.
+ *  A return of FALSE (the operation failed) means that it is not safe
+ *  to use the object, i.e., invoking a method on the object may lead to
+ *  an exception.
+ *)
+const somMD_SOMClassMgr_somImportObject = '::SOMClassMgr::somImportObject';
+function SOMClassMgr_somImportObject(somSelf: SOMClassMgr;
+  objToBeShared: SOMObject): CORBABoolean;
+
 
 
 
@@ -6291,9 +6766,309 @@ begin
    (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideMtab))(somSelf);
 end;
 
-
-
 // #include <somcm.h>
+
+function SOMClassMgrNewClass; external SOM_DLL_Name;
+
+var
+  SOM_DLL_SOMClassMgrClassData: PSOMClassMgrClassDataStructure;
+
+function SOMClassMgrClassData: PSOMClassMgrClassDataStructure;
+begin
+  if Assigned(SOM_DLL_SOMClassMgrClassData) then
+    Result := SOM_DLL_SOMClassMgrClassData
+  else
+  begin
+    SOM_Load_Variable(SOM_DLL_SOMClassMgrClassData, 'SOMClassMgrClassData');
+    Result := SOM_DLL_SOMClassMgrClassData;
+  end;
+end;
+
+var
+  SOM_DLL_SOMClassMgrCClassData: PSOMClassMgrCClassDataStructure;
+
+function SOMClassMgrCClassData: PSOMClassMgrCClassDataStructure;
+begin
+  if Assigned(SOM_DLL_SOMClassMgrCClassData) then
+    Result := SOM_DLL_SOMClassMgrCClassData
+  else
+  begin
+    SOM_Load_Variable(SOM_DLL_SOMClassMgrCClassData, 'SOMClassMgrCClassData');
+    Result := SOM_DLL_SOMClassMgrCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMClassMgr: SOMClass;
+begin
+  Result := SOMClassMgrClassData.classObject;
+end;
+
+function SOMClassMgrNew: SOMClassMgr;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMClassMgr;
+  if not Assigned(cls) then
+  begin
+    SOMClassMgrNewClass;
+    cls := _SOMCLASS_SOMClassMgr;
+  end;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMClassMgrRenew(buf: Pointer): SOMClassMgr;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMClassMgr;
+  if not Assigned(cls) then
+  begin
+	  SOMClassMgrNewClass;
+    cls := _SOMCLASS_SOMClassMgr;
+  end;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMClassMgr_somLoadClassFile(somSelf: SOMClassMgr; classId: somId;
+  majorVersion, minorVersion: LongInt; fileName: CORBAString): SOMClass;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somLoadClassFile
+     (SOM_Resolve(somSelf, cd.classObject, cd.somLoadClassFile))
+       (somSelf, classId, majorVersion, minorVersion, fileName);
+end;
+
+function SOMClassMgr_somLocateClassFile(somSelf: SOMClassMgr;	classId: somId;
+  majorVersion,	minorVersion: LongInt): CORBAString;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somLocateClassFile
+     (SOM_Resolve(somSelf, cd.classObject, cd.somLocateClassFile))
+       (somSelf, classId, majorVersion, minorVersion);
+end;
+
+procedure SOMClassMgr_somRegisterClass(somSelf: SOMClassMgr;
+  classObj: SOMClass);
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  somTD_SOMClassMgr_somRegisterClass
+   (SOM_Resolve(somSelf, cd.classObject, cd.somRegisterClass))
+     (somSelf, classObj);
+end;
+
+procedure SOMClassMgr_somRegisterClassLibrary(somSelf: SOMClassMgr;
+  libraryName: CORBAString; libraryInitRtn: somMethodPtr);
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  somTD_SOMClassMgr_somRegisterClassLibrary
+   (SOM_Resolve(somSelf, cd.classObject, cd.somRegisterClassLibrary))
+     (somSelf, libraryName, libraryInitRtn);
+end;
+
+procedure SOMClassMgr_somUnregisterClassLibrary(somSelf: SOMClassMgr;
+  libraryName: CORBAString);
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  somTD_SOMClassMgr_somUnregisterClassLibrary
+   (SOM_Resolve(somSelf, cd.classObject, cd.somUnregisterClassLibrary))
+     (somSelf, libraryName);
+end;
+
+function SOMClassMgr_somUnloadClassFile(somSelf: SOMClassMgr;
+  classObj: SOMClass): LongInt;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somUnloadClassFile
+     (SOM_Resolve(somSelf, cd.classObject, cd.somUnloadClassFile))
+       (somSelf, classObj);
+end;
+
+function SOMClassMgr_somUnregisterClass(somSelf: SOMClassMgr;
+  classObj: SOMClass): LongInt;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somUnregisterClass
+     (SOM_Resolve(somSelf, cd.classObject, cd.somUnregisterClass))
+       (somSelf, classObj);
+end;
+
+procedure SOMClassMgr_somBeginPersistentClasses(somSelf: SOMClassMgr);
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  somTD_SOMClassMgr_somBeginPersistentClasses
+   (SOM_Resolve(somSelf, cd.classObject, cd.somBeginPersistentClasses))
+     (somSelf);
+end;
+
+procedure SOMClassMgr_somEndPersistentClasses(somSelf: SOMClassMgr);
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  somTD_SOMClassMgr_somEndPersistentClasses
+   (SOM_Resolve(somSelf, cd.classObject, cd.somEndPersistentClasses))(somSelf);
+end;
+
+function SOMClassMgr_somJoinAffinityGroup(somSelf: SOMClassMgr;
+  newClass, affClass: SOMClass): CORBABoolean;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somJoinAffinityGroup
+     (SOM_Resolve(somSelf, cd.classObject, cd.somJoinAffinityGroup))
+       (somSelf, newClass, affClass);
+end;
+
+function SOMClassMgr_somGetInitFunction(somSelf: SOMClassMgr): CORBAString;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somGetInitFunction
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetInitFunction))(somSelf);
+end;
+
+function SOMClassMgr__get_somInterfaceRepository(somSelf: SOMClassMgr):
+  Repository;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr__get_somInterfaceRepository
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somInterfaceRepository))
+       (somSelf);
+end;
+
+procedure SOMClassMgr__set_somInterfaceRepository(somSelf: SOMClassMgr;
+  somInterfaceRepository: Repository);
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  somTD_SOMClassMgr__set_somInterfaceRepository
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_somInterfaceRepository))
+     (somSelf, somInterfaceRepository);
+end;
+
+function SOMClassMgr__get_somRegisteredClasses(somSelf: SOMClassMgr):
+  _IDL_SEQUENCE_SOMClass;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr__get_somRegisteredClasses
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somRegisteredClasses))
+       (somSelf);
+end;
+
+function SOMClassMgr_somGetRelatedClasses(somSelf: SOMClassMgr;
+  classObj: SOMClass): SOMClassMgr_SOMClassArray;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somGetRelatedClasses
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetRelatedClasses))
+       (somSelf, classObj);
+end;
+
+function SOMClassMgr_somClassFromId(somSelf: SOMClassMgr; classId: somId):
+  SOMClass;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somClassFromId
+     (SOM_Resolve(somSelf, cd.classObject, cd.somClassFromId))
+       (somSelf, classId);
+end;
+
+function SOMClassMgr_somFindClass(somSelf: SOMClassMgr; classId: somId;
+  majorVersion, minorVersion: LongInt): SOMClass;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somFindClass
+     (SOM_Resolve(somSelf, cd.classObject, cd.somFindClass))
+       (somSelf, classId, majorVersion, minorVersion);
+end;
+
+function SOMClassMgr_somFindClsInFile(somSelf: SOMClassMgr; classId: somId;
+  majorVersion, minorVersion: LongInt; fileName: CORBAString): SOMClass;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somFindClsInFile
+     (SOM_Resolve(somSelf, cd.classObject, cd.somFindClsInFile))
+       (somSelf, classId, majorVersion, minorVersion, fileName);
+end;
+
+procedure SOMClassMgr_somMergeInto(somSelf: SOMClassMgr; targetObj: SOMObject);
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  somTD_SOMClassMgr_somMergeInto
+   (SOM_Resolve(somSelf, cd.classObject, cd.somMergeInto))(somSelf, targetObj);
+end;
+
+function SOMClassMgr_somSubstituteClass(somSelf: SOMClassMgr;
+  origClassName, newClassName: CORBAString): LongInt;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somSubstituteClass
+     (SOM_Resolve(somSelf, cd.classObject, cd.somSubstituteClass))
+       (somSelf, origClassName, newClassName);
+end;
+
+function SOMClassMgr_somImportObject(somSelf: SOMClassMgr;
+  objToBeShared: SOMObject): CORBABoolean;
+var
+  cd: PSOMClassMgrClassDataStructure;
+begin
+  cd := SOMClassMgrClassData;
+  Result :=
+    somTD_SOMClassMgr_somImportObject
+     (SOM_Resolve(somSelf, cd.classObject, cd.somImportObject))
+       (somSelf, objToBeShared);
+end;
+
+
+
 
 initialization
   Windows.InitializeCriticalSection(DLLLoad_CriticalSection);
