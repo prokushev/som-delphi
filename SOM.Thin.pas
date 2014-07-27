@@ -3494,7 +3494,7 @@ function SOMObject_somRespondsTo(somSelf: SOMObject;
  *)
 type
   somTP_SOMObject_somDispatch = function(somSelf: SOMObject;
-		retValue: somTokenPtr;
+		out retValue: somToken;
 		methodId: somId;
 		ap: va_list): CORBABoolean; stdcall;
   somTD_SOMObject_somDispatch = somTP_SOMObject_somDispatch;
@@ -3509,7 +3509,7 @@ type
  *)
 const somMD_SOMObject_somDispatch = '::SOMObject::somDispatch';
 function SOMObject_somDispatch(somSelf: SOMObject;
-	retValue: somTokenPtr;
+	out retValue: somToken;
 	methodId: somId;
 	ap: va_list): CORBABoolean;
 
@@ -3517,7 +3517,7 @@ function SOMObject_somDispatch(somSelf: SOMObject;
  * normal vararg stubs
  *)
 function somva_SOMObject_somDispatch(somSelf: SOMObject;
-	retValue: somTokenPtr;
+	out retValue: somToken;
 	methodId: somId): CORBABoolean; cdecl; varargs;
 
 (*
@@ -3526,7 +3526,7 @@ function somva_SOMObject_somDispatch(somSelf: SOMObject;
 type
   somTP_SOMObject_somClassDispatch = function(somSelf: SOMObject;
 		clsObj: SOMClass;
-		retValue: somTokenPtr;
+		out retValue: somToken;
 		methodId: somId;
 		ap: va_list): CORBABoolean; stdcall;
   somTD_SOMObject_somClassDispatch = somTP_SOMObject_somClassDispatch;
@@ -3537,7 +3537,7 @@ type
 const somMD_SOMObject_somClassDispatch = '::SOMObject::somClassDispatch';
 function SOMObject_somClassDispatch(somSelf: SOMObject;
 	clsObj: SOMClass;
-	retValue: somTokenPtr;
+	out retValue: somToken;
 	methodId: somId;
 	ap: va_list): CORBABoolean;
 
@@ -6053,7 +6053,7 @@ begin
 end;
 
 function SOMObject_somDispatch(somSelf: SOMObject;
-	retValue: somTokenPtr;
+	out retValue: somToken;
 	methodId: somId;
 	ap: va_list): CORBABoolean;
 var
@@ -6070,7 +6070,7 @@ function somva_SOMObject_somDispatch; external SOM_DLL_Name;
 
 function SOMObject_somClassDispatch(somSelf: SOMObject;
 	clsObj: SOMClass;
-	retValue: somTokenPtr;
+	out retValue: somToken;
 	methodId: somId;
 	ap: va_list): CORBABoolean;
 var
