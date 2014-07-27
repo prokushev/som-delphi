@@ -4145,6 +4145,36 @@ const somMD_SOMClass_somGetNumMethods = '::SOMClass::somGetNumMethods';
 function SOMClass_somGetNumMethods(somSelf: SOMClass): LongInt;
 
 (*
+ * New Method: somGetNumStaticMethods
+ *)
+type
+  somTP_SOMClass_somGetNumStaticMethods = function(somSelf: SOMClass):
+    LongInt; stdcall;
+  somTD_SOMClass_somGetNumStaticMethods = somTP_SOMClass_somGetNumStaticMethods;
+(*
+ *  The number of nondynamic methods that this class has.  Can
+ *  be used by a child class when initializing its method table.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetNumStaticMethods = '::SOMClass::somGetNumStaticMethods';
+function SOMClass_somGetNumStaticMethods(somSelf: SOMClass): LongInt;
+
+(*
+ * New Method: somGetParents
+ *)
+type
+  somTP_SOMClass_somGetParents = function(somSelf: SOMClass):
+    SOMClass_SOMClassSequence; stdcall;
+  somTD_SOMClass_somGetParents = somTP_SOMClass_somGetParents;
+(*
+ *  Returns a sequence containing pointers to the receiver's parent classes.
+ *  Caller is responsible for using SOMFree on the returned sequence buffer.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetParents = '::SOMClass::somGetParents';
+function SOMClass_somGetParents(somSelf: SOMClass): SOMClass_SOMClassSequence;
+
+(*
  * New Method: somGetInstanceSize
  *)
 type
@@ -4156,6 +4186,534 @@ type
  *)
 const somMD_SOMClass_somGetInstanceSize = '::SOMClass::somGetInstanceSize';
 function SOMClass_somGetInstanceSize(somSelf: SOMClass): LongInt;
+
+(*
+ * New Method: somGetInstancePartSize
+ *)
+type
+  somTP_SOMClass_somGetInstancePartSize = function(somSelf: SOMClass):
+    LongInt; stdcall;
+  somTD_SOMClass_somGetInstancePartSize = somTP_SOMClass_somGetInstancePartSize;
+(*
+ *  The size in bytes of the instance data introduced by the receiving
+ *  class.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetInstancePartSize = '::SOMClass::somGetInstancePartSize';
+function SOMClass_somGetInstancePartSize(somSelf: SOMClass): LongInt;
+
+(*
+ * New Method: somGetInstanceToken
+ *)
+type
+  somTP_SOMClass_somGetInstanceToken = function(somSelf: SOMClass):
+    somDToken; stdcall;
+  somTD_SOMClass_somGetInstanceToken = somTP_SOMClass_somGetInstanceToken;
+(*
+ *  A data token that identifies the introduced portion of this class
+ *  within itself or any derived class.  This token can be subsequently
+ *  passed to the run-time somDataResolve function to locate the instance
+ *  data introduced by this class in any object derived from this class.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetInstanceToken = '::SOMClass::somGetInstanceToken';
+function SOMClass_somGetInstanceToken(somSelf: SOMClass): somDToken;
+
+(*
+ * New Method: somGetMemberToken
+ *)
+type
+  somTP_SOMClass_somGetMemberToken = function(somSelf: SOMClass;
+		memberOffset: LongInt; instanceToken: somDToken): somDToken; stdcall;
+  somTD_SOMClass_somGetMemberToken = somTP_SOMClass_somGetMemberToken;
+(*
+ *  Returns a data token that for the data member at offset
+ *  "memberOffset" within the introduced portion of the class identified
+ *  by instanceToken.  The instance token must have been obtained from a
+ *  previous invocation of somGetInstanceToken.  The returned member
+ *  token can be subsequently passed to the run-time somDataResolve
+ *  function to locate the data member.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetMemberToken = '::SOMClass::somGetMemberToken';
+function SOMClass_somGetMemberToken(somSelf: SOMClass;
+  memberOffset: LongInt; instanceToken: somDToken): somDToken;
+
+(*
+ * New Method: somGetClassMtab
+ *)
+type
+  somTP_SOMClass_somGetClassMtab = function(somSelf: SOMClass):
+    somMethodTabPtr; stdcall;
+  somTD_SOMClass_somGetClassMtab = somTP_SOMClass_somGetClassMtab;
+(*
+ *  A pointer to the method table used by instances of this class. This
+ *  method was misnamed; it should have been called somGetInstanceMtab.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetClassMtab = '::SOMClass::somGetClassMtab';
+function SOMClass_somGetClassMtab(somSelf: SOMClass): somMethodTabPtr;
+
+(*
+ * New Method: somGetClassData
+ *)
+type
+  somTP_SOMClass_somGetClassData = function(somSelf: SOMClass):
+    somClassDataStructurePtr; stdcall;
+  somTD_SOMClass_somGetClassData = somTP_SOMClass_somGetClassData;
+const somMD_SOMClass_somGetClassData = '::SOMClass::somGetClassData';
+function SOMClass_somGetClassData(somSelf: SOMClass): somClassDataStructurePtr;
+
+(*
+ * New Method: somSetClassData
+ *)
+type
+  somTP_SOMClass_somSetClassData = procedure(somSelf: SOMClass;
+		cds: somClassDataStructurePtr); stdcall;
+  somTD_SOMClass_somSetClassData = somTP_SOMClass_somSetClassData;
+(*
+ *  The pointer to the static <className>ClassData structure.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somSetClassData = '::SOMClass::somSetClassData';
+procedure SOMClass_somSetClassData(somSelf: SOMClass;
+  cds: somClassDataStructurePtr);
+
+(*
+ * New Method: _get_somDataAlignment
+ *)
+type
+  somTP_SOMClass__get_somDataAlignment = function(somSelf: SOMClass):
+    LongInt; stdcall;
+  somTD_SOMClass__get_somDataAlignment = somTP_SOMClass__get_somDataAlignment;
+(*
+ *  The alignment required for the instance data structure
+ *  introduced by the receiving class.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass__get_somDataAlignment = '::SOMClass::_get_somDataAlignment';
+function SOMClass__get_somDataAlignment(somSelf: SOMClass): LongInt;
+
+(*
+ * New Method: _get_somInstanceDataOffsets
+ *)
+type
+  somTP_SOMClass__get_somInstanceDataOffsets = function(somSelf: SOMClass):
+    SOMClass_somOffsets; stdcall;
+  somTD_SOMClass__get_somInstanceDataOffsets =
+    somTP_SOMClass__get_somInstanceDataOffsets;
+(*
+ *  A sequence of the instance data offsets for all classes used in
+ *  the derivation of the receiving class (including the receiver).
+ *  The caller is responsible for freeing the returned sequence buffer.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass__get_somInstanceDataOffsets =
+  '::SOMClass::_get_somInstanceDataOffsets';
+function SOMClass__get_somInstanceDataOffsets(somSelf: SOMClass):
+  SOMClass_somOffsets;
+
+(*
+ * New Method: _get_somDirectInitClasses
+ *)
+type
+  somTP_SOMClass__get_somDirectInitClasses = function(somSelf: SOMClass):
+    SOMClass_SOMClassSequence; stdcall;
+  somTD_SOMClass__get_somDirectInitClasses =
+    somTP_SOMClass__get_somDirectInitClasses;
+(*
+ *  The ancestors whose initializers the receiving class wants to
+ *  directly invoke. Caller is responsible for freeing the returned
+ *  sequence buffer.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass__get_somDirectInitClasses = '::SOMClass::_get_somDirectInitClasses';
+function SOMClass__get_somDirectInitClasses(somSelf: SOMClass):
+  SOMClass_SOMClassSequence;
+
+(*
+ * New Method: somGetMethodDescriptor
+ *)
+type
+  somTP_SOMClass_somGetMethodDescriptor = function(somSelf: SOMClass;
+    methodId: somId): somId; stdcall;
+  somTD_SOMClass_somGetMethodDescriptor = somTP_SOMClass_somGetMethodDescriptor;
+(*
+ *  Returns the method descriptor for the indicated method.    If
+ *  this object does not support the indicated method then NULL is
+ *  returned.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetMethodDescriptor = '::SOMClass::somGetMethodDescriptor';
+function SOMClass_somGetMethodDescriptor(somSelf: SOMClass;
+  methodId: somId): somId;
+
+(*
+ * New Method: somGetMethodIndex
+ *)
+type
+  somTP_SOMClass_somGetMethodIndex = function(somSelf: SOMClass; id: somId):
+    LongInt; stdcall;
+  somTD_SOMClass_somGetMethodIndex = somTP_SOMClass_somGetMethodIndex;
+(*
+ *  Returns the index for the specified method. (A number that may
+ *  change if any methods are added or deleted to this class object or
+ *  any of its ancestors).  This number is the basis for other calls to
+ *  get info about the method. Indexes start at 0. A -1 is returned if
+ *  the method cannot be found.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetMethodIndex = '::SOMClass::somGetMethodIndex';
+function SOMClass_somGetMethodIndex(somSelf: SOMClass; id: somId): LongInt;
+
+(*
+ * New Method: somGetMethodToken
+ *)
+type
+  somTP_SOMClass_somGetMethodToken = function(somSelf: SOMClass;
+    methodId: somId): somMToken; stdcall;
+  somTD_SOMClass_somGetMethodToken = somTP_SOMClass_somGetMethodToken;
+(*
+ *  Returns the specified method's access token. This token can then
+ *  be passed to method resolution routines, which use the token
+ *  to select a method pointer from a method table.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetMethodToken = '::SOMClass::somGetMethodToken';
+function SOMClass_somGetMethodToken(somSelf: SOMClass; methodId: somId):
+  somMToken;
+
+(*
+ * New Method: somGetNthMethodInfo
+ *)
+type
+  somTP_SOMClass_somGetNthMethodInfo = function(somSelf: SOMClass;
+		n: LongInt; out descriptor: somId): somId; stdcall;
+  somTD_SOMClass_somGetNthMethodInfo = somTP_SOMClass_somGetNthMethodInfo;
+(*
+ *  Returns the id of the <n>th method if one exists and NULL
+ *  otherwise.
+ *
+ *  The ordering of the methods is unpredictable, but will not change
+ *  unless some change is made to the class or one of its ancestor classes.
+ *
+ *  See CORBA documentation for info on method descriptors.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetNthMethodInfo = '::SOMClass::somGetNthMethodInfo';
+function SOMClass_somGetNthMethodInfo(somSelf: SOMClass; n: LongInt;
+  out descriptor: somId): somId;
+
+(*
+ * New Method: somGetMarshalPlan
+ *)
+type
+  somTP_SOMClass_somGetMarshalPlan = function(somSelf: SOMClass;
+		methodId: somId): somToken; stdcall;
+  somTD_SOMClass_somGetMarshalPlan = somTP_SOMClass_somGetMarshalPlan;
+(*
+ *  uses namelookup from the target class to locate a method that has the
+ *  indicated methodId, and returns that method's marshal plan if there
+ *  is one. Otherwise, null is returned.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetMarshalPlan = '::SOMClass::somGetMarshalPlan';
+function SOMClass_somGetMarshalPlan(somSelf: SOMClass; methodId: somId):
+  somToken;
+
+(*
+ * New Method: somGetMethodData
+ *)
+type
+  somTP_SOMClass_somGetMethodData = function(somSelf: SOMClass;
+		methodId: somId; out md: somMethodData): CORBABoolean; stdcall;
+  somTD_SOMClass_somGetMethodData = somTP_SOMClass_somGetMethodData;
+(*
+ *  If the receiving class supports a method with the specified somId,
+ *  then the method data pointed to by md is loaded with information
+ *  for the method and 1 (TRUE) is returned. Otherwise md->id is set to
+ *  NULL and 0 (FALSE) is returned. On success, the md->method field is
+ *  loaded with a the address of a function that invokes the method
+ *  implementation appropriate for instances of the receiving class.
+ *  Successive calls for the same method are *not* guaranteed to load
+ *  md->method with the same address. All somId-based method resolution
+ *  routines use the md->method address computed by somGetMethodData
+ *  as their resolution result.
+ *)
+const somMD_SOMClass_somGetMethodData = '::SOMClass::somGetMethodData';
+function SOMClass_somGetMethodData(somSelf: SOMClass;	methodId: somId;
+  out md: somMethodData): CORBABoolean;
+
+(*
+ * New Method: somGetNthMethodData
+ *)
+type
+  somTP_SOMClass_somGetNthMethodData = function(somSelf: SOMClass;
+		n: LongInt; out md: somMethodData): CORBABoolean; stdcall;
+  somTD_SOMClass_somGetNthMethodData = somTP_SOMClass_somGetNthMethodData;
+(*
+ *  This method is similar to somGetMethodData. The method
+ *  whose data is returned is the method for which the receiving
+ *  class would return n from somGetMethodIndex.
+ *)
+const somMD_SOMClass_somGetNthMethodData = '::SOMClass::somGetNthMethodData';
+function SOMClass_somGetNthMethodData(somSelf: SOMClass; n: LongInt;
+  out md: somMethodData): CORBABoolean;
+
+(*
+ * New Method: somFindMethod
+ *)
+type
+  somTP_SOMClass_somFindMethod = function(somSelf: SOMClass;
+		methodId: somId; out m: somMethodPtr): CORBABoolean; stdcall;
+  somTD_SOMClass_somFindMethod = somTP_SOMClass_somFindMethod;
+(*
+ *  If the receiving class supports a method with the specified
+ *  methodId, m is set to the address of a function that
+ *  will invoke the method implementation appropriate for instances
+ *  of the receiving class and 1 (TRUE) is returned. Otherwise, m is
+ *  set to NULL and 0 (FALSE) is returned. Successive calls on the
+ *  same class with the same arguments are not guaranteed to return
+ *  the same function address.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somFindMethod = '::SOMClass::somFindMethod';
+function SOMClass_somFindMethod(somSelf: SOMClass; methodId: somId;
+  out m: somMethodPtr): CORBABoolean;
+
+(*
+ * New Method: somFindMethodOk
+ *)
+type
+  somTP_SOMClass_somFindMethodOk = function(somSelf: SOMClass;
+		methodId: somId; out m: somMethodPtr): CORBABoolean; stdcall;
+  somTD_SOMClass_somFindMethodOk = somTP_SOMClass_somFindMethodOk;
+(*
+ *  Just like <somFindMethod> except that if the method is not
+ *  supported then an error is raised and execution is halted.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somFindMethodOk = '::SOMClass::somFindMethodOk';
+function SOMClass_somFindMethodOk(somSelf: SOMClass; methodId: somId;
+  out m: somMethodPtr): CORBABoolean;
+
+(*
+ * New Method: somFindSMethod
+ *)
+type
+  somTP_SOMClass_somFindSMethod = function(somSelf: SOMClass;
+		methodId: somId): somMethodPtr; stdcall;
+  somTD_SOMClass_somFindSMethod = somTP_SOMClass_somFindSMethod;
+(*
+ *  Finds the indicated method, which must be a static method supported
+ *  by this class, and returns a pointer to a function that will
+ *  invoke the method implementation appropriate for instances of the
+ *  receiving class. If the method is not supported by the receiver
+ *  (as a static method or at all) then a NULL pointer is returned.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somFindSMethod = '::SOMClass::somFindSMethod';
+function SOMClass_somFindSMethod(somSelf: SOMClass;	methodId: somId):
+  somMethodPtr;
+
+(*
+ * New Method: somFindSMethodOk
+ *)
+type
+  somTP_SOMClass_somFindSMethodOk = function(somSelf: SOMClass;
+    methodId: somId): somMethodPtr; stdcall;
+  somTD_SOMClass_somFindSMethodOk = somTP_SOMClass_somFindSMethodOk;
+(*
+ *  Uses <somFindSMethod>, and raises an error if the result is NULL.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somFindSMethodOk = '::SOMClass::somFindSMethodOk';
+function SOMClass_somFindSMethodOk(somSelf: SOMClass; methodId: somId):
+  somMethodPtr;
+
+(*
+ * New Method: somLookupMethod
+ *)
+type
+  somTP_SOMClass_somLookupMethod = function(somSelf: SOMClass; methodId: somId):
+    somMethodPtr; stdcall;
+  somTD_SOMClass_somLookupMethod = somTP_SOMClass_somLookupMethod;
+(*
+ *  Like <somFindSMethodOK>, but without restriction to static methods.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somLookupMethod = '::SOMClass::somLookupMethod';
+function SOMClass_somLookupMethod(somSelf: SOMClass; methodId: somId):
+  somMethodPtr;
+
+(*
+ * New Method: somGetApplyStub
+ *)
+type
+  somTP_SOMClass_somGetApplyStub = function(somSelf: SOMClass; methodId: somId):
+    somMethodPtr; stdcall;
+  somTD_SOMClass_somGetApplyStub = somTP_SOMClass_somGetApplyStub;
+(*
+ *  Returns the apply stub associated with the specified method,
+ *  if one exists; otherwise NULL is returned. This method is obsolete,
+ *  and retained for binary compatability. In SOMr2, users never access
+ *  apply stubs directly; The function somApply is used to invoke apply
+ *  stubs. See somApply documentation for further information on apply
+ *  stubs, and see somAddStaticMethod documentation for information
+ *  on how apply stubs are registered by class implementations.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetApplyStub = '::SOMClass::somGetApplyStub';
+function SOMClass_somGetApplyStub(somSelf: SOMClass; methodId: somId):
+  somMethodPtr;
+
+(*
+ * New Method: somGetPClsMtab
+ *)
+type
+  somTP_SOMClass_somGetPClsMtab = function(somSelf: SOMClass):
+    somMethodTabs; stdcall;
+  somTD_SOMClass_somGetPClsMtab = somTP_SOMClass_somGetPClsMtab;
+(*
+ *  Returns a list of the method tables of this class's parent classes in the
+ *  specific format required by somParentNumResolve (for making parent method
+ *  calls. The first entry on the list is actually the method table of the
+ *  receiving class. Because the CClassData structure contains this list, the
+ *  method table for any class with a CClassData structure is statically
+ *  available. This method now returns a list because older SI emitters load
+ *  CClassData.parentMtab with the result of this call, and the new runtime
+ *  requires a list of classes in that position.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetPClsMtab = '::SOMClass::somGetPClsMtab';
+function SOMClass_somGetPClsMtab(somSelf: SOMClass): somMethodTabs;
+
+(*
+ * New Method: somCheckVersion
+ *)
+type
+  somTP_SOMClass_somCheckVersion = function(somSelf: SOMClass;
+		majorVersion, minorVersion: LongInt): CORBABoolean; stdcall;
+  somTD_SOMClass_somCheckVersion = somTP_SOMClass_somCheckVersion;
+(*
+ *  Returns 1 (true) if the implementation of this class is
+ *  compatible with the specified major and minor version number and
+ *  false (0) otherwise.  An implementation is compatible with the
+ *  specified version numbers if it has the same major version number
+ *  and a minor version number that is equal to or greater than
+ *  <minorVersion>.    The major, minor version number pair (0,0) is
+ *  considered to match any version.  This method is usually called
+ *  immediately after creating the class object to verify that a
+ *  dynamically loaded class definition is compatible with a using
+ *  application.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somCheckVersion = '::SOMClass::somCheckVersion';
+function SOMClass_somCheckVersion(somSelf: SOMClass;
+	majorVersion, minorVersion: LongInt): CORBABoolean;
+
+(*
+ * New Method: somDescendedFrom
+ *)
+type
+  somTP_SOMClass_somDescendedFrom = function(somSelf: SOMClass;
+    aClassObj: SOMClass): CORBABoolean; stdcall;
+  somTD_SOMClass_somDescendedFrom = somTP_SOMClass_somDescendedFrom;
+(*
+ *  Returns 1 (true) if <self> is a descendent class of <aClassObj> and
+ *  0 (false) otherwise.  Note: a class object is considered to be
+ *  descended itself for the purposes of this method.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somDescendedFrom = '::SOMClass::somDescendedFrom';
+function SOMClass_somDescendedFrom(somSelf: SOMClass; aClassObj: SOMClass):
+  CORBABoolean;
+
+(*
+ * New Method: somSupportsMethod
+ *)
+type
+  somTP_SOMClass_somSupportsMethod = function(somSelf: SOMClass;
+		mId: somId): CORBABoolean; stdcall;
+  somTD_SOMClass_somSupportsMethod = somTP_SOMClass_somSupportsMethod;
+(*
+ *  Returns 1 (true) if the indicated method is supported by this
+ *  class and 0 (false) otherwise.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somSupportsMethod = '::SOMClass::somSupportsMethod';
+function SOMClass_somSupportsMethod(somSelf: SOMClass; mId: somId): CORBABoolean;
+
+(*
+ * New Method: somDefinedMethod
+ *)
+type
+  somTP_SOMClass_somDefinedMethod = function(somSelf: SOMClass;
+		method: somMToken): somMethodPtr; stdcall;
+  somTD_SOMClass_somDefinedMethod = somTP_SOMClass_somDefinedMethod;
+(*
+ *  If the receiving class explicitly defines an implementation for
+ *  the indicated method, then the address of a function that will invoke
+ *  this implementation is returned. Otherwise NULL is returned.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somDefinedMethod = '::SOMClass::somDefinedMethod';
+function SOMClass_somDefinedMethod(somSelf: SOMClass;	method: somMToken):
+  somMethodPtr;
+
+(*
+ * New Method: somMethodImplOwner
+ *)
+type
+  somTP_SOMClass_somMethodImplOwner = function(somSelf: SOMClass;
+		var md: somMethodData): SOMClass; stdcall;
+  somTD_SOMClass_somMethodImplOwner = somTP_SOMClass_somMethodImplOwner;
+(*
+ *  Returns the owner of the implementation of the method indicated by md
+ *  for instances of the receiving class, and loads md->method with a
+ *  pointer to the method implementation. If the receiving class doesn't
+ *  support the method, md->method is not changed, and null is returned.
+ *  Implementations that are automatically installed by SOM (such as for
+ *  SOMObject's initializers and for legacy support of somInit) are
+ *  reported as being owned by SOMObject.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somMethodImplOwner = '::SOMClass::somMethodImplOwner';
+function SOMClass_somMethodImplOwner(somSelf: SOMClass;	var md: somMethodData):
+  SOMClass;
+
+(*
+ * New Method: somGetRdStub
+ *)
+type
+  somTP_SOMClass_somGetRdStub = function(somSelf: SOMClass; methodId: somId):
+    somMethodProc; stdcall;
+  somTD_SOMClass_somGetRdStub = somTP_SOMClass_somGetRdStub;
+(*
+ *  Returns a redispatch stub for the indicated method if possible.
+ *  If not possible (because a valid redispatch stub has not been
+ *  registered, and there is insufficient information to dynamically
+ *  construct one), then a pointer to a function that prints an
+ *  informative message and terminates execution is returned.
+ *)
+const somMD_SOMClass_somGetRdStub = '::SOMClass::somGetRdStub';
+function SOMClass_somGetRdStub(somSelf: SOMClass; methodId: somId):
+  somMethodProc;
+
+(*
+ * New Method: somOverrideMtab
+ *)
+type
+  somTP_SOMClass_somOverrideMtab = procedure(somSelf: SOMClass); stdcall;
+  somTD_SOMClass_somOverrideMtab = somTP_SOMClass_somOverrideMtab;
+(*
+ *  Overrides the method table pointers to point to the redispatch stubs.
+ *  All the methods except somDispatch methods are overriden.
+ *)
+const somMD_SOMClass_somOverrideMtab = '::SOMClass::somOverrideMtab';
+procedure SOMClass_somOverrideMtab(somSelf: SOMClass);
+
+
 
 
 
@@ -5366,6 +5924,26 @@ begin
      (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumMethods))(somSelf);
 end;
 
+function SOMClass_somGetNumStaticMethods(somSelf: SOMClass): LongInt;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetNumStaticMethods
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumStaticMethods))(somSelf);
+end;
+
+function SOMClass_somGetParents(somSelf: SOMClass): SOMClass_SOMClassSequence;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetParents
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetParents))(somSelf);
+end;
+
 function SOMClass_somGetInstanceSize(somSelf: SOMClass): LongInt;
 var
   cd: PSOMClassClassDataStructure;
@@ -5375,6 +5953,345 @@ begin
     somTD_SOMClass_somGetInstanceSize
      (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceSize))(somSelf);
 end;
+
+function SOMClass_somGetInstancePartSize(somSelf: SOMClass): LongInt;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetInstancePartSize
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstancePartSize))(somSelf);
+end;
+
+function SOMClass_somGetInstanceToken(somSelf: SOMClass): somDToken;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetInstanceToken
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceToken))(somSelf);
+end;
+
+function SOMClass_somGetMemberToken(somSelf: SOMClass;
+  memberOffset: LongInt; instanceToken: somDToken): somDToken;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetMemberToken
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetMemberToken))
+       (somSelf, memberOffset, instanceToken);
+end;
+
+function SOMClass_somGetClassMtab(somSelf: SOMClass): somMethodTabPtr;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetClassMtab
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassMtab))(somSelf);
+end;
+
+function SOMClass_somGetClassData(somSelf: SOMClass): somClassDataStructurePtr;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetClassData
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassData))(somSelf);
+end;
+
+procedure SOMClass_somSetClassData(somSelf: SOMClass;
+  cds: somClassDataStructurePtr);
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  somTD_SOMClass_somSetClassData
+   (SOM_Resolve(somSelf, cd.classObject, cd.somSetClassData))(somSelf, cds);
+end;
+
+function SOMClass__get_somDataAlignment(somSelf: SOMClass): LongInt;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass__get_somDataAlignment
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somDataAlignment))(somSelf);
+end;
+
+function SOMClass__get_somInstanceDataOffsets(somSelf: SOMClass):
+  SOMClass_somOffsets;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass__get_somInstanceDataOffsets
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somInstanceDataOffsets))
+       (somSelf);
+end;
+
+function SOMClass__get_somDirectInitClasses(somSelf: SOMClass):
+  SOMClass_SOMClassSequence;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass__get_somDirectInitClasses
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somDirectInitClasses))
+       (somSelf);
+end;
+
+function SOMClass_somGetMethodDescriptor(somSelf: SOMClass;
+  methodId: somId): somId;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetMethodDescriptor
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodDescriptor))
+       (somSelf, methodId);
+end;
+
+function SOMClass_somGetMethodIndex(somSelf: SOMClass; id: somId): LongInt;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetMethodIndex
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodIndex))(somSelf, id);
+end;
+
+function SOMClass_somGetMethodToken(somSelf: SOMClass; methodId: somId):
+  somMToken;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetMethodToken
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodToken))
+       (somSelf, methodId);
+end;
+
+function SOMClass_somGetNthMethodInfo(somSelf: SOMClass; n: LongInt;
+  out descriptor: somId): somId;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetNthMethodInfo
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodInfo))
+       (somSelf, n, descriptor);
+end;
+
+function SOMClass_somGetMarshalPlan(somSelf: SOMClass; methodId: somId):
+  somToken;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetMarshalPlan
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetMarshalPlan))
+       (somSelf, methodId);
+end;
+
+function SOMClass_somGetMethodData(somSelf: SOMClass;	methodId: somId;
+  out md: somMethodData): CORBABoolean;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetMethodData
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetMarshalPlan))
+       (somSelf, methodId, md);
+end;
+
+function SOMClass_somGetNthMethodData(somSelf: SOMClass; n: LongInt;
+  out md: somMethodData): CORBABoolean;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetNthMethodData
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodData))
+       (somSelf, n, md);
+end;
+
+function SOMClass_somFindMethod(somSelf: SOMClass; methodId: somId;
+  out m: somMethodPtr): CORBABoolean;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somFindMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethod))
+       (somSelf, methodId, m);
+end;
+
+function SOMClass_somFindMethodOk(somSelf: SOMClass; methodId: somId;
+  out m: somMethodPtr): CORBABoolean;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somFindMethodOk
+     (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethodOk))
+       (somSelf, methodId, m);
+end;
+
+function SOMClass_somFindSMethod(somSelf: SOMClass;	methodId: somId):
+  somMethodPtr;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somFindSMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethod))
+       (somSelf, methodId);
+end;
+
+function SOMClass_somFindSMethodOk(somSelf: SOMClass; methodId: somId):
+  somMethodPtr;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somFindSMethodOk
+     (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethodOk))
+       (somSelf, methodId);
+end;
+
+function SOMClass_somLookupMethod(somSelf: SOMClass; methodId: somId):
+  somMethodPtr;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somLookupMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somLookupMethod))
+       (somSelf, methodId);
+end;
+
+function SOMClass_somGetApplyStub(somSelf: SOMClass; methodId: somId):
+  somMethodPtr;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetApplyStub
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetApplyStub))
+       (somSelf, methodId);
+end;
+
+function SOMClass_somGetPClsMtab(somSelf: SOMClass): somMethodTabs;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetPClsMtab
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetPClsMtab))(somSelf);
+end;
+
+function SOMClass_somCheckVersion(somSelf: SOMClass;
+	majorVersion, minorVersion: LongInt): CORBABoolean;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somCheckVersion
+     (SOM_Resolve(somSelf, cd.classObject, cd.somCheckVersion))
+       (somSelf, majorVersion, minorVersion);
+end;
+
+function SOMClass_somDescendedFrom(somSelf: SOMClass; aClassObj: SOMClass):
+  CORBABoolean;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somDescendedFrom
+     (SOM_Resolve(somSelf, cd.classObject, cd.somDescendedFrom))
+       (somSelf, aClassObj);
+end;
+
+function SOMClass_somSupportsMethod(somSelf: SOMClass; mId: somId): CORBABoolean;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somSupportsMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somSupportsMethod))(somSelf, mId);
+end;
+
+function SOMClass_somDefinedMethod(somSelf: SOMClass;	method: somMToken):
+  somMethodPtr;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somDefinedMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somDefinedMethod))
+       (somSelf, method);
+end;
+
+function SOMClass_somMethodImplOwner(somSelf: SOMClass;	var md: somMethodData):
+  SOMClass;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somMethodImplOwner
+     (SOM_Resolve(somSelf, cd.classObject, cd.somMethodImplOwner))(somSelf, md);
+end;
+
+function SOMClass_somGetRdStub(somSelf: SOMClass; methodId: somId):
+  somMethodProc;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetRdStub
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetRdStub))(somSelf, methodId);
+end;
+
+procedure SOMClass_somOverrideMtab(somSelf: SOMClass);
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  somTD_SOMClass_somOverrideMtab
+   (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideMtab))(somSelf);
+end;
+
+
 
 // #include <somcm.h>
 
