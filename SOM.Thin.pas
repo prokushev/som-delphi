@@ -82,7 +82,8 @@ type
    (*  call somresolve_ but test that the object is well formed and an
        instance of the specified class or a class derived from that class *)
 
-// function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; // (moved down)
+// function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken;
+//   fileName: PAnsiChar = ''; lineNum: Integer = 0): somMethodProc; // (moved down)
 
 (* from oc's mtbl, without verification of o *)
 // function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; // (moved down)
@@ -110,7 +111,8 @@ type
 (* turn off this macro by defining SOM_NoTest, or adding -DSOM_NoTest  *)
 (* to your makefile.						       *)
 
-// function SOM_TestCls(obj: SOMObject; cls: SOMClass): SOMObject; // (moved down)
+// function SOM_TestCls(obj: SOMObject; cls: SOMClass;
+//   fileName: PAnsiChar = ''; lineNum: Integer = 0): SOMObject; // (moved down)
 
 (* Control the printing of method and procedure entry messages, *)
 (* 0-none, 1-user, 2-core&user *)
@@ -1613,7 +1615,8 @@ type
    (*  call somresolve_ but test that the object is well formed and an
        instance of the specified class or a class derived from that class *)
 
-function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
+function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc;
 
 (* from oc's mtbl, without verification of o *)
 function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
@@ -1641,7 +1644,8 @@ procedure SOM_IgnoreWarning(var v);
 (* turn off this macro by defining SOM_NoTest, or adding -DSOM_NoTest  *)
 (* to your makefile.						       *)
 
-function SOM_TestCls(obj: SOMObject; cls: SOMClass): SOMObject;
+function SOM_TestCls(obj: SOMObject; cls: SOMClass;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): SOMObject;
 
 (* Control the printing of method and procedure entry messages, *)
 (* 0-none, 1-user, 2-core&user *)
@@ -3636,6 +3640,25 @@ procedure SOMObject_somDumpSelfInt(somSelf: SOMObject; level: LongInt);
 // #include <somcls.h>
 
 (*
+ *   SOMClass is the root SOM metaclass. Because it is a metaclass, its
+ *   instances are classes. Because it is the root metaclass, all other
+ *   metaclasses inherit its methods.
+ *
+ *   SOMClass defines the default behavior for SOM class objects
+ *   accessed using methods available through the SOMClass interface.
+ *   Other metaclasses are allowed to specialize the behavior of
+ *   classes by introducing new methods and overriding SOMClass
+ *   methods.
+ *
+ *   Generally, when SOMClass methods are overridden by user-defined
+ *   metaclasses, a relative parent call should be made at some point to
+ *   allow the default behavior implemented by SOMClass to execute
+ *   (in addition to whatever additional behavior might be desired by the
+ *   new metaclasses).
+ *
+ *)
+
+(*
  * Start of bindings for IDL types
  *)
 type
@@ -3644,21 +3667,24 @@ type
     _length: LongWord;
     _buffer: somTokenPtr;
   end;
-  SOMClass_somTokenSequence = _IDL_SEQUENCE_somToken ;
+  SOMClass_somTokenSequence = _IDL_SEQUENCE_somToken;
 (*
  *  a (generic) sequence of somTokens
  *)
 
+type
   _IDL_SEQUENCE_SOMClass = record
     _maximum: LongWord;
     _length: LongWord;
     _buffer: PSOMClass;
   end;
   SOMClass_SOMClassSequence = _IDL_SEQUENCE_SOMClass;
+  PSOMClass_SOMClassSequence = ^SOMClass_SOMClassSequence;
 (*
  *  a sequence of classes
  *)
 
+type
   SOMClass_somOffsetInfo = record
     cls: SOMClass;
     offset: LongInt;
@@ -3668,6 +3694,7 @@ type
  *  a structure to describe a class-related offset
  *)
 
+type
   _IDL_SEQUENCE_SOMClass_somOffsetInfo = record
     _maximum: LongWord;
     _length: LongWord;
@@ -3678,6 +3705,7 @@ type
  *  a sequence of class-related offsets
  *)
 
+type
   _IDL_SEQUENCE_somId = record
     _maximum: LongWord;
     _length: LongWord;
@@ -3803,6 +3831,16 @@ end;
 PSOMClassCClassDataStructure = ^SOMClassCClassDataStructure;
 function SOMClassCClassData: PSOMClassCClassDataStructure;
 
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMClass: SOMClass;
+
+(*
+ * New and Renew macros for SOMObject
+ *)
+function SOMClassNew: SOMClass;
+function SOMClassRenew(buf: Pointer): SOMClass;
 
 (*
  * New Method: somNew
@@ -3821,6 +3859,19 @@ const somMD_SOMClass_somNew = '::SOMClass::somNew';
 function SOMClass_somNew(somSelf: SOMClass): SOMObject;
 
 (*
+ * New Method: somNewNoInit
+ *)
+type
+  somTP_SOMClass_somNewNoInit = function(somSelf: SOMClass): SOMObject; stdcall;
+  somTD_SOMClass_somNewNoInit = somTP_SOMClass_somNewNoInit;
+(*
+ *  Equivalent to somNew except that somDefaultInit is not called.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somNewNoInit = '::SOMClass::somNewNoInit';
+function SOMClass_somNewNoInit(somSelf: SOMClass): SOMObject;
+
+(*
  * New Method: somRenew
  *)
 type
@@ -3834,6 +3885,264 @@ type
  *)
 const somMD_SOMClass_somRenew = '::SOMClass::somRenew';
 function SOMClass_somRenew(somSelf: SOMClass; obj: Pointer): SOMObject;
+
+(*
+ * New Method: somRenewNoInit
+ *)
+type
+  somTP_SOMClass_somRenewNoInit = function(somSelf: SOMClass;
+		obj: Pointer): SOMObject; stdcall;
+  somTD_SOMClass_somRenewNoInit = somTP_SOMClass_somRenewNoInit;
+(*
+ *  Equivalent to somRenew except that somDefaultInit is not called.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somRenewNoInit = '::SOMClass::somRenewNoInit';
+function SOMClass_somRenewNoInit(somSelf: SOMClass; obj: Pointer): SOMObject;
+
+(*
+ * New Method: somRenewNoZero
+ *)
+type
+  somTP_SOMClass_somRenewNoZero = function(somSelf: SOMClass;
+		obj: Pointer): SOMObject; stdcall;
+  somTD_SOMClass_somRenewNoZero = somTP_SOMClass_somRenewNoZero;
+
+(*
+ *  Equivalent to somRenew except that memory is not zeroed out.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somRenewNoZero = '::SOMClass::somRenewNoZero';
+function SOMClass_somRenewNoZero(somSelf: SOMClass; obj: Pointer): SOMObject;
+
+(*
+ * New Method: somRenewNoInitNoZero
+ *)
+type
+  somTP_SOMClass_somRenewNoInitNoZero = function(somSelf: SOMClass;
+		obj: Pointer): SOMObject; stdcall;
+  somTD_SOMClass_somRenewNoInitNoZero = somTP_SOMClass_somRenewNoInitNoZero;
+(*
+ *  This method loads an object's method table pointer, turning raw
+ *  memory into an uninitialized SOM object. The other somNew and
+ *  somRenew methods all call this method, so metaclasses can override
+ *  this method to track object creation if this is desired. A relative
+ *  parent call should be done from overrides.
+ *)
+const somMD_SOMClass_somRenewNoInitNoZero = '::SOMClass::somRenewNoInitNoZero';
+function SOMClass_somRenewNoInitNoZero(somSelf: SOMClass;
+  obj: Pointer): SOMObject;
+
+(*
+ * New Method: somAllocate
+ *)
+type
+  somTP_SOMClass_somAllocate = function(somSelf: SOMClass;
+		size: LongInt): somToken; stdcall;
+  somTD_SOMClass_somAllocate = somTP_SOMClass_somAllocate;
+(*
+ *  nonstatic
+ *  Uses the memory allocation routine associated with the receiving
+ *  class to allocate memory to hold an object of the indicated size.
+ *  NULL is returned on failure. The default allocation routine uses
+ *  SOMMalloc.
+ *)
+const somMD_SOMClass_somAllocate = '::SOMClass::somAllocate';
+function SOMClass_somAllocate(somSelf: SOMClass; size: LongInt): somToken;
+
+(*
+ * New Method: somDeallocate
+ *)
+type
+  somTP_SOMClass_somDeallocate = procedure(somSelf: SOMClass;
+		memptr: somToken); stdcall;
+  somTD_SOMClass_somDeallocate = somTP_SOMClass_somDeallocate;
+(*
+ *  nonstatic
+ *  Uses the memory deallocation routine associated with the receiving
+ *  class to deallocate memory beginning at the address indicated by
+ *  memptr. The first word of this memory (normally a method table
+ *  pointer) is loaded with NULL. The deallocation routine receives
+ *  a void* (memptr) and a size_t (size) as arguments.
+ *)
+const somMD_SOMClass_somDeallocate = '::SOMClass::somDeallocate';
+procedure SOMClass_somDeallocate(somSelf: SOMClass;	memptr: somToken);
+
+(*
+ * New Method: somJoin
+ *)
+type
+  somTP_SOMClass_somJoin = function(somSelf: SOMClass;
+		secondParent: SOMClass; nameOfNewClass: CORBAString): SOMClass; stdcall;
+  somTD_SOMClass_somJoin = somTP_SOMClass_somJoin;
+(*
+ *  Creates the multiple inheritance join of the target class and the
+ *  secondParent with the class name nameOfNewClass.
+ *)
+const somMD_SOMClass_somJoin = '::SOMClass::somJoin';
+function SOMClass_somJoin(somSelf: SOMClass; secondParent: SOMClass;
+  nameOfNewClass: CORBAString): SOMClass;
+
+(*
+ * New Method: somEndow
+ *)
+type
+  somTP_SOMClass_somEndow = function(somSelf: SOMClass; parent: SOMClass;
+		nameOfNewClass: CORBAString): SOMClass; stdcall;
+  somTD_SOMClass_somEndow = somTP_SOMClass_somEndow;
+(*
+ *  Creates the a subclass of parent with the class name nameOfNewClass
+ *  where the target class is an added metaclass constraint.
+ *  NOTE: this means that the target class must be a metaclass.
+ *)
+const somMD_SOMClass_somEndow = '::SOMClass::somEndow';
+function SOMClass_somEndow(somSelf: SOMClass; parent: SOMClass;
+  nameOfNewClass: CORBAString): SOMClass;
+
+(*
+ * Direct call procedure
+ *)
+type
+  somTP_SOMClass_somClassOfNewClassWithParents =
+    function(newClassName: CORBAString; parents: PSOMClass_SOMClassSequence;
+      explicitMeta: SOMClass): SOMClass; stdcall;
+  somTD_SOMClass_somClassOfNewClassWithParents =
+    somTP_SOMClass_somClassOfNewClassWithParents;
+function SOMClass_somClassOfNewClassWithParents(newClassName: CORBAString;
+  parents: PSOMClass_SOMClassSequence; explicitMeta: SOMClass): SOMClass;
+
+(*
+ * New Method: somInitMIClass
+ *)
+type
+  somTP_SOMClass_somInitMIClass = procedure(somSelf: SOMClass;
+		inherit_vars: LongWord; className: CORBAString;
+		parentClasses: PSOMClass_SOMClassSequence;
+		dataSize, dataAlignment, maxNDMethods,
+    majorVersion, minorVersion: LongInt); stdcall;
+  somTD_SOMClass_somInitMIClass = somTP_SOMClass_somInitMIClass;
+(*
+ *  Perform inheritance into a class object from the specified parent
+ *  classes, determine the layout of instances for the receiving class, and
+ *  determine the layout of the instance method table for the receiving class.
+ *  Overrides should perform relative parent calls.
+ *)
+const somMD_SOMClass_somInitMIClass = '::SOMClass::somInitMIClass';
+procedure SOMClass_somInitMIClass(somSelf: SOMClass;
+	inherit_vars: LongWord; className: CORBAString;
+  parentClasses: PSOMClass_SOMClassSequence;
+	dataSize, dataAlignment, maxNDMethods, majorVersion, minorVersion: LongInt);
+
+(*
+ * New Method: somAddStaticMethod
+ *)
+type
+  somTP_SOMClass_somAddStaticMethod = function(somSelf: SOMClass;
+		methodId, methodDescriptor: somId;
+		method, redispatchStub, applyStub: somMethodPtr): somMToken; stdcall;
+  somTD_SOMClass_somAddStaticMethod = somTP_SOMClass_somAddStaticMethod;
+(*
+ *  Introduce a new static method with the indicated methodId into
+ *  the receiving class. Overrides should perform relative parent calls.
+ *)
+const somMD_SOMClass_somAddStaticMethod = '::SOMClass::somAddStaticMethod';
+function SOMClass_somAddStaticMethod(somSelf: SOMClass;
+	methodId, methodDescriptor: somId;
+	method, redispatchStub, applyStub: somMethodPtr): somMToken;
+
+(*
+ * New Method: somOverrideSMethod
+ *)
+type
+  somTP_SOMClass_somOverrideSMethod = procedure(somSelf: SOMClass;
+		methodId: somId; method: somMethodPtr); stdcall;
+  somTD_SOMClass_somOverrideSMethod = somTP_SOMClass_somOverrideSMethod;
+(*
+ *  Replace the implementation for the indicated method in the instances
+ *  of the receiving class. Overrides should perform relative parent calls.
+ *)
+const somMD_SOMClass_somOverrideSMethod = '::SOMClass::somOverrideSMethod';
+procedure SOMClass_somOverrideSMethod(somSelf: SOMClass;
+	methodId: somId; method: somMethodPtr);
+
+(*
+ * New Method: somClassReady
+ *)
+type
+  somTP_SOMClass_somClassReady = procedure(somSelf: SOMClass); stdcall;
+  somTD_SOMClass_somClassReady = somTP_SOMClass_somClassReady;
+(*
+ *  This method is invoked when all of the static initialization for
+ *  the class has been finished (i.e., its instance method table has
+ *  been loaded) and allows final setup for the class to be done. When
+ *  overriding this method, all setup should be done before doing a
+ *  relative pcall, since SOMClass's implementation will register the
+ *  class with the class manager.
+ *)
+const somMD_SOMClass_somClassReady = '::SOMClass::somClassReady';
+procedure SOMClass_somClassReady(somSelf: SOMClass);
+
+(*
+ * New Method: somAddDynamicMethod
+ *)
+type
+  somTP_SOMClass_somAddDynamicMethod = procedure(somSelf: SOMClass;
+		methodId, methodDescriptor: somId;
+		methodImpl, applyStub: somMethodPtr); stdcall;
+  somTD_SOMClass_somAddDynamicMethod = somTP_SOMClass_somAddDynamicMethod;
+(*
+ *  If the receiving class supports a static method with the indicated
+ *  methodId, then override the method with the indicated implementation.
+ *  Otherwise, a dynamic method with the indicated methodId is added to
+ *  the receiving class.
+ *)
+const somMD_SOMClass_somAddDynamicMethod  = '::SOMClass::somAddDynamicMethod';
+procedure SOMClass_somAddDynamicMethod(somSelf: SOMClass;
+	methodId, methodDescriptor: somId; methodImpl, applyStub: somMethodPtr);
+
+(*
+ * New Method: somGetName
+ *)
+type
+  somTP_SOMClass_somGetName = function(somSelf: SOMClass): CORBAString; stdcall;
+  somTD_SOMClass_somGetName = somTP_SOMClass_somGetName;
+(*
+ *  This object's class name as a NULL terminated string.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetName = '::SOMClass::somGetName';
+function SOMClass_somGetName(somSelf: SOMClass): CORBAString;
+
+(*
+ * New Method: somGetVersionNumbers
+ *)
+type
+  somTP_SOMClass_somGetVersionNumbers = procedure(somSelf: SOMClass;
+		out majorVersion, minorVersion: LongInt); stdcall;
+  somTD_SOMClass_somGetVersionNumbers = somTP_SOMClass_somGetVersionNumbers;
+(*
+ *  Returns the class' major and minor version numbers in the corresponding
+ *  output parameters.
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetVersionNumbers = '::SOMClass::somGetVersionNumbers';
+procedure SOMClass_somGetVersionNumbers(somSelf: SOMClass;
+  out majorVersion, minorVersion: LongInt);
+
+(*
+ * New Method: somGetNumMethods
+ *)
+type
+  somTP_SOMClass_somGetNumMethods = function(somSelf: SOMClass):
+    LongInt; stdcall;
+  somTD_SOMClass_somGetNumMethods = somTP_SOMClass_somGetNumMethods;
+(*
+ *  The number of methods currently supported by this class,
+ *  including inherited methods (static, nonstatic, and dynamic).
+ *  Overrides are not expected.
+ *)
+const somMD_SOMClass_somGetNumMethods = '::SOMClass::somGetNumMethods';
+function SOMClass_somGetNumMethods(somSelf: SOMClass): LongInt;
 
 (*
  * New Method: somGetInstanceSize
@@ -3862,6 +4171,7 @@ uses
 
 const
   SOM_DLL_Name = 'som.dll';
+  Unknown_Source = '<unknown>.pas'; // no __FILE__ and __LINE__ macros in Delphi
 
 var
   SOM_DLL: System.HMODULE = 0;
@@ -3883,9 +4193,11 @@ end;
 
 // #include <somcdev.h>
 
-function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
+function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc;
 begin
-  SOM_TestCls(o, oc);
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  SOM_TestCls(o, oc, fileName, lineNum);
   Result := m;
 end;
 
@@ -3909,9 +4221,11 @@ procedure SOM_IgnoreWarning(var v);
 begin
 end;
 
-function SOM_TestCls(obj: SOMObject; cls: SOMClass): SOMObject;
+function SOM_TestCls(obj: SOMObject; cls: SOMClass;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): SOMObject;
 begin
-  Result := somTestCls(obj, cls, '??', 0);
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  Result := somTestCls(obj, cls, fileName, lineNum);
 end;
 
 var
@@ -4819,6 +5133,37 @@ begin
   end;
 end;
 
+function _SOMCLASS_SOMClass: SOMClass;
+begin
+  Result := SOMClassClassData.classObject;
+end;
+
+function SOMClassNew: SOMClass;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMClass;
+  if not Assigned(cls) then
+  begin
+    SOMClassNewClass;
+    cls := _SOMCLASS_SOMClass;
+  end;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMClassRenew(buf: Pointer): SOMClass;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMClass;
+  if not Assigned(cls) then
+  begin
+	  SOMClassNewClass;
+    cls := _SOMCLASS_SOMClass;
+  end;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
 function SOMClass_somNew(somSelf: SOMClass): SOMObject;
 var
   cd: PSOMClassClassDataStructure;
@@ -4829,6 +5174,16 @@ begin
      (SOM_Resolve(somSelf, cd.classObject, cd.somNew))(somSelf);
 end;
 
+function SOMClass_somNewNoInit(somSelf: SOMClass): SOMObject;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somNewNoInit
+     (SOM_Resolve(somSelf, cd.classObject, cd.somNewNoInit))(somSelf);
+end;
+
 function SOMClass_somRenew(somSelf: SOMClass; obj: Pointer): SOMObject;
 var
   cd: PSOMClassClassDataStructure;
@@ -4837,6 +5192,178 @@ begin
   Result :=
     somTD_SOMClass_somRenew
      (SOM_Resolve(somSelf, cd.classObject, cd.somRenew))(somSelf, obj);
+end;
+
+function SOMClass_somRenewNoInit(somSelf: SOMClass; obj: Pointer): SOMObject;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somRenewNoInit
+     (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInit))(somSelf, obj);
+end;
+
+function SOMClass_somRenewNoZero(somSelf: SOMClass; obj: Pointer): SOMObject;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somRenewNoZero
+     (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoZero))(somSelf, obj);
+end;
+
+function SOMClass_somRenewNoInitNoZero(somSelf: SOMClass;
+  obj: Pointer): SOMObject;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somRenewNoInitNoZero
+     (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInitNoZero))
+       (somSelf, obj);
+end;
+
+function SOMClass_somAllocate(somSelf: SOMClass; size: LongInt): somToken;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somAllocate
+     (SOM_Resolve(somSelf, cd.classObject, cd.somAllocate))(somSelf, size);
+end;
+
+procedure SOMClass_somDeallocate(somSelf: SOMClass;	memptr: somToken);
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  somTD_SOMClass_somDeallocate
+   (SOM_Resolve(somSelf, cd.classObject, cd.somDeallocate))(somSelf, memptr);
+end;
+
+function SOMClass_somJoin(somSelf: SOMClass; secondParent: SOMClass;
+  nameOfNewClass: CORBAString): SOMClass;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somJoin
+     (SOM_Resolve(somSelf, cd.classObject, cd.somJoin))
+       (somSelf, secondParent, nameOfNewClass);
+end;
+
+function SOMClass_somEndow(somSelf: SOMClass; parent: SOMClass;
+  nameOfNewClass: CORBAString): SOMClass;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somEndow
+     (SOM_Resolve(somSelf, cd.classObject, cd.somEndow))
+       (somSelf, parent, nameOfNewClass);
+end;
+
+function SOMClass_somClassOfNewClassWithParents(newClassName: CORBAString;
+  parents: PSOMClass_SOMClassSequence; explicitMeta: SOMClass): SOMClass;
+begin
+  Result :=
+    somTD_SOMClass_somClassOfNewClassWithParents
+      (SOMClassClassData.somClassOfNewClassWithParents)(newClassName, parents, explicitMeta);
+end;
+
+procedure SOMClass_somInitMIClass(somSelf: SOMClass;
+	inherit_vars: LongWord; className: CORBAString;
+  parentClasses: PSOMClass_SOMClassSequence;
+	dataSize, dataAlignment, maxNDMethods, majorVersion, minorVersion: LongInt);
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  somTD_SOMClass_somInitMIClass
+   (SOM_Resolve(somSelf, cd.classObject, cd.somInitMIClass))
+     (somSelf, inherit_vars, className, parentClasses,
+      dataSize, dataAlignment, maxNDMethods, majorVersion, minorVersion);
+end;
+
+function SOMClass_somAddStaticMethod(somSelf: SOMClass;
+	methodId, methodDescriptor: somId;
+	method, redispatchStub, applyStub: somMethodPtr): somMToken;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somAddStaticMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somAddStaticMethod))
+       (somSelf, methodId, methodDescriptor, method, redispatchStub, applyStub);
+end;
+
+procedure SOMClass_somOverrideSMethod(somSelf: SOMClass;
+	methodId: somId; method: somMethodPtr);
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  somTD_SOMClass_somOverrideSMethod
+   (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideSMethod))
+     (somSelf, methodId, method);
+end;
+
+procedure SOMClass_somClassReady(somSelf: SOMClass);
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  somTD_SOMClass_somClassReady
+   (SOM_Resolve(somSelf, cd.classObject, cd.somClassReady))(somSelf);
+end;
+
+procedure SOMClass_somAddDynamicMethod(somSelf: SOMClass;
+	methodId, methodDescriptor: somId; methodImpl, applyStub: somMethodPtr);
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  somTD_SOMClass_somAddDynamicMethod
+   (SOM_Resolve(somSelf, cd.classObject, cd.somAddDynamicMethod))
+     (somSelf, methodId, methodDescriptor, methodImpl, applyStub);
+end;
+
+function SOMClass_somGetName(somSelf: SOMClass): CORBAString;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetName
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetName))(somSelf);
+end;
+
+procedure SOMClass_somGetVersionNumbers(somSelf: SOMClass;
+  out majorVersion, minorVersion: LongInt);
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  somTD_SOMClass_somGetVersionNumbers
+   (SOM_Resolve(somSelf, cd.classObject, cd.somGetVersionNumbers))
+     (somSelf, majorVersion, minorVersion);
+end;
+
+function SOMClass_somGetNumMethods(somSelf: SOMClass): LongInt;
+var
+  cd: PSOMClassClassDataStructure;
+begin
+  cd := SOMClassClassData;
+  Result :=
+    somTD_SOMClass_somGetNumMethods
+     (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumMethods))(somSelf);
 end;
 
 function SOMClass_somGetInstanceSize(somSelf: SOMClass): LongInt;
