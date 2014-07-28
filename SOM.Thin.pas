@@ -83,16 +83,54 @@ type
        instance of the specified class or a class derived from that class *)
 
 // function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken;
-//   fileName: PAnsiChar = ''; lineNum: Integer = 0): somMethodProc; // (moved down)
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; // (moved down)
 
 (* from oc's mtbl, without verification of o *)
 // function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; // (moved down)
+
+(* from the pcp'th element of an argument mtab list *)
+// function SOM_ParentNumResolve(pcp: LongInt; mtabs: somMethodTabs; m: somMToken):
+//   somMethodProc; // (moved down)
+
+(* from an argument class's method table *)
+// function SOM_ClassResolve(c: SOMClass; m: somMToken): somMethodProc; // (moved down)
+
+(* support reintroduction of methods *)
+(* tdc == typedef class name; cdc == classdata class name *)
+// function SOM_ResolveD(o: SOMObject; c: SOMClass; m: somMToken;
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; // (moved down)
+
+
+(* from the first mtbl in an argument mtbl list ...
+
+  This macro is here primarily to document the behavior
+  of previously-compiled single inheritance code that used
+  the macro of this name. The behavior is that of using
+  SOM_ParentNumResolve with a pcp of 1.
+*)
+// function SOM_ParentResolveE(mtbls: somMethodTabs; m: somMToken):
+//   somMethodProc; // (moved down)
+
+
+
+(*
+ * Data resolution macro
+ *)
+
+// function SOM_DataResolve(obj: SOMObject; dataId: somDToken): somToken; // (moved down)
 
   (*
    * Main programs should register for SOM cleanup at exit
    *)
 
 // function SOM_MainProgram: SOMClassMgr; // (moved down)
+
+(*
+ * Platform provided automatic class library initialization rtns
+ * should use this macro to inform the SOM Class Manager that
+ * they have been loaded.
+ *)
+// procedure SOM_ClassLibrary(name: PAnsiChar; SOMInitModule: somTD_SOMInitModule); // (moved down)
 
 (*
  * Macro to get class object
@@ -142,18 +180,50 @@ type
  * but not part of the SOM API.
  *)
 // procedure somTest(
-//     condition: Integer;
+//     condition: LongBool;
 //     severity: Integer;
 //     fileName: PAnsiChar;
 //     lineNum: Integer;
 //     msg: PAnsiChar); stdcall; // (moved down)
 
 // procedure somAssert(
-//     condition: Integer;
+//     condition: LongBool;
 //     ecode: Integer;
 //     fileName: PAnsiChar;
 //     lineNum: Integer;
 //     msg: PAnsiChar); stdcall; // (moved down)
+
+// procedure somAssertCore(
+//     condition: LongBool;
+//     ecode: Integer;
+//     fileName: PAnsiChar;
+//     lineNum: Integer;
+//     msg: PAnsiChar); stdcall; // (moved down)
+
+// procedure SOM_Error(c: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+
+// procedure SOM_NoTrace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+
+// procedure SOM_Trace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+
+// procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+
+// procedure SOM_Assert(condition: Boolean; ecode: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+
+// procedure SOM_AssertCore(condition: Boolean; ecode: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+
+// procedure SOM_Expect(condition: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+
+// procedure SOM_WarnMsg(msg: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+
+// procedure SOM_Test(boolexp: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+
+// procedure SOM_TestC(boolexp: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+
+(*
+ *   Default method debug macro, can be overridden
+ *)
+// procedure SOMMethodDebug(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
 
 (*
  *  Error severity codes, these are added to the base error number to
@@ -362,6 +432,9 @@ type
   PsomTD_SOMLoadModule = ^somTD_SOMLoadModule;
   somTD_SOMDeleteModule = function(modHandle: somToken): Integer; stdcall;
   PsomTD_SOMDeleteModule = ^somTD_SOMDeleteModule;
+  somTD_SOMInitModule = procedure(majorVersion, minorVersion: LongInt;
+    className: CORBAString); stdcall;
+  PsomTD_SOMInitModule = ^somTD_SOMInitModule;
   somTD_SOMClassInitFuncName = function: PAnsiChar; stdcall;
   PsomTD_SOMClassInitFuncName = ^somTD_SOMClassInitFuncName;
   somTD_SOMMalloc = function(nbytes: UIntPtr): somToken; stdcall;
@@ -500,7 +573,7 @@ type
  *)
 // procedure somRegisterClassLibrary(
 //     libraryName: PAnsiChar;
-//     libraryInitRtn: somMethodProc); stdcall; // (moved down)
+//     libraryInitRtn: somTD_SOMInitModule); stdcall; // (moved down)
 // procedure somUnregisterClassLibrary(libraryName: PAnsiChar); stdcall; // (moved down)
 
 (*
@@ -759,34 +832,34 @@ type
 (*
  * Offset-based method resolution functions
  *)
-// function somResolve(obj: PSOMObject;
+// function somResolve(obj: SOMObject;
 //                     mdata: somMToken): somMethodProc; stdcall; // (moved down)
-// function somPCallResolve(obj: PSOMObject;
-//                          callingCls: PSOMClass;
+// function somPCallResolve(obj: SOMObject;
+//                          callingCls: SOMClass;
 //                          method: somMToken): somMethodProc; stdcall; // (moved down)
 // function somParentResolve(parentMtabs: somMethodTabs;
 //                           mToken: somMToken): somMethodProc; stdcall; // (moved down)
 // function somParentNumResolve(parentMtabs: somMethodTabs;
 //                              parentNum: Integer;
 //                              mToken: somMToken): somMethodProc; stdcall; // (moved down)
-// function somClassResolve(cls: PSOMClass;
+// function somClassResolve(cls: SOMClass;
 //                          mdata: somMToken): somMethodProc; stdcall; // (moved down)
-// function somResolveTerminal(cls: PSOMClass;
+// function somResolveTerminal(cls: SOMClass;
 //                             mdata: somMToken): somMethodProc; stdcall; // (moved down)
-// function somAncestorResolve(obj: PSOMObject;(* the object *)
+// function somAncestorResolve(obj: SOMObject;(* the object *)
 //                             ccds: somCClassDataStructurePtr; (* id the ancestor *)
 //                             mToken: somMToken): somMethodProc; stdcall; // (moved down)
-// function somResolveByName(obj: PSOMObject,
+// function somResolveByName(obj: SOMObject,
 //                           methodName: PAnsiChar): somMethodProc; stdcall; // (moved down)
 
 (*
  * Offset-based data resolution functions
  *)
 // function somDataResolve(
-//     obj: PSOMObject;
+//     obj: SOMObject;
 //     dataId: somDToken): somToken; stdcall; // (moved down)
 // function somDataResolveChk(
-//     obj: PSOMObject;
+//     obj: SOMObject;
 //     dataId: somDToken): somToken; stdcall; // (moved down)
 
 
@@ -1621,11 +1694,49 @@ function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken;
 (* from oc's mtbl, without verification of o *)
 function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
 
+(* from the pcp'th element of an argument mtab list *)
+function SOM_ParentNumResolve(pcp: LongInt; mtabs: somMethodTabs; m: somMToken):
+  somMethodProc;
+
+(* from an argument class's method table *)
+function SOM_ClassResolve(c: SOMClass; m: somMToken): somMethodProc;
+
+(* support reintroduction of methods *)
+(* tdc == typedef class name; cdc == classdata class name *)
+function SOM_ResolveD(o: SOMObject; c: SOMClass; m: somMToken;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc;
+
+
+(* from the first mtbl in an argument mtbl list ...
+
+  This macro is here primarily to document the behavior
+  of previously-compiled single inheritance code that used
+  the macro of this name. The behavior is that of using
+  SOM_ParentNumResolve with a pcp of 1.
+*)
+function SOM_ParentResolveE(mtbls: somMethodTabs; m: somMToken):
+  somMethodProc; // (moved down)
+
+
+
+(*
+ * Data resolution macro
+ *)
+
+function SOM_DataResolve(obj: SOMObject; dataId: somDToken): somToken;
+
   (*
    * Main programs should register for SOM cleanup at exit
    *)
 
 function SOM_MainProgram: SOMClassMgr;
+
+(*
+ * Platform provided automatic class library initialization rtns
+ * should use this macro to inform the SOM Class Manager that
+ * they have been loaded.
+ *)
+procedure SOM_ClassLibrary(name: PAnsiChar; SOMInitModule: somTD_SOMInitModule);
 
 (*
  * Macro to get class object
@@ -1675,18 +1786,50 @@ procedure somCheckArgs(argc: Integer; argv: PPAnsiChar); stdcall;
  * but not part of the SOM API.
  *)
 procedure somTest(
-    condition: Integer;
+    condition: LongBool;
     severity: Integer;
     fileName: PAnsiChar;
     lineNum: Integer;
     msg: PAnsiChar); stdcall;
 
 procedure somAssert(
-    condition: Integer;
+    condition: LongBool;
     ecode: Integer;
     fileName: PAnsiChar;
     lineNum: Integer;
     msg: PAnsiChar); stdcall;
+
+procedure somAssertCore(
+    condition: LongBool;
+    ecode: Integer;
+    fileName: PAnsiChar;
+    lineNum: Integer;
+    msg: PAnsiChar); stdcall;
+
+procedure SOM_Error(c: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+
+// procedure SOM_NoTrace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+
+// procedure SOM_Trace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+
+// procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+
+// procedure SOM_Assert(condition: Boolean; ecode: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+
+// procedure SOM_AssertCore(condition: Boolean; ecode: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+
+// procedure SOM_Expect(condition: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+
+// procedure SOM_WarnMsg(msg: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+
+// procedure SOM_Test(boolexp: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+
+// procedure SOM_TestC(boolexp: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+
+(*
+ *   Default method debug macro, can be overridden
+ *)
+// procedure SOMMethodDebug(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
 
 (*
  *  Error severity codes, these are added to the base error number to
@@ -1895,6 +2038,9 @@ function SOM_MaxThreads: LongInt;
 //   PsomTD_SOMLoadModule = ^somTD_SOMLoadModule;
 //   somTD_SOMDeleteModule = function(modHandle: somToken): Integer; stdcall;
 //   PsomTD_SOMDeleteModule = ^somTD_SOMDeleteModule;
+//   somTD_SOMInitModule = procedure(majorVersion, minorVersion: LongInt;
+//     className: CORBAString); stdcall;
+//   PsomTD_SOMInitModule = ^somTD_SOMInitModule;
 //   somTD_SOMClassInitFuncName = function: PAnsiChar; stdcall;
 //   PsomTD_SOMClassInitFuncName = ^somTD_SOMClassInitFuncName;
 //   somTD_SOMMalloc = function(nbytes: UIntPtr): somToken; stdcall;
@@ -2033,7 +2179,7 @@ function SOMClassMgrObject: SOMClassMgr;
  *)
 procedure somRegisterClassLibrary(
     libraryName: PAnsiChar;
-    libraryInitRtn: somMethodProc); stdcall;
+    libraryInitRtn: somTD_SOMInitModule); stdcall;
 procedure somUnregisterClassLibrary(libraryName: PAnsiChar); stdcall;
 
 (*
@@ -4853,7 +4999,7 @@ procedure SOMClassMgr_somRegisterClass(somSelf: SOMClassMgr;
  *)
 type
   somTP_SOMClassMgr_somRegisterClassLibrary = procedure(somSelf: SOMClassMgr;
-		libraryName: CORBAString; libraryInitRtn: somMethodPtr); stdcall;
+		libraryName: CORBAString; libraryInitRtn: somTD_SOMInitModule); stdcall;
   somTD_SOMClassMgr_somRegisterClassLibrary =
     somTP_SOMClassMgr_somRegisterClassLibrary;
 (*
@@ -4869,7 +5015,7 @@ type
  *)
 const somMD_SOMClassMgr_somRegisterClassLibrary = '::SOMClassMgr::somRegisterClassLibrary';
 procedure SOMClassMgr_somRegisterClassLibrary(somSelf: SOMClassMgr;
-  libraryName: CORBAString; libraryInitRtn: somMethodPtr);
+  libraryName: CORBAString; libraryInitRtn: somTD_SOMInitModule);
 
 (*
  * New Method: somUnregisterClassLibrary
@@ -5239,10 +5385,45 @@ begin
   Result := m;
 end;
 
+function SOM_ParentNumResolve(pcp: LongInt; mtabs: somMethodTabs; m: somMToken):
+  somMethodProc;
+begin
+  Result := somParentNumResolve(mtabs, pcp, m);
+end;
+
+function SOM_ClassResolve(c: SOMClass; m: somMToken): somMethodProc;
+begin
+  Result := somClassResolve(c, m);
+end;
+
+function SOM_ResolveD(o: SOMObject; c: SOMClass; m: somMToken;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc;
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  SOM_TestCls(o, c, fileName, lineNum);
+  Result := m;
+end;
+
+function SOM_ParentResolveE(mtbls: somMethodTabs; m: somMToken):
+  somMethodProc;
+begin
+  Result := somParentResolve(mtbls, m);
+end;
+
+function SOM_DataResolve(obj: SOMObject; dataId: somDToken): somToken;
+begin
+  Result := somDataResolve(obj, dataId);
+end;
+
 function SOM_MainProgram: SOMClassMgr;
 begin
   SOM_MainProgram_Called := True;
   Result := somMainProgram;
+end;
+
+procedure SOM_ClassLibrary(name: PAnsiChar; SOMInitModule: somTD_SOMInitModule);
+begin
+  somRegisterClassLibrary(name, SOMInitModule);
 end;
 
 function SOM_GetClass(obj: SOMObject): SOMClass;
@@ -5306,6 +5487,13 @@ end;
 procedure somCheckArgs; external SOM_DLL_Name;
 procedure somTest; external SOM_DLL_Name;
 procedure somAssert; external SOM_DLL_Name;
+procedure somAssertCore; external SOM_DLL_Name;
+
+procedure SOM_Error(c: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  SOMError(c, fileName, lineNum);
+end;
 
 function SOM_FatalCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6865,7 +7053,7 @@ begin
 end;
 
 procedure SOMClassMgr_somRegisterClassLibrary(somSelf: SOMClassMgr;
-  libraryName: CORBAString; libraryInitRtn: somMethodPtr);
+  libraryName: CORBAString; libraryInitRtn: somTD_SOMInitModule);
 var
   cd: PSOMClassMgrClassDataStructure;
 begin
