@@ -208,17 +208,23 @@ type
 
 // procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
 
-// procedure SOM_Assert(condition: Boolean; ecode: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+// procedure SOM_Assert(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
 
-// procedure SOM_AssertCore(condition: Boolean; ecode: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+// procedure SOM_AssertCore(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
 
-// procedure SOM_Expect(condition: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+// procedure SOM_Expect(condition: Boolean; condition_str: PAnsiChar;
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
 
-// procedure SOM_WarnMsg(msg: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+// procedure SOM_WarnMsg(msg: PAnsiChar;
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
 
-// procedure SOM_Test(boolexp: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+// procedure SOM_Test(boolexp: Boolean; boolexp_str: PAnsiChar;
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
 
-// procedure SOM_TestC(boolexp: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+// procedure SOM_TestC(boolexp: Boolean; boolexp_str: PAnsiChar;
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
 
 (*
  *   Default method debug macro, can be overridden
@@ -1808,28 +1814,34 @@ procedure somAssertCore(
 
 procedure SOM_Error(c: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0);
 
-// procedure SOM_NoTrace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_NoTrace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
 
-// procedure SOM_Trace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_Trace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
 
-// procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
 
-// procedure SOM_Assert(condition: Boolean; ecode: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_Assert(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0);
 
-// procedure SOM_AssertCore(condition: Boolean; ecode: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_AssertCore(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0);
 
-// procedure SOM_Expect(condition: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_Expect(condition: Boolean; condition_str: PAnsiChar;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
 
-// procedure SOM_WarnMsg(msg: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_WarnMsg(msg: PAnsiChar;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0);
 
-// procedure SOM_Test(boolexp: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_Test(boolexp: Boolean; boolexp_str: PAnsiChar;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0);
 
-// procedure SOM_TestC(boolexp: Boolean; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_TestC(boolexp: Boolean; boolexp_str: PAnsiChar;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0);
 
 (*
  *   Default method debug macro, can be overridden
  *)
-// procedure SOMMethodDebug(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+procedure SOMMethodDebug(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
 
 (*
  *  Error severity codes, these are added to the base error number to
@@ -5493,6 +5505,74 @@ procedure SOM_Error(c: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0)
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
   SOMError(c, fileName, lineNum);
+end;
+
+procedure SOM_NoTrace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+begin
+  // do nothing
+end;
+
+procedure SOM_Trace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  if SOM_TraceLevel^ > 0 then
+    somPrintf('"%s": %d:'#9'In %s:%s '#10, fileName, lineNum, c, m);
+end;
+
+procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  if SOM_TraceLevel^ > 1 then
+    somPrintf('"%s": %d:'#9'In %s:%s '#10, fileName, lineNum, c, m);
+end;
+
+procedure SOM_Assert(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  somAssert(condition, ecode, fileName, lineNum, condition_str);
+end;
+
+procedure SOM_AssertCore(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  somAssertCore(condition, ecode, fileName, lineNum, condition_str);
+end;
+
+procedure SOM_Expect(condition: Boolean; condition_str: PAnsiChar;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  somTest(condition, SOM_Warn, fileName, lineNum, condition_str);
+end;
+
+procedure SOM_WarnMsg(msg: PAnsiChar;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  if SOM_WarnLevel^ > 0 then
+    somPrintf('"%s": %d:'#9'Warning: %s'#10, fileName, lineNum, msg);
+end;
+
+procedure SOM_Test(boolexp: Boolean; boolexp_str: PAnsiChar;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  somTest(boolexp, SOM_Fatal, fileName, lineNum, boolexp_str);
+end;
+
+procedure SOM_TestC(boolexp: Boolean; boolexp_str: PAnsiChar;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  somTest(boolexp, SOM_Warn, fileName, lineNum, boolexp_str);
+end;
+
+procedure SOMMethodDebug(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  SOM_Trace(c, m, fileName, lineNum);
 end;
 
 function SOM_FatalCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
