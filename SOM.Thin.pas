@@ -15,9 +15,42 @@ type
 
 // #include <somplatf.h>
 
+(*
+ *    SOMPLATF.H
+ *
+ *    Plaform-specific portions of the SOM ABI
+ *
+ *    Interfaces and typedefs described in this header vary across
+ *    platforms.
+ *
+ *)
+
+(*
+ * Class Libraries -- Loading and Class Registration
+ *
+ * This section defines the system-dependent library handle that is
+ * passed as an argument to somRegisterLibraryClasses and the
+ * userInitTermRoutine.  For OS/2, this is an HMODULE (unsigned long);
+ * for AIX, it is a function pointer (void * ) for the main entry point
+ * of the library.
+ *)
+
   somLibraryHandle = System.HMODULE;
 
+// const
+//   SOM_DEFAULT_VASIZE = 4; // (moved down)
+
 // #include <sombtype.h>
+
+(*
+ *    SOMBTYPE.H
+ *    SOM Base Data Types
+ *)
+
+(*--------------------------------------------------------------
+ * Basic SOM data types for C and C++
+ *)
+(* -- Generic SOM Method Procedure Pointers *)
 
   somMethodProc = function(var somSelf): Pointer; stdcall;
   somMethodPtr = somMethodProc;
@@ -60,6 +93,17 @@ type
   PPSOMClassMgr = ^PSOMClassMgr;
 
 // #include <somcdev.h>
+
+(*
+ *  SOMCDEV.H
+ *
+ *  System Object Model development support for ANSI C
+ *  Multiple Inheritance Version
+ *)
+
+(*
+ *  HISTORY [04/19/20] #21264 Temproary ADD WIN32 code
+ *)
 
 (*
  *  Method and Data Resolution macros
@@ -118,6 +162,24 @@ type
  *)
 
 // function SOM_DataResolve(obj: SOMObject; dataId: somDToken): somToken; // (moved down)
+
+
+(*
+ *  The following macros are for purposes of backward compatibility
+ *  with prior versions of SOM.  There is no advantage to using them
+ *  over a direct call to the corresponding routine.
+ *)
+
+// function SOM_CompareValidIds(id1, id2: somId): LongBool; stdcall; // (moved down)
+
+// function SOM_CompareIds(id1, id2: somId): LongBool; stdcall; // (moved down)
+
+// function SOM_StringFromId(id: somId): CORBAString; stdcall; // (moved down)
+
+// function SOM_IdFromString(str: CORBAString): somId; stdcall; // (moved down)
+
+// function SOM_CheckId(id: somId): somId; stdcall; // (moved down)
+
 
   (*
    * Main programs should register for SOM cleanup at exit
@@ -256,6 +318,15 @@ type
 
 // #include <somcorba.h>
 
+(*
+ *    SOMCORBA.H
+ *    Typedefs, structs, & prototypes in support of CORBA extensions
+ *    to the SOM run-time
+ *)
+
+(* in SOM, a CORBA object is a SOM object *)
+  CORBAObject = SOMObject;
+
 (* CORBA 5.7, p.89 *)
   octet = Byte;
   Poctet = PByte;
@@ -368,6 +439,16 @@ type
     _value: Pointer;
   end;
 
+(* per CORBA 5.10, p.91 *)
+  _IDL_SEQUENCE_void = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: Pointer;
+  end;
+
+(* SOM extensions for sequence manipulation *)
+  GENERIC_SEQUENCE = _IDL_SEQUENCE_void;
+
 // function somExceptionId(ev: PEnvironment): PAnsiChar; stdcall; // (moved down)
 // function somExceptionValue(ev: PEnvironment): Pointer; stdcall; // (moved down)
 // procedure somExceptionFree(ev: PEnvironment); stdcall; // (moved down)
@@ -380,8 +461,8 @@ type
 // function exception_value(ev: PEnvironment): Pointer; stdcall; // (moved down)
 // procedure exception_free(ev: PEnvironment); stdcall; // (moved down)
 
-{ #define SOM_InterfaceRepository\
-    (__get_somInterfaceRepository(SOMClassMgrObject)) }
+  Repository = SOMObject;
+// function SOM_InterfaceRepository: Repository; // (moved down)
 
 (*  Convenience macros for manipulating environment structures
  *
@@ -411,6 +492,26 @@ type
 // procedure SOM_UninitEnvironment(ev: PEnvironment); // (moved down)
 
 // #include <somapi.h>
+
+(*
+ *  SOMAPI.H
+ *
+ *  This file documents the public data structures and functions
+ *  of the SOM API (Application Programming Interface). Primitive data
+ *  types are defined in sombtype.h, and the public methods provided by
+ *  the SOM kernel are declared in somobj.idl, somcls.idl and somcm.idl.
+ *  An important header file for language bindings is somdefs.h, which
+ *  defines the SOMLINK symbol used in various emitter outputs.
+ *
+ *  Note: typedefs & prototypes in this file explicitly show pointers
+ *  to objects that support an interface described by IDL. These are
+ *  C/C++ typedefs that reflect the implementation of object references
+ *  in SOM as pointers to structures in memory.
+ *)
+
+ (*
+  * HISTORY [04/19/96] #21264 nsk Temproary ADD WIN32 Code
+  *)
 
 (*  SOM Version Numbers  *)
 // function Replaceable_SOM_MajorVersion: PLongInt; // (moved down)
@@ -1135,7 +1236,7 @@ type
  * 0 (false) otherwise. An id is new if no previously-registered id
  * has the same name (where name comparison is case-insensitive).
  *)
-// function somRegisterId(id: somId): Integer; stdcall; // (moved down)
+// function somRegisterId(id: somId): LongBool; stdcall; // (moved down)
 
 (*
  * Like somRegisterId, but it returns the somId as its result.
@@ -1171,7 +1272,7 @@ type
 (*
  * Returns true (1) if the two ids are equal, else false (0).
  *)
-// function somCompareIds(id1, id2: somId): Integer; stdcall; // (moved down)
+// function somCompareIds(id1, id2: somId): LongBool; stdcall; // (moved down)
 
 (*
  * Return the total number of ids that have been registered so far, you
@@ -1648,6 +1749,33 @@ type
 // Procedures and constants were commented and moved here to make
 // type block contiguous
 
+// #include <somplatf.h>
+
+(*
+ *    SOMPLATF.H
+ *
+ *    Plaform-specific portions of the SOM ABI
+ *
+ *    Interfaces and typedefs described in this header vary across
+ *    platforms.
+ *
+ *)
+
+(*
+ * Class Libraries -- Loading and Class Registration
+ *
+ * This section defines the system-dependent library handle that is
+ * passed as an argument to somRegisterLibraryClasses and the
+ * userInitTermRoutine.  For OS/2, this is an HMODULE (unsigned long);
+ * for AIX, it is a function pointer (void * ) for the main entry point
+ * of the library.
+ *)
+
+//   somLibraryHandle = System.HMODULE;
+
+const
+  SOM_DEFAULT_VASIZE = 4;
+
 // #include <somtypes.h>
 
 //   somMethodTabPtr = ^somMethodTab;
@@ -1672,6 +1800,17 @@ type
 //   PPPSOMClassMgr = ^PPSOMClassMgr;
 
 // #include <somcdev.h>
+
+(*
+ *  SOMCDEV.H
+ *
+ *  System Object Model development support for ANSI C
+ *  Multiple Inheritance Version
+ *)
+
+(*
+ *  HISTORY [04/19/20] #21264 Temproary ADD WIN32 code
+ *)
 
 (*
  *  Method and Data Resolution macros
@@ -1730,6 +1869,24 @@ function SOM_ParentResolveE(mtbls: somMethodTabs; m: somMToken):
  *)
 
 function SOM_DataResolve(obj: SOMObject; dataId: somDToken): somToken;
+
+
+(*
+ *  The following macros are for purposes of backward compatibility
+ *  with prior versions of SOM.  There is no advantage to using them
+ *  over a direct call to the corresponding routine.
+ *)
+
+function SOM_CompareValidIds(id1, id2: somId): LongBool; stdcall;
+
+function SOM_CompareIds(id1, id2: somId): LongBool; stdcall;
+
+function SOM_StringFromId(id: somId): CORBAString; stdcall;
+
+function SOM_IdFromString(str: CORBAString): somId; stdcall;
+
+function SOM_CheckId(id: somId): somId; stdcall;
+
 
   (*
    * Main programs should register for SOM cleanup at exit
@@ -1868,6 +2025,15 @@ const
 
 // #include <somcorba.h>
 
+(*
+ *    SOMCORBA.H
+ *    Typedefs, structs, & prototypes in support of CORBA extensions
+ *    to the SOM run-time
+ *)
+
+(* in SOM, a CORBA object is a SOM object *)
+//   CORBAObject = SOMObject;
+
 (* CORBA 5.7, p.89 *)
 //   octet = Byte;
 //   Poctet = PByte;
@@ -1980,6 +2146,16 @@ const
 //     _value: Pointer;
 //   end;
 
+(* per CORBA 5.10, p.91 *)
+//   _IDL_SEQUENCE_void = record
+//     _maximum: LongWord;
+//     _length: LongWord;
+//     _buffer: Pointer;
+//   end;
+
+(* SOM extensions for sequence manipulation *)
+//   GENERIC_SEQUENCE = _IDL_SEQUENCE_void;
+
 function somExceptionId(ev: PEnvironment): PAnsiChar; stdcall;
 function somExceptionValue(ev: PEnvironment): Pointer; stdcall;
 procedure somExceptionFree(ev: PEnvironment); stdcall;
@@ -1992,8 +2168,8 @@ function exception_id(ev: PEnvironment): PAnsiChar; stdcall;
 function exception_value(ev: PEnvironment): Pointer; stdcall;
 procedure exception_free(ev: PEnvironment); stdcall;
 
-{ #define SOM_InterfaceRepository\
-    (__get_somInterfaceRepository(SOMClassMgrObject)) }
+//   Repository = SOMObject;
+function SOM_InterfaceRepository: Repository;
 
 (*  Convenience macros for manipulating environment structures
  *
@@ -2023,6 +2199,26 @@ procedure SOM_InitEnvironment(ev: PEnvironment);
 procedure SOM_UninitEnvironment(ev: PEnvironment);
 
 // #include <somapi.h>
+
+(*
+ *  SOMAPI.H
+ *
+ *  This file documents the public data structures and functions
+ *  of the SOM API (Application Programming Interface). Primitive data
+ *  types are defined in sombtype.h, and the public methods provided by
+ *  the SOM kernel are declared in somobj.idl, somcls.idl and somcm.idl.
+ *  An important header file for language bindings is somdefs.h, which
+ *  defines the SOMLINK symbol used in various emitter outputs.
+ *
+ *  Note: typedefs & prototypes in this file explicitly show pointers
+ *  to objects that support an interface described by IDL. These are
+ *  C/C++ typedefs that reflect the implementation of object references
+ *  in SOM as pointers to structures in memory.
+ *)
+
+ (*
+  * HISTORY [04/19/96] #21264 nsk Temproary ADD WIN32 Code
+  *)
 
 (*  SOM Version Numbers  *)
 function Replaceable_SOM_MajorVersion: PLongInt;
@@ -2744,7 +2940,7 @@ function somGetClassFromMToken(mToken: somMToken): SOMClass; stdcall;
  * 0 (false) otherwise. An id is new if no previously-registered id
  * has the same name (where name comparison is case-insensitive).
  *)
-function somRegisterId(id: somId): Integer; stdcall;
+function somRegisterId(id: somId): LongBool; stdcall;
 
 (*
  * Like somRegisterId, but it returns the somId as its result.
@@ -2780,7 +2976,7 @@ function somStringFromId(id: somId): CORBAString; stdcall;
 (*
  * Returns true (1) if the two ids are equal, else false (0).
  *)
-function somCompareIds(id1, id2: somId): Integer; stdcall;
+function somCompareIds(id1, id2: somId): LongBool; stdcall;
 
 (*
  * Return the total number of ids that have been registered so far, you
@@ -4881,7 +5077,6 @@ procedure SOMClass_somOverrideMtab(somSelf: SOMClass);
  * Start of bindings for IDL types
  *)
 type
-  Repository = SOMObject;
   SOMClassMgr_SOMClassArray = PSOMClass;
 (*
  *  Used for SOM 1.0 binary compatibility
@@ -5427,6 +5622,12 @@ begin
   Result := somDataResolve(obj, dataId);
 end;
 
+function SOM_CompareValidIds; external SOM_DLL_Name name 'somCompareIds';
+function SOM_CompareIds; external SOM_DLL_Name name 'somCompareIds';
+function SOM_StringFromId; external SOM_DLL_Name name 'somStringFromId';
+function SOM_IdFromString; external SOM_DLL_Name name 'somIdFromString';
+function SOM_CheckId; external SOM_DLL_Name name 'somCheckId';
+
 function SOM_MainProgram: SOMClassMgr;
 begin
   SOM_MainProgram_Called := True;
@@ -5610,6 +5811,11 @@ function somGetGlobalEnvironment; external SOM_DLL_Name;
 function exception_id; external SOM_DLL_Name name 'somExceptionId';
 function exception_value; external SOM_DLL_Name name 'somExceptionValue';
 procedure exception_free; external SOM_DLL_Name name 'somExceptionFree';
+
+function SOM_InterfaceRepository: Repository;
+begin
+  Result := SOMClassMgr__get_somInterfaceRepository(SOMClassMgrObject);
+end;
 
 function SOM_CreateLocalEnvironment: PEnvironment;
 begin
