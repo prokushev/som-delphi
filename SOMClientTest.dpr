@@ -5,10 +5,13 @@ program SOMClientTest;
 {$WARN UNSAFE_CODE OFF}
 
 uses
-  SysUtils, TypInfo,
+  SysUtils,
+  TypInfo,
   SOM in 'SOM.pas',
   SOM.Thin in 'SOM.Thin.pas',
-  SOM.DelphiFeatures in 'SOM.DelphiFeatures.pas';
+  SOM.DelphiFeatures in 'SOM.DelphiFeatures.pas',
+  SOM.Thin.Emitter in 'SOM.Thin.Emitter.pas',
+  SOM.Thin.DLL in 'SOM.Thin.DLL.pas';
 
 var
   ev: PEnvironment;

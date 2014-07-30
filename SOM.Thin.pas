@@ -3,6 +3,8 @@
 
 unit SOM.Thin;
 
+// Define everything that becomes available in C when doing "include <som.h>"
+
 interface
 
 uses
@@ -3503,12 +3505,21 @@ function somUnregisterLibraryClasses(libHandle: somLibraryHandle): LongInt; stdc
 
 // #include <somobj.h>
 
+//  SOMObject: System Object Model root class
+
 (*
  *  This is the SOM root class, all SOM classes must be descended from
  *  <SOMObject>. <SOMObject> has no instance data so there is no
  *  per-instance cost to to being descended from it.
  *  a sequence of SOM Objects
  *)
+
+(*
+ *  Define a value large enough to be used in typedefs for character
+ *  arrays that need to be able to hold the largest legal file name.
+ *)
+const
+  FILENAME_MAX = 260;
 
 (*
  * Start of bindings for IDL types
@@ -4050,6 +4061,9 @@ const somMD_SOMObject_somDumpSelfInt = '::SOMObject::somDumpSelfInt';
 procedure SOMObject_somDumpSelfInt(somSelf: SOMObject; level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 // #include <somcls.h>
+
+// SOMClass: System Object Model base metaclass
+// Multiple Inheritance Version
 
 (*
  *   SOMClass is the root SOM metaclass. Because it is a metaclass, its
@@ -5127,8 +5141,9 @@ procedure SOMClass_somOverrideMtab(somSelf: SOMClass); {$IFDEF DELPHI_HAS_INLINE
 
 // #include <somcm.h>
 
+//  SOMClassMgr: System Object Model class manager
+
 (*
- *  SOMClassMgr: System Object Model class manager
  *  [Basic Functions Group]
  *)
 
@@ -5612,15 +5627,13 @@ function SOMClassMgr_somImportObject(somSelf: SOMClassMgr;
 implementation
 
 uses
-  Windows;
+  Windows, SOM.Thin.DLL;
 
 const
-  SOM_DLL_Name = 'som.dll';
   Unknown_Source = '<unknown>.pas'; // no __FILE__ and __LINE__ macros in Delphi
 
 var
   SOM_DLL: System.HMODULE = 0;
-  DLLLoad_CriticalSection : Windows.TRTLCriticalSection;
   SOM_MainProgram_Called : Boolean = False;
 
 procedure SOM_Load_Variable(var V_Pointer; const Var_Name: AnsiString);
@@ -6406,11 +6419,7 @@ var
   cls: SOMClass;
 begin
   cls := _SOMCLASS_SOMObject;
-  if not Assigned(cls) then
-  begin
-    SOMObjectNewClass;
-    cls := _SOMCLASS_SOMObject;
-  end;
+  if not Assigned(cls) then cls := SOMObjectNewClass;
   Result := SOMClass_somNew(cls);
 end;
 
@@ -6419,11 +6428,7 @@ var
   cls: SOMClass;
 begin
   cls := _SOMCLASS_SOMObject;
-  if not Assigned(cls) then
-  begin
-	  SOMObjectNewClass;
-    cls := _SOMCLASS_SOMObject;
-  end;
+  if not Assigned(cls) then cls := SOMObjectNewClass;
 	Result := SOMClass_somRenew(cls, buf);
 end;
 
@@ -6753,11 +6758,7 @@ var
   cls: SOMClass;
 begin
   cls := _SOMCLASS_SOMClass;
-  if not Assigned(cls) then
-  begin
-    SOMClassNewClass;
-    cls := _SOMCLASS_SOMClass;
-  end;
+  if not Assigned(cls) then cls := SOMClassNewClass;
   Result := SOMClass_somNew(cls);
 end;
 
@@ -6766,11 +6767,7 @@ var
   cls: SOMClass;
 begin
   cls := _SOMCLASS_SOMClass;
-  if not Assigned(cls) then
-  begin
-	  SOMClassNewClass;
-    cls := _SOMCLASS_SOMClass;
-  end;
+  if not Assigned(cls) then cls := SOMClassNewClass;
 	Result := SOMClass_somRenew(cls, buf);
 end;
 
@@ -7385,11 +7382,7 @@ var
   cls: SOMClass;
 begin
   cls := _SOMCLASS_SOMClassMgr;
-  if not Assigned(cls) then
-  begin
-    SOMClassMgrNewClass;
-    cls := _SOMCLASS_SOMClassMgr;
-  end;
+  if not Assigned(cls) then cls := SOMClassMgrNewClass;
   Result := SOMClass_somNew(cls);
 end;
 
@@ -7398,11 +7391,7 @@ var
   cls: SOMClass;
 begin
   cls := _SOMCLASS_SOMClassMgr;
-  if not Assigned(cls) then
-  begin
-	  SOMClassMgrNewClass;
-    cls := _SOMCLASS_SOMClassMgr;
-  end;
+  if not Assigned(cls) then cls := SOMClassMgrNewClass;
 	Result := SOMClass_somRenew(cls, buf);
 end;
 
@@ -7644,11 +7633,7 @@ begin
        (somSelf, objToBeShared);
 end;
 
-
-
-
 initialization
-  Windows.InitializeCriticalSection(DLLLoad_CriticalSection);
 
 finalization
   if SOM_MainProgram_Called then
@@ -7661,5 +7646,4 @@ finalization
     FreeLibrary(SOM_DLL);
     Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
   end;
-  Windows.DeleteCriticalSection(DLLLoad_CriticalSection);
 end.
