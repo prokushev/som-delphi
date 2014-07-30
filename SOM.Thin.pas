@@ -40,7 +40,7 @@ type
 // const
 //   SOM_DEFAULT_VASIZE = 4; // (moved down)
 
-// #include <sombtype.h>
+// #include <sombtype.h> (* SOM Base Types *)
 
 (*
  *    SOMBTYPE.H
@@ -74,6 +74,13 @@ type
 
 // #include <somtypes.h>
 
+(*
+ *    SOMTYPES.H
+ *    SOM types for C
+ *    Multiple Inheritance Version
+ *)
+
+(* Object Instance Structure *)
   somMethodTabPtr = ^somMethodTab;
   SOMAnyStruct = record
     mtab: somMethodTabPtr;
@@ -110,6 +117,13 @@ type
  *)
 
 (*
+ * Default definition of somresolve_ to call the procedure, somResolve.
+ * This may be be changed by emitters on systems for which method
+ * tokens are thunks.
+ *)
+// function somresolve_(obj: SOMObject; mToken: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+
+(*
  *  Method Resolution. Methods are invoked on an object o of some
  *  object class oc, where oc has immediate ancestor classes
  *  called parent classes. Macro arguments include method names
@@ -127,22 +141,30 @@ type
        instance of the specified class or a class derived from that class *)
 
 // function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken;
-//   fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; // (moved down)
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+(* SOM3: as above, using symbols new to som3 *)
+// function SOM3_Resolve(o: SOMObject; oc: SOMClass; m: somMToken;
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (* from oc's mtbl, without verification of o *)
-// function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; // (moved down)
+// function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+// function SOM3_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+
+(* from the pcp'th element of oc's CClassData.parentMtab list *)
+// function SOM_ParentNumResolveCC(pcp: LongInt; mtabs: somMethodTabs; m: somMToken):
+//   somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (* from the pcp'th element of an argument mtab list *)
 // function SOM_ParentNumResolve(pcp: LongInt; mtabs: somMethodTabs; m: somMToken):
-//   somMethodProc; // (moved down)
+//   somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (* from an argument class's method table *)
-// function SOM_ClassResolve(c: SOMClass; m: somMToken): somMethodProc; // (moved down)
+// function SOM_ClassResolve(c: SOMClass; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (* support reintroduction of methods *)
 (* tdc == typedef class name; cdc == classdata class name *)
 // function SOM_ResolveD(o: SOMObject; c: SOMClass; m: somMToken;
-//   fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; // (moved down)
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 
 (* from the first mtbl in an argument mtbl list ...
@@ -153,7 +175,7 @@ type
   SOM_ParentNumResolve with a pcp of 1.
 *)
 // function SOM_ParentResolveE(mtbls: somMethodTabs; m: somMToken):
-//   somMethodProc; // (moved down)
+//   somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 
 
@@ -161,7 +183,7 @@ type
  * Data resolution macro
  *)
 
-// function SOM_DataResolve(obj: SOMObject; dataId: somDToken): somToken; // (moved down)
+// function SOM_DataResolve(obj: SOMObject; dataId: somDToken): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 
 (*
@@ -185,25 +207,29 @@ type
    * Main programs should register for SOM cleanup at exit
    *)
 
-// function SOM_MainProgram: SOMClassMgr; // (moved down)
+// function SOM_MainProgram: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*
  * Platform provided automatic class library initialization rtns
  * should use this macro to inform the SOM Class Manager that
  * they have been loaded.
  *)
-// procedure SOM_ClassLibrary(name: PAnsiChar; SOMInitModule: somTD_SOMInitModule); // (moved down)
+// procedure SOM_ClassLibrary(name: PAnsiChar; SOMInitModule: somTD_SOMInitModule); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+
+(*
+ *   Development support macros and globals
+ *)
 
 (*
  * Macro to get class object
  *)
-// function SOM_GetClass(obj: SOMObject): SOMClass; // (moved down)
+// function SOM_GetClass(obj: SOMObject): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*
  * This macro is used throughout the generated source
  * to prevent compiler warnings for unreferenced variables
  *)
-// procedure SOM_IgnoreWarning(var v); // (moved down)
+// procedure SOM_IgnoreWarning(var v); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (* Check the validity of method resolution using the specified target  *)
 (* object.  Note: this macro makes programs bigger and slower.	After  *)
@@ -212,18 +238,21 @@ type
 (* to your makefile.						       *)
 
 // function SOM_TestCls(obj: SOMObject; cls: SOMClass;
-//   fileName: PAnsiChar = ''; lineNum: Integer = 0): SOMObject; // (moved down)
+//   fileName: PAnsiChar = ''; lineNum: Integer = 0): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (* Control the printing of method and procedure entry messages, *)
 (* 0-none, 1-user, 2-core&user *)
-// function SOM_TraceLevel: PInteger; // (moved down)
+// function Replaceable_SOM_TraceLevel: PInteger; // (moved down)
+// function SOM_TraceLevel: Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (* Control the printing of warning messages, 0-none, 1-all *)
-// function SOM_WarnLevel: PInteger; // (moved down)
+// function Replaceable_SOM_WarnLevel: PInteger; // (moved down)
+// function SOM_WarnLevel: Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (* Control the printing of successful assertions, 0-none, 1-user, *)
 (* 2-core&user *)
-// function SOM_AssertLevel: PInteger; // (moved down)
+// function Replaceable_SOM_AssertLevel: PInteger; // (moved down)
+// function SOM_AssertLevel: Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*
  *  Scans argv looking for flags -somt, -somtc, -soma -somac -somw setting
@@ -262,36 +291,36 @@ type
 //     lineNum: Integer;
 //     msg: PAnsiChar); stdcall; // (moved down)
 
-// procedure SOM_Error(c: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+// procedure SOM_Error(c: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
-// procedure SOM_NoTrace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+// procedure SOM_NoTrace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
-// procedure SOM_Trace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+// procedure SOM_Trace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
-// procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+// procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 // procedure SOM_Assert(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
-//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 // procedure SOM_AssertCore(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
-//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 // procedure SOM_Expect(condition: Boolean; condition_str: PAnsiChar;
-//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 // procedure SOM_WarnMsg(msg: PAnsiChar;
-//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 // procedure SOM_Test(boolexp: Boolean; boolexp_str: PAnsiChar;
-//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 // procedure SOM_TestC(boolexp: Boolean; boolexp_str: PAnsiChar;
-//   fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+//   fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*
  *   Default method debug macro, can be overridden
  *)
-// procedure SOMMethodDebug(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+// procedure SOMMethodDebug(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*
  *  Error severity codes, these are added to the base error number to
@@ -462,7 +491,7 @@ type
 // procedure exception_free(ev: PEnvironment); stdcall; // (moved down)
 
   Repository = SOMObject;
-// function SOM_InterfaceRepository: Repository; // (moved down)
+// function SOM_InterfaceRepository: Repository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*  Convenience macros for manipulating environment structures
  *
@@ -486,10 +515,10 @@ type
  *      ... Use &ev in methods
  *      SOM_UninitEnvironment (&ev);
  *)
-// function SOM_CreateLocalEnvironment: PEnvironment; // (moved down)
-// procedure SOM_DestroyLocalEnvironment(ev: PEnvironment); // (moved down)
-// procedure SOM_InitEnvironment(ev: PEnvironment); // (moved down)
-// procedure SOM_UninitEnvironment(ev: PEnvironment); // (moved down)
+// function SOM_CreateLocalEnvironment: PEnvironment; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+// procedure SOM_DestroyLocalEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+// procedure SOM_InitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
+// procedure SOM_UninitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 // #include <somapi.h>
 
@@ -515,13 +544,13 @@ type
 
 (*  SOM Version Numbers  *)
 // function Replaceable_SOM_MajorVersion: PLongInt; // (moved down)
-// function SOM_MajorVersion: LongInt; // (moved down)
+// function SOM_MajorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 // function Replaceable_SOM_MinorVersion: PLongInt; // (moved down)
-// function SOM_MinorVersion: LongInt; // (moved down)
+// function SOM_MinorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*  SOM Thread Support  *)
 // function Replaceable_SOM_MaxThreads: PLongInt; // (moved down)
-// function SOM_MaxThreads: LongInt; // (moved down)
+// function SOM_MaxThreads: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*----------------------------------------
  * Typedefs for pointers to functions
@@ -602,13 +631,13 @@ type
  *  have the same interface as their standard C-library analogs.
  *)
 // function Replaceable_SOMCalloc: PsomTD_SOMCalloc; // (moved down)
-// function SOMCalloc(element_count, element_size: UIntPtr): somToken; // (moved down)
+// function SOMCalloc(element_count, element_size: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 // function Replaceable_SOMFree: PsomTD_SOMFree; // (moved down)
-// procedure SOMFree(memory: somToken); // (moved down)
+// procedure SOMFree(memory: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 // function Replaceable_SOMMalloc: PsomTD_SOMMalloc; // (moved down)
-// function SOMMalloc(nbytes: UIntPtr): somToken; // (moved down)
+// function SOMMalloc(nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 // function Replaceable_SOMRealloc: PsomTD_SOMRealloc; // (moved down)
-// function SOMRealloc(memory: somToken; nbytes: UIntPtr): somToken; // (moved down)
+// function SOMRealloc(memory: somToken; nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*
  *  Replaceable SOM Error handler
@@ -617,7 +646,7 @@ type
 // procedure SOMError(
 //     code: Integer;
 //     fileName: PAnsiChar;
-//     lineNum: Integer); // (moved down)
+//     lineNum: Integer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*
  *  Replaceable SOM Semaphore Operations
@@ -627,13 +656,13 @@ type
  *  the SOM services process and client SOM processes.
  *)
 // function Replaceable_SOMCreateMutexSem: PsomTD_SOMCreateMutexSem; // (moved down)
-// function SOMCreateMutexSem(out sem: somToken): LongWord; // (moved down)
+// function SOMCreateMutexSem(out sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 // function Replaceable_SOMRequestMutexSem: PsomTD_SOMRequestMutexSem; // (moved down)
-// function SOMRequestMutexSem(sem: somToken): LongWord; // (moved down)
+// function SOMRequestMutexSem(sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 // function Replaceable_SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem; // (moved down)
-// function SOMReleaseMutexSem(sem: somToken): LongWord; // (moved down)
+// function SOMReleaseMutexSem(sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 // function Replaceable_SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem; // (moved down)
-// function SOMDestroyMutexSem(sem: somToken): LongWord; // (moved down)
+// function SOMDestroyMutexSem(sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*
  * 18260 -- other thread-related routines used by the kernel were
@@ -648,7 +677,7 @@ type
  *  uniquely represents the current thread within the current process.
  *)
 // function Replaceable_SOMGetThreadId: PsomTD_SOMGetThreadId; // (moved down)
-// function SOMGetThreadId: LongWord; // (moved down)
+// function SOMGetThreadId: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 
 (*----------------------------------------------------------------------
@@ -659,7 +688,7 @@ type
  * Global class manager object
  *)
 // function Replaceable_SOMClassMgrObject: PSOMClassMgr; // (moved down)
-// function SOMClassMgrObject: SOMClassMgr; // (moved down)
+// function SOMClassMgrObject: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (*
  * The somRegisterClassLibrary function is provided for use in SOM class
@@ -693,11 +722,11 @@ type
 //     functionName: PAnsiChar;
 //     majorVersion: LongInt;
 //     minorVersion: LongInt;
-//     out modHandle: somToken): Integer; // (moved down)
+//     out modHandle: somToken): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 // function Replaceable_SOMDeleteModule: PsomTD_SOMDeleteModule; // (moved down)
-// function SOMDeleteModule(modHandle: somToken): Integer; // (moved down)
+// function SOMDeleteModule(modHandle: somToken): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 // function Replaceable_SOMClassInitFuncName: PsomTD_SOMClassInitFuncName; // (moved down)
-// function SOMClassInitFuncName: PAnsiChar; // (moved down)
+// function SOMClassInitFuncName: PAnsiChar; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 
 (*----------------------------------------------------------------------
@@ -738,7 +767,7 @@ type
  *  Should return 0 (false) if an error occurs and 1 (true) otherwise.
  *)
 // function Replaceable_SOMOutCharRoutine: PsomTD_SOMOutCharRoutine; // (moved down)
-// function SOMOutCharRoutine(C: AnsiChar): Integer; // (moved down)
+// function SOMOutCharRoutine(C: AnsiChar): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 
 (*--------------
@@ -1778,6 +1807,13 @@ const
 
 // #include <somtypes.h>
 
+(*
+ *    SOMTYPES.H
+ *    SOM types for C
+ *    Multiple Inheritance Version
+ *)
+
+(* Object Instance Structure *)
 //   somMethodTabPtr = ^somMethodTab;
 //   SOMAny = record
 //     mtab: somMethodTabPtr;
@@ -1817,6 +1853,13 @@ const
  *)
 
 (*
+ * Default definition of somresolve_ to call the procedure, somResolve.
+ * This may be be changed by emitters on systems for which method
+ * tokens are thunks.
+ *)
+function somresolve_(obj: SOMObject; mToken: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
  *  Method Resolution. Methods are invoked on an object o of some
  *  object class oc, where oc has immediate ancestor classes
  *  called parent classes. Macro arguments include method names
@@ -1834,22 +1877,30 @@ const
        instance of the specified class or a class derived from that class *)
 
 function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+(* SOM3: as above, using symbols new to som3 *)
+function SOM3_Resolve(o: SOMObject; oc: SOMClass; m: somMToken;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (* from oc's mtbl, without verification of o *)
-function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
+function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOM3_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(* from the pcp'th element of oc's CClassData.parentMtab list *)
+function SOM_ParentNumResolveCC(pcp: LongInt; mtabs: somMethodTabs; m: somMToken):
+  somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (* from the pcp'th element of an argument mtab list *)
 function SOM_ParentNumResolve(pcp: LongInt; mtabs: somMethodTabs; m: somMToken):
-  somMethodProc;
+  somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (* from an argument class's method table *)
-function SOM_ClassResolve(c: SOMClass; m: somMToken): somMethodProc;
+function SOM_ClassResolve(c: SOMClass; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (* support reintroduction of methods *)
 (* tdc == typedef class name; cdc == classdata class name *)
 function SOM_ResolveD(o: SOMObject; c: SOMClass; m: somMToken;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 (* from the first mtbl in an argument mtbl list ...
@@ -1860,7 +1911,7 @@ function SOM_ResolveD(o: SOMObject; c: SOMClass; m: somMToken;
   SOM_ParentNumResolve with a pcp of 1.
 *)
 function SOM_ParentResolveE(mtbls: somMethodTabs; m: somMToken):
-  somMethodProc; // (moved down)
+  somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 
@@ -1868,7 +1919,7 @@ function SOM_ParentResolveE(mtbls: somMethodTabs; m: somMToken):
  * Data resolution macro
  *)
 
-function SOM_DataResolve(obj: SOMObject; dataId: somDToken): somToken;
+function SOM_DataResolve(obj: SOMObject; dataId: somDToken): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 (*
@@ -1892,25 +1943,29 @@ function SOM_CheckId(id: somId): somId; stdcall;
    * Main programs should register for SOM cleanup at exit
    *)
 
-function SOM_MainProgram: SOMClassMgr;
+function SOM_MainProgram: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * Platform provided automatic class library initialization rtns
  * should use this macro to inform the SOM Class Manager that
  * they have been loaded.
  *)
-procedure SOM_ClassLibrary(name: PAnsiChar; SOMInitModule: somTD_SOMInitModule);
+procedure SOM_ClassLibrary(name: PAnsiChar; SOMInitModule: somTD_SOMInitModule); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ *   Development support macros and globals
+ *)
 
 (*
  * Macro to get class object
  *)
-function SOM_GetClass(obj: SOMObject): SOMClass;
+function SOM_GetClass(obj: SOMObject): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * This macro is used throughout the generated source
  * to prevent compiler warnings for unreferenced variables
  *)
-procedure SOM_IgnoreWarning(var v);
+procedure SOM_IgnoreWarning(var v); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (* Check the validity of method resolution using the specified target  *)
 (* object.  Note: this macro makes programs bigger and slower.	After  *)
@@ -1919,18 +1974,21 @@ procedure SOM_IgnoreWarning(var v);
 (* to your makefile.						       *)
 
 function SOM_TestCls(obj: SOMObject; cls: SOMClass;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0): SOMObject;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (* Control the printing of method and procedure entry messages, *)
 (* 0-none, 1-user, 2-core&user *)
-function SOM_TraceLevel: PInteger;
+function Replaceable_SOM_TraceLevel: PInteger;
+function SOM_TraceLevel: Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (* Control the printing of warning messages, 0-none, 1-all *)
-function SOM_WarnLevel: PInteger;
+function Replaceable_SOM_WarnLevel: PInteger;
+function SOM_WarnLevel: Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (* Control the printing of successful assertions, 0-none, 1-user, *)
 (* 2-core&user *)
-function SOM_AssertLevel: PInteger;
+function Replaceable_SOM_AssertLevel: PInteger;
+function SOM_AssertLevel: Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  *  Scans argv looking for flags -somt, -somtc, -soma -somac -somw setting
@@ -1969,36 +2027,36 @@ procedure somAssertCore(
     lineNum: Integer;
     msg: PAnsiChar); stdcall;
 
-procedure SOM_Error(c: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_Error(c: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
-procedure SOM_NoTrace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_NoTrace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
-procedure SOM_Trace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_Trace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
-procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 procedure SOM_Assert(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 procedure SOM_AssertCore(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 procedure SOM_Expect(condition: Boolean; condition_str: PAnsiChar;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 procedure SOM_WarnMsg(msg: PAnsiChar;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 procedure SOM_Test(boolexp: Boolean; boolexp_str: PAnsiChar;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 procedure SOM_TestC(boolexp: Boolean; boolexp_str: PAnsiChar;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  *   Default method debug macro, can be overridden
  *)
-procedure SOMMethodDebug(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOMMethodDebug(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  *  Error severity codes, these are added to the base error number to
@@ -2169,7 +2227,7 @@ function exception_value(ev: PEnvironment): Pointer; stdcall;
 procedure exception_free(ev: PEnvironment); stdcall;
 
 //   Repository = SOMObject;
-function SOM_InterfaceRepository: Repository;
+function SOM_InterfaceRepository: Repository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*  Convenience macros for manipulating environment structures
  *
@@ -2193,10 +2251,10 @@ function SOM_InterfaceRepository: Repository;
  *      ... Use &ev in methods
  *      SOM_UninitEnvironment (&ev);
  *)
-function SOM_CreateLocalEnvironment: PEnvironment;
-procedure SOM_DestroyLocalEnvironment(ev: PEnvironment);
-procedure SOM_InitEnvironment(ev: PEnvironment);
-procedure SOM_UninitEnvironment(ev: PEnvironment);
+function SOM_CreateLocalEnvironment: PEnvironment; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure SOM_DestroyLocalEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure SOM_InitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure SOM_UninitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 // #include <somapi.h>
 
@@ -2222,13 +2280,13 @@ procedure SOM_UninitEnvironment(ev: PEnvironment);
 
 (*  SOM Version Numbers  *)
 function Replaceable_SOM_MajorVersion: PLongInt;
-function SOM_MajorVersion: LongInt;
+function SOM_MajorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOM_MinorVersion: PLongInt;
-function SOM_MinorVersion: LongInt;
+function SOM_MinorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*  SOM Thread Support  *)
 function Replaceable_SOM_MaxThreads: PLongInt;
-function SOM_MaxThreads: LongInt;
+function SOM_MaxThreads: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*----------------------------------------
  * Typedefs for pointers to functions
@@ -2309,13 +2367,13 @@ function somAbnormalEnd: ByteBool; stdcall;
  *  have the same interface as their standard C-library analogs.
  *)
 function Replaceable_SOMCalloc: PsomTD_SOMCalloc;
-function SOMCalloc(element_count, element_size: UIntPtr): somToken;
+function SOMCalloc(element_count, element_size: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOMFree: PsomTD_SOMFree;
-procedure SOMFree(memory: somToken);
+procedure SOMFree(memory: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOMMalloc: PsomTD_SOMMalloc;
-function SOMMalloc(nbytes: UIntPtr): somToken;
+function SOMMalloc(nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOMRealloc: PsomTD_SOMRealloc;
-function SOMRealloc(memory: somToken; nbytes: UIntPtr): somToken;
+function SOMRealloc(memory: somToken; nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  *  Replaceable SOM Error handler
@@ -2324,7 +2382,7 @@ function Replaceable_SOMError: PsomTD_SOMError;
 procedure SOMError(
     code: Integer;
     fileName: PAnsiChar;
-    lineNum: Integer);
+    lineNum: Integer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  *  Replaceable SOM Semaphore Operations
@@ -2334,13 +2392,13 @@ procedure SOMError(
  *  the SOM services process and client SOM processes.
  *)
 function Replaceable_SOMCreateMutexSem: PsomTD_SOMCreateMutexSem;
-function SOMCreateMutexSem(out sem: somToken): LongWord;
+function SOMCreateMutexSem(out sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOMRequestMutexSem: PsomTD_SOMRequestMutexSem;
-function SOMRequestMutexSem(sem: somToken): LongWord;
+function SOMRequestMutexSem(sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem;
-function SOMReleaseMutexSem(sem: somToken): LongWord;
+function SOMReleaseMutexSem(sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
-function SOMDestroyMutexSem(sem: somToken): LongWord;
+function SOMDestroyMutexSem(sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * 18260 -- other thread-related routines used by the kernel were
@@ -2355,7 +2413,7 @@ function SOMDestroyMutexSem(sem: somToken): LongWord;
  *  uniquely represents the current thread within the current process.
  *)
 function Replaceable_SOMGetThreadId: PsomTD_SOMGetThreadId;
-function SOMGetThreadId: LongWord;
+function SOMGetThreadId: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 (*----------------------------------------------------------------------
@@ -2366,7 +2424,7 @@ function SOMGetThreadId: LongWord;
  * Global class manager object
  *)
 function Replaceable_SOMClassMgrObject: PSOMClassMgr;
-function SOMClassMgrObject: SOMClassMgr;
+function SOMClassMgrObject: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * The somRegisterClassLibrary function is provided for use in SOM class
@@ -2400,11 +2458,11 @@ function SOMLoadModule(
     functionName: PAnsiChar;
     majorVersion: LongInt;
     minorVersion: LongInt;
-    out modHandle: somToken): Integer;
+    out modHandle: somToken): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOMDeleteModule: PsomTD_SOMDeleteModule;
-function SOMDeleteModule(modHandle: somToken): Integer;
+function SOMDeleteModule(modHandle: somToken): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
-function SOMClassInitFuncName: PAnsiChar;
+function SOMClassInitFuncName: PAnsiChar; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 (*----------------------------------------------------------------------
@@ -2445,7 +2503,7 @@ procedure somSetOutChar(outch: somTD_SOMOutCharRoutine); stdcall;
  *  Should return 0 (false) if an error occurs and 1 (true) otherwise.
  *)
 function Replaceable_SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
-function SOMOutCharRoutine(C: AnsiChar): Integer;
+function SOMOutCharRoutine(C: AnsiChar): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 (*--------------
@@ -5579,32 +5637,56 @@ end;
 
 // #include <somcdev.h>
 
+function somresolve_(obj: SOMObject; mToken: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := mToken;
+end;
+
 function SOM_Resolve(o: SOMObject; oc: SOMClass; m: somMToken;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
   SOM_TestCls(o, oc, fileName, lineNum);
   Result := m;
 end;
 
-function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc;
+function SOM3_Resolve(o: SOMObject; oc: SOMClass; m: somMToken;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  if not Assigned(fileName) then fileName := Unknown_Source;
+  SOM_TestCls(o, oc, fileName, lineNum);
+  Result := m;
+end;
+
+function SOM_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := m;
 end;
 
-function SOM_ParentNumResolve(pcp: LongInt; mtabs: somMethodTabs; m: somMToken):
-  somMethodProc;
+function SOM3_ResolveNoCheck(o: SOMObject; oc: SOMClass; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := m;
+end;
+
+function SOM_ParentNumResolveCC(pcp: LongInt; mtabs: somMethodTabs; m: somMToken):
+  somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := somParentNumResolve(mtabs, pcp, m);
 end;
 
-function SOM_ClassResolve(c: SOMClass; m: somMToken): somMethodProc;
+function SOM_ParentNumResolve(pcp: LongInt; mtabs: somMethodTabs; m: somMToken):
+  somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := somParentNumResolve(mtabs, pcp, m);
+end;
+
+function SOM_ClassResolve(c: SOMClass; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := somClassResolve(c, m);
 end;
 
 function SOM_ResolveD(o: SOMObject; c: SOMClass; m: somMToken;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
   SOM_TestCls(o, c, fileName, lineNum);
@@ -5612,12 +5694,12 @@ begin
 end;
 
 function SOM_ParentResolveE(mtbls: somMethodTabs; m: somMToken):
-  somMethodProc;
+  somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := somParentResolve(mtbls, m);
 end;
 
-function SOM_DataResolve(obj: SOMObject; dataId: somDToken): somToken;
+function SOM_DataResolve(obj: SOMObject; dataId: somDToken): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := somDataResolve(obj, dataId);
 end;
@@ -5628,28 +5710,28 @@ function SOM_StringFromId; external SOM_DLL_Name name 'somStringFromId';
 function SOM_IdFromString; external SOM_DLL_Name name 'somIdFromString';
 function SOM_CheckId; external SOM_DLL_Name name 'somCheckId';
 
-function SOM_MainProgram: SOMClassMgr;
+function SOM_MainProgram: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   SOM_MainProgram_Called := True;
   Result := somMainProgram;
 end;
 
-procedure SOM_ClassLibrary(name: PAnsiChar; SOMInitModule: somTD_SOMInitModule);
+procedure SOM_ClassLibrary(name: PAnsiChar; SOMInitModule: somTD_SOMInitModule); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   somRegisterClassLibrary(name, SOMInitModule);
 end;
 
-function SOM_GetClass(obj: SOMObject): SOMClass;
+function SOM_GetClass(obj: SOMObject): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := obj.mtab.classObject;
 end;
 
-procedure SOM_IgnoreWarning(var v);
+procedure SOM_IgnoreWarning(var v); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
 end;
 
 function SOM_TestCls(obj: SOMObject; cls: SOMClass;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0): SOMObject;
+  fileName: PAnsiChar = nil; lineNum: Integer = 0): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
   Result := somTestCls(obj, cls, fileName, lineNum);
@@ -5658,7 +5740,7 @@ end;
 var
   SOM_DLL_SOM_TraceLevel: PInteger;
 
-function SOM_TraceLevel: PInteger;
+function Replaceable_SOM_TraceLevel: PInteger;
 begin
   if Assigned(SOM_DLL_SOM_TraceLevel) then
     Result := SOM_DLL_SOM_TraceLevel
@@ -5669,10 +5751,15 @@ begin
   end;
 end;
 
+function SOM_TraceLevel: Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Replaceable_SOM_TraceLevel^;
+end;
+
 var
   SOM_DLL_SOM_WarnLevel: PInteger;
 
-function SOM_WarnLevel: PInteger;
+function Replaceable_SOM_WarnLevel: PInteger;
 begin
   if Assigned(SOM_DLL_SOM_WarnLevel) then
     Result := SOM_DLL_SOM_WarnLevel
@@ -5683,10 +5770,15 @@ begin
   end;
 end;
 
+function SOM_WarnLevel: Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Replaceable_SOM_WarnLevel^;
+end;
+
 var
   SOM_DLL_SOM_AssertLevel: PInteger;
 
-function SOM_AssertLevel: PInteger;
+function Replaceable_SOM_AssertLevel: PInteger;
 begin
   if Assigned(SOM_DLL_SOM_AssertLevel) then
     Result := SOM_DLL_SOM_AssertLevel
@@ -5697,37 +5789,42 @@ begin
   end;
 end;
 
+function SOM_AssertLevel: Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Replaceable_SOM_AssertLevel^;
+end;
+
 procedure somCheckArgs; external SOM_DLL_Name;
 procedure somTest; external SOM_DLL_Name;
 procedure somAssert; external SOM_DLL_Name;
 procedure somAssertCore; external SOM_DLL_Name;
 
-procedure SOM_Error(c: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_Error(c: Integer; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
   SOMError(c, fileName, lineNum);
 end;
 
-procedure SOM_NoTrace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_NoTrace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   // do nothing
 end;
 
-procedure SOM_Trace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_Trace(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
-  if SOM_TraceLevel^ > 0 then
+  if SOM_TraceLevel > 0 then
     somPrintf('"%s": %d:'#9'In %s:%s '#10, fileName, lineNum, c, m);
 end;
 
-procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOM_TraceCore(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
-  if SOM_TraceLevel^ > 1 then
+  if SOM_TraceLevel > 1 then
     somPrintf('"%s": %d:'#9'In %s:%s '#10, fileName, lineNum, c, m);
 end;
 
-procedure SOM_Assert(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
+procedure SOM_Assert(condition: Boolean; condition_str: PAnsiChar; ecode: Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   fileName: PAnsiChar = nil; lineNum: Integer = 0);
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
@@ -5735,42 +5832,42 @@ begin
 end;
 
 procedure SOM_AssertCore(condition: Boolean; condition_str: PAnsiChar; ecode: Integer;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
   somAssertCore(condition, ecode, fileName, lineNum, condition_str);
 end;
 
 procedure SOM_Expect(condition: Boolean; condition_str: PAnsiChar;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0); // (moved down)
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
   somTest(condition, SOM_Warn, fileName, lineNum, condition_str);
 end;
 
 procedure SOM_WarnMsg(msg: PAnsiChar;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
-  if SOM_WarnLevel^ > 0 then
+  if SOM_WarnLevel > 0 then
     somPrintf('"%s": %d:'#9'Warning: %s'#10, fileName, lineNum, msg);
 end;
 
 procedure SOM_Test(boolexp: Boolean; boolexp_str: PAnsiChar;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
   somTest(boolexp, SOM_Fatal, fileName, lineNum, boolexp_str);
 end;
 
 procedure SOM_TestC(boolexp: Boolean; boolexp_str: PAnsiChar;
-  fileName: PAnsiChar = nil; lineNum: Integer = 0);
+  fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
   somTest(boolexp, SOM_Warn, fileName, lineNum, boolexp_str);
 end;
 
-procedure SOMMethodDebug(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0);
+procedure SOMMethodDebug(c, m: PAnsiChar; fileName: PAnsiChar = nil; lineNum: Integer = 0); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if not Assigned(fileName) then fileName := Unknown_Source;
   SOM_Trace(c, m, fileName, lineNum);
@@ -5780,22 +5877,27 @@ function SOM_FatalCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inlin
 begin
   Result := SOM_EB + code * 10 + SOM_Fatal;
 end;
+
 function SOM_WarnCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOM_EB + code * 10 + SOM_Warn;
 end;
+
 function SOM_IgnoreCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOM_EB + code * 10 + SOM_Ignore;
 end;
+
 function SOM_OkCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOM_EB + code * 10 + SOM_Ok;
 end;
+
 function SOM_TemplateCode(code: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOM_EB + code * 10 + SOM_Template;
 end;
+
 function SOM_MsgCode(ecode: Integer): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := (ecode - SOM_EB) div 10;
@@ -5812,24 +5914,24 @@ function exception_id; external SOM_DLL_Name name 'somExceptionId';
 function exception_value; external SOM_DLL_Name name 'somExceptionValue';
 procedure exception_free; external SOM_DLL_Name name 'somExceptionFree';
 
-function SOM_InterfaceRepository: Repository;
+function SOM_InterfaceRepository: Repository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMClassMgr__get_somInterfaceRepository(SOMClassMgrObject);
 end;
 
-function SOM_CreateLocalEnvironment: PEnvironment;
+function SOM_CreateLocalEnvironment: PEnvironment; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := PEnvironment(SOMCalloc(1, SizeOf(Environment)));
 end;
 
-procedure SOM_DestroyLocalEnvironment(ev: PEnvironment);
+procedure SOM_DestroyLocalEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   somExceptionFree(ev);
   if somGetGlobalEnvironment <> ev then
     SOMFree(ev);
 end;
 
-procedure SOM_InitEnvironment(ev: PEnvironment);
+procedure SOM_InitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   if somGetGlobalEnvironment <> ev then
   begin
@@ -5837,7 +5939,7 @@ begin
   end;
 end;
 
-procedure SOM_UninitEnvironment(ev: PEnvironment);
+procedure SOM_UninitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   somExceptionFree(ev);
 end;
@@ -5858,7 +5960,7 @@ begin
   end;
 end;
 
-function SOM_MajorVersion: LongInt;
+function SOM_MajorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOM_MajorVersion^;
 end;
@@ -5877,7 +5979,7 @@ begin
   end;
 end;
 
-function SOM_MinorVersion: LongInt;
+function SOM_MinorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOM_MinorVersion^;
 end;
@@ -5896,7 +5998,7 @@ begin
   end;
 end;
 
-function SOM_MaxThreads: LongInt;
+function SOM_MaxThreads: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOM_MaxThreads^;
 end;
@@ -5920,7 +6022,7 @@ begin
   end;
 end;
 
-function SOMCalloc(element_count, element_size: UIntPtr): somToken;
+function SOMCalloc(element_count, element_size: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMCalloc^(element_count, element_size);
 end;
@@ -5939,7 +6041,7 @@ begin
   end;
 end;
 
-procedure SOMFree(memory: somToken);
+procedure SOMFree(memory: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Replaceable_SOMFree^(memory);
 end;
@@ -5958,7 +6060,7 @@ begin
   end;
 end;
 
-function SOMMalloc(nbytes: UIntPtr): somToken;
+function SOMMalloc(nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMMalloc^(nbytes);
 end;
@@ -5977,7 +6079,7 @@ begin
   end;
 end;
 
-function SOMRealloc(memory: somToken; nbytes: UIntPtr): somToken;
+function SOMRealloc(memory: somToken; nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMRealloc^(memory, nbytes);
 end;
@@ -5999,7 +6101,7 @@ end;
 procedure SOMError(
     code: Integer;
     fileName: PAnsiChar;
-    lineNum: Integer);
+    lineNum: Integer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Replaceable_SOMError^(code, fileName, lineNum);
 end;
@@ -6018,7 +6120,7 @@ begin
   end;
 end;
 
-function SOMCreateMutexSem(out sem: somToken): LongWord;
+function SOMCreateMutexSem(out sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMCreateMutexSem^(sem);
 end;
@@ -6037,7 +6139,7 @@ begin
   end;
 end;
 
-function SOMRequestMutexSem(sem: somToken): LongWord;
+function SOMRequestMutexSem(sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMRequestMutexSem^(sem);
 end;
@@ -6056,7 +6158,7 @@ begin
   end;
 end;
 
-function SOMReleaseMutexSem(sem: somToken): LongWord;
+function SOMReleaseMutexSem(sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMReleaseMutexSem^(sem);
 end;
@@ -6075,7 +6177,7 @@ begin
   end;
 end;
 
-function SOMDestroyMutexSem(sem: somToken): LongWord;
+function SOMDestroyMutexSem(sem: somToken): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMDestroyMutexSem^(sem);
 end;
@@ -6094,7 +6196,7 @@ begin
   end;
 end;
 
-function SOMGetThreadId: LongWord;
+function SOMGetThreadId: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMGetThreadId^();
 end;
@@ -6113,7 +6215,7 @@ begin
   end;
 end;
 
-function SOMClassMgrObject: SOMClassMgr;
+function SOMClassMgrObject: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMClassMgrObject^;
 end;
@@ -6141,7 +6243,7 @@ function SOMLoadModule(
     functionName: PAnsiChar;
     majorVersion: LongInt;
     minorVersion: LongInt;
-    out modHandle: somToken): Integer;
+    out modHandle: somToken): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMLoadModule^(className, fileName, functionName,
     majorVersion, minorVersion, modHandle);
@@ -6161,7 +6263,7 @@ begin
   end;
 end;
 
-function SOMDeleteModule(modHandle: somToken): Integer;
+function SOMDeleteModule(modHandle: somToken): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMDeleteModule^(modHandle);
 end;
@@ -6180,7 +6282,7 @@ begin
   end;
 end;
 
-function SOMClassInitFuncName: PAnsiChar;
+function SOMClassInitFuncName: PAnsiChar; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMClassInitFuncName^();
 end;
@@ -6205,7 +6307,7 @@ begin
   end;
 end;
 
-function SOMOutCharRoutine(C: AnsiChar): Integer;
+function SOMOutCharRoutine(C: AnsiChar): Integer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Replaceable_SOMOutCharRoutine^(C);
 end;
