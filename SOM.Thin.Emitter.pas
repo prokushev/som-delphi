@@ -44,7 +44,7 @@ type
  * Start of bindings for IDL types
  *)
 
-  SOMTEntryC = SOMObject;
+  SOMTEntryC = SOMObject; // used in <sm.h>
   SOMTMetaClassEntryC = SOMObject;
   SOMTAttributeEntryC = SOMObject;
   SOMTTypedefEntryC = SOMObject;
@@ -260,8 +260,8 @@ function _SOMCLASS_SOMTTemplateOutputC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inl
 (*
  * New and Renew macros for SOMTTemplateOutputC
  *)
-function SOMTTemplateOutputCNew: SOMClass;
-function SOMTTemplateOutputCRenew(buf: Pointer): SOMClass;
+function SOMTTemplateOutputCNew: SOMTTemplateOutputC;
+function SOMTTemplateOutputCRenew(buf: Pointer): SOMTTemplateOutputC;
 
 (*
  * New Method: _get_somtCommentStyle
@@ -609,9 +609,375 @@ const somMD_SOMTTemplateOutputC_somtExpandSymbol = '::SOMTTemplateOutputC::somtE
 function SOMTTemplateOutputC_somtExpandSymbol(somSelf: SOMTTemplateOutputC;
 	s, buf: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scentry.h>
 
-{ ... }
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTEntryC = SOMObject;
+(*
+ *  A SOM class interface definition is compiled to produce a graph
+ *  structure whose nodes are instances of <SOMTEntry> or its
+ *  sub-classes.  Each entry is derived from some syntactic element of
+ *  the definition source. The attributes defined in <SOMTEntryC>
+ *  refer to this syntactic element in a fairly obvious way.
+ *
+ *)
+
+(*
+ * Start of bindings for IDL types
+ *)
+{ ... useful? }
+(*
+ * End of bindings for IDL types.
+ *)
+
+const
+  SOMTEntryC_MajorVersion = 2;
+  SOMTEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtEntryName: somMToken;
+	_set_somtEntryName: somMToken;
+	_get_somtElementType: somMToken;
+	_set_somtElementType: somMToken;
+	_get_somtEntryComment: somMToken;
+	_get_somtSourceLineNumber: somMToken;
+	_get_somtTypeCode: somMToken;
+	_get_somtIsReference: somMToken;
+	somtGetModifierValue: somMToken;
+	somtGetFirstModifier: somMToken;
+	somtGetNextModifier: somMToken;
+	somtFormatModifier: somMToken;
+	somtGetModifierList: somMToken;
+	somtSetSymbolsOnEntry: somMToken;
+	somtSetEntryStruct: somMToken;
+	_get_somtEntryStruct: somMToken;
+	somtShowAssocEntry: somMToken;
+	_get_somtCScopedName: somMToken;
+	_get_somtIDLScopedName: somMToken;
+	_get_somtElementTypeName: somMToken;
+end;
+PSOMTEntryCClassDataStructure = ^SOMTEntryCClassDataStructure;
+function SOMTEntryCClassData: PSOMTEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTEntryCCClassDataStructure = ^SOMTEntryCCClassDataStructure;
+function SOMTEntryCCClassData: PSOMTEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTEntryC
+ *)
+function SOMTEntryCNew: SOMTEntryC;
+function SOMTEntryCRenew(buf: Pointer): SOMTEntryC;
+
+(*
+ * New Method: _get_somtEntryName
+ *)
+type
+  somTP_SOMTEntryC__get_somtEntryName = function(somSelf: SOMTEntryC): CORBAString; stdcall;
+  somTD_SOMTEntryC__get_somtEntryName = somTP_SOMTEntryC__get_somtEntryName;
+(*
+ *  The name associated with this entry.  Eg, the name of
+ *  the data item, the class, the method, the type, etc.
+ *)
+const somMD_SOMTEntryC__get_somtEntryName = '::SOMTEntryC::_get_somtEntryName';
+function SOMTEntryC__get_somtEntryName(somSelf: SOMTEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_somtEntryName
+ *)
+type
+  somTP_SOMTEntryC__set_somtEntryName = procedure(somSelf: SOMTEntryC;
+		somtEntryName: CORBAString); stdcall;
+  somTD_SOMTEntryC__set_somtEntryName = somTP_SOMTEntryC__set_somtEntryName;
+(*
+ *  The name associated with this entry.  Eg, the name of
+ *  the data item, the class, the method, the type, etc.
+ *)
+const somMD_SOMTEntryC__set_somtEntryName = '::SOMTEntryC::_set_somtEntryName';
+procedure SOMTEntryC__set_somtEntryName(somSelf: SOMTEntryC;
+  somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtElementType
+ *)
+type
+  somTP_SOMTEntryC__get_somtElementType = function(somSelf: SOMTEntryC): SOMTTypes; stdcall;
+  somTD_SOMTEntryC__get_somtElementType = somTP_SOMTEntryC__get_somtElementType;
+(*
+ *  Returns the type of this entry.
+ *  This is not datatype, but entry type (method, class,
+ *  passthru, etc.). The value is defined by SOMTTypes.
+ *)
+const somMD_SOMTEntryC__get_somtElementType = '::SOMTEntryC::_get_somtElementType';
+function SOMTEntryC__get_somtElementType(somSelf: SOMTEntryC): SOMTTypes; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_somtElementType
+ *)
+type
+  somTP_SOMTEntryC__set_somtElementType = procedure(somSelf: SOMTEntryC;
+		somtElementType: SOMTTypes); stdcall;
+  somTD_SOMTEntryC__set_somtElementType = somTP_SOMTEntryC__set_somtElementType;
+(*
+ *  Returns the type of this entry.
+ *  This is not datatype, but entry type (method, class,
+ *  passthru, etc.). The value is defined by SOMTTypes.
+ *)
+const somMD_SOMTEntryC__set_somtElementType = '::SOMTEntryC::_set_somtElementType';
+procedure SOMTEntryC__set_somtElementType(somSelf: SOMTEntryC;
+  somtElementType: SOMTTypes); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtElementTypeName
+ *)
+type
+  somTP_SOMTEntryC__get_somtElementTypeName = function(somSelf: SOMTEntryC): CORBAString; stdcall;
+  somTD_SOMTEntryC__get_somtElementTypeName = somTP_SOMTEntryC__get_somtElementTypeName;
+(*
+ *  String version of somtElementType.
+ *)
+const somMD_SOMTEntryC__get_somtElementTypeName = '::SOMTEntryC::_get_somtElementTypeName';
+function SOMTEntryC__get_somtElementTypeName(somSelf: SOMTEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtEntryComment
+ *)
+type
+  somTP_SOMTEntryC__get_somtEntryComment = function(somSelf: SOMTEntryC): CORBAString; stdcall;
+  somTD_SOMTEntryC__get_somtEntryComment = somTP_SOMTEntryC__get_somtEntryComment;
+(*
+ *  Returns the comment associated with this entry, or NULL is this
+ *  entry has no associated comment.  Comments will have comment
+ *  delimitors removed, but will retain newline characters as
+ *  specified in the source file. (use smLookupComment)
+ *)
+const somMD_SOMTEntryC__get_somtEntryComment = '::SOMTEntryC::_get_somtEntryComment';
+function SOMTEntryC__get_somtEntryComment(somSelf: SOMTEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtSourceLineNumber
+ *)
+type
+  somTP_SOMTEntryC__get_somtSourceLineNumber = function(somSelf: SOMTEntryC): LongWord; stdcall;
+  somTD_SOMTEntryC__get_somtSourceLineNumber = somTP_SOMTEntryC__get_somtSourceLineNumber;
+(*
+ *  Returns the line number in the source file where this entry's
+ *  syntactic form ended.
+ *)
+const somMD_SOMTEntryC__get_somtSourceLineNumber = '::SOMTEntryC::_get_somtSourceLineNumber';
+function SOMTEntryC__get_somtSourceLineNumber(somSelf: SOMTEntryC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtTypeCode
+ *)
+type
+  somTP_SOMTEntryC__get_somtTypeCode = function(somSelf: SOMTEntryC): TypeCode; stdcall;
+  somTD_SOMTEntryC__get_somtTypeCode = somTP_SOMTEntryC__get_somtTypeCode;
+(*
+ *  The typecode, if appropriate, or NULL.
+ *)
+const somMD_SOMTEntryC__get_somtTypeCode = '::SOMTEntryC::_get_somtTypeCode';
+function SOMTEntryC__get_somtTypeCode(somSelf: SOMTEntryC): TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtIsReference
+ *)
+type
+  somTP_SOMTEntryC__get_somtIsReference = function(somSelf: SOMTEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEntryC__get_somtIsReference = somTP_SOMTEntryC__get_somtIsReference;
+(*
+ *  Whether the entry is just a reference to the real type (TRUE)
+ *  rather than a declaration of it (FALSE).
+ *)
+const somMD_SOMTEntryC__get_somtIsReference = '::SOMTEntryC::_get_somtIsReference';
+function SOMTEntryC__get_somtIsReference(somSelf: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtIDLScopedName
+ *)
+type
+  somTP_SOMTEntryC__get_somtIDLScopedName = function(somSelf: SOMTEntryC): CORBAString; stdcall;
+  somTD_SOMTEntryC__get_somtIDLScopedName = somTP_SOMTEntryC__get_somtIDLScopedName;
+(*
+ *  The IDL scoped name of the entry (using double colon as delimiter).
+ *)
+const somMD_SOMTEntryC__get_somtIDLScopedName = '::SOMTEntryC::_get_somtIDLScopedName';
+function SOMTEntryC__get_somtIDLScopedName(somSelf: SOMTEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtCScopedName
+ *)
+type
+  somTP_SOMTEntryC__get_somtCScopedName = function(somSelf: SOMTEntryC): CORBAString; stdcall;
+  somTD_SOMTEntryC__get_somtCScopedName = somTP_SOMTEntryC__get_somtCScopedName;
+(*
+ *  The C scoped name of the entry (using underscore as delimiter).
+ *)
+const somMD_SOMTEntryC__get_somtCScopedName = '::SOMTEntryC::_get_somtCScopedName';
+function SOMTEntryC__get_somtCScopedName(somSelf: SOMTEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetModifierValue
+ *)
+type
+  somTP_SOMTEntryC_somtGetModifierValue = function(somSelf: SOMTEntryC;
+		modifierName: CORBAString): CORBAString; stdcall;
+  somTD_SOMTEntryC_somtGetModifierValue = somTP_SOMTEntryC_somtGetModifierValue;
+(*
+ *  Returns the value of the named modifier if this entry has the
+ *  named modifier and NULL otherwise. Note: if the modifier is
+ *  present but does not have a value then a value of <'\1'> is
+ *  returned.
+ *)
+const somMD_SOMTEntryC_somtGetModifierValue = '::SOMTEntryC::somtGetModifierValue';
+function SOMTEntryC_somtGetModifierValue(somSelf: SOMTEntryC;
+  modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstModifier
+ *)
+type
+  somTP_SOMTEntryC_somtGetFirstModifier = function(somSelf: SOMTEntryC;
+		var modifierName, modifierValue: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEntryC_somtGetFirstModifier = somTP_SOMTEntryC_somtGetFirstModifier;
+(*
+ *  Returns the first modifier associated with this entry.  1 (true)
+ *  is returned if the entry has at least one modifier and 0 (false)
+ *  otherwise.
+ *)
+const somMD_SOMTEntryC_somtGetFirstModifier = '::SOMTEntryC::somtGetFirstModifier';
+function SOMTEntryC_somtGetFirstModifier(somSelf: SOMTEntryC;
+  var modifierName, modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextModifier
+ *)
+type
+  somTP_SOMTEntryC_somtGetNextModifier = function(somSelf: SOMTEntryC;
+		var modifierName, modifierValue: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEntryC_somtGetNextModifier = somTP_SOMTEntryC_somtGetNextModifier;
+(*
+ *  Returns the next modifier (with respect to the last call to
+ *  <somtGetNextModifier> or <somtGetFirstModifier>)
+ *  associated with this entry.  1 (true) is returned if the entry
+ *  had another modifier and 0 (false) otherwise.
+ *)
+const somMD_SOMTEntryC_somtGetNextModifier = '::SOMTEntryC::somtGetNextModifier';
+function SOMTEntryC_somtGetNextModifier(somSelf: SOMTEntryC;
+  var modifierName, modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtFormatModifier
+ *)
+type
+  somTP_SOMTEntryC_somtFormatModifier = function(somSelf: SOMTEntryC;
+		buffer, name, value: CORBAString): LongInt; stdcall;
+  somTD_SOMTEntryC_somtFormatModifier = somTP_SOMTEntryC_somtFormatModifier;
+(*
+ *  Formats the indicated name/value pair into buffer.  Buffer must
+ *  be big enough to hold all the formatted pair, no checks are made.
+ *  The number of characters added to buffer are returned (not
+ *  including the trailing null character).
+ *  Note: value may be null
+ *  You will probably never call this method, it is provided so that
+ *  you can override it to control the format returned in
+ *  <somtGetModifierList>.
+ *)
+const somMD_SOMTEntryC_somtFormatModifier = '::SOMTEntryC::somtFormatModifier';
+function SOMTEntryC_somtFormatModifier(somSelf: SOMTEntryC;
+  buffer, name, value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetModifierList
+ *)
+type
+  somTP_SOMTEntryC_somtGetModifierList = function(somSelf: SOMTEntryC;
+		buffer: CORBAString): LongInt; stdcall;
+  somTD_SOMTEntryC_somtGetModifierList = somTP_SOMTEntryC_somtGetModifierList;
+(*
+ *  The modifiers for this entry are placed in <buffer> in template
+ *  list form (newline separated).  Buffer must be big enough to
+ *  hold all the modifiers, no checks are made. The number of
+ *  modifiers is returned.
+ *)
+const somMD_SOMTEntryC_somtGetModifierList = '::SOMTEntryC::somtGetModifierList';
+function SOMTEntryC_somtGetModifierList(somSelf: SOMTEntryC;
+  buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtSetSymbolsOnEntry
+ *)
+type
+  somTP_SOMTEntryC_somtSetSymbolsOnEntry = function(somSelf: SOMTEntryC;
+		emitter: SOMTEmitC; prefix: CORBAString): LongInt; stdcall;
+  somTD_SOMTEntryC_somtSetSymbolsOnEntry = somTP_SOMTEntryC_somtSetSymbolsOnEntry;
+(*
+ *  Places a number of symbol/value pairs in <t>.  All the symbols
+ *  will begin with <prefix>.
+ *)
+const somMD_SOMTEntryC_somtSetSymbolsOnEntry = '::SOMTEntryC::somtSetSymbolsOnEntry';
+function SOMTEntryC_somtSetSymbolsOnEntry(somSelf: SOMTEntryC;
+  emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtSetEntryStruct
+ *)
+type
+  somTP_SOMTEntryC_somtSetEntryStruct = procedure(somSelf: SOMTEntryC;
+		es: PEntry); stdcall;
+  somTD_SOMTEntryC_somtSetEntryStruct = somTP_SOMTEntryC_somtSetEntryStruct;
+(*
+ *  Sets the entry struct data member.
+ *  Note, when overridding this method, it is important to call the
+ *  parent version of the method first and then do your processing.
+ *)
+const somMD_SOMTEntryC_somtSetEntryStruct = '::SOMTEntryC::somtSetEntryStruct';
+procedure SOMTEntryC_somtSetEntryStruct(somSelf: SOMTEntryC; es: PEntry); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
 // #include <scclass.h>
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTClassEntryC = SOMTEntryC;
+(*
+ *  This entry is the anchor for all information about a class
+ *  definition. The part it inherits from <SOMTEntryC> concerns
+ *  the actual class statement in the interface definition.  The new
+ *  methods and attributes provided by the class concern the class
+ *  definition as a whole.
+ *  A number of the possible statements in a class definition are
+ *  optional, when they are missing from the class definition then
+ *  methods that would return an entry for this kind of statement, will
+ *  return NULL.
+ *)
+
 { ... }
 // #include <scmeta.h>
 { ... }
@@ -676,6 +1042,9 @@ function somtMakeIncludeStr; external SOME_DLL_Name;
 function somtNewSymbol; external SOME_DLL_Name;
 function somtGetFileStem; external SOME_DLL_Name;
 function somtEntryTypeName; external SOME_DLL_Name;
+
+// #include <sctmplt.h>
+
 function SOMTTemplateOutputCNewClass; external SOME_DLL_Name;
 
 var
@@ -711,7 +1080,7 @@ begin
   Result := SOMTTemplateOutputCClassData.classObject;
 end;
 
-function SOMTTemplateOutputCNew: SOMClass;
+function SOMTTemplateOutputCNew: SOMTTemplateOutputC;
 var
   cls: SOMClass;
 begin
@@ -720,7 +1089,7 @@ begin
   Result := SOMClass_somNew(cls);
 end;
 
-function SOMTTemplateOutputCRenew(buf: Pointer): SOMClass;
+function SOMTTemplateOutputCRenew(buf: Pointer): SOMTTemplateOutputC;
 var
   cls: SOMClass;
 begin
@@ -933,6 +1302,253 @@ begin
      (SOM_Resolve(somSelf, cd.classObject, cd.somtExpandSymbol))(somSelf, s, buf);
 end;
 
+// #include <scentry.h>
+
+function SOMTEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTEntryCClassData: PSOMTEntryCClassDataStructure;
+
+function SOMTEntryCClassData: PSOMTEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTEntryCClassData) then
+    Result := SOME_DLL_SOMTEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTEntryCClassData, 'SOMTEntryCClassData');
+    Result := SOME_DLL_SOMTEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTEntryCCClassData: PSOMTEntryCCClassDataStructure;
+
+function SOMTEntryCCClassData: PSOMTEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTEntryCCClassData) then
+    Result := SOME_DLL_SOMTEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTEntryCCClassData, 'SOMTEntryCCClassData');
+    Result := SOME_DLL_SOMTEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTEntryCClassData.classObject;
+end;
+
+function SOMTEntryCNew: SOMTEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTEntryC;
+  if not Assigned(cls) then cls := SOMTEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTEntryCRenew(buf: Pointer): SOMTEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTEntryC;
+  if not Assigned(cls) then cls := SOMTEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTEntryC__get_somtEntryName(somSelf: SOMTEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC__get_somtEntryName
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))(somSelf);
+end;
+
+procedure SOMTEntryC__set_somtEntryName(somSelf: SOMTEntryC;
+  somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  somTD_SOMTEntryC__set_somtEntryName
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
+     (somSelf, somtEntryName);
+end;
+
+function SOMTEntryC__get_somtElementType(somSelf: SOMTEntryC): SOMTTypes; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC__get_somtElementType
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))(somSelf);
+end;
+
+procedure SOMTEntryC__set_somtElementType(somSelf: SOMTEntryC;
+  somtElementType: SOMTTypes); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  somTD_SOMTEntryC__set_somtElementType
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
+     (somSelf, somtElementType);
+end;
+
+function SOMTEntryC__get_somtElementTypeName(somSelf: SOMTEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC__get_somtElementTypeName
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))(somSelf);
+end;
+
+function SOMTEntryC__get_somtEntryComment(somSelf: SOMTEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC__get_somtEntryComment
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))(somSelf);
+end;
+
+function SOMTEntryC__get_somtSourceLineNumber(somSelf: SOMTEntryC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC__get_somtSourceLineNumber
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))(somSelf);
+end;
+
+function SOMTEntryC__get_somtTypeCode(somSelf: SOMTEntryC): TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC__get_somtTypeCode
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))(somSelf);
+end;
+
+function SOMTEntryC__get_somtIsReference(somSelf: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC__get_somtIsReference
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))(somSelf);
+end;
+
+function SOMTEntryC__get_somtIDLScopedName(somSelf: SOMTEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC__get_somtIDLScopedName
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))(somSelf);
+end;
+
+function SOMTEntryC__get_somtCScopedName(somSelf: SOMTEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC__get_somtCScopedName
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))(somSelf);
+end;
+
+function SOMTEntryC_somtGetModifierValue(somSelf: SOMTEntryC;
+  modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC_somtGetModifierValue
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
+       (somSelf, modifierName);
+end;
+
+function SOMTEntryC_somtGetFirstModifier(somSelf: SOMTEntryC;
+  var modifierName, modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC_somtGetFirstModifier
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
+       (somSelf, modifierName, modifierValue);
+end;
+
+function SOMTEntryC_somtGetNextModifier(somSelf: SOMTEntryC;
+  var modifierName, modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC_somtGetNextModifier
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
+       (somSelf, modifierName, modifierValue);
+end;
+
+function SOMTEntryC_somtFormatModifier(somSelf: SOMTEntryC;
+  buffer, name, value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC_somtFormatModifier
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
+       (somSelf, buffer, name, value);
+end;
+
+function SOMTEntryC_somtGetModifierList(somSelf: SOMTEntryC;
+  buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC_somtGetModifierList
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
+       (somSelf, buffer);
+end;
+
+function SOMTEntryC_somtSetSymbolsOnEntry(somSelf: SOMTEntryC;
+  emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  Result :=
+    somTD_SOMTEntryC_somtSetSymbolsOnEntry
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
+       (somSelf, emitter, prefix);
+end;
+
+procedure SOMTEntryC_somtSetEntryStruct(somSelf: SOMTEntryC; es: PEntry); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEntryCClassDataStructure;
+begin
+  cd := SOMTEntryCClassData;
+  somTD_SOMTEntryC_somtSetEntryStruct
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))(somSelf, es);
+end;
 
 
 end.
