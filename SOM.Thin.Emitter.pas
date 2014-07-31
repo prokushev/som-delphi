@@ -52,7 +52,6 @@ type
   SOMTPassthruEntryC = SOMObject;
   SOMTDataEntryC = SOMObject;
   SOMTMethodEntryC = SOMObject;
-  SOMTClassEntryC = SOMObject;
   SOMTModuleEntryC = SOMObject;
   SOMTParameterEntryC = SOMObject;
   SOMTStructEntryC = SOMObject;
@@ -625,14 +624,6 @@ function SOMTTemplateOutputC_somtExpandSymbol(somSelf: SOMTTemplateOutputC;
  *
  *)
 
-(*
- * Start of bindings for IDL types
- *)
-{ ... useful? }
-(*
- * End of bindings for IDL types.
- *)
-
 const
   SOMTEntryC_MajorVersion = 2;
   SOMTEntryC_MinorVersion = 1;
@@ -964,8 +955,8 @@ procedure SOMTEntryC_somtSetEntryStruct(somSelf: SOMTEntryC; es: PEntry); {$IFDE
 (*
  * Define the class name as an object type
  *)
-// type
-//   SOMTClassEntryC = SOMTEntryC;
+type
+  SOMTClassEntryC = SOMTEntryC;
 (*
  *  This entry is the anchor for all information about a class
  *  definition. The part it inherits from <SOMTEntryC> concerns
@@ -978,7 +969,696 @@ procedure SOMTEntryC_somtSetEntryStruct(somSelf: SOMTEntryC; es: PEntry); {$IFDE
  *  return NULL.
  *)
 
-{ ... }
+const
+  SOMTClassEntryC_MajorVersion = 2;
+  SOMTClassEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTClassEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTClassEntryC_MajorVersion;
+	somtminorVersion: integer4 = SOMTClassEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTClassEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtSourceFileName: somMToken;
+	_get_somtMetaClassEntry: somMToken;
+	_get_somtNewMethodCount: somMToken;
+	_get_somtLocalInclude: somMToken;
+	_get_somtPrivateMethodCount: somMToken;
+	_get_somtStaticMethodCount: somMToken;
+	_get_somtOverrideMethodCount: somMToken;
+	_get_somtProcMethodCount: somMToken;
+	_get_somtVAMethodCount: somMToken;
+	_get_somtBaseCount: somMToken;
+	_get_somtExternalDataCount: somMToken;
+	_get_somtPublicDataCount: somMToken;
+	_get_somtPrivateDataCount: somMToken;
+	somtGetFirstBaseClass: somMToken;
+	somtGetNextBaseClass: somMToken;
+	somtGetFirstReleaseName: somMToken;
+	somtGetNextReleaseName: somMToken;
+	somtGetReleaseNameList: somMToken;
+	somtGetFirstPassthru: somMToken;
+	somtGetNextPassthru: somMToken;
+	somtGetFirstData: somMToken;
+	somtGetNextData: somMToken;
+	somtGetFirstMethod: somMToken;
+	somtGetNextMethod: somMToken;
+	somtGetFirstInheritedMethod: somMToken;
+	somtGetNextInheritedMethod: somMToken;
+	somtFilterNew: somMToken;
+	somtFilterOverridden: somMToken;
+	somtFilterPrivOrPub: somMToken;
+	_get_somtMetaclassFor: somMToken;
+	_get_somtForwardRef: somMToken;
+	somtGetFirstAttribute: somMToken;
+	somtGetNextAttribute: somMToken;
+	somtGetFirstStruct: somMToken;
+	somtGetNextStruct: somMToken;
+	somtGetFirstTypedef: somMToken;
+	somtGetNextTypedef: somMToken;
+	somtGetFirstUnion: somMToken;
+	somtGetNextUnion: somMToken;
+	somtGetFirstEnum: somMToken;
+	somtGetNextEnum: somMToken;
+	somtGetFirstConstant: somMToken;
+	somtGetNextConstant: somMToken;
+	somtGetFirstSequence: somMToken;
+	somtGetNextSequence: somMToken;
+	_get_somtClassModule: somMToken;
+	somtGetFirstPubdef: somMToken;
+	somtGetNextPubdef: somMToken;
+	somtGetFirstStaticData: somMToken;
+	somtGetNextStaticData: somMToken;
+end;
+PSOMTClassEntryCClassDataStructure = ^SOMTClassEntryCClassDataStructure;
+function SOMTClassEntryCClassData: PSOMTClassEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTClassEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTClassEntryCCClassDataStructure = ^SOMTClassEntryCCClassDataStructure;
+function SOMTClassEntryCCClassData: PSOMTClassEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTClassEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTClassEntryC
+ *)
+function SOMTClassEntryCNew: SOMTClassEntryC;
+function SOMTClassEntryCRenew(buf: Pointer): SOMTClassEntryC;
+
+(*
+ * New Method: _get_somtSourceFileName
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtSourceFileName = function(somSelf: SOMTClassEntryC): CORBAString; stdcall;
+  somTD_SOMTClassEntryC__get_somtSourceFileName = somTP_SOMTClassEntryC__get_somtSourceFileName;
+(*
+ *  Returns the name of file containing the definition of this class.
+ *)
+const somMD_SOMTClassEntryC__get_somtSourceFileName = '::SOMTClassEntryC::_get_somtSourceFileName';
+function SOMTClassEntryC__get_somtSourceFileName(somSelf: SOMTClassEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtMetaClassEntry
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtMetaClassEntry = function(somSelf: SOMTClassEntryC): SOMTMetaClassEntryC; stdcall;
+  somTD_SOMTClassEntryC__get_somtMetaClassEntry = somTP_SOMTClassEntryC__get_somtMetaClassEntry;
+(*
+ *  Returns the entry for the meta class statement in class
+ *  definition or NULL if there is no meta class statement.
+ *  Note: the SOM architecture requires that all classes have a meta
+ *  class, however <SOMClass> is its own metaclass. Thus, any attempt
+ *  to walk up the metaclass chain must terminate when it finds a
+ *  class that is its own meta class, otherwise an infinite loop is
+ *  possible.
+ *)
+const somMD_SOMTClassEntryC__get_somtMetaClassEntry = '::SOMTClassEntryC::_get_somtMetaClassEntry';
+function SOMTClassEntryC__get_somtMetaClassEntry(somSelf: SOMTClassEntryC): SOMTMetaClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtClassModule
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtClassModule = function(somSelf: SOMTClassEntryC): SOMTModuleEntryC; stdcall;
+  somTD_SOMTClassEntryC__get_somtClassModule = somTP_SOMTClassEntryC__get_somtClassModule;
+(*
+ *  The module that contains this class, or NULL if there is not one.
+ *)
+const somMD_SOMTClassEntryC__get_somtClassModule = '::SOMTClassEntryC::_get_somtClassModule';
+function SOMTClassEntryC__get_somtClassModule(somSelf: SOMTClassEntryC): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtNewMethodCount
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtNewMethodCount = function(somSelf: SOMTClassEntryC): LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtNewMethodCount = somTP_SOMTClassEntryC__get_somtNewMethodCount;
+(*
+ *  Returns the number of new methods introduced in this class
+ *  definition.
+ *)
+const somMD_SOMTClassEntryC__get_somtNewMethodCount = '::SOMTClassEntryC::_get_somtNewMethodCount';
+function SOMTClassEntryC__get_somtNewMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtLocalInclude
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtLocalInclude = function(somSelf: SOMTClassEntryC): CORBABoolean; stdcall;
+  somTD_SOMTClassEntryC__get_somtLocalInclude = somTP_SOMTClassEntryC__get_somtLocalInclude;
+(*
+ *  Returns true if the header files associated with this class
+ *  definition should be included using local search, eg, "name.h"
+ *  instead of <name.h>
+ *)
+const somMD_SOMTClassEntryC__get_somtLocalInclude = '::SOMTClassEntryC::_get_somtLocalInclude';
+function SOMTClassEntryC__get_somtLocalInclude(somSelf: SOMTClassEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtPrivateMethodCount
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtPrivateMethodCount = function(somSelf: SOMTClassEntryC): LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtPrivateMethodCount = somTP_SOMTClassEntryC__get_somtPrivateMethodCount;
+(*
+ *  Returns number of new private methods in class.
+ *)
+const somMD_SOMTClassEntryC__get_somtPrivateMethodCount = '::SOMTClassEntryC::_get_somtPrivateMethodCount';
+function SOMTClassEntryC__get_somtPrivateMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtStaticMethodCount
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtStaticMethodCount = function(somSelf: SOMTClassEntryC): LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtStaticMethodCount = somTP_SOMTClassEntryC__get_somtStaticMethodCount;
+(*
+ *  Returns number of new static methods in class.
+ *)
+const somMD_SOMTClassEntryC__get_somtStaticMethodCount = '::SOMTClassEntryC::_get_somtStaticMethodCount';
+function SOMTClassEntryC__get_somtStaticMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtOverrideMethodCount
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtOverrideMethodCount = function(somSelf: SOMTClassEntryC): LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtOverrideMethodCount = somTP_SOMTClassEntryC__get_somtOverrideMethodCount;
+(*
+ *  Returns number of new override methods in class.
+ *)
+const somMD_SOMTClassEntryC__get_somtOverrideMethodCount = '::SOMTClassEntryC::_get_somtOverrideMethodCount';
+function SOMTClassEntryC__get_somtOverrideMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtProcMethodCount
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtProcMethodCount = function(somSelf: SOMTClassEntryC): LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtProcMethodCount = somTP_SOMTClassEntryC__get_somtProcMethodCount;
+(*
+ *  Returns number of procedure methods for class.
+ *)
+const somMD_SOMTClassEntryC__get_somtProcMethodCount = '::SOMTClassEntryC::_get_somtProcMethodCount';
+function SOMTClassEntryC__get_somtProcMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtVAMethodCount
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtVAMethodCount = function(somSelf: SOMTClassEntryC): LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtVAMethodCount = somTP_SOMTClassEntryC__get_somtVAMethodCount;
+(*
+ *  Returns number of VarArg methods for class.
+ *)
+const somMD_SOMTClassEntryC__get_somtVAMethodCount = '::SOMTClassEntryC::_get_somtVAMethodCount';
+function SOMTClassEntryC__get_somtVAMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtBaseCount
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtBaseCount = function(somSelf: SOMTClassEntryC): LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtBaseCount = somTP_SOMTClassEntryC__get_somtBaseCount;
+(*
+ *  Returns number of base classes for class.
+ *)
+const somMD_SOMTClassEntryC__get_somtBaseCount = '::SOMTClassEntryC::_get_somtBaseCount';
+function SOMTClassEntryC__get_somtBaseCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtExternalDataCount
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtExternalDataCount = function(somSelf: SOMTClassEntryC): LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtExternalDataCount = somTP_SOMTClassEntryC__get_somtExternalDataCount;
+(*
+ *  Returns number of external (public or private) data members for class.
+ *)
+const somMD_SOMTClassEntryC__get_somtExternalDataCount = '::SOMTClassEntryC::_get_somtExternalDataCount';
+function SOMTClassEntryC__get_somtExternalDataCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtPublicDataCount
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtPublicDataCount = function(somSelf: SOMTClassEntryC): LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtPublicDataCount = somTP_SOMTClassEntryC__get_somtPublicDataCount;
+(*
+ *  Returns number of public data members for class.
+ *)
+const somMD_SOMTClassEntryC__get_somtPublicDataCount = '::SOMTClassEntryC::_get_somtPublicDataCount';
+function SOMTClassEntryC__get_somtPublicDataCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtPrivateDataCount
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtPrivateDataCount = function(somSelf: SOMTClassEntryC): LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtPrivateDataCount = somTP_SOMTClassEntryC__get_somtPrivateDataCount;
+(*
+ *  Returns number of private data members for class.
+ *)
+const somMD_SOMTClassEntryC__get_somtPrivateDataCount = '::SOMTClassEntryC::_get_somtPrivateDataCount';
+function SOMTClassEntryC__get_somtPrivateDataCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtMetaclassFor
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtMetaclassFor = function(somSelf: SOMTClassEntryC): SOMTClassEntryC; stdcall;
+  somTD_SOMTClassEntryC__get_somtMetaclassFor = somTP_SOMTClassEntryC__get_somtMetaclassFor;
+(*
+ *  If this is a metaclass, the class for which it is a metaclass, else NULL.
+ *)
+const somMD_SOMTClassEntryC__get_somtMetaclassFor = '::SOMTClassEntryC::_get_somtMetaclassFor';
+function SOMTClassEntryC__get_somtMetaclassFor(somSelf: SOMTClassEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtForwardRef
+ *)
+type
+  somTP_SOMTClassEntryC__get_somtForwardRef = function(somSelf: SOMTClassEntryC): CORBABoolean; stdcall;
+  somTD_SOMTClassEntryC__get_somtForwardRef = somTP_SOMTClassEntryC__get_somtForwardRef;
+(*
+ *  Whether this is a forward reference or not.
+ *)
+const somMD_SOMTClassEntryC__get_somtForwardRef = '::SOMTClassEntryC::_get_somtForwardRef';
+function SOMTClassEntryC__get_somtForwardRef(somSelf: SOMTClassEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstBaseClass
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstBaseClass = function(somSelf: SOMTClassEntryC): SOMTBaseClassEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstBaseClass = somTP_SOMTClassEntryC_somtGetFirstBaseClass;
+(*
+ *  Returns the entry for the "left most" direct base class form for
+ *  this class, if it has one and NULL otherwise.  Note: <SOMObject>
+ *  does not have any base classes and therefore will terminate an
+ *  attempt to walk up the base class chain.
+ *)
+const somMD_SOMTClassEntryC_somtGetFirstBaseClass = '::SOMTClassEntryC::somtGetFirstBaseClass';
+function SOMTClassEntryC_somtGetFirstBaseClass(somSelf: SOMTClassEntryC): SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextBaseClass
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextBaseClass = function(somSelf: SOMTClassEntryC): SOMTBaseClassEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextBaseClass = somTP_SOMTClassEntryC_somtGetNextBaseClass;
+(*
+ *  Returns the entry for the next direct base class form of this
+ *  class, if it has one and NULL otherwise.  The direct base classes
+ *  of a derived class are ordered from "left to right".
+ *)
+const somMD_SOMTClassEntryC_somtGetNextBaseClass = '::SOMTClassEntryC::somtGetNextBaseClass';
+function SOMTClassEntryC_somtGetNextBaseClass(somSelf: SOMTClassEntryC): SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstReleaseName
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstReleaseName = function(somSelf: SOMTClassEntryC): CORBAString; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstReleaseName = somTP_SOMTClassEntryC_somtGetFirstReleaseName;
+(*
+ *  Returns the first name in the release order statement for this
+ *  entry if it has one and NULL otherwise.
+ *)
+const somMD_SOMTClassEntryC_somtGetFirstReleaseName = '::SOMTClassEntryC::somtGetFirstReleaseName';
+function SOMTClassEntryC_somtGetFirstReleaseName(somSelf: SOMTClassEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextReleaseName
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextReleaseName = function(somSelf: SOMTClassEntryC): CORBAString; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextReleaseName = somTP_SOMTClassEntryC_somtGetNextReleaseName;
+(*
+ *  Returns the next name in the release order statement for this
+ *  entry if it has one and NULL otherwise.
+ *)
+const somMD_SOMTClassEntryC_somtGetNextReleaseName = '::SOMTClassEntryC::somtGetNextReleaseName';
+function SOMTClassEntryC_somtGetNextReleaseName(somSelf: SOMTClassEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetReleaseNameList
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetReleaseNameList = function(somSelf: SOMTClassEntryC;
+		buffer: CORBAString): LongInt; stdcall;
+  somTD_SOMTClassEntryC_somtGetReleaseNameList = somTP_SOMTClassEntryC_somtGetReleaseNameList;
+(*
+ *  Puts all the release names in <buffer> in template output form,
+ *  buffer must be large enough, no tests are made.  The number of
+ *  release names is returned.
+ *)
+const somMD_SOMTClassEntryC_somtGetReleaseNameList = '::SOMTClassEntryC::somtGetReleaseNameList';
+function SOMTClassEntryC_somtGetReleaseNameList(somSelf: SOMTClassEntryC;
+  buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstPassthru
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstPassthru = function(somSelf: SOMTClassEntryC): SOMTPassthruEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstPassthru = somTP_SOMTClassEntryC_somtGetFirstPassthru;
+(*
+ *  Returns the first passthru entry for this class definition if it
+ *  has one and NULL otherwise.
+ *)
+const somMD_SOMTClassEntryC_somtGetFirstPassthru = '::SOMTClassEntryC::somtGetFirstPassthru';
+function SOMTClassEntryC_somtGetFirstPassthru(somSelf: SOMTClassEntryC): SOMTPassthruEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextPassthru
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextPassthru = function(somSelf: SOMTClassEntryC): SOMTPassthruEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextPassthru = somTP_SOMTClassEntryC_somtGetNextPassthru;
+(*
+ *  Returns the next passthru entry for this class definition if it
+ *  has one and NULL otherwise.  The passthru entry will be returned
+ *  in an order based on the appearence of passthru statements in the
+ *  class definition.
+ *)
+const somMD_SOMTClassEntryC_somtGetNextPassthru = '::SOMTClassEntryC::somtGetNextPassthru';
+function SOMTClassEntryC_somtGetNextPassthru(somSelf: SOMTClassEntryC): SOMTPassthruEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstData
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstData = function(somSelf: SOMTClassEntryC): SOMTDataEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstData = somTP_SOMTClassEntryC_somtGetFirstData;
+(*
+ *  Returns the first data entry for this class definition if it has
+ *  one and NULL otherwise.
+ *)
+const somMD_SOMTClassEntryC_somtGetFirstData = '::SOMTClassEntryC::somtGetFirstData';
+function SOMTClassEntryC_somtGetFirstData(somSelf: SOMTClassEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextData
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextData = function(somSelf: SOMTClassEntryC): SOMTDataEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextData = somTP_SOMTClassEntryC_somtGetNextData;
+(*
+ *  Returns the next data entry for this class definition if it has
+ *  one and NULL otherwise.  The data entries will be returned in an
+ *  order based on the appearence data member declarations in the
+ *  class definition.
+ *)
+const somMD_SOMTClassEntryC_somtGetNextData = '::SOMTClassEntryC::somtGetNextData';
+function SOMTClassEntryC_somtGetNextData(somSelf: SOMTClassEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstStaticData
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstStaticData = function(somSelf: SOMTClassEntryC): SOMTDataEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstStaticData = somTP_SOMTClassEntryC_somtGetFirstStaticData;
+(*
+ *  Returns the first static data entry for this class definition if it has
+ *  one and NULL otherwise. Static data is handled specialy in SOM so a
+ *  different accessor method is provided.
+ *)
+const somMD_SOMTClassEntryC_somtGetFirstStaticData = '::SOMTClassEntryC::somtGetFirstStaticData';
+function SOMTClassEntryC_somtGetFirstStaticData(somSelf: SOMTClassEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextStaticData
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextStaticData = function(somSelf: SOMTClassEntryC): SOMTDataEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextStaticData = somTP_SOMTClassEntryC_somtGetNextStaticData;
+(*
+ *  Returns the next static data entry for this class definition if it has
+ *  one and NULL otherwise.  The data entries will be returned in an
+ *  order based on the release order
+ *)
+const somMD_SOMTClassEntryC_somtGetNextStaticData = '::SOMTClassEntryC::somtGetNextStaticData';
+function SOMTClassEntryC_somtGetNextStaticData(somSelf: SOMTClassEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstMethod
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstMethod = function(somSelf: SOMTClassEntryC): SOMTMethodEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstMethod = somTP_SOMTClassEntryC_somtGetFirstMethod;
+(*
+ *  Returns the first method entry for this class definition if it
+ *  has one and NULL otherwise.  Method entries may be for new or
+ *  overridden methods.
+ *)
+const somMD_SOMTClassEntryC_somtGetFirstMethod = '::SOMTClassEntryC::somtGetFirstMethod';
+function SOMTClassEntryC_somtGetFirstMethod(somSelf: SOMTClassEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextMethod
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextMethod = function(somSelf: SOMTClassEntryC): SOMTMethodEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextMethod = somTP_SOMTClassEntryC_somtGetNextMethod;
+(*
+ *  Returns the next method entry for this class definition if it has
+ *  one and NULL otherwise.  The method entries will be returned in an
+ *  order based on the appearence method declarations in the
+ *  class definition.  Method entries may be for new or overridden methods.
+ *)
+const somMD_SOMTClassEntryC_somtGetNextMethod = '::SOMTClassEntryC::somtGetNextMethod';
+function SOMTClassEntryC_somtGetNextMethod(somSelf: SOMTClassEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstInheritedMethod
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstInheritedMethod = function(somSelf: SOMTClassEntryC): SOMTMethodEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstInheritedMethod = somTP_SOMTClassEntryC_somtGetFirstInheritedMethod;
+(*
+ *  Returns the first inherited and not overridden method entry for
+ *  this class definition if it has one and NULL otherwise.
+ *)
+const somMD_SOMTClassEntryC_somtGetFirstInheritedMethod = '::SOMTClassEntryC::somtGetFirstInheritedMethod';
+function SOMTClassEntryC_somtGetFirstInheritedMethod(somSelf: SOMTClassEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextInheritedMethod
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextInheritedMethod = function(somSelf: SOMTClassEntryC): SOMTMethodEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextInheritedMethod = somTP_SOMTClassEntryC_somtGetNextInheritedMethod;
+(*
+ *  Returns the next inherited and not overridden method entry for
+ *  this class definition if it has one and NULL otherwise.  The
+ *  method entries will be returned in an unspecified, but constant
+ *  order.
+ *)
+const somMD_SOMTClassEntryC_somtGetNextInheritedMethod = '::SOMTClassEntryC::somtGetNextInheritedMethod';
+function SOMTClassEntryC_somtGetNextInheritedMethod(somSelf: SOMTClassEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstAttribute
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstAttribute = function(somSelf: SOMTClassEntryC): SOMTAttributeEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstAttribute = somTP_SOMTClassEntryC_somtGetFirstAttribute;
+const somMD_SOMTClassEntryC_somtGetFirstAttribute = '::SOMTClassEntryC::somtGetFirstAttribute';
+function SOMTClassEntryC_somtGetFirstAttribute(somSelf: SOMTClassEntryC): SOMTAttributeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextAttribute
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextAttribute = function(somSelf: SOMTClassEntryC): SOMTAttributeEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextAttribute = somTP_SOMTClassEntryC_somtGetNextAttribute;
+const somMD_SOMTClassEntryC_somtGetNextAttribute = '::SOMTClassEntryC::somtGetNextAttribute';
+function SOMTClassEntryC_somtGetNextAttribute(somSelf: SOMTClassEntryC): SOMTAttributeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstStruct
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstStruct = function(somSelf: SOMTClassEntryC): SOMTStructEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstStruct = somTP_SOMTClassEntryC_somtGetFirstStruct;
+const somMD_SOMTClassEntryC_somtGetFirstStruct = '::SOMTClassEntryC::somtGetFirstStruct';
+function SOMTClassEntryC_somtGetFirstStruct(somSelf: SOMTClassEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextStruct
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextStruct = function(somSelf: SOMTClassEntryC): SOMTStructEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextStruct = somTP_SOMTClassEntryC_somtGetNextStruct;
+const somMD_SOMTClassEntryC_somtGetNextStruct = '::SOMTClassEntryC::somtGetNextStruct';
+function SOMTClassEntryC_somtGetNextStruct(somSelf: SOMTClassEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstTypedef
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstTypedef = function(somSelf: SOMTClassEntryC): SOMTTypedefEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstTypedef = somTP_SOMTClassEntryC_somtGetFirstTypedef;
+const somMD_SOMTClassEntryC_somtGetFirstTypedef = '::SOMTClassEntryC::somtGetFirstTypedef';
+function SOMTClassEntryC_somtGetFirstTypedef(somSelf: SOMTClassEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextTypedef
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextTypedef = function(somSelf: SOMTClassEntryC): SOMTTypedefEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextTypedef = somTP_SOMTClassEntryC_somtGetNextTypedef;
+const somMD_SOMTClassEntryC_somtGetNextTypedef = '::SOMTClassEntryC::somtGetNextTypedef';
+function SOMTClassEntryC_somtGetNextTypedef(somSelf: SOMTClassEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstUnion
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstUnion = function(somSelf: SOMTClassEntryC): SOMTUnionEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstUnion = somTP_SOMTClassEntryC_somtGetFirstUnion;
+const somMD_SOMTClassEntryC_somtGetFirstUnion = '::SOMTClassEntryC::somtGetFirstUnion';
+function SOMTClassEntryC_somtGetFirstUnion(somSelf: SOMTClassEntryC): SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextUnion
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextUnion = function(somSelf: SOMTClassEntryC): SOMTUnionEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextUnion = somTP_SOMTClassEntryC_somtGetNextUnion;
+const somMD_SOMTClassEntryC_somtGetNextUnion = '::SOMTClassEntryC::somtGetNextUnion';
+function SOMTClassEntryC_somtGetNextUnion(somSelf: SOMTClassEntryC): SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstEnum
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstEnum = function(somSelf: SOMTClassEntryC): SOMTEnumEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstEnum = somTP_SOMTClassEntryC_somtGetFirstEnum;
+const somMD_SOMTClassEntryC_somtGetFirstEnum = '::SOMTClassEntryC::somtGetFirstEnum';
+function SOMTClassEntryC_somtGetFirstEnum(somSelf: SOMTClassEntryC): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextEnum
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextEnum = function(somSelf: SOMTClassEntryC): SOMTEnumEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextEnum = somTP_SOMTClassEntryC_somtGetNextEnum;
+const somMD_SOMTClassEntryC_somtGetNextEnum = '::SOMTClassEntryC::somtGetNextEnum';
+function SOMTClassEntryC_somtGetNextEnum(somSelf: SOMTClassEntryC): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstConstant
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstConstant = function(somSelf: SOMTClassEntryC): SOMTConstEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstConstant = somTP_SOMTClassEntryC_somtGetFirstConstant;
+const somMD_SOMTClassEntryC_somtGetFirstConstant = '::SOMTClassEntryC::somtGetFirstConstant';
+function SOMTClassEntryC_somtGetFirstConstant(somSelf: SOMTClassEntryC): SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextConstant
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextConstant = function(somSelf: SOMTClassEntryC): SOMTConstEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextConstant = somTP_SOMTClassEntryC_somtGetNextConstant;
+const somMD_SOMTClassEntryC_somtGetNextConstant = '::SOMTClassEntryC::somtGetNextConstant';
+function SOMTClassEntryC_somtGetNextConstant(somSelf: SOMTClassEntryC): SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstSequence
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstSequence = function(somSelf: SOMTClassEntryC): SOMTSequenceEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstSequence = somTP_SOMTClassEntryC_somtGetFirstSequence;
+const somMD_SOMTClassEntryC_somtGetFirstSequence = '::SOMTClassEntryC::somtGetFirstSequence';
+function SOMTClassEntryC_somtGetFirstSequence(somSelf: SOMTClassEntryC): SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextSequence
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextSequence = function(somSelf: SOMTClassEntryC): SOMTSequenceEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextSequence = somTP_SOMTClassEntryC_somtGetNextSequence;
+const somMD_SOMTClassEntryC_somtGetNextSequence = '::SOMTClassEntryC::somtGetNextSequence';
+function SOMTClassEntryC_somtGetNextSequence(somSelf: SOMTClassEntryC): SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstPubdef
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetFirstPubdef = function(somSelf: SOMTClassEntryC): SOMTEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstPubdef = somTP_SOMTClassEntryC_somtGetFirstPubdef;
+const somMD_SOMTClassEntryC_somtGetFirstPubdef = '::SOMTClassEntryC::somtGetFirstPubdef';
+function SOMTClassEntryC_somtGetFirstPubdef(somSelf: SOMTClassEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextPubdef
+ *)
+type
+  somTP_SOMTClassEntryC_somtGetNextPubdef = function(somSelf: SOMTClassEntryC): SOMTEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextPubdef = somTP_SOMTClassEntryC_somtGetNextPubdef;
+const somMD_SOMTClassEntryC_somtGetNextPubdef = '::SOMTClassEntryC::somtGetNextPubdef';
+function SOMTClassEntryC_somtGetNextPubdef(somSelf: SOMTClassEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtFilterNew
+ *)
+type
+  somTP_SOMTClassEntryC_somtFilterNew = function(somSelf: SOMTClassEntryC;
+		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTClassEntryC_somtFilterNew = somTP_SOMTClassEntryC_somtFilterNew;
+(*
+ *  Returns 1 if entry is new in the class.
+ *)
+const somMD_SOMTClassEntryC_somtFilterNew = '::SOMTClassEntryC::somtFilterNew';
+function SOMTClassEntryC_somtFilterNew(somSelf: SOMTClassEntryC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtFilterOverridden
+ *)
+type
+  somTP_SOMTClassEntryC_somtFilterOverridden = function(somSelf: SOMTClassEntryC;
+		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTClassEntryC_somtFilterOverridden = somTP_SOMTClassEntryC_somtFilterOverridden;
+(*
+ *  Returns 1 if entry is an overriding method of the class.
+ *)
+const somMD_SOMTClassEntryC_somtFilterOverridden = '::SOMTClassEntryC::somtFilterOverridden';
+function SOMTClassEntryC_somtFilterOverridden(somSelf: SOMTClassEntryC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtFilterPrivOrPub
+ *)
+type
+  somTP_SOMTClassEntryC_somtFilterPrivOrPub = function(somSelf: SOMTClassEntryC;
+		entry: SOMTCommonEntryC): CORBABoolean; stdcall;
+  somTD_SOMTClassEntryC_somtFilterPrivOrPub = somTP_SOMTClassEntryC_somtFilterPrivOrPub;
+(*
+ *  Returns TRUE if entry is Private or Public.
+ *)
+const somMD_SOMTClassEntryC_somtFilterPrivOrPub = '::SOMTClassEntryC::somtFilterPrivOrPub';
+function SOMTClassEntryC_somtFilterPrivOrPub(somSelf: SOMTClassEntryC;
+  entry: SOMTCommonEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
 // #include <scmeta.h>
 { ... }
 // #include <scmethod.h>
@@ -1550,5 +2230,564 @@ begin
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))(somSelf, es);
 end;
 
+// #include <scclass.h>
+
+function SOMTClassEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTClassEntryCClassData: PSOMTClassEntryCClassDataStructure;
+
+function SOMTClassEntryCClassData: PSOMTClassEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTClassEntryCClassData) then
+    Result := SOME_DLL_SOMTClassEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTClassEntryCClassData, 'SOMTClassEntryCClassData');
+    Result := SOME_DLL_SOMTClassEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTClassEntryCCClassData: PSOMTClassEntryCCClassDataStructure;
+
+function SOMTClassEntryCCClassData: PSOMTClassEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTClassEntryCCClassData) then
+    Result := SOME_DLL_SOMTClassEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTClassEntryCCClassData, 'SOMTClassEntryCCClassData');
+    Result := SOME_DLL_SOMTClassEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTClassEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTClassEntryCClassData.classObject;
+end;
+
+function SOMTClassEntryCNew: SOMClassMgr;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTClassEntryC;
+  if not Assigned(cls) then cls := SOMTClassEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTClassEntryCRenew(buf: Pointer): SOMClassMgr;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTClassEntryC;
+  if not Assigned(cls) then cls := SOMTClassEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTClassEntryC__get_somtSourceFileName(somSelf: SOMTClassEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtSourceFileName
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceFileName))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtMetaClassEntry(somSelf: SOMTClassEntryC): SOMTMetaClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtMetaClassEntry
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtMetaClassEntry))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtClassModule(somSelf: SOMTClassEntryC): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtClassModule
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtClassModule))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtNewMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtNewMethodCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtNewMethodCount))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtLocalInclude(somSelf: SOMTClassEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtLocalInclude
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtLocalInclude))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtPrivateMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtPrivateMethodCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPrivateMethodCount))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtStaticMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtStaticMethodCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtStaticMethodCount))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtOverrideMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtOverrideMethodCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtOverrideMethodCount))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtProcMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtProcMethodCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtProcMethodCount))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtVAMethodCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtVAMethodCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtVAMethodCount))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtBaseCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtBaseCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtBaseCount))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtExternalDataCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtExternalDataCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtExternalDataCount))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtPublicDataCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtPublicDataCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPublicDataCount))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtPrivateDataCount(somSelf: SOMTClassEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtPrivateDataCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPrivateDataCount))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtMetaclassFor(somSelf: SOMTClassEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtMetaclassFor
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtMetaclassFor))(somSelf);
+end;
+
+function SOMTClassEntryC__get_somtForwardRef(somSelf: SOMTClassEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC__get_somtForwardRef
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtForwardRef))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstBaseClass(somSelf: SOMTClassEntryC): SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstBaseClass
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstBaseClass))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextBaseClass(somSelf: SOMTClassEntryC): SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextBaseClass
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextBaseClass))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstReleaseName(somSelf: SOMTClassEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstReleaseName
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstReleaseName))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextReleaseName(somSelf: SOMTClassEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextReleaseName
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextReleaseName))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetReleaseNameList(somSelf: SOMTClassEntryC;
+  buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetReleaseNameList
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetReleaseNameList))
+       (somSelf, buffer);
+end;
+
+function SOMTClassEntryC_somtGetFirstPassthru(somSelf: SOMTClassEntryC): SOMTPassthruEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstPassthru
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstPassthru))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextPassthru(somSelf: SOMTClassEntryC): SOMTPassthruEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextPassthru
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextPassthru))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstData(somSelf: SOMTClassEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstData
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstData))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextData(somSelf: SOMTClassEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextData
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextData))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstStaticData(somSelf: SOMTClassEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstStaticData
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstStaticData))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextStaticData(somSelf: SOMTClassEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextStaticData
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextStaticData))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstMethod(somSelf: SOMTClassEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstMethod))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextMethod(somSelf: SOMTClassEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextMethod))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstInheritedMethod(somSelf: SOMTClassEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstInheritedMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstInheritedMethod))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextInheritedMethod(somSelf: SOMTClassEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextInheritedMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextInheritedMethod))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstAttribute(somSelf: SOMTClassEntryC): SOMTAttributeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstAttribute
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstAttribute))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextAttribute(somSelf: SOMTClassEntryC): SOMTAttributeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextAttribute
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextAttribute))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstStruct(somSelf: SOMTClassEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstStruct
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstStruct))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextStruct(somSelf: SOMTClassEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextStruct
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextStruct))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstTypedef(somSelf: SOMTClassEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstTypedef
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstTypedef))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextTypedef(somSelf: SOMTClassEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextTypedef
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextTypedef))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstUnion(somSelf: SOMTClassEntryC): SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstUnion
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstUnion))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextUnion(somSelf: SOMTClassEntryC): SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextUnion
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextUnion))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstEnum(somSelf: SOMTClassEntryC): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstEnum
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstEnum))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextEnum(somSelf: SOMTClassEntryC): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextEnum
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextEnum))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstConstant(somSelf: SOMTClassEntryC): SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstConstant
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstConstant))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextConstant(somSelf: SOMTClassEntryC): SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextConstant
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextConstant))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstSequence(somSelf: SOMTClassEntryC): SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstSequence
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstSequence))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextSequence(somSelf: SOMTClassEntryC): SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextSequence
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextSequence))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetFirstPubdef(somSelf: SOMTClassEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetFirstPubdef
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstPubdef))(somSelf);
+end;
+
+function SOMTClassEntryC_somtGetNextPubdef(somSelf: SOMTClassEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtGetNextPubdef
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextPubdef))(somSelf);
+end;
+
+function SOMTClassEntryC_somtFilterNew(somSelf: SOMTClassEntryC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtFilterNew
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtFilterNew))(somSelf, entry);
+end;
+
+function SOMTClassEntryC_somtFilterOverridden(somSelf: SOMTClassEntryC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtFilterOverridden
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtFilterOverridden))(somSelf, entry);
+end;
+
+function SOMTClassEntryC_somtFilterPrivOrPub(somSelf: SOMTClassEntryC;
+  entry: SOMTCommonEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTClassEntryCClassDataStructure;
+begin
+  cd := SOMTClassEntryCClassData;
+  Result :=
+    somTD_SOMTClassEntryC_somtFilterPrivOrPub
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtFilterPrivOrPub))(somSelf, entry);
+end;
 
 end.
