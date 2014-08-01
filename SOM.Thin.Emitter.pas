@@ -1747,6 +1747,227 @@ type
 const somMD_SOMTMetaClassEntryC__get_somtMetaClassDef = '::SOMTMetaClassEntryC::_get_somtMetaClassDef';
 function SOMTMetaClassEntryC__get_somtMetaClassDef(somSelf: SOMTMetaClassEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <sccommon.h>
+
+(*
+ * Passthru lines: File: "C.h", "before"
+ *)
+type
+  somtVisibilityT = type LongWord;
+const
+  somtInternalVE = somtVisibilityT(0);
+  somtPublicVE = somtVisibilityT(1);
+  somtPrivateVE = somtVisibilityT(2);
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTCommonEntryC = SOMTEntryC;
+(*
+ *  This class defines a number of methods and attributes that are
+ *  common to <SOMTMethodEntry>, <SOMTDataEntry>, and
+ *  <SOMTParameterEntry>.  No entries of this type will actually
+ *  be found in the entry graph, instead they will all be one of
+ *  the types mentioned above.
+ *  Exception: entries whose somtElementType is SOMTTypedefBE, which
+ *  represent a reference to a user-defined type, are instance of this class.
+ *)
+
+const
+  SOMTCommonEntryC_MajorVersion = 2;
+  SOMTCommonEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTCommonEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTCommonEntryC_MajorVersion;
+	somtminorVersion: integer4 = SOMTCommonEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTCommonEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtSourceText: somMToken;
+	_get_somtType: somMToken;
+	_get_somtVisibility: somMToken;
+	somtIsArray: somMToken;
+	somtIsPointer: somMToken;
+	somtIsArrayDominant: somMToken;
+	_get_somtTypeObj: somMToken;
+	_get_somtPtrs: somMToken;
+	_get_somtArrayDimsString: somMToken;
+	somtGetFirstArrayDimension: somMToken;
+	somtGetNextArrayDimension: somMToken;
+end;
+PSOMTCommonEntryCClassDataStructure = ^SOMTCommonEntryCClassDataStructure;
+function SOMTCommonEntryCClassData: PSOMTCommonEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTCommonEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTCommonEntryCCClassDataStructure = ^SOMTCommonEntryCCClassDataStructure;
+function SOMTCommonEntryCCClassData: PSOMTCommonEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTCommonEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTCommonEntryC
+ *)
+function SOMTCommonEntryCNew: SOMTCommonEntryC;
+function SOMTCommonEntryCRenew(buf: Pointer): SOMTCommonEntryC;
+
+(*
+ * New Method: _get_somtTypeObj
+ *)
+type
+   somTP_SOMTCommonEntryC__get_somtTypeObj = function(somSelf: SOMTCommonEntryC): SOMTEntryC; stdcall;
+   somTD_SOMTCommonEntryC__get_somtTypeObj = somTP_SOMTCommonEntryC__get_somtTypeObj;
+(*
+ *  The object representing the base type of the entry.
+ *  This does not include pointer stars or array declarators.
+ *)
+const somMD_SOMTCommonEntryC__get_somtTypeObj = '::SOMTCommonEntryC::_get_somtTypeObj';
+function SOMTCommonEntryC__get_somtTypeObj(somSelf: SOMTCommonEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtPtrs
+ *)
+type
+  somTP_SOMTCommonEntryC__get_somtPtrs = function(somSelf: SOMTCommonEntryC): CORBAString; stdcall;
+  somTD_SOMTCommonEntryC__get_somtPtrs = somTP_SOMTCommonEntryC__get_somtPtrs;
+(*
+ *  The string of stars associated with the entry's type.
+ *  For example, an object of type "foo" would have somtPtrs = NULL,
+ *  type "foo *" would have somtPtrs = "*", type
+ *  "foo **" would have somtPtrs = "**", etc.
+ *)
+const somMD_SOMTCommonEntryC__get_somtPtrs = '::SOMTCommonEntryC::_get_somtPtrs';
+function SOMTCommonEntryC__get_somtPtrs(somSelf: SOMTCommonEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtArrayDimsString
+ *)
+type
+  somTP_SOMTCommonEntryC__get_somtArrayDimsString = function(somSelf: SOMTCommonEntryC): CORBAString; stdcall;
+  somTD_SOMTCommonEntryC__get_somtArrayDimsString = somTP_SOMTCommonEntryC__get_somtArrayDimsString;
+(*
+ *  Array dimensions in string form.
+ *)
+const somMD_SOMTCommonEntryC__get_somtArrayDimsString = '::SOMTCommonEntryC::_get_somtArrayDimsString';
+function SOMTCommonEntryC__get_somtArrayDimsString(somSelf: SOMTCommonEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstArrayDimension
+ *)
+type
+  somTP_SOMTCommonEntryC_somtGetFirstArrayDimension = function(somSelf: SOMTCommonEntryC): LongWord; stdcall;
+  somTD_SOMTCommonEntryC_somtGetFirstArrayDimension = somTP_SOMTCommonEntryC_somtGetFirstArrayDimension;
+(*
+ *  The first array dimension, for items of type array.
+ *  Zero indicates that the item is not an array.
+ *)
+const somMD_SOMTCommonEntryC_somtGetFirstArrayDimension = '::SOMTCommonEntryC::somtGetFirstArrayDimension';
+function SOMTCommonEntryC_somtGetFirstArrayDimension(somSelf: SOMTCommonEntryC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextArrayDimension
+ *)
+type
+  somTP_SOMTCommonEntryC_somtGetNextArrayDimension = function(somSelf: SOMTCommonEntryC): LongWord; stdcall;
+  somTD_SOMTCommonEntryC_somtGetNextArrayDimension = somTP_SOMTCommonEntryC_somtGetNextArrayDimension;
+(*
+ *  The next array dimension, for items of type array,
+ *  relative to the previous call to this method or to
+ *  somtGetFirstArrayDimension.  Zero indicates no more dimensions.
+ *)
+const somMD_SOMTCommonEntryC_somtGetNextArrayDimension = '::SOMTCommonEntryC::somtGetNextArrayDimension';
+function SOMTCommonEntryC_somtGetNextArrayDimension(somSelf: SOMTCommonEntryC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtSourceText
+ *)
+type
+  somTP_SOMTCommonEntryC__get_somtSourceText = function(somSelf: SOMTCommonEntryC): CORBAString; stdcall;
+  somTD_SOMTCommonEntryC__get_somtSourceText = somTP_SOMTCommonEntryC__get_somtSourceText;
+(*
+ *  The un-parsed source text for this entry, with leading and
+ *  trailing white space removed.  For attribute/typedef declarators
+ *  and for user-defined types, this attribute only provides the
+ *  source text for the entry's name.  For methods, arguments,
+ *  and instance variables, however, this attribute provides the
+ *  full definition.
+ *)
+const somMD_SOMTCommonEntryC__get_somtSourceText = '::SOMTCommonEntryC::_get_somtSourceText';
+function SOMTCommonEntryC__get_somtSourceText(somSelf: SOMTCommonEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtType
+ *)
+type
+  somTP_SOMTCommonEntryC__get_somtType = function(somSelf: SOMTCommonEntryC): CORBAString; stdcall;
+  somTD_SOMTCommonEntryC__get_somtType = somTP_SOMTCommonEntryC__get_somtType;
+(*
+ *  The IDL type for this entry in string form. For methods this is the
+ *  return type.  For data or parameters this is the type of the data
+ *  item or parameter. For user-defined types, this is the type specification.
+ *  It is of the form:   <typename><pointer-stars> <array-declarators>
+ *)
+const somMD_SOMTCommonEntryC__get_somtType = '::SOMTCommonEntryC::_get_somtType';
+function SOMTCommonEntryC__get_somtType(somSelf: SOMTCommonEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtVisibility
+ *)
+type
+  somTP_SOMTCommonEntryC__get_somtVisibility = function(somSelf: SOMTCommonEntryC): somtVisibilityT; stdcall;
+  somTD_SOMTCommonEntryC__get_somtVisibility = somTP_SOMTCommonEntryC__get_somtVisibility;
+(*
+ *  The visibility of this entry.  Note: the visibility of
+ *  parameter entries will always be public, and methods can never be
+ *  internal.
+ *)
+const somMD_SOMTCommonEntryC__get_somtVisibility = '::SOMTCommonEntryC::_get_somtVisibility';
+function SOMTCommonEntryC__get_somtVisibility(somSelf: SOMTCommonEntryC): somtVisibilityT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtIsArray
+ *)
+type
+  somTP_SOMTCommonEntryC_somtIsArray = function(somSelf: SOMTCommonEntryC;
+		out size: LongInt): CORBABoolean; stdcall;
+  somTD_SOMTCommonEntryC_somtIsArray = somTP_SOMTCommonEntryC_somtIsArray;
+(*
+ *  Returns 1 (true) if the type involves an array.  When the type
+ *  involves an array then <size> is set to be the size of the
+ *  array.
+ *)
+const somMD_SOMTCommonEntryC_somtIsArray = '::SOMTCommonEntryC::somtIsArray';
+function SOMTCommonEntryC_somtIsArray(somSelf: SOMTCommonEntryC;
+  out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtIsPointer
+ *)
+type
+  somTP_SOMTCommonEntryC_somtIsPointer = function(somSelf: SOMTCommonEntryC): CORBABoolean; stdcall;
+  somTD_SOMTCommonEntryC_somtIsPointer = somTP_SOMTCommonEntryC_somtIsPointer;
+(*
+ *  Returns 1 (true) if the type involves a pointer, and 0 (false)
+ *  otherwise
+ *)
+const somMD_SOMTCommonEntryC_somtIsPointer = '::SOMTCommonEntryC::somtIsPointer';
+function SOMTCommonEntryC_somtIsPointer(somSelf: SOMTCommonEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
 // #include <scmethod.h>
 { ... }
 // #include <scpass.h>
@@ -2949,6 +3170,162 @@ begin
   Result :=
     somTD_SOMTMetaClassEntryC__get_somtMetaClassDef
      (SOM_Resolve(somSelf, cd.classObject, cd._get_somtMetaClassDef))(somSelf);
+end;
+
+// #include <sccommon.h>
+
+function SOMTCommonEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTCommonEntryCClassData: PSOMTCommonEntryCClassDataStructure;
+
+function SOMTCommonEntryCClassData: PSOMTCommonEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTCommonEntryCClassData) then
+    Result := SOME_DLL_SOMTCommonEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTCommonEntryCClassData, 'SOMTCommonEntryCClassData');
+    Result := SOME_DLL_SOMTCommonEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTCommonEntryCCClassData: PSOMTCommonEntryCCClassDataStructure;
+
+function SOMTCommonEntryCCClassData: PSOMTCommonEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTCommonEntryCCClassData) then
+    Result := SOME_DLL_SOMTCommonEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTCommonEntryCCClassData, 'SOMTCommonEntryCCClassData');
+    Result := SOME_DLL_SOMTCommonEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTCommonEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTCommonEntryCClassData.classObject;
+end;
+
+function SOMTCommonEntryCNew: SOMTCommonEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTCommonEntryC;
+  if not Assigned(cls) then cls := SOMTCommonEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTCommonEntryCRenew(buf: Pointer): SOMTCommonEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTCommonEntryC;
+  if not Assigned(cls) then cls := SOMTCommonEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTCommonEntryC__get_somtTypeObj(somSelf: SOMTCommonEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTCommonEntryCClassDataStructure;
+begin
+  cd := SOMTCommonEntryCClassData;
+  Result :=
+    somTD_SOMTCommonEntryC__get_somtTypeObj
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeObj))(somSelf);
+end;
+
+function SOMTCommonEntryC__get_somtPtrs(somSelf: SOMTCommonEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTCommonEntryCClassDataStructure;
+begin
+  cd := SOMTCommonEntryCClassData;
+  Result :=
+    somTD_SOMTCommonEntryC__get_somtPtrs
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPtrs))(somSelf);
+end;
+
+function SOMTCommonEntryC__get_somtArrayDimsString(somSelf: SOMTCommonEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTCommonEntryCClassDataStructure;
+begin
+  cd := SOMTCommonEntryCClassData;
+  Result :=
+    somTD_SOMTCommonEntryC__get_somtArrayDimsString
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtArrayDimsString))(somSelf);
+end;
+
+function SOMTCommonEntryC_somtGetFirstArrayDimension(somSelf: SOMTCommonEntryC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTCommonEntryCClassDataStructure;
+begin
+  cd := SOMTCommonEntryCClassData;
+  Result :=
+    somTD_SOMTCommonEntryC_somtGetFirstArrayDimension
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstArrayDimension))(somSelf);
+end;
+
+function SOMTCommonEntryC_somtGetNextArrayDimension(somSelf: SOMTCommonEntryC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTCommonEntryCClassDataStructure;
+begin
+  cd := SOMTCommonEntryCClassData;
+  Result :=
+    somTD_SOMTCommonEntryC_somtGetNextArrayDimension
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextArrayDimension))(somSelf);
+end;
+
+function SOMTCommonEntryC__get_somtSourceText(somSelf: SOMTCommonEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTCommonEntryCClassDataStructure;
+begin
+  cd := SOMTCommonEntryCClassData;
+  Result :=
+    somTD_SOMTCommonEntryC__get_somtSourceText
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceText))(somSelf);
+end;
+
+function SOMTCommonEntryC__get_somtType(somSelf: SOMTCommonEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTCommonEntryCClassDataStructure;
+begin
+  cd := SOMTCommonEntryCClassData;
+  Result :=
+    somTD_SOMTCommonEntryC__get_somtType
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtType))(somSelf);
+end;
+
+function SOMTCommonEntryC__get_somtVisibility(somSelf: SOMTCommonEntryC): somtVisibilityT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTCommonEntryCClassDataStructure;
+begin
+  cd := SOMTCommonEntryCClassData;
+  Result :=
+    somTD_SOMTCommonEntryC__get_somtVisibility
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtVisibility))(somSelf);
+end;
+
+function SOMTCommonEntryC_somtIsArray(somSelf: SOMTCommonEntryC;
+  out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTCommonEntryCClassDataStructure;
+begin
+  cd := SOMTCommonEntryCClassData;
+  Result :=
+    somTD_SOMTCommonEntryC_somtIsArray
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtIsArray))(somSelf, size);
+end;
+
+function SOMTCommonEntryC_somtIsPointer(somSelf: SOMTCommonEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTCommonEntryCClassDataStructure;
+begin
+  cd := SOMTCommonEntryCClassData;
+  Result :=
+    somTD_SOMTCommonEntryC_somtIsPointer
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtIsPointer))(somSelf);
 end;
 
 end.
