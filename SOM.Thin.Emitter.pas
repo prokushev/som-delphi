@@ -1671,7 +1671,82 @@ function SOMTClassEntryC_somtFilterPrivOrPub(somSelf: SOMTClassEntryC;
   entry: SOMTCommonEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 // #include <scmeta.h>
-{ ... }
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTMetaClassEntryC = SOMTEntryC;
+
+const
+  SOMTMetaClassEntryC_MajorVersion = 2;
+  SOMTMetaClassEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTMetaClassEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTMetaClassEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTMetaClassEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTMetaClassEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtMetaFile: somMToken;
+	_get_somtMetaClassDef: somMToken;
+end;
+PSOMTMetaClassEntryCClassDataStructure = ^SOMTMetaClassEntryCClassDataStructure;
+function SOMTMetaClassEntryCClassData: PSOMTMetaClassEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTMetaClassEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTMetaClassEntryCCClassDataStructure = ^SOMTMetaClassEntryCCClassDataStructure;
+function SOMTMetaClassEntryCCClassData: PSOMTMetaClassEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTMetaClassEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTMetaClassEntryC
+ *)
+function SOMTMetaClassEntryCNew: SOMTMetaClassEntryC;
+function SOMTMetaClassEntryCRenew(buf: Pointer): SOMTMetaClassEntryC;
+
+(*
+ * New Method: _get_somtMetaFile
+ *)
+type
+  somTP_SOMTMetaClassEntryC__get_somtMetaFile = function(somSelf: SOMTMetaClassEntryC): CORBAString; stdcall;
+  somTD_SOMTMetaClassEntryC__get_somtMetaFile = somTP_SOMTMetaClassEntryC__get_somtMetaFile;
+(*
+ *  Returns the name of the file containing the definition of the
+ *  meta class named in this entry.
+ *)
+const somMD_SOMTMetaClassEntryC__get_somtMetaFile = '::SOMTMetaClassEntryC::_get_somtMetaFile';
+function SOMTMetaClassEntryC__get_somtMetaFile(somSelf: SOMTMetaClassEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtMetaClassDef
+ *)
+type
+  somTP_SOMTMetaClassEntryC__get_somtMetaClassDef = function(somSelf: SOMTMetaClassEntryC): SOMTClassEntryC; stdcall;
+  somTD_SOMTMetaClassEntryC__get_somtMetaClassDef = somTP_SOMTMetaClassEntryC__get_somtMetaClassDef;
+(*
+ *  Returns the class definition entry for the meta class named in
+ *  this entry.
+ *)
+const somMD_SOMTMetaClassEntryC__get_somtMetaClassDef = '::SOMTMetaClassEntryC::_get_somtMetaClassDef';
+function SOMTMetaClassEntryC__get_somtMetaClassDef(somSelf: SOMTMetaClassEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
 // #include <scmethod.h>
 { ... }
 // #include <scpass.h>
@@ -2799,6 +2874,81 @@ begin
   Result :=
     somTD_SOMTClassEntryC_somtFilterPrivOrPub
      (SOM_Resolve(somSelf, cd.classObject, cd.somtFilterPrivOrPub))(somSelf, entry);
+end;
+
+// #include <scmeta.h>
+
+function SOMTMetaClassEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTMetaClassEntryCClassData: PSOMTMetaClassEntryCClassDataStructure;
+
+function SOMTMetaClassEntryCClassData: PSOMTMetaClassEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTMetaClassEntryCClassData) then
+    Result := SOME_DLL_SOMTMetaClassEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTMetaClassEntryCClassData, 'SOMTMetaClassEntryCClassData');
+    Result := SOME_DLL_SOMTMetaClassEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTMetaClassEntryCCClassData: PSOMTMetaClassEntryCCClassDataStructure;
+
+function SOMTMetaClassEntryCCClassData: PSOMTMetaClassEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTMetaClassEntryCCClassData) then
+    Result := SOME_DLL_SOMTMetaClassEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTMetaClassEntryCCClassData, 'SOMTMetaClassEntryCCClassData');
+    Result := SOME_DLL_SOMTMetaClassEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTMetaClassEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTMetaClassEntryCClassData.classObject;
+end;
+
+function SOMTMetaClassEntryCNew: SOMTMetaClassEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTMetaClassEntryC;
+  if not Assigned(cls) then cls := SOMTMetaClassEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTMetaClassEntryCRenew(buf: Pointer): SOMTMetaClassEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTMetaClassEntryC;
+  if not Assigned(cls) then cls := SOMTMetaClassEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTMetaClassEntryC__get_somtMetaFile(somSelf: SOMTMetaClassEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMetaClassEntryCClassDataStructure;
+begin
+  cd := SOMTMetaClassEntryCClassData;
+  Result :=
+    somTD_SOMTMetaClassEntryC__get_somtMetaFile
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtMetaFile))(somSelf);
+end;
+
+function SOMTMetaClassEntryC__get_somtMetaClassDef(somSelf: SOMTMetaClassEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMetaClassEntryCClassDataStructure;
+begin
+  cd := SOMTMetaClassEntryCClassData;
+  Result :=
+    somTD_SOMTMetaClassEntryC__get_somtMetaClassDef
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtMetaClassDef))(somSelf);
 end;
 
 end.
