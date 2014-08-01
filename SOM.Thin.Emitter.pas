@@ -44,25 +44,8 @@ type
  * Start of bindings for IDL types
  *)
 
+type
   SOMTEntryC = SOMObject; // used in <sm.h>
-  SOMTMetaClassEntryC = SOMObject;
-  SOMTAttributeEntryC = SOMObject;
-  SOMTTypedefEntryC = SOMObject;
-  SOMTBaseClassEntryC = SOMObject;
-  SOMTPassthruEntryC = SOMObject;
-  SOMTDataEntryC = SOMObject;
-  SOMTMethodEntryC = SOMObject;
-  SOMTModuleEntryC = SOMObject;
-  SOMTParameterEntryC = SOMObject;
-  SOMTStructEntryC = SOMObject;
-  SOMTUnionEntryC = SOMObject;
-  SOMTEnumEntryC = SOMObject;
-  SOMTConstEntryC = SOMObject;
-  SOMTSequenceEntryC = SOMObject;
-  SOMTStringEntryC = SOMObject;
-  SOMTEnumNameEntryC = SOMObject;
-  SOMTCommonEntryC = SOMObject;
-  SOMTUserDefinedTypeEntryC = SOMObject;
 
 (*
  * End of bindings for IDL types.
@@ -967,6 +950,34 @@ type
  *  optional, when they are missing from the class definition then
  *  methods that would return an entry for this kind of statement, will
  *  return NULL.
+ *)
+
+(*
+ * Start of bindings for IDL types
+ *)
+
+type
+  SOMTMetaClassEntryC = SOMTEntryC;
+  SOMTAttributeEntryC = SOMTEntryC;
+  SOMTTypedefEntryC = SOMTEntryC;
+  SOMTBaseClassEntryC = SOMTEntryC;
+  SOMTPassthruEntryC = SOMTEntryC;
+  SOMTCommonEntryC = SOMTEntryC;
+  SOMTDataEntryC = SOMTCommonEntryC;
+  SOMTMethodEntryC = SOMTCommonEntryC;
+  SOMTModuleEntryC = SOMTEntryC;
+//   SOMTParameterEntryC = SOMTCommonEntryC;
+  SOMTStructEntryC = SOMTEntryC;
+  SOMTUnionEntryC = SOMTEntryC;
+  SOMTEnumEntryC = SOMTEntryC;
+  SOMTConstEntryC = SOMTEntryC;
+  SOMTSequenceEntryC = SOMTEntryC;
+//   SOMTStringEntryC = SOMTEntryC;
+//   SOMTEnumNameEntryC = SOMTEntryC;
+//   SOMTUserDefinedTypeEntryC = SOMTCommonEntryC;
+
+(*
+ * End of bindings for IDL types.
  *)
 
 const
