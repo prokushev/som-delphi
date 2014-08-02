@@ -2332,7 +2332,110 @@ const somMD_SOMTMethodEntryC__get_somtCReturnType = '::SOMTMethodEntryC::_get_so
 function SOMTMethodEntryC__get_somtCReturnType(somSelf: SOMTMethodEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 // #include <scpass.h>
-{ ... }
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTPassthruEntryC = SOMTEntryC;
+
+const
+  SOMTPassthruEntryC_MajorVersion = 2;
+  SOMTPassthruEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTPassthruEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTPassthruEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTPassthruEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTPassthruEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtPassthruBody: somMToken;
+	_get_somtPassthruTarget: somMToken;
+	_get_somtPassthruLanguage: somMToken;
+	somtIsBeforePassthru: somMToken;
+end;
+PSOMTPassthruEntryCClassDataStructure = ^SOMTPassthruEntryCClassDataStructure;
+function SOMTPassthruEntryCClassData: PSOMTPassthruEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTPassthruEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTPassthruEntryCCClassDataStructure = ^SOMTPassthruEntryCCClassDataStructure;
+function SOMTPassthruEntryCCClassData: PSOMTPassthruEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTPassthruEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTPassthruEntryC
+ *)
+function SOMTPassthruEntryCNew: SOMTPassthruEntryC;
+function SOMTPassthruEntryCRenew(buf: Pointer): SOMTPassthruEntryC;
+
+(*
+ * New Method: _get_somtPassthruBody
+ *)
+type
+  somTP_SOMTPassthruEntryC__get_somtPassthruBody = function(somSelf: SOMTPassthruEntryC): CORBAString; stdcall;
+  somTD_SOMTPassthruEntryC__get_somtPassthruBody = somTP_SOMTPassthruEntryC__get_somtPassthruBody;
+(*
+ *  The source content text of this passthru entry without
+ *  any modification. Newlines that were present in the source will
+ *  still be present.
+ *)
+const somMD_SOMTPassthruEntryC__get_somtPassthruBody = '::SOMTPassthruEntryC::_get_somtPassthruBody';
+function SOMTPassthruEntryC__get_somtPassthruBody(somSelf: SOMTPassthruEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtPassthruLanguage
+ *)
+type
+  somTP_SOMTPassthruEntryC__get_somtPassthruLanguage = function(somSelf: SOMTPassthruEntryC): CORBAString; stdcall;
+  somTD_SOMTPassthruEntryC__get_somtPassthruLanguage = somTP_SOMTPassthruEntryC__get_somtPassthruLanguage;
+(*
+ *  Returns the name of the language for which this passthru entry
+ *  is intended. Language names are always all upper case.
+ *)
+const somMD_SOMTPassthruEntryC__get_somtPassthruLanguage = '::SOMTPassthruEntryC::_get_somtPassthruLanguage';
+function SOMTPassthruEntryC__get_somtPassthruLanguage(somSelf: SOMTPassthruEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtPassthruTarget
+ *)
+type
+  somTP_SOMTPassthruEntryC__get_somtPassthruTarget = function(somSelf: SOMTPassthruEntryC): CORBAString; stdcall;
+  somTD_SOMTPassthruEntryC__get_somtPassthruTarget = somTP_SOMTPassthruEntryC__get_somtPassthruTarget;
+(*
+ *  Returns the target for this passthru entry.
+ *)
+const somMD_SOMTPassthruEntryC__get_somtPassthruTarget = '::SOMTPassthruEntryC::_get_somtPassthruTarget';
+function SOMTPassthruEntryC__get_somtPassthruTarget(somSelf: SOMTPassthruEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtIsBeforePassthru
+ *)
+type
+  somTP_SOMTPassthruEntryC_somtIsBeforePassthru = function(somSelf: SOMTPassthruEntryC): CORBABoolean; stdcall;
+  somTD_SOMTPassthruEntryC_somtIsBeforePassthru = somTP_SOMTPassthruEntryC_somtIsBeforePassthru;
+(*
+ *  Returns 1 (true) if this passthru entry is to be put at the
+ *  beginning of the file or 0 (false) if this passthru entry is to
+ *  go later in the file.
+ *)
+const somMD_SOMTPassthruEntryC_somtIsBeforePassthru = '::SOMTPassthruEntryC::somtIsBeforePassthru';
+function SOMTPassthruEntryC_somtIsBeforePassthru(somSelf: SOMTPassthruEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 // #include <scemit.h>
 
@@ -3943,6 +4046,101 @@ begin
   Result :=
     somTD_SOMTMethodEntryC__get_somtCReturnType
      (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCReturnType))(somSelf);
+end;
+
+// #include <scpass.h>
+
+function SOMTPassthruEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTPassthruEntryCClassData: PSOMTPassthruEntryCClassDataStructure;
+
+function SOMTPassthruEntryCClassData: PSOMTPassthruEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTPassthruEntryCClassData) then
+    Result := SOME_DLL_SOMTPassthruEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTPassthruEntryCClassData, 'SOMTPassthruEntryCClassData');
+    Result := SOME_DLL_SOMTPassthruEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTPassthruEntryCCClassData: PSOMTPassthruEntryCCClassDataStructure;
+
+function SOMTPassthruEntryCCClassData: PSOMTPassthruEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTPassthruEntryCCClassData) then
+    Result := SOME_DLL_SOMTPassthruEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTPassthruEntryCCClassData, 'SOMTPassthruEntryCCClassData');
+    Result := SOME_DLL_SOMTPassthruEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTPassthruEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTPassthruEntryCClassData.classObject;
+end;
+
+function SOMTPassthruEntryCNew: SOMTPassthruEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTPassthruEntryC;
+  if not Assigned(cls) then cls := SOMTPassthruEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTPassthruEntryCRenew(buf: Pointer): SOMTPassthruEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTPassthruEntryC;
+  if not Assigned(cls) then cls := SOMTPassthruEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTPassthruEntryC__get_somtPassthruBody(somSelf: SOMTPassthruEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTPassthruEntryCClassDataStructure;
+begin
+  cd := SOMTPassthruEntryCClassData;
+  Result :=
+    somTD_SOMTPassthruEntryC__get_somtPassthruBody
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPassthruBody))(somSelf);
+end;
+
+function SOMTPassthruEntryC__get_somtPassthruLanguage(somSelf: SOMTPassthruEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTPassthruEntryCClassDataStructure;
+begin
+  cd := SOMTPassthruEntryCClassData;
+  Result :=
+    somTD_SOMTPassthruEntryC__get_somtPassthruLanguage
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPassthruLanguage))(somSelf);
+end;
+
+function SOMTPassthruEntryC__get_somtPassthruTarget(somSelf: SOMTPassthruEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTPassthruEntryCClassDataStructure;
+begin
+  cd := SOMTPassthruEntryCClassData;
+  Result :=
+    somTD_SOMTPassthruEntryC__get_somtPassthruTarget
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPassthruTarget))(somSelf);
+end;
+
+function SOMTPassthruEntryC_somtIsBeforePassthru(somSelf: SOMTPassthruEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTPassthruEntryCClassDataStructure;
+begin
+  cd := SOMTPassthruEntryCClassData;
+  Result :=
+    somTD_SOMTPassthruEntryC_somtIsBeforePassthru
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtIsBeforePassthru))(somSelf);
 end;
 
 end.
