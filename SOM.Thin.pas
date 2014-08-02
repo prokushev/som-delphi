@@ -362,7 +362,9 @@ type
   octet = Byte;
   Poctet = PByte;
   CORBAString = PAnsiChar;
+  PCORBAString = PPAnsiChar;
   CORBABoolean = ByteBool;
+  PCORBABoolean = ^CORBABoolean;
 
 
 
@@ -2098,7 +2100,9 @@ const
 //   octet = Byte;
 //   Poctet = PByte;
 //   CORBAString = PAnsiChar;
+//   PCORBAString = PPAnsiChar;
 //   CORBABoolean = ByteBool;
+//   PCORBABoolean = ^CORBABoolean;
 
 
 

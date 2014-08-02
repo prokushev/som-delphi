@@ -966,15 +966,11 @@ type
   SOMTDataEntryC = SOMTCommonEntryC;
   SOMTMethodEntryC = SOMTCommonEntryC;
   SOMTModuleEntryC = SOMTEntryC;
-//   SOMTParameterEntryC = SOMTCommonEntryC;
   SOMTStructEntryC = SOMTEntryC;
   SOMTUnionEntryC = SOMTEntryC;
   SOMTEnumEntryC = SOMTEntryC;
   SOMTConstEntryC = SOMTEntryC;
   SOMTSequenceEntryC = SOMTEntryC;
-//   SOMTStringEntryC = SOMTEntryC;
-//   SOMTEnumNameEntryC = SOMTEntryC;
-//   SOMTUserDefinedTypeEntryC = SOMTCommonEntryC;
 
 (*
  * End of bindings for IDL types.
@@ -1969,7 +1965,372 @@ const somMD_SOMTCommonEntryC_somtIsPointer = '::SOMTCommonEntryC::somtIsPointer'
 function SOMTCommonEntryC_somtIsPointer(somSelf: SOMTCommonEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 // #include <scmethod.h>
-{ ... }
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTMethodEntryC = SOMTCommonEntryC;
+
+(*
+ * Start of bindings for IDL types
+ *)
+type
+  SOMTParameterEntryC = SOMTCommonEntryC;
+(*
+ * End of bindings for IDL types.
+ *)
+
+const
+  SOMTMethodEntryC_MajorVersion = 2;
+  SOMTMethodEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTMethodEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTMethodEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTMethodEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTMethodEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtIsVarargs: somMToken;
+	_get_somtOriginalMethod: somMToken;
+	_get_somtOriginalClass: somMToken;
+	_get_somtMethodGroup: somMToken;
+	somtGetFirstParameter: somMToken;
+	somtGetNextParameter: somMToken;
+	somtGetArgList: somMToken;
+	somtGetParmList: somMToken;
+	_get_somtIsPrivateMethod: somMToken;
+	_get_somtIsOneway: somMToken;
+	_get_somtArgCount: somMToken;
+	somtGetFirstException: somMToken;
+	somtGetNextException: somMToken;
+	_get_somtContextArray: somMToken;
+	somtGetShortCPrototype: somMToken;
+	somtGetFullCPrototype: somMToken;
+	somtGetShortParmList: somMToken;
+	somtGetFullParmList: somMToken;
+	somtGetNthParameter: somMToken;
+	_get_somtCReturnType: somMToken;
+	somtGetIDLParamList: somMToken;
+	somtGetShortCParamList: somMToken;
+	somtGetFullCParamList: somMToken;
+	somtGetShortParamNameList: somMToken;
+	somtGetFullParamNameList: somMToken;
+end;
+PSOMTMethodEntryCClassDataStructure = ^SOMTMethodEntryCClassDataStructure;
+function SOMTMethodEntryCClassData: PSOMTMethodEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTMethodEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTMethodEntryCCClassDataStructure = ^SOMTMethodEntryCCClassDataStructure;
+function SOMTMethodEntryCCClassData: PSOMTMethodEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTMethodEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTMethodEntryC
+ *)
+function SOMTMethodEntryCNew: SOMTMethodEntryC;
+function SOMTMethodEntryCRenew(buf: Pointer): SOMTMethodEntryC;
+
+(*
+ * New Method: _get_somtIsVarargs
+ *)
+type
+  somTP_SOMTMethodEntryC__get_somtIsVarargs = function(somSelf: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTMethodEntryC__get_somtIsVarargs = somTP_SOMTMethodEntryC__get_somtIsVarargs;
+(*
+ *  Returns 1 (true) if this method definition has a variable length
+ *  parameter list.
+ *)
+const somMD_SOMTMethodEntryC__get_somtIsVarargs = '::SOMTMethodEntryC::_get_somtIsVarargs';
+function SOMTMethodEntryC__get_somtIsVarargs(somSelf: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtOriginalMethod
+ *)
+type
+  somTP_SOMTMethodEntryC__get_somtOriginalMethod = function(somSelf: SOMTMethodEntryC): SOMTMethodEntryC; stdcall;
+  somTD_SOMTMethodEntryC__get_somtOriginalMethod = somTP_SOMTMethodEntryC__get_somtOriginalMethod;
+(*
+ *  If this is an override method definition (<SOMTOverrideMethodE>)
+ *  then this is the method definition entry that orginially
+ *  introduced the method.
+ *)
+const somMD_SOMTMethodEntryC__get_somtOriginalMethod = '::SOMTMethodEntryC::_get_somtOriginalMethod';
+function SOMTMethodEntryC__get_somtOriginalMethod(somSelf: SOMTMethodEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtOriginalClass
+ *)
+type
+  somTP_SOMTMethodEntryC__get_somtOriginalClass = function(somSelf: SOMTMethodEntryC): SOMTClassEntryC; stdcall;
+  somTD_SOMTMethodEntryC__get_somtOriginalClass = somTP_SOMTMethodEntryC__get_somtOriginalClass;
+(*
+ *  If this is an override method definition (<SOMTOverrideMethodE>)
+ *  then this is the class definition entry that orginially
+ *  introduced the method.
+ *)
+const somMD_SOMTMethodEntryC__get_somtOriginalClass = '::SOMTMethodEntryC::_get_somtOriginalClass';
+function SOMTMethodEntryC__get_somtOriginalClass(somSelf: SOMTMethodEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtMethodGroup
+ *)
+type
+  somTP_SOMTMethodEntryC__get_somtMethodGroup = function(somSelf: SOMTMethodEntryC): SOMTEntryC; stdcall;
+  somTD_SOMTMethodEntryC__get_somtMethodGroup = somTP_SOMTMethodEntryC__get_somtMethodGroup;
+(*
+ *  The group this method is defined in within a class definition.
+ *)
+const somMD_SOMTMethodEntryC__get_somtMethodGroup = '::SOMTMethodEntryC::_get_somtMethodGroup';
+function SOMTMethodEntryC__get_somtMethodGroup(somSelf: SOMTMethodEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtIsPrivateMethod
+ *)
+type
+  somTP_SOMTMethodEntryC__get_somtIsPrivateMethod = function(somSelf: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTMethodEntryC__get_somtIsPrivateMethod = somTP_SOMTMethodEntryC__get_somtIsPrivateMethod;
+(*
+ *  Whether or not the method is private.
+ *)
+const somMD_SOMTMethodEntryC__get_somtIsPrivateMethod = '::SOMTMethodEntryC::_get_somtIsPrivateMethod';
+function SOMTMethodEntryC__get_somtIsPrivateMethod(somSelf: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtIsOneway
+ *)
+type
+  somTP_SOMTMethodEntryC__get_somtIsOneway = function(somSelf: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTMethodEntryC__get_somtIsOneway = somTP_SOMTMethodEntryC__get_somtIsOneway;
+(*
+ *  Whether or not the method is oneway.
+ *)
+const somMD_SOMTMethodEntryC__get_somtIsOneway = '::SOMTMethodEntryC::_get_somtIsOneway';
+function SOMTMethodEntryC__get_somtIsOneway(somSelf: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtArgCount
+ *)
+type
+  somTP_SOMTMethodEntryC__get_somtArgCount = function(somSelf: SOMTMethodEntryC): SmallInt; stdcall;
+  somTD_SOMTMethodEntryC__get_somtArgCount = somTP_SOMTMethodEntryC__get_somtArgCount;
+(*
+ *  The number of arguments for the method.
+ *)
+const somMD_SOMTMethodEntryC__get_somtArgCount = '::SOMTMethodEntryC::_get_somtArgCount';
+function SOMTMethodEntryC__get_somtArgCount(somSelf: SOMTMethodEntryC): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstParameter
+ *)
+type
+  somTP_SOMTMethodEntryC_somtGetFirstParameter = function(somSelf: SOMTMethodEntryC): SOMTParameterEntryC; stdcall;
+  somTD_SOMTMethodEntryC_somtGetFirstParameter = somTP_SOMTMethodEntryC_somtGetFirstParameter;
+(*
+ *  Returns the first formal parameter entry for this method if it
+ *  has one and NULL otherwise.  Note: the target object parameter is
+ *  not included, therefore the first parameter is really the second
+ *  parameter from a SOM runtime perspective.
+ *)
+const somMD_SOMTMethodEntryC_somtGetFirstParameter = '::SOMTMethodEntryC::somtGetFirstParameter';
+function SOMTMethodEntryC_somtGetFirstParameter(somSelf: SOMTMethodEntryC): SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextParameter
+ *)
+type
+  somTP_SOMTMethodEntryC_somtGetNextParameter = function(somSelf: SOMTMethodEntryC): SOMTParameterEntryC; stdcall;
+  somTD_SOMTMethodEntryC_somtGetNextParameter = somTP_SOMTMethodEntryC_somtGetNextParameter;
+(*
+ *  Returns the next formal parameter entry for this method if it has
+ *  one and NULL otherwise.
+ *)
+const somMD_SOMTMethodEntryC_somtGetNextParameter = '::SOMTMethodEntryC::somtGetNextParameter';
+function SOMTMethodEntryC_somtGetNextParameter(somSelf: SOMTMethodEntryC): SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetIDLParamList
+ *)
+type
+  somTP_SOMTMethodEntryC_somtGetIDLParamList = function(somSelf: SOMTMethodEntryC;
+		buffer: CORBAString): CORBAString; stdcall;
+  somTD_SOMTMethodEntryC_somtGetIDLParamList = somTP_SOMTMethodEntryC_somtGetIDLParamList;
+(*
+ *  Returns the formal parameter list (in IDL syntax) for this method.
+ *  The parameter list is built in <buffer> and the address of <buffer>
+ *  is returned.
+ *  Parameters are delimited with newlines.
+ *  The method receiver and any implicit method arguments are NOT included.
+ *)
+const somMD_SOMTMethodEntryC_somtGetIDLParamList = '::SOMTMethodEntryC::somtGetIDLParamList';
+function SOMTMethodEntryC_somtGetIDLParamList(somSelf: SOMTMethodEntryC;
+  buffer: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetShortCParamList
+ *)
+type
+  somTP_SOMTMethodEntryC_somtGetShortCParamList = function(somSelf: SOMTMethodEntryC;
+		buffer, selfParm, varargsParm: CORBAString): CORBAString; stdcall;
+  somTD_SOMTMethodEntryC_somtGetShortCParamList = somTP_SOMTMethodEntryC_somtGetShortCParamList;
+(*
+ *  Returns the formal parameter list (in ANSI C function prototype
+ *  form, with types) for this method. The parameter list is built in
+ *  <buffer> and the address of <buffer> is returned.
+ *  Parameters are delimited with newlines.
+ *  If this method takes a variable number of arguments then the
+ *  final parameter substring is replaced by <varargsParm>, unless
+ *  <varargsParm> is NULL in which case the final parameter is
+ *  removed.
+ *  If <selfParm> is not null then it is added as an initial
+ *  parameter. (The <selfParm> string may actually contain multiple
+ *  parameters, delimited by newline characters.)
+ *  The method receiver and any implicit method arguments are NOT
+ *  included.
+ *  The types of the method parameters are given in C form (with pointer
+ *  stars, where needed) rather than in the IDL form.
+ *)
+const somMD_SOMTMethodEntryC_somtGetShortCParamList = '::SOMTMethodEntryC::somtGetShortCParamList';
+function SOMTMethodEntryC_somtGetShortCParamList(somSelf: SOMTMethodEntryC;
+  buffer, selfParm, varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFullCParamList
+ *)
+type
+  somTP_SOMTMethodEntryC_somtGetFullCParamList = function(somSelf: SOMTMethodEntryC;
+		buffer, varargsParm: CORBAString): CORBAString; stdcall;
+  somTD_SOMTMethodEntryC_somtGetFullCParamList = somTP_SOMTMethodEntryC_somtGetFullCParamList;
+(*
+ *  Same as somtGetShortCParamList except that the method receiver and
+ *  any implicit method arguments (Environment and Context) are included.
+ *  The types of the method parameters are given in C form (with pointer
+ *  stars, where needed) rather than in the IDL form.
+ *)
+const somMD_SOMTMethodEntryC_somtGetFullCParamList = '::SOMTMethodEntryC::somtGetFullCParamList';
+function SOMTMethodEntryC_somtGetFullCParamList(somSelf: SOMTMethodEntryC;
+  buffer, varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetShortParamNameList
+ *)
+type
+  somTP_SOMTMethodEntryC_somtGetShortParamNameList = function(somSelf: SOMTMethodEntryC;
+		buffer, selfParm, varargsParm: CORBAString): CORBAString; stdcall;
+  somTD_SOMTMethodEntryC_somtGetShortParamNameList = somTP_SOMTMethodEntryC_somtGetShortParamNameList;
+(*
+ *  Returns the parameter list for this method in call form (without
+ *  types). The argument list is built in <buffer> and the address of
+ *  <buffer> is returned. Parameters are delimited with newlines.
+ *  If this method takes a variable number of arguments then the
+ *  final parameter is replaced by <varargsParm>, unless
+ *  <varargsParm> is NULL in which case the final parameter is removed.
+ *  If <selfParm> is not null then it is added as an initial
+ *  parameter. (The <selfParm> string may actually contain multiple
+ *  parameters, delimited by newline characters.)
+ *  The method receiver and any implicit method arguments are NOT
+ *  included.
+ *)
+const somMD_SOMTMethodEntryC_somtGetShortParamNameList = '::SOMTMethodEntryC::somtGetShortParamNameList';
+function SOMTMethodEntryC_somtGetShortParamNameList(somSelf: SOMTMethodEntryC;
+  buffer, selfParm, varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFullParamNameList
+ *)
+type
+  somTP_SOMTMethodEntryC_somtGetFullParamNameList = function(somSelf: SOMTMethodEntryC;
+		buffer, varargsParm: CORBAString): CORBAString; stdcall;
+  somTD_SOMTMethodEntryC_somtGetFullParamNameList = somTP_SOMTMethodEntryC_somtGetFullParamNameList;
+(*
+ *  Same as somtGetParamNameList except that the method receiver and
+ *  any implicit method arguments (Environment and Context) are included.
+ *)
+const somMD_SOMTMethodEntryC_somtGetFullParamNameList = '::SOMTMethodEntryC::somtGetFullParamNameList';
+function SOMTMethodEntryC_somtGetFullParamNameList(somSelf: SOMTMethodEntryC;
+  buffer, varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNthParameter
+ *)
+type
+  somTP_SOMTMethodEntryC_somtGetNthParameter = function(somSelf: SOMTMethodEntryC;
+		n: SmallInt): SOMTParameterEntryC; stdcall;
+  somTD_SOMTMethodEntryC_somtGetNthParameter = somTP_SOMTMethodEntryC_somtGetNthParameter;
+(*
+ *  Returns the object representing the nth explicit method parameter.
+ *)
+const somMD_SOMTMethodEntryC_somtGetNthParameter = '::SOMTMethodEntryC::somtGetNthParameter';
+function SOMTMethodEntryC_somtGetNthParameter(somSelf: SOMTMethodEntryC;
+  n: SmallInt): SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstException
+ *)
+type
+  somTP_SOMTMethodEntryC_somtGetFirstException = function(somSelf: SOMTMethodEntryC): SOMTStructEntryC; stdcall;
+  somTD_SOMTMethodEntryC_somtGetFirstException = somTP_SOMTMethodEntryC_somtGetFirstException;
+(*
+ *  The first exception this method raises.
+ *)
+const somMD_SOMTMethodEntryC_somtGetFirstException = '::SOMTMethodEntryC::somtGetFirstException';
+function SOMTMethodEntryC_somtGetFirstException(somSelf: SOMTMethodEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextException
+ *)
+type
+  somTP_SOMTMethodEntryC_somtGetNextException = function(somSelf: SOMTMethodEntryC): SOMTStructEntryC; stdcall;
+  somTD_SOMTMethodEntryC_somtGetNextException = somTP_SOMTMethodEntryC_somtGetNextException;
+(*
+ *  The next exception this method raises,
+ *  relative to the previous call to this method or to
+ *  somtGetFirstException.
+ *)
+const somMD_SOMTMethodEntryC_somtGetNextException = '::SOMTMethodEntryC::somtGetNextException';
+function SOMTMethodEntryC_somtGetNextException(somSelf: SOMTMethodEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtContextArray
+ *)
+type
+  somTP_SOMTMethodEntryC__get_somtContextArray = function(somSelf: SOMTMethodEntryC): PCORBAString; stdcall;
+  somTD_SOMTMethodEntryC__get_somtContextArray = somTP_SOMTMethodEntryC__get_somtContextArray;
+(*
+ *  An array of the context string-literals for the method.
+ *)
+const somMD_SOMTMethodEntryC__get_somtContextArray = '::SOMTMethodEntryC::_get_somtContextArray';
+function SOMTMethodEntryC__get_somtContextArray(somSelf: SOMTMethodEntryC): PCORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtCReturnType
+ *)
+type
+  somTP_SOMTMethodEntryC__get_somtCReturnType = function(somSelf: SOMTMethodEntryC): CORBAString; stdcall;
+  somTD_SOMTMethodEntryC__get_somtCReturnType = somTP_SOMTMethodEntryC__get_somtCReturnType;
+(*
+ *  The C datatype the method returns. This may not correspond to the
+ *  IDL data type (in particular, pointer stars may be added).
+ *)
+const somMD_SOMTMethodEntryC__get_somtCReturnType = '::SOMTMethodEntryC::_get_somtCReturnType';
+function SOMTMethodEntryC__get_somtCReturnType(somSelf: SOMTMethodEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
 // #include <scpass.h>
 { ... }
 
@@ -3326,6 +3687,262 @@ begin
   Result :=
     somTD_SOMTCommonEntryC_somtIsPointer
      (SOM_Resolve(somSelf, cd.classObject, cd.somtIsPointer))(somSelf);
+end;
+
+// #include <scmethod.h>
+
+function SOMTMethodEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTMethodEntryCClassData: PSOMTMethodEntryCClassDataStructure;
+
+function SOMTMethodEntryCClassData: PSOMTMethodEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTMethodEntryCClassData) then
+    Result := SOME_DLL_SOMTMethodEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTMethodEntryCClassData, 'SOMTMethodEntryCClassData');
+    Result := SOME_DLL_SOMTMethodEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTMethodEntryCCClassData: PSOMTMethodEntryCCClassDataStructure;
+
+function SOMTMethodEntryCCClassData: PSOMTMethodEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTMethodEntryCCClassData) then
+    Result := SOME_DLL_SOMTMethodEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTMethodEntryCCClassData, 'SOMTMethodEntryCCClassData');
+    Result := SOME_DLL_SOMTMethodEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTMethodEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTMethodEntryCClassData.classObject;
+end;
+
+function SOMTMethodEntryCNew: SOMTMethodEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTMethodEntryC;
+  if not Assigned(cls) then cls := SOMTMethodEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTMethodEntryCRenew(buf: Pointer): SOMTMethodEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTMethodEntryC;
+  if not Assigned(cls) then cls := SOMTMethodEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTMethodEntryC__get_somtIsVarargs(somSelf: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC__get_somtIsVarargs
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsVarargs))(somSelf);
+end;
+
+function SOMTMethodEntryC__get_somtOriginalMethod(somSelf: SOMTMethodEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC__get_somtOriginalMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtOriginalMethod))(somSelf);
+end;
+
+function SOMTMethodEntryC__get_somtOriginalClass(somSelf: SOMTMethodEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC__get_somtOriginalClass
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtOriginalClass))(somSelf);
+end;
+
+function SOMTMethodEntryC__get_somtMethodGroup(somSelf: SOMTMethodEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC__get_somtMethodGroup
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtMethodGroup))(somSelf);
+end;
+
+function SOMTMethodEntryC__get_somtIsPrivateMethod(somSelf: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC__get_somtIsPrivateMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsPrivateMethod))(somSelf);
+end;
+
+function SOMTMethodEntryC__get_somtIsOneway(somSelf: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC__get_somtIsOneway
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsOneway))(somSelf);
+end;
+
+function SOMTMethodEntryC__get_somtArgCount(somSelf: SOMTMethodEntryC): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC__get_somtArgCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtArgCount))(somSelf);
+end;
+
+function SOMTMethodEntryC_somtGetFirstParameter(somSelf: SOMTMethodEntryC): SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC_somtGetFirstParameter
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstParameter))(somSelf);
+end;
+
+function SOMTMethodEntryC_somtGetNextParameter(somSelf: SOMTMethodEntryC): SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC_somtGetNextParameter
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextParameter))(somSelf);
+end;
+
+function SOMTMethodEntryC_somtGetIDLParamList(somSelf: SOMTMethodEntryC;
+  buffer: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC_somtGetIDLParamList
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetIDLParamList))
+       (somSelf, buffer);
+end;
+
+function SOMTMethodEntryC_somtGetShortCParamList(somSelf: SOMTMethodEntryC;
+  buffer, selfParm, varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC_somtGetShortCParamList
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetShortCParamList))
+       (somSelf, buffer, selfParm, varargsParm);
+end;
+
+function SOMTMethodEntryC_somtGetFullCParamList(somSelf: SOMTMethodEntryC;
+  buffer, varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC_somtGetFullCParamList
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFullCParamList))
+       (somSelf, buffer, varargsParm);
+end;
+
+function SOMTMethodEntryC_somtGetShortParamNameList(somSelf: SOMTMethodEntryC;
+  buffer, selfParm, varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC_somtGetShortParamNameList
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetShortParamNameList))
+       (somSelf, buffer, selfParm, varargsParm);
+end;
+
+function SOMTMethodEntryC_somtGetFullParamNameList(somSelf: SOMTMethodEntryC;
+  buffer, varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC_somtGetFullParamNameList
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFullParamNameList))
+       (somSelf, buffer, varargsParm);
+end;
+
+function SOMTMethodEntryC_somtGetNthParameter(somSelf: SOMTMethodEntryC;
+  n: SmallInt): SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC_somtGetNthParameter
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNthParameter))(somSelf, n);
+end;
+
+function SOMTMethodEntryC_somtGetFirstException(somSelf: SOMTMethodEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC_somtGetFirstException
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstException))(somSelf);
+end;
+
+function SOMTMethodEntryC_somtGetNextException(somSelf: SOMTMethodEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC_somtGetNextException
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextException))(somSelf);
+end;
+
+function SOMTMethodEntryC__get_somtContextArray(somSelf: SOMTMethodEntryC): PCORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC__get_somtContextArray
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtContextArray))(somSelf);
+end;
+
+function SOMTMethodEntryC__get_somtCReturnType(somSelf: SOMTMethodEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTMethodEntryCClassDataStructure;
+begin
+  cd := SOMTMethodEntryCClassData;
+  Result :=
+    somTD_SOMTMethodEntryC__get_somtCReturnType
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCReturnType))(somSelf);
 end;
 
 end.
