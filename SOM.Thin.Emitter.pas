@@ -2459,6 +2459,1290 @@ function SOMTPassthruEntryC_somtIsBeforePassthru(somSelf: SOMTPassthruEntryC): C
         _somtSetSymbolCopyBoth(_t, #base"EpilogSN", #newbase"EpilogS"); \
         _##scan(somSelf, #filt, #method"Prolog", #method, #method"Epilog",0);} *)
 
+const
+  SOMTEmitC_MajorVersion = 2;
+  SOMTEmitC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTEmitCNewClass(
+  somtmajorVersion: integer4 = SOMTEmitC_MajorVersion;
+  somtminorVersion: integer4 = SOMTEmitC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTEmitCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtTemplate: somMToken;
+	_get_somtTargetFile: somMToken;
+	_set_somtTargetFile: somMToken;
+	_get_somtTargetClass: somMToken;
+	_set_somtTargetClass: somMToken;
+	_get_somtTargetModule: somMToken;
+	_set_somtTargetModule: somMToken;
+	_get_somtTargetType: somMToken;
+	_set_somtTargetType: somMToken;
+	somtGenerateSections: somMToken;
+	somtOpenSymbolsFile: somMToken;
+	somtSetPredefinedSymbols: somMToken;
+	somtFileSymbols: somMToken;
+	somtEmitProlog: somMToken;
+	somtEmitBaseIncludesProlog: somMToken;
+	somtEmitBaseIncludes: somMToken;
+	somtEmitBaseIncludesEpilog: somMToken;
+	somtEmitMetaInclude: somMToken;
+	somtEmitClass: somMToken;
+	somtEmitMeta: somMToken;
+	somtEmitBaseProlog: somMToken;
+	somtEmitBase: somMToken;
+	somtEmitBaseEpilog: somMToken;
+	somtEmitPassthruProlog: somMToken;
+	somtEmitPassthru: somMToken;
+	somtEmitPassthruEpilog: somMToken;
+	somtEmitRelease: somMToken;
+	somtEmitDataProlog: somMToken;
+	somtEmitData: somMToken;
+	somtEmitDataEpilog: somMToken;
+	somtEmitMethodsProlog: somMToken;
+	somtEmitMethods: somMToken;
+	somtEmitMethodsEpilog: somMToken;
+	somtEmitMethod: somMToken;
+	somtEmitEpilog: somMToken;
+	somtScanBases: somMToken;
+	somtScanConstants: somMToken;
+	somtCheckVisibility: somMToken;
+	somtNew: somMToken;
+	somtImplemented: somMToken;
+	somtOverridden: somMToken;
+	somtInherited: somMToken;
+	somtAllVisible: somMToken;
+	somtAll: somMToken;
+	somtNewNoProc: somMToken;
+	somtPrivOrPub: somMToken;
+	somtNewProc: somMToken;
+	somtLink: somMToken;
+	somtVA: somMToken;
+	somtScanMethods: somMToken;
+	somtScanData: somMToken;
+	somtScanPassthru: somMToken;
+	somtEmitFullPassthru: somMToken;
+	somtScanDataF: somMToken;
+	somtScanBasesF: somMToken;
+	_set_somtTemplate: somMToken;
+	_set_somtEmitterName: somMToken;
+	_get_somtEmitterName: somMToken;
+	somtEmitAttributeProlog: somMToken;
+	somtEmitAttribute: somMToken;
+	somtEmitAttributeEpilog: somMToken;
+	somtEmitConstantProlog: somMToken;
+	somtEmitConstant: somMToken;
+	somtEmitConstantEpilog: somMToken;
+	somtEmitTypedefProlog: somMToken;
+	somtEmitTypedef: somMToken;
+	somtEmitTypedefEpilog: somMToken;
+	somtEmitStructProlog: somMToken;
+	somtEmitStruct: somMToken;
+	somtEmitStructEpilog: somMToken;
+	somtEmitUnionProlog: somMToken;
+	somtEmitUnion: somMToken;
+	somtEmitUnionEpilog: somMToken;
+	somtEmitEnumProlog: somMToken;
+	somtEmitEnum: somMToken;
+	somtEmitEnumEpilog: somMToken;
+	somtEmitInterfaceProlog: somMToken;
+	somtEmitInterface: somMToken;
+	somtEmitInterfaceEpilog: somMToken;
+	somtEmitModuleProlog: somMToken;
+	somtEmitModule: somMToken;
+	somtEmitModuleEpilog: somMToken;
+	somtScanAttributes: somMToken;
+	somtScanTypedefs: somMToken;
+	somtScanStructs: somMToken;
+	somtScanUnions: somMToken;
+	somtScanEnums: somMToken;
+	somtScanInterfaces: somMToken;
+	somtScanModules: somMToken;
+	somtGetGlobalModifierValue: somMToken;
+	somtGetFirstGlobalDefinition: somMToken;
+	somtGetNextGlobalDefinition: somMToken;
+end;
+PSOMTEmitCClassDataStructure = ^SOMTEmitCClassDataStructure;
+function SOMTEmitCClassData: PSOMTEmitCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTEmitCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTEmitCCClassDataStructure = ^SOMTEmitCCClassDataStructure;
+function SOMTEmitCCClassData: PSOMTEmitCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTEmitC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTEmitC
+ *)
+function SOMTEmitCNew: SOMTEmitC;
+function SOMTEmitCRenew(buf: Pointer): SOMTEmitC;
+
+(*
+ * New Method: _get_somtTemplate
+ *)
+type
+  somTP_SOMTEmitC__get_somtTemplate = function(somSelf: SOMTEmitC): SOMTTemplateOutputC; stdcall;
+  somTD_SOMTEmitC__get_somtTemplate = somTP_SOMTEmitC__get_somtTemplate;
+(*
+ *  The template is to provide template output and maintains a symbol
+ *  table that provides a sort of global context for the emitter.
+ *)
+const somMD_SOMTEmitC__get_somtTemplate = '::SOMTEmitC::_get_somtTemplate';
+function SOMTEmitC__get_somtTemplate(somSelf: SOMTEmitC): SOMTTemplateOutputC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_somtTemplate
+ *)
+type
+  somTP_SOMTEmitC__set_somtTemplate = procedure(somSelf: SOMTEmitC;
+		somtTemplate: SOMTTemplateOutputC); stdcall;
+  somTD_SOMTEmitC__set_somtTemplate = somTP_SOMTEmitC__set_somtTemplate;
+(*
+ *  The template is to provide template output and maintains a symbol
+ *  table that provides a sort of global context for the emitter.
+ *)
+const somMD_SOMTEmitC__set_somtTemplate = '::SOMTEmitC::_set_somtTemplate';
+procedure SOMTEmitC__set_somtTemplate(somSelf: SOMTEmitC;
+  somtTemplate: SOMTTemplateOutputC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtTargetFile
+ *)
+type
+  somTP_SOMTEmitC__get_somtTargetFile = function(somSelf: SOMTEmitC): PFILE; stdcall;
+  somTD_SOMTEmitC__get_somtTargetFile = somTP_SOMTEmitC__get_somtTargetFile;
+(*
+ *  The target file is the one to which all emitter output is to be
+ *  directed.
+ *)
+const somMD_SOMTEmitC__get_somtTargetFile = '::SOMTEmitC::_get_somtTargetFile';
+function SOMTEmitC__get_somtTargetFile(somSelf: SOMTEmitC): PFILE; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_somtTargetFile
+ *)
+type
+  somTP_SOMTEmitC__set_somtTargetFile = procedure(somSelf: SOMTEmitC;
+		somtTargetFile: PFILE); stdcall;
+  somTD_SOMTEmitC__set_somtTargetFile = somTP_SOMTEmitC__set_somtTargetFile;
+(*
+ *  The target file is the one to which all emitter output is to be
+ *  directed.
+ *)
+const somMD_SOMTEmitC__set_somtTargetFile = '::SOMTEmitC::_set_somtTargetFile';
+procedure SOMTEmitC__set_somtTargetFile(somSelf: SOMTEmitC;
+  somtTargetFile: PFILE); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtTargetClass
+ *)
+type
+  somTP_SOMTEmitC__get_somtTargetClass = function(somSelf: SOMTEmitC): SOMTClassEntryC; stdcall;
+  somTD_SOMTEmitC__get_somtTargetClass = somTP_SOMTEmitC__get_somtTargetClass;
+(*
+ *  The target class is the class definition for which code is to be
+ *  emitted.
+ *)
+const somMD_SOMTEmitC__get_somtTargetClass = '::SOMTEmitC::_get_somtTargetClass';
+function SOMTEmitC__get_somtTargetClass(somSelf: SOMTEmitC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_somtTargetClass
+ *)
+type
+  somTP_SOMTEmitC__set_somtTargetClass = procedure(somSelf: SOMTEmitC;
+		somtTargetClass: SOMTClassEntryC); stdcall;
+  somTD_SOMTEmitC__set_somtTargetClass = somTP_SOMTEmitC__set_somtTargetClass;
+(*
+ *  The target class is the class definition for which code is to be
+ *  emitted.
+ *)
+const somMD_SOMTEmitC__set_somtTargetClass = '::SOMTEmitC::_set_somtTargetClass';
+procedure SOMTEmitC__set_somtTargetClass(somSelf: SOMTEmitC;
+  somtTargetClass: SOMTClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtTargetModule
+ *)
+type
+  somTP_SOMTEmitC__get_somtTargetModule = function(somSelf: SOMTEmitC): SOMTModuleEntryC; stdcall;
+  somTD_SOMTEmitC__get_somtTargetModule = somTP_SOMTEmitC__get_somtTargetModule;
+(*
+ *  The target module is the module definition for which code is to be
+ *  emitted.
+ *)
+const somMD_SOMTEmitC__get_somtTargetModule = '::SOMTEmitC::_get_somtTargetModule';
+function SOMTEmitC__get_somtTargetModule(somSelf: SOMTEmitC): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_somtTargetModule
+ *)
+type
+  somTP_SOMTEmitC__set_somtTargetModule = procedure(somSelf: SOMTEmitC;
+		somtTargetModule: SOMTModuleEntryC); stdcall;
+  somTD_SOMTEmitC__set_somtTargetModule = somTP_SOMTEmitC__set_somtTargetModule;
+(*
+ *  The target module is the module definition for which code is to be
+ *  emitted.
+ *)
+const somMD_SOMTEmitC__set_somtTargetModule = '::SOMTEmitC::_set_somtTargetModule';
+procedure SOMTEmitC__set_somtTargetModule(somSelf: SOMTEmitC;
+  somtTargetModule: SOMTModuleEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtTargetType
+ *)
+type
+  somTP_SOMTEmitC__get_somtTargetType = function(somSelf: SOMTEmitC): SOMTTargetTypeT; stdcall;
+  somTD_SOMTEmitC__get_somtTargetType = somTP_SOMTEmitC__get_somtTargetType;
+(*
+ *  The target type indicates what type of output file is being
+ *  produced, public, private, or implementation.  This allows the
+ *  same emitter subclass to produce several different output files
+ *  that generally differ only in how much of the class definition
+ *  they cover. Eg, .csc, .sc, and .psc.
+ *  This is attribute is for OIDL compatibility only.
+ *)
+const somMD_SOMTEmitC__get_somtTargetType = '::SOMTEmitC::_get_somtTargetType';
+function SOMTEmitC__get_somtTargetType(somSelf: SOMTEmitC): SOMTTargetTypeT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_somtTargetType
+ *)
+type
+  somTP_SOMTEmitC__set_somtTargetType = procedure(somSelf: SOMTEmitC;
+		somtTargetType: SOMTTargetTypeT); stdcall;
+  somTD_SOMTEmitC__set_somtTargetType = somTP_SOMTEmitC__set_somtTargetType;
+(*
+ *  The target type indicates what type of output file is being
+ *  produced, public, private, or implementation.  This allows the
+ *  same emitter subclass to produce several different output files
+ *  that generally differ only in how much of the class definition
+ *  they cover. Eg, .csc, .sc, and .psc.
+ *  This is attribute is for OIDL compatibility only.
+ *)
+const somMD_SOMTEmitC__set_somtTargetType = '::SOMTEmitC::_set_somtTargetType';
+procedure SOMTEmitC__set_somtTargetType(somSelf: SOMTEmitC;
+  somtTargetType: SOMTTargetTypeT); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtEmitterName
+ *)
+type
+  somTP_SOMTEmitC__get_somtEmitterName = function(somSelf: SOMTEmitC): CORBAString; stdcall;
+  somTD_SOMTEmitC__get_somtEmitterName = somTP_SOMTEmitC__get_somtEmitterName;
+(*
+ *  The short name of the emitter (the name used to invoke it via the
+ *  SOM Compiler.  Typically this is the file stem of the subclass
+ *  of SOMTEmitC. This attribute should be set in the driver program
+ *  that runs the emitter.  It is used to filter passthrus so that only
+ *  passthrus directed to a particular emitter are seen by it.
+ *)
+const somMD_SOMTEmitC__get_somtEmitterName = '::SOMTEmitC::_get_somtEmitterName';
+function SOMTEmitC__get_somtEmitterName(somSelf: SOMTEmitC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_somtEmitterName
+ *)
+type
+  somTP_SOMTEmitC__set_somtEmitterName = procedure(somSelf: SOMTEmitC;
+		somtEmitterName: CORBAString); stdcall;
+  somTD_SOMTEmitC__set_somtEmitterName = somTP_SOMTEmitC__set_somtEmitterName;
+(*
+ *  The short name of the emitter (the name used to invoke it via the
+ *  SOM Compiler.  Typically this is the file stem of the subclass
+ *  of SOMTEmitC. This attribute should be set in the driver program
+ *  that runs the emitter.  It is used to filter passthrus so that only
+ *  passthrus directed to a particular emitter are seen by it.
+ *)
+const somMD_SOMTEmitC__set_somtEmitterName = '::SOMTEmitC::_set_somtEmitterName';
+procedure SOMTEmitC__set_somtEmitterName(somSelf: SOMTEmitC;
+  somtEmitterName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGenerateSections
+ *)
+type
+  somTP_SOMTEmitC_somtGenerateSections = function(somSelf: SOMTEmitC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtGenerateSections = somTP_SOMTEmitC_somtGenerateSections;
+(*
+ *  Calls each of the section methods in order.  The order is:
+ *
+ *    somtEmitProlog
+ *    when emitting a class:
+ *    	  somtEmitClass
+ *    	  somtEmitBase
+ *    	  somtEmitMeta
+ *    somtEmitConstant
+ *    somtEmitTypedef
+ *    somtEmitStruct
+ *    somtEmitUnion
+ *    somtEmitEnum
+ *    when emitting a class:
+ *       somtEmitAttribute
+ *       somtEmitMethod
+ *       somtEmitRelease
+ *       somtEmitPassthru
+ *       somtEmitData
+ *    when emitting a module:
+ *        somtEmitInterface
+ *        somtEmitModule
+ *    somtEmitEpilog
+ *
+ *  This method will need to be overridden by many emitters in order
+ *  to rearange the order of the sections and to add or delete
+ *  sections.
+ *  Note: repeating sections such as methods, data, and passthru,
+ *  have a prolog and epilog method as well. The prolog method is
+ *  called before the first sections is processed and the epilog method
+ *  is called after the last section is processed.
+ *)
+const somMD_SOMTEmitC_somtGenerateSections = '::SOMTEmitC::somtGenerateSections';
+function SOMTEmitC_somtGenerateSections(somSelf: SOMTEmitC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtOpenSymbolsFile
+ *)
+type
+  somTP_SOMTEmitC_somtOpenSymbolsFile = function(somSelf: SOMTEmitC;
+		fileName, mode: CORBAString): PFILE; stdcall;
+  somTD_SOMTEmitC_somtOpenSymbolsFile = somTP_SOMTEmitC_somtOpenSymbolsFile;
+(*
+ *  This method attempts to open the symbols file.
+ *  If file doesn't exist then it will attempt to find it in the
+ *  directories specified in the SMINCLUDE environment variable.
+ *  If the file can be found a FILE * pointer is returned, otherwise
+ *  NULL is returned.
+ *)
+const somMD_SOMTEmitC_somtOpenSymbolsFile = '::SOMTEmitC::somtOpenSymbolsFile';
+function SOMTEmitC_somtOpenSymbolsFile(somSelf: SOMTEmitC;
+  fileName, mode: CORBAString): PFILE; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtSetPredefinedSymbols
+ *)
+type
+  somTP_SOMTEmitC_somtSetPredefinedSymbols = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtSetPredefinedSymbols = somTP_SOMTEmitC_somtSetPredefinedSymbols;
+(*
+ *  Set predefined symbols that are used for such things as section
+ *  names etc.
+ *)
+const somMD_SOMTEmitC_somtSetPredefinedSymbols = '::SOMTEmitC::somtSetPredefinedSymbols';
+procedure SOMTEmitC_somtSetPredefinedSymbols(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtFileSymbols
+ *)
+type
+  somTP_SOMTEmitC_somtFileSymbols = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtFileSymbols = somTP_SOMTEmitC_somtFileSymbols;
+(*
+ *  Symbols that are common to the file.  This includes the target
+ *  class symbols, and the metaclass symbols, and special symbols
+ *  like <timeStamp>.  IE, all symbols that have a single definition.
+ *)
+const somMD_SOMTEmitC_somtFileSymbols = '::SOMTEmitC::somtFileSymbols';
+procedure SOMTEmitC_somtFileSymbols(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitProlog = somTP_SOMTEmitC_somtEmitProlog;
+const somMD_SOMTEmitC_somtEmitProlog = '::SOMTEmitC::somtEmitProlog';
+procedure SOMTEmitC_somtEmitProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitBaseIncludesProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitBaseIncludesProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitBaseIncludesProlog = somTP_SOMTEmitC_somtEmitBaseIncludesProlog;
+const somMD_SOMTEmitC_somtEmitBaseIncludesProlog = '::SOMTEmitC::somtEmitBaseIncludesProlog';
+procedure SOMTEmitC_somtEmitBaseIncludesProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitBaseIncludes
+ *)
+type
+  somTP_SOMTEmitC_somtEmitBaseIncludes = procedure(somSelf: SOMTEmitC;
+		base: SOMTBaseClassEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitBaseIncludes = somTP_SOMTEmitC_somtEmitBaseIncludes;
+const somMD_SOMTEmitC_somtEmitBaseIncludes = '::SOMTEmitC::somtEmitBaseIncludes';
+procedure SOMTEmitC_somtEmitBaseIncludes(somSelf: SOMTEmitC;
+  base: SOMTBaseClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitBaseIncludesEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitBaseIncludesEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitBaseIncludesEpilog = somTP_SOMTEmitC_somtEmitBaseIncludesEpilog;
+const somMD_SOMTEmitC_somtEmitBaseIncludesEpilog = '::SOMTEmitC::somtEmitBaseIncludesEpilog';
+procedure SOMTEmitC_somtEmitBaseIncludesEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitMetaInclude
+ *)
+type
+  somTP_SOMTEmitC_somtEmitMetaInclude = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitMetaInclude = somTP_SOMTEmitC_somtEmitMetaInclude;
+const somMD_SOMTEmitC_somtEmitMetaInclude = '::SOMTEmitC::somtEmitMetaInclude';
+procedure SOMTEmitC_somtEmitMetaInclude(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitClass
+ *)
+type
+  somTP_SOMTEmitC_somtEmitClass = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitClass = somTP_SOMTEmitC_somtEmitClass;
+const somMD_SOMTEmitC_somtEmitClass = '::SOMTEmitC::somtEmitClass';
+procedure SOMTEmitC_somtEmitClass(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitMeta
+ *)
+type
+  somTP_SOMTEmitC_somtEmitMeta = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitMeta = somTP_SOMTEmitC_somtEmitMeta;
+const somMD_SOMTEmitC_somtEmitMeta = '::SOMTEmitC::somtEmitMeta';
+procedure SOMTEmitC_somtEmitMeta(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitBaseProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitBaseProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitBaseProlog = somTP_SOMTEmitC_somtEmitBaseProlog;
+const somMD_SOMTEmitC_somtEmitBaseProlog = '::SOMTEmitC::somtEmitBaseProlog';
+procedure SOMTEmitC_somtEmitBaseProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitBase
+ *)
+type
+  somTP_SOMTEmitC_somtEmitBase = procedure(somSelf: SOMTEmitC;
+		base: SOMTBaseClassEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitBase = somTP_SOMTEmitC_somtEmitBase;
+const somMD_SOMTEmitC_somtEmitBase = '::SOMTEmitC::somtEmitBase';
+procedure SOMTEmitC_somtEmitBase(somSelf: SOMTEmitC;
+  base: SOMTBaseClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitBaseEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitBaseEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitBaseEpilog = somTP_SOMTEmitC_somtEmitBaseEpilog;
+const somMD_SOMTEmitC_somtEmitBaseEpilog = '::SOMTEmitC::somtEmitBaseEpilog';
+procedure SOMTEmitC_somtEmitBaseEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitPassthruProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitPassthruProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitPassthruProlog = somTP_SOMTEmitC_somtEmitPassthruProlog;
+const somMD_SOMTEmitC_somtEmitPassthruProlog = '::SOMTEmitC::somtEmitPassthruProlog';
+procedure SOMTEmitC_somtEmitPassthruProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitPassthru
+ *)
+type
+  somTP_SOMTEmitC_somtEmitPassthru = procedure(somSelf: SOMTEmitC;
+		entry: SOMTPassthruEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitPassthru = somTP_SOMTEmitC_somtEmitPassthru;
+const somMD_SOMTEmitC_somtEmitPassthru = '::SOMTEmitC::somtEmitPassthru';
+procedure SOMTEmitC_somtEmitPassthru(somSelf: SOMTEmitC;
+  entry: SOMTPassthruEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitPassthruEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitPassthruEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitPassthruEpilog = somTP_SOMTEmitC_somtEmitPassthruEpilog;
+const somMD_SOMTEmitC_somtEmitPassthruEpilog = '::SOMTEmitC::somtEmitPassthruEpilog';
+procedure SOMTEmitC_somtEmitPassthruEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitRelease
+ *)
+type
+  somTP_SOMTEmitC_somtEmitRelease = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitRelease = somTP_SOMTEmitC_somtEmitRelease;
+const somMD_SOMTEmitC_somtEmitRelease = '::SOMTEmitC::somtEmitRelease';
+procedure SOMTEmitC_somtEmitRelease(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitDataProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitDataProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitDataProlog = somTP_SOMTEmitC_somtEmitDataProlog;
+const somMD_SOMTEmitC_somtEmitDataProlog = '::SOMTEmitC::somtEmitDataProlog';
+procedure SOMTEmitC_somtEmitDataProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitData
+ *)
+type
+  somTP_SOMTEmitC_somtEmitData = procedure(somSelf: SOMTEmitC;
+		entry: SOMTDataEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitData = somTP_SOMTEmitC_somtEmitData;
+const somMD_SOMTEmitC_somtEmitData = '::SOMTEmitC::somtEmitData';
+procedure SOMTEmitC_somtEmitData(somSelf: SOMTEmitC;
+  entry: SOMTDataEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitDataEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitDataEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitDataEpilog = somTP_SOMTEmitC_somtEmitDataEpilog;
+const somMD_SOMTEmitC_somtEmitDataEpilog = '::SOMTEmitC::somtEmitDataEpilog';
+procedure SOMTEmitC_somtEmitDataEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitAttributeProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitAttributeProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitAttributeProlog = somTP_SOMTEmitC_somtEmitAttributeProlog;
+const somMD_SOMTEmitC_somtEmitAttributeProlog = '::SOMTEmitC::somtEmitAttributeProlog';
+procedure SOMTEmitC_somtEmitAttributeProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitAttribute
+ *)
+type
+  somTP_SOMTEmitC_somtEmitAttribute = procedure(somSelf: SOMTEmitC;
+		att: SOMTAttributeEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitAttribute = somTP_SOMTEmitC_somtEmitAttribute;
+const somMD_SOMTEmitC_somtEmitAttribute = '::SOMTEmitC::somtEmitAttribute';
+procedure SOMTEmitC_somtEmitAttribute(somSelf: SOMTEmitC;
+  att: SOMTAttributeEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitAttributeEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitAttributeEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitAttributeEpilog = somTP_SOMTEmitC_somtEmitAttributeEpilog;
+const somMD_SOMTEmitC_somtEmitAttributeEpilog = '::SOMTEmitC::somtEmitAttributeEpilog';
+procedure SOMTEmitC_somtEmitAttributeEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitConstantProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitConstantProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitConstantProlog = somTP_SOMTEmitC_somtEmitConstantProlog;
+const somMD_SOMTEmitC_somtEmitConstantProlog = '::SOMTEmitC::somtEmitConstantProlog';
+procedure SOMTEmitC_somtEmitConstantProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitConstant
+ *)
+type
+  somTP_SOMTEmitC_somtEmitConstant = procedure(somSelf: SOMTEmitC;
+		con: SOMTConstEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitConstant = somTP_SOMTEmitC_somtEmitConstant;
+const somMD_SOMTEmitC_somtEmitConstant = '::SOMTEmitC::somtEmitConstant';
+procedure SOMTEmitC_somtEmitConstant(somSelf: SOMTEmitC;
+  con: SOMTConstEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitConstantEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitConstantEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitConstantEpilog = somTP_SOMTEmitC_somtEmitConstantEpilog;
+const somMD_SOMTEmitC_somtEmitConstantEpilog = '::SOMTEmitC::somtEmitConstantEpilog';
+procedure SOMTEmitC_somtEmitConstantEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitTypedefProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitTypedefProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitTypedefProlog = somTP_SOMTEmitC_somtEmitTypedefProlog;
+const somMD_SOMTEmitC_somtEmitTypedefProlog = '::SOMTEmitC::somtEmitTypedefProlog';
+procedure SOMTEmitC_somtEmitTypedefProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitTypedef
+ *)
+type
+  somTP_SOMTEmitC_somtEmitTypedef = procedure(somSelf: SOMTEmitC;
+		td: SOMTTypedefEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitTypedef = somTP_SOMTEmitC_somtEmitTypedef;
+const somMD_SOMTEmitC_somtEmitTypedef = '::SOMTEmitC::somtEmitTypedef';
+procedure SOMTEmitC_somtEmitTypedef(somSelf: SOMTEmitC;
+  td: SOMTTypedefEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitTypedefEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitTypedefEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitTypedefEpilog = somTP_SOMTEmitC_somtEmitTypedefEpilog;
+const somMD_SOMTEmitC_somtEmitTypedefEpilog = '::SOMTEmitC::somtEmitTypedefEpilog';
+procedure SOMTEmitC_somtEmitTypedefEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitStructProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitStructProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitStructProlog = somTP_SOMTEmitC_somtEmitStructProlog;
+const somMD_SOMTEmitC_somtEmitStructProlog = '::SOMTEmitC::somtEmitStructProlog';
+procedure SOMTEmitC_somtEmitStructProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitStruct
+ *)
+type
+  somTP_SOMTEmitC_somtEmitStruct = procedure(somSelf: SOMTEmitC;
+		struc: SOMTStructEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitStruct = somTP_SOMTEmitC_somtEmitStruct;
+const somMD_SOMTEmitC_somtEmitStruct = '::SOMTEmitC::somtEmitStruct';
+procedure SOMTEmitC_somtEmitStruct(somSelf: SOMTEmitC;
+  struc: SOMTStructEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitStructEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitStructEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitStructEpilog = somTP_SOMTEmitC_somtEmitStructEpilog;
+const somMD_SOMTEmitC_somtEmitStructEpilog = '::SOMTEmitC::somtEmitStructEpilog';
+procedure SOMTEmitC_somtEmitStructEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitUnionProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitUnionProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitUnionProlog = somTP_SOMTEmitC_somtEmitUnionProlog;
+const somMD_SOMTEmitC_somtEmitUnionProlog = '::SOMTEmitC::somtEmitUnionProlog';
+procedure SOMTEmitC_somtEmitUnionProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitUnion
+ *)
+type
+  somTP_SOMTEmitC_somtEmitUnion = procedure(somSelf: SOMTEmitC;
+		un: SOMTUnionEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitUnion = somTP_SOMTEmitC_somtEmitUnion;
+const somMD_SOMTEmitC_somtEmitUnion = '::SOMTEmitC::somtEmitUnion';
+procedure SOMTEmitC_somtEmitUnion(somSelf: SOMTEmitC;
+  un: SOMTUnionEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitUnionEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitUnionEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitUnionEpilog = somTP_SOMTEmitC_somtEmitUnionEpilog;
+const somMD_SOMTEmitC_somtEmitUnionEpilog = '::SOMTEmitC::somtEmitUnionEpilog';
+procedure SOMTEmitC_somtEmitUnionEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitEnumProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitEnumProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitEnumProlog = somTP_SOMTEmitC_somtEmitEnumProlog;
+const somMD_SOMTEmitC_somtEmitEnumProlog = '::SOMTEmitC::somtEmitEnumProlog';
+procedure SOMTEmitC_somtEmitEnumProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitEnum
+ *)
+type
+  somTP_SOMTEmitC_somtEmitEnum = procedure(somSelf: SOMTEmitC;
+		en: SOMTEnumEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitEnum = somTP_SOMTEmitC_somtEmitEnum;
+const somMD_SOMTEmitC_somtEmitEnum = '::SOMTEmitC::somtEmitEnum';
+procedure SOMTEmitC_somtEmitEnum(somSelf: SOMTEmitC;
+  en: SOMTEnumEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitEnumEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitEnumEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitEnumEpilog = somTP_SOMTEmitC_somtEmitEnumEpilog;
+const somMD_SOMTEmitC_somtEmitEnumEpilog = '::SOMTEmitC::somtEmitEnumEpilog';
+procedure SOMTEmitC_somtEmitEnumEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitInterfaceProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitInterfaceProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitInterfaceProlog = somTP_SOMTEmitC_somtEmitInterfaceProlog;
+const somMD_SOMTEmitC_somtEmitInterfaceProlog = '::SOMTEmitC::somtEmitInterfaceProlog';
+procedure SOMTEmitC_somtEmitInterfaceProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitInterface
+ *)
+type
+  somTP_SOMTEmitC_somtEmitInterface = procedure(somSelf: SOMTEmitC;
+		intfc: SOMTClassEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitInterface = somTP_SOMTEmitC_somtEmitInterface;
+const somMD_SOMTEmitC_somtEmitInterface = '::SOMTEmitC::somtEmitInterface';
+procedure SOMTEmitC_somtEmitInterface(somSelf: SOMTEmitC;
+  intfc: SOMTClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitInterfaceEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitInterfaceEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitInterfaceEpilog = somTP_SOMTEmitC_somtEmitInterfaceEpilog;
+const somMD_SOMTEmitC_somtEmitInterfaceEpilog = '::SOMTEmitC::somtEmitInterfaceEpilog';
+procedure SOMTEmitC_somtEmitInterfaceEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitModuleProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitModuleProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitModuleProlog = somTP_SOMTEmitC_somtEmitModuleProlog;
+const somMD_SOMTEmitC_somtEmitModuleProlog = '::SOMTEmitC::somtEmitModuleProlog';
+procedure SOMTEmitC_somtEmitModuleProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitModule
+ *)
+type
+  somTP_SOMTEmitC_somtEmitModule = procedure(somSelf: SOMTEmitC;
+		module: SOMTModuleEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitModule = somTP_SOMTEmitC_somtEmitModule;
+const somMD_SOMTEmitC_somtEmitModule = '::SOMTEmitC::somtEmitModule';
+procedure SOMTEmitC_somtEmitModule(somSelf: SOMTEmitC;
+  module: SOMTModuleEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitModuleEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitModuleEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitModuleEpilog = somTP_SOMTEmitC_somtEmitModuleEpilog;
+const somMD_SOMTEmitC_somtEmitModuleEpilog = '::SOMTEmitC::somtEmitModuleEpilog';
+procedure SOMTEmitC_somtEmitModuleEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitMethodsProlog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitMethodsProlog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitMethodsProlog = somTP_SOMTEmitC_somtEmitMethodsProlog;
+const somMD_SOMTEmitC_somtEmitMethodsProlog = '::SOMTEmitC::somtEmitMethodsProlog';
+procedure SOMTEmitC_somtEmitMethodsProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitMethods
+ *)
+type
+  somTP_SOMTEmitC_somtEmitMethods = procedure(somSelf: SOMTEmitC;
+		method: SOMTMethodEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitMethods = somTP_SOMTEmitC_somtEmitMethods;
+const somMD_SOMTEmitC_somtEmitMethods = '::SOMTEmitC::somtEmitMethods';
+procedure SOMTEmitC_somtEmitMethods(somSelf: SOMTEmitC;
+  method: SOMTMethodEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitMethodsEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitMethodsEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitMethodsEpilog = somTP_SOMTEmitC_somtEmitMethodsEpilog;
+const somMD_SOMTEmitC_somtEmitMethodsEpilog = '::SOMTEmitC::somtEmitMethodsEpilog';
+procedure SOMTEmitC_somtEmitMethodsEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitMethod
+ *)
+type
+  somTP_SOMTEmitC_somtEmitMethod = procedure(somSelf: SOMTEmitC;
+		method: SOMTMethodEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitMethod = somTP_SOMTEmitC_somtEmitMethod;
+const somMD_SOMTEmitC_somtEmitMethod = '::SOMTEmitC::somtEmitMethod';
+procedure SOMTEmitC_somtEmitMethod(somSelf: SOMTEmitC;
+  method: SOMTMethodEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitEpilog
+ *)
+type
+  somTP_SOMTEmitC_somtEmitEpilog = procedure(somSelf: SOMTEmitC); stdcall;
+  somTD_SOMTEmitC_somtEmitEpilog = somTP_SOMTEmitC_somtEmitEpilog;
+const somMD_SOMTEmitC_somtEmitEpilog = '::SOMTEmitC::somtEmitEpilog';
+procedure SOMTEmitC_somtEmitEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanBases
+ *)
+type
+  somTP_SOMTEmitC_somtScanBases = function(somSelf: SOMTEmitC;
+		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanBases = somTP_SOMTEmitC_somtScanBases;
+const somMD_SOMTEmitC_somtScanBases = '::SOMTEmitC::somtScanBases';
+function SOMTEmitC_somtScanBases(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtCheckVisibility
+ *)
+type
+  somTP_SOMTEmitC_somtCheckVisibility = function(somSelf: SOMTEmitC;
+		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtCheckVisibility = somTP_SOMTEmitC_somtCheckVisibility;
+(*
+ *  Return 1 (true) if <entry> should be visible in the current
+ *  target file.  This method is used by each of the following filter
+ *  methods that are concerned with visibility.
+ *  The default rule for visibility is:
+ *    only private methods are visible in private target files,
+ *    only public methods are visibile in public target files,
+ *    all methods are visibile in implementation or <somtAllE> target
+ *    files.
+ *)
+const somMD_SOMTEmitC_somtCheckVisibility = '::SOMTEmitC::somtCheckVisibility';
+function SOMTEmitC_somtCheckVisibility(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtNew
+ *)
+type
+  somTP_SOMTEmitC_somtNew = function(somSelf: SOMTEmitC;
+		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtNew = somTP_SOMTEmitC_somtNew;
+(*
+ *  Returns 1 (true) if <entry> is a method introduced by the target
+ *  class and its visibility matches <somtTargetType> (somtImplementationE
+ *  matches both private and public)
+ *)
+const somMD_SOMTEmitC_somtNew = '::SOMTEmitC::somtNew';
+function SOMTEmitC_somtNew(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtImplemented
+ *)
+type
+  somTP_SOMTEmitC_somtImplemented = function(somSelf: SOMTEmitC;
+		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtImplemented = somTP_SOMTEmitC_somtImplemented;
+(*
+ *  Returns 1 (true) if <entry> is a method introduced or overridden
+ *  by the target class and its visibility matches <somtTargetType>
+ *  (somtImplementationE matches both private and public)
+ *)
+const somMD_SOMTEmitC_somtImplemented = '::SOMTEmitC::somtImplemented';
+function SOMTEmitC_somtImplemented(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtOverridden
+ *)
+type
+  somTP_SOMTEmitC_somtOverridden = function(somSelf: SOMTEmitC;
+		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtOverridden = somTP_SOMTEmitC_somtOverridden;
+(*
+ *  Returns 1 (true) if <entry> is an overridding method of the target class
+ *  and its visibility matches <somtTargetType> (somtImplementationE
+ *  matches both private and public)
+ *)
+const somMD_SOMTEmitC_somtOverridden = '::SOMTEmitC::somtOverridden';
+function SOMTEmitC_somtOverridden(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtInherited
+ *)
+type
+  somTP_SOMTEmitC_somtInherited = function(somSelf: SOMTEmitC;
+		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtInherited = somTP_SOMTEmitC_somtInherited;
+(*
+ *  Returns 1 (true) if <entry> is inherited
+ *  by the target class and its visibility matches <somtTargetType>
+ *  (somtImplementationE matches both private and public)
+ *)
+const somMD_SOMTEmitC_somtInherited = '::SOMTEmitC::somtInherited';
+function SOMTEmitC_somtInherited(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtAllVisible
+ *)
+type
+  somTP_SOMTEmitC_somtAllVisible = function(somSelf: SOMTEmitC;
+		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtAllVisible = somTP_SOMTEmitC_somtAllVisible;
+(*
+ *  Returns 1 (true) if <entry> is supported by the target class and
+ *  its visibility matches <somtTargetType> (somtImplementationE
+ *  matches both private and public)
+ *)
+const somMD_SOMTEmitC_somtAllVisible = '::SOMTEmitC::somtAllVisible';
+function SOMTEmitC_somtAllVisible(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtAll
+ *)
+type
+  somTP_SOMTEmitC_somtAll = function(somSelf: SOMTEmitC;
+		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtAll = somTP_SOMTEmitC_somtAll;
+(*
+ *  Returns 1 (true) if <entry> is supported by the target class.
+ *)
+const somMD_SOMTEmitC_somtAll = '::SOMTEmitC::somtAll';
+function SOMTEmitC_somtAll(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtNewNoProc
+ *)
+type
+  somTP_SOMTEmitC_somtNewNoProc = function(somSelf: SOMTEmitC;
+		entry: SOMTEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtNewNoProc = somTP_SOMTEmitC_somtNewNoProc;
+(*
+ *  Returns 1 (true) if somtNew does and the method
+ *  IS NOT a direct call Procedure.
+ *)
+const somMD_SOMTEmitC_somtNewNoProc = '::SOMTEmitC::somtNewNoProc';
+function SOMTEmitC_somtNewNoProc(somSelf: SOMTEmitC;
+  entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtPrivOrPub
+ *)
+type
+  somTP_SOMTEmitC_somtPrivOrPub = function(somSelf: SOMTEmitC;
+		entry: SOMTEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtPrivOrPub = somTP_SOMTEmitC_somtPrivOrPub;
+(*
+ *  Returns 1 (true) if entry is Private or Public.
+ *)
+const somMD_SOMTEmitC_somtPrivOrPub = '::SOMTEmitC::somtPrivOrPub';
+function SOMTEmitC_somtPrivOrPub(somSelf: SOMTEmitC;
+  entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtNewProc
+ *)
+type
+  somTP_SOMTEmitC_somtNewProc = function(somSelf: SOMTEmitC;
+		entry: SOMTEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtNewProc = somTP_SOMTEmitC_somtNewProc;
+(*
+ *  Returns 1 (true) if somtNew does and the method
+ *  IS a direct call Procedure.
+ *)
+const somMD_SOMTEmitC_somtNewProc = '::SOMTEmitC::somtNewProc';
+function SOMTEmitC_somtNewProc(somSelf: SOMTEmitC;
+  entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtLink
+ *)
+type
+  somTP_SOMTEmitC_somtLink = function(somSelf: SOMTEmitC;
+		entry: SOMTEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtLink = somTP_SOMTEmitC_somtLink;
+(*
+ *  Returns 1 (true) if "nolink" is not set.
+ *)
+const somMD_SOMTEmitC_somtLink = '::SOMTEmitC::somtLink';
+function SOMTEmitC_somtLink(somSelf: SOMTEmitC;
+  entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtVA
+ *)
+type
+  somTP_SOMTEmitC_somtVA = function(somSelf: SOMTEmitC;
+		entry: SOMTEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtVA = somTP_SOMTEmitC_somtVA;
+(*
+ *  Returns 1 (true) if entry is a VarArgs method.
+ *)
+const somMD_SOMTEmitC_somtVA = '::SOMTEmitC::somtVA';
+function SOMTEmitC_somtVA(somSelf: SOMTEmitC;
+  entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanMethods
+ *)
+type
+  somTP_SOMTEmitC_somtScanMethods = function(somSelf: SOMTEmitC;
+		filter, prolog, each, epilog: CORBAString;
+		forceProlog: CORBABoolean): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanMethods = somTP_SOMTEmitC_somtScanMethods;
+(*
+ *  Will only call <each> on methods accepted by <filter>.
+ *  If <forceProlog> is not true then the prolog and epilog emiters
+ *  will be called only if there is at least one method that passes
+ *  the filter.
+ *)
+const somMD_SOMTEmitC_somtScanMethods = '::SOMTEmitC::somtScanMethods';
+function SOMTEmitC_somtScanMethods(somSelf: SOMTEmitC;
+  filter, prolog, each, epilog: CORBAString;
+  forceProlog: CORBABoolean): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanConstants
+ *)
+type
+  somTP_SOMTEmitC_somtScanConstants = function(somSelf: SOMTEmitC;
+		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanConstants = somTP_SOMTEmitC_somtScanConstants;
+const somMD_SOMTEmitC_somtScanConstants = '::SOMTEmitC::somtScanConstants';
+function SOMTEmitC_somtScanConstants(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanTypedefs
+ *)
+type
+  somTP_SOMTEmitC_somtScanTypedefs = function(somSelf: SOMTEmitC;
+		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanTypedefs = somTP_SOMTEmitC_somtScanTypedefs;
+const somMD_SOMTEmitC_somtScanTypedefs = '::SOMTEmitC::somtScanTypedefs';
+function SOMTEmitC_somtScanTypedefs(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanStructs
+ *)
+type
+  somTP_SOMTEmitC_somtScanStructs = function(somSelf: SOMTEmitC;
+		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanStructs = somTP_SOMTEmitC_somtScanStructs;
+const somMD_SOMTEmitC_somtScanStructs = '::SOMTEmitC::somtScanStructs';
+function SOMTEmitC_somtScanStructs(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanUnions
+ *)
+type
+  somTP_SOMTEmitC_somtScanUnions = function(somSelf: SOMTEmitC;
+		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanUnions = somTP_SOMTEmitC_somtScanUnions;
+const somMD_SOMTEmitC_somtScanUnions = '::SOMTEmitC::somtScanUnions';
+function SOMTEmitC_somtScanUnions(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanEnums
+ *)
+type
+  somTP_SOMTEmitC_somtScanEnums = function(somSelf: SOMTEmitC;
+		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanEnums = somTP_SOMTEmitC_somtScanEnums;
+const somMD_SOMTEmitC_somtScanEnums = '::SOMTEmitC::somtScanEnums';
+function SOMTEmitC_somtScanEnums(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanData
+ *)
+type
+  somTP_SOMTEmitC_somtScanData = function(somSelf: SOMTEmitC;
+		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanData = somTP_SOMTEmitC_somtScanData;
+const somMD_SOMTEmitC_somtScanData = '::SOMTEmitC::somtScanData';
+function SOMTEmitC_somtScanData(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanAttributes
+ *)
+type
+  somTP_SOMTEmitC_somtScanAttributes = function(somSelf: SOMTEmitC;
+		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanAttributes = somTP_SOMTEmitC_somtScanAttributes;
+const somMD_SOMTEmitC_somtScanAttributes = '::SOMTEmitC::somtScanAttributes';
+function SOMTEmitC_somtScanAttributes(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanInterfaces
+ *)
+type
+  somTP_SOMTEmitC_somtScanInterfaces = function(somSelf: SOMTEmitC;
+		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanInterfaces = somTP_SOMTEmitC_somtScanInterfaces;
+const somMD_SOMTEmitC_somtScanInterfaces = '::SOMTEmitC::somtScanInterfaces';
+function SOMTEmitC_somtScanInterfaces(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanModules
+ *)
+type
+  somTP_SOMTEmitC_somtScanModules = function(somSelf: SOMTEmitC;
+		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanModules = somTP_SOMTEmitC_somtScanModules;
+const somMD_SOMTEmitC_somtScanModules = '::SOMTEmitC::somtScanModules';
+function SOMTEmitC_somtScanModules(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanPassthru
+ *)
+type
+  somTP_SOMTEmitC_somtScanPassthru = function(somSelf: SOMTEmitC;
+		before: CORBABoolean; prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanPassthru = somTP_SOMTEmitC_somtScanPassthru;
+const somMD_SOMTEmitC_somtScanPassthru = '::SOMTEmitC::somtScanPassthru';
+function SOMTEmitC_somtScanPassthru(somSelf: SOMTEmitC;
+  before: CORBABoolean; prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtEmitFullPassthru
+ *)
+type
+  somTP_SOMTEmitC_somtEmitFullPassthru = procedure(somSelf: SOMTEmitC;
+		before: CORBABoolean; language: CORBAString); stdcall;
+  somTD_SOMTEmitC_somtEmitFullPassthru = somTP_SOMTEmitC_somtEmitFullPassthru;
+(*
+ *  Emits each passthru section defined for the language and targetType,
+ *  and the result of the somtIsBeforePassthru method is equal to the
+ *  before parameter.  (before = 1(true), or before = 0(false), i.e. after.)
+ *)
+const somMD_SOMTEmitC_somtEmitFullPassthru = '::SOMTEmitC::somtEmitFullPassthru';
+procedure SOMTEmitC_somtEmitFullPassthru(somSelf: SOMTEmitC;
+  before: CORBABoolean; language: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanDataF
+ *)
+type
+  somTP_SOMTEmitC_somtScanDataF = function(somSelf: SOMTEmitC;
+		filter, prolog, each, epilog: CORBAString;
+		forceProlog: CORBABoolean): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanDataF = somTP_SOMTEmitC_somtScanDataF;
+(*
+ *  This method is like somtScanData but it also provides a paramater
+ *  for a filter method.
+ *)
+const somMD_SOMTEmitC_somtScanDataF = '::SOMTEmitC::somtScanDataF';
+function SOMTEmitC_somtScanDataF(somSelf: SOMTEmitC;
+  filter, prolog, each, epilog: CORBAString;
+  forceProlog: CORBABoolean): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtScanBasesF
+ *)
+type
+  somTP_SOMTEmitC_somtScanBasesF = function(somSelf: SOMTEmitC;
+		filter, prolog, each, epilog: CORBAString;
+		forceProlog: CORBABoolean): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanBasesF = somTP_SOMTEmitC_somtScanBasesF;
+(*
+ *  This method is like somtScanBases but it also provides a paramater
+ *  for a filter method.
+ *)
+const somMD_SOMTEmitC_somtScanBasesF = '::SOMTEmitC::somtScanBasesF';
+function SOMTEmitC_somtScanBasesF(somSelf: SOMTEmitC;
+  filter, prolog, each, epilog: CORBAString;
+  forceProlog: CORBABoolean): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetGlobalModifierValue
+ *)
+type
+  somTP_SOMTEmitC_somtGetGlobalModifierValue = function(somSelf: SOMTEmitC;
+		modifierName: CORBAString): CORBAString; stdcall;
+  somTD_SOMTEmitC_somtGetGlobalModifierValue = somTP_SOMTEmitC_somtGetGlobalModifierValue;
+(*
+ *  Returns the value of the specified global modifier.
+ *  Global modifiers are specified when the SOM Compiler is invoked,
+ *  via the "-a" option.  For example,
+ *                        sc -a"foo=bar"  file.idl
+ *  specifies to the SOM Compiler and the emitters being run that
+ *  the global modifier "foo" has the value "bar."
+ *  Values of global modifiers are transient; they last only for the
+ *  duration of the compile for which they were specified.
+ *  If a modifier is specified in the "sc" command with no value,
+ *  as in
+ *                        sc -afoo file.idl
+ *  then the result of this method will be non-NULL.
+ *  If no such modifier is specified, then the result is NULL.
+ *)
+const somMD_SOMTEmitC_somtGetGlobalModifierValue = '::SOMTEmitC::somtGetGlobalModifierValue';
+function SOMTEmitC_somtGetGlobalModifierValue(somSelf: SOMTEmitC;
+  modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstGlobalDefinition
+ *)
+type
+  somTP_SOMTEmitC_somtGetFirstGlobalDefinition = function(somSelf: SOMTEmitC): SOMTEntryC; stdcall;
+  somTD_SOMTEmitC_somtGetFirstGlobalDefinition = somTP_SOMTEmitC_somtGetFirstGlobalDefinition;
+(*
+ *  Returns the first type or constant definition that is not
+ *  associated with any interface or module.
+ *  These global definitions must be surrounded by the somemittypes
+ *  pragmas for them to be visible via this method.
+ *  E.g., #pragma somemittypes on
+ *        ....
+ *        #pragma someemittypes off
+ *  The list of global definitions returned by this method and
+ *  the somtGetNextGlobalDefinition method may include entries
+ *  for forward declarations as well as typedefs and constants.
+ *  Global structs and unions are also included in the list.
+ *)
+const somMD_SOMTEmitC_somtGetFirstGlobalDefinition = '::SOMTEmitC::somtGetFirstGlobalDefinition';
+function SOMTEmitC_somtGetFirstGlobalDefinition(somSelf: SOMTEmitC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextGlobalDefinition
+ *)
+type
+  somTP_SOMTEmitC_somtGetNextGlobalDefinition = function(somSelf: SOMTEmitC): SOMTEntryC; stdcall;
+  somTD_SOMTEmitC_somtGetNextGlobalDefinition = somTP_SOMTEmitC_somtGetNextGlobalDefinition;
+(*
+ *  Returns the next type or constant definition that is not
+ *  associated with any interface or module, relative to a
+ *  previous call to somtGetFirstGlobalDefinition or
+ *  somtGetNextGlobalDefinition.
+ *)
+const somMD_SOMTEmitC_somtGetNextGlobalDefinition = '::SOMTEmitC::somtGetNextGlobalDefinition';
+function SOMTEmitC_somtGetNextGlobalDefinition(somSelf: SOMTEmitC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+
 
 implementation
 
@@ -4142,5 +5426,1008 @@ begin
     somTD_SOMTPassthruEntryC_somtIsBeforePassthru
      (SOM_Resolve(somSelf, cd.classObject, cd.somtIsBeforePassthru))(somSelf);
 end;
+
+// #include <scemit.h>
+
+function SOMTEmitCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTEmitCClassData: PSOMTEmitCClassDataStructure;
+
+function SOMTEmitCClassData: PSOMTEmitCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTEmitCClassData) then
+    Result := SOME_DLL_SOMTEmitCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTEmitCClassData, 'SOMTEmitCClassData');
+    Result := SOME_DLL_SOMTEmitCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTEmitCCClassData: PSOMTEmitCCClassDataStructure;
+
+function SOMTEmitCCClassData: PSOMTEmitCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTEmitCCClassData) then
+    Result := SOME_DLL_SOMTEmitCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTEmitCCClassData, 'SOMTEmitCCClassData');
+    Result := SOME_DLL_SOMTEmitCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTEmitC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTEmitCClassData.classObject;
+end;
+
+function SOMTEmitCNew: SOMTEmitC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTEmitC;
+  if not Assigned(cls) then cls := SOMTEmitCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTEmitCRenew(buf: Pointer): SOMTEmitC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTEmitC;
+  if not Assigned(cls) then cls := SOMTEmitCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTEmitC__get_somtTemplate(somSelf: SOMTEmitC): SOMTTemplateOutputC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC__get_somtTemplate
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTemplate))(somSelf);
+end;
+
+procedure SOMTEmitC__set_somtTemplate(somSelf: SOMTEmitC;
+  somtTemplate: SOMTTemplateOutputC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC__set_somtTemplate
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_somtTemplate))
+     (somSelf, somtTemplate);
+end;
+
+function SOMTEmitC__get_somtTargetFile(somSelf: SOMTEmitC): PFILE; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC__get_somtTargetFile
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTargetFile))(somSelf);
+end;
+
+procedure SOMTEmitC__set_somtTargetFile(somSelf: SOMTEmitC;
+  somtTargetFile: PFILE); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC__set_somtTargetFile
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_somtTargetFile))
+     (somSelf, somtTargetFile);
+end;
+
+function SOMTEmitC__get_somtTargetClass(somSelf: SOMTEmitC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC__get_somtTargetClass
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTargetClass))(somSelf);
+end;
+
+procedure SOMTEmitC__set_somtTargetClass(somSelf: SOMTEmitC;
+  somtTargetClass: SOMTClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC__set_somtTargetClass
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_somtTargetClass))
+     (somSelf, somtTargetClass);
+end;
+
+function SOMTEmitC__get_somtTargetModule(somSelf: SOMTEmitC): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC__get_somtTargetModule
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTargetModule))(somSelf);
+end;
+
+procedure SOMTEmitC__set_somtTargetModule(somSelf: SOMTEmitC;
+  somtTargetModule: SOMTModuleEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC__set_somtTargetModule
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_somtTargetModule))
+     (somSelf, somtTargetModule);
+end;
+
+function SOMTEmitC__get_somtTargetType(somSelf: SOMTEmitC): SOMTTargetTypeT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC__get_somtTargetType
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTargetType))(somSelf);
+end;
+
+procedure SOMTEmitC__set_somtTargetType(somSelf: SOMTEmitC;
+  somtTargetType: SOMTTargetTypeT); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC__set_somtTargetType
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_somtTargetType))
+     (somSelf, somtTargetType);
+end;
+
+function SOMTEmitC__get_somtEmitterName(somSelf: SOMTEmitC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC__get_somtEmitterName
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEmitterName))(somSelf);
+end;
+
+procedure SOMTEmitC__set_somtEmitterName(somSelf: SOMTEmitC;
+  somtEmitterName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC__set_somtEmitterName
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEmitterName))
+     (somSelf, somtEmitterName);
+end;
+
+function SOMTEmitC_somtGenerateSections(somSelf: SOMTEmitC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtGenerateSections
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGenerateSections))(somSelf);
+end;
+
+function SOMTEmitC_somtOpenSymbolsFile(somSelf: SOMTEmitC;
+  fileName, mode: CORBAString): PFILE; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtOpenSymbolsFile
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtOpenSymbolsFile))
+       (somSelf, fileName, mode);
+end;
+
+procedure SOMTEmitC_somtSetPredefinedSymbols(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtSetPredefinedSymbols
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtSetPredefinedSymbols))(somSelf);
+end;
+
+procedure SOMTEmitC_somtFileSymbols(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtFileSymbols
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtFileSymbols))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitBaseIncludesProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitBaseIncludesProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBaseIncludesProlog))
+     (somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitBaseIncludes(somSelf: SOMTEmitC;
+  base: SOMTBaseClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitBaseIncludes
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBaseIncludes))
+     (somSelf, base);
+end;
+
+procedure SOMTEmitC_somtEmitBaseIncludesEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitBaseIncludesEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBaseIncludesEpilog))
+     (somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitMetaInclude(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitMetaInclude
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMetaInclude))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitClass(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitClass
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitClass))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitMeta(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitMeta
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMeta))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitBaseProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitBaseProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBaseProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitBase(somSelf: SOMTEmitC;
+  base: SOMTBaseClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitBase
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBase))(somSelf, base);
+end;
+
+procedure SOMTEmitC_somtEmitBaseEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitBaseEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBaseEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitPassthruProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitPassthruProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitPassthruProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitPassthru(somSelf: SOMTEmitC;
+  entry: SOMTPassthruEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitPassthru
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitPassthru))(somSelf, entry);
+end;
+
+procedure SOMTEmitC_somtEmitPassthruEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitPassthruEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitPassthruEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitRelease(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitRelease
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitRelease))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitDataProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitDataProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitDataProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitData(somSelf: SOMTEmitC;
+  entry: SOMTDataEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitData
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitData))(somSelf, entry);
+end;
+
+procedure SOMTEmitC_somtEmitDataEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitDataEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitDataEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitAttributeProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitAttributeProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitAttributeProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitAttribute(somSelf: SOMTEmitC;
+  att: SOMTAttributeEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitAttribute
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitAttribute))(somSelf, att);
+end;
+
+procedure SOMTEmitC_somtEmitAttributeEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitAttributeEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitAttributeEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitConstantProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitConstantProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitConstantProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitConstant(somSelf: SOMTEmitC;
+  con: SOMTConstEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitConstant
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitConstant))(somSelf, con);
+end;
+
+procedure SOMTEmitC_somtEmitConstantEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitConstantEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitConstantEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitTypedefProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitTypedefProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitTypedefProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitTypedef(somSelf: SOMTEmitC;
+  td: SOMTTypedefEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitTypedef
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitTypedef))(somSelf, td);
+end;
+
+procedure SOMTEmitC_somtEmitTypedefEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitTypedefEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitTypedefEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitStructProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitStructProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitStructProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitStruct(somSelf: SOMTEmitC;
+  struc: SOMTStructEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitStruct
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitStruct))(somSelf, struc);
+end;
+
+procedure SOMTEmitC_somtEmitStructEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitStructEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitStructEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitUnionProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitUnionProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitUnionProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitUnion(somSelf: SOMTEmitC;
+  un: SOMTUnionEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitUnion
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitUnion))(somSelf, un);
+end;
+
+procedure SOMTEmitC_somtEmitUnionEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitUnionEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitUnionEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitEnumProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitEnumProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitEnumProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitEnum(somSelf: SOMTEmitC;
+  en: SOMTEnumEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitEnum
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitEnum))(somSelf, en);
+end;
+
+procedure SOMTEmitC_somtEmitEnumEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitEnumEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitEnumEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitInterfaceProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitInterfaceProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitInterfaceProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitInterface(somSelf: SOMTEmitC;
+  intfc: SOMTClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitInterface
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitInterface))(somSelf, intfc);
+end;
+
+procedure SOMTEmitC_somtEmitInterfaceEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitInterfaceEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitInterfaceEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitModuleProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitModuleProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitModuleProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitModule(somSelf: SOMTEmitC;
+  module: SOMTModuleEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitModule
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitModule))(somSelf, module);
+end;
+
+procedure SOMTEmitC_somtEmitModuleEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitModuleEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitModuleEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitMethodsProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitMethodsProlog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMethodsProlog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitMethods(somSelf: SOMTEmitC;
+  method: SOMTMethodEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitMethods
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMethods))(somSelf, method);
+end;
+
+procedure SOMTEmitC_somtEmitMethodsEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitMethodsEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMethodsEpilog))(somSelf);
+end;
+
+procedure SOMTEmitC_somtEmitMethod(somSelf: SOMTEmitC;
+  method: SOMTMethodEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitMethod
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMethod))(somSelf, method);
+end;
+
+procedure SOMTEmitC_somtEmitEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitEpilog
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitEpilog))(somSelf);
+end;
+
+function SOMTEmitC_somtScanBases(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanBases
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanBases))
+       (somSelf, prolog, each, epilog);
+end;
+
+function SOMTEmitC_somtCheckVisibility(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtCheckVisibility
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtCheckVisibility))
+       (somSelf, entry);
+end;
+
+function SOMTEmitC_somtNew(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtNew
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtNew))(somSelf, entry);
+end;
+
+function SOMTEmitC_somtImplemented(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtImplemented
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtImplemented))(somSelf, entry);
+end;
+
+function SOMTEmitC_somtOverridden(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtOverridden
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtOverridden))(somSelf, entry);
+end;
+
+function SOMTEmitC_somtInherited(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtInherited
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtInherited))(somSelf, entry);
+end;
+
+function SOMTEmitC_somtAllVisible(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtAllVisible
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtAllVisible))(somSelf, entry);
+end;
+
+function SOMTEmitC_somtAll(somSelf: SOMTEmitC;
+  entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtAll
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtAll))(somSelf, entry);
+end;
+
+function SOMTEmitC_somtNewNoProc(somSelf: SOMTEmitC;
+  entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtNewNoProc
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtNewNoProc))(somSelf, entry);
+end;
+
+function SOMTEmitC_somtPrivOrPub(somSelf: SOMTEmitC;
+  entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtPrivOrPub
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtPrivOrPub))(somSelf, entry);
+end;
+
+function SOMTEmitC_somtNewProc(somSelf: SOMTEmitC;
+  entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtNewProc
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtNewProc))(somSelf, entry);
+end;
+
+function SOMTEmitC_somtLink(somSelf: SOMTEmitC;
+  entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtLink
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtLink))(somSelf, entry);
+end;
+
+function SOMTEmitC_somtVA(somSelf: SOMTEmitC;
+  entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtVA
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtVA))(somSelf, entry);
+end;
+
+function SOMTEmitC_somtScanMethods(somSelf: SOMTEmitC;
+  filter, prolog, each, epilog: CORBAString;
+  forceProlog: CORBABoolean): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanMethods
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanMethods))
+       (somSelf, filter, prolog, each, epilog, forceProlog);
+end;
+
+function SOMTEmitC_somtScanConstants(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanConstants
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanConstants))
+       (somSelf, prolog, each, epilog);
+end;
+
+function SOMTEmitC_somtScanTypedefs(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanTypedefs
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanTypedefs))
+       (somSelf, prolog, each, epilog);
+end;
+
+function SOMTEmitC_somtScanStructs(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanStructs
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanStructs))
+       (somSelf, prolog, each, epilog);
+end;
+
+function SOMTEmitC_somtScanUnions(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanUnions
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanUnions))
+       (somSelf, prolog, each, epilog);
+end;
+
+function SOMTEmitC_somtScanEnums(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanEnums
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanEnums))
+       (somSelf, prolog, each, epilog);
+end;
+
+function SOMTEmitC_somtScanData(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanData
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanData))
+       (somSelf, prolog, each, epilog);
+end;
+
+function SOMTEmitC_somtScanAttributes(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanAttributes
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanAttributes))
+       (somSelf, prolog, each, epilog);
+end;
+
+function SOMTEmitC_somtScanInterfaces(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanInterfaces
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanInterfaces))
+       (somSelf, prolog, each, epilog);
+end;
+
+function SOMTEmitC_somtScanModules(somSelf: SOMTEmitC;
+  prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanModules
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanModules))
+       (somSelf, prolog, each, epilog);
+end;
+
+function SOMTEmitC_somtScanPassthru(somSelf: SOMTEmitC;
+  before: CORBABoolean; prolog, each, epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanPassthru
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanPassthru))
+       (somSelf, before, prolog, each, epilog);
+end;
+
+procedure SOMTEmitC_somtEmitFullPassthru(somSelf: SOMTEmitC;
+  before: CORBABoolean; language: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  somTD_SOMTEmitC_somtEmitFullPassthru
+   (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitFullPassthru))
+     (somSelf, before, language);
+end;
+
+function SOMTEmitC_somtScanDataF(somSelf: SOMTEmitC;
+  filter, prolog, each, epilog: CORBAString;
+  forceProlog: CORBABoolean): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanDataF
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanDataF))
+       (somSelf, filter, prolog, each, epilog, forceProlog);
+end;
+
+function SOMTEmitC_somtScanBasesF(somSelf: SOMTEmitC;
+  filter, prolog, each, epilog: CORBAString;
+  forceProlog: CORBABoolean): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtScanBasesF
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtScanBasesF))
+       (somSelf, filter, prolog, each, epilog, forceProlog);
+end;
+
+function SOMTEmitC_somtGetGlobalModifierValue(somSelf: SOMTEmitC;
+  modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtGetGlobalModifierValue
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetGlobalModifierValue))
+       (somSelf, modifierName);
+end;
+
+function SOMTEmitC_somtGetFirstGlobalDefinition(somSelf: SOMTEmitC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtGetFirstGlobalDefinition
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstGlobalDefinition))
+       (somSelf);
+end;
+
+function SOMTEmitC_somtGetNextGlobalDefinition(somSelf: SOMTEmitC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEmitCClassDataStructure;
+begin
+  cd := SOMTEmitCClassData;
+  Result :=
+    somTD_SOMTEmitC_somtGetNextGlobalDefinition
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextGlobalDefinition))
+       (somSelf);
+end;
+
+
 
 end.
