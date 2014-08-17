@@ -3742,6 +3742,267 @@ type
 const somMD_SOMTEmitC_somtGetNextGlobalDefinition = '::SOMTEmitC::somtGetNextGlobalDefinition';
 function SOMTEmitC_somtGetNextGlobalDefinition(somSelf: SOMTEmitC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scmodule.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTModuleEntryC = SOMTEntryC;
+
+const
+  SOMTModuleEntryC_MajorVersion = 2;
+  SOMTModuleEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTModuleEntryCNewClass(somtmajorVersion: integer4 = SOMTModuleEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTModuleEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTModuleEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtOuterModule: somMToken;
+	somtGetFirstModuleStruct: somMToken;
+	somtGetNextModuleStruct: somMToken;
+	somtGetFirstModuleTypedef: somMToken;
+	somtGetNextModuleTypedef: somMToken;
+	somtGetFirstModuleUnion: somMToken;
+	somtGetNextModuleUnion: somMToken;
+	somtGetFirstModuleEnum: somMToken;
+	somtGetNextModuleEnum: somMToken;
+	somtGetFirstModuleConstant: somMToken;
+	somtGetNextModuleConstant: somMToken;
+	somtGetFirstModuleSequence: somMToken;
+	somtGetNextModuleSequence: somMToken;
+	somtGetFirstInterface: somMToken;
+	somtGetNextInterface: somMToken;
+	somtGetFirstModule: somMToken;
+	somtGetNextModule: somMToken;
+	somtGetFirstModuleDef: somMToken;
+	somtGetNextModuleDef: somMToken;
+	_get_somtModuleFile: somMToken;
+end;
+PSOMTModuleEntryCClassDataStructure = ^SOMTModuleEntryCClassDataStructure;
+function SOMTModuleEntryCClassData: PSOMTModuleEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTModuleEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTModuleEntryCCClassDataStructure = ^SOMTModuleEntryCCClassDataStructure;
+function SOMTModuleEntryCCClassData: PSOMTModuleEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTModuleEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTModuleEntryC
+ *)
+function SOMTModuleEntryCNew: SOMTModuleEntryC;
+function SOMTModuleEntryCRenew(buf: Pointer): SOMTModuleEntryC;
+
+(*
+ * New Method: _get_somtOuterModule
+ *)
+type
+  somTP_SOMTModuleEntryC__get_somtOuterModule = function(somSelf: SOMTModuleEntryC): SOMTModuleEntryC; stdcall;
+  somTD_SOMTModuleEntryC__get_somtOuterModule = somTP_SOMTModuleEntryC__get_somtOuterModule;
+(*
+ *  The module enclosing this module, or NULL if there is none.
+ *)
+const somMD_SOMTModuleEntryC__get_somtOuterModule = '::SOMTModuleEntryC::_get_somtOuterModule';
+function SOMTModuleEntryC__get_somtOuterModule(somSelf: SOMTModuleEntryC): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtModuleFile
+ *)
+type
+  somTP_SOMTModuleEntryC__get_somtModuleFile = function(somSelf: SOMTModuleEntryC): CORBAString; stdcall;
+  somTD_SOMTModuleEntryC__get_somtModuleFile = somTP_SOMTModuleEntryC__get_somtModuleFile;
+(*
+ *  The name of the file in which the module appears.
+ *)
+const somMD_SOMTModuleEntryC__get_somtModuleFile = '::SOMTModuleEntryC::_get_somtModuleFile';
+function SOMTModuleEntryC__get_somtModuleFile(somSelf: SOMTModuleEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstModuleStruct
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetFirstModuleStruct = function(somSelf: SOMTModuleEntryC): SOMTStructEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleStruct = somTP_SOMTModuleEntryC_somtGetFirstModuleStruct;
+const somMD_SOMTModuleEntryC_somtGetFirstModuleStruct = '::SOMTModuleEntryC::somtGetFirstModuleStruct';
+function SOMTModuleEntryC_somtGetFirstModuleStruct(somSelf: SOMTModuleEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextModuleStruct
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetNextModuleStruct = function(somSelf: SOMTModuleEntryC): SOMTStructEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleStruct = somTP_SOMTModuleEntryC_somtGetNextModuleStruct;
+const somMD_SOMTModuleEntryC_somtGetNextModuleStruct = '::SOMTModuleEntryC::somtGetNextModuleStruct';
+function SOMTModuleEntryC_somtGetNextModuleStruct(somSelf: SOMTModuleEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstModuleTypedef
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetFirstModuleTypedef = function(somSelf: SOMTModuleEntryC): SOMTTypedefEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleTypedef = somTP_SOMTModuleEntryC_somtGetFirstModuleTypedef;
+const somMD_SOMTModuleEntryC_somtGetFirstModuleTypedef = '::SOMTModuleEntryC::somtGetFirstModuleTypedef';
+function SOMTModuleEntryC_somtGetFirstModuleTypedef(somSelf: SOMTModuleEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextModuleTypedef
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetNextModuleTypedef = function(somSelf: SOMTModuleEntryC): SOMTTypedefEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleTypedef = somTP_SOMTModuleEntryC_somtGetNextModuleTypedef;
+const somMD_SOMTModuleEntryC_somtGetNextModuleTypedef = '::SOMTModuleEntryC::somtGetNextModuleTypedef';
+function SOMTModuleEntryC_somtGetNextModuleTypedef(somSelf: SOMTModuleEntryC): SOMTTypedefEntryC;
+
+(*
+ * New Method: somtGetFirstModuleUnion
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetFirstModuleUnion = function(somSelf: SOMTModuleEntryC): SOMTUnionEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleUnion = somTP_SOMTModuleEntryC_somtGetFirstModuleUnion;
+const somMD_SOMTModuleEntryC_somtGetFirstModuleUnion = '::SOMTModuleEntryC::somtGetFirstModuleUnion';
+function SOMTModuleEntryC_somtGetFirstModuleUnion(somSelf: SOMTModuleEntryC): SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextModuleUnion
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetNextModuleUnion = function(somSelf: SOMTModuleEntryC): SOMTUnionEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleUnion = somTP_SOMTModuleEntryC_somtGetNextModuleUnion;
+const somMD_SOMTModuleEntryC_somtGetNextModuleUnion = '::SOMTModuleEntryC::somtGetNextModuleUnion';
+function SOMTModuleEntryC_somtGetNextModuleUnion(somSelf: SOMTModuleEntryC): SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstModuleEnum
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetFirstModuleEnum = function(somSelf: SOMTModuleEntryC): SOMTEnumEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleEnum = somTP_SOMTModuleEntryC_somtGetFirstModuleEnum;
+const somMD_SOMTModuleEntryC_somtGetFirstModuleEnum = '::SOMTModuleEntryC::somtGetFirstModuleEnum';
+function SOMTModuleEntryC_somtGetFirstModuleEnum(somSelf: SOMTModuleEntryC): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextModuleEnum
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetNextModuleEnum = function(somSelf: SOMTModuleEntryC): SOMTEnumEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleEnum = somTP_SOMTModuleEntryC_somtGetNextModuleEnum;
+const somMD_SOMTModuleEntryC_somtGetNextModuleEnum = '::SOMTModuleEntryC::somtGetNextModuleEnum';
+function SOMTModuleEntryC_somtGetNextModuleEnum(somSelf: SOMTModuleEntryC): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstModuleConstant
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetFirstModuleConstant = function(somSelf: SOMTModuleEntryC): SOMTConstEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleConstant = somTP_SOMTModuleEntryC_somtGetFirstModuleConstant;
+const somMD_SOMTModuleEntryC_somtGetFirstModuleConstant = '::SOMTModuleEntryC::somtGetFirstModuleConstant';
+function SOMTModuleEntryC_somtGetFirstModuleConstant(somSelf: SOMTModuleEntryC): SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextModuleConstant
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetNextModuleConstant = function(somSelf: SOMTModuleEntryC): SOMTConstEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleConstant = somTP_SOMTModuleEntryC_somtGetNextModuleConstant;
+const somMD_SOMTModuleEntryC_somtGetNextModuleConstant = '::SOMTModuleEntryC::somtGetNextModuleConstant';
+function SOMTModuleEntryC_somtGetNextModuleConstant(somSelf: SOMTModuleEntryC): SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstModuleSequence
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetFirstModuleSequence = function(somSelf: SOMTModuleEntryC): SOMTSequenceEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleSequence = somTP_SOMTModuleEntryC_somtGetFirstModuleSequence;
+const somMD_SOMTModuleEntryC_somtGetFirstModuleSequence = '::SOMTModuleEntryC::somtGetFirstModuleSequence';
+function SOMTModuleEntryC_somtGetFirstModuleSequence(somSelf: SOMTModuleEntryC): SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextModuleSequence
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetNextModuleSequence = function(somSelf: SOMTModuleEntryC): SOMTSequenceEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleSequence = somTP_SOMTModuleEntryC_somtGetNextModuleSequence;
+const somMD_SOMTModuleEntryC_somtGetNextModuleSequence = '::SOMTModuleEntryC::somtGetNextModuleSequence';
+function SOMTModuleEntryC_somtGetNextModuleSequence(somSelf: SOMTModuleEntryC): SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstInterface
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetFirstInterface = function(somSelf: SOMTModuleEntryC): SOMTClassEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstInterface = somTP_SOMTModuleEntryC_somtGetFirstInterface;
+const somMD_SOMTModuleEntryC_somtGetFirstInterface = '::SOMTModuleEntryC::somtGetFirstInterface';
+function SOMTModuleEntryC_somtGetFirstInterface(somSelf: SOMTModuleEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextInterface
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetNextInterface = function(somSelf: SOMTModuleEntryC): SOMTClassEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextInterface = somTP_SOMTModuleEntryC_somtGetNextInterface;
+const somMD_SOMTModuleEntryC_somtGetNextInterface = '::SOMTModuleEntryC::somtGetNextInterface';
+function SOMTModuleEntryC_somtGetNextInterface(somSelf: SOMTModuleEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstModule
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetFirstModule = function(somSelf: SOMTModuleEntryC): SOMTModuleEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModule = somTP_SOMTModuleEntryC_somtGetFirstModule;
+const somMD_SOMTModuleEntryC_somtGetFirstModule = '::SOMTModuleEntryC::somtGetFirstModule';
+function SOMTModuleEntryC_somtGetFirstModule(somSelf: SOMTModuleEntryC): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextModule
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetNextModule = function(somSelf: SOMTModuleEntryC): SOMTModuleEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModule = somTP_SOMTModuleEntryC_somtGetNextModule;
+const somMD_SOMTModuleEntryC_somtGetNextModule = '::SOMTModuleEntryC::somtGetNextModule';
+function SOMTModuleEntryC_somtGetNextModule(somSelf: SOMTModuleEntryC): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstModuleDef
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetFirstModuleDef = function(somSelf: SOMTModuleEntryC): SOMTEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleDef = somTP_SOMTModuleEntryC_somtGetFirstModuleDef;
+const somMD_SOMTModuleEntryC_somtGetFirstModuleDef = '::SOMTModuleEntryC::somtGetFirstModuleDef';
+function SOMTModuleEntryC_somtGetFirstModuleDef(somSelf: SOMTModuleEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextModuleDef
+ *)
+type
+  somTP_SOMTModuleEntryC_somtGetNextModuleDef = function(somSelf: SOMTModuleEntryC): SOMTEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleDef = somTP_SOMTModuleEntryC_somtGetNextModuleDef;
+const somMD_SOMTModuleEntryC_somtGetNextModuleDef = '::SOMTModuleEntryC::somtGetNextModuleDef';
+function SOMTModuleEntryC_somtGetNextModuleDef(somSelf: SOMTModuleEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+
+
+
+
+
+
+
 
 
 implementation
@@ -6428,6 +6689,260 @@ begin
        (somSelf);
 end;
 
+// #include <scmodule.h> (not included in emitters by default, strictly speaking)
+
+function SOMTModuleEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTModuleEntryCClassData: PSOMTModuleEntryCClassDataStructure;
+
+function SOMTModuleEntryCClassData: PSOMTModuleEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTModuleEntryCClassData) then
+    Result := SOME_DLL_SOMTModuleEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTModuleEntryCClassData, 'SOMTModuleEntryCClassData');
+    Result := SOME_DLL_SOMTModuleEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTModuleEntryCCClassData: PSOMTModuleEntryCCClassDataStructure;
+
+function SOMTModuleEntryCCClassData: PSOMTModuleEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTModuleEntryCCClassData) then
+    Result := SOME_DLL_SOMTModuleEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTModuleEntryCCClassData, 'SOMTModuleEntryCCClassData');
+    Result := SOME_DLL_SOMTModuleEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTModuleEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTModuleEntryCClassData.classObject;
+end;
+
+function SOMTModuleEntryCNew: SOMTModuleEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTModuleEntryC;
+  if not Assigned(cls) then cls := SOMTModuleEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTModuleEntryCRenew(buf: Pointer): SOMTModuleEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTModuleEntryC;
+  if not Assigned(cls) then cls := SOMTModuleEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTModuleEntryC__get_somtOuterModule(somSelf: SOMTModuleEntryC): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC__get_somtOuterModule
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtOuterModule))(somSelf);
+end;
+
+function SOMTModuleEntryC__get_somtModuleFile(somSelf: SOMTModuleEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC__get_somtModuleFile
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtModuleFile))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetFirstModuleStruct(somSelf: SOMTModuleEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetFirstModuleStruct
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleStruct))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetNextModuleStruct(somSelf: SOMTModuleEntryC): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetNextModuleStruct
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleStruct))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetFirstModuleTypedef(somSelf: SOMTModuleEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetFirstModuleTypedef
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleTypedef))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetNextModuleTypedef(somSelf: SOMTModuleEntryC): SOMTTypedefEntryC;
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetNextModuleTypedef
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleTypedef))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetFirstModuleUnion(somSelf: SOMTModuleEntryC): SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetFirstModuleUnion
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleUnion))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetNextModuleUnion(somSelf: SOMTModuleEntryC): SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetNextModuleUnion
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleUnion))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetFirstModuleEnum(somSelf: SOMTModuleEntryC): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetFirstModuleEnum
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleEnum))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetNextModuleEnum(somSelf: SOMTModuleEntryC): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetNextModuleEnum
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleEnum))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetFirstModuleConstant(somSelf: SOMTModuleEntryC): SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetFirstModuleConstant
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleConstant))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetNextModuleConstant(somSelf: SOMTModuleEntryC): SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetNextModuleConstant
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleConstant))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetFirstModuleSequence(somSelf: SOMTModuleEntryC): SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetFirstModuleSequence
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleSequence))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetNextModuleSequence(somSelf: SOMTModuleEntryC): SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetNextModuleSequence
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleSequence))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetFirstInterface(somSelf: SOMTModuleEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetFirstInterface
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstInterface))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetNextInterface(somSelf: SOMTModuleEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetNextInterface
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextInterface))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetFirstModule(somSelf: SOMTModuleEntryC): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetFirstModule
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModule))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetNextModule(somSelf: SOMTModuleEntryC): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetNextModule
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModule))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetFirstModuleDef(somSelf: SOMTModuleEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetFirstModuleDef
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleDef))(somSelf);
+end;
+
+function SOMTModuleEntryC_somtGetNextModuleDef(somSelf: SOMTModuleEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTModuleEntryCClassDataStructure;
+begin
+  cd := SOMTModuleEntryCClassData;
+  Result :=
+    somTD_SOMTModuleEntryC_somtGetNextModuleDef
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleDef))(somSelf);
+end;
 
 
 end.
