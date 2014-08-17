@@ -12,7 +12,8 @@ uses
   SOM.DelphiFeatures in 'SOM.DelphiFeatures.pas',
   SOM.Thin.Emitter in 'SOM.Thin.Emitter.pas',
   SOM.Thin.DLL in 'SOM.Thin.DLL.pas',
-  SOM.Thin.RTL in 'SOM.Thin.RTL.pas';
+  SOM.Thin.RTL in 'SOM.Thin.RTL.pas',
+  SOM.Thin.TypeCodes in 'SOM.Thin.TypeCodes.pas';
 
 var
   ev: PEnvironment;
@@ -47,7 +48,6 @@ begin
 end;
 
 begin
-  { TODO -oUser -cConsole Main : Insert code here }
   try
     WriteLn('Testing SOMObject v', SOM_MajorVersion, '.', SOM_MinorVersion);
     SOM_MainProgram;

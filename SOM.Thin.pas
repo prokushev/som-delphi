@@ -14,6 +14,7 @@ uses
 
 type
   va_list = type Pointer;
+  Pva_list = ^va_list;
 
 // #include <somplatf.h>
 
@@ -481,6 +482,7 @@ type
 
 (* SOM extensions for sequence manipulation *)
   GENERIC_SEQUENCE = _IDL_SEQUENCE_void;
+  PGENERIC_SEQUENCE = ^GENERIC_SEQUENCE;
 
 // function somExceptionId(ev: PEnvironment): PAnsiChar; stdcall; // (moved down)
 // function somExceptionValue(ev: PEnvironment): Pointer; stdcall; // (moved down)
@@ -2219,6 +2221,7 @@ const
 
 (* SOM extensions for sequence manipulation *)
 //   GENERIC_SEQUENCE = _IDL_SEQUENCE_void;
+//   PGENERIC_SEQUENCE = ^GENERIC_SEQUENCE;
 
 function somExceptionId(ev: PEnvironment): PAnsiChar; stdcall;
 function somExceptionValue(ev: PEnvironment): Pointer; stdcall;
