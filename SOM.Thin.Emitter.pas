@@ -5465,13 +5465,17 @@ function SOMStringTableC_somstGetIthValue(somSelf: SOMStringTableC;
  *         File:    emitlib.h.
  *     Contents:    General routines used by Emitter Framework.
  *)
-{...}
 
-
-
-
-
-
+(* New versions ending in SL for SOMLINK *)
+function somtopenEmitFileSL(fileName, ext: PAnsiChar): PFILE; stdcall;
+function somtfcloseSL(fp: PFILE): Integer; stdcall;
+procedure somterrorSL(fileName: PAnsiChar; lineno: LongInt; fmt: PAnsiChar); cdecl; varargs;
+procedure somtfatalSL(fileName: PAnsiChar; lineno: LongInt; fmt: PAnsiChar); cdecl; varargs;
+procedure somtinternalSL(fileName: PAnsiChar; lineno: LongInt; fmt: PAnsiChar); cdecl; varargs;
+procedure somtmsgSL(fileName: PAnsiChar; lineno: LongInt; fmt: PAnsiChar); cdecl; varargs;
+procedure somtresetEmitSignalsSL; stdcall;
+procedure somtunsetEmitSignalsSL; stdcall;
+procedure somtwarnSL(fileName: PAnsiChar; lineno: LongInt; fmt: PAnsiChar); cdecl; varargs;
 
 
 
@@ -9703,6 +9707,18 @@ begin
     somTD_SOMStringTableC_somstGetIthValue
      (SOM_Resolve(somSelf, cd.classObject, cd.somstGetIthValue))(somSelf, i);
 end;
+
+// #include <emitlib.h>
+
+function somtopenEmitFileSL; external SOMC_DLL_Name;
+function somtfcloseSL; external SOMC_DLL_Name;
+procedure somterrorSL; external SOMC_DLL_Name;
+procedure somtfatalSL; external SOMC_DLL_Name;
+procedure somtinternalSL; external SOMC_DLL_Name;
+procedure somtmsgSL; external SOMC_DLL_Name;
+procedure somtresetEmitSignalsSL; external SOMC_DLL_Name;
+procedure somtunsetEmitSignalsSL; external SOMC_DLL_Name;
+procedure somtwarnSL; external SOMC_DLL_Name;
 
 end.
 

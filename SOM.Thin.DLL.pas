@@ -13,6 +13,7 @@ var
 const
   SOM_DLL_Name = 'som.dll';
   SOME_DLL_Name = 'some.dll';
+  SOMC_DLL_Name = 'somc.dll';
 
 implementation
 
