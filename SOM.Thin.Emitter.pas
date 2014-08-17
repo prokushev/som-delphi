@@ -5149,6 +5149,67 @@ type
 const somMD_SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj = '::SOMTUserDefinedTypeEntryC::_get_somtBaseTypeObj';
 function SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj(somSelf: SOMTUserDefinedTypeEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scstring.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+type
+  SOMTStringEntryC = SOMTEntryC;
+
+const
+  SOMTStringEntryC_MajorVersion = 2;
+  SOMTStringEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTStringEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTStringEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTStringEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTStringEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtStringLength: somMToken;
+end;
+PSOMTStringEntryCClassDataStructure = ^SOMTStringEntryCClassDataStructure;
+function SOMTStringEntryCClassData: PSOMTStringEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTStringEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTStringEntryCCClassDataStructure = ^SOMTStringEntryCCClassDataStructure;
+function SOMTStringEntryCCClassData: PSOMTStringEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTStringEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTStringEntryC
+ *)
+function SOMTStringEntryCNew: SOMTStringEntryC;
+function SOMTStringEntryCRenew(buf: Pointer): SOMTStringEntryC;
+
+(*
+ * New Method: _get_somtStringLength
+ *)
+type
+  somTP_SOMTStringEntryC__get_somtStringLength = function(somSelf: SOMTStringEntryC): LongInt; stdcall;
+  somTD_SOMTStringEntryC__get_somtStringLength = somTP_SOMTStringEntryC__get_somtStringLength;
+(*
+ *  The length of the string.
+ *)
+const somMD_SOMTStringEntryC__get_somtStringLength = '::SOMTStringEntryC::_get_somtStringLength';
+function SOMTStringEntryC__get_somtStringLength(somSelf: SOMTStringEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 
@@ -9142,6 +9203,71 @@ begin
   Result :=
     somTD_SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj
      (SOM_Resolve(somSelf, cd.classObject, cd._get_somtBaseTypeObj))(somSelf);
+end;
+
+// #include <scstring.h> (not included in emitters by default, strictly speaking)
+
+function SOMTStringEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTStringEntryCClassData: PSOMTStringEntryCClassDataStructure;
+
+function SOMTStringEntryCClassData: PSOMTStringEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTStringEntryCClassData) then
+    Result := SOME_DLL_SOMTStringEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTStringEntryCClassData, 'SOMTStringEntryCClassData');
+    Result := SOME_DLL_SOMTStringEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTStringEntryCCClassData: PSOMTStringEntryCCClassDataStructure;
+
+function SOMTStringEntryCCClassData: PSOMTStringEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTStringEntryCCClassData) then
+    Result := SOME_DLL_SOMTStringEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTStringEntryCCClassData, 'SOMTStringEntryCCClassData');
+    Result := SOME_DLL_SOMTStringEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTStringEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTStringEntryCClassData.classObject;
+end;
+
+function SOMTStringEntryCNew: SOMTStringEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTStringEntryC;
+  if not Assigned(cls) then cls := SOMTStringEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTStringEntryCRenew(buf: Pointer): SOMTStringEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTStringEntryC;
+  if not Assigned(cls) then cls := SOMTStringEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTStringEntryC__get_somtStringLength(somSelf: SOMTStringEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTStringEntryCClassDataStructure;
+begin
+  cd := SOMTStringEntryCClassData;
+  Result :=
+    somTD_SOMTStringEntryC__get_somtStringLength
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtStringLength))(somSelf);
 end;
 
 end.
