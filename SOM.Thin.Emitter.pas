@@ -4751,6 +4751,81 @@ type
 const somMD_SOMTUnionEntryC_somtGetNextCaseEntry = '::SOMTUnionEntryC::somtGetNextCaseEntry';
 function SOMTUnionEntryC_somtGetNextCaseEntry(somSelf: SOMTUnionEntryC): PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scenumnm.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+type
+  SOMTEnumNameEntryC = SOMTEntryC;
+
+const
+  SOMTEnumNameEntryC_MajorVersion = 2;
+  SOMTEnumNameEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTEnumNameEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTEnumNameEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTEnumNameEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTEnumNameEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtEnumPtr: somMToken;
+	_get_somtEnumVal: somMToken;
+end;
+PSOMTEnumNameEntryCClassDataStructure = ^SOMTEnumNameEntryCClassDataStructure;
+function SOMTEnumNameEntryCClassData: PSOMTEnumNameEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTEnumNameEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTEnumNameEntryCCClassDataStructure = ^SOMTEnumNameEntryCCClassDataStructure;
+function SOMTEnumNameEntryCCClassData: PSOMTEnumNameEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTEnumNameEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTEnumNameEntryC
+ *)
+function SOMTEnumNameEntryCNew: SOMTEnumNameEntryC;
+function SOMTEnumNameEntryCRenew(buf: Pointer): SOMTEnumNameEntryC;
+
+(*
+ * New Method: _get_somtEnumPtr
+ *)
+type
+  somTP_SOMTEnumNameEntryC__get_somtEnumPtr = function(somSelf: SOMTEnumNameEntryC): SOMTEnumEntryC; stdcall;
+  somTD_SOMTEnumNameEntryC__get_somtEnumPtr = somTP_SOMTEnumNameEntryC__get_somtEnumPtr;
+(*
+ *  A pointer to the enumerator.
+ *)
+const somMD_SOMTEnumNameEntryC__get_somtEnumPtr = '::SOMTEnumNameEntryC::_get_somtEnumPtr';
+function SOMTEnumNameEntryC__get_somtEnumPtr(somSelf: SOMTEnumNameEntryC): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtEnumVal
+ *)
+type
+  somTP_SOMTEnumNameEntryC__get_somtEnumVal = function(somSelf: SOMTEnumNameEntryC): LongWord; stdcall;
+  somTD_SOMTEnumNameEntryC__get_somtEnumVal = somTP_SOMTEnumNameEntryC__get_somtEnumVal;
+(*
+ *  The value of the enumeration.
+ *)
+const somMD_SOMTEnumNameEntryC__get_somtEnumVal = '::SOMTEnumNameEntryC::_get_somtEnumVal';
+function SOMTEnumNameEntryC__get_somtEnumVal(somSelf: SOMTEnumNameEntryC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
 
 
 
@@ -8365,8 +8440,80 @@ begin
      (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextCaseEntry))(somSelf);
 end;
 
+// #include <scenumnm.h> (not included in emitters by default, strictly speaking)
 
+function SOMTEnumNameEntryCNewClass; external SOME_DLL_Name;
 
+var
+  SOME_DLL_SOMTEnumNameEntryCClassData: PSOMTEnumNameEntryCClassDataStructure;
+
+function SOMTEnumNameEntryCClassData: PSOMTEnumNameEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTEnumNameEntryCClassData) then
+    Result := SOME_DLL_SOMTEnumNameEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTEnumNameEntryCClassData, 'SOMTEnumNameEntryCClassData');
+    Result := SOME_DLL_SOMTEnumNameEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTEnumNameEntryCCClassData: PSOMTEnumNameEntryCCClassDataStructure;
+
+function SOMTEnumNameEntryCCClassData: PSOMTEnumNameEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTEnumNameEntryCCClassData) then
+    Result := SOME_DLL_SOMTEnumNameEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTEnumNameEntryCCClassData, 'SOMTEnumNameEntryCCClassData');
+    Result := SOME_DLL_SOMTEnumNameEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTEnumNameEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTEnumNameEntryCClassData.classObject;
+end;
+
+function SOMTEnumNameEntryCNew: SOMTEnumNameEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTEnumNameEntryC;
+  if not Assigned(cls) then cls := SOMTEnumNameEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTEnumNameEntryCRenew(buf: Pointer): SOMTEnumNameEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTEnumNameEntryC;
+  if not Assigned(cls) then cls := SOMTEnumNameEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTEnumNameEntryC__get_somtEnumPtr(somSelf: SOMTEnumNameEntryC): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEnumNameEntryCClassDataStructure;
+begin
+  cd := SOMTEnumNameEntryCClassData;
+  Result :=
+    somTD_SOMTEnumNameEntryC__get_somtEnumPtr
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEnumPtr))(somSelf);
+end;
+
+function SOMTEnumNameEntryC__get_somtEnumVal(somSelf: SOMTEnumNameEntryC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTEnumNameEntryCClassDataStructure;
+begin
+  cd := SOMTEnumNameEntryCClassData;
+  Result :=
+    somTD_SOMTEnumNameEntryC__get_somtEnumVal
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEnumVal))(somSelf);
+end;
 
 
 
