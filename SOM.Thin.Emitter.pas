@@ -172,11 +172,6 @@ const
 type
   SOMTTemplateOutputC = SOMObject;
 
-(*
- * Start of bindings for IDL types
- *)
-  SOMStringTableC = SOMObject;
-
 const
   SOMTTemplateOutputC_MAX_INPUT_LINE_LENGTH = 1024;
   SOMTTemplateOutputC_MAX_OUTPUT_LINE_LENGTH = 4096;
@@ -5211,8 +5206,266 @@ type
 const somMD_SOMTStringEntryC__get_somtStringLength = '::SOMTStringEntryC::_get_somtStringLength';
 function SOMTStringEntryC__get_somtStringLength(somSelf: SOMTStringEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <somstrt.h> (not included in emitters by default, strictly speaking)
 
+(*
+ * Define the class name as an object type
+ *)
+type
+  SOMStringTableC = SOMObject;
+(*
+ *  Objects of the SOMStringTableC class are symbol tables that map null
+ *  terminated strings to null terminated strings.  While any instance
+ *  of this class can hold an indefinite number of sysbols, performance
+ *  will be inproved if the instance is created with an appropriate
+ *  maximum target capacity.
+ *)
 
+(*
+ * Passthru lines: File: "C.h", "after"
+ *)
+// function somstDupStr(str: PAnsiChar): PAnsiChar; stdcall; //? not found in DLL
+
+const
+  SOMStringTableC_MajorVersion = 2;
+  SOMStringTableC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMStringTableCNewClass(
+  somtmajorVersion: integer4 = SOMStringTableC_MajorVersion;
+  somtminorVersion: integer4 = SOMStringTableC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMStringTableCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somstTargetCapacity: somMToken;
+	_set_somstTargetCapacity: somMToken;
+	_get_somstAssociationsCount: somMToken;
+	somstAssociate: somMToken;
+	somstAssociateCopyKey: somMToken;
+	somstAssociateCopyValue: somMToken;
+	somstAssociateCopyBoth: somMToken;
+	somstGetAssociation: somMToken;
+	somstClearAssociation: somMToken;
+	somstGetIthKey: somMToken;
+	somstGetIthValue: somMToken;
+end;
+PSOMStringTableCClassDataStructure = ^SOMStringTableCClassDataStructure;
+function SOMStringTableCClassData: PSOMStringTableCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMStringTableCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMStringTableCCClassDataStructure = ^SOMStringTableCCClassDataStructure;
+function SOMStringTableCCClassData: PSOMStringTableCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMStringTableC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMStringTableC
+ *)
+function SOMStringTableCNew: SOMStringTableC;
+function SOMStringTableCRenew(buf: Pointer): SOMStringTableC;
+
+(*
+ * New Method: _get_somstTargetCapacity
+ *)
+type
+  somTP_SOMStringTableC__get_somstTargetCapacity = function(somSelf: SOMStringTableC): LongWord; stdcall;
+  somTD_SOMStringTableC__get_somstTargetCapacity = somTP_SOMStringTableC__get_somstTargetCapacity;
+(*
+ *  The expected maximum number of associations for this table.
+ *  Accuracy can result in improved performance.  A low target may
+ *  result in some storage saving, but at the cost of performance.
+ *  Note: this attribute must be set before any strings are added to
+ *  the string table or it will not be setable.
+ *)
+const somMD_SOMStringTableC__get_somstTargetCapacity = '::SOMStringTableC::_get_somstTargetCapacity';
+function SOMStringTableC__get_somstTargetCapacity(somSelf: SOMStringTableC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_somstTargetCapacity
+ *)
+type
+  somTP_SOMStringTableC__set_somstTargetCapacity = procedure(somSelf: SOMStringTableC;
+		somstTargetCapacity: LongWord); stdcall;
+  somTD_SOMStringTableC__set_somstTargetCapacity = somTP_SOMStringTableC__set_somstTargetCapacity;
+(*
+ *  The expected maximum number of associations for this table.
+ *  Accuracy can result in improved performance.  A low target may
+ *  result in some storage saving, but at the cost of performance.
+ *  Note: this attribute must be set before any strings are added to
+ *  the string table or it will not be setable.
+ *)
+const somMD_SOMStringTableC__set_somstTargetCapacity = '::SOMStringTableC::_set_somstTargetCapacity';
+procedure SOMStringTableC__set_somstTargetCapacity(somSelf: SOMStringTableC;
+  somstTargetCapacity: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somstAssociationsCount
+ *)
+type
+  somTP_SOMStringTableC__get_somstAssociationsCount = function(somSelf: SOMStringTableC): LongWord; stdcall;
+  somTD_SOMStringTableC__get_somstAssociationsCount = somTP_SOMStringTableC__get_somstAssociationsCount;
+(*
+ *  The number of associations currently in this table
+ *)
+const somMD_SOMStringTableC__get_somstAssociationsCount = '::SOMStringTableC::_get_somstAssociationsCount';
+function SOMStringTableC__get_somstAssociationsCount(somSelf: SOMStringTableC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somstAssociate
+ *)
+type
+  somTP_SOMStringTableC_somstAssociate = function(somSelf: SOMStringTableC;
+		key, value: CORBAString): SmallInt; stdcall;
+  somTD_SOMStringTableC_somstAssociate = somTP_SOMStringTableC_somstAssociate;
+(*
+ *  Associates <key> and <value>.  After this call, whenever <key> is
+ *  lookedup, <value> will be returned.
+ *  Zero will be returned if the association cannot be accomplished
+ *  (<key> is null, or memory is not available), -1 will be returned
+ *  if the association suceeds, but <key> had a previous association,
+ *  and 1 is returned if the association suceeds and <key> had no
+ *  previous association.
+ *  Note: the string table takes over ownership of both <key> and
+ *  <value>.
+ *)
+const somMD_SOMStringTableC_somstAssociate = '::SOMStringTableC::somstAssociate';
+function SOMStringTableC_somstAssociate(somSelf: SOMStringTableC;
+  key, value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somstAssociateCopyKey
+ *)
+type
+  somTP_SOMStringTableC_somstAssociateCopyKey = function(somSelf: SOMStringTableC;
+		key, value: CORBAString): SmallInt; stdcall;
+  somTD_SOMStringTableC_somstAssociateCopyKey = somTP_SOMStringTableC_somstAssociateCopyKey;
+(*
+ *  Same as <somstAssociate> except don't take ownership of <key>.
+ *)
+const somMD_SOMStringTableC_somstAssociateCopyKey = '::SOMStringTableC::somstAssociateCopyKey';
+function SOMStringTableC_somstAssociateCopyKey(somSelf: SOMStringTableC;
+  key, value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somstAssociateCopyValue
+ *)
+type
+  somTP_SOMStringTableC_somstAssociateCopyValue = function(somSelf: SOMStringTableC;
+		key, value: CORBAString): SmallInt; stdcall;
+  somTD_SOMStringTableC_somstAssociateCopyValue = somTP_SOMStringTableC_somstAssociateCopyValue;
+(*
+ *  Same as <somstAssociate> except don't take ownership of <value>.
+ *)
+const somMD_SOMStringTableC_somstAssociateCopyValue = '::SOMStringTableC::somstAssociateCopyValue';
+function SOMStringTableC_somstAssociateCopyValue(somSelf: SOMStringTableC;
+  key, value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somstAssociateCopyBoth
+ *)
+type
+  somTP_SOMStringTableC_somstAssociateCopyBoth = function(somSelf: SOMStringTableC;
+		key, value: CORBAString): SmallInt; stdcall;
+  somTD_SOMStringTableC_somstAssociateCopyBoth = somTP_SOMStringTableC_somstAssociateCopyBoth;
+(*
+ *  Same as <somstAssociate> except don't take ownership of <key> or
+ *  <value>.
+ *)
+const somMD_SOMStringTableC_somstAssociateCopyBoth = '::SOMStringTableC::somstAssociateCopyBoth';
+function SOMStringTableC_somstAssociateCopyBoth(somSelf: SOMStringTableC;
+  key, value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somstGetAssociation
+ *)
+type
+  somTP_SOMStringTableC_somstGetAssociation = function(somSelf: SOMStringTableC;
+		key: CORBAString): CORBAString; stdcall;
+  somTD_SOMStringTableC_somstGetAssociation = somTP_SOMStringTableC_somstGetAssociation;
+(*
+ *  The string associated with <key> is returned if there is one and
+ *  NULL is returned if <key> has no association.
+ *  The string table will maintain ownership of any returned value.
+ *)
+const somMD_SOMStringTableC_somstGetAssociation = '::SOMStringTableC::somstGetAssociation';
+function SOMStringTableC_somstGetAssociation(somSelf: SOMStringTableC;
+  key: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somstClearAssociation
+ *)
+type
+  somTP_SOMStringTableC_somstClearAssociation = function(somSelf: SOMStringTableC;
+		key: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMStringTableC_somstClearAssociation = somTP_SOMStringTableC_somstClearAssociation;
+(*
+ *  The association for <key>, if any, is removed.
+ *  1 is returned if <key> had an association, and 0 is returned if
+ *  it did not.
+ *)
+const somMD_SOMStringTableC_somstClearAssociation = '::SOMStringTableC::somstClearAssociation';
+function SOMStringTableC_somstClearAssociation(somSelf: SOMStringTableC;
+  key: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somstGetIthKey
+ *)
+type
+  somTP_SOMStringTableC_somstGetIthKey = function(somSelf: SOMStringTableC;
+		i: LongWord): CORBAString; stdcall;
+  somTD_SOMStringTableC_somstGetIthKey = somTP_SOMStringTableC_somstGetIthKey;
+(*
+ *  Returns the key part of the <i> association in this string table
+ *  if there is one and null otherwise.
+ *  The order of associations in a string table is not specified, but
+ *  will not change unless changes are made in the table.
+ *  Ownership of the key is retained, the pointer returned is valid
+ *  until any changes are made in the table.
+ *)
+const somMD_SOMStringTableC_somstGetIthKey = '::SOMStringTableC::somstGetIthKey';
+function SOMStringTableC_somstGetIthKey(somSelf: SOMStringTableC;
+  i: LongWord): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somstGetIthValue
+ *)
+type
+  somTP_SOMStringTableC_somstGetIthValue = function(somSelf: SOMStringTableC;
+		i: LongWord): CORBAString; stdcall;
+  somTD_SOMStringTableC_somstGetIthValue = somTP_SOMStringTableC_somstGetIthValue;
+(*
+ *  Returns the value part of the <i> association in this string table
+ *  if there is one and null otherwise.
+ *  The order of associations in a string table is not specified, but
+ *  will not change unless changes are made in the table.
+ *  Ownership of the value is retained, the pointer returned is valid
+ *  until any changes are made in the table.
+ *)
+const somMD_SOMStringTableC_somstGetIthValue = '::SOMStringTableC::somstGetIthValue';
+function SOMStringTableC_somstGetIthValue(somSelf: SOMStringTableC;
+  i: LongWord): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+// #include <emitlib.h>
+
+(*
+ *         File:    emitlib.h.
+ *     Contents:    General routines used by Emitter Framework.
+ *)
+{...}
 
 
 
@@ -9268,6 +9521,187 @@ begin
   Result :=
     somTD_SOMTStringEntryC__get_somtStringLength
      (SOM_Resolve(somSelf, cd.classObject, cd._get_somtStringLength))(somSelf);
+end;
+
+// #include <somstrt.h> (not included in emitters by default, strictly speaking)
+
+// function somstDupStr; external SOME_DLL_Name; //? not found in DLL
+function SOMStringTableCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMStringTableCClassData: PSOMStringTableCClassDataStructure;
+
+function SOMStringTableCClassData: PSOMStringTableCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMStringTableCClassData) then
+    Result := SOME_DLL_SOMStringTableCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMStringTableCClassData, 'SOMStringTableCClassData');
+    Result := SOME_DLL_SOMStringTableCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMStringTableCCClassData: PSOMStringTableCCClassDataStructure;
+
+function SOMStringTableCCClassData: PSOMStringTableCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMStringTableCCClassData) then
+    Result := SOME_DLL_SOMStringTableCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMStringTableCCClassData, 'SOMStringTableCCClassData');
+    Result := SOME_DLL_SOMStringTableCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMStringTableC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMStringTableCClassData.classObject;
+end;
+
+function SOMStringTableCNew: SOMStringTableC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMStringTableC;
+  if not Assigned(cls) then cls := SOMStringTableCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMStringTableCRenew(buf: Pointer): SOMStringTableC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMStringTableC;
+  if not Assigned(cls) then cls := SOMStringTableCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMStringTableC__get_somstTargetCapacity(somSelf: SOMStringTableC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMStringTableCClassDataStructure;
+begin
+  cd := SOMStringTableCClassData;
+  Result :=
+    somTD_SOMStringTableC__get_somstTargetCapacity
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somstTargetCapacity))(somSelf);
+end;
+
+procedure SOMStringTableC__set_somstTargetCapacity(somSelf: SOMStringTableC;
+  somstTargetCapacity: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMStringTableCClassDataStructure;
+begin
+  cd := SOMStringTableCClassData;
+  somTD_SOMStringTableC__set_somstTargetCapacity
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_somstTargetCapacity))
+     (somSelf, somstTargetCapacity);
+end;
+
+function SOMStringTableC__get_somstAssociationsCount(somSelf: SOMStringTableC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMStringTableCClassDataStructure;
+begin
+  cd := SOMStringTableCClassData;
+  Result :=
+    somTD_SOMStringTableC__get_somstAssociationsCount
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somstAssociationsCount))(somSelf);
+end;
+
+function SOMStringTableC_somstAssociate(somSelf: SOMStringTableC;
+  key, value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMStringTableCClassDataStructure;
+begin
+  cd := SOMStringTableCClassData;
+  Result :=
+    somTD_SOMStringTableC_somstAssociate
+     (SOM_Resolve(somSelf, cd.classObject, cd.somstAssociate))
+       (somSelf, key, value);
+end;
+
+function SOMStringTableC_somstAssociateCopyKey(somSelf: SOMStringTableC;
+  key, value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMStringTableCClassDataStructure;
+begin
+  cd := SOMStringTableCClassData;
+  Result :=
+    somTD_SOMStringTableC_somstAssociateCopyKey
+     (SOM_Resolve(somSelf, cd.classObject, cd.somstAssociateCopyKey))
+       (somSelf, key, value);
+end;
+
+function SOMStringTableC_somstAssociateCopyValue(somSelf: SOMStringTableC;
+  key, value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMStringTableCClassDataStructure;
+begin
+  cd := SOMStringTableCClassData;
+  Result :=
+    somTD_SOMStringTableC_somstAssociateCopyValue
+     (SOM_Resolve(somSelf, cd.classObject, cd.somstAssociateCopyValue))
+       (somSelf, key, value);
+end;
+
+function SOMStringTableC_somstAssociateCopyBoth(somSelf: SOMStringTableC;
+  key, value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMStringTableCClassDataStructure;
+begin
+  cd := SOMStringTableCClassData;
+  Result :=
+    somTD_SOMStringTableC_somstAssociateCopyBoth
+     (SOM_Resolve(somSelf, cd.classObject, cd.somstAssociateCopyBoth))
+       (somSelf, key, value);
+end;
+
+function SOMStringTableC_somstGetAssociation(somSelf: SOMStringTableC;
+  key: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMStringTableCClassDataStructure;
+begin
+  cd := SOMStringTableCClassData;
+  Result :=
+    somTD_SOMStringTableC_somstGetAssociation
+     (SOM_Resolve(somSelf, cd.classObject, cd.somstGetAssociation))
+       (somSelf, key);
+end;
+
+function SOMStringTableC_somstClearAssociation(somSelf: SOMStringTableC;
+  key: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMStringTableCClassDataStructure;
+begin
+  cd := SOMStringTableCClassData;
+  Result :=
+    somTD_SOMStringTableC_somstClearAssociation
+     (SOM_Resolve(somSelf, cd.classObject, cd.somstClearAssociation))
+       (somSelf, key);
+end;
+
+function SOMStringTableC_somstGetIthKey(somSelf: SOMStringTableC;
+  i: LongWord): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMStringTableCClassDataStructure;
+begin
+  cd := SOMStringTableCClassData;
+  Result :=
+    somTD_SOMStringTableC_somstGetIthKey
+     (SOM_Resolve(somSelf, cd.classObject, cd.somstGetIthKey))(somSelf, i);
+end;
+
+function SOMStringTableC_somstGetIthValue(somSelf: SOMStringTableC;
+  i: LongWord): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMStringTableCClassDataStructure;
+begin
+  cd := SOMStringTableCClassData;
+  Result :=
+    somTD_SOMStringTableC_somstGetIthValue
+     (SOM_Resolve(somSelf, cd.classObject, cd.somstGetIthValue))(somSelf, i);
 end;
 
 end.
