@@ -3757,7 +3757,8 @@ const
 (*
  * Declare the class creation procedure
  *)
-function SOMTModuleEntryCNewClass(somtmajorVersion: integer4 = SOMTModuleEntryC_MajorVersion;
+function SOMTModuleEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTModuleEntryC_MajorVersion;
   somtminorVersion: integer4 = SOMTModuleEntryC_MinorVersion): SOMClass; stdcall;
 
 (*
@@ -3995,6 +3996,69 @@ type
   somTD_SOMTModuleEntryC_somtGetNextModuleDef = somTP_SOMTModuleEntryC_somtGetNextModuleDef;
 const somMD_SOMTModuleEntryC_somtGetNextModuleDef = '::SOMTModuleEntryC::somtGetNextModuleDef';
 function SOMTModuleEntryC_somtGetNextModuleDef(somSelf: SOMTModuleEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+// #include <scbase.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTBaseClassEntryC = SOMTEntryC;
+
+const
+  SOMTBaseClassEntryC_MajorVersion = 2;
+  SOMTBaseClassEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTBaseClassEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTBaseClassEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTBaseClassEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTBaseClassEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtBaseClassDef: somMToken;
+end;
+PSOMTBaseClassEntryCClassDataStructure = ^SOMTBaseClassEntryCClassDataStructure;
+function SOMTBaseClassEntryCClassData: PSOMTBaseClassEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTBaseClassEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTBaseClassEntryCCClassDataStructure = ^SOMTBaseClassEntryCCClassDataStructure;
+function SOMTBaseClassEntryCCClassData: PSOMTBaseClassEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTBaseClassEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTBaseClassEntryC
+ *)
+function SOMTBaseClassEntryCNew: SOMTBaseClassEntryC;
+function SOMTBaseClassEntryCRenew(buf: Pointer): SOMTBaseClassEntryC;
+
+(*
+ * New Method: _get_somtBaseClassDef
+ *)
+type
+  somTP_SOMTBaseClassEntryC__get_somtBaseClassDef = function(somSelf: SOMTBaseClassEntryC): SOMTClassEntryC; stdcall;
+  somTD_SOMTBaseClassEntryC__get_somtBaseClassDef = somTP_SOMTBaseClassEntryC__get_somtBaseClassDef;
+(*
+ *  Returns the class definition entry for the Base class named in
+ *  this entry.
+ *)
+const somMD_SOMTBaseClassEntryC__get_somtBaseClassDef = '::SOMTBaseClassEntryC::_get_somtBaseClassDef';
+function SOMTBaseClassEntryC__get_somtBaseClassDef(somSelf: SOMTBaseClassEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 
@@ -6942,6 +7006,71 @@ begin
   Result :=
     somTD_SOMTModuleEntryC_somtGetNextModuleDef
      (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleDef))(somSelf);
+end;
+
+// #include <scbase.h> (not included in emitters by default, strictly speaking)
+
+function SOMTBaseClassEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTBaseClassEntryCClassData: PSOMTBaseClassEntryCClassDataStructure;
+
+function SOMTBaseClassEntryCClassData: PSOMTBaseClassEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTBaseClassEntryCClassData) then
+    Result := SOME_DLL_SOMTBaseClassEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTBaseClassEntryCClassData, 'SOMTBaseClassEntryCClassData');
+    Result := SOME_DLL_SOMTBaseClassEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTBaseClassEntryCCClassData: PSOMTBaseClassEntryCCClassDataStructure;
+
+function SOMTBaseClassEntryCCClassData: PSOMTBaseClassEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTBaseClassEntryCCClassData) then
+    Result := SOME_DLL_SOMTBaseClassEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTBaseClassEntryCCClassData, 'SOMTBaseClassEntryCCClassData');
+    Result := SOME_DLL_SOMTBaseClassEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTBaseClassEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTBaseClassEntryCClassData.classObject;
+end;
+
+function SOMTBaseClassEntryCNew: SOMTBaseClassEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTBaseClassEntryC;
+  if not Assigned(cls) then cls := SOMTBaseClassEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTBaseClassEntryCRenew(buf: Pointer): SOMTBaseClassEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTBaseClassEntryC;
+  if not Assigned(cls) then cls := SOMTBaseClassEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTBaseClassEntryC__get_somtBaseClassDef(somSelf: SOMTBaseClassEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTBaseClassEntryCClassDataStructure;
+begin
+  cd := SOMTBaseClassEntryCClassData;
+  Result :=
+    somTD_SOMTBaseClassEntryC__get_somtBaseClassDef
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtBaseClassDef))(somSelf);
 end;
 
 
