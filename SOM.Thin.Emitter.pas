@@ -4528,6 +4528,107 @@ type
 const somMD_SOMTTypedefEntryC_somtGetNextDeclarator = '::SOMTTypedefEntryC::somtGetNextDeclarator';
 function SOMTTypedefEntryC_somtGetNextDeclarator(somSelf: SOMTTypedefEntryC): SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scstruct.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTStructEntryC = SOMTEntryC;
+
+const
+  SOMTStructEntryC_MajorVersion = 2;
+  SOMTStructEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTStructEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTStructEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTStructEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTStructEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtStructClass: somMToken;
+	_get_somtIsException: somMToken;
+	somtGetFirstMember: somMToken;
+	somtGetNextMember: somMToken;
+end;
+PSOMTStructEntryCClassDataStructure = ^SOMTStructEntryCClassDataStructure;
+function SOMTStructEntryCClassData: PSOMTStructEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTStructEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTStructEntryCCClassDataStructure = ^SOMTStructEntryCCClassDataStructure;
+function SOMTStructEntryCCClassData: PSOMTStructEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTStructEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTStructEntryC
+ *)
+function SOMTStructEntryCNew: SOMTStructEntryC;
+function SOMTStructEntryCRenew(buf: Pointer): SOMTStructEntryC;
+
+(*
+ * New Method: somtGetFirstMember
+ *)
+type
+  somTP_SOMTStructEntryC_somtGetFirstMember = function(somSelf: SOMTStructEntryC): SOMTTypedefEntryC; stdcall;
+  somTD_SOMTStructEntryC_somtGetFirstMember = somTP_SOMTStructEntryC_somtGetFirstMember;
+(*
+ *  The first member of the struct.
+ *)
+const somMD_SOMTStructEntryC_somtGetFirstMember = '::SOMTStructEntryC::somtGetFirstMember';
+function SOMTStructEntryC_somtGetFirstMember(somSelf: SOMTStructEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextMember
+ *)
+type
+  somTP_SOMTStructEntryC_somtGetNextMember = function(somSelf: SOMTStructEntryC): SOMTTypedefEntryC; stdcall;
+  somTD_SOMTStructEntryC_somtGetNextMember = somTP_SOMTStructEntryC_somtGetNextMember;
+(*
+ *  The next member of the struct, relative to the previous call
+ *  to this method or somtGetFirstMember.
+ *)
+const somMD_SOMTStructEntryC_somtGetNextMember = '::SOMTStructEntryC::somtGetNextMember';
+function SOMTStructEntryC_somtGetNextMember(somSelf: SOMTStructEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtStructClass
+ *)
+type
+  somTP_SOMTStructEntryC__get_somtStructClass = function(somSelf: SOMTStructEntryC): SOMTClassEntryC; stdcall;
+  somTD_SOMTStructEntryC__get_somtStructClass = somTP_SOMTStructEntryC__get_somtStructClass;
+(*
+ *  The class in which the structure was defined.
+ *)
+const somMD_SOMTStructEntryC__get_somtStructClass = '::SOMTStructEntryC::_get_somtStructClass';
+function SOMTStructEntryC__get_somtStructClass(somSelf: SOMTStructEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtIsException
+ *)
+type
+  somTP_SOMTStructEntryC__get_somtIsException = function(somSelf: SOMTStructEntryC): CORBABoolean; stdcall;
+  somTD_SOMTStructEntryC__get_somtIsException = somTP_SOMTStructEntryC__get_somtIsException;
+(*
+ *  Whether the structure is really an exception.
+ *)
+const somMD_SOMTStructEntryC__get_somtIsException = '::SOMTStructEntryC::_get_somtIsException';
+function SOMTStructEntryC__get_somtIsException(somSelf: SOMTStructEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 
@@ -7952,5 +8053,99 @@ begin
      (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextDeclarator))(somSelf);
 end;
 
+// #include <scstruct.h> (not included in emitters by default, strictly speaking)
+
+function SOMTStructEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTStructEntryCClassData: PSOMTStructEntryCClassDataStructure;
+
+function SOMTStructEntryCClassData: PSOMTStructEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTStructEntryCClassData) then
+    Result := SOME_DLL_SOMTStructEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTStructEntryCClassData, 'SOMTStructEntryCClassData');
+    Result := SOME_DLL_SOMTStructEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTStructEntryCCClassData: PSOMTStructEntryCCClassDataStructure;
+
+function SOMTStructEntryCCClassData: PSOMTStructEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTStructEntryCCClassData) then
+    Result := SOME_DLL_SOMTStructEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTStructEntryCCClassData, 'SOMTStructEntryCCClassData');
+    Result := SOME_DLL_SOMTStructEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTStructEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTStructEntryCClassData.classObject;
+end;
+
+function SOMTStructEntryCNew: SOMTStructEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTStructEntryC;
+  if not Assigned(cls) then cls := SOMTStructEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTStructEntryCRenew(buf: Pointer): SOMTStructEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTStructEntryC;
+  if not Assigned(cls) then cls := SOMTStructEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTStructEntryC_somtGetFirstMember(somSelf: SOMTStructEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTStructEntryCClassDataStructure;
+begin
+  cd := SOMTStructEntryCClassData;
+  Result :=
+    somTD_SOMTStructEntryC_somtGetFirstMember
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstMember))(somSelf);
+end;
+
+function SOMTStructEntryC_somtGetNextMember(somSelf: SOMTStructEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTStructEntryCClassDataStructure;
+begin
+  cd := SOMTStructEntryCClassData;
+  Result :=
+    somTD_SOMTStructEntryC_somtGetNextMember
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextMember))(somSelf);
+end;
+
+function SOMTStructEntryC__get_somtStructClass(somSelf: SOMTStructEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTStructEntryCClassDataStructure;
+begin
+  cd := SOMTStructEntryCClassData;
+  Result :=
+    somTD_SOMTStructEntryC__get_somtStructClass
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtStructClass))(somSelf);
+end;
+
+function SOMTStructEntryC__get_somtIsException(somSelf: SOMTStructEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTStructEntryCClassDataStructure;
+begin
+  cd := SOMTStructEntryCClassData;
+  Result :=
+    somTD_SOMTStructEntryC__get_somtIsException
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsException))(somSelf);
+end;
 
 end.
