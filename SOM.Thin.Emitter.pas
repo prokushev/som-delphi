@@ -4123,6 +4123,166 @@ type
 const somMD_SOMTDataEntryC__get_somtIsSelfRef = '::SOMTDataEntryC::_get_somtIsSelfRef';
 function SOMTDataEntryC__get_somtIsSelfRef(somSelf: SOMTDataEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scattrib.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTAttributeEntryC = SOMTEntryC;
+
+const
+  SOMTAttributeEntryC_MajorVersion = 2;
+  SOMTAttributeEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTAttributeEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTAttributeEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTAttributeEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTAttributeEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtIsReadonly: somMToken;
+	_get_somtAttribType: somMToken;
+	somtGetFirstAttributeDeclarator: somMToken;
+	somtGetNextAttributeDeclarator: somMToken;
+	somtGetFirstGetMethod: somMToken;
+	somtGetNextGetMethod: somMToken;
+	somtGetFirstSetMethod: somMToken;
+	somtGetNextSetMethod: somMToken;
+end;
+PSOMTAttributeEntryCClassDataStructure = ^SOMTAttributeEntryCClassDataStructure;
+function SOMTAttributeEntryCClassData: PSOMTAttributeEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTAttributeEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTAttributeEntryCCClassDataStructure = ^SOMTAttributeEntryCCClassDataStructure;
+function SOMTAttributeEntryCCClassData: PSOMTAttributeEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTAttributeEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTAttributeEntryC
+ *)
+function SOMTAttributeEntryCNew: SOMTAttributeEntryC;
+function SOMTAttributeEntryCRenew(buf: Pointer): SOMTAttributeEntryC;
+
+(*
+ * New Method: _get_somtIsReadonly
+ *)
+type
+  somTP_SOMTAttributeEntryC__get_somtIsReadonly = function(somSelf: SOMTAttributeEntryC): CORBABoolean; stdcall;
+  somTD_SOMTAttributeEntryC__get_somtIsReadonly = somTP_SOMTAttributeEntryC__get_somtIsReadonly;
+(*
+ *  Whether the attribute is readonly.
+ *)
+const somMD_SOMTAttributeEntryC__get_somtIsReadonly = '::SOMTAttributeEntryC::_get_somtIsReadonly';
+function SOMTAttributeEntryC__get_somtIsReadonly(somSelf: SOMTAttributeEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtAttribType
+ *)
+type
+  somTP_SOMTAttributeEntryC__get_somtAttribType = function(somSelf: SOMTAttributeEntryC): SOMTEntryC; stdcall;
+  somTD_SOMTAttributeEntryC__get_somtAttribType = somTP_SOMTAttributeEntryC__get_somtAttribType;
+(*
+ *  The type of the attribute.  This does not include pointer stars
+ *  or array declarators.  To get the "full" type, get each attribute
+ *  declarator and get the somtType attribute.
+ *)
+const somMD_SOMTAttributeEntryC__get_somtAttribType = '::SOMTAttributeEntryC::_get_somtAttribType';
+function SOMTAttributeEntryC__get_somtAttribType(somSelf: SOMTAttributeEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstAttributeDeclarator
+ *)
+type
+  somTP_SOMTAttributeEntryC_somtGetFirstAttributeDeclarator = function(somSelf: SOMTAttributeEntryC): SOMTDataEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetFirstAttributeDeclarator = somTP_SOMTAttributeEntryC_somtGetFirstAttributeDeclarator;
+(*
+ *  The first attribute declarator for this attribute declaration.
+ *)
+const somMD_SOMTAttributeEntryC_somtGetFirstAttributeDeclarator = '::SOMTAttributeEntryC::somtGetFirstAttributeDeclarator';
+function SOMTAttributeEntryC_somtGetFirstAttributeDeclarator(somSelf: SOMTAttributeEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextAttributeDeclarator
+ *)
+type
+  somTP_SOMTAttributeEntryC_somtGetNextAttributeDeclarator = function(somSelf: SOMTAttributeEntryC): SOMTDataEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetNextAttributeDeclarator = somTP_SOMTAttributeEntryC_somtGetNextAttributeDeclarator;
+(*
+ *  The next attribute declarator for this attribute declaration,
+ *  relative to the previous call to this method or
+ *  somtGetFirstAttributeDeclarator.
+ *)
+const somMD_SOMTAttributeEntryC_somtGetNextAttributeDeclarator = '::SOMTAttributeEntryC::somtGetNextAttributeDeclarator';
+function SOMTAttributeEntryC_somtGetNextAttributeDeclarator(somSelf: SOMTAttributeEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstGetMethod
+ *)
+type
+  somTP_SOMTAttributeEntryC_somtGetFirstGetMethod = function(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetFirstGetMethod = somTP_SOMTAttributeEntryC_somtGetFirstGetMethod;
+(*
+ *  The first get method for this attribute declaration.
+ *)
+const somMD_SOMTAttributeEntryC_somtGetFirstGetMethod = '::SOMTAttributeEntryC::somtGetFirstGetMethod';
+function SOMTAttributeEntryC_somtGetFirstGetMethod(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextGetMethod
+ *)
+type
+  somTP_SOMTAttributeEntryC_somtGetNextGetMethod = function(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetNextGetMethod = somTP_SOMTAttributeEntryC_somtGetNextGetMethod;
+(*
+ *  The next get method for this attribute declaration,
+ *  relative to the previous call to this method or
+ *  somtGetFirstGetMethod.
+ *)
+const somMD_SOMTAttributeEntryC_somtGetNextGetMethod = '::SOMTAttributeEntryC::somtGetNextGetMethod';
+function SOMTAttributeEntryC_somtGetNextGetMethod(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstSetMethod
+ *)
+type
+  somTP_SOMTAttributeEntryC_somtGetFirstSetMethod = function(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetFirstSetMethod = somTP_SOMTAttributeEntryC_somtGetFirstSetMethod;
+(*
+ *  The first set method for this attribute declaration.
+ *)
+const somMD_SOMTAttributeEntryC_somtGetFirstSetMethod = '::SOMTAttributeEntryC::somtGetFirstSetMethod';
+function SOMTAttributeEntryC_somtGetFirstSetMethod(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextSetMethod
+ *)
+type
+  somTP_SOMTAttributeEntryC_somtGetNextSetMethod = function(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetNextSetMethod = somTP_SOMTAttributeEntryC_somtGetNextSetMethod;
+(*
+ *  The next set method for this attribute declaration,
+ *  relative to the previous call to this method or
+ *  somtGetFirstSetMethod.
+ *)
+const somMD_SOMTAttributeEntryC_somtGetNextSetMethod = '::SOMTAttributeEntryC::somtGetNextSetMethod';
+function SOMTAttributeEntryC_somtGetNextSetMethod(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 
@@ -7200,6 +7360,141 @@ begin
   Result :=
     somTD_SOMTDataEntryC__get_somtIsSelfRef
      (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsSelfRef))(somSelf);
+end;
+
+// #include <scattrib.h> (not included in emitters by default, strictly speaking)
+
+function SOMTAttributeEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTAttributeEntryCClassData: PSOMTAttributeEntryCClassDataStructure;
+
+function SOMTAttributeEntryCClassData: PSOMTAttributeEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTAttributeEntryCClassData) then
+    Result := SOME_DLL_SOMTAttributeEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTAttributeEntryCClassData, 'SOMTAttributeEntryCClassData');
+    Result := SOME_DLL_SOMTAttributeEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTAttributeEntryCCClassData: PSOMTAttributeEntryCCClassDataStructure;
+
+function SOMTAttributeEntryCCClassData: PSOMTAttributeEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTAttributeEntryCCClassData) then
+    Result := SOME_DLL_SOMTAttributeEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTAttributeEntryCCClassData, 'SOMTAttributeEntryCCClassData');
+    Result := SOME_DLL_SOMTAttributeEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTAttributeEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTAttributeEntryCClassData.classObject;
+end;
+
+function SOMTAttributeEntryCNew: SOMTAttributeEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTAttributeEntryC;
+  if not Assigned(cls) then cls := SOMTAttributeEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTAttributeEntryCRenew(buf: Pointer): SOMTAttributeEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTAttributeEntryC;
+  if not Assigned(cls) then cls := SOMTAttributeEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTAttributeEntryC__get_somtIsReadonly(somSelf: SOMTAttributeEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTAttributeEntryCClassDataStructure;
+begin
+  cd := SOMTAttributeEntryCClassData;
+  Result :=
+    somTD_SOMTAttributeEntryC__get_somtIsReadonly
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReadonly))(somSelf);
+end;
+
+function SOMTAttributeEntryC__get_somtAttribType(somSelf: SOMTAttributeEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTAttributeEntryCClassDataStructure;
+begin
+  cd := SOMTAttributeEntryCClassData;
+  Result :=
+    somTD_SOMTAttributeEntryC__get_somtAttribType
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtAttribType))(somSelf);
+end;
+
+function SOMTAttributeEntryC_somtGetFirstAttributeDeclarator(somSelf: SOMTAttributeEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTAttributeEntryCClassDataStructure;
+begin
+  cd := SOMTAttributeEntryCClassData;
+  Result :=
+    somTD_SOMTAttributeEntryC_somtGetFirstAttributeDeclarator
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstAttributeDeclarator))(somSelf);
+end;
+
+function SOMTAttributeEntryC_somtGetNextAttributeDeclarator(somSelf: SOMTAttributeEntryC): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTAttributeEntryCClassDataStructure;
+begin
+  cd := SOMTAttributeEntryCClassData;
+  Result :=
+    somTD_SOMTAttributeEntryC_somtGetNextAttributeDeclarator
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextAttributeDeclarator))(somSelf);
+end;
+
+function SOMTAttributeEntryC_somtGetFirstGetMethod(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTAttributeEntryCClassDataStructure;
+begin
+  cd := SOMTAttributeEntryCClassData;
+  Result :=
+    somTD_SOMTAttributeEntryC_somtGetFirstGetMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstGetMethod))(somSelf);
+end;
+
+function SOMTAttributeEntryC_somtGetNextGetMethod(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTAttributeEntryCClassDataStructure;
+begin
+  cd := SOMTAttributeEntryCClassData;
+  Result :=
+    somTD_SOMTAttributeEntryC_somtGetNextGetMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextGetMethod))(somSelf);
+end;
+
+function SOMTAttributeEntryC_somtGetFirstSetMethod(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTAttributeEntryCClassDataStructure;
+begin
+  cd := SOMTAttributeEntryCClassData;
+  Result :=
+    somTD_SOMTAttributeEntryC_somtGetFirstSetMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstSetMethod))(somSelf);
+end;
+
+function SOMTAttributeEntryC_somtGetNextSetMethod(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTAttributeEntryCClassDataStructure;
+begin
+  cd := SOMTAttributeEntryCClassData;
+  Result :=
+    somTD_SOMTAttributeEntryC_somtGetNextSetMethod
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextSetMethod))(somSelf);
 end;
 
 end.
