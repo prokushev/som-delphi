@@ -4433,6 +4433,101 @@ type
 const somMD_SOMTConstEntryC__get_somtConstVal = '::SOMTConstEntryC::_get_somtConstVal';
 function SOMTConstEntryC__get_somtConstVal(somSelf: SOMTConstEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <sctdef.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTTypedefEntryC = SOMTEntryC;
+
+const
+  SOMTTypedefEntryC_MajorVersion = 2;
+  SOMTTypedefEntryC_MinorVersion = 2;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTTypedefEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTTypedefEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTTypedefEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTTypedefEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtTypedefType: somMToken;
+	somtGetFirstDeclarator: somMToken;
+	somtGetNextDeclarator: somMToken;
+end;
+PSOMTTypedefEntryCClassDataStructure = ^SOMTTypedefEntryCClassDataStructure;
+function SOMTTypedefEntryCClassData: PSOMTTypedefEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTTypedefEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTTypedefEntryCCClassDataStructure = ^SOMTTypedefEntryCCClassDataStructure;
+function SOMTTypedefEntryCCClassData: PSOMTTypedefEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTTypedefEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTTypedefEntryC
+ *)
+function SOMTTypedefEntryCNew: SOMTTypedefEntryC;
+function SOMTTypedefEntryCRenew(buf: Pointer): SOMTTypedefEntryC;
+
+(*
+ * New Method: _get_somtTypedefType
+ *)
+type
+  somTP_SOMTTypedefEntryC__get_somtTypedefType = function(somSelf: SOMTTypedefEntryC): SOMTEntryC; stdcall;
+  somTD_SOMTTypedefEntryC__get_somtTypedefType = somTP_SOMTTypedefEntryC__get_somtTypedefType;
+(*
+ *  The type of the typedef. This does not include pointer stars or
+ *  array declarators.   These must be obtained by examining each
+ *  of the declarators.
+ *)
+const somMD_SOMTTypedefEntryC__get_somtTypedefType = '::SOMTTypedefEntryC::_get_somtTypedefType';
+function SOMTTypedefEntryC__get_somtTypedefType(somSelf: SOMTTypedefEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstDeclarator
+ *)
+type
+  somTP_SOMTTypedefEntryC_somtGetFirstDeclarator = function(somSelf: SOMTTypedefEntryC): SOMTCommonEntryC; stdcall;
+  somTD_SOMTTypedefEntryC_somtGetFirstDeclarator = somTP_SOMTTypedefEntryC_somtGetFirstDeclarator;
+(*
+ *  The first declarator for this typedef.
+ *  Declarators of struct members will be instances of SOMTDataEntryC,
+ *  while declarators of typedefs will be instances of SOMTUserDefinedTypeEntryC.
+ *)
+const somMD_SOMTTypedefEntryC_somtGetFirstDeclarator = '::SOMTTypedefEntryC::somtGetFirstDeclarator';
+function SOMTTypedefEntryC_somtGetFirstDeclarator(somSelf: SOMTTypedefEntryC): SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextDeclarator
+ *)
+type
+  somTP_SOMTTypedefEntryC_somtGetNextDeclarator = function(somSelf: SOMTTypedefEntryC): SOMTCommonEntryC; stdcall;
+  somTD_SOMTTypedefEntryC_somtGetNextDeclarator = somTP_SOMTTypedefEntryC_somtGetNextDeclarator;
+(*
+ *  The next declarator for this typedef, relative to the previous
+ *  call to this method or somtGetFirstDeclarator.
+ *  Declarators of struct members will be instances of SOMTDataEntryC,
+ *  while declarators of typedefs will be instances of SOMTUserDefinedTypeEntryC.
+ *)
+const somMD_SOMTTypedefEntryC_somtGetNextDeclarator = '::SOMTTypedefEntryC::somtGetNextDeclarator';
+function SOMTTypedefEntryC_somtGetNextDeclarator(somSelf: SOMTTypedefEntryC): SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
 
 
 
@@ -7770,6 +7865,91 @@ begin
   Result :=
     somTD_SOMTConstEntryC__get_somtConstVal
      (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstVal))(somSelf);
+end;
+
+// #include <sctdef.h> (not included in emitters by default, strictly speaking)
+
+function SOMTTypedefEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTTypedefEntryCClassData: PSOMTTypedefEntryCClassDataStructure;
+
+function SOMTTypedefEntryCClassData: PSOMTTypedefEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTTypedefEntryCClassData) then
+    Result := SOME_DLL_SOMTTypedefEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTTypedefEntryCClassData, 'SOMTTypedefEntryCClassData');
+    Result := SOME_DLL_SOMTTypedefEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTTypedefEntryCCClassData: PSOMTTypedefEntryCCClassDataStructure;
+
+function SOMTTypedefEntryCCClassData: PSOMTTypedefEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTTypedefEntryCCClassData) then
+    Result := SOME_DLL_SOMTTypedefEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTTypedefEntryCCClassData, 'SOMTTypedefEntryCCClassData');
+    Result := SOME_DLL_SOMTTypedefEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTTypedefEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTTypedefEntryCClassData.classObject;
+end;
+
+function SOMTTypedefEntryCNew: SOMTTypedefEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTTypedefEntryC;
+  if not Assigned(cls) then cls := SOMTTypedefEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTTypedefEntryCRenew(buf: Pointer): SOMTTypedefEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTTypedefEntryC;
+  if not Assigned(cls) then cls := SOMTTypedefEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTTypedefEntryC__get_somtTypedefType(somSelf: SOMTTypedefEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTTypedefEntryCClassDataStructure;
+begin
+  cd := SOMTTypedefEntryCClassData;
+  Result :=
+    somTD_SOMTTypedefEntryC__get_somtTypedefType
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypedefType))(somSelf);
+end;
+
+function SOMTTypedefEntryC_somtGetFirstDeclarator(somSelf: SOMTTypedefEntryC): SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTTypedefEntryCClassDataStructure;
+begin
+  cd := SOMTTypedefEntryCClassData;
+  Result :=
+    somTD_SOMTTypedefEntryC_somtGetFirstDeclarator
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstDeclarator))(somSelf);
+end;
+
+function SOMTTypedefEntryC_somtGetNextDeclarator(somSelf: SOMTTypedefEntryC): SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTTypedefEntryCClassDataStructure;
+begin
+  cd := SOMTTypedefEntryCClassData;
+  Result :=
+    somTD_SOMTTypedefEntryC_somtGetNextDeclarator
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextDeclarator))(somSelf);
 end;
 
 
