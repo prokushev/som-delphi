@@ -4630,6 +4630,138 @@ type
 const somMD_SOMTStructEntryC__get_somtIsException = '::SOMTStructEntryC::_get_somtIsException';
 function SOMTStructEntryC__get_somtIsException(somSelf: SOMTStructEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scunion.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTUnionEntryC = SOMTEntryC;
+
+type
+  PSOMTUnionEntryC_somtLabelList = ^SOMTUnionEntryC_somtLabelList;
+  SOMTUnionEntryC_somtLabelList = record
+    unionLabel: CORBAString;
+    nextLabel: PSOMTUnionEntryC_somtLabelList;
+  end;
+(*
+ *  Linked list of case labels.
+ *)
+
+  PSOMTUnionEntryC_somtCaseEntry = ^SOMTUnionEntryC_somtCaseEntry;
+  SOMTUnionEntryC_somtCaseEntry = record
+    caseLabels: PSOMTUnionEntryC_somtLabelList;
+(*
+ *  The labels for this case.
+ *)
+
+    memberType: SOMTEntryC;
+(*
+ *  The type of the member.
+ *)
+
+    memberDeclarator: SOMTDataEntryC;
+(*
+ *  The declarator for the member.
+ *)
+
+  end;
+(*
+ *  A case for the union.
+ *)
+
+const
+  SOMTUnionEntryC_MajorVersion = 2;
+  SOMTUnionEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTUnionEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTUnionEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTUnionEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTUnionEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtSwitchType: somMToken;
+	somtGetFirstCaseEntry: somMToken;
+	somtGetNextCaseEntry: somMToken;
+end;
+PSOMTUnionEntryCClassDataStructure = ^SOMTUnionEntryCClassDataStructure;
+function SOMTUnionEntryCClassData: PSOMTUnionEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTUnionEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTUnionEntryCCClassDataStructure = ^SOMTUnionEntryCCClassDataStructure;
+function SOMTUnionEntryCCClassData: PSOMTUnionEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTUnionEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTUnionEntryC
+ *)
+function SOMTUnionEntryCNew: SOMTUnionEntryC;
+function SOMTUnionEntryCRenew(buf: Pointer): SOMTUnionEntryC;
+
+(*
+ * New Method: _get_somtSwitchType
+ *)
+type
+  somTP_SOMTUnionEntryC__get_somtSwitchType = function(somSelf: SOMTUnionEntryC): SOMTEntryC; stdcall;
+  somTD_SOMTUnionEntryC__get_somtSwitchType = somTP_SOMTUnionEntryC__get_somtSwitchType;
+(*
+ *  The switch type of the union.
+ *)
+const somMD_SOMTUnionEntryC__get_somtSwitchType = '::SOMTUnionEntryC::_get_somtSwitchType';
+function SOMTUnionEntryC__get_somtSwitchType(somSelf: SOMTUnionEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetFirstCaseEntry
+ *)
+type
+  somTP_SOMTUnionEntryC_somtGetFirstCaseEntry = function(somSelf: SOMTUnionEntryC): PSOMTUnionEntryC_somtCaseEntry; stdcall;
+  somTD_SOMTUnionEntryC_somtGetFirstCaseEntry = somTP_SOMTUnionEntryC_somtGetFirstCaseEntry;
+(*
+ *  The first case for the union.
+ *)
+const somMD_SOMTUnionEntryC_somtGetFirstCaseEntry = '::SOMTUnionEntryC::somtGetFirstCaseEntry';
+function SOMTUnionEntryC_somtGetFirstCaseEntry(somSelf: SOMTUnionEntryC): PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: somtGetNextCaseEntry
+ *)
+type
+  somTP_SOMTUnionEntryC_somtGetNextCaseEntry = function(somSelf: SOMTUnionEntryC): PSOMTUnionEntryC_somtCaseEntry; stdcall;
+  somTD_SOMTUnionEntryC_somtGetNextCaseEntry = somTP_SOMTUnionEntryC_somtGetNextCaseEntry;
+(*
+ *  The next case for the union, relative to the previous
+ *  call to this method or to somtGetFirstCaseEntry.
+ *)
+const somMD_SOMTUnionEntryC_somtGetNextCaseEntry = '::SOMTUnionEntryC::somtGetNextCaseEntry';
+function SOMTUnionEntryC_somtGetNextCaseEntry(somSelf: SOMTUnionEntryC): PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8148,4 +8280,95 @@ begin
      (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsException))(somSelf);
 end;
 
+// #include <scunion.h> (not included in emitters by default, strictly speaking)
+
+function SOMTUnionEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTUnionEntryCClassData: PSOMTUnionEntryCClassDataStructure;
+
+function SOMTUnionEntryCClassData: PSOMTUnionEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTUnionEntryCClassData) then
+    Result := SOME_DLL_SOMTUnionEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTUnionEntryCClassData, 'SOMTUnionEntryCClassData');
+    Result := SOME_DLL_SOMTUnionEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTUnionEntryCCClassData: PSOMTUnionEntryCCClassDataStructure;
+
+function SOMTUnionEntryCCClassData: PSOMTUnionEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTUnionEntryCCClassData) then
+    Result := SOME_DLL_SOMTUnionEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTUnionEntryCCClassData, 'SOMTUnionEntryCCClassData');
+    Result := SOME_DLL_SOMTUnionEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTUnionEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTUnionEntryCClassData.classObject;
+end;
+
+function SOMTUnionEntryCNew: SOMTUnionEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTUnionEntryC;
+  if not Assigned(cls) then cls := SOMTUnionEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTUnionEntryCRenew(buf: Pointer): SOMTUnionEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTUnionEntryC;
+  if not Assigned(cls) then cls := SOMTUnionEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTUnionEntryC__get_somtSwitchType(somSelf: SOMTUnionEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTUnionEntryCClassDataStructure;
+begin
+  cd := SOMTUnionEntryCClassData;
+  Result :=
+    somTD_SOMTUnionEntryC__get_somtSwitchType
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSwitchType))(somSelf);
+end;
+
+function SOMTUnionEntryC_somtGetFirstCaseEntry(somSelf: SOMTUnionEntryC): PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTUnionEntryCClassDataStructure;
+begin
+  cd := SOMTUnionEntryCClassData;
+  Result :=
+    somTD_SOMTUnionEntryC_somtGetFirstCaseEntry
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstCaseEntry))(somSelf);
+end;
+
+function SOMTUnionEntryC_somtGetNextCaseEntry(somSelf: SOMTUnionEntryC): PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTUnionEntryCClassDataStructure;
+begin
+  cd := SOMTUnionEntryCClassData;
+  Result :=
+    somTD_SOMTUnionEntryC_somtGetNextCaseEntry
+     (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextCaseEntry))(somSelf);
+end;
+
+
+
+
+
+
 end.
+
