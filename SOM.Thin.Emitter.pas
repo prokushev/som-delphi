@@ -4060,6 +4060,70 @@ type
 const somMD_SOMTBaseClassEntryC__get_somtBaseClassDef = '::SOMTBaseClassEntryC::_get_somtBaseClassDef';
 function SOMTBaseClassEntryC__get_somtBaseClassDef(somSelf: SOMTBaseClassEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scdata.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTDataEntryC = SOMTCommonEntryC;
+
+const
+  SOMTDataEntryC_MajorVersion = 2;
+  SOMTDataEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTDataEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTDataEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTDataEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTDataEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtIsSelfRef: somMToken;
+end;
+PSOMTDataEntryCClassDataStructure = ^SOMTDataEntryCClassDataStructure;
+function SOMTDataEntryCClassData: PSOMTDataEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTDataEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTDataEntryCCClassDataStructure = ^SOMTDataEntryCCClassDataStructure;
+function SOMTDataEntryCCClassData: PSOMTDataEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTDataEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTDataEntryC
+ *)
+function SOMTDataEntryCNew: SOMTDataEntryC;
+function SOMTDataEntryCRenew(buf: Pointer): SOMTDataEntryC;
+
+(*
+ * New Method: _get_somtIsSelfRef
+ *)
+type
+  somTP_SOMTDataEntryC__get_somtIsSelfRef = function(somSelf: SOMTDataEntryC): CORBABoolean; stdcall;
+  somTD_SOMTDataEntryC__get_somtIsSelfRef = somTP_SOMTDataEntryC__get_somtIsSelfRef;
+(*
+ *  Returns the class definition entry for the Base class named in
+ *  this entry.
+ *)
+const somMD_SOMTDataEntryC__get_somtIsSelfRef = '::SOMTDataEntryC::_get_somtIsSelfRef';
+function SOMTDataEntryC__get_somtIsSelfRef(somSelf: SOMTDataEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+
 
 
 
@@ -7073,5 +7137,69 @@ begin
      (SOM_Resolve(somSelf, cd.classObject, cd._get_somtBaseClassDef))(somSelf);
 end;
 
+// #include <scdata.h> (not included in emitters by default, strictly speaking)
+
+function SOMTDataEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTDataEntryCClassData: PSOMTDataEntryCClassDataStructure;
+
+function SOMTDataEntryCClassData: PSOMTDataEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTDataEntryCClassData) then
+    Result := SOME_DLL_SOMTDataEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTDataEntryCClassData, 'SOMTDataEntryCClassData');
+    Result := SOME_DLL_SOMTDataEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTDataEntryCCClassData: PSOMTDataEntryCCClassDataStructure;
+
+function SOMTDataEntryCCClassData: PSOMTDataEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTDataEntryCCClassData) then
+    Result := SOME_DLL_SOMTDataEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTDataEntryCCClassData, 'SOMTDataEntryCCClassData');
+    Result := SOME_DLL_SOMTDataEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTDataEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTDataEntryCClassData.classObject;
+end;
+
+function SOMTDataEntryCNew: SOMTDataEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTDataEntryC;
+  if not Assigned(cls) then cls := SOMTDataEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTDataEntryCRenew(buf: Pointer): SOMTDataEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTDataEntryC;
+  if not Assigned(cls) then cls := SOMTDataEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTDataEntryC__get_somtIsSelfRef(somSelf: SOMTDataEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTDataEntryCClassDataStructure;
+begin
+  cd := SOMTDataEntryCClassData;
+  Result :=
+    somTD_SOMTDataEntryC__get_somtIsSelfRef
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsSelfRef))(somSelf);
+end;
 
 end.
