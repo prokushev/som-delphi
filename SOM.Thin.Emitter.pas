@@ -4895,6 +4895,81 @@ type
 const somMD_SOMTEnumEntryC_somtGetNextEnumName = '::SOMTEnumEntryC::somtGetNextEnumName';
 function SOMTEnumEntryC_somtGetNextEnumName(somSelf: SOMTEnumEntryC): SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scseqnce.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTSequenceEntryC = SOMTEntryC;
+
+const
+  SOMTSequenceEntryC_MajorVersion = 2;
+  SOMTSequenceEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTSequenceEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTSequenceEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTSequenceEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTSequenceEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtSeqLength: somMToken;
+	_get_somtSeqType: somMToken;
+	_get_somtSeqTypedef: somMToken;
+end;
+PSOMTSequenceEntryCClassDataStructure = ^SOMTSequenceEntryCClassDataStructure;
+function SOMTSequenceEntryCClassData: PSOMTSequenceEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTSequenceEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTSequenceEntryCCClassDataStructure = ^SOMTSequenceEntryCCClassDataStructure;
+function SOMTSequenceEntryCCClassData: PSOMTSequenceEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTSequenceEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTSequenceEntryC
+ *)
+function SOMTSequenceEntryCNew: SOMTSequenceEntryC;
+function SOMTSequenceEntryCRenew(buf: Pointer): SOMTSequenceEntryC;
+
+(*
+ * New Method: _get_somtSeqLength
+ *)
+type
+  somTP_SOMTSequenceEntryC__get_somtSeqLength = function(somSelf: SOMTSequenceEntryC): LongInt; stdcall;
+  somTD_SOMTSequenceEntryC__get_somtSeqLength = somTP_SOMTSequenceEntryC__get_somtSeqLength;
+(*
+ *  The length of the sequence.
+ *)
+const somMD_SOMTSequenceEntryC__get_somtSeqLength = '::SOMTSequenceEntryC::_get_somtSeqLength';
+function SOMTSequenceEntryC__get_somtSeqLength(somSelf: SOMTSequenceEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtSeqType
+ *)
+type
+  somTP_SOMTSequenceEntryC__get_somtSeqType = function(somSelf: SOMTSequenceEntryC): SOMTEntryC; stdcall;
+  somTD_SOMTSequenceEntryC__get_somtSeqType = somTP_SOMTSequenceEntryC__get_somtSeqType;
+(*
+ *  The type of the sequence.
+ *)
+const somMD_SOMTSequenceEntryC__get_somtSeqType = '::SOMTSequenceEntryC::_get_somtSeqType';
+function SOMTSequenceEntryC__get_somtSeqType(somSelf: SOMTSequenceEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 
@@ -8657,6 +8732,82 @@ begin
     somTD_SOMTEnumEntryC_somtGetNextEnumName
      (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextEnumName))(somSelf);
 end;
+
+// #include <scseqnce.h> (not included in emitters by default, strictly speaking)
+
+function SOMTSequenceEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTSequenceEntryCClassData: PSOMTSequenceEntryCClassDataStructure;
+
+function SOMTSequenceEntryCClassData: PSOMTSequenceEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTSequenceEntryCClassData) then
+    Result := SOME_DLL_SOMTSequenceEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTSequenceEntryCClassData, 'SOMTSequenceEntryCClassData');
+    Result := SOME_DLL_SOMTSequenceEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTSequenceEntryCCClassData: PSOMTSequenceEntryCCClassDataStructure;
+
+function SOMTSequenceEntryCCClassData: PSOMTSequenceEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTSequenceEntryCCClassData) then
+    Result := SOME_DLL_SOMTSequenceEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTSequenceEntryCCClassData, 'SOMTSequenceEntryCCClassData');
+    Result := SOME_DLL_SOMTSequenceEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTSequenceEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTSequenceEntryCClassData.classObject;
+end;
+
+function SOMTSequenceEntryCNew: SOMTSequenceEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTSequenceEntryC;
+  if not Assigned(cls) then cls := SOMTSequenceEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTSequenceEntryCRenew(buf: Pointer): SOMTSequenceEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTSequenceEntryC;
+  if not Assigned(cls) then cls := SOMTSequenceEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTSequenceEntryC__get_somtSeqLength(somSelf: SOMTSequenceEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTSequenceEntryCClassDataStructure;
+begin
+  cd := SOMTSequenceEntryCClassData;
+  Result :=
+    somTD_SOMTSequenceEntryC__get_somtSeqLength
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSeqLength))(somSelf);
+end;
+
+function SOMTSequenceEntryC__get_somtSeqType(somSelf: SOMTSequenceEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTSequenceEntryCClassDataStructure;
+begin
+  cd := SOMTSequenceEntryCClassData;
+  Result :=
+    somTD_SOMTSequenceEntryC__get_somtSeqType
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSeqType))(somSelf);
+end;
+
 
 end.
 
