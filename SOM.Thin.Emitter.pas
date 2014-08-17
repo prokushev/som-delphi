@@ -4971,6 +4971,106 @@ type
 const somMD_SOMTSequenceEntryC__get_somtSeqType = '::SOMTSequenceEntryC::_get_somtSeqType';
 function SOMTSequenceEntryC__get_somtSeqType(somSelf: SOMTSequenceEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scparm.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Passthru lines: File: "C.h", "before"
+ *)
+type
+  somtParameterDirectionT = type LongWord;
+const
+  somtInE = somtParameterDirectionT(0);
+  somtOutE = somtParameterDirectionT(1);
+  somtInOutE = somtParameterDirectionT(2);
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTParameterEntryC = SOMTCommonEntryC;
+
+const
+  SOMTParameterEntryC_MajorVersion = 2;
+  SOMTParameterEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTParameterEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTParameterEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTParameterEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTParameterEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtParameterDirection: somMToken;
+	_get_somtCParameterDeclaration: somMToken;
+	_get_somtIDLParameterDeclaration: somMToken;
+end;
+PSOMTParameterEntryCClassDataStructure = ^SOMTParameterEntryCClassDataStructure;
+function SOMTParameterEntryCClassData: PSOMTParameterEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTParameterEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTParameterEntryCCClassDataStructure = ^SOMTParameterEntryCCClassDataStructure;
+function SOMTParameterEntryCCClassData: PSOMTParameterEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTParameterEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTParameterEntryC
+ *)
+function SOMTParameterEntryCNew: SOMTParameterEntryC;
+function SOMTParameterEntryCRenew(buf: Pointer): SOMTParameterEntryC;
+
+(*
+ * New Method: _get_somtParameterDirection
+ *)
+type
+  somTP_SOMTParameterEntryC__get_somtParameterDirection = function(somSelf: SOMTParameterEntryC): somtParameterDirectionT; stdcall;
+  somTD_SOMTParameterEntryC__get_somtParameterDirection = somTP_SOMTParameterEntryC__get_somtParameterDirection;
+(*
+ *  The direction for this parameter. (somtInE, somtOutE, or somtInOutE).
+ *)
+const somMD_SOMTParameterEntryC__get_somtParameterDirection = '::SOMTParameterEntryC::_get_somtParameterDirection';
+function SOMTParameterEntryC__get_somtParameterDirection(somSelf: SOMTParameterEntryC): somtParameterDirectionT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtIDLParameterDeclaration
+ *)
+type
+  somTP_SOMTParameterEntryC__get_somtIDLParameterDeclaration = function(somSelf: SOMTParameterEntryC): CORBAString; stdcall;
+  somTD_SOMTParameterEntryC__get_somtIDLParameterDeclaration = somTP_SOMTParameterEntryC__get_somtIDLParameterDeclaration;
+(*
+ *  The IDL declaration of the parameter, including the type and name.
+ *)
+const somMD_SOMTParameterEntryC__get_somtIDLParameterDeclaration = '::SOMTParameterEntryC::_get_somtIDLParameterDeclaration';
+function SOMTParameterEntryC__get_somtIDLParameterDeclaration(somSelf: SOMTParameterEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtCParameterDeclaration
+ *)
+type
+  somTP_SOMTParameterEntryC__get_somtCParameterDeclaration = function(somSelf: SOMTParameterEntryC): CORBAString; stdcall;
+  somTD_SOMTParameterEntryC__get_somtCParameterDeclaration = somTP_SOMTParameterEntryC__get_somtCParameterDeclaration;
+(*
+ *  The declaration for the parameter within a C method procedure prototype.
+ *  It includes the parameter's type and name.
+ *  This may differ from the parameter's IDL declaration.
+ *  In particular, pointer stars may be added.
+ *)
+const somMD_SOMTParameterEntryC__get_somtCParameterDeclaration = '::SOMTParameterEntryC::_get_somtCParameterDeclaration';
+function SOMTParameterEntryC__get_somtCParameterDeclaration(somSelf: SOMTParameterEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 
@@ -8806,6 +8906,91 @@ begin
   Result :=
     somTD_SOMTSequenceEntryC__get_somtSeqType
      (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSeqType))(somSelf);
+end;
+
+// #include <scparm.h> (not included in emitters by default, strictly speaking)
+
+function SOMTParameterEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTParameterEntryCClassData: PSOMTParameterEntryCClassDataStructure;
+
+function SOMTParameterEntryCClassData: PSOMTParameterEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTParameterEntryCClassData) then
+    Result := SOME_DLL_SOMTParameterEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTParameterEntryCClassData, 'SOMTParameterEntryCClassData');
+    Result := SOME_DLL_SOMTParameterEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTParameterEntryCCClassData: PSOMTParameterEntryCCClassDataStructure;
+
+function SOMTParameterEntryCCClassData: PSOMTParameterEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTParameterEntryCCClassData) then
+    Result := SOME_DLL_SOMTParameterEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTParameterEntryCCClassData, 'SOMTParameterEntryCCClassData');
+    Result := SOME_DLL_SOMTParameterEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTParameterEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTParameterEntryCClassData.classObject;
+end;
+
+function SOMTParameterEntryCNew: SOMTParameterEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTParameterEntryC;
+  if not Assigned(cls) then cls := SOMTParameterEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTParameterEntryCRenew(buf: Pointer): SOMTParameterEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTParameterEntryC;
+  if not Assigned(cls) then cls := SOMTParameterEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTParameterEntryC__get_somtParameterDirection(somSelf: SOMTParameterEntryC): somtParameterDirectionT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTParameterEntryCClassDataStructure;
+begin
+  cd := SOMTParameterEntryCClassData;
+  Result :=
+    somTD_SOMTParameterEntryC__get_somtParameterDirection
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtParameterDirection))(somSelf);
+end;
+
+function SOMTParameterEntryC__get_somtIDLParameterDeclaration(somSelf: SOMTParameterEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTParameterEntryCClassDataStructure;
+begin
+  cd := SOMTParameterEntryCClassData;
+  Result :=
+    somTD_SOMTParameterEntryC__get_somtIDLParameterDeclaration
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLParameterDeclaration))(somSelf);
+end;
+
+function SOMTParameterEntryC__get_somtCParameterDeclaration(somSelf: SOMTParameterEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTParameterEntryCClassDataStructure;
+begin
+  cd := SOMTParameterEntryCClassData;
+  Result :=
+    somTD_SOMTParameterEntryC__get_somtCParameterDeclaration
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCParameterDeclaration))(somSelf);
 end;
 
 
