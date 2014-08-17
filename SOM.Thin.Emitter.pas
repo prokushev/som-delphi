@@ -5072,6 +5072,82 @@ type
 const somMD_SOMTParameterEntryC__get_somtCParameterDeclaration = '::SOMTParameterEntryC::_get_somtCParameterDeclaration';
 function SOMTParameterEntryC__get_somtCParameterDeclaration(somSelf: SOMTParameterEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scusrtyp.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+type
+  SOMTUserDefinedTypeEntryC = SOMTCommonEntryC;
+
+const
+  SOMTUserDefinedTypeEntryC_MajorVersion = 2;
+  SOMTUserDefinedTypeEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTUserDefinedTypeEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTUserDefinedTypeEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTUserDefinedTypeEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTUserDefinedTypeEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtOriginalTypedef: somMToken;
+	_get_somtBaseTypeObj: somMToken;
+end;
+PSOMTUserDefinedTypeEntryCClassDataStructure = ^SOMTUserDefinedTypeEntryCClassDataStructure;
+function SOMTUserDefinedTypeEntryCClassData: PSOMTUserDefinedTypeEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTUserDefinedTypeEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTUserDefinedTypeEntryCCClassDataStructure = ^SOMTUserDefinedTypeEntryCCClassDataStructure;
+function SOMTUserDefinedTypeEntryCCClassData: PSOMTUserDefinedTypeEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTUserDefinedTypeEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTUserDefinedTypeEntryC
+ *)
+function SOMTUserDefinedTypeEntryCNew: SOMTUserDefinedTypeEntryC;
+function SOMTUserDefinedTypeEntryCRenew(buf: Pointer): SOMTUserDefinedTypeEntryC;
+
+(*
+ * New Method: _get_somtOriginalTypedef
+ *)
+type
+  somTP_SOMTUserDefinedTypeEntryC__get_somtOriginalTypedef = function(somSelf: SOMTUserDefinedTypeEntryC): SOMTTypedefEntryC; stdcall;
+  somTD_SOMTUserDefinedTypeEntryC__get_somtOriginalTypedef = somTP_SOMTUserDefinedTypeEntryC__get_somtOriginalTypedef;
+(*
+ *  The typedef that defined the user-defined type.
+ *)
+const somMD_SOMTUserDefinedTypeEntryC__get_somtOriginalTypedef = '::SOMTUserDefinedTypeEntryC::_get_somtOriginalTypedef';
+function SOMTUserDefinedTypeEntryC__get_somtOriginalTypedef(somSelf: SOMTUserDefinedTypeEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtBaseTypeObj
+ *)
+type
+  somTP_SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj = function(somSelf: SOMTUserDefinedTypeEntryC): SOMTEntryC; stdcall;
+  somTD_SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj = somTP_SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj;
+(*
+ *  The object representing the base type
+ *  (eg. short, float, unsigned long) of a user-defined type,
+ *  skipping over any intermediate user-defined types.
+ *)
+const somMD_SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj = '::SOMTUserDefinedTypeEntryC::_get_somtBaseTypeObj';
+function SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj(somSelf: SOMTUserDefinedTypeEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 
 
@@ -8993,6 +9069,80 @@ begin
      (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCParameterDeclaration))(somSelf);
 end;
 
+// #include <scusrtyp.h> (not included in emitters by default, strictly speaking)
+
+function SOMTUserDefinedTypeEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTUserDefinedTypeEntryCClassData: PSOMTUserDefinedTypeEntryCClassDataStructure;
+
+function SOMTUserDefinedTypeEntryCClassData: PSOMTUserDefinedTypeEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTUserDefinedTypeEntryCClassData) then
+    Result := SOME_DLL_SOMTUserDefinedTypeEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTUserDefinedTypeEntryCClassData, 'SOMTUserDefinedTypeEntryCClassData');
+    Result := SOME_DLL_SOMTUserDefinedTypeEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTUserDefinedTypeEntryCCClassData: PSOMTUserDefinedTypeEntryCCClassDataStructure;
+
+function SOMTUserDefinedTypeEntryCCClassData: PSOMTUserDefinedTypeEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTUserDefinedTypeEntryCCClassData) then
+    Result := SOME_DLL_SOMTUserDefinedTypeEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTUserDefinedTypeEntryCCClassData, 'SOMTUserDefinedTypeEntryCCClassData');
+    Result := SOME_DLL_SOMTUserDefinedTypeEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTUserDefinedTypeEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTUserDefinedTypeEntryCClassData.classObject;
+end;
+
+function SOMTUserDefinedTypeEntryCNew: SOMTUserDefinedTypeEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTUserDefinedTypeEntryC;
+  if not Assigned(cls) then cls := SOMTUserDefinedTypeEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTUserDefinedTypeEntryCRenew(buf: Pointer): SOMTUserDefinedTypeEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTUserDefinedTypeEntryC;
+  if not Assigned(cls) then cls := SOMTUserDefinedTypeEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTUserDefinedTypeEntryC__get_somtOriginalTypedef(somSelf: SOMTUserDefinedTypeEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTUserDefinedTypeEntryCClassDataStructure;
+begin
+  cd := SOMTUserDefinedTypeEntryCClassData;
+  Result :=
+    somTD_SOMTUserDefinedTypeEntryC__get_somtOriginalTypedef
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtOriginalTypedef))(somSelf);
+end;
+
+function SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj(somSelf: SOMTUserDefinedTypeEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTUserDefinedTypeEntryCClassDataStructure;
+begin
+  cd := SOMTUserDefinedTypeEntryCClassData;
+  Result :=
+    somTD_SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtBaseTypeObj))(somSelf);
+end;
 
 end.
 
