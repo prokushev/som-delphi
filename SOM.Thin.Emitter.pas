@@ -4284,6 +4284,156 @@ type
 const somMD_SOMTAttributeEntryC_somtGetNextSetMethod = '::SOMTAttributeEntryC::somtGetNextSetMethod';
 function SOMTAttributeEntryC_somtGetNextSetMethod(somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <scconst.h> (not included in emitters by default, strictly speaking)
+
+(*
+ * Define the class name as an object type
+ *)
+// type
+//   SOMTConstEntryC = SOMTEntryC;
+
+const
+  SOMTConstEntryC_MajorVersion = 2;
+  SOMTConstEntryC_MinorVersion = 1;
+
+(*
+ * Declare the class creation procedure
+ *)
+function SOMTConstEntryCNewClass(
+  somtmajorVersion: integer4 = SOMTConstEntryC_MajorVersion;
+  somtminorVersion: integer4 = SOMTConstEntryC_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type SOMTConstEntryCClassDataStructure = record
+	classObject: SOMClass;
+	_get_somtConstStringVal: somMToken;
+	_get_somtConstNumVal: somMToken;
+	_get_somtConstType: somMToken;
+	_get_somtConstTypeObj: somMToken;
+	_get_somtConstVal: somMToken;
+	_get_somtConstNumNegVal: somMToken;
+	_get_somtConstIsNegative: somMToken;
+end;
+PSOMTConstEntryCClassDataStructure = ^SOMTConstEntryCClassDataStructure;
+function SOMTConstEntryCClassData: PSOMTConstEntryCClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type SOMTConstEntryCCClassDataStructure = record
+	parentMtab: somMethodTabs;
+	instanceDataToken: somDToken;
+end;
+PSOMTConstEntryCCClassDataStructure = ^SOMTConstEntryCCClassDataStructure;
+function SOMTConstEntryCCClassData: PSOMTConstEntryCCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_SOMTConstEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for SOMTConstEntryC
+ *)
+function SOMTConstEntryCNew: SOMTConstEntryC;
+function SOMTConstEntryCRenew(buf: Pointer): SOMTConstEntryC;
+
+(*
+ * New Method: _get_somtConstTypeObj
+ *)
+type
+  somTP_SOMTConstEntryC__get_somtConstTypeObj = function(somSelf: SOMTConstEntryC): SOMTEntryC; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstTypeObj = somTP_SOMTConstEntryC__get_somtConstTypeObj;
+(*
+ *  A pointer to an object representing
+ *  the type of the const.
+ *)
+const somMD_SOMTConstEntryC__get_somtConstTypeObj = '::SOMTConstEntryC::_get_somtConstTypeObj';
+function SOMTConstEntryC__get_somtConstTypeObj(somSelf: SOMTConstEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtConstType
+ *)
+type
+  somTP_SOMTConstEntryC__get_somtConstType = function(somSelf: SOMTConstEntryC): CORBAString; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstType = somTP_SOMTConstEntryC__get_somtConstType;
+(*
+ *  The type of the constant's value.
+ *)
+const somMD_SOMTConstEntryC__get_somtConstType = '::SOMTConstEntryC::_get_somtConstType';
+function SOMTConstEntryC__get_somtConstType(somSelf: SOMTConstEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtConstStringVal
+ *)
+type
+  somTP_SOMTConstEntryC__get_somtConstStringVal = function(somSelf: SOMTConstEntryC): CORBAString; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstStringVal = somTP_SOMTConstEntryC__get_somtConstStringVal;
+(*
+ *  The string value of the constant (unevaluated).
+ *)
+const somMD_SOMTConstEntryC__get_somtConstStringVal = '::SOMTConstEntryC::_get_somtConstStringVal';
+function SOMTConstEntryC__get_somtConstStringVal(somSelf: SOMTConstEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtConstNumVal
+ *)
+type
+  somTP_SOMTConstEntryC__get_somtConstNumVal = function(somSelf: SOMTConstEntryC): LongWord; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstNumVal = somTP_SOMTConstEntryC__get_somtConstNumVal;
+(*
+ *  The number value of the constant.
+ *  This attribute is not valid if the value cannot
+ *  be stored in an unsigned long (string, float, double, negative).
+ *  The somtConstIsNegative attribute can be used to determine
+ *  if the value is negative.  The somtConstType attribute can
+ *  be used to determine whether the value is a float or double.
+ *)
+const somMD_SOMTConstEntryC__get_somtConstNumVal = '::SOMTConstEntryC::_get_somtConstNumVal';
+function SOMTConstEntryC__get_somtConstNumVal(somSelf: SOMTConstEntryC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtConstNumNegVal
+ *)
+type
+  somTP_SOMTConstEntryC__get_somtConstNumNegVal = function(somSelf: SOMTConstEntryC): LongInt; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstNumNegVal = somTP_SOMTConstEntryC__get_somtConstNumNegVal;
+(*
+ *  The number value of the constant, if negative.
+ *)
+const somMD_SOMTConstEntryC__get_somtConstNumNegVal = '::SOMTConstEntryC::_get_somtConstNumNegVal';
+function SOMTConstEntryC__get_somtConstNumNegVal(somSelf: SOMTConstEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtConstIsNegative
+ *)
+type
+  somTP_SOMTConstEntryC__get_somtConstIsNegative = function(somSelf: SOMTConstEntryC): CORBABoolean; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstIsNegative = somTP_SOMTConstEntryC__get_somtConstIsNegative;
+(*
+ *  Whether the constant's value is a negative integer and
+ *  must be obtained using somtConstNumNegVal rather than somtConstNumVal.
+ *)
+const somMD_SOMTConstEntryC__get_somtConstIsNegative = '::SOMTConstEntryC::_get_somtConstIsNegative';
+function SOMTConstEntryC__get_somtConstIsNegative(somSelf: SOMTConstEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_somtConstVal
+ *)
+type
+  somTP_SOMTConstEntryC__get_somtConstVal = function(somSelf: SOMTConstEntryC): CORBAString; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstVal = somTP_SOMTConstEntryC__get_somtConstVal;
+(*
+ *  The string value of the constant (evaluated).
+ *  The "get" method for this attribute returns a string whose
+ *  ownership is transferred to the caller.
+ *)
+const somMD_SOMTConstEntryC__get_somtConstVal = '::SOMTConstEntryC::_get_somtConstVal';
+function SOMTConstEntryC__get_somtConstVal(somSelf: SOMTConstEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+
 
 
 
@@ -7496,5 +7646,131 @@ begin
     somTD_SOMTAttributeEntryC_somtGetNextSetMethod
      (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextSetMethod))(somSelf);
 end;
+
+// #include <scconst.h> (not included in emitters by default, strictly speaking)
+
+function SOMTConstEntryCNewClass; external SOME_DLL_Name;
+
+var
+  SOME_DLL_SOMTConstEntryCClassData: PSOMTConstEntryCClassDataStructure;
+
+function SOMTConstEntryCClassData: PSOMTConstEntryCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTConstEntryCClassData) then
+    Result := SOME_DLL_SOMTConstEntryCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTConstEntryCClassData, 'SOMTConstEntryCClassData');
+    Result := SOME_DLL_SOMTConstEntryCClassData;
+  end;
+end;
+
+var
+  SOME_DLL_SOMTConstEntryCCClassData: PSOMTConstEntryCCClassDataStructure;
+
+function SOMTConstEntryCCClassData: PSOMTConstEntryCCClassDataStructure;
+begin
+  if Assigned(SOME_DLL_SOMTConstEntryCCClassData) then
+    Result := SOME_DLL_SOMTConstEntryCCClassData
+  else
+  begin
+    SOME_Load_Variable(SOME_DLL_SOMTConstEntryCCClassData, 'SOMTConstEntryCCClassData');
+    Result := SOME_DLL_SOMTConstEntryCCClassData;
+  end;
+end;
+
+function _SOMCLASS_SOMTConstEntryC: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTConstEntryCClassData.classObject;
+end;
+
+function SOMTConstEntryCNew: SOMTConstEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTConstEntryC;
+  if not Assigned(cls) then cls := SOMTConstEntryCNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function SOMTConstEntryCRenew(buf: Pointer): SOMTConstEntryC;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_SOMTConstEntryC;
+  if not Assigned(cls) then cls := SOMTConstEntryCNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
+
+function SOMTConstEntryC__get_somtConstTypeObj(somSelf: SOMTConstEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTConstEntryCClassDataStructure;
+begin
+  cd := SOMTConstEntryCClassData;
+  Result :=
+    somTD_SOMTConstEntryC__get_somtConstTypeObj
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstTypeObj))(somSelf);
+end;
+
+function SOMTConstEntryC__get_somtConstType(somSelf: SOMTConstEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTConstEntryCClassDataStructure;
+begin
+  cd := SOMTConstEntryCClassData;
+  Result :=
+    somTD_SOMTConstEntryC__get_somtConstType
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstType))(somSelf);
+end;
+
+function SOMTConstEntryC__get_somtConstStringVal(somSelf: SOMTConstEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTConstEntryCClassDataStructure;
+begin
+  cd := SOMTConstEntryCClassData;
+  Result :=
+    somTD_SOMTConstEntryC__get_somtConstStringVal
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstStringVal))(somSelf);
+end;
+
+function SOMTConstEntryC__get_somtConstNumVal(somSelf: SOMTConstEntryC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTConstEntryCClassDataStructure;
+begin
+  cd := SOMTConstEntryCClassData;
+  Result :=
+    somTD_SOMTConstEntryC__get_somtConstNumVal
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstNumVal))(somSelf);
+end;
+
+function SOMTConstEntryC__get_somtConstNumNegVal(somSelf: SOMTConstEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTConstEntryCClassDataStructure;
+begin
+  cd := SOMTConstEntryCClassData;
+  Result :=
+    somTD_SOMTConstEntryC__get_somtConstNumNegVal
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstNumNegVal))(somSelf);
+end;
+
+function SOMTConstEntryC__get_somtConstIsNegative(somSelf: SOMTConstEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTConstEntryCClassDataStructure;
+begin
+  cd := SOMTConstEntryCClassData;
+  Result :=
+    somTD_SOMTConstEntryC__get_somtConstIsNegative
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstIsNegative))(somSelf);
+end;
+
+function SOMTConstEntryC__get_somtConstVal(somSelf: SOMTConstEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PSOMTConstEntryCClassDataStructure;
+begin
+  cd := SOMTConstEntryCClassData;
+  Result :=
+    somTD_SOMTConstEntryC__get_somtConstVal
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstVal))(somSelf);
+end;
+
 
 end.
