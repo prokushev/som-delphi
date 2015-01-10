@@ -15,6 +15,7 @@ const
   SOME_DLL_Name = 'some.dll';
   SOMC_DLL_Name = 'somc.dll';
   SOMTC_DLL_Name = 'somtc.dll';
+  SOMDCOMM_DLL_Name = 'somdcomm.dll';
 
 implementation
 

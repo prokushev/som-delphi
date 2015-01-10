@@ -49,12 +49,19 @@
 /*
  * -- Instance data
  */
-typedef void DelphiEmitterData;
-#define __somC_DelphiEmitter_NODATA
+typedef struct {
+	long dummy;
+} DelphiEmitterData, *DelphiEmitterDataPtr;
 
 /*
- * This class introduces no instance data, so no GetData macro is provided
+ * -- GetData macro
  */
+typedef DelphiEmitterDataPtr SOMLINK somTP_DelphiEmitter_DataThunk(void*);
+typedef somTP_DelphiEmitter_DataThunk *somTD_DelphiEmitter_DataThunk;
+
+#define DelphiEmitterGetData(somSelf) \
+   (((somTD_DelphiEmitter_DataThunk)(DelphiEmitterCClassData.instanceDataToken))(somSelf))
+  #define _dummy somThis->dummy
 
 /*
  * -- Primary Implementation File Support
@@ -160,8 +167,8 @@ static somOverrideMethod_t2 __somC_DelphiEmitter_overridesArray[] = {
 static somClassVars1 __somC_DelphiEmitter_classVars1 = {
 	1,		/* layoutVersion */
 	(void *)NULL,	/* extension */
-	0,	/* dataSize */
-	0,		/* type code dataAlignment */
+	sizeof(DelphiEmitterData),	/* dataSize */
+	4,		/* type code dataAlignment */
 	(somMethodPtr)0,	/* classAllocate */
 	(somMethodPtr)0	/* classDeallocate */
 };

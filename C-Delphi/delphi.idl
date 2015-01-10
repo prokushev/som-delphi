@@ -31,6 +31,11 @@ interface DelphiEmitter : SOMTEmitC
   implementation {
     //# Class Modifiers
     callstyle = oidl;
+    majorversion = 1;
+    minorversion = 1;
+
+    //# Internal Instance Variables (other than attributes)
+    long dummy;
   
     //# Method Modifiers
     somtGenerateSections: override;

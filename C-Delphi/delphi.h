@@ -131,8 +131,8 @@
  * End of bindings for IDL types.
  */
 
-#define DelphiEmitter_MajorVersion 0
-#define DelphiEmitter_MinorVersion 0
+#define DelphiEmitter_MajorVersion 1
+#define DelphiEmitter_MinorVersion 1
 
 /*
  * Declare the class creation procedure
