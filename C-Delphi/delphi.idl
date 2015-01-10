@@ -1,0 +1,41 @@
+/* @(#) somc/gen_idl.efw 2.5 9/1/94 19:27:23 [12/22/96 21:11:23] */
+
+/*
+ *   COMPONENT_NAME: some
+ *
+ *   ORIGINS: 27
+ *
+ *
+ *   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+ *   All Rights Reserved
+ *   Licensed Materials - Property of IBM
+ *   US Government Users Restricted Rights - Use, duplication or
+ *   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+
+
+/*
+ *         File:    DelphiEmitter.idl
+ *       Author:    SOMObjects Emitter Framework
+ *     Contents:    Generic framework logic class for DelphiEmitter.
+ *         Date:    Sun Jan 11 00:51:12 2015.
+ */
+
+#ifndef DelphiEmitter_idl
+#define DelphiEmitter_idl
+
+#include <scemit.idl>
+interface DelphiEmitter : SOMTEmitC
+{
+#ifdef __SOMIDL__
+  implementation {
+    //# Class Modifiers
+    callstyle = oidl;
+  
+    //# Method Modifiers
+    somtGenerateSections: override;
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* DelphiEmitter_idl */

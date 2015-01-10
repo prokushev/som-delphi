@@ -1,0 +1,19 @@
+; @(#) somc/gen_def.efw 2.7 6/7/96 16:14:25 [12/22/96 21:11:22]
+
+;COMPONENT_NAME: some
+;
+;ORIGINS: 27
+;
+;
+;10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+;All Rights Reserved
+;Licensed Materials - Property of IBM
+;US Government Users Restricted Rights - Use, duplication or
+;disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+
+LIBRARY emitdelphi TERMINSTANCE
+DESCRIPTION 'SOM Emitter Framework - delphi emittter, (C) Copyright IBM Corp. 1992, 1994'
+PROTMODE
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS
+   emitSL
