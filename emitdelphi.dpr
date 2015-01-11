@@ -112,6 +112,9 @@ begin
     else Result := nil;
 end;
 
+exports
+  emitSL;
+
 begin
 
 end.

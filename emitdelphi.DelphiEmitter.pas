@@ -112,20 +112,6 @@ function _SOMCLASS_DelphiEmitter: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {
  *)
 function DelphiEmitterNew: DelphiEmitter;
 function DelphiEmitterRenew(buf: Pointer): DelphiEmitter;
-// #define DelphiEmitterNew() \
-//    ( _DelphiEmitter ? \
-// 	_somNew(_DelphiEmitter) \
-// 	: ( DelphiEmitterNewClass(\
-// 		DelphiEmitter_MajorVersion, \
-// 		DelphiEmitter_MinorVersion),\
-// 	   _somNew(_DelphiEmitter)))
-// #define DelphiEmitterRenew(buf) \
-//    ( _DelphiEmitter ? \
-// 	_somRenew(_DelphiEmitter, buf) \
-// 	: ( DelphiEmitterNewClass(\
-// 		DelphiEmitter_MajorVersion, \
-// 		DelphiEmitter_MinorVersion),\
-// 	   _somRenew(_DelphiEmitter, buf)))
 
 // #include "delphi.ih"
 
@@ -134,8 +120,8 @@ function DelphiEmitterRenew(buf: Pointer): DelphiEmitter;
  *)
 type
   DelphiEmitterData = record
-	dummy: LongInt;
-end;
+    dummy: LongInt;
+  end;
 DelphiEmitterDataPtr = ^DelphiEmitterData;
 
 (*
@@ -144,14 +130,11 @@ DelphiEmitterDataPtr = ^DelphiEmitterData;
 type somTP_DelphiEmitter_DataThunk = function(somSelf: DelphiEmitter): DelphiEmitterDataPtr; stdcall;
 somTD_DelphiEmitter_DataThunk = somTP_DelphiEmitter_DataThunk;
 
-// #define DelphiEmitterGetData(somSelf) \
-//    (((somTD_DelphiEmitter_DataThunk)(DelphiEmitterCClassData.instanceDataToken))(somSelf))
 function DelphiEmitterGetData(somSelf: DelphiEmitter): DelphiEmitterDataPtr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * -- Primary Implementation File Support
  *)
-// #if (defined(DelphiEmitter_Class_Source) || defined(SOM_Module_delphi_Source))
 
 // #ifndef DelphiEmitterMethodDebug
 //    #define DelphiEmitterMethodDebug(c,m) SOMMethodDebug(c,m)
@@ -191,20 +174,10 @@ function somtGenerateSections(somSelf: DelphiEmitter): CORBABoolean; stdcall;
 var
   DelphiEmitter_parent_SOMTEmitC_somtGenerateSections_resolved: somMethodProc;
 function DelphiEmitter_parent_SOMTEmitC_somtGenerateSections(somSelf: DelphiEmitter): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-// #define DelphiEmitter_parent_SOMTEmitC_somtGenerateSections(somSelf) \
-//   ((( somTD_SOMTEmitC_somtGenerateSections ) \
-//     DelphiEmitter_parent_SOMTEmitC_somtGenerateSections_resolved)(somSelf))
 var
   DelphiEmitter_pcall_somtGenerateSections_resolved: somMethodProc;
 function DelphiEmitter_pcall_somtGenerateSections(somSelf: DelphiEmitter): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-// #define DelphiEmitter_pcall_somtGenerateSections(somSelf) \
-//   ((( somTD_SOMTEmitC_somtGenerateSections ) \
-//     DelphiEmitter_pcall_somtGenerateSections_resolved)(somSelf))
 function DelphiEmitter_pcallResolve_somtGenerateSections(somSelf: DelphiEmitter): CORBABoolean; stdcall;
-{
-   return ((somTD_SOMTEmitC_somtGenerateSections)
-      somPCallResolve(somSelf, _DelphiEmitter, _SOMMTOKEN_SOMTEmitC(somtGenerateSections)))(somSelf);
-}
 
 
 (*
@@ -227,9 +200,9 @@ var
 __somC_DelphiEmitter_overridesArray: array[0 .. 0] of somOverrideMethod_t2 = (
 (
   methodId: @(__somC_DelphiEmitter_regIdsArray[__somC_DelphiEmitter_regIds_somtGenerateSections]);
-  pcall: nil; // somMethodPtrPtr(@@DelphiEmitter_pcall_somtGenerateSections_resolved);
-  pcallResolve: nil; // somMethodPtr(@DelphiEmitter_pcallResolve_somtGenerateSections);
-  methodProc: nil; // somMethodPtr(@somtGenerateSections)
+  pcall: nil; // somMethodPtrPtr(@@DelphiEmitter_pcall_somtGenerateSections_resolved); // assigned at initialization
+  pcallResolve: nil; // somMethodPtr(@DelphiEmitter_pcallResolve_somtGenerateSections); // assinged at initialization
+  methodProc: nil; // somMethodPtr(@somtGenerateSections) // assigned at initialization
 )
 );
 
@@ -257,7 +230,7 @@ DelphiEmitter_ClassInitBlock: SOM_CIB = (
 	constFlags: $40004;	(* constFlags *)
 	inheritVars: $FFFFFFFF;	(* inheritVars *)
 	classMeta: nil;	(* classMeta *)
-	classInit: nil; // somMethodPtr(@__somC_DelphiEmitter_classInit);	(* classInit *)
+	classInit: nil; // somMethodPtr(@__somC_DelphiEmitter_classInit);	(* classInit *) // assigned on initialization
 	classUninit: nil;	(* classUninit *)
 	legacyInit: nil;	(* legacyInit *)
 	legacyUninit: nil;	(* legacyUninit *)
@@ -269,9 +242,9 @@ DelphiEmitter_ClassInitBlock: SOM_CIB = (
 	numRegIds: 3;	(* numRegIds *)
 	regIds: @(__somC_DelphiEmitter_regIdsArray[0]);	(* regIds *)
 	numClassDataEntries: (SizeOf(DelphiEmitterClassDataStructure) - SizeOf(SOMClass)) div SizeOf(somMToken);	(* numClassDataEntries *)
-	somClassData: nil; // somClassDataStructurePtr(@DelphiEmitterClassData);
-	somCClassData: nil; // somCClassDataStructurePtr(@DelphiEmitterCClassData);
-	som3ClassInfo: nil; // @__somC_DelphiEmitter_ClassInfo;
+	somClassData: @DelphiEmitterClassData;
+	somCClassData: @DelphiEmitterCClassData;
+	som3ClassInfo: nil; // @__somC_DelphiEmitter_ClassInfo; // assigned on initialization
 	numParents: 1;	(* numParents *)
 	parents: @(__somC_DelphiEmitter_parentArray[0]);	(* parents *)
 	numDirectInitClasses: 1;	(* numDirectInitClasses *)
@@ -293,12 +266,12 @@ DelphiEmitter_ClassInitBlock: SOM_CIB = (
 
 __somC_DelphiEmitter_ClassDetails: som3ClassDetails = (
 	mtab: nil;	(* mtab *)
-	next: nil; // somMethodTabPtrPtr(@(__somC_DelphiEmitter_parentMtabs[0]));	(* parentMtabs *)
+	next: @(__somC_DelphiEmitter_parentMtabs[0]);	(* parentMtabs *)
 	cib: @DelphiEmitter_ClassInitBlock;	(* CIB pointer *)
 	somRenewNoInitNoZeroThunk: nil;	(* somRenewNoInitNoZeroThunk *)
 	instanceSize: 0;	(* instanceSize *)
 	resolvedInits: nil;	(* resolvedInits *)
-	resolvedMTokens: nil; // somClassDataStructurePtr(@__somC_DelphiEmitter_resolvedMTokens);	(* resolvedMTokens *)
+	resolvedMTokens: @__somC_DelphiEmitter_resolvedMTokens;	(* resolvedMTokens *)
 	initCtrl: (mask: nil; info: nil; infoSize: 0; ctrlInfo: nil);	(* initCtrl *)
 	destructCtrl: (mask: nil; info: nil; infoSize: 0; ctrlInfo: nil);	(* destructCtrl *)
 	assignCtrl: (mask: nil; info: nil; infoSize: 0; ctrlInfo: nil);	(* assignCtrl *)
@@ -312,32 +285,6 @@ __somC_DelphiEmitter_ClassInfo: som3ClassInfoStruct = (
 	classObject: nil;	(* classObject *)
 	classDetails: @__somC_DelphiEmitter_ClassDetails	(* class details *)
 );
-
-
-(*
- * Class Creation and Initialization
- *)
-
-(* classinit function *)
-// procedure __somC_DelphiEmitter_classInit(somSelf: SOMClass); stdcall;
-{
-   SOM_IgnoreWarning(somSelf);
-   DelphiEmitter_parent_SOMTEmitC_somtGenerateSections_resolved =
-	somParentNumResolve(DelphiEmitterCClassData.parentMtab, 1, _SOMMTOKEN_SOMTEmitC(somtGenerateSections));
-}
-
-(* NewClass Function *)
-// SOMEXTERN SOMDLLEXPORT SOMClass  SOMLINK DelphiEmitterNewClass (long reqMajorVersion, long reqMinorVersion)
-{
-   if (_SOMCLASS_DelphiEmitter && _somCheckVersion(_SOMCLASS_DelphiEmitter,reqMajorVersion,reqMinorVersion))
-      return _SOMCLASS_DelphiEmitter;
-__somC_DelphiEmitter_parentArray[0] = (SOMClass *)&_SOMCLASS_SOMTEmitC;
-   /* require parents */
-   if (!_SOMCLASS_SOMTEmitC) SOMTEmitCNewClass(SOMTEmitC_MajorVersion,SOMTEmitC_MinorVersion);
-   /* return new class */
-   return somBuildClass2( &DelphiEmitter_ClassInitBlock, reqMajorVersion, reqMinorVersion );
-}
-
 
 implementation
 
@@ -369,13 +316,6 @@ begin
   Result := somTD_DelphiEmitter_DataThunk(DelphiEmitterCClassData.instanceDataToken)(somSelf);
 end;
 
-procedure __somC_DelphiEmitter_classInit(somSelf: SOMClass); stdcall;
-begin
-  // SOM_IgnoreWarning(somSelf);
-  DelphiEmitter_parent_SOMTEmitC_somtGenerateSections_resolved :=
-	  somParentNumResolve(DelphiEmitterCClassData.parentMtab, 1, SOMTEmitCClassData.somtGenerateSections);
-end;
-
 function DelphiEmitter_parent_SOMTEmitC_somtGenerateSections(somSelf: DelphiEmitter): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := somTD_SOMTEmitC_somtGenerateSections
@@ -395,6 +335,13 @@ begin
     SOMTEmitCClassData.somtGenerateSections))(somSelf);
 end;
 
+procedure __somC_DelphiEmitter_classInit(somSelf: SOMClass); stdcall;
+begin
+  // SOM_IgnoreWarning(somSelf);
+  DelphiEmitter_parent_SOMTEmitC_somtGenerateSections_resolved :=
+	  somParentNumResolve(DelphiEmitterCClassData.parentMtab, 1, SOMTEmitCClassData.somtGenerateSections);
+end;
+
 function DelphiEmitterNewClass(
     somtmajorVersion: integer4 = DelphiEmitter_MajorVersion;
 		somtminorVersion: integer4 = DelphiEmitter_MinorVersion): SOMClass; stdcall;
@@ -412,7 +359,6 @@ begin
    (* return new class *)
    Result := somBuildClass2(@DelphiEmitter_ClassInitBlock, somtmajorVersion, somtminorVersion);
 end;
-
 
 function somtGenerateSections(somSelf: DelphiEmitter): CORBABoolean; stdcall;
 var
@@ -510,5 +456,9 @@ begin
 end;
 
 initialization
-
+  __somC_DelphiEmitter_overridesArray[0].pcall := somMethodPtrPtr(@@DelphiEmitter_pcall_somtGenerateSections_resolved);
+  __somC_DelphiEmitter_overridesArray[0].pcallResolve := somMethodPtr(@DelphiEmitter_pcallResolve_somtGenerateSections);
+  __somC_DelphiEmitter_overridesArray[0].methodProc := somMethodPtr(@somtGenerateSections);
+  DelphiEmitter_ClassInitBlock.classInit := somMethodPtr(@__somC_DelphiEmitter_classInit);
+  DelphiEmitter_ClassInitBlock.som3ClassInfo := @__somC_DelphiEmitter_ClassInfo;
 end.
