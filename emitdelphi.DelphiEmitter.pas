@@ -146,7 +146,7 @@ somTD_DelphiEmitter_DataThunk = somTP_DelphiEmitter_DataThunk;
 
 // #define DelphiEmitterGetData(somSelf) \
 //    (((somTD_DelphiEmitter_DataThunk)(DelphiEmitterCClassData.instanceDataToken))(somSelf))
-function DelphiEmitterGetData(somSelf: DelphiEmitter): DelphiEmitterDataPtr;
+function DelphiEmitterGetData(somSelf: DelphiEmitter): DelphiEmitterDataPtr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * -- Primary Implementation File Support
@@ -157,7 +157,7 @@ function DelphiEmitterGetData(somSelf: DelphiEmitter): DelphiEmitterDataPtr;
 //    #define DelphiEmitterMethodDebug(c,m) SOMMethodDebug(c,m)
 // #endif  /* DelphiEmitterMethodDebug */
 
-procedure __somC_DelphiEmitter_classInit(cls: SOMClass); stdcall;
+procedure __somC_DelphiEmitter_classInit(somSelf: SOMClass); stdcall;
 
 
 (*
@@ -172,14 +172,15 @@ var
  * Identifiers
  *)
 const
-  __somC_Strings_DelphiEmitter0: PAnsiChar = 'DelphiEmitter'; (* class name *)
-  __somC_Strings_DelphiEmitter1: PAnsiChar = 'SOMTEmitC'; (* parent name *)
-  __somC_Strings_DelphiEmitter2: PAnsiChar = 'somtGenerateSections'; (* overridden method name *)
-  __somC_DelphiEmitter_regIdsArray: array[0 .. 2] of PAnsiChar = [
-	__somC_Strings_DelphiEmitter0,
-	__somC_Strings_DelphiEmitter1,
-	__somC_Strings_DelphiEmitter2
-];
+  __somC_Strings_DelphiEmitter0: array[0 .. 13] of AnsiChar = 'DelphiEmitter'; (* class name *)
+  __somC_Strings_DelphiEmitter1: array[0 .. 9] of AnsiChar = 'SOMTEmitC'; (* parent name *)
+  __somC_Strings_DelphiEmitter2: array[0 .. 20] of AnsiChar = 'somtGenerateSections'; (* overridden method name *)
+var
+  __somC_DelphiEmitter_regIdsArray: array[0 .. 2] of PAnsiChar = (
+	@__somC_Strings_DelphiEmitter0,
+	@__somC_Strings_DelphiEmitter1,
+	@__somC_Strings_DelphiEmitter2
+);
 const __somC_DelphiEmitter_regIds_somtGenerateSections = 2;
 
 
@@ -218,18 +219,19 @@ function DelphiEmitter_pcallResolve_somtGenerateSections(somSelf: DelphiEmitter)
  * -- Routines and Structures to create the class object
  *)
 var
-  __somC_DelphiEmitter_parentArray: array[0 .. 0] of PSOMClass = [
+  __somC_DelphiEmitter_parentArray: array[0 .. 0] of PSOMClass = (
 	nil
-];
+);
   __somC_DelphiEmitter_parentMtabs: array[0 .. 0] of Pointer;
 
-__somC_DelphiEmitter_overridesArray = array[0 .. 0] of somOverrideMethod_t2 = [
+__somC_DelphiEmitter_overridesArray: array[0 .. 0] of somOverrideMethod_t2 = (
 (
   methodId: @(__somC_DelphiEmitter_regIdsArray[__somC_DelphiEmitter_regIds_somtGenerateSections]);
-  pcall: somMethodPtrPtr(@DelphiEmitter_pcall_somtGenerateSections_resolved);
-  pcallResolve: somMethodPtr(@DelphiEmitter_pcallResolve_somtGenerateSections);
-  methodProc: somMethodPtr(@somtGenerateSections) )
-];
+  pcall: nil; // somMethodPtrPtr(@@DelphiEmitter_pcall_somtGenerateSections_resolved);
+  pcallResolve: nil; // somMethodPtr(@DelphiEmitter_pcallResolve_somtGenerateSections);
+  methodProc: nil; // somMethodPtr(@somtGenerateSections)
+)
+);
 
 __somC_DelphiEmitter_classVars1: somClassVars1 = (
 	layoutVersion: 1;		(* layoutVersion *)
@@ -254,8 +256,8 @@ DelphiEmitter_ClassInitBlock: SOM_CIB = (
 	minorVersion: DelphiEmitter_MinorVersion;
 	constFlags: $40004;	(* constFlags *)
 	inheritVars: $FFFFFFFF;	(* inheritVars *)
-	classMeta: 0;	(* classMeta *)
-	classInit: somMethodPtr(@__somC_DelphiEmitter_classInit);	(* classInit *)
+	classMeta: nil;	(* classMeta *)
+	classInit: nil; // somMethodPtr(@__somC_DelphiEmitter_classInit);	(* classInit *)
 	classUninit: nil;	(* classUninit *)
 	legacyInit: nil;	(* legacyInit *)
 	legacyUninit: nil;	(* legacyUninit *)
@@ -263,24 +265,24 @@ DelphiEmitter_ClassInitBlock: SOM_CIB = (
 	udaConstAssign: nil;	(* udaConstAssign *)
 	protectedDataOffset: 0;	(* protectedDataOffset *)
 	numEmbeddedObjs: 0;	(* numEmbeddedObjs *)
-	embeddedObjs: 0;	(* embeddedObjs *)
+	embeddedObjs: nil;	(* embeddedObjs *)
 	numRegIds: 3;	(* numRegIds *)
 	regIds: @(__somC_DelphiEmitter_regIdsArray[0]);	(* regIds *)
 	numClassDataEntries: (SizeOf(DelphiEmitterClassDataStructure) - SizeOf(SOMClass)) div SizeOf(somMToken);	(* numClassDataEntries *)
-	somClassData: somClassDataStructurePtr(@DelphiEmitterClassData);
-	somCClassData: somCClassDataStructurePtr(@DelphiEmitterCClassData);
-	som3ClassInfo: @__somC_DelphiEmitter_ClassInfo;
+	somClassData: nil; // somClassDataStructurePtr(@DelphiEmitterClassData);
+	somCClassData: nil; // somCClassDataStructurePtr(@DelphiEmitterCClassData);
+	som3ClassInfo: nil; // @__somC_DelphiEmitter_ClassInfo;
 	numParents: 1;	(* numParents *)
 	parents: @(__somC_DelphiEmitter_parentArray[0]);	(* parents *)
 	numDirectInitClasses: 1;	(* numDirectInitClasses *)
 	directInitClasses: @(__somC_DelphiEmitter_parentArray[0]);	(* directInitClasses *)
 	numNewInitializers: 0;	(* numNewInitializers *)
-	newInitializerSymbols: 0;	(* newInitializerSymbols *)
+	newInitializerSymbols: nil;	(* newInitializerSymbols *)
 	numOvInitializers: 0;	(* numOvInitializers *)
-	ovInitializerSymbols: 0;	(* ovInitializerSymbols *)
-	specialOverrides: 0;	(* special overrides *)
+	ovInitializerSymbols: nil;	(* ovInitializerSymbols *)
+	specialOverrides: nil;	(* special overrides *)
 	maxNDMethods: 0;	(* maxNDMethods *)
-	newNDMethods: 0;	(* newNDMethods *)
+	newNDMethods: nil;	(* newNDMethods *)
 	numOverrides: 1;	(* numOverrides *)
 	overrides: @(__somC_DelphiEmitter_overridesArray[0]);	(* overrides *)
 	numInheritedSelections: 0;	(* numInheritedSelections *)
@@ -289,47 +291,43 @@ DelphiEmitter_ClassInitBlock: SOM_CIB = (
 	migratedMethods: nil 	(* migrated methods *)
 );	(* CIB *)
 
-static som3ClassDetails __somC_DelphiEmitter_ClassDetails = {
-	(somMethodTabPtr)NULL,	/* mtab */
-	(somMethodTabPtr *)__somC_DelphiEmitter_parentMtabs,	/* parentMtabs */
-	&DelphiEmitter_ClassInitBlock,	/* CIB pointer */
-	(somTD_somRenewNoInitNoZeroThunk)0,	/* somRenewNoInitNoZeroThunk */
-	(long)0,	/* instanceSize */
-	(somMethodProc**)NULL,	/* resolvedInits */
-	(somClassDataStructure *)&__somC_DelphiEmitter_resolvedMTokens,	/* resolvedMTokens */
-	{0,0,0,0},	/* initCtrl */
-	{0,0,0,0},	/* destructCtrl */
-	{0,0,0,0},	/* assignCtrl */
-	(long)1,	/* layoutVersion */
-	(void*)NULL,	/* extension */
-	(somDToken)NULL,	/* publicDataToken */
-	(somDToken)NULL,	/* protectedDataToken */
-};
-som3ClassInfoStruct __somC_DelphiEmitter_ClassInfo = {
-	0,	/* classObject */
-	&__somC_DelphiEmitter_ClassDetails	/* class details */
-};
+__somC_DelphiEmitter_ClassDetails: som3ClassDetails = (
+	mtab: nil;	(* mtab *)
+	next: nil; // somMethodTabPtrPtr(@(__somC_DelphiEmitter_parentMtabs[0]));	(* parentMtabs *)
+	cib: @DelphiEmitter_ClassInitBlock;	(* CIB pointer *)
+	somRenewNoInitNoZeroThunk: nil;	(* somRenewNoInitNoZeroThunk *)
+	instanceSize: 0;	(* instanceSize *)
+	resolvedInits: nil;	(* resolvedInits *)
+	resolvedMTokens: nil; // somClassDataStructurePtr(@__somC_DelphiEmitter_resolvedMTokens);	(* resolvedMTokens *)
+	initCtrl: (mask: nil; info: nil; infoSize: 0; ctrlInfo: nil);	(* initCtrl *)
+	destructCtrl: (mask: nil; info: nil; infoSize: 0; ctrlInfo: nil);	(* destructCtrl *)
+	assignCtrl: (mask: nil; info: nil; infoSize: 0; ctrlInfo: nil);	(* assignCtrl *)
+	layoutVersion: 1;	(* layoutVersion *)
+	extension: nil;	(* extension *)
+	publicDataToken: nil;	(* publicDataToken *)
+	protectedDataToken: nil;	(* protectedDataToken *)
+  instanceAlignment: 0
+);
+__somC_DelphiEmitter_ClassInfo: som3ClassInfoStruct = (
+	classObject: nil;	(* classObject *)
+	classDetails: @__somC_DelphiEmitter_ClassDetails	(* class details *)
+);
 
 
-/*
+(*
  * Class Creation and Initialization
- */
+ *)
 
-#if defined(__IBMC__) && (defined(_WIN32) || defined(__OS2__)) && !defined(SOM_PREWARP)
-#pragma alloc_text (SEG0002, __somC_DelphiEmitter_classInit)
-#pragma alloc_text (SEG0002, DelphiEmitterNewClass)
-#endif
-
-/* classinit function */
-SOM_Scope void SOMLINK __somC_DelphiEmitter_classInit(SOMClass somSelf)
+(* classinit function *)
+// procedure __somC_DelphiEmitter_classInit(somSelf: SOMClass); stdcall;
 {
    SOM_IgnoreWarning(somSelf);
-   DelphiEmitter_parent_SOMTEmitC_somtGenerateSections_resolved = 
-	somParentNumResolve(DelphiEmitterCClassData.parentMtab, 1, _SOMMTOKEN_SOMTEmitC(somtGenerateSections)); 
+   DelphiEmitter_parent_SOMTEmitC_somtGenerateSections_resolved =
+	somParentNumResolve(DelphiEmitterCClassData.parentMtab, 1, _SOMMTOKEN_SOMTEmitC(somtGenerateSections));
 }
 
-/* NewClass Function */
-SOMEXTERN SOMDLLEXPORT SOMClass  SOMLINK DelphiEmitterNewClass (long reqMajorVersion, long reqMinorVersion)
+(* NewClass Function *)
+// SOMEXTERN SOMDLLEXPORT SOMClass  SOMLINK DelphiEmitterNewClass (long reqMajorVersion, long reqMinorVersion)
 {
    if (_SOMCLASS_DelphiEmitter && _somCheckVersion(_SOMCLASS_DelphiEmitter,reqMajorVersion,reqMinorVersion))
       return _SOMCLASS_DelphiEmitter;
@@ -343,94 +341,174 @@ __somC_DelphiEmitter_parentArray[0] = (SOMClass *)&_SOMCLASS_SOMTEmitC;
 
 implementation
 
+function _SOMCLASS_DelphiEmitter: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := DelphiEmitterClassData.classObject;
+end;
 
-(* SOM_Scope boolean  SOMLINK somtGenerateSections(DelphiEmitter *somSelf)
-{
-    /* DelphiEmitterData *somThis = DelphiEmitterGetData(somSelf); */
-    SOMTClassEntryC *cls = __get_somtTargetClass(somSelf);
-    SOMTTemplateOutputC *template = __get_somtTemplate(somSelf);
-    DelphiEmitterMethodDebug("DelphiEmitter","somtGenerateSections");
+function DelphiEmitterNew: DelphiEmitter;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_DelphiEmitter;
+  if not Assigned(cls) then cls := DelphiEmitterNewClass;
+  Result := SOMClass_somNew(cls);
+end;
 
-    /*
-     * Setup symbols that are common to the whole file 
-     */
-    _somtFileSymbols(somSelf);
+function DelphiEmitterRenew(buf: Pointer): DelphiEmitter;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_DelphiEmitter;
+  if not Assigned(cls) then cls := DelphiEmitterNewClass;
+	Result := SOMClass_somRenew(cls, buf);
+end;
 
-    _somtEmitProlog(somSelf);
+function DelphiEmitterGetData(somSelf: DelphiEmitter): DelphiEmitterDataPtr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := somTD_DelphiEmitter_DataThunk(DelphiEmitterCClassData.instanceDataToken)(somSelf);
+end;
 
-    if (cls != (SOMTClassEntryC * ) NULL) {
-        _somtScanBases(somSelf,
-                       "somtEmitBaseIncludesProlog",
-                       "somtEmitBaseIncludes",
-                       "somtEmitBaseIncludesEpilog");
+procedure __somC_DelphiEmitter_classInit(somSelf: SOMClass); stdcall;
+begin
+  // SOM_IgnoreWarning(somSelf);
+  DelphiEmitter_parent_SOMTEmitC_somtGenerateSections_resolved :=
+	  somParentNumResolve(DelphiEmitterCClassData.parentMtab, 1, SOMTEmitCClassData.somtGenerateSections);
+end;
 
-        _somtEmitMetaInclude(somSelf);
+function DelphiEmitter_parent_SOMTEmitC_somtGenerateSections(somSelf: DelphiEmitter): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := somTD_SOMTEmitC_somtGenerateSections
+    (DelphiEmitter_parent_SOMTEmitC_somtGenerateSections_resolved)(somSelf);
+end;
 
-        _somtEmitClass(somSelf);
+function DelphiEmitter_pcall_somtGenerateSections(somSelf: DelphiEmitter): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result :=
+   somTD_SOMTEmitC_somtGenerateSections(DelphiEmitter_pcall_somtGenerateSections_resolved)(somSelf);
+end;
 
-        _somtScanBases(somSelf,
-                       "somtEmitBaseProlog",
-                       "somtEmitBase",
-                       "somtEmitBaseEpilog");
+function DelphiEmitter_pcallResolve_somtGenerateSections(somSelf: DelphiEmitter): CORBABoolean; stdcall;
+begin
+  Result := somTD_SOMTEmitC_somtGenerateSections
+    (somPCallResolve(somSelf, _SOMCLASS_DelphiEmitter,
+    SOMTEmitCClassData.somtGenerateSections))(somSelf);
+end;
 
-        _somtEmitMeta(somSelf);
-    }
-    _somtScanConstants(somSelf, "somtEmitConstantProlog",
-                      "somtEmitConstant", "somtEmitConstantEpilog");
+function DelphiEmitterNewClass(
+    somtmajorVersion: integer4 = DelphiEmitter_MajorVersion;
+		somtminorVersion: integer4 = DelphiEmitter_MinorVersion): SOMClass; stdcall;
+begin
+  if Assigned(_SOMCLASS_DelphiEmitter()) and
+     SOMClass_somCheckVersion(_SOMCLASS_DelphiEmitter, somtmajorVersion, somtminorVersion) then
+  begin
+    Result := _SOMCLASS_DelphiEmitter;
+    Exit;
+  end;
+  __somC_DelphiEmitter_parentArray[0] := PSOMClass(@(SOMTEmitCClassData.classObject));
+   (* require parents *)
+   if not Assigned(_SOMCLASS_SOMTEmitC()) then
+     SOMTEmitCNewClass(SOMTEmitC_MajorVersion, SOMTEmitC_MinorVersion);
+   (* return new class *)
+   Result := somBuildClass2(@DelphiEmitter_ClassInitBlock, somtmajorVersion, somtminorVersion);
+end;
 
-    _somtScanTypedefs(somSelf, "somtEmitTypedefProlog",
-                      "somtEmitTypedef", "somtEmitTypedefEpilog");
 
-    _somtScanStructs(somSelf, "somtEmitStructProlog",
-                     "somtEmitStruct", "somtEmitStructEpilog");
+function somtGenerateSections(somSelf: DelphiEmitter): CORBABoolean; stdcall;
+var
+  cls: SOMTClassEntryC;
+  template: SOMTTemplateOutputC;
+begin
+  (* DelphiEmitterData *somThis = DelphiEmitterGetData(somSelf); *)
+  cls := SOMTEmitC__get_somtTargetClass(somSelf);
+  template := SOMTEmitC__get_somtTemplate(somSelf);
+  // DelphiEmitterMethodDebug("DelphiEmitter", "somtGenerateSections");
 
-    _somtScanUnions(somSelf, "somtEmitUnionProlog",
-                    "somtEmitUnion", "somtEmitUnionEpilog");
+  (*
+   * Setup symbols that are common to the whole file
+   *)
+  SOMTEmitC_somtFileSymbols(somSelf);
 
-    _somtScanEnums(somSelf, "somtEmitEnumProlog",
-                   "somtEmitEnum", "somtEmitEnumEpilog");
+  SOMTEmitC_somtEmitProlog(somSelf);
 
-    if (cls != (SOMTClassEntryC * ) NULL) {
-        _somtScanAttributes(somSelf, "somtEmitAttributeProlog",
-                            "somtEmitAttribute", "somtEmitAttributeEpilog");
+  if Assigned(cls) then
+  begin
+    SOMTEmitC_somtScanBases(somSelf,
+                            'somtEmitBaseIncludesProlog',
+                            'somtEmitBaseIncludes',
+                            'somtEmitBaseIncludesEpilog');
 
-        _somtScanMethods(somSelf,
-                         "somtImplemented",
-                         "somtEmitMethodsProlog",
-                         "somtEmitMethod",
-                         "somtEmitMethodsEpilog",
-                         0);
+    SOMTEmitC_somtEmitMetaInclude(somSelf);
 
-        _somtEmitRelease(somSelf);
+    SOMTEmitC_somtEmitClass(somSelf);
 
-        _somtScanPassthru(somSelf, 1,
-                          "somtEmitPassthruProlog",
-                          "somtEmitPassthru",
-                          "somtEmitPassthruEpilog");
+    SOMTEmitC_somtScanBases(somSelf,
+                            'somtEmitBaseProlog',
+                            'somtEmitBase',
+                            'somtEmitBaseEpilog');
 
-        _somtScanPassthru(somSelf, 0,
-                          "somtEmitPassthruProlog",
-                          "somtEmitPassthru",
-                          "somtEmitPassthruEpilog");
+    SOMTEmitC_somtEmitMeta(somSelf);
+  end;
+  SOMTEmitC_somtScanConstants(somSelf, 'somtEmitConstantProlog',
+                              'somtEmitConstant', 'somtEmitConstantEpilog');
 
-        _somtScanData(somSelf,
-                      "somtEmitDataProlog",
-                      "somtEmitData",
-                      "somtEmitDataEpilog");
-    }
+  SOMTEmitC_somtScanTypedefs(somSelf, 'somtEmitTypedefProlog',
+                             'somtEmitTypedef', 'somtEmitTypedefEpilog');
 
-    if (__get_somtTargetModule(somSelf) != (SOMTModuleEntryC * ) NULL) {
+  SOMTEmitC_somtScanStructs(somSelf, 'somtEmitStructProlog',
+                            'somtEmitStruct', 'somtEmitStructEpilog');
 
-        _somtScanInterfaces(somSelf, "somtEmitInterfaceProlog",
-                            "somtEmitInterface", "somtEmitInterfaceEpilog");
+  SOMTEmitC_somtScanUnions(somSelf, 'somtEmitUnionProlog',
+                           'somtEmitUnion', 'somtEmitUnionEpilog');
 
-        _somtScanModules(somSelf, "somtEmitModuleProlog",
-                         "somtEmitModule", "somtEmitModuleEpilog");
-    }
+  SOMTEmitC_somtScanEnums(somSelf, 'somtEmitEnumProlog',
+                          'somtEmitEnum', 'somtEmitEnumEpilog');
 
-    _somtEmitEpilog(somSelf);
+  if Assigned(cls) then
+  begin
+    SOMTEmitC_somtScanAttributes(somSelf, 'somtEmitAttributeProlog',
+                                 'somtEmitAttribute', 'somtEmitAttributeEpilog');
 
-    return (TRUE);
-} *)
+    SOMTEmitC_somtScanMethods(somSelf,
+                              'somtImplemented',
+                              'somtEmitMethodsProlog',
+                              'somtEmitMethod',
+                              'somtEmitMethodsEpilog',
+                              False);
+
+    SOMTEmitC_somtEmitRelease(somSelf);
+
+    SOMTEmitC_somtScanPassthru(somSelf, True,
+                               'somtEmitPassthruProlog',
+                               'somtEmitPassthru',
+                               'somtEmitPassthruEpilog');
+
+    SOMTEmitC_somtScanPassthru(somSelf, False,
+                               'somtEmitPassthruProlog',
+                               'somtEmitPassthru',
+                               'somtEmitPassthruEpilog');
+
+    SOMTEmitC_somtScanData(somSelf,
+                           'somtEmitDataProlog',
+                           'somtEmitData',
+                           'somtEmitDataEpilog');
+  end;
+
+  if Assigned(SOMTEmitC__get_somtTargetModule(somSelf)) then
+  begin
+
+      SOMTEmitC_somtScanInterfaces(somSelf, 'somtEmitInterfaceProlog',
+                                   'somtEmitInterface', 'somtEmitInterfaceEpilog');
+
+      SOMTEmitC_somtScanModules(somSelf, 'somtEmitModuleProlog',
+                                'somtEmitModule', 'somtEmitModuleEpilog');
+  end;
+
+  SOMTEmitC_somtEmitEpilog(somSelf);
+
+  Result := True;
+end;
+
+initialization
 
 end.
