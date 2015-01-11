@@ -19,5 +19,99 @@ uses
 
 {$R *.res}
 
+// #include "emitdelphi.c"
+
+(* @(#) somc/gen_emit.efs 2.9 6/7/96 16:14:29 [12/22/96 21:11:24] *)
+
+(*
+ *   COMPONENT_NAME: some
+ *
+ *   ORIGINS: 27
+ *
+ *
+ *   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
+ *   All Rights Reserved
+ *   Licensed Materials - Property of IBM
+ *   US Government Users Restricted Rights - Use, duplication or
+ *   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ *)
+
+(*
+ *         File:    emitdelphi.c
+ *       Author:    SOMObjects Emitter Framework
+ *     Contents:    Generic framework emitter for DelphiEmitter.
+ *         Date:    Sun Jan 11 00:51:12 2015.
+ *)
+
+const SYMBOLS_FILE = 'delphi.efw';
+
+function emitSL(fileName: PAnsiChar; cls: PEntry; stab: PStab): PFILE; stdcall;
+var
+  fp, deffile: PFILE;
+  oCls: SOMTClassEntryC;
+  mdl: SOMTModuleEntryC;
+  emitter: DelphiEmitter;
+  t: SOMTTemplateOutputC;
 begin
+
+    (* if this is a class, rather than a module: *)
+    if cls.somttype = SOMTClassE then
+    begin
+
+      fp := somtopenEmitFileSL(fileName, 'delphi');
+      oCls := SOMTClassEntryC(somtGetObjectWrapper(cls));
+      emitter := DelphiEmitterNew;
+      SOMTEmitC__set_somtTargetFile(emitter, fp);
+      SOMTEmitC__set_somtTargetClass(emitter, oCls);
+      SOMTEmitC__set_somtEmitterName(emitter, 'delphi');
+      t := SOMTEmitC__get_somtTemplate(emitter);
+      SOMTTemplateOutputC__set_somtCommentStyle(t, somtCPPE);
+      deffile := SOMTEmitC_somtOpenSymbolsFile(emitter, SYMBOLS_FILE, 'r');
+      if Assigned(deffile) then
+      begin
+        SOMTTemplateOutputC_somtReadSectionDefinitions(t, deffile);
+        somtfcloseSL(deffile);
+      end
+      else begin
+        WriteLn(ErrOutput, 'Cannot open Symbols file "' + SYMBOLS_FILE + '".');
+        Halt(1);
+      end;
+      SOMTEmitC_somtGenerateSections(emitter);
+      SOMObject_somFree(emitter);
+	    SOMObject_somFree(oCls);
+
+      Result := fp;
+    end
+    else if cls.somttype = SOMTModuleE then
+    begin
+
+      fp := somtopenEmitFileSL(fileName, 'delphi');
+      mdl := SOMTModuleEntryC(somtGetObjectWrapper(cls));
+      emitter := DelphiEmitterNew;
+      SOMTEmitC__set_somtTargetFile(emitter, fp);
+      SOMTEmitC__set_somtTargetModule(emitter, mdl);
+      t := SOMTEmitC__get_somtTemplate(emitter);
+      SOMTTemplateOutputC__set_somtCommentStyle(t, somtCPPE);
+      deffile := SOMTEmitC_somtOpenSymbolsFile(emitter, SYMBOLS_FILE, 'r');
+      if Assigned(deffile) then
+      begin
+        SOMTTemplateOutputC_somtReadSectionDefinitions(t, deffile);
+        somtfcloseSL(deffile);
+      end
+      else begin
+        WriteLn(ErrOutput, 'Cannot open Symbols file "' + SYMBOLS_FILE + '".');
+        Halt(1);
+      end;
+      SOMTEmitC_somtGenerateSections(emitter);
+      SOMObject_somFree(emitter);
+      SOMObject_somFree(mdl);
+
+      Result := fp;
+    end
+
+    else Result := nil;
+end;
+
+begin
+
 end.

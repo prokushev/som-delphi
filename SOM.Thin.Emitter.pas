@@ -63,6 +63,7 @@ type
  *)
 
   Stab = Pointer;
+  PStab = ^Stab;
   SOMTTypes = type LongWord;
 const
   SOMTAnyBE = SOMTTypes(0);
