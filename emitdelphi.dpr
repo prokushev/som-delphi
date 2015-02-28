@@ -57,9 +57,8 @@ begin
     (* if this is a class, rather than a module: *)
     if cls.somttype = SOMTClassE then
     begin
-
-      fp := somtopenEmitFileSL(fileName, 'pas');
       oCls := SOMTClassEntryC(somtGetObjectWrapper(cls));
+      fp := somtopenEmitFileSL(fileName, 'pas');
       emitter := DelphiEmitterNew;
       SOMTEmitC__set_somtTargetFile(emitter, fp);
       SOMTEmitC__set_somtTargetClass(emitter, oCls);

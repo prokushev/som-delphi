@@ -1,0 +1,71 @@
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org/>
+
+Appendix.
+
+Software development cannot stand apart from other other sides of life.
+It is a quest towards better society where developers do not have to
+put paywalls around their code to be able to eat tomorrow, and other
+developers putting anti-paywall licenses to be able to see source code
+tomorrow.
+
+Everything is interconnected, so a problem that is connected with other
+sides of life needs a solution that is also connected with other sides
+of life. That is why this appendix is essential in really solving the
+problem. With all the regards to FSF and other international
+organisations like this they are making a mistake by limiting
+theirselves to one side of life. They are doomed to be always
+defending.
+
+For more information about building better society, please refer to:
+English links:
+<http://youtube.com/playlist?list=PLA030912772460EE7>
+<http://www.old.vodaspb.ru/english/index.html>
+<http://sutr.org/>
+<http://newyouthpolicy.org/en/>
+<http://dotu.ru/lang/en/>
+<http://zakonvremeni.ru/films.html>
+<http://youtube.com/playlist?list=PLEpD0QTry-lpfJYaZvqNJ7cNViMHbLfOb>
+
+Russian websites:
+<http://www.vodaspb.ru/>
+<http://kpe.ru/>
+<http://zakonvremeni.ru/>
+<http://inance.ru/>
+<http://fct-altai.ru/>
+<http://dotu.ru/>
+<http://newyouthpolicy.org/ru/>
+<http://xn--80ajoghfjyj0a.xn--p1ai/>
+<http://kob-propaganda.by/>
+
+Chinese links:
+<http://dotu.ru/lang/zh/>
+<http://wiki.kob.su/index.php?title=%D0%9A%D0%B8%D1%82%D0%B0%D0%B9>
+
+Keywords:
+Conception of Social Security (CSS, COB, KOB)
+Conception of Public Security
+Sufficiently Universal Theory of Ruling (SUTR, DOTU)
+COB-modified public domain license

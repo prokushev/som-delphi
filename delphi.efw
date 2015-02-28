@@ -1,23 +1,19 @@
 :copyrightS
-/* @(#) somc/gen_temp.efw 2.5 9/2/94 14:17:15 [12/22/96 21:11:21] */
+(* SOM-Delphi bindings. 2013-2015. Maid by Ivan Aleksandrovich "OCTAGRAM" Levashew *)
 
-/*
- *   COMPONENT_NAME: some
- *
- *   ORIGINS: 27
- *
- *
- *   10H9767, 10H9769  (C) COPYRIGHT International Business Machines Corp. 1992,1994
- *   All Rights Reserved
- *   Licensed Materials - Property of IBM
- *   US Government Users Restricted Rights - Use, duplication or
- *   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
- */
+(*
+ *   Status: proof of concept.
+ *)
 
 :prologS
-Section: prologS
 
-  timeStamp = "<timeStamp>"
+(******************************************************************************
+** Emitted on: <timeStamp>
+** Emitted by: OCTAGRAM SOM IDL to Delphi Interface Stub Emitter.
+******************************************************************************)
+
+:epilogS
+
 
 :baseIncludesPrologS
 Section: baseIncludesPrologS
@@ -353,6 +349,3 @@ Section: moduleS
 
 :moduleEpilogS
 Section: moduleEpilogS
-
-:epilogS
-Section: epilogS
