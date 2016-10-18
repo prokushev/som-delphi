@@ -12,11 +12,9 @@ uses
 
 {$INCLUDE 'SOM.DelphiFeatures.inc'}
 
-// #include <somtcnst.h>
-
-
-
 // #include <somir.h>
+
+
 // #include <containd.h>
 // #include <containr.h>
 

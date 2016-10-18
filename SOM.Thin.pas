@@ -410,7 +410,7 @@ type
   PEnvironment = ^Environment;
 
 (* CORBA 7.6.1, p.139 plus 5.7, p.89 enum Data Type Mapping *)
-  TCKind = type Byte;
+  TCKind = type LongWord;
 // const
 //   TypeCode_tk_null      = TCKind(1);
 //   TypeCode_tk_void      = TCKind(2);
@@ -2149,7 +2149,7 @@ const
 //   PEnvironment = ^Environment;
 
 (* CORBA 7.6.1, p.139 plus 5.7, p.89 enum Data Type Mapping *)
-//   TCKind = type Byte;
+//   TCKind = type LongWord;
 const
   TypeCode_tk_null      = TCKind(1);
   TypeCode_tk_void      = TCKind(2);
@@ -5759,7 +5759,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOM_TraceLevel: PInteger;
+  SOM_DLL_SOM_TraceLevel: PInteger = nil;
 
 function Replaceable_SOM_TraceLevel: PInteger;
 begin
@@ -5778,7 +5778,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOM_WarnLevel: PInteger;
+  SOM_DLL_SOM_WarnLevel: PInteger = nil;
 
 function Replaceable_SOM_WarnLevel: PInteger;
 begin
@@ -5797,7 +5797,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOM_AssertLevel: PInteger;
+  SOM_DLL_SOM_AssertLevel: PInteger = nil;
 
 function Replaceable_SOM_AssertLevel: PInteger;
 begin
@@ -5968,7 +5968,7 @@ end;
 // #include <somapi.h>
 
 var
-  SOM_DLL_SOM_MajorVersion: PLongInt;
+  SOM_DLL_SOM_MajorVersion: PLongInt = nil;
 
 function Replaceable_SOM_MajorVersion: PLongInt;
 begin
@@ -5987,7 +5987,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOM_MinorVersion: PLongInt;
+  SOM_DLL_SOM_MinorVersion: PLongInt = nil;
 
 function Replaceable_SOM_MinorVersion: PLongInt;
 begin
@@ -6006,7 +6006,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOM_MaxThreads: PLongInt;
+  SOM_DLL_SOM_MaxThreads: PLongInt = nil;
 
 function Replaceable_SOM_MaxThreads: PLongInt;
 begin
@@ -6030,7 +6030,7 @@ function somMainProgram; external SOM_DLL_Name;
 function somAbnormalEnd; external SOM_DLL_Name;
 
 var
-  SOM_DLL_SOMCalloc: PsomTD_SOMCalloc;
+  SOM_DLL_SOMCalloc: PsomTD_SOMCalloc = nil;
 
 function Replaceable_SOMCalloc: PsomTD_SOMCalloc;
 begin
@@ -6049,7 +6049,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMFree: PsomTD_SOMFree;
+  SOM_DLL_SOMFree: PsomTD_SOMFree = nil;
 
 function Replaceable_SOMFree: PsomTD_SOMFree;
 begin
@@ -6068,7 +6068,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMMalloc: PsomTD_SOMMalloc;
+  SOM_DLL_SOMMalloc: PsomTD_SOMMalloc = nil;
 
 function Replaceable_SOMMalloc: PsomTD_SOMMalloc;
 begin
@@ -6087,7 +6087,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMRealloc: PsomTD_SOMRealloc;
+  SOM_DLL_SOMRealloc: PsomTD_SOMRealloc = nil;
 
 function Replaceable_SOMRealloc: PsomTD_SOMRealloc;
 begin
@@ -6106,7 +6106,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMError: PsomTD_SOMError;
+  SOM_DLL_SOMError: PsomTD_SOMError = nil;
 
 function Replaceable_SOMError: PsomTD_SOMError;
 begin
@@ -6128,7 +6128,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMCreateMutexSem: PsomTD_SOMCreateMutexSem;
+  SOM_DLL_SOMCreateMutexSem: PsomTD_SOMCreateMutexSem = nil;
 
 function Replaceable_SOMCreateMutexSem: PsomTD_SOMCreateMutexSem;
 begin
@@ -6147,7 +6147,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMRequestMutexSem: PsomTD_SOMRequestMutexSem;
+  SOM_DLL_SOMRequestMutexSem: PsomTD_SOMRequestMutexSem = nil;
 
 function Replaceable_SOMRequestMutexSem: PsomTD_SOMRequestMutexSem;
 begin
@@ -6166,7 +6166,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem;
+  SOM_DLL_SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem = nil;
 
 function Replaceable_SOMReleaseMutexSem: PsomTD_SOMReleaseMutexSem;
 begin
@@ -6185,7 +6185,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
+  SOM_DLL_SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem = nil;
 
 function Replaceable_SOMDestroyMutexSem: PsomTD_SOMDestroyMutexSem;
 begin
@@ -6204,7 +6204,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMGetThreadId: PsomTD_SOMGetThreadId;
+  SOM_DLL_SOMGetThreadId: PsomTD_SOMGetThreadId = nil;
 
 function Replaceable_SOMGetThreadId: PsomTD_SOMGetThreadId;
 begin
@@ -6223,7 +6223,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMClassMgrObject: PSOMClassMgr;
+  SOM_DLL_SOMClassMgrObject: PSOMClassMgr = nil;
 
 function Replaceable_SOMClassMgrObject: PSOMClassMgr;
 begin
@@ -6245,7 +6245,7 @@ procedure somRegisterClassLibrary; external SOM_DLL_Name;
 procedure somUnregisterClassLibrary; external SOM_DLL_Name;
 
 var
-  SOM_DLL_SOMLoadModule: PsomTD_SOMLoadModule;
+  SOM_DLL_SOMLoadModule: PsomTD_SOMLoadModule = nil;
 
 function Replaceable_SOMLoadModule: PsomTD_SOMLoadModule;
 begin
@@ -6271,7 +6271,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMDeleteModule: PsomTD_SOMDeleteModule;
+  SOM_DLL_SOMDeleteModule: PsomTD_SOMDeleteModule = nil;
 
 function Replaceable_SOMDeleteModule: PsomTD_SOMDeleteModule;
 begin
@@ -6290,7 +6290,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
+  SOM_DLL_SOMClassInitFuncName: PsomTD_SOMClassInitFuncName = nil;
 
 function Replaceable_SOMClassInitFuncName: PsomTD_SOMClassInitFuncName;
 begin
@@ -6315,7 +6315,7 @@ function somLPrintf; external SOM_DLL_Name;
 procedure somSetOutChar; external SOM_DLL_Name;
 
 var
-  SOM_DLL_SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
+  SOM_DLL_SOMOutCharRoutine: PsomTD_SOMOutCharRoutine = nil;
 
 function Replaceable_SOMOutCharRoutine: PsomTD_SOMOutCharRoutine;
 begin
@@ -6389,7 +6389,7 @@ function somUnregisterLibraryClasses; external SOM_DLL_Name;
 function SOMObjectNewClass; external SOM_DLL_Name;
 
 var
-  SOM_DLL_SOMObjectClassData: PSOMObjectClassDataStructure;
+  SOM_DLL_SOMObjectClassData: PSOMObjectClassDataStructure = nil;
 
 function SOMObjectClassData: PSOMObjectClassDataStructure;
 begin
@@ -6403,7 +6403,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMObjectCClassData: PSOMObjectCClassDataStructure;
+  SOM_DLL_SOMObjectCClassData: PSOMObjectCClassDataStructure = nil;
 
 function SOMObjectCClassData: PSOMObjectCClassDataStructure;
 begin
@@ -6728,7 +6728,7 @@ end;
 function SOMClassNewClass; external SOM_DLL_Name;
 
 var
-  SOM_DLL_SOMClassClassData: PSOMClassClassDataStructure;
+  SOM_DLL_SOMClassClassData: PSOMClassClassDataStructure = nil;
 
 function SOMClassClassData: PSOMClassClassDataStructure;
 begin
@@ -6742,7 +6742,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMClassCClassData: PSOMClassCClassDataStructure;
+  SOM_DLL_SOMClassCClassData: PSOMClassCClassDataStructure = nil;
 
 function SOMClassCClassData: PSOMClassCClassDataStructure;
 begin
@@ -7352,7 +7352,7 @@ end;
 function SOMClassMgrNewClass; external SOM_DLL_Name;
 
 var
-  SOM_DLL_SOMClassMgrClassData: PSOMClassMgrClassDataStructure;
+  SOM_DLL_SOMClassMgrClassData: PSOMClassMgrClassDataStructure = nil;
 
 function SOMClassMgrClassData: PSOMClassMgrClassDataStructure;
 begin
@@ -7366,7 +7366,7 @@ begin
 end;
 
 var
-  SOM_DLL_SOMClassMgrCClassData: PSOMClassMgrCClassDataStructure;
+  SOM_DLL_SOMClassMgrCClassData: PSOMClassMgrCClassDataStructure = nil;
 
 function SOMClassMgrCClassData: PSOMClassMgrCClassDataStructure;
 begin
