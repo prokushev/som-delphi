@@ -1,0 +1,9 @@
+#ifndef _Emit2_idl_
+#define _Emit2_idl_
+
+module Emit2 {
+#include <unotypes.idl>
+#include <somdtype.idl>
+};
+
+#endif

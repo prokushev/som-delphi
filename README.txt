@@ -2,6 +2,46 @@ State: proof of concept, stub. Not even alpha.
 
 How to get things running?
 
+There are two methods to handle changning environment:
+1) opening separate command line prompt
+2) using runners
+
+== New method: using runners ==
+
+Grab som30nt.zip and som301nt.7z.
+
+Unpack som30nt.zip somewhere, e. g. C:\home\OCTAGRAM\SOM_AND_OD\SOM\3.0.
+
+som30nt.zip is suffering from DEP, so replace bin\somwm35i.dll and 
+bin\somws35i.dll with those ones from som301nt.7z.
+
+Put (or install) portable Delphi 7 into C:\home\OCTAGRAM\SOM_AND_OD\Delphi\7
+
+Copy sample runners from Sample-Runners into 
+C:\home\OCTAGRAM\SOM_AND_OD\Runner\
+
+Add C:\home\OCTAGRAM\SOM_AND_OD\Runner to your PATH
+
+Now you can run SOM and Delphi stuff this way:
+
+call delphirunner.cmd 7 %~dp0 dcc32 emitdelphi.dpr
+call somrunner.cmd 3.0 %~dp0 sc -v -sdelphi -m"namespace=TestEmit" emit2.idl
+call somdelphirunner.cmd 3.0 7 %~dp0 delphi7 emitdelphi.dpr
+
+This way we can run different combinations of Delphi and SOM version.
+
+It became important because when the project was incepted, only SOM 3.0 for 
+Windows was known to be available, but since then other things were
+discovered:
+1) Patch 3.5.9 for VisualAge C++ for Windows containing full SOM 2.1
+2) The same patch (found on IBM FTP) also contains enough files to run DTC C++
+3) OpenDoc for Windows with ComponentGlue works with SOM 2.1, but not SOM 3.0
+
+So it makes sense to downgrade project from SOM 3.0 to SOM 2.1 eventually. 
+We'll get DirectToSOM C++ and OLE Automation this way.
+
+== Old method: opening separate command line prompt ==
+
 Grab som30nt.zip and som301nt.7z.
 
 Unpack som30nt.zip somewhere, e. g. C:\Programs\IBM\SOM.
@@ -55,6 +95,6 @@ Note: SOM DTK supports 2 ways of naming classes. CORBA style don't
 have stars, and C++ style has. There is also somstars for generating C
 headers with stars. They can't mix for obvious reasons. C samples use 
 CORBA style only. newemit code assumes stars mode only. Delphi bindings 
-are maid after CORBA style starless headers, so newemit output was 
+are made after CORBA style starless headers, so newemit output was 
 reinterpreted in mind.
 

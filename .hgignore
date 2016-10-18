@@ -6,3 +6,6 @@ syntax: glob
 *.dsk
 *.dll
 *.res
+emit2.pas
+emit3.cmd
+*.RES

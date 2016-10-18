@@ -64,7 +64,7 @@ type
 
   Stab = Pointer;
   PStab = ^Stab;
-  SOMTTypes = type LongWord;
+  SOMTTypes = type Byte;
 const
   SOMTAnyBE = SOMTTypes(0);
   SOMTArgumentE = SOMTTypes(1);
@@ -136,7 +136,7 @@ const
   SOMT_MAX_SMALL_STRING = 1000;
 
 type
-  SOMTTargetTypeT = type LongWord;
+  SOMTTargetTypeT = type LongWord; // Byte???
 const
   somtPrivateE = SOMTTargetTypeT(0);
   somtPublicE = SOMTTargetTypeT(1);
@@ -163,7 +163,7 @@ function somtEntryTypeName(somttype: SOMTTypes): PAnsiChar; stdcall;
  *)
 
 type
-  somtCommentStyleT = type LongWord;
+  somtCommentStyleT = type LongWord; // Byte ???
 const
   somtDashesE = somtCommentStyleT(1);
   somtCPPE = somtCommentStyleT(2);
@@ -1745,7 +1745,7 @@ function SOMTMetaClassEntryC__get_somtMetaClassDef(somSelf: SOMTMetaClassEntryC)
  * Passthru lines: File: "C.h", "before"
  *)
 type
-  somtVisibilityT = type LongWord;
+  somtVisibilityT = type LongWord; // Byte???
 const
   somtInternalVE = somtVisibilityT(0);
   somtPublicVE = somtVisibilityT(1);
@@ -4973,7 +4973,7 @@ function SOMTSequenceEntryC__get_somtSeqType(somSelf: SOMTSequenceEntryC): SOMTE
  * Passthru lines: File: "C.h", "before"
  *)
 type
-  somtParameterDirectionT = type LongWord;
+  somtParameterDirectionT = type LongWord; // Byte???
 const
   somtInE = somtParameterDirectionT(0);
   somtOutE = somtParameterDirectionT(1);

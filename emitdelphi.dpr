@@ -54,61 +54,64 @@ var
   t: SOMTTemplateOutputC;
 begin
 
-    (* if this is a class, rather than a module: *)
-    if cls.somttype = SOMTClassE then
+  (* if this is a class, rather than a module: *)
+  (* if cls.somttype = SOMTClassE then
+  begin
+    oCls := SOMTClassEntryC(somtGetObjectWrapper(cls));
+    fp := somtopenEmitFileSL(fileName, 'pas');
+    emitter := DelphiEmitterNew;
+    SOMTEmitC__set_somtTargetFile(emitter, fp);
+    SOMTEmitC__set_somtTargetClass(emitter, oCls);
+    SOMTEmitC__set_somtEmitterName(emitter, 'delphi');
+    t := SOMTEmitC__get_somtTemplate(emitter);
+    SOMTTemplateOutputC__set_somtCommentStyle(t, somtCPPE);
+    deffile := SOMTEmitC_somtOpenSymbolsFile(emitter, SYMBOLS_FILE, 'r');
+    if Assigned(deffile) then
     begin
-      oCls := SOMTClassEntryC(somtGetObjectWrapper(cls));
-      fp := somtopenEmitFileSL(fileName, 'pas');
-      emitter := DelphiEmitterNew;
-      SOMTEmitC__set_somtTargetFile(emitter, fp);
-      SOMTEmitC__set_somtTargetClass(emitter, oCls);
-      SOMTEmitC__set_somtEmitterName(emitter, 'delphi');
-      t := SOMTEmitC__get_somtTemplate(emitter);
-      SOMTTemplateOutputC__set_somtCommentStyle(t, somtCPPE);
-      deffile := SOMTEmitC_somtOpenSymbolsFile(emitter, SYMBOLS_FILE, 'r');
-      if Assigned(deffile) then
-      begin
-        SOMTTemplateOutputC_somtReadSectionDefinitions(t, deffile);
-        somtfcloseSL(deffile);
-      end
-      else begin
-        WriteLn(ErrOutput, 'Cannot open Symbols file "' + SYMBOLS_FILE + '".');
-        Halt(1);
-      end;
-      SOMTEmitC_somtGenerateSections(emitter);
-      SOMObject_somFree(emitter);
-	    SOMObject_somFree(oCls);
-
-      Result := fp;
+      SOMTTemplateOutputC_somtReadSectionDefinitions(t, deffile);
+      somtfcloseSL(deffile);
     end
-    else if cls.somttype = SOMTModuleE then
+    else begin
+      WriteLn(ErrOutput, 'Cannot open Symbols file "' + SYMBOLS_FILE + '".');
+      Halt(1);
+    end;
+    SOMTEmitC_somtGenerateSections(emitter);
+    SOMObject_somFree(emitter);
+    SOMObject_somFree(oCls);
+
+    Result := fp;
+  end
+  else if cls.somttype = SOMTModuleE then
+  begin
+
+    fp := somtopenEmitFileSL(fileName, 'pas');
+    mdl := SOMTModuleEntryC(somtGetObjectWrapper(cls));
+    emitter := DelphiEmitterNew;
+    SOMTEmitC__set_somtTargetFile(emitter, fp);
+    SOMTEmitC__set_somtTargetModule(emitter, mdl);
+    t := SOMTEmitC__get_somtTemplate(emitter);
+    SOMTTemplateOutputC__set_somtCommentStyle(t, somtCPPE);
+    deffile := SOMTEmitC_somtOpenSymbolsFile(emitter, SYMBOLS_FILE, 'r');
+    if Assigned(deffile) then
     begin
-
-      fp := somtopenEmitFileSL(fileName, 'pas');
-      mdl := SOMTModuleEntryC(somtGetObjectWrapper(cls));
-      emitter := DelphiEmitterNew;
-      SOMTEmitC__set_somtTargetFile(emitter, fp);
-      SOMTEmitC__set_somtTargetModule(emitter, mdl);
-      t := SOMTEmitC__get_somtTemplate(emitter);
-      SOMTTemplateOutputC__set_somtCommentStyle(t, somtCPPE);
-      deffile := SOMTEmitC_somtOpenSymbolsFile(emitter, SYMBOLS_FILE, 'r');
-      if Assigned(deffile) then
-      begin
-        SOMTTemplateOutputC_somtReadSectionDefinitions(t, deffile);
-        somtfcloseSL(deffile);
-      end
-      else begin
-        WriteLn(ErrOutput, 'Cannot open Symbols file "' + SYMBOLS_FILE + '".');
-        Halt(1);
-      end;
-      SOMTEmitC_somtGenerateSections(emitter);
-      SOMObject_somFree(emitter);
-      SOMObject_somFree(mdl);
-
-      Result := fp;
+      SOMTTemplateOutputC_somtReadSectionDefinitions(t, deffile);
+      somtfcloseSL(deffile);
     end
+    else begin
+      WriteLn(ErrOutput, 'Cannot open Symbols file "' + SYMBOLS_FILE + '".');
+      Halt(1);
+    end;
+    SOMTEmitC_somtGenerateSections(emitter);
+    SOMObject_somFree(emitter);
+    SOMObject_somFree(mdl);
 
-    else Result := nil;
+    Result := fp;
+  end
+  else *)
+  begin
+    WriteLn(fileName, ' / ', cls.somttype);
+    Result := nil;
+  end;
 end;
 
 exports
