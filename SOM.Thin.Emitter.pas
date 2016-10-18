@@ -136,7 +136,7 @@ const
   SOMT_MAX_SMALL_STRING = 1000;
 
 type
-  SOMTTargetTypeT = type LongWord; // Byte???
+  SOMTTargetTypeT = type Byte;
 const
   somtPrivateE = SOMTTargetTypeT(0);
   somtPublicE = SOMTTargetTypeT(1);
@@ -163,7 +163,7 @@ function somtEntryTypeName(somttype: SOMTTypes): PAnsiChar; stdcall;
  *)
 
 type
-  somtCommentStyleT = type LongWord; // Byte ???
+  somtCommentStyleT = type Byte;
 const
   somtDashesE = somtCommentStyleT(1);
   somtCPPE = somtCommentStyleT(2);
@@ -1745,7 +1745,7 @@ function SOMTMetaClassEntryC__get_somtMetaClassDef(somSelf: SOMTMetaClassEntryC)
  * Passthru lines: File: "C.h", "before"
  *)
 type
-  somtVisibilityT = type LongWord; // Byte???
+  somtVisibilityT = type Byte;
 const
   somtInternalVE = somtVisibilityT(0);
   somtPublicVE = somtVisibilityT(1);
@@ -4973,7 +4973,7 @@ function SOMTSequenceEntryC__get_somtSeqType(somSelf: SOMTSequenceEntryC): SOMTE
  * Passthru lines: File: "C.h", "before"
  *)
 type
-  somtParameterDirectionT = type LongWord; // Byte???
+  somtParameterDirectionT = type Byte;
 const
   somtInE = somtParameterDirectionT(0);
   somtOutE = somtParameterDirectionT(1);

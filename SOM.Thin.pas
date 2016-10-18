@@ -410,7 +410,7 @@ type
   PEnvironment = ^Environment;
 
 (* CORBA 7.6.1, p.139 plus 5.7, p.89 enum Data Type Mapping *)
-  TCKind = type LongWord; // Byte???
+  TCKind = type Byte;
 // const
 //   TypeCode_tk_null      = TCKind(1);
 //   TypeCode_tk_void      = TCKind(2);
@@ -2149,7 +2149,7 @@ const
 //   PEnvironment = ^Environment;
 
 (* CORBA 7.6.1, p.139 plus 5.7, p.89 enum Data Type Mapping *)
-//   TCKind = type LongWord;
+//   TCKind = type Byte;
 const
   TypeCode_tk_null      = TCKind(1);
   TypeCode_tk_void      = TCKind(2);
