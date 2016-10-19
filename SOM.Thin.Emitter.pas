@@ -14,9 +14,11 @@ uses
 
 // #include <scemit.h>
 
+(*
+ * Define the class name as an object type
+ *)
 type
   SOMTEmitC = SOMObject;
-
 (*
  *  This is the pluggable unit in the SOM emitter framework. An emitter
  *  is constructed by subclassing this class and then running the

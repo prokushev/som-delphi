@@ -472,6 +472,7 @@ type
     _type: TypeCode;
     _value: Pointer;
   end;
+  Pany = ^any;
 
 (* per CORBA 5.10, p.91 *)
   _IDL_SEQUENCE_void = record
@@ -2211,6 +2212,7 @@ const
 //     _type: TypeCode;
 //     _value: Pointer;
 //   end;
+//   Pany = ^any;
 
 (* per CORBA 5.10, p.91 *)
 //   _IDL_SEQUENCE_void = record
