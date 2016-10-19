@@ -170,6 +170,10 @@ const
   somtCSimpleE = somtCommentStyleT(3);
   somtCBlockE = somtCommentStyleT(4);
 
+(*
+ * Start of bindings for IDL types
+ *)
+
 type
   SOMTTemplateOutputC = SOMObject;
 
@@ -196,26 +200,26 @@ function SOMTTemplateOutputCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTTemplateOutputCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtCommentStyle: somMToken;
-	_set_somtCommentStyle: somMToken;
-	_get_somtLineLength: somMToken;
-	_set_somtLineLength: somMToken;
-	_set_somtCommentNewline: somMToken;
-	_get_somtCommentNewline: somMToken;
-	somtGetSymbol: somMToken;
-	somtSetSymbol: somMToken;
-	somtSetSymbolCopyName: somMToken;
-	somtSetSymbolCopyValue: somMToken;
-	somtSetSymbolCopyBoth: somMToken;
-	somtCheckSymbol: somMToken;
-	somtSetOutputFile: somMToken;
-	somto: somMToken;
-	somtOutputComment: somMToken;
-	somtOutputSection: somMToken;
-	somtAddSectionDefinitions: somMToken;
-	somtReadSectionDefinitions: somMToken;
-	somtExpandSymbol: somMToken;
+  classObject: SOMClass;
+  _get_somtCommentStyle: somMToken;
+  _set_somtCommentStyle: somMToken;
+  _get_somtLineLength: somMToken;
+  _set_somtLineLength: somMToken;
+  _set_somtCommentNewline: somMToken;
+  _get_somtCommentNewline: somMToken;
+  somtGetSymbol: somMToken;
+  somtSetSymbol: somMToken;
+  somtSetSymbolCopyName: somMToken;
+  somtSetSymbolCopyValue: somMToken;
+  somtSetSymbolCopyBoth: somMToken;
+  somtCheckSymbol: somMToken;
+  somtSetOutputFile: somMToken;
+  somto: somMToken;
+  somtOutputComment: somMToken;
+  somtOutputSection: somMToken;
+  somtAddSectionDefinitions: somMToken;
+  somtReadSectionDefinitions: somMToken;
+  somtExpandSymbol: somMToken;
 end;
 PSOMTTemplateOutputCClassDataStructure = ^SOMTTemplateOutputCClassDataStructure;
 function SOMTTemplateOutputCClassData: PSOMTTemplateOutputCClassDataStructure;
@@ -224,7 +228,7 @@ function SOMTTemplateOutputCClassData: PSOMTTemplateOutputCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTTemplateOutputCCClassDataStructure = record
-	parentMtab: somMethodTabs;
+  parentMtab: somMethodTabs;
   instanceDataToken: somDToken;
 end;
 PSOMTTemplateOutputCCClassDataStructure = ^SOMTTemplateOutputCCClassDataStructure;
@@ -263,7 +267,7 @@ function SOMTTemplateOutputC__get_somtCommentStyle(somSelf: SOMTTemplateOutputC)
  *)
 type
   somTP_SOMTTemplateOutputC__set_somtCommentStyle = procedure(somSelf: SOMTTemplateOutputC;
-		somtCommentStyle: somtCommentStyleT); stdcall;
+    somtCommentStyle: somtCommentStyleT); stdcall;
   somTD_SOMTTemplateOutputC__set_somtCommentStyle = somTP_SOMTTemplateOutputC__set_somtCommentStyle;
 (*
  *  Controls the style in which comments are wrtten as follows:
@@ -297,7 +301,7 @@ function SOMTTemplateOutputC__get_somtLineLength(somSelf: SOMTTemplateOutputC): 
  *)
 type
   somTP_SOMTTemplateOutputC__set_somtLineLength = procedure(somSelf: SOMTTemplateOutputC;
-		somtLineLength: LongInt); stdcall;
+    somtLineLength: LongInt); stdcall;
   somTD_SOMTTemplateOutputC__set_somtLineLength = somTP_SOMTTemplateOutputC__set_somtLineLength;
 (*
  *  Controls list output only.  Default is 72.
@@ -327,7 +331,7 @@ function SOMTTemplateOutputC__get_somtCommentNewline(somSelf: SOMTTemplateOutput
  *)
 type
   somTP_SOMTTemplateOutputC__set_somtCommentNewline = procedure(somSelf: SOMTTemplateOutputC;
-		somtCommentNewline: CORBABoolean); stdcall;
+    somtCommentNewline: CORBABoolean); stdcall;
   somTD_SOMTTemplateOutputC__set_somtCommentNewline = somTP_SOMTTemplateOutputC__set_somtCommentNewline;
 (*
  * Method from the IDL attribute statement:
@@ -335,14 +339,14 @@ type
  *)
 const somMD_SOMTTemplateOutputC__set_somtCommentNewline = '::SOMTTemplateOutputC::_set_somtCommentNewline';
 procedure SOMTTemplateOutputC__set_somtCommentNewline(somSelf: SOMTTemplateOutputC;
-	somtCommentNewline: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  somtCommentNewline: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somtGetSymbol
  *)
 type
   somTP_SOMTTemplateOutputC_somtGetSymbol = function(somSelf: SOMTTemplateOutputC;
-		name: CORBAString): CORBAString; stdcall;
+    name: CORBAString): CORBAString; stdcall;
   somTD_SOMTTemplateOutputC_somtGetSymbol = somTP_SOMTTemplateOutputC_somtGetSymbol;
 (*
  *  Returns the value associated with <name>.  If no value is
@@ -350,14 +354,14 @@ type
  *)
 const somMD_SOMTTemplateOutputC_somtGetSymbol = '::SOMTTemplateOutputC::somtGetSymbol';
 function SOMTTemplateOutputC_somtGetSymbol(somSelf: SOMTTemplateOutputC;
-	name: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  name: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somtSetSymbol
  *)
 type
   somTP_SOMTTemplateOutputC_somtSetSymbol = procedure(somSelf: SOMTTemplateOutputC;
-		name, value: CORBAString); stdcall;
+    name, value: CORBAString); stdcall;
   somTD_SOMTTemplateOutputC_somtSetSymbol = somTP_SOMTTemplateOutputC_somtSetSymbol;
 (*
  *  Makes the symbol with name <name> have value <value>.  This will
@@ -367,14 +371,14 @@ type
  *)
 const somMD_SOMTTemplateOutputC_somtSetSymbol = '::SOMTTemplateOutputC::somtSetSymbol';
 procedure SOMTTemplateOutputC_somtSetSymbol(somSelf: SOMTTemplateOutputC;
-	name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somtSetSymbolCopyName
  *)
 type
   somTP_SOMTTemplateOutputC_somtSetSymbolCopyName = procedure(somSelf: SOMTTemplateOutputC;
-		name, value: CORBAString); stdcall;
+    name, value: CORBAString); stdcall;
   somTD_SOMTTemplateOutputC_somtSetSymbolCopyName = somTP_SOMTTemplateOutputC_somtSetSymbolCopyName;
 (*
  *  See somtSetSymbol
@@ -382,7 +386,7 @@ type
  *)
 const somMD_SOMTTemplateOutputC_somtSetSymbolCopyName = '::SOMTTemplateOutputC::somtSetSymbolCopyName';
 procedure SOMTTemplateOutputC_somtSetSymbolCopyName(somSelf: SOMTTemplateOutputC;
-	name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somtSetSymbolCopyValue
@@ -404,7 +408,7 @@ procedure SOMTTemplateOutputC_somtSetSymbolCopyValue(somSelf: SOMTTemplateOutput
  *)
 type
   somTP_SOMTTemplateOutputC_somtSetSymbolCopyBoth = procedure(somSelf: SOMTTemplateOutputC;
-		name, value: CORBAString); stdcall;
+    name, value: CORBAString); stdcall;
   somTD_SOMTTemplateOutputC_somtSetSymbolCopyBoth = somTP_SOMTTemplateOutputC_somtSetSymbolCopyBoth;
 (*
  *  See somtSetSymbol
@@ -412,14 +416,14 @@ type
  *)
 const somMD_SOMTTemplateOutputC_somtSetSymbolCopyBoth = '::SOMTTemplateOutputC::somtSetSymbolCopyBoth';
 procedure SOMTTemplateOutputC_somtSetSymbolCopyBoth(somSelf: SOMTTemplateOutputC;
-	name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somtCheckSymbol
  *)
 type
   somTP_SOMTTemplateOutputC_somtCheckSymbol = function(somSelf: SOMTTemplateOutputC;
-		name: CORBAString): CORBABoolean; stdcall;
+    name: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTTemplateOutputC_somtCheckSymbol = somTP_SOMTTemplateOutputC_somtCheckSymbol;
 (*
  *  Returns 1 (true) if the indicated symbol has non-null, non-zero
@@ -427,14 +431,14 @@ type
  *)
 const somMD_SOMTTemplateOutputC_somtCheckSymbol = '::SOMTTemplateOutputC::somtCheckSymbol';
 function SOMTTemplateOutputC_somtCheckSymbol(somSelf: SOMTTemplateOutputC;
-	name: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  name: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somtSetOutputFile
  *)
 type
   somTP_SOMTTemplateOutputC_somtSetOutputFile = procedure(somSelf: SOMTTemplateOutputC;
-		fp: PFILE); stdcall;
+    fp: PFILE); stdcall;
   somTD_SOMTTemplateOutputC_somtSetOutputFile = somTP_SOMTTemplateOutputC_somtSetOutputFile;
 (*
  *  All template output will be directed to <fp>. Default is <stdout>.
@@ -500,7 +504,7 @@ procedure SOMTTemplateOutputC_somto(somSelf: SOMTTemplateOutputC;
  *)
 type
   somTP_SOMTTemplateOutputC_somtOutputComment = procedure(somSelf: SOMTTemplateOutputC;
-		comment: CORBAString); stdcall;
+    comment: CORBAString); stdcall;
   somTD_SOMTTemplateOutputC_somtOutputComment = somTP_SOMTTemplateOutputC_somtOutputComment;
 (*
  *  Inserts a comment into the output stream.  <comment> must be a
@@ -510,14 +514,14 @@ type
  *)
 const somMD_SOMTTemplateOutputC_somtOutputComment = '::SOMTTemplateOutputC::somtOutputComment';
 procedure SOMTTemplateOutputC_somtOutputComment(somSelf: SOMTTemplateOutputC;
-	comment: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  comment: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somtOutputSection
  *)
 type
   somTP_SOMTTemplateOutputC_somtOutputSection = procedure(somSelf: SOMTTemplateOutputC;
-		sectionName: CORBAString); stdcall;
+    sectionName: CORBAString); stdcall;
   somTD_SOMTTemplateOutputC_somtOutputSection = somTP_SOMTTemplateOutputC_somtOutputSection;
 (*
  *  Just like <somto> above, except <sectionName> must be a symbol
@@ -532,7 +536,7 @@ procedure SOMTTemplateOutputC_somtOutputSection(somSelf: SOMTTemplateOutputC;
  *)
 type
   somTP_SOMTTemplateOutputC_somtAddSectionDefinitions = procedure(somSelf: SOMTTemplateOutputC;
-		defString: CORBAString); stdcall;
+    defString: CORBAString); stdcall;
   somTD_SOMTTemplateOutputC_somtAddSectionDefinitions = somTP_SOMTTemplateOutputC_somtAddSectionDefinitions;
 (*
  *  <defString> must be a string of the form:
@@ -552,14 +556,14 @@ type
  *)
 const somMD_SOMTTemplateOutputC_somtAddSectionDefinitions = '::SOMTTemplateOutputC::somtAddSectionDefinitions';
 procedure SOMTTemplateOutputC_somtAddSectionDefinitions(somSelf: SOMTTemplateOutputC;
-	defString: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  defString: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somtReadSectionDefinitions
  *)
 type
   somTP_SOMTTemplateOutputC_somtReadSectionDefinitions = procedure(somSelf: SOMTTemplateOutputC;
-		fp: PFILE); stdcall;
+    fp: PFILE); stdcall;
   somTD_SOMTTemplateOutputC_somtReadSectionDefinitions = somTP_SOMTTemplateOutputC_somtReadSectionDefinitions;
 (*
  *  Reads section definitions from the indicated file.  The section
@@ -568,14 +572,14 @@ type
  *)
 const somMD_SOMTTemplateOutputC_somtReadSectionDefinitions = '::SOMTTemplateOutputC::somtReadSectionDefinitions';
 procedure SOMTTemplateOutputC_somtReadSectionDefinitions(somSelf: SOMTTemplateOutputC;
-	fp: PFILE); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  fp: PFILE); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somtExpandSymbol
  *)
 type
   somTP_SOMTTemplateOutputC_somtExpandSymbol = function(somSelf: SOMTTemplateOutputC;
-		s, buf: CORBAString): CORBAString; stdcall;
+    s, buf: CORBAString): CORBAString; stdcall;
   somTD_SOMTTemplateOutputC_somtExpandSymbol = somTP_SOMTTemplateOutputC_somtExpandSymbol;
 (*
  *  Expands simple symbols in an already expanded string.  Thus if you
@@ -585,7 +589,7 @@ type
  *)
 const somMD_SOMTTemplateOutputC_somtExpandSymbol = '::SOMTTemplateOutputC::somtExpandSymbol';
 function SOMTTemplateOutputC_somtExpandSymbol(somSelf: SOMTTemplateOutputC;
-	s, buf: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  s, buf: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 // #include <scentry.h>
 
@@ -618,27 +622,27 @@ function SOMTEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtEntryName: somMToken;
-	_set_somtEntryName: somMToken;
-	_get_somtElementType: somMToken;
-	_set_somtElementType: somMToken;
-	_get_somtEntryComment: somMToken;
-	_get_somtSourceLineNumber: somMToken;
-	_get_somtTypeCode: somMToken;
-	_get_somtIsReference: somMToken;
-	somtGetModifierValue: somMToken;
-	somtGetFirstModifier: somMToken;
-	somtGetNextModifier: somMToken;
-	somtFormatModifier: somMToken;
-	somtGetModifierList: somMToken;
-	somtSetSymbolsOnEntry: somMToken;
-	somtSetEntryStruct: somMToken;
-	_get_somtEntryStruct: somMToken;
-	somtShowAssocEntry: somMToken;
-	_get_somtCScopedName: somMToken;
-	_get_somtIDLScopedName: somMToken;
-	_get_somtElementTypeName: somMToken;
+  classObject: SOMClass;
+  _get_somtEntryName: somMToken;
+  _set_somtEntryName: somMToken;
+  _get_somtElementType: somMToken;
+  _set_somtElementType: somMToken;
+  _get_somtEntryComment: somMToken;
+  _get_somtSourceLineNumber: somMToken;
+  _get_somtTypeCode: somMToken;
+  _get_somtIsReference: somMToken;
+  somtGetModifierValue: somMToken;
+  somtGetFirstModifier: somMToken;
+  somtGetNextModifier: somMToken;
+  somtFormatModifier: somMToken;
+  somtGetModifierList: somMToken;
+  somtSetSymbolsOnEntry: somMToken;
+  somtSetEntryStruct: somMToken;
+  _get_somtEntryStruct: somMToken;
+  somtShowAssocEntry: somMToken;
+  _get_somtCScopedName: somMToken;
+  _get_somtIDLScopedName: somMToken;
+  _get_somtElementTypeName: somMToken;
 end;
 PSOMTEntryCClassDataStructure = ^SOMTEntryCClassDataStructure;
 function SOMTEntryCClassData: PSOMTEntryCClassDataStructure;
@@ -647,8 +651,8 @@ function SOMTEntryCClassData: PSOMTEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTEntryCCClassDataStructure = ^SOMTEntryCCClassDataStructure;
 function SOMTEntryCCClassData: PSOMTEntryCCClassDataStructure;
@@ -682,7 +686,7 @@ function SOMTEntryC__get_somtEntryName(somSelf: SOMTEntryC): CORBAString; {$IFDE
  *)
 type
   somTP_SOMTEntryC__set_somtEntryName = procedure(somSelf: SOMTEntryC;
-		somtEntryName: CORBAString); stdcall;
+    somtEntryName: CORBAString); stdcall;
   somTD_SOMTEntryC__set_somtEntryName = somTP_SOMTEntryC__set_somtEntryName;
 (*
  *  The name associated with this entry.  Eg, the name of
@@ -711,7 +715,7 @@ function SOMTEntryC__get_somtElementType(somSelf: SOMTEntryC): SOMTTypes; {$IFDE
  *)
 type
   somTP_SOMTEntryC__set_somtElementType = procedure(somSelf: SOMTEntryC;
-		somtElementType: SOMTTypes); stdcall;
+    somtElementType: SOMTTypes); stdcall;
   somTD_SOMTEntryC__set_somtElementType = somTP_SOMTEntryC__set_somtElementType;
 (*
  *  Returns the type of this entry.
@@ -816,7 +820,7 @@ function SOMTEntryC__get_somtCScopedName(somSelf: SOMTEntryC): CORBAString; {$IF
  *)
 type
   somTP_SOMTEntryC_somtGetModifierValue = function(somSelf: SOMTEntryC;
-		modifierName: CORBAString): CORBAString; stdcall;
+    modifierName: CORBAString): CORBAString; stdcall;
   somTD_SOMTEntryC_somtGetModifierValue = somTP_SOMTEntryC_somtGetModifierValue;
 (*
  *  Returns the value of the named modifier if this entry has the
@@ -833,7 +837,7 @@ function SOMTEntryC_somtGetModifierValue(somSelf: SOMTEntryC;
  *)
 type
   somTP_SOMTEntryC_somtGetFirstModifier = function(somSelf: SOMTEntryC;
-		var modifierName, modifierValue: CORBAString): CORBABoolean; stdcall;
+    var modifierName, modifierValue: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEntryC_somtGetFirstModifier = somTP_SOMTEntryC_somtGetFirstModifier;
 (*
  *  Returns the first modifier associated with this entry.  1 (true)
@@ -849,7 +853,7 @@ function SOMTEntryC_somtGetFirstModifier(somSelf: SOMTEntryC;
  *)
 type
   somTP_SOMTEntryC_somtGetNextModifier = function(somSelf: SOMTEntryC;
-		var modifierName, modifierValue: CORBAString): CORBABoolean; stdcall;
+    var modifierName, modifierValue: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEntryC_somtGetNextModifier = somTP_SOMTEntryC_somtGetNextModifier;
 (*
  *  Returns the next modifier (with respect to the last call to
@@ -866,7 +870,7 @@ function SOMTEntryC_somtGetNextModifier(somSelf: SOMTEntryC;
  *)
 type
   somTP_SOMTEntryC_somtFormatModifier = function(somSelf: SOMTEntryC;
-		buffer, name, value: CORBAString): LongInt; stdcall;
+    buffer, name, value: CORBAString): LongInt; stdcall;
   somTD_SOMTEntryC_somtFormatModifier = somTP_SOMTEntryC_somtFormatModifier;
 (*
  *  Formats the indicated name/value pair into buffer.  Buffer must
@@ -887,7 +891,7 @@ function SOMTEntryC_somtFormatModifier(somSelf: SOMTEntryC;
  *)
 type
   somTP_SOMTEntryC_somtGetModifierList = function(somSelf: SOMTEntryC;
-		buffer: CORBAString): LongInt; stdcall;
+    buffer: CORBAString): LongInt; stdcall;
   somTD_SOMTEntryC_somtGetModifierList = somTP_SOMTEntryC_somtGetModifierList;
 (*
  *  The modifiers for this entry are placed in <buffer> in template
@@ -904,7 +908,7 @@ function SOMTEntryC_somtGetModifierList(somSelf: SOMTEntryC;
  *)
 type
   somTP_SOMTEntryC_somtSetSymbolsOnEntry = function(somSelf: SOMTEntryC;
-		emitter: SOMTEmitC; prefix: CORBAString): LongInt; stdcall;
+    emitter: SOMTEmitC; prefix: CORBAString): LongInt; stdcall;
   somTD_SOMTEntryC_somtSetSymbolsOnEntry = somTP_SOMTEntryC_somtSetSymbolsOnEntry;
 (*
  *  Places a number of symbol/value pairs in <t>.  All the symbols
@@ -919,7 +923,7 @@ function SOMTEntryC_somtSetSymbolsOnEntry(somSelf: SOMTEntryC;
  *)
 type
   somTP_SOMTEntryC_somtSetEntryStruct = procedure(somSelf: SOMTEntryC;
-		es: PEntry); stdcall;
+    es: PEntry); stdcall;
   somTD_SOMTEntryC_somtSetEntryStruct = somTP_SOMTEntryC_somtSetEntryStruct;
 (*
  *  Sets the entry struct data member.
@@ -981,63 +985,63 @@ const
  *)
 function SOMTClassEntryCNewClass(
   somtmajorVersion: integer4 = SOMTClassEntryC_MajorVersion;
-	somtminorVersion: integer4 = SOMTClassEntryC_MinorVersion): SOMClass; stdcall;
+  somtminorVersion: integer4 = SOMTClassEntryC_MinorVersion): SOMClass; stdcall;
 
 (*
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTClassEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtSourceFileName: somMToken;
-	_get_somtMetaClassEntry: somMToken;
-	_get_somtNewMethodCount: somMToken;
-	_get_somtLocalInclude: somMToken;
-	_get_somtPrivateMethodCount: somMToken;
-	_get_somtStaticMethodCount: somMToken;
-	_get_somtOverrideMethodCount: somMToken;
-	_get_somtProcMethodCount: somMToken;
-	_get_somtVAMethodCount: somMToken;
-	_get_somtBaseCount: somMToken;
-	_get_somtExternalDataCount: somMToken;
-	_get_somtPublicDataCount: somMToken;
-	_get_somtPrivateDataCount: somMToken;
-	somtGetFirstBaseClass: somMToken;
-	somtGetNextBaseClass: somMToken;
-	somtGetFirstReleaseName: somMToken;
-	somtGetNextReleaseName: somMToken;
-	somtGetReleaseNameList: somMToken;
-	somtGetFirstPassthru: somMToken;
-	somtGetNextPassthru: somMToken;
-	somtGetFirstData: somMToken;
-	somtGetNextData: somMToken;
-	somtGetFirstMethod: somMToken;
-	somtGetNextMethod: somMToken;
-	somtGetFirstInheritedMethod: somMToken;
-	somtGetNextInheritedMethod: somMToken;
-	somtFilterNew: somMToken;
-	somtFilterOverridden: somMToken;
-	somtFilterPrivOrPub: somMToken;
-	_get_somtMetaclassFor: somMToken;
-	_get_somtForwardRef: somMToken;
-	somtGetFirstAttribute: somMToken;
-	somtGetNextAttribute: somMToken;
-	somtGetFirstStruct: somMToken;
-	somtGetNextStruct: somMToken;
-	somtGetFirstTypedef: somMToken;
-	somtGetNextTypedef: somMToken;
-	somtGetFirstUnion: somMToken;
-	somtGetNextUnion: somMToken;
-	somtGetFirstEnum: somMToken;
-	somtGetNextEnum: somMToken;
-	somtGetFirstConstant: somMToken;
-	somtGetNextConstant: somMToken;
-	somtGetFirstSequence: somMToken;
-	somtGetNextSequence: somMToken;
-	_get_somtClassModule: somMToken;
-	somtGetFirstPubdef: somMToken;
-	somtGetNextPubdef: somMToken;
-	somtGetFirstStaticData: somMToken;
-	somtGetNextStaticData: somMToken;
+  classObject: SOMClass;
+  _get_somtSourceFileName: somMToken;
+  _get_somtMetaClassEntry: somMToken;
+  _get_somtNewMethodCount: somMToken;
+  _get_somtLocalInclude: somMToken;
+  _get_somtPrivateMethodCount: somMToken;
+  _get_somtStaticMethodCount: somMToken;
+  _get_somtOverrideMethodCount: somMToken;
+  _get_somtProcMethodCount: somMToken;
+  _get_somtVAMethodCount: somMToken;
+  _get_somtBaseCount: somMToken;
+  _get_somtExternalDataCount: somMToken;
+  _get_somtPublicDataCount: somMToken;
+  _get_somtPrivateDataCount: somMToken;
+  somtGetFirstBaseClass: somMToken;
+  somtGetNextBaseClass: somMToken;
+  somtGetFirstReleaseName: somMToken;
+  somtGetNextReleaseName: somMToken;
+  somtGetReleaseNameList: somMToken;
+  somtGetFirstPassthru: somMToken;
+  somtGetNextPassthru: somMToken;
+  somtGetFirstData: somMToken;
+  somtGetNextData: somMToken;
+  somtGetFirstMethod: somMToken;
+  somtGetNextMethod: somMToken;
+  somtGetFirstInheritedMethod: somMToken;
+  somtGetNextInheritedMethod: somMToken;
+  somtFilterNew: somMToken;
+  somtFilterOverridden: somMToken;
+  somtFilterPrivOrPub: somMToken;
+  _get_somtMetaclassFor: somMToken;
+  _get_somtForwardRef: somMToken;
+  somtGetFirstAttribute: somMToken;
+  somtGetNextAttribute: somMToken;
+  somtGetFirstStruct: somMToken;
+  somtGetNextStruct: somMToken;
+  somtGetFirstTypedef: somMToken;
+  somtGetNextTypedef: somMToken;
+  somtGetFirstUnion: somMToken;
+  somtGetNextUnion: somMToken;
+  somtGetFirstEnum: somMToken;
+  somtGetNextEnum: somMToken;
+  somtGetFirstConstant: somMToken;
+  somtGetNextConstant: somMToken;
+  somtGetFirstSequence: somMToken;
+  somtGetNextSequence: somMToken;
+  _get_somtClassModule: somMToken;
+  somtGetFirstPubdef: somMToken;
+  somtGetNextPubdef: somMToken;
+  somtGetFirstStaticData: somMToken;
+  somtGetNextStaticData: somMToken;
 end;
 PSOMTClassEntryCClassDataStructure = ^SOMTClassEntryCClassDataStructure;
 function SOMTClassEntryCClassData: PSOMTClassEntryCClassDataStructure;
@@ -1046,8 +1050,8 @@ function SOMTClassEntryCClassData: PSOMTClassEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTClassEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTClassEntryCCClassDataStructure = ^SOMTClassEntryCCClassDataStructure;
 function SOMTClassEntryCCClassData: PSOMTClassEntryCCClassDataStructure;
@@ -1324,7 +1328,7 @@ function SOMTClassEntryC_somtGetNextReleaseName(somSelf: SOMTClassEntryC): CORBA
  *)
 type
   somTP_SOMTClassEntryC_somtGetReleaseNameList = function(somSelf: SOMTClassEntryC;
-		buffer: CORBAString): LongInt; stdcall;
+    buffer: CORBAString): LongInt; stdcall;
   somTD_SOMTClassEntryC_somtGetReleaseNameList = somTP_SOMTClassEntryC_somtGetReleaseNameList;
 (*
  *  Puts all the release names in <buffer> in template output form,
@@ -1625,7 +1629,7 @@ function SOMTClassEntryC_somtGetNextPubdef(somSelf: SOMTClassEntryC): SOMTEntryC
  *)
 type
   somTP_SOMTClassEntryC_somtFilterNew = function(somSelf: SOMTClassEntryC;
-		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+    entry: SOMTMethodEntryC): CORBABoolean; stdcall;
   somTD_SOMTClassEntryC_somtFilterNew = somTP_SOMTClassEntryC_somtFilterNew;
 (*
  *  Returns 1 if entry is new in the class.
@@ -1639,7 +1643,7 @@ function SOMTClassEntryC_somtFilterNew(somSelf: SOMTClassEntryC;
  *)
 type
   somTP_SOMTClassEntryC_somtFilterOverridden = function(somSelf: SOMTClassEntryC;
-		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+    entry: SOMTMethodEntryC): CORBABoolean; stdcall;
   somTD_SOMTClassEntryC_somtFilterOverridden = somTP_SOMTClassEntryC_somtFilterOverridden;
 (*
  *  Returns 1 if entry is an overriding method of the class.
@@ -1653,7 +1657,7 @@ function SOMTClassEntryC_somtFilterOverridden(somSelf: SOMTClassEntryC;
  *)
 type
   somTP_SOMTClassEntryC_somtFilterPrivOrPub = function(somSelf: SOMTClassEntryC;
-		entry: SOMTCommonEntryC): CORBABoolean; stdcall;
+    entry: SOMTCommonEntryC): CORBABoolean; stdcall;
   somTD_SOMTClassEntryC_somtFilterPrivOrPub = somTP_SOMTClassEntryC_somtFilterPrivOrPub;
 (*
  *  Returns TRUE if entry is Private or Public.
@@ -1685,9 +1689,9 @@ function SOMTMetaClassEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTMetaClassEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtMetaFile: somMToken;
-	_get_somtMetaClassDef: somMToken;
+  classObject: SOMClass;
+  _get_somtMetaFile: somMToken;
+  _get_somtMetaClassDef: somMToken;
 end;
 PSOMTMetaClassEntryCClassDataStructure = ^SOMTMetaClassEntryCClassDataStructure;
 function SOMTMetaClassEntryCClassData: PSOMTMetaClassEntryCClassDataStructure;
@@ -1696,8 +1700,8 @@ function SOMTMetaClassEntryCClassData: PSOMTMetaClassEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTMetaClassEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTMetaClassEntryCCClassDataStructure = ^SOMTMetaClassEntryCCClassDataStructure;
 function SOMTMetaClassEntryCCClassData: PSOMTMetaClassEntryCCClassDataStructure;
@@ -1775,24 +1779,24 @@ const
  *)
 function SOMTCommonEntryCNewClass(
   somtmajorVersion: integer4 = SOMTCommonEntryC_MajorVersion;
-	somtminorVersion: integer4 = SOMTCommonEntryC_MinorVersion): SOMClass; stdcall;
+  somtminorVersion: integer4 = SOMTCommonEntryC_MinorVersion): SOMClass; stdcall;
 
 (*
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTCommonEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtSourceText: somMToken;
-	_get_somtType: somMToken;
-	_get_somtVisibility: somMToken;
-	somtIsArray: somMToken;
-	somtIsPointer: somMToken;
-	somtIsArrayDominant: somMToken;
-	_get_somtTypeObj: somMToken;
-	_get_somtPtrs: somMToken;
-	_get_somtArrayDimsString: somMToken;
-	somtGetFirstArrayDimension: somMToken;
-	somtGetNextArrayDimension: somMToken;
+  classObject: SOMClass;
+  _get_somtSourceText: somMToken;
+  _get_somtType: somMToken;
+  _get_somtVisibility: somMToken;
+  somtIsArray: somMToken;
+  somtIsPointer: somMToken;
+  somtIsArrayDominant: somMToken;
+  _get_somtTypeObj: somMToken;
+  _get_somtPtrs: somMToken;
+  _get_somtArrayDimsString: somMToken;
+  somtGetFirstArrayDimension: somMToken;
+  somtGetNextArrayDimension: somMToken;
 end;
 PSOMTCommonEntryCClassDataStructure = ^SOMTCommonEntryCClassDataStructure;
 function SOMTCommonEntryCClassData: PSOMTCommonEntryCClassDataStructure;
@@ -1801,8 +1805,8 @@ function SOMTCommonEntryCClassData: PSOMTCommonEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTCommonEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTCommonEntryCCClassDataStructure = ^SOMTCommonEntryCCClassDataStructure;
 function SOMTCommonEntryCCClassData: PSOMTCommonEntryCCClassDataStructure;
@@ -1936,7 +1940,7 @@ function SOMTCommonEntryC__get_somtVisibility(somSelf: SOMTCommonEntryC): somtVi
  *)
 type
   somTP_SOMTCommonEntryC_somtIsArray = function(somSelf: SOMTCommonEntryC;
-		out size: LongInt): CORBABoolean; stdcall;
+    out size: LongInt): CORBABoolean; stdcall;
   somTD_SOMTCommonEntryC_somtIsArray = somTP_SOMTCommonEntryC_somtIsArray;
 (*
  *  Returns 1 (true) if the type involves an array.  When the type
@@ -1992,32 +1996,32 @@ function SOMTMethodEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTMethodEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtIsVarargs: somMToken;
-	_get_somtOriginalMethod: somMToken;
-	_get_somtOriginalClass: somMToken;
-	_get_somtMethodGroup: somMToken;
-	somtGetFirstParameter: somMToken;
-	somtGetNextParameter: somMToken;
-	somtGetArgList: somMToken;
-	somtGetParmList: somMToken;
-	_get_somtIsPrivateMethod: somMToken;
-	_get_somtIsOneway: somMToken;
-	_get_somtArgCount: somMToken;
-	somtGetFirstException: somMToken;
-	somtGetNextException: somMToken;
-	_get_somtContextArray: somMToken;
-	somtGetShortCPrototype: somMToken;
-	somtGetFullCPrototype: somMToken;
-	somtGetShortParmList: somMToken;
-	somtGetFullParmList: somMToken;
-	somtGetNthParameter: somMToken;
-	_get_somtCReturnType: somMToken;
-	somtGetIDLParamList: somMToken;
-	somtGetShortCParamList: somMToken;
-	somtGetFullCParamList: somMToken;
-	somtGetShortParamNameList: somMToken;
-	somtGetFullParamNameList: somMToken;
+  classObject: SOMClass;
+  _get_somtIsVarargs: somMToken;
+  _get_somtOriginalMethod: somMToken;
+  _get_somtOriginalClass: somMToken;
+  _get_somtMethodGroup: somMToken;
+  somtGetFirstParameter: somMToken;
+  somtGetNextParameter: somMToken;
+  somtGetArgList: somMToken;
+  somtGetParmList: somMToken;
+  _get_somtIsPrivateMethod: somMToken;
+  _get_somtIsOneway: somMToken;
+  _get_somtArgCount: somMToken;
+  somtGetFirstException: somMToken;
+  somtGetNextException: somMToken;
+  _get_somtContextArray: somMToken;
+  somtGetShortCPrototype: somMToken;
+  somtGetFullCPrototype: somMToken;
+  somtGetShortParmList: somMToken;
+  somtGetFullParmList: somMToken;
+  somtGetNthParameter: somMToken;
+  _get_somtCReturnType: somMToken;
+  somtGetIDLParamList: somMToken;
+  somtGetShortCParamList: somMToken;
+  somtGetFullCParamList: somMToken;
+  somtGetShortParamNameList: somMToken;
+  somtGetFullParamNameList: somMToken;
 end;
 PSOMTMethodEntryCClassDataStructure = ^SOMTMethodEntryCClassDataStructure;
 function SOMTMethodEntryCClassData: PSOMTMethodEntryCClassDataStructure;
@@ -2026,8 +2030,8 @@ function SOMTMethodEntryCClassData: PSOMTMethodEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTMethodEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTMethodEntryCCClassDataStructure = ^SOMTMethodEntryCCClassDataStructure;
 function SOMTMethodEntryCCClassData: PSOMTMethodEntryCCClassDataStructure;
@@ -2165,7 +2169,7 @@ function SOMTMethodEntryC_somtGetNextParameter(somSelf: SOMTMethodEntryC): SOMTP
  *)
 type
   somTP_SOMTMethodEntryC_somtGetIDLParamList = function(somSelf: SOMTMethodEntryC;
-		buffer: CORBAString): CORBAString; stdcall;
+    buffer: CORBAString): CORBAString; stdcall;
   somTD_SOMTMethodEntryC_somtGetIDLParamList = somTP_SOMTMethodEntryC_somtGetIDLParamList;
 (*
  *  Returns the formal parameter list (in IDL syntax) for this method.
@@ -2183,7 +2187,7 @@ function SOMTMethodEntryC_somtGetIDLParamList(somSelf: SOMTMethodEntryC;
  *)
 type
   somTP_SOMTMethodEntryC_somtGetShortCParamList = function(somSelf: SOMTMethodEntryC;
-		buffer, selfParm, varargsParm: CORBAString): CORBAString; stdcall;
+    buffer, selfParm, varargsParm: CORBAString): CORBAString; stdcall;
   somTD_SOMTMethodEntryC_somtGetShortCParamList = somTP_SOMTMethodEntryC_somtGetShortCParamList;
 (*
  *  Returns the formal parameter list (in ANSI C function prototype
@@ -2211,7 +2215,7 @@ function SOMTMethodEntryC_somtGetShortCParamList(somSelf: SOMTMethodEntryC;
  *)
 type
   somTP_SOMTMethodEntryC_somtGetFullCParamList = function(somSelf: SOMTMethodEntryC;
-		buffer, varargsParm: CORBAString): CORBAString; stdcall;
+    buffer, varargsParm: CORBAString): CORBAString; stdcall;
   somTD_SOMTMethodEntryC_somtGetFullCParamList = somTP_SOMTMethodEntryC_somtGetFullCParamList;
 (*
  *  Same as somtGetShortCParamList except that the method receiver and
@@ -2228,7 +2232,7 @@ function SOMTMethodEntryC_somtGetFullCParamList(somSelf: SOMTMethodEntryC;
  *)
 type
   somTP_SOMTMethodEntryC_somtGetShortParamNameList = function(somSelf: SOMTMethodEntryC;
-		buffer, selfParm, varargsParm: CORBAString): CORBAString; stdcall;
+    buffer, selfParm, varargsParm: CORBAString): CORBAString; stdcall;
   somTD_SOMTMethodEntryC_somtGetShortParamNameList = somTP_SOMTMethodEntryC_somtGetShortParamNameList;
 (*
  *  Returns the parameter list for this method in call form (without
@@ -2252,7 +2256,7 @@ function SOMTMethodEntryC_somtGetShortParamNameList(somSelf: SOMTMethodEntryC;
  *)
 type
   somTP_SOMTMethodEntryC_somtGetFullParamNameList = function(somSelf: SOMTMethodEntryC;
-		buffer, varargsParm: CORBAString): CORBAString; stdcall;
+    buffer, varargsParm: CORBAString): CORBAString; stdcall;
   somTD_SOMTMethodEntryC_somtGetFullParamNameList = somTP_SOMTMethodEntryC_somtGetFullParamNameList;
 (*
  *  Same as somtGetParamNameList except that the method receiver and
@@ -2267,7 +2271,7 @@ function SOMTMethodEntryC_somtGetFullParamNameList(somSelf: SOMTMethodEntryC;
  *)
 type
   somTP_SOMTMethodEntryC_somtGetNthParameter = function(somSelf: SOMTMethodEntryC;
-		n: SmallInt): SOMTParameterEntryC; stdcall;
+    n: SmallInt): SOMTParameterEntryC; stdcall;
   somTD_SOMTMethodEntryC_somtGetNthParameter = somTP_SOMTMethodEntryC_somtGetNthParameter;
 (*
  *  Returns the object representing the nth explicit method parameter.
@@ -2350,11 +2354,11 @@ function SOMTPassthruEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTPassthruEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtPassthruBody: somMToken;
-	_get_somtPassthruTarget: somMToken;
-	_get_somtPassthruLanguage: somMToken;
-	somtIsBeforePassthru: somMToken;
+  classObject: SOMClass;
+  _get_somtPassthruBody: somMToken;
+  _get_somtPassthruTarget: somMToken;
+  _get_somtPassthruLanguage: somMToken;
+  somtIsBeforePassthru: somMToken;
 end;
 PSOMTPassthruEntryCClassDataStructure = ^SOMTPassthruEntryCClassDataStructure;
 function SOMTPassthruEntryCClassData: PSOMTPassthruEntryCClassDataStructure;
@@ -2363,8 +2367,8 @@ function SOMTPassthruEntryCClassData: PSOMTPassthruEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTPassthruEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTPassthruEntryCCClassDataStructure = ^SOMTPassthruEntryCCClassDataStructure;
 function SOMTPassthruEntryCCClassData: PSOMTPassthruEntryCCClassDataStructure;
@@ -2470,99 +2474,99 @@ function SOMTEmitCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTEmitCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtTemplate: somMToken;
-	_get_somtTargetFile: somMToken;
-	_set_somtTargetFile: somMToken;
-	_get_somtTargetClass: somMToken;
-	_set_somtTargetClass: somMToken;
-	_get_somtTargetModule: somMToken;
-	_set_somtTargetModule: somMToken;
-	_get_somtTargetType: somMToken;
-	_set_somtTargetType: somMToken;
-	somtGenerateSections: somMToken;
-	somtOpenSymbolsFile: somMToken;
-	somtSetPredefinedSymbols: somMToken;
-	somtFileSymbols: somMToken;
-	somtEmitProlog: somMToken;
-	somtEmitBaseIncludesProlog: somMToken;
-	somtEmitBaseIncludes: somMToken;
-	somtEmitBaseIncludesEpilog: somMToken;
-	somtEmitMetaInclude: somMToken;
-	somtEmitClass: somMToken;
-	somtEmitMeta: somMToken;
-	somtEmitBaseProlog: somMToken;
-	somtEmitBase: somMToken;
-	somtEmitBaseEpilog: somMToken;
-	somtEmitPassthruProlog: somMToken;
-	somtEmitPassthru: somMToken;
-	somtEmitPassthruEpilog: somMToken;
-	somtEmitRelease: somMToken;
-	somtEmitDataProlog: somMToken;
-	somtEmitData: somMToken;
-	somtEmitDataEpilog: somMToken;
-	somtEmitMethodsProlog: somMToken;
-	somtEmitMethods: somMToken;
-	somtEmitMethodsEpilog: somMToken;
-	somtEmitMethod: somMToken;
-	somtEmitEpilog: somMToken;
-	somtScanBases: somMToken;
-	somtScanConstants: somMToken;
-	somtCheckVisibility: somMToken;
-	somtNew: somMToken;
-	somtImplemented: somMToken;
-	somtOverridden: somMToken;
-	somtInherited: somMToken;
-	somtAllVisible: somMToken;
-	somtAll: somMToken;
-	somtNewNoProc: somMToken;
-	somtPrivOrPub: somMToken;
-	somtNewProc: somMToken;
-	somtLink: somMToken;
-	somtVA: somMToken;
-	somtScanMethods: somMToken;
-	somtScanData: somMToken;
-	somtScanPassthru: somMToken;
-	somtEmitFullPassthru: somMToken;
-	somtScanDataF: somMToken;
-	somtScanBasesF: somMToken;
-	_set_somtTemplate: somMToken;
-	_set_somtEmitterName: somMToken;
-	_get_somtEmitterName: somMToken;
-	somtEmitAttributeProlog: somMToken;
-	somtEmitAttribute: somMToken;
-	somtEmitAttributeEpilog: somMToken;
-	somtEmitConstantProlog: somMToken;
-	somtEmitConstant: somMToken;
-	somtEmitConstantEpilog: somMToken;
-	somtEmitTypedefProlog: somMToken;
-	somtEmitTypedef: somMToken;
-	somtEmitTypedefEpilog: somMToken;
-	somtEmitStructProlog: somMToken;
-	somtEmitStruct: somMToken;
-	somtEmitStructEpilog: somMToken;
-	somtEmitUnionProlog: somMToken;
-	somtEmitUnion: somMToken;
-	somtEmitUnionEpilog: somMToken;
-	somtEmitEnumProlog: somMToken;
-	somtEmitEnum: somMToken;
-	somtEmitEnumEpilog: somMToken;
-	somtEmitInterfaceProlog: somMToken;
-	somtEmitInterface: somMToken;
-	somtEmitInterfaceEpilog: somMToken;
-	somtEmitModuleProlog: somMToken;
-	somtEmitModule: somMToken;
-	somtEmitModuleEpilog: somMToken;
-	somtScanAttributes: somMToken;
-	somtScanTypedefs: somMToken;
-	somtScanStructs: somMToken;
-	somtScanUnions: somMToken;
-	somtScanEnums: somMToken;
-	somtScanInterfaces: somMToken;
-	somtScanModules: somMToken;
-	somtGetGlobalModifierValue: somMToken;
-	somtGetFirstGlobalDefinition: somMToken;
-	somtGetNextGlobalDefinition: somMToken;
+  classObject: SOMClass;
+  _get_somtTemplate: somMToken;
+  _get_somtTargetFile: somMToken;
+  _set_somtTargetFile: somMToken;
+  _get_somtTargetClass: somMToken;
+  _set_somtTargetClass: somMToken;
+  _get_somtTargetModule: somMToken;
+  _set_somtTargetModule: somMToken;
+  _get_somtTargetType: somMToken;
+  _set_somtTargetType: somMToken;
+  somtGenerateSections: somMToken;
+  somtOpenSymbolsFile: somMToken;
+  somtSetPredefinedSymbols: somMToken;
+  somtFileSymbols: somMToken;
+  somtEmitProlog: somMToken;
+  somtEmitBaseIncludesProlog: somMToken;
+  somtEmitBaseIncludes: somMToken;
+  somtEmitBaseIncludesEpilog: somMToken;
+  somtEmitMetaInclude: somMToken;
+  somtEmitClass: somMToken;
+  somtEmitMeta: somMToken;
+  somtEmitBaseProlog: somMToken;
+  somtEmitBase: somMToken;
+  somtEmitBaseEpilog: somMToken;
+  somtEmitPassthruProlog: somMToken;
+  somtEmitPassthru: somMToken;
+  somtEmitPassthruEpilog: somMToken;
+  somtEmitRelease: somMToken;
+  somtEmitDataProlog: somMToken;
+  somtEmitData: somMToken;
+  somtEmitDataEpilog: somMToken;
+  somtEmitMethodsProlog: somMToken;
+  somtEmitMethods: somMToken;
+  somtEmitMethodsEpilog: somMToken;
+  somtEmitMethod: somMToken;
+  somtEmitEpilog: somMToken;
+  somtScanBases: somMToken;
+  somtScanConstants: somMToken;
+  somtCheckVisibility: somMToken;
+  somtNew: somMToken;
+  somtImplemented: somMToken;
+  somtOverridden: somMToken;
+  somtInherited: somMToken;
+  somtAllVisible: somMToken;
+  somtAll: somMToken;
+  somtNewNoProc: somMToken;
+  somtPrivOrPub: somMToken;
+  somtNewProc: somMToken;
+  somtLink: somMToken;
+  somtVA: somMToken;
+  somtScanMethods: somMToken;
+  somtScanData: somMToken;
+  somtScanPassthru: somMToken;
+  somtEmitFullPassthru: somMToken;
+  somtScanDataF: somMToken;
+  somtScanBasesF: somMToken;
+  _set_somtTemplate: somMToken;
+  _set_somtEmitterName: somMToken;
+  _get_somtEmitterName: somMToken;
+  somtEmitAttributeProlog: somMToken;
+  somtEmitAttribute: somMToken;
+  somtEmitAttributeEpilog: somMToken;
+  somtEmitConstantProlog: somMToken;
+  somtEmitConstant: somMToken;
+  somtEmitConstantEpilog: somMToken;
+  somtEmitTypedefProlog: somMToken;
+  somtEmitTypedef: somMToken;
+  somtEmitTypedefEpilog: somMToken;
+  somtEmitStructProlog: somMToken;
+  somtEmitStruct: somMToken;
+  somtEmitStructEpilog: somMToken;
+  somtEmitUnionProlog: somMToken;
+  somtEmitUnion: somMToken;
+  somtEmitUnionEpilog: somMToken;
+  somtEmitEnumProlog: somMToken;
+  somtEmitEnum: somMToken;
+  somtEmitEnumEpilog: somMToken;
+  somtEmitInterfaceProlog: somMToken;
+  somtEmitInterface: somMToken;
+  somtEmitInterfaceEpilog: somMToken;
+  somtEmitModuleProlog: somMToken;
+  somtEmitModule: somMToken;
+  somtEmitModuleEpilog: somMToken;
+  somtScanAttributes: somMToken;
+  somtScanTypedefs: somMToken;
+  somtScanStructs: somMToken;
+  somtScanUnions: somMToken;
+  somtScanEnums: somMToken;
+  somtScanInterfaces: somMToken;
+  somtScanModules: somMToken;
+  somtGetGlobalModifierValue: somMToken;
+  somtGetFirstGlobalDefinition: somMToken;
+  somtGetNextGlobalDefinition: somMToken;
 end;
 PSOMTEmitCClassDataStructure = ^SOMTEmitCClassDataStructure;
 function SOMTEmitCClassData: PSOMTEmitCClassDataStructure;
@@ -2571,8 +2575,8 @@ function SOMTEmitCClassData: PSOMTEmitCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTEmitCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTEmitCCClassDataStructure = ^SOMTEmitCCClassDataStructure;
 function SOMTEmitCCClassData: PSOMTEmitCCClassDataStructure;
@@ -2606,7 +2610,7 @@ function SOMTEmitC__get_somtTemplate(somSelf: SOMTEmitC): SOMTTemplateOutputC; {
  *)
 type
   somTP_SOMTEmitC__set_somtTemplate = procedure(somSelf: SOMTEmitC;
-		somtTemplate: SOMTTemplateOutputC); stdcall;
+    somtTemplate: SOMTTemplateOutputC); stdcall;
   somTD_SOMTEmitC__set_somtTemplate = somTP_SOMTEmitC__set_somtTemplate;
 (*
  *  The template is to provide template output and maintains a symbol
@@ -2634,7 +2638,7 @@ function SOMTEmitC__get_somtTargetFile(somSelf: SOMTEmitC): PFILE; {$IFDEF DELPH
  *)
 type
   somTP_SOMTEmitC__set_somtTargetFile = procedure(somSelf: SOMTEmitC;
-		somtTargetFile: PFILE); stdcall;
+    somtTargetFile: PFILE); stdcall;
   somTD_SOMTEmitC__set_somtTargetFile = somTP_SOMTEmitC__set_somtTargetFile;
 (*
  *  The target file is the one to which all emitter output is to be
@@ -2662,7 +2666,7 @@ function SOMTEmitC__get_somtTargetClass(somSelf: SOMTEmitC): SOMTClassEntryC; {$
  *)
 type
   somTP_SOMTEmitC__set_somtTargetClass = procedure(somSelf: SOMTEmitC;
-		somtTargetClass: SOMTClassEntryC); stdcall;
+    somtTargetClass: SOMTClassEntryC); stdcall;
   somTD_SOMTEmitC__set_somtTargetClass = somTP_SOMTEmitC__set_somtTargetClass;
 (*
  *  The target class is the class definition for which code is to be
@@ -2690,7 +2694,7 @@ function SOMTEmitC__get_somtTargetModule(somSelf: SOMTEmitC): SOMTModuleEntryC; 
  *)
 type
   somTP_SOMTEmitC__set_somtTargetModule = procedure(somSelf: SOMTEmitC;
-		somtTargetModule: SOMTModuleEntryC); stdcall;
+    somtTargetModule: SOMTModuleEntryC); stdcall;
   somTD_SOMTEmitC__set_somtTargetModule = somTP_SOMTEmitC__set_somtTargetModule;
 (*
  *  The target module is the module definition for which code is to be
@@ -2722,7 +2726,7 @@ function SOMTEmitC__get_somtTargetType(somSelf: SOMTEmitC): SOMTTargetTypeT; {$I
  *)
 type
   somTP_SOMTEmitC__set_somtTargetType = procedure(somSelf: SOMTEmitC;
-		somtTargetType: SOMTTargetTypeT); stdcall;
+    somtTargetType: SOMTTargetTypeT); stdcall;
   somTD_SOMTEmitC__set_somtTargetType = somTP_SOMTEmitC__set_somtTargetType;
 (*
  *  The target type indicates what type of output file is being
@@ -2757,7 +2761,7 @@ function SOMTEmitC__get_somtEmitterName(somSelf: SOMTEmitC): CORBAString; {$IFDE
  *)
 type
   somTP_SOMTEmitC__set_somtEmitterName = procedure(somSelf: SOMTEmitC;
-		somtEmitterName: CORBAString); stdcall;
+    somtEmitterName: CORBAString); stdcall;
   somTD_SOMTEmitC__set_somtEmitterName = somTP_SOMTEmitC__set_somtEmitterName;
 (*
  *  The short name of the emitter (the name used to invoke it via the
@@ -2781,9 +2785,9 @@ type
  *
  *    somtEmitProlog
  *    when emitting a class:
- *    	  somtEmitClass
- *    	  somtEmitBase
- *    	  somtEmitMeta
+ *        somtEmitClass
+ *        somtEmitBase
+ *        somtEmitMeta
  *    somtEmitConstant
  *    somtEmitTypedef
  *    somtEmitStruct
@@ -2816,7 +2820,7 @@ function SOMTEmitC_somtGenerateSections(somSelf: SOMTEmitC): CORBABoolean; {$IFD
  *)
 type
   somTP_SOMTEmitC_somtOpenSymbolsFile = function(somSelf: SOMTEmitC;
-		fileName, mode: CORBAString): PFILE; stdcall;
+    fileName, mode: CORBAString): PFILE; stdcall;
   somTD_SOMTEmitC_somtOpenSymbolsFile = somTP_SOMTEmitC_somtOpenSymbolsFile;
 (*
  *  This method attempts to open the symbols file.
@@ -2879,7 +2883,7 @@ procedure SOMTEmitC_somtEmitBaseIncludesProlog(somSelf: SOMTEmitC); {$IFDEF DELP
  *)
 type
   somTP_SOMTEmitC_somtEmitBaseIncludes = procedure(somSelf: SOMTEmitC;
-		base: SOMTBaseClassEntryC); stdcall;
+    base: SOMTBaseClassEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitBaseIncludes = somTP_SOMTEmitC_somtEmitBaseIncludes;
 const somMD_SOMTEmitC_somtEmitBaseIncludes = '::SOMTEmitC::somtEmitBaseIncludes';
 procedure SOMTEmitC_somtEmitBaseIncludes(somSelf: SOMTEmitC;
@@ -2935,7 +2939,7 @@ procedure SOMTEmitC_somtEmitBaseProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_I
  *)
 type
   somTP_SOMTEmitC_somtEmitBase = procedure(somSelf: SOMTEmitC;
-		base: SOMTBaseClassEntryC); stdcall;
+    base: SOMTBaseClassEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitBase = somTP_SOMTEmitC_somtEmitBase;
 const somMD_SOMTEmitC_somtEmitBase = '::SOMTEmitC::somtEmitBase';
 procedure SOMTEmitC_somtEmitBase(somSelf: SOMTEmitC;
@@ -2964,7 +2968,7 @@ procedure SOMTEmitC_somtEmitPassthruProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_H
  *)
 type
   somTP_SOMTEmitC_somtEmitPassthru = procedure(somSelf: SOMTEmitC;
-		entry: SOMTPassthruEntryC); stdcall;
+    entry: SOMTPassthruEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitPassthru = somTP_SOMTEmitC_somtEmitPassthru;
 const somMD_SOMTEmitC_somtEmitPassthru = '::SOMTEmitC::somtEmitPassthru';
 procedure SOMTEmitC_somtEmitPassthru(somSelf: SOMTEmitC;
@@ -3002,7 +3006,7 @@ procedure SOMTEmitC_somtEmitDataProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_I
  *)
 type
   somTP_SOMTEmitC_somtEmitData = procedure(somSelf: SOMTEmitC;
-		entry: SOMTDataEntryC); stdcall;
+    entry: SOMTDataEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitData = somTP_SOMTEmitC_somtEmitData;
 const somMD_SOMTEmitC_somtEmitData = '::SOMTEmitC::somtEmitData';
 procedure SOMTEmitC_somtEmitData(somSelf: SOMTEmitC;
@@ -3031,7 +3035,7 @@ procedure SOMTEmitC_somtEmitAttributeProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_
  *)
 type
   somTP_SOMTEmitC_somtEmitAttribute = procedure(somSelf: SOMTEmitC;
-		att: SOMTAttributeEntryC); stdcall;
+    att: SOMTAttributeEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitAttribute = somTP_SOMTEmitC_somtEmitAttribute;
 const somMD_SOMTEmitC_somtEmitAttribute = '::SOMTEmitC::somtEmitAttribute';
 procedure SOMTEmitC_somtEmitAttribute(somSelf: SOMTEmitC;
@@ -3060,7 +3064,7 @@ procedure SOMTEmitC_somtEmitConstantProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_H
  *)
 type
   somTP_SOMTEmitC_somtEmitConstant = procedure(somSelf: SOMTEmitC;
-		con: SOMTConstEntryC); stdcall;
+    con: SOMTConstEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitConstant = somTP_SOMTEmitC_somtEmitConstant;
 const somMD_SOMTEmitC_somtEmitConstant = '::SOMTEmitC::somtEmitConstant';
 procedure SOMTEmitC_somtEmitConstant(somSelf: SOMTEmitC;
@@ -3089,7 +3093,7 @@ procedure SOMTEmitC_somtEmitTypedefProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HA
  *)
 type
   somTP_SOMTEmitC_somtEmitTypedef = procedure(somSelf: SOMTEmitC;
-		td: SOMTTypedefEntryC); stdcall;
+    td: SOMTTypedefEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitTypedef = somTP_SOMTEmitC_somtEmitTypedef;
 const somMD_SOMTEmitC_somtEmitTypedef = '::SOMTEmitC::somtEmitTypedef';
 procedure SOMTEmitC_somtEmitTypedef(somSelf: SOMTEmitC;
@@ -3118,7 +3122,7 @@ procedure SOMTEmitC_somtEmitStructProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS
  *)
 type
   somTP_SOMTEmitC_somtEmitStruct = procedure(somSelf: SOMTEmitC;
-		struc: SOMTStructEntryC); stdcall;
+    struc: SOMTStructEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitStruct = somTP_SOMTEmitC_somtEmitStruct;
 const somMD_SOMTEmitC_somtEmitStruct = '::SOMTEmitC::somtEmitStruct';
 procedure SOMTEmitC_somtEmitStruct(somSelf: SOMTEmitC;
@@ -3147,7 +3151,7 @@ procedure SOMTEmitC_somtEmitUnionProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_
  *)
 type
   somTP_SOMTEmitC_somtEmitUnion = procedure(somSelf: SOMTEmitC;
-		un: SOMTUnionEntryC); stdcall;
+    un: SOMTUnionEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitUnion = somTP_SOMTEmitC_somtEmitUnion;
 const somMD_SOMTEmitC_somtEmitUnion = '::SOMTEmitC::somtEmitUnion';
 procedure SOMTEmitC_somtEmitUnion(somSelf: SOMTEmitC;
@@ -3176,7 +3180,7 @@ procedure SOMTEmitC_somtEmitEnumProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_I
  *)
 type
   somTP_SOMTEmitC_somtEmitEnum = procedure(somSelf: SOMTEmitC;
-		en: SOMTEnumEntryC); stdcall;
+    en: SOMTEnumEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitEnum = somTP_SOMTEmitC_somtEmitEnum;
 const somMD_SOMTEmitC_somtEmitEnum = '::SOMTEmitC::somtEmitEnum';
 procedure SOMTEmitC_somtEmitEnum(somSelf: SOMTEmitC;
@@ -3205,7 +3209,7 @@ procedure SOMTEmitC_somtEmitInterfaceProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_
  *)
 type
   somTP_SOMTEmitC_somtEmitInterface = procedure(somSelf: SOMTEmitC;
-		intfc: SOMTClassEntryC); stdcall;
+    intfc: SOMTClassEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitInterface = somTP_SOMTEmitC_somtEmitInterface;
 const somMD_SOMTEmitC_somtEmitInterface = '::SOMTEmitC::somtEmitInterface';
 procedure SOMTEmitC_somtEmitInterface(somSelf: SOMTEmitC;
@@ -3234,7 +3238,7 @@ procedure SOMTEmitC_somtEmitModuleProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS
  *)
 type
   somTP_SOMTEmitC_somtEmitModule = procedure(somSelf: SOMTEmitC;
-		module: SOMTModuleEntryC); stdcall;
+    module: SOMTModuleEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitModule = somTP_SOMTEmitC_somtEmitModule;
 const somMD_SOMTEmitC_somtEmitModule = '::SOMTEmitC::somtEmitModule';
 procedure SOMTEmitC_somtEmitModule(somSelf: SOMTEmitC;
@@ -3263,7 +3267,7 @@ procedure SOMTEmitC_somtEmitMethodsProlog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HA
  *)
 type
   somTP_SOMTEmitC_somtEmitMethods = procedure(somSelf: SOMTEmitC;
-		method: SOMTMethodEntryC); stdcall;
+    method: SOMTMethodEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitMethods = somTP_SOMTEmitC_somtEmitMethods;
 const somMD_SOMTEmitC_somtEmitMethods = '::SOMTEmitC::somtEmitMethods';
 procedure SOMTEmitC_somtEmitMethods(somSelf: SOMTEmitC;
@@ -3283,7 +3287,7 @@ procedure SOMTEmitC_somtEmitMethodsEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HA
  *)
 type
   somTP_SOMTEmitC_somtEmitMethod = procedure(somSelf: SOMTEmitC;
-		method: SOMTMethodEntryC); stdcall;
+    method: SOMTMethodEntryC); stdcall;
   somTD_SOMTEmitC_somtEmitMethod = somTP_SOMTEmitC_somtEmitMethod;
 const somMD_SOMTEmitC_somtEmitMethod = '::SOMTEmitC::somtEmitMethod';
 procedure SOMTEmitC_somtEmitMethod(somSelf: SOMTEmitC;
@@ -3303,7 +3307,7 @@ procedure SOMTEmitC_somtEmitEpilog(somSelf: SOMTEmitC); {$IFDEF DELPHI_HAS_INLIN
  *)
 type
   somTP_SOMTEmitC_somtScanBases = function(somSelf: SOMTEmitC;
-		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+    prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanBases = somTP_SOMTEmitC_somtScanBases;
 const somMD_SOMTEmitC_somtScanBases = '::SOMTEmitC::somtScanBases';
 function SOMTEmitC_somtScanBases(somSelf: SOMTEmitC;
@@ -3314,7 +3318,7 @@ function SOMTEmitC_somtScanBases(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtCheckVisibility = function(somSelf: SOMTEmitC;
-		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+    entry: SOMTMethodEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtCheckVisibility = somTP_SOMTEmitC_somtCheckVisibility;
 (*
  *  Return 1 (true) if <entry> should be visible in the current
@@ -3335,7 +3339,7 @@ function SOMTEmitC_somtCheckVisibility(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtNew = function(somSelf: SOMTEmitC;
-		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+    entry: SOMTMethodEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtNew = somTP_SOMTEmitC_somtNew;
 (*
  *  Returns 1 (true) if <entry> is a method introduced by the target
@@ -3351,7 +3355,7 @@ function SOMTEmitC_somtNew(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtImplemented = function(somSelf: SOMTEmitC;
-		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+    entry: SOMTMethodEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtImplemented = somTP_SOMTEmitC_somtImplemented;
 (*
  *  Returns 1 (true) if <entry> is a method introduced or overridden
@@ -3367,7 +3371,7 @@ function SOMTEmitC_somtImplemented(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtOverridden = function(somSelf: SOMTEmitC;
-		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+    entry: SOMTMethodEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtOverridden = somTP_SOMTEmitC_somtOverridden;
 (*
  *  Returns 1 (true) if <entry> is an overridding method of the target class
@@ -3383,7 +3387,7 @@ function SOMTEmitC_somtOverridden(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtInherited = function(somSelf: SOMTEmitC;
-		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+    entry: SOMTMethodEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtInherited = somTP_SOMTEmitC_somtInherited;
 (*
  *  Returns 1 (true) if <entry> is inherited
@@ -3399,7 +3403,7 @@ function SOMTEmitC_somtInherited(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtAllVisible = function(somSelf: SOMTEmitC;
-		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+    entry: SOMTMethodEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtAllVisible = somTP_SOMTEmitC_somtAllVisible;
 (*
  *  Returns 1 (true) if <entry> is supported by the target class and
@@ -3415,7 +3419,7 @@ function SOMTEmitC_somtAllVisible(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtAll = function(somSelf: SOMTEmitC;
-		entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+    entry: SOMTMethodEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtAll = somTP_SOMTEmitC_somtAll;
 (*
  *  Returns 1 (true) if <entry> is supported by the target class.
@@ -3429,7 +3433,7 @@ function SOMTEmitC_somtAll(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtNewNoProc = function(somSelf: SOMTEmitC;
-		entry: SOMTEntryC): CORBABoolean; stdcall;
+    entry: SOMTEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtNewNoProc = somTP_SOMTEmitC_somtNewNoProc;
 (*
  *  Returns 1 (true) if somtNew does and the method
@@ -3444,7 +3448,7 @@ function SOMTEmitC_somtNewNoProc(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtPrivOrPub = function(somSelf: SOMTEmitC;
-		entry: SOMTEntryC): CORBABoolean; stdcall;
+    entry: SOMTEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtPrivOrPub = somTP_SOMTEmitC_somtPrivOrPub;
 (*
  *  Returns 1 (true) if entry is Private or Public.
@@ -3458,7 +3462,7 @@ function SOMTEmitC_somtPrivOrPub(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtNewProc = function(somSelf: SOMTEmitC;
-		entry: SOMTEntryC): CORBABoolean; stdcall;
+    entry: SOMTEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtNewProc = somTP_SOMTEmitC_somtNewProc;
 (*
  *  Returns 1 (true) if somtNew does and the method
@@ -3473,7 +3477,7 @@ function SOMTEmitC_somtNewProc(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtLink = function(somSelf: SOMTEmitC;
-		entry: SOMTEntryC): CORBABoolean; stdcall;
+    entry: SOMTEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtLink = somTP_SOMTEmitC_somtLink;
 (*
  *  Returns 1 (true) if "nolink" is not set.
@@ -3487,7 +3491,7 @@ function SOMTEmitC_somtLink(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtVA = function(somSelf: SOMTEmitC;
-		entry: SOMTEntryC): CORBABoolean; stdcall;
+    entry: SOMTEntryC): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtVA = somTP_SOMTEmitC_somtVA;
 (*
  *  Returns 1 (true) if entry is a VarArgs method.
@@ -3501,8 +3505,8 @@ function SOMTEmitC_somtVA(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanMethods = function(somSelf: SOMTEmitC;
-		filter, prolog, each, epilog: CORBAString;
-		forceProlog: CORBABoolean): CORBABoolean; stdcall;
+    filter, prolog, each, epilog: CORBAString;
+    forceProlog: CORBABoolean): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanMethods = somTP_SOMTEmitC_somtScanMethods;
 (*
  *  Will only call <each> on methods accepted by <filter>.
@@ -3520,7 +3524,7 @@ function SOMTEmitC_somtScanMethods(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanConstants = function(somSelf: SOMTEmitC;
-		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+    prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanConstants = somTP_SOMTEmitC_somtScanConstants;
 const somMD_SOMTEmitC_somtScanConstants = '::SOMTEmitC::somtScanConstants';
 function SOMTEmitC_somtScanConstants(somSelf: SOMTEmitC;
@@ -3531,7 +3535,7 @@ function SOMTEmitC_somtScanConstants(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanTypedefs = function(somSelf: SOMTEmitC;
-		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+    prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanTypedefs = somTP_SOMTEmitC_somtScanTypedefs;
 const somMD_SOMTEmitC_somtScanTypedefs = '::SOMTEmitC::somtScanTypedefs';
 function SOMTEmitC_somtScanTypedefs(somSelf: SOMTEmitC;
@@ -3542,7 +3546,7 @@ function SOMTEmitC_somtScanTypedefs(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanStructs = function(somSelf: SOMTEmitC;
-		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+    prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanStructs = somTP_SOMTEmitC_somtScanStructs;
 const somMD_SOMTEmitC_somtScanStructs = '::SOMTEmitC::somtScanStructs';
 function SOMTEmitC_somtScanStructs(somSelf: SOMTEmitC;
@@ -3553,7 +3557,7 @@ function SOMTEmitC_somtScanStructs(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanUnions = function(somSelf: SOMTEmitC;
-		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+    prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanUnions = somTP_SOMTEmitC_somtScanUnions;
 const somMD_SOMTEmitC_somtScanUnions = '::SOMTEmitC::somtScanUnions';
 function SOMTEmitC_somtScanUnions(somSelf: SOMTEmitC;
@@ -3564,7 +3568,7 @@ function SOMTEmitC_somtScanUnions(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanEnums = function(somSelf: SOMTEmitC;
-		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+    prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanEnums = somTP_SOMTEmitC_somtScanEnums;
 const somMD_SOMTEmitC_somtScanEnums = '::SOMTEmitC::somtScanEnums';
 function SOMTEmitC_somtScanEnums(somSelf: SOMTEmitC;
@@ -3575,7 +3579,7 @@ function SOMTEmitC_somtScanEnums(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanData = function(somSelf: SOMTEmitC;
-		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+    prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanData = somTP_SOMTEmitC_somtScanData;
 const somMD_SOMTEmitC_somtScanData = '::SOMTEmitC::somtScanData';
 function SOMTEmitC_somtScanData(somSelf: SOMTEmitC;
@@ -3586,7 +3590,7 @@ function SOMTEmitC_somtScanData(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanAttributes = function(somSelf: SOMTEmitC;
-		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+    prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanAttributes = somTP_SOMTEmitC_somtScanAttributes;
 const somMD_SOMTEmitC_somtScanAttributes = '::SOMTEmitC::somtScanAttributes';
 function SOMTEmitC_somtScanAttributes(somSelf: SOMTEmitC;
@@ -3597,7 +3601,7 @@ function SOMTEmitC_somtScanAttributes(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanInterfaces = function(somSelf: SOMTEmitC;
-		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+    prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanInterfaces = somTP_SOMTEmitC_somtScanInterfaces;
 const somMD_SOMTEmitC_somtScanInterfaces = '::SOMTEmitC::somtScanInterfaces';
 function SOMTEmitC_somtScanInterfaces(somSelf: SOMTEmitC;
@@ -3608,7 +3612,7 @@ function SOMTEmitC_somtScanInterfaces(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanModules = function(somSelf: SOMTEmitC;
-		prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+    prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanModules = somTP_SOMTEmitC_somtScanModules;
 const somMD_SOMTEmitC_somtScanModules = '::SOMTEmitC::somtScanModules';
 function SOMTEmitC_somtScanModules(somSelf: SOMTEmitC;
@@ -3619,7 +3623,7 @@ function SOMTEmitC_somtScanModules(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanPassthru = function(somSelf: SOMTEmitC;
-		before: CORBABoolean; prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
+    before: CORBABoolean; prolog, each, epilog: CORBAString): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanPassthru = somTP_SOMTEmitC_somtScanPassthru;
 const somMD_SOMTEmitC_somtScanPassthru = '::SOMTEmitC::somtScanPassthru';
 function SOMTEmitC_somtScanPassthru(somSelf: SOMTEmitC;
@@ -3630,7 +3634,7 @@ function SOMTEmitC_somtScanPassthru(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtEmitFullPassthru = procedure(somSelf: SOMTEmitC;
-		before: CORBABoolean; language: CORBAString); stdcall;
+    before: CORBABoolean; language: CORBAString); stdcall;
   somTD_SOMTEmitC_somtEmitFullPassthru = somTP_SOMTEmitC_somtEmitFullPassthru;
 (*
  *  Emits each passthru section defined for the language and targetType,
@@ -3646,8 +3650,8 @@ procedure SOMTEmitC_somtEmitFullPassthru(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanDataF = function(somSelf: SOMTEmitC;
-		filter, prolog, each, epilog: CORBAString;
-		forceProlog: CORBABoolean): CORBABoolean; stdcall;
+    filter, prolog, each, epilog: CORBAString;
+    forceProlog: CORBABoolean): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanDataF = somTP_SOMTEmitC_somtScanDataF;
 (*
  *  This method is like somtScanData but it also provides a paramater
@@ -3663,8 +3667,8 @@ function SOMTEmitC_somtScanDataF(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtScanBasesF = function(somSelf: SOMTEmitC;
-		filter, prolog, each, epilog: CORBAString;
-		forceProlog: CORBABoolean): CORBABoolean; stdcall;
+    filter, prolog, each, epilog: CORBAString;
+    forceProlog: CORBABoolean): CORBABoolean; stdcall;
   somTD_SOMTEmitC_somtScanBasesF = somTP_SOMTEmitC_somtScanBasesF;
 (*
  *  This method is like somtScanBases but it also provides a paramater
@@ -3680,7 +3684,7 @@ function SOMTEmitC_somtScanBasesF(somSelf: SOMTEmitC;
  *)
 type
   somTP_SOMTEmitC_somtGetGlobalModifierValue = function(somSelf: SOMTEmitC;
-		modifierName: CORBAString): CORBAString; stdcall;
+    modifierName: CORBAString): CORBAString; stdcall;
   somTD_SOMTEmitC_somtGetGlobalModifierValue = somTP_SOMTEmitC_somtGetGlobalModifierValue;
 (*
  *  Returns the value of the specified global modifier.
@@ -3761,27 +3765,27 @@ function SOMTModuleEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTModuleEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtOuterModule: somMToken;
-	somtGetFirstModuleStruct: somMToken;
-	somtGetNextModuleStruct: somMToken;
-	somtGetFirstModuleTypedef: somMToken;
-	somtGetNextModuleTypedef: somMToken;
-	somtGetFirstModuleUnion: somMToken;
-	somtGetNextModuleUnion: somMToken;
-	somtGetFirstModuleEnum: somMToken;
-	somtGetNextModuleEnum: somMToken;
-	somtGetFirstModuleConstant: somMToken;
-	somtGetNextModuleConstant: somMToken;
-	somtGetFirstModuleSequence: somMToken;
-	somtGetNextModuleSequence: somMToken;
-	somtGetFirstInterface: somMToken;
-	somtGetNextInterface: somMToken;
-	somtGetFirstModule: somMToken;
-	somtGetNextModule: somMToken;
-	somtGetFirstModuleDef: somMToken;
-	somtGetNextModuleDef: somMToken;
-	_get_somtModuleFile: somMToken;
+  classObject: SOMClass;
+  _get_somtOuterModule: somMToken;
+  somtGetFirstModuleStruct: somMToken;
+  somtGetNextModuleStruct: somMToken;
+  somtGetFirstModuleTypedef: somMToken;
+  somtGetNextModuleTypedef: somMToken;
+  somtGetFirstModuleUnion: somMToken;
+  somtGetNextModuleUnion: somMToken;
+  somtGetFirstModuleEnum: somMToken;
+  somtGetNextModuleEnum: somMToken;
+  somtGetFirstModuleConstant: somMToken;
+  somtGetNextModuleConstant: somMToken;
+  somtGetFirstModuleSequence: somMToken;
+  somtGetNextModuleSequence: somMToken;
+  somtGetFirstInterface: somMToken;
+  somtGetNextInterface: somMToken;
+  somtGetFirstModule: somMToken;
+  somtGetNextModule: somMToken;
+  somtGetFirstModuleDef: somMToken;
+  somtGetNextModuleDef: somMToken;
+  _get_somtModuleFile: somMToken;
 end;
 PSOMTModuleEntryCClassDataStructure = ^SOMTModuleEntryCClassDataStructure;
 function SOMTModuleEntryCClassData: PSOMTModuleEntryCClassDataStructure;
@@ -3790,8 +3794,8 @@ function SOMTModuleEntryCClassData: PSOMTModuleEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTModuleEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTModuleEntryCCClassDataStructure = ^SOMTModuleEntryCCClassDataStructure;
 function SOMTModuleEntryCCClassData: PSOMTModuleEntryCCClassDataStructure;
@@ -4016,8 +4020,8 @@ function SOMTBaseClassEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTBaseClassEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtBaseClassDef: somMToken;
+  classObject: SOMClass;
+  _get_somtBaseClassDef: somMToken;
 end;
 PSOMTBaseClassEntryCClassDataStructure = ^SOMTBaseClassEntryCClassDataStructure;
 function SOMTBaseClassEntryCClassData: PSOMTBaseClassEntryCClassDataStructure;
@@ -4026,8 +4030,8 @@ function SOMTBaseClassEntryCClassData: PSOMTBaseClassEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTBaseClassEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTBaseClassEntryCCClassDataStructure = ^SOMTBaseClassEntryCCClassDataStructure;
 function SOMTBaseClassEntryCCClassData: PSOMTBaseClassEntryCCClassDataStructure;
@@ -4079,8 +4083,8 @@ function SOMTDataEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTDataEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtIsSelfRef: somMToken;
+  classObject: SOMClass;
+  _get_somtIsSelfRef: somMToken;
 end;
 PSOMTDataEntryCClassDataStructure = ^SOMTDataEntryCClassDataStructure;
 function SOMTDataEntryCClassData: PSOMTDataEntryCClassDataStructure;
@@ -4089,8 +4093,8 @@ function SOMTDataEntryCClassData: PSOMTDataEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTDataEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTDataEntryCCClassDataStructure = ^SOMTDataEntryCCClassDataStructure;
 function SOMTDataEntryCCClassData: PSOMTDataEntryCCClassDataStructure;
@@ -4142,15 +4146,15 @@ function SOMTAttributeEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTAttributeEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtIsReadonly: somMToken;
-	_get_somtAttribType: somMToken;
-	somtGetFirstAttributeDeclarator: somMToken;
-	somtGetNextAttributeDeclarator: somMToken;
-	somtGetFirstGetMethod: somMToken;
-	somtGetNextGetMethod: somMToken;
-	somtGetFirstSetMethod: somMToken;
-	somtGetNextSetMethod: somMToken;
+  classObject: SOMClass;
+  _get_somtIsReadonly: somMToken;
+  _get_somtAttribType: somMToken;
+  somtGetFirstAttributeDeclarator: somMToken;
+  somtGetNextAttributeDeclarator: somMToken;
+  somtGetFirstGetMethod: somMToken;
+  somtGetNextGetMethod: somMToken;
+  somtGetFirstSetMethod: somMToken;
+  somtGetNextSetMethod: somMToken;
 end;
 PSOMTAttributeEntryCClassDataStructure = ^SOMTAttributeEntryCClassDataStructure;
 function SOMTAttributeEntryCClassData: PSOMTAttributeEntryCClassDataStructure;
@@ -4159,8 +4163,8 @@ function SOMTAttributeEntryCClassData: PSOMTAttributeEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTAttributeEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTAttributeEntryCCClassDataStructure = ^SOMTAttributeEntryCCClassDataStructure;
 function SOMTAttributeEntryCCClassData: PSOMTAttributeEntryCCClassDataStructure;
@@ -4303,14 +4307,14 @@ function SOMTConstEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTConstEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtConstStringVal: somMToken;
-	_get_somtConstNumVal: somMToken;
-	_get_somtConstType: somMToken;
-	_get_somtConstTypeObj: somMToken;
-	_get_somtConstVal: somMToken;
-	_get_somtConstNumNegVal: somMToken;
-	_get_somtConstIsNegative: somMToken;
+  classObject: SOMClass;
+  _get_somtConstStringVal: somMToken;
+  _get_somtConstNumVal: somMToken;
+  _get_somtConstType: somMToken;
+  _get_somtConstTypeObj: somMToken;
+  _get_somtConstVal: somMToken;
+  _get_somtConstNumNegVal: somMToken;
+  _get_somtConstIsNegative: somMToken;
 end;
 PSOMTConstEntryCClassDataStructure = ^SOMTConstEntryCClassDataStructure;
 function SOMTConstEntryCClassData: PSOMTConstEntryCClassDataStructure;
@@ -4319,8 +4323,8 @@ function SOMTConstEntryCClassData: PSOMTConstEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTConstEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTConstEntryCCClassDataStructure = ^SOMTConstEntryCCClassDataStructure;
 function SOMTConstEntryCCClassData: PSOMTConstEntryCCClassDataStructure;
@@ -4452,10 +4456,10 @@ function SOMTTypedefEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTTypedefEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtTypedefType: somMToken;
-	somtGetFirstDeclarator: somMToken;
-	somtGetNextDeclarator: somMToken;
+  classObject: SOMClass;
+  _get_somtTypedefType: somMToken;
+  somtGetFirstDeclarator: somMToken;
+  somtGetNextDeclarator: somMToken;
 end;
 PSOMTTypedefEntryCClassDataStructure = ^SOMTTypedefEntryCClassDataStructure;
 function SOMTTypedefEntryCClassData: PSOMTTypedefEntryCClassDataStructure;
@@ -4464,8 +4468,8 @@ function SOMTTypedefEntryCClassData: PSOMTTypedefEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTTypedefEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTTypedefEntryCCClassDataStructure = ^SOMTTypedefEntryCCClassDataStructure;
 function SOMTTypedefEntryCCClassData: PSOMTTypedefEntryCCClassDataStructure;
@@ -4547,11 +4551,11 @@ function SOMTStructEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTStructEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtStructClass: somMToken;
-	_get_somtIsException: somMToken;
-	somtGetFirstMember: somMToken;
-	somtGetNextMember: somMToken;
+  classObject: SOMClass;
+  _get_somtStructClass: somMToken;
+  _get_somtIsException: somMToken;
+  somtGetFirstMember: somMToken;
+  somtGetNextMember: somMToken;
 end;
 PSOMTStructEntryCClassDataStructure = ^SOMTStructEntryCClassDataStructure;
 function SOMTStructEntryCClassData: PSOMTStructEntryCClassDataStructure;
@@ -4560,8 +4564,8 @@ function SOMTStructEntryCClassData: PSOMTStructEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTStructEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTStructEntryCCClassDataStructure = ^SOMTStructEntryCCClassDataStructure;
 function SOMTStructEntryCCClassData: PSOMTStructEntryCCClassDataStructure;
@@ -4681,10 +4685,10 @@ function SOMTUnionEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTUnionEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtSwitchType: somMToken;
-	somtGetFirstCaseEntry: somMToken;
-	somtGetNextCaseEntry: somMToken;
+  classObject: SOMClass;
+  _get_somtSwitchType: somMToken;
+  somtGetFirstCaseEntry: somMToken;
+  somtGetNextCaseEntry: somMToken;
 end;
 PSOMTUnionEntryCClassDataStructure = ^SOMTUnionEntryCClassDataStructure;
 function SOMTUnionEntryCClassData: PSOMTUnionEntryCClassDataStructure;
@@ -4693,8 +4697,8 @@ function SOMTUnionEntryCClassData: PSOMTUnionEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTUnionEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTUnionEntryCCClassDataStructure = ^SOMTUnionEntryCCClassDataStructure;
 function SOMTUnionEntryCCClassData: PSOMTUnionEntryCCClassDataStructure;
@@ -4770,9 +4774,9 @@ function SOMTEnumNameEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTEnumNameEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtEnumPtr: somMToken;
-	_get_somtEnumVal: somMToken;
+  classObject: SOMClass;
+  _get_somtEnumPtr: somMToken;
+  _get_somtEnumVal: somMToken;
 end;
 PSOMTEnumNameEntryCClassDataStructure = ^SOMTEnumNameEntryCClassDataStructure;
 function SOMTEnumNameEntryCClassData: PSOMTEnumNameEntryCClassDataStructure;
@@ -4781,8 +4785,8 @@ function SOMTEnumNameEntryCClassData: PSOMTEnumNameEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTEnumNameEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTEnumNameEntryCCClassDataStructure = ^SOMTEnumNameEntryCCClassDataStructure;
 function SOMTEnumNameEntryCCClassData: PSOMTEnumNameEntryCCClassDataStructure;
@@ -4845,9 +4849,9 @@ function SOMTEnumEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTEnumEntryCClassDataStructure = record
-	classObject: SOMClass;
-	somtGetFirstEnumName: somMToken;
-	somtGetNextEnumName: somMToken;
+  classObject: SOMClass;
+  somtGetFirstEnumName: somMToken;
+  somtGetNextEnumName: somMToken;
 end;
 PSOMTEnumEntryCClassDataStructure = ^SOMTEnumEntryCClassDataStructure;
 function SOMTEnumEntryCClassData: PSOMTEnumEntryCClassDataStructure;
@@ -4856,8 +4860,8 @@ function SOMTEnumEntryCClassData: PSOMTEnumEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTEnumEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTEnumEntryCCClassDataStructure = ^SOMTEnumEntryCCClassDataStructure;
 function SOMTEnumEntryCCClassData: PSOMTEnumEntryCCClassDataStructure;
@@ -4914,10 +4918,10 @@ function SOMTSequenceEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTSequenceEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtSeqLength: somMToken;
-	_get_somtSeqType: somMToken;
-	_get_somtSeqTypedef: somMToken;
+  classObject: SOMClass;
+  _get_somtSeqLength: somMToken;
+  _get_somtSeqType: somMToken;
+  _get_somtSeqTypedef: somMToken;
 end;
 PSOMTSequenceEntryCClassDataStructure = ^SOMTSequenceEntryCClassDataStructure;
 function SOMTSequenceEntryCClassData: PSOMTSequenceEntryCClassDataStructure;
@@ -4926,8 +4930,8 @@ function SOMTSequenceEntryCClassData: PSOMTSequenceEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTSequenceEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTSequenceEntryCCClassDataStructure = ^SOMTSequenceEntryCCClassDataStructure;
 function SOMTSequenceEntryCCClassData: PSOMTSequenceEntryCCClassDataStructure;
@@ -5000,10 +5004,10 @@ function SOMTParameterEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTParameterEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtParameterDirection: somMToken;
-	_get_somtCParameterDeclaration: somMToken;
-	_get_somtIDLParameterDeclaration: somMToken;
+  classObject: SOMClass;
+  _get_somtParameterDirection: somMToken;
+  _get_somtCParameterDeclaration: somMToken;
+  _get_somtIDLParameterDeclaration: somMToken;
 end;
 PSOMTParameterEntryCClassDataStructure = ^SOMTParameterEntryCClassDataStructure;
 function SOMTParameterEntryCClassData: PSOMTParameterEntryCClassDataStructure;
@@ -5012,8 +5016,8 @@ function SOMTParameterEntryCClassData: PSOMTParameterEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTParameterEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTParameterEntryCCClassDataStructure = ^SOMTParameterEntryCCClassDataStructure;
 function SOMTParameterEntryCCClassData: PSOMTParameterEntryCCClassDataStructure;
@@ -5091,9 +5095,9 @@ function SOMTUserDefinedTypeEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTUserDefinedTypeEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtOriginalTypedef: somMToken;
-	_get_somtBaseTypeObj: somMToken;
+  classObject: SOMClass;
+  _get_somtOriginalTypedef: somMToken;
+  _get_somtBaseTypeObj: somMToken;
 end;
 PSOMTUserDefinedTypeEntryCClassDataStructure = ^SOMTUserDefinedTypeEntryCClassDataStructure;
 function SOMTUserDefinedTypeEntryCClassData: PSOMTUserDefinedTypeEntryCClassDataStructure;
@@ -5102,8 +5106,8 @@ function SOMTUserDefinedTypeEntryCClassData: PSOMTUserDefinedTypeEntryCClassData
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTUserDefinedTypeEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTUserDefinedTypeEntryCCClassDataStructure = ^SOMTUserDefinedTypeEntryCCClassDataStructure;
 function SOMTUserDefinedTypeEntryCCClassData: PSOMTUserDefinedTypeEntryCCClassDataStructure;
@@ -5168,8 +5172,8 @@ function SOMTStringEntryCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMTStringEntryCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somtStringLength: somMToken;
+  classObject: SOMClass;
+  _get_somtStringLength: somMToken;
 end;
 PSOMTStringEntryCClassDataStructure = ^SOMTStringEntryCClassDataStructure;
 function SOMTStringEntryCClassData: PSOMTStringEntryCClassDataStructure;
@@ -5178,8 +5182,8 @@ function SOMTStringEntryCClassData: PSOMTStringEntryCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMTStringEntryCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMTStringEntryCCClassDataStructure = ^SOMTStringEntryCCClassDataStructure;
 function SOMTStringEntryCCClassData: PSOMTStringEntryCCClassDataStructure;
@@ -5242,18 +5246,18 @@ function SOMStringTableCNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMStringTableCClassDataStructure = record
-	classObject: SOMClass;
-	_get_somstTargetCapacity: somMToken;
-	_set_somstTargetCapacity: somMToken;
-	_get_somstAssociationsCount: somMToken;
-	somstAssociate: somMToken;
-	somstAssociateCopyKey: somMToken;
-	somstAssociateCopyValue: somMToken;
-	somstAssociateCopyBoth: somMToken;
-	somstGetAssociation: somMToken;
-	somstClearAssociation: somMToken;
-	somstGetIthKey: somMToken;
-	somstGetIthValue: somMToken;
+  classObject: SOMClass;
+  _get_somstTargetCapacity: somMToken;
+  _set_somstTargetCapacity: somMToken;
+  _get_somstAssociationsCount: somMToken;
+  somstAssociate: somMToken;
+  somstAssociateCopyKey: somMToken;
+  somstAssociateCopyValue: somMToken;
+  somstAssociateCopyBoth: somMToken;
+  somstGetAssociation: somMToken;
+  somstClearAssociation: somMToken;
+  somstGetIthKey: somMToken;
+  somstGetIthValue: somMToken;
 end;
 PSOMStringTableCClassDataStructure = ^SOMStringTableCClassDataStructure;
 function SOMStringTableCClassData: PSOMStringTableCClassDataStructure;
@@ -5262,8 +5266,8 @@ function SOMStringTableCClassData: PSOMStringTableCClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMStringTableCCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMStringTableCCClassDataStructure = ^SOMStringTableCCClassDataStructure;
 function SOMStringTableCCClassData: PSOMStringTableCCClassDataStructure;
@@ -5300,7 +5304,7 @@ function SOMStringTableC__get_somstTargetCapacity(somSelf: SOMStringTableC): Lon
  *)
 type
   somTP_SOMStringTableC__set_somstTargetCapacity = procedure(somSelf: SOMStringTableC;
-		somstTargetCapacity: LongWord); stdcall;
+    somstTargetCapacity: LongWord); stdcall;
   somTD_SOMStringTableC__set_somstTargetCapacity = somTP_SOMStringTableC__set_somstTargetCapacity;
 (*
  *  The expected maximum number of associations for this table.
@@ -5330,7 +5334,7 @@ function SOMStringTableC__get_somstAssociationsCount(somSelf: SOMStringTableC): 
  *)
 type
   somTP_SOMStringTableC_somstAssociate = function(somSelf: SOMStringTableC;
-		key, value: CORBAString): SmallInt; stdcall;
+    key, value: CORBAString): SmallInt; stdcall;
   somTD_SOMStringTableC_somstAssociate = somTP_SOMStringTableC_somstAssociate;
 (*
  *  Associates <key> and <value>.  After this call, whenever <key> is
@@ -5352,7 +5356,7 @@ function SOMStringTableC_somstAssociate(somSelf: SOMStringTableC;
  *)
 type
   somTP_SOMStringTableC_somstAssociateCopyKey = function(somSelf: SOMStringTableC;
-		key, value: CORBAString): SmallInt; stdcall;
+    key, value: CORBAString): SmallInt; stdcall;
   somTD_SOMStringTableC_somstAssociateCopyKey = somTP_SOMStringTableC_somstAssociateCopyKey;
 (*
  *  Same as <somstAssociate> except don't take ownership of <key>.
@@ -5366,7 +5370,7 @@ function SOMStringTableC_somstAssociateCopyKey(somSelf: SOMStringTableC;
  *)
 type
   somTP_SOMStringTableC_somstAssociateCopyValue = function(somSelf: SOMStringTableC;
-		key, value: CORBAString): SmallInt; stdcall;
+    key, value: CORBAString): SmallInt; stdcall;
   somTD_SOMStringTableC_somstAssociateCopyValue = somTP_SOMStringTableC_somstAssociateCopyValue;
 (*
  *  Same as <somstAssociate> except don't take ownership of <value>.
@@ -5380,7 +5384,7 @@ function SOMStringTableC_somstAssociateCopyValue(somSelf: SOMStringTableC;
  *)
 type
   somTP_SOMStringTableC_somstAssociateCopyBoth = function(somSelf: SOMStringTableC;
-		key, value: CORBAString): SmallInt; stdcall;
+    key, value: CORBAString): SmallInt; stdcall;
   somTD_SOMStringTableC_somstAssociateCopyBoth = somTP_SOMStringTableC_somstAssociateCopyBoth;
 (*
  *  Same as <somstAssociate> except don't take ownership of <key> or
@@ -5395,7 +5399,7 @@ function SOMStringTableC_somstAssociateCopyBoth(somSelf: SOMStringTableC;
  *)
 type
   somTP_SOMStringTableC_somstGetAssociation = function(somSelf: SOMStringTableC;
-		key: CORBAString): CORBAString; stdcall;
+    key: CORBAString): CORBAString; stdcall;
   somTD_SOMStringTableC_somstGetAssociation = somTP_SOMStringTableC_somstGetAssociation;
 (*
  *  The string associated with <key> is returned if there is one and
@@ -5411,7 +5415,7 @@ function SOMStringTableC_somstGetAssociation(somSelf: SOMStringTableC;
  *)
 type
   somTP_SOMStringTableC_somstClearAssociation = function(somSelf: SOMStringTableC;
-		key: CORBAString): CORBABoolean; stdcall;
+    key: CORBAString): CORBABoolean; stdcall;
   somTD_SOMStringTableC_somstClearAssociation = somTP_SOMStringTableC_somstClearAssociation;
 (*
  *  The association for <key>, if any, is removed.
@@ -5427,7 +5431,7 @@ function SOMStringTableC_somstClearAssociation(somSelf: SOMStringTableC;
  *)
 type
   somTP_SOMStringTableC_somstGetIthKey = function(somSelf: SOMStringTableC;
-		i: LongWord): CORBAString; stdcall;
+    i: LongWord): CORBAString; stdcall;
   somTD_SOMStringTableC_somstGetIthKey = somTP_SOMStringTableC_somstGetIthKey;
 (*
  *  Returns the key part of the <i> association in this string table
@@ -5446,7 +5450,7 @@ function SOMStringTableC_somstGetIthKey(somSelf: SOMStringTableC;
  *)
 type
   somTP_SOMStringTableC_somstGetIthValue = function(somSelf: SOMStringTableC;
-		i: LongWord): CORBAString; stdcall;
+    i: LongWord): CORBAString; stdcall;
   somTD_SOMStringTableC_somstGetIthValue = somTP_SOMStringTableC_somstGetIthValue;
 (*
  *  Returns the value part of the <i> association in this string table
@@ -5570,7 +5574,7 @@ var
 begin
   cls := _SOMCLASS_SOMTTemplateOutputC;
   if not Assigned(cls) then cls := SOMTTemplateOutputCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTTemplateOutputC__get_somtCommentStyle(somSelf: SOMTTemplateOutputC): somtCommentStyleT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5626,7 +5630,7 @@ begin
 end;
 
 procedure SOMTTemplateOutputC__set_somtCommentNewline(somSelf: SOMTTemplateOutputC;
-	somtCommentNewline: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  somtCommentNewline: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTTemplateOutputCClassDataStructure;
 begin
@@ -5637,7 +5641,7 @@ begin
 end;
 
 function SOMTTemplateOutputC_somtGetSymbol(somSelf: SOMTTemplateOutputC;
-	name: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  name: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTTemplateOutputCClassDataStructure;
 begin
@@ -5648,7 +5652,7 @@ begin
 end;
 
 procedure SOMTTemplateOutputC_somtSetSymbol(somSelf: SOMTTemplateOutputC;
-	name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTTemplateOutputCClassDataStructure;
 begin
@@ -5659,7 +5663,7 @@ begin
 end;
 
 procedure SOMTTemplateOutputC_somtSetSymbolCopyName(somSelf: SOMTTemplateOutputC;
-	name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTTemplateOutputCClassDataStructure;
 begin
@@ -5681,7 +5685,7 @@ begin
 end;
 
 procedure SOMTTemplateOutputC_somtSetSymbolCopyBoth(somSelf: SOMTTemplateOutputC;
-	name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  name, value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTTemplateOutputCClassDataStructure;
 begin
@@ -5692,7 +5696,7 @@ begin
 end;
 
 function SOMTTemplateOutputC_somtCheckSymbol(somSelf: SOMTTemplateOutputC;
-	name: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  name: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTTemplateOutputCClassDataStructure;
 begin
@@ -5723,7 +5727,7 @@ begin
 end;
 
 procedure SOMTTemplateOutputC_somtOutputComment(somSelf: SOMTTemplateOutputC;
-	comment: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  comment: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTTemplateOutputCClassDataStructure;
 begin
@@ -5745,7 +5749,7 @@ begin
 end;
 
 procedure SOMTTemplateOutputC_somtAddSectionDefinitions(somSelf: SOMTTemplateOutputC;
-	defString: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  defString: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTTemplateOutputCClassDataStructure;
 begin
@@ -5756,7 +5760,7 @@ begin
 end;
 
 procedure SOMTTemplateOutputC_somtReadSectionDefinitions(somSelf: SOMTTemplateOutputC;
-	fp: PFILE); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  fp: PFILE); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTTemplateOutputCClassDataStructure;
 begin
@@ -5767,7 +5771,7 @@ begin
 end;
 
 function SOMTTemplateOutputC_somtExpandSymbol(somSelf: SOMTTemplateOutputC;
-	s, buf: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  s, buf: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTTemplateOutputCClassDataStructure;
 begin
@@ -5829,7 +5833,7 @@ var
 begin
   cls := _SOMCLASS_SOMTEntryC;
   if not Assigned(cls) then cls := SOMTEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTEntryC__get_somtEntryName(somSelf: SOMTEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6077,7 +6081,7 @@ var
 begin
   cls := _SOMCLASS_SOMTClassEntryC;
   if not Assigned(cls) then cls := SOMTClassEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTClassEntryC__get_somtSourceFileName(somSelf: SOMTClassEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6637,7 +6641,7 @@ var
 begin
   cls := _SOMCLASS_SOMTMetaClassEntryC;
   if not Assigned(cls) then cls := SOMTMetaClassEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTMetaClassEntryC__get_somtMetaFile(somSelf: SOMTMetaClassEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6712,7 +6716,7 @@ var
 begin
   cls := _SOMCLASS_SOMTCommonEntryC;
   if not Assigned(cls) then cls := SOMTCommonEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTCommonEntryC__get_somtTypeObj(somSelf: SOMTCommonEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6868,7 +6872,7 @@ var
 begin
   cls := _SOMCLASS_SOMTMethodEntryC;
   if not Assigned(cls) then cls := SOMTMethodEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTMethodEntryC__get_somtIsVarargs(somSelf: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7124,7 +7128,7 @@ var
 begin
   cls := _SOMCLASS_SOMTPassthruEntryC;
   if not Assigned(cls) then cls := SOMTPassthruEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTPassthruEntryC__get_somtPassthruBody(somSelf: SOMTPassthruEntryC): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7219,7 +7223,7 @@ var
 begin
   cls := _SOMCLASS_SOMTEmitC;
   if not Assigned(cls) then cls := SOMTEmitCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTEmitC__get_somtTemplate(somSelf: SOMTEmitC): SOMTTemplateOutputC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8220,7 +8224,7 @@ var
 begin
   cls := _SOMCLASS_SOMTModuleEntryC;
   if not Assigned(cls) then cls := SOMTModuleEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTModuleEntryC__get_somtOuterModule(somSelf: SOMTModuleEntryC): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8475,7 +8479,7 @@ var
 begin
   cls := _SOMCLASS_SOMTBaseClassEntryC;
   if not Assigned(cls) then cls := SOMTBaseClassEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTBaseClassEntryC__get_somtBaseClassDef(somSelf: SOMTBaseClassEntryC): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8540,7 +8544,7 @@ var
 begin
   cls := _SOMCLASS_SOMTDataEntryC;
   if not Assigned(cls) then cls := SOMTDataEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTDataEntryC__get_somtIsSelfRef(somSelf: SOMTDataEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8605,7 +8609,7 @@ var
 begin
   cls := _SOMCLASS_SOMTAttributeEntryC;
   if not Assigned(cls) then cls := SOMTAttributeEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTAttributeEntryC__get_somtIsReadonly(somSelf: SOMTAttributeEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8740,7 +8744,7 @@ var
 begin
   cls := _SOMCLASS_SOMTConstEntryC;
   if not Assigned(cls) then cls := SOMTConstEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTConstEntryC__get_somtConstTypeObj(somSelf: SOMTConstEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8865,7 +8869,7 @@ var
 begin
   cls := _SOMCLASS_SOMTTypedefEntryC;
   if not Assigned(cls) then cls := SOMTTypedefEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTTypedefEntryC__get_somtTypedefType(somSelf: SOMTTypedefEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8950,7 +8954,7 @@ var
 begin
   cls := _SOMCLASS_SOMTStructEntryC;
   if not Assigned(cls) then cls := SOMTStructEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTStructEntryC_somtGetFirstMember(somSelf: SOMTStructEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9045,7 +9049,7 @@ var
 begin
   cls := _SOMCLASS_SOMTUnionEntryC;
   if not Assigned(cls) then cls := SOMTUnionEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTUnionEntryC__get_somtSwitchType(somSelf: SOMTUnionEntryC): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9130,7 +9134,7 @@ var
 begin
   cls := _SOMCLASS_SOMTEnumNameEntryC;
   if not Assigned(cls) then cls := SOMTEnumNameEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTEnumNameEntryC__get_somtEnumPtr(somSelf: SOMTEnumNameEntryC): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9205,7 +9209,7 @@ var
 begin
   cls := _SOMCLASS_SOMTEnumEntryC;
   if not Assigned(cls) then cls := SOMTEnumEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTEnumEntryC_somtGetFirstEnumName(somSelf: SOMTEnumEntryC): SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9280,7 +9284,7 @@ var
 begin
   cls := _SOMCLASS_SOMTSequenceEntryC;
   if not Assigned(cls) then cls := SOMTSequenceEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTSequenceEntryC__get_somtSeqLength(somSelf: SOMTSequenceEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9355,7 +9359,7 @@ var
 begin
   cls := _SOMCLASS_SOMTParameterEntryC;
   if not Assigned(cls) then cls := SOMTParameterEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTParameterEntryC__get_somtParameterDirection(somSelf: SOMTParameterEntryC): somtParameterDirectionT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9440,7 +9444,7 @@ var
 begin
   cls := _SOMCLASS_SOMTUserDefinedTypeEntryC;
   if not Assigned(cls) then cls := SOMTUserDefinedTypeEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTUserDefinedTypeEntryC__get_somtOriginalTypedef(somSelf: SOMTUserDefinedTypeEntryC): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9515,7 +9519,7 @@ var
 begin
   cls := _SOMCLASS_SOMTStringEntryC;
   if not Assigned(cls) then cls := SOMTStringEntryCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMTStringEntryC__get_somtStringLength(somSelf: SOMTStringEntryC): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9581,7 +9585,7 @@ var
 begin
   cls := _SOMCLASS_SOMStringTableC;
   if not Assigned(cls) then cls := SOMStringTableCNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMStringTableC__get_somstTargetCapacity(somSelf: SOMStringTableC): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}

@@ -235,10 +235,10 @@ type
 // procedure SOM_IgnoreWarning(var v); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
 
 (* Check the validity of method resolution using the specified target  *)
-(* object.  Note: this macro makes programs bigger and slower.	After  *)
+(* object.  Note: this macro makes programs bigger and slower.  After  *)
 (* you are confident that your program is running correctly you should *)
 (* turn off this macro by defining SOM_NoTest, or adding -DSOM_NoTest  *)
-(* to your makefile.						       *)
+(* to your makefile.                                                   *)
 
 // function SOM_TestCls(obj: SOMObject; cls: SOMClass;
 //   fileName: PAnsiChar = ''; lineNum: Integer = 0): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // (moved down)
@@ -1974,10 +1974,10 @@ function SOM_GetClass(obj: SOMObject): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inli
 procedure SOM_IgnoreWarning(var v); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (* Check the validity of method resolution using the specified target  *)
-(* object.  Note: this macro makes programs bigger and slower.	After  *)
+(* object.  Note: this macro makes programs bigger and slower.  After  *)
 (* you are confident that your program is running correctly you should *)
 (* turn off this macro by defining SOM_NoTest, or adding -DSOM_NoTest  *)
-(* to your makefile.						       *)
+(* to your makefile.                                                   *)
 
 function SOM_TestCls(obj: SOMObject; cls: SOMClass;
   fileName: PAnsiChar = nil; lineNum: Integer = 0): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3587,47 +3587,47 @@ function SOMObjectNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMObjectClassDataStructure = record
-	classObject:              SOMClass;
-	somInit:                  somMToken;
-	somUninit:                somMToken;
-	somFree:                  somMToken;
-	somDefaultVCopyInit:      somMToken;
-	somGetClassName:          somMToken;
-	somGetClass:              somMToken;
-	somIsA:                   somMToken;
-	somRespondsTo:            somMToken;
-	somIsInstanceOf:          somMToken;
-	somGetSize:               somMToken;
-	somDumpSelf:              somMToken;
-	somDumpSelfInt:           somMToken;
-	somPrintSelf:             somMToken;
-	somDefaultConstVCopyInit: somMToken;
-	somoPrivate1:             somMToken;
-	somoPrivate2:             somMToken;
-	somoPrivate3:             somMToken;
-	somoPrivate4:             somMToken;
-	somDispatch:              somMToken;
-	somClassDispatch:         somMToken;
-	somCastObj:               somMToken;
-	somResetObj:              somMToken;
-	somDefaultInit:           somMToken;
-	somDestruct:              somMToken;
-	somoPrivate5:             somMToken;
-	somoPrivate6:             somMToken;
-	somDefaultCopyInit:       somMToken;
-	somDefaultConstCopyInit:  somMToken;
-	somDefaultAssign:         somMToken;
-	somDefaultConstAssign:    somMToken;
-	somDefaultVAssign:        somMToken;
-	somDefaultConstVAssign:   somMToken;
-	somoPrivate7:             somMToken;
-	somoPrivate8:             somMToken;
-	somoPrivate9:             somMToken;
-	somoPrivate10:            somMToken;
-	somoPrivate11:            somMToken;
-	somoPrivate12:            somMToken;
-	somoPrivate13:            somMToken;
-	somoPrivate14:            somMToken;
+  classObject:              SOMClass;
+  somInit:                  somMToken;
+  somUninit:                somMToken;
+  somFree:                  somMToken;
+  somDefaultVCopyInit:      somMToken;
+  somGetClassName:          somMToken;
+  somGetClass:              somMToken;
+  somIsA:                   somMToken;
+  somRespondsTo:            somMToken;
+  somIsInstanceOf:          somMToken;
+  somGetSize:               somMToken;
+  somDumpSelf:              somMToken;
+  somDumpSelfInt:           somMToken;
+  somPrintSelf:             somMToken;
+  somDefaultConstVCopyInit: somMToken;
+  somoPrivate1:             somMToken;
+  somoPrivate2:             somMToken;
+  somoPrivate3:             somMToken;
+  somoPrivate4:             somMToken;
+  somDispatch:              somMToken;
+  somClassDispatch:         somMToken;
+  somCastObj:               somMToken;
+  somResetObj:              somMToken;
+  somDefaultInit:           somMToken;
+  somDestruct:              somMToken;
+  somoPrivate5:             somMToken;
+  somoPrivate6:             somMToken;
+  somDefaultCopyInit:       somMToken;
+  somDefaultConstCopyInit:  somMToken;
+  somDefaultAssign:         somMToken;
+  somDefaultConstAssign:    somMToken;
+  somDefaultVAssign:        somMToken;
+  somDefaultConstVAssign:   somMToken;
+  somoPrivate7:             somMToken;
+  somoPrivate8:             somMToken;
+  somoPrivate9:             somMToken;
+  somoPrivate10:            somMToken;
+  somoPrivate11:            somMToken;
+  somoPrivate12:            somMToken;
+  somoPrivate13:            somMToken;
+  somoPrivate14:            somMToken;
 end;
 PSOMObjectClassDataStructure = ^SOMObjectClassDataStructure;
 function SOMObjectClassData: PSOMObjectClassDataStructure;
@@ -3636,10 +3636,10 @@ function SOMObjectClassData: PSOMObjectClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMObjectCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
-	somDispatch: somMethodProc;
-	somClassDispatch: somMethodProc;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
+  somDispatch: somMethodProc;
+  somClassDispatch: somMethodProc;
 end;
 PSOMObjectCClassDataStructure = ^SOMObjectCClassDataStructure;
 function SOMObjectCClassData: PSOMObjectCClassDataStructure;
@@ -3660,7 +3660,7 @@ function SOMObjectRenew(buf: Pointer): SOMObject;
  *)
 type
   somTP_SOMObject_somDefaultInit = procedure(somSelf: SOMObject;
-		ctrl: som3InitCtrlPtr); stdcall;
+    ctrl: som3InitCtrlPtr); stdcall;
   somTD_SOMObject_somDefaultInit = somTP_SOMObject_somDefaultInit;
 (*
  *  A default initializer for a SOM object. Passing a null ctrl
@@ -3676,7 +3676,7 @@ procedure SOMObject_somDefaultInit(somSelf: SOMObject; ctrl: som3InitCtrlPtr); {
  *)
 type
   somTP_SOMObject_somDestruct = procedure(somSelf: SOMObject;
-		doFree: octet; ctrl: som3DestructCtrlPtr); stdcall;
+    doFree: octet; ctrl: som3DestructCtrlPtr); stdcall;
   somTD_SOMObject_somDestruct = somTP_SOMObject_somDestruct;
 (*
  *  The default destructor for a SOM object. A nonzero <doFree>
@@ -3686,14 +3686,14 @@ type
  *)
 const somMD_SOMObject_somDestruct = '::SOMObject::somDestruct';
 procedure SOMObject_somDestruct(somSelf: SOMObject;
-		doFree: octet; ctrl: som3DestructCtrlPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    doFree: octet; ctrl: som3DestructCtrlPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somDefaultCopyInit
  *)
 type
   somTP_SOMObject_somDefaultCopyInit = procedure(somSelf: SOMObject;
-		ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
+    ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
   somTD_SOMObject_somDefaultCopyInit = somTP_SOMObject_somDefaultCopyInit;
 (*
  *  A default copy constructor. Use this to make copies of objects for
@@ -3701,14 +3701,14 @@ type
  *)
 const somMD_SOMObject_somDefaultCopyInit = '::SOMObject::somDefaultCopyInit';
 procedure SOMObject_somDefaultCopyInit(somSelf: SOMObject;
-	ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somDefaultAssign
  *)
 type
   somTP_SOMObject_somDefaultAssign = function(somSelf: SOMObject;
-		ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; stdcall;
+    ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; stdcall;
   somTD_SOMObject_somDefaultAssign = somTP_SOMObject_somDefaultAssign;
 (*
  *  A default assignment operator. Use this to "assign" the state of one
@@ -3716,49 +3716,49 @@ type
  *)
 const somMD_SOMObject_somDefaultAssign = '::SOMObject::somDefaultAssign';
 function SOMObject_somDefaultAssign(somSelf: SOMObject;
-	ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somDefaultConstCopyInit
  *)
 type
   somTP_SOMObject_somDefaultConstCopyInit = procedure(somSelf: SOMObject;
-		ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
+    ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
   somTD_SOMObject_somDefaultConstCopyInit = somTP_SOMObject_somDefaultConstCopyInit;
 (*
  *  A default copy constructor that uses a const fromObj.
  *)
 const somMD_SOMObject_somDefaultConstCopyInit = '::SOMObject::somDefaultConstCopyInit';
 procedure SOMObject_somDefaultConstCopyInit(somSelf: SOMObject;
-	ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somDefaultVCopyInit
  *)
 type
   somTP_SOMObject_somDefaultVCopyInit = procedure(somSelf: SOMObject;
-		ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
+    ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
   somTD_SOMObject_somDefaultVCopyInit = somTP_SOMObject_somDefaultVCopyInit;
 (*
  *  A default copy constructor that uses a volatile fromObj.
  *)
 const somMD_SOMObject_somDefaultVCopyInit = '::SOMObject::somDefaultVCopyInit';
 procedure SOMObject_somDefaultVCopyInit(somSelf: SOMObject;
-	ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somDefaultConstVCopyInit
  *)
 type
   somTP_SOMObject_somDefaultConstVCopyInit = procedure(somSelf: SOMObject;
-		ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
+    ctrl: som3InitCtrlPtr; fromObj: SOMObject); stdcall;
   somTD_SOMObject_somDefaultConstVCopyInit = somTP_SOMObject_somDefaultConstVCopyInit;
 (*
  *  A default copy constructor that uses a const volatile fromObj.
  *)
 const somMD_SOMObject_somDefaultConstVCopyInit = '::SOMObject::somDefaultConstVCopyInit';
 procedure SOMObject_somDefaultConstVCopyInit(somSelf: SOMObject;
-	ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somDefaultConstAssign
@@ -3779,7 +3779,7 @@ function SOMObject_somDefaultConstAssign(somSelf: SOMObject;
  *)
 type
   somTP_SOMObject_somDefaultVAssign = function(somSelf: SOMObject;
-  	ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; stdcall;
+    ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; stdcall;
   somTD_SOMObject_somDefaultVAssign = somTP_SOMObject_somDefaultVAssign;
 (*
  *  A default assignment operator that uses a volatile fromObj.
@@ -3793,14 +3793,14 @@ function SOMObject_somDefaultVAssign(somSelf: SOMObject;
  *)
 type
   somTP_SOMObject_somDefaultConstVAssign = function(somSelf: SOMObject;
-		ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; stdcall;
+    ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; stdcall;
   somTD_SOMObject_somDefaultConstVAssign = somTP_SOMObject_somDefaultConstVAssign;
 (*
  *  A default assignment operator that uses a const volatile fromObj.
  *)
 const somMD_SOMObject_somDefaultConstVAssign = '::SOMObject::somDefaultConstVAssign';
 function SOMObject_somDefaultConstVAssign(somSelf: SOMObject;
-	ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somInit
@@ -3879,7 +3879,7 @@ function SOMObject_somGetSize(somSelf: SOMObject): LongInt; {$IFDEF DELPHI_HAS_I
  *)
 type
   somTP_SOMObject_somIsA = function(somSelf: SOMObject;
-		aClassObj: SOMClass): CORBABoolean; stdcall;
+    aClassObj: SOMClass): CORBABoolean; stdcall;
   somTD_SOMObject_somIsA = somTP_SOMObject_somIsA;
 (*
  *  Returns 1 (true) if the receiver responds to methods
@@ -3894,7 +3894,7 @@ function SOMObject_somIsA(somSelf: SOMObject;
  *)
 type
   somTP_SOMObject_somIsInstanceOf = function(somSelf: SOMObject;
-		aClassObj: SOMClass): CORBABoolean; stdcall;
+    aClassObj: SOMClass): CORBABoolean; stdcall;
   somTD_SOMObject_somIsInstanceOf = somTP_SOMObject_somIsInstanceOf;
 (*
  *  Returns 1 (true) if the receiver is an instance of
@@ -3902,14 +3902,14 @@ type
  *)
 const somMD_SOMObject_somIsInstanceOf = '::SOMObject::somIsInstanceOf';
 function SOMObject_somIsInstanceOf(somSelf: SOMObject;
-	aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somRespondsTo
  *)
 type
   somTP_SOMObject_somRespondsTo = function(somSelf: SOMObject;
-		mId: somId): CORBABoolean; stdcall;
+    mId: somId): CORBABoolean; stdcall;
   somTD_SOMObject_somRespondsTo = somTP_SOMObject_somRespondsTo;
 (*
  *  Returns 1 (true) if the indicated method can be invoked
@@ -3917,16 +3917,16 @@ type
  *)
 const somMD_SOMObject_somRespondsTo = '::SOMObject::somRespondsTo';
 function SOMObject_somRespondsTo(somSelf: SOMObject;
-	mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somDispatch
  *)
 type
   somTP_SOMObject_somDispatch = function(somSelf: SOMObject;
-		out retValue: somToken;
-		methodId: somId;
-		ap: va_list): CORBABoolean; stdcall;
+    out retValue: somToken;
+    methodId: somId;
+    ap: va_list): CORBABoolean; stdcall;
   somTD_SOMObject_somDispatch = somTP_SOMObject_somDispatch;
 (*
  *  This method provides a generic, class-specific dispatch mechanism.
@@ -3939,26 +3939,26 @@ type
  *)
 const somMD_SOMObject_somDispatch = '::SOMObject::somDispatch';
 function SOMObject_somDispatch(somSelf: SOMObject;
-	out retValue: somToken;
-	methodId: somId;
-	ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  out retValue: somToken;
+  methodId: somId;
+  ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * normal vararg stubs
  *)
 function somva_SOMObject_somDispatch(somSelf: SOMObject;
-	out retValue: somToken;
-	methodId: somId): CORBABoolean; cdecl; varargs;
+  out retValue: somToken;
+  methodId: somId): CORBABoolean; cdecl; varargs;
 
 (*
  * New Method: somClassDispatch
  *)
 type
   somTP_SOMObject_somClassDispatch = function(somSelf: SOMObject;
-		clsObj: SOMClass;
-		out retValue: somToken;
-		methodId: somId;
-		ap: va_list): CORBABoolean; stdcall;
+    clsObj: SOMClass;
+    out retValue: somToken;
+    methodId: somId;
+    ap: va_list): CORBABoolean; stdcall;
   somTD_SOMObject_somClassDispatch = somTP_SOMObject_somClassDispatch;
 (*
  *  Like somDispatch, but method resolution for static methods is done
@@ -3966,25 +3966,25 @@ type
  *)
 const somMD_SOMObject_somClassDispatch = '::SOMObject::somClassDispatch';
 function SOMObject_somClassDispatch(somSelf: SOMObject;
-	clsObj: SOMClass;
-	out retValue: somToken;
-	methodId: somId;
-	ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  clsObj: SOMClass;
+  out retValue: somToken;
+  methodId: somId;
+  ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * normal vararg stubs
  *)
 function somva_SOMObject_somClassDispatch(somSelf: SOMObject;
-	clsObj: SOMClass;
-	retValue: somTokenPtr;
-	methodId: somId): CORBABoolean; cdecl; varargs;
+  clsObj: SOMClass;
+  retValue: somTokenPtr;
+  methodId: somId): CORBABoolean; cdecl; varargs;
 
 (*
  * New Method: somCastObj
  *)
 type
   somTP_SOMObject_somCastObj = function(somSelf: SOMObject;
-		castedCls: SOMClass): CORBABoolean; stdcall;
+    castedCls: SOMClass): CORBABoolean; stdcall;
   somTD_SOMObject_somCastObj = somTP_SOMObject_somCastObj;
 (*
  *  Changes the behavior of the target object to that implemented
@@ -3994,7 +3994,7 @@ type
  *)
 const somMD_SOMObject_somCastObj = '::SOMObject::somCastObj';
 function SOMObject_somCastObj(somSelf: SOMObject;
-	castedCls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  castedCls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somResetObj
@@ -4028,7 +4028,7 @@ function SOMObject_somPrintSelf(somSelf: SOMObject): SOMObject; {$IFDEF DELPHI_H
  *)
 type
   somTP_SOMObject_somDumpSelf = procedure(somSelf: SOMObject;
-		level: LongInt); stdcall;
+    level: LongInt); stdcall;
   somTD_SOMObject_somDumpSelf = somTP_SOMObject_somDumpSelf;
 (*
  *  Uses <SOMOutCharRoutine> to write a detailed description of this object
@@ -4054,7 +4054,7 @@ procedure SOMObject_somDumpSelf(somSelf: SOMObject; level: LongInt); {$IFDEF DEL
  *)
 type
   somTP_SOMObject_somDumpSelfInt = procedure(somSelf: SOMObject;
-		level: LongInt); stdcall;
+    level: LongInt); stdcall;
   somTD_SOMObject_somDumpSelfInt = somTP_SOMObject_somDumpSelfInt;
 (*
  *  Uses <SOMOutCharRoutine> to write in the current state of this object.
@@ -4168,88 +4168,88 @@ function SOMClassNewClass(
  * Declare the ABI 2 ClassData structure
  *)
 type SOMClassClassDataStructure = record
-	classObject:                   SOMClass;
-	somNew:                        somMToken;
-	somRenew:                      somMToken;
-	somcPrivate1:                  somMToken;
-	somClassReady:                 somMToken;
-	somGetName:                    somMToken;
-	somcPrivate2:                  somMToken;
-	somDescendedFrom:              somMToken;
-	somCheckVersion:               somMToken;
-	somFindMethod:                 somMToken;
-	somFindMethodOk:               somMToken;
-	somSupportsMethod:             somMToken;
-	somGetNumMethods:              somMToken;
-	somGetInstanceSize:            somMToken;
-	somcPrivate3:                  somMToken;
-	somGetInstancePartSize:        somMToken;
-	somGetMethodIndex:             somMToken;
-	somGetNumStaticMethods:        somMToken;
-	somGetPClsMtab:                somMToken;
-	somGetClassMtab:               somMToken;
-	somAddStaticMethod:            somMToken;
-	somOverrideSMethod:            somMToken;
-	somAddDynamicMethod:           somMToken;
-	somcUnused1:                   somMToken;
-	somGetApplyStub:               somMToken;
-	somFindSMethod:                somMToken;
-	somFindSMethodOk:              somMToken;
-	somGetMethodDescriptor:        somMToken;
-	somGetNthMethodInfo:           somMToken;
-	somSetClassData:               somMToken;
-	somGetClassData:               somMToken;
-	somNewNoInit:                  somMToken;
-	somRenewNoInit:                somMToken;
-	somGetInstanceToken:           somMToken;
-	somGetMemberToken:             somMToken;
-	somcUnused2:                   somMToken;
-	somGetMethodData:              somMToken;
-	somOverrideMtab:               somMToken;
-	somGetMethodToken:             somMToken;
-	somGetParents:                 somMToken;
-	somUnused3:                    somMToken;
-	somInitMIClass:                somMToken;
-	somGetVersionNumbers:          somMToken;
-	somLookupMethod:               somMToken;
-	_get_somInstanceDataOffsets:   somMToken;
-	somRenewNoZero:                somMToken;
-	somRenewNoInitNoZero:          somMToken;
-	somAllocate:                   somMToken;
-	somDeallocate:                 somMToken;
-	somGetRdStub:                  somMToken;
-	somGetNthMethodData:           somMToken;
-	somcPrivate8:                  somMToken;
-	somcPrivate9:                  somMToken;
-	_get_somDirectInitClasses:     somMToken;
-	somcPrivate10:                 somMToken;
-	somcPrivate11:                 somMToken;
-	somcPrivate12:                 somMToken;
-	somcPrivate13:                 somMToken;
-	somcPrivate14:                 somMToken;
-	somMethodImplOwner:            somMToken;
-	somcPrivate15:                 somMToken;
-	somcPrivate16:                 somMToken;
-	somDefinedMethod:              somMToken;
-	somcPrivate17:                 somMToken;
-	somcPrivate18:                 somMToken;
-	somcPrivate19:                 somMToken;
-	somClassOfNewClassWithParents: somMethodProc;
-	somcPrivate20:                 somMToken;
-	somcUnused5:                   somMToken;
-	somcUnused6:                   somMToken;
-	somcUnused7:                   somMToken;
-	_get_somDataAlignment:         somMToken;
-	somcPrivate21:                 somMToken;
-	somcUnused8:                   somMToken;
-	somcPrivate22:                 somMToken;
-	somcUnused9:                   somMToken;
-	somcUnused10:                  somMToken;
-	somGetMarshalPlan:             somMToken;
-	somcUnused11:                  somMToken;
-	somPrivate23:                  somMToken;
-	somJoin:                       somMToken;
-	somEndow:                      somMToken;
+  classObject:                   SOMClass;
+  somNew:                        somMToken;
+  somRenew:                      somMToken;
+  somcPrivate1:                  somMToken;
+  somClassReady:                 somMToken;
+  somGetName:                    somMToken;
+  somcPrivate2:                  somMToken;
+  somDescendedFrom:              somMToken;
+  somCheckVersion:               somMToken;
+  somFindMethod:                 somMToken;
+  somFindMethodOk:               somMToken;
+  somSupportsMethod:             somMToken;
+  somGetNumMethods:              somMToken;
+  somGetInstanceSize:            somMToken;
+  somcPrivate3:                  somMToken;
+  somGetInstancePartSize:        somMToken;
+  somGetMethodIndex:             somMToken;
+  somGetNumStaticMethods:        somMToken;
+  somGetPClsMtab:                somMToken;
+  somGetClassMtab:               somMToken;
+  somAddStaticMethod:            somMToken;
+  somOverrideSMethod:            somMToken;
+  somAddDynamicMethod:           somMToken;
+  somcUnused1:                   somMToken;
+  somGetApplyStub:               somMToken;
+  somFindSMethod:                somMToken;
+  somFindSMethodOk:              somMToken;
+  somGetMethodDescriptor:        somMToken;
+  somGetNthMethodInfo:           somMToken;
+  somSetClassData:               somMToken;
+  somGetClassData:               somMToken;
+  somNewNoInit:                  somMToken;
+  somRenewNoInit:                somMToken;
+  somGetInstanceToken:           somMToken;
+  somGetMemberToken:             somMToken;
+  somcUnused2:                   somMToken;
+  somGetMethodData:              somMToken;
+  somOverrideMtab:               somMToken;
+  somGetMethodToken:             somMToken;
+  somGetParents:                 somMToken;
+  somUnused3:                    somMToken;
+  somInitMIClass:                somMToken;
+  somGetVersionNumbers:          somMToken;
+  somLookupMethod:               somMToken;
+  _get_somInstanceDataOffsets:   somMToken;
+  somRenewNoZero:                somMToken;
+  somRenewNoInitNoZero:          somMToken;
+  somAllocate:                   somMToken;
+  somDeallocate:                 somMToken;
+  somGetRdStub:                  somMToken;
+  somGetNthMethodData:           somMToken;
+  somcPrivate8:                  somMToken;
+  somcPrivate9:                  somMToken;
+  _get_somDirectInitClasses:     somMToken;
+  somcPrivate10:                 somMToken;
+  somcPrivate11:                 somMToken;
+  somcPrivate12:                 somMToken;
+  somcPrivate13:                 somMToken;
+  somcPrivate14:                 somMToken;
+  somMethodImplOwner:            somMToken;
+  somcPrivate15:                 somMToken;
+  somcPrivate16:                 somMToken;
+  somDefinedMethod:              somMToken;
+  somcPrivate17:                 somMToken;
+  somcPrivate18:                 somMToken;
+  somcPrivate19:                 somMToken;
+  somClassOfNewClassWithParents: somMethodProc;
+  somcPrivate20:                 somMToken;
+  somcUnused5:                   somMToken;
+  somcUnused6:                   somMToken;
+  somcUnused7:                   somMToken;
+  _get_somDataAlignment:         somMToken;
+  somcPrivate21:                 somMToken;
+  somcUnused8:                   somMToken;
+  somcPrivate22:                 somMToken;
+  somcUnused9:                   somMToken;
+  somcUnused10:                  somMToken;
+  somGetMarshalPlan:             somMToken;
+  somcUnused11:                  somMToken;
+  somPrivate23:                  somMToken;
+  somJoin:                       somMToken;
+  somEndow:                      somMToken;
 end;
 PSOMClassClassDataStructure = ^SOMClassClassDataStructure;
 function SOMClassClassData: PSOMClassClassDataStructure;
@@ -4258,8 +4258,8 @@ function SOMClassClassData: PSOMClassClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMClassCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMClassCClassDataStructure = ^SOMClassCClassDataStructure;
 function SOMClassCClassData: PSOMClassCClassDataStructure;
@@ -4309,7 +4309,7 @@ function SOMClass_somNewNoInit(somSelf: SOMClass): SOMObject; {$IFDEF DELPHI_HAS
  *)
 type
   somTP_SOMClass_somRenew = function(somSelf: SOMClass;
-		obj: Pointer): SOMObject; stdcall;
+    obj: Pointer): SOMObject; stdcall;
   somTD_SOMClass_somRenew = somTP_SOMClass_somRenew;
 (*
  *  Equivalent to somNew except that storage is not allocated.
@@ -4324,7 +4324,7 @@ function SOMClass_somRenew(somSelf: SOMClass; obj: Pointer): SOMObject; {$IFDEF 
  *)
 type
   somTP_SOMClass_somRenewNoInit = function(somSelf: SOMClass;
-		obj: Pointer): SOMObject; stdcall;
+    obj: Pointer): SOMObject; stdcall;
   somTD_SOMClass_somRenewNoInit = somTP_SOMClass_somRenewNoInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 (*
  *  Equivalent to somRenew except that somDefaultInit is not called.
@@ -4338,7 +4338,7 @@ function SOMClass_somRenewNoInit(somSelf: SOMClass; obj: Pointer): SOMObject; {$
  *)
 type
   somTP_SOMClass_somRenewNoZero = function(somSelf: SOMClass;
-		obj: Pointer): SOMObject; stdcall;
+    obj: Pointer): SOMObject; stdcall;
   somTD_SOMClass_somRenewNoZero = somTP_SOMClass_somRenewNoZero;
 
 (*
@@ -4353,7 +4353,7 @@ function SOMClass_somRenewNoZero(somSelf: SOMClass; obj: Pointer): SOMObject; {$
  *)
 type
   somTP_SOMClass_somRenewNoInitNoZero = function(somSelf: SOMClass;
-		obj: Pointer): SOMObject; stdcall;
+    obj: Pointer): SOMObject; stdcall;
   somTD_SOMClass_somRenewNoInitNoZero = somTP_SOMClass_somRenewNoInitNoZero;
 (*
  *  This method loads an object's method table pointer, turning raw
@@ -4371,7 +4371,7 @@ function SOMClass_somRenewNoInitNoZero(somSelf: SOMClass;
  *)
 type
   somTP_SOMClass_somAllocate = function(somSelf: SOMClass;
-		size: LongInt): somToken; stdcall;
+    size: LongInt): somToken; stdcall;
   somTD_SOMClass_somAllocate = somTP_SOMClass_somAllocate;
 (*
  *  nonstatic
@@ -4388,7 +4388,7 @@ function SOMClass_somAllocate(somSelf: SOMClass; size: LongInt): somToken; {$IFD
  *)
 type
   somTP_SOMClass_somDeallocate = procedure(somSelf: SOMClass;
-		memptr: somToken); stdcall;
+    memptr: somToken); stdcall;
   somTD_SOMClass_somDeallocate = somTP_SOMClass_somDeallocate;
 (*
  *  nonstatic
@@ -4399,14 +4399,14 @@ type
  *  a void* (memptr) and a size_t (size) as arguments.
  *)
 const somMD_SOMClass_somDeallocate = '::SOMClass::somDeallocate';
-procedure SOMClass_somDeallocate(somSelf: SOMClass;	memptr: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure SOMClass_somDeallocate(somSelf: SOMClass; memptr: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somJoin
  *)
 type
   somTP_SOMClass_somJoin = function(somSelf: SOMClass;
-		secondParent: SOMClass; nameOfNewClass: CORBAString): SOMClass; stdcall;
+    secondParent: SOMClass; nameOfNewClass: CORBAString): SOMClass; stdcall;
   somTD_SOMClass_somJoin = somTP_SOMClass_somJoin;
 (*
  *  Creates the multiple inheritance join of the target class and the
@@ -4421,7 +4421,7 @@ function SOMClass_somJoin(somSelf: SOMClass; secondParent: SOMClass;
  *)
 type
   somTP_SOMClass_somEndow = function(somSelf: SOMClass; parent: SOMClass;
-		nameOfNewClass: CORBAString): SOMClass; stdcall;
+    nameOfNewClass: CORBAString): SOMClass; stdcall;
   somTD_SOMClass_somEndow = somTP_SOMClass_somEndow;
 (*
  *  Creates the a subclass of parent with the class name nameOfNewClass
@@ -4449,9 +4449,9 @@ function SOMClass_somClassOfNewClassWithParents(newClassName: CORBAString;
  *)
 type
   somTP_SOMClass_somInitMIClass = procedure(somSelf: SOMClass;
-		inherit_vars: LongWord; className: CORBAString;
-		parentClasses: PSOMClass_SOMClassSequence;
-		dataSize, dataAlignment, maxNDMethods,
+    inherit_vars: LongWord; className: CORBAString;
+    parentClasses: PSOMClass_SOMClassSequence;
+    dataSize, dataAlignment, maxNDMethods,
     majorVersion, minorVersion: LongInt); stdcall;
   somTD_SOMClass_somInitMIClass = somTP_SOMClass_somInitMIClass;
 (*
@@ -4462,17 +4462,17 @@ type
  *)
 const somMD_SOMClass_somInitMIClass = '::SOMClass::somInitMIClass';
 procedure SOMClass_somInitMIClass(somSelf: SOMClass;
-	inherit_vars: LongWord; className: CORBAString;
+  inherit_vars: LongWord; className: CORBAString;
   parentClasses: PSOMClass_SOMClassSequence;
-	dataSize, dataAlignment, maxNDMethods, majorVersion, minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  dataSize, dataAlignment, maxNDMethods, majorVersion, minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somAddStaticMethod
  *)
 type
   somTP_SOMClass_somAddStaticMethod = function(somSelf: SOMClass;
-		methodId, methodDescriptor: somId;
-		method, redispatchStub, applyStub: somMethodPtr): somMToken; stdcall;
+    methodId, methodDescriptor: somId;
+    method, redispatchStub, applyStub: somMethodPtr): somMToken; stdcall;
   somTD_SOMClass_somAddStaticMethod = somTP_SOMClass_somAddStaticMethod;
 (*
  *  Introduce a new static method with the indicated methodId into
@@ -4480,15 +4480,15 @@ type
  *)
 const somMD_SOMClass_somAddStaticMethod = '::SOMClass::somAddStaticMethod';
 function SOMClass_somAddStaticMethod(somSelf: SOMClass;
-	methodId, methodDescriptor: somId;
-	method, redispatchStub, applyStub: somMethodPtr): somMToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  methodId, methodDescriptor: somId;
+  method, redispatchStub, applyStub: somMethodPtr): somMToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somOverrideSMethod
  *)
 type
   somTP_SOMClass_somOverrideSMethod = procedure(somSelf: SOMClass;
-		methodId: somId; method: somMethodPtr); stdcall;
+    methodId: somId; method: somMethodPtr); stdcall;
   somTD_SOMClass_somOverrideSMethod = somTP_SOMClass_somOverrideSMethod;
 (*
  *  Replace the implementation for the indicated method in the instances
@@ -4496,7 +4496,7 @@ type
  *)
 const somMD_SOMClass_somOverrideSMethod = '::SOMClass::somOverrideSMethod';
 procedure SOMClass_somOverrideSMethod(somSelf: SOMClass;
-	methodId: somId; method: somMethodPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  methodId: somId; method: somMethodPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somClassReady
@@ -4520,8 +4520,8 @@ procedure SOMClass_somClassReady(somSelf: SOMClass); {$IFDEF DELPHI_HAS_INLINE} 
  *)
 type
   somTP_SOMClass_somAddDynamicMethod = procedure(somSelf: SOMClass;
-		methodId, methodDescriptor: somId;
-		methodImpl, applyStub: somMethodPtr); stdcall;
+    methodId, methodDescriptor: somId;
+    methodImpl, applyStub: somMethodPtr); stdcall;
   somTD_SOMClass_somAddDynamicMethod = somTP_SOMClass_somAddDynamicMethod;
 (*
  *  If the receiving class supports a static method with the indicated
@@ -4531,7 +4531,7 @@ type
  *)
 const somMD_SOMClass_somAddDynamicMethod  = '::SOMClass::somAddDynamicMethod';
 procedure SOMClass_somAddDynamicMethod(somSelf: SOMClass;
-	methodId, methodDescriptor: somId; methodImpl, applyStub: somMethodPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  methodId, methodDescriptor: somId; methodImpl, applyStub: somMethodPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somGetName
@@ -4551,7 +4551,7 @@ function SOMClass_somGetName(somSelf: SOMClass): CORBAString; {$IFDEF DELPHI_HAS
  *)
 type
   somTP_SOMClass_somGetVersionNumbers = procedure(somSelf: SOMClass;
-		out majorVersion, minorVersion: LongInt); stdcall;
+    out majorVersion, minorVersion: LongInt); stdcall;
   somTD_SOMClass_somGetVersionNumbers = somTP_SOMClass_somGetVersionNumbers;
 (*
  *  Returns the class' major and minor version numbers in the corresponding
@@ -4657,7 +4657,7 @@ function SOMClass_somGetInstanceToken(somSelf: SOMClass): somDToken; {$IFDEF DEL
  *)
 type
   somTP_SOMClass_somGetMemberToken = function(somSelf: SOMClass;
-		memberOffset: LongInt; instanceToken: somDToken): somDToken; stdcall;
+    memberOffset: LongInt; instanceToken: somDToken): somDToken; stdcall;
   somTD_SOMClass_somGetMemberToken = somTP_SOMClass_somGetMemberToken;
 (*
  *  Returns a data token that for the data member at offset
@@ -4702,7 +4702,7 @@ function SOMClass_somGetClassData(somSelf: SOMClass): somClassDataStructurePtr; 
  *)
 type
   somTP_SOMClass_somSetClassData = procedure(somSelf: SOMClass;
-		cds: somClassDataStructurePtr); stdcall;
+    cds: somClassDataStructurePtr); stdcall;
   somTD_SOMClass_somSetClassData = somTP_SOMClass_somSetClassData;
 (*
  *  The pointer to the static <className>ClassData structure.
@@ -4821,7 +4821,7 @@ function SOMClass_somGetMethodToken(somSelf: SOMClass; methodId: somId):
  *)
 type
   somTP_SOMClass_somGetNthMethodInfo = function(somSelf: SOMClass;
-		n: LongInt; out descriptor: somId): somId; stdcall;
+    n: LongInt; out descriptor: somId): somId; stdcall;
   somTD_SOMClass_somGetNthMethodInfo = somTP_SOMClass_somGetNthMethodInfo;
 (*
  *  Returns the id of the <n>th method if one exists and NULL
@@ -4842,7 +4842,7 @@ function SOMClass_somGetNthMethodInfo(somSelf: SOMClass; n: LongInt;
  *)
 type
   somTP_SOMClass_somGetMarshalPlan = function(somSelf: SOMClass;
-		methodId: somId): somToken; stdcall;
+    methodId: somId): somToken; stdcall;
   somTD_SOMClass_somGetMarshalPlan = somTP_SOMClass_somGetMarshalPlan;
 (*
  *  uses namelookup from the target class to locate a method that has the
@@ -4859,7 +4859,7 @@ function SOMClass_somGetMarshalPlan(somSelf: SOMClass; methodId: somId):
  *)
 type
   somTP_SOMClass_somGetMethodData = function(somSelf: SOMClass;
-		methodId: somId; out md: somMethodData): CORBABoolean; stdcall;
+    methodId: somId; out md: somMethodData): CORBABoolean; stdcall;
   somTD_SOMClass_somGetMethodData = somTP_SOMClass_somGetMethodData;
 (*
  *  If the receiving class supports a method with the specified somId,
@@ -4874,7 +4874,7 @@ type
  *  as their resolution result.
  *)
 const somMD_SOMClass_somGetMethodData = '::SOMClass::somGetMethodData';
-function SOMClass_somGetMethodData(somSelf: SOMClass;	methodId: somId;
+function SOMClass_somGetMethodData(somSelf: SOMClass; methodId: somId;
   out md: somMethodData): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
@@ -4882,7 +4882,7 @@ function SOMClass_somGetMethodData(somSelf: SOMClass;	methodId: somId;
  *)
 type
   somTP_SOMClass_somGetNthMethodData = function(somSelf: SOMClass;
-		n: LongInt; out md: somMethodData): CORBABoolean; stdcall;
+    n: LongInt; out md: somMethodData): CORBABoolean; stdcall;
   somTD_SOMClass_somGetNthMethodData = somTP_SOMClass_somGetNthMethodData;
 (*
  *  This method is similar to somGetMethodData. The method
@@ -4898,7 +4898,7 @@ function SOMClass_somGetNthMethodData(somSelf: SOMClass; n: LongInt;
  *)
 type
   somTP_SOMClass_somFindMethod = function(somSelf: SOMClass;
-		methodId: somId; out m: somMethodPtr): CORBABoolean; stdcall;
+    methodId: somId; out m: somMethodPtr): CORBABoolean; stdcall;
   somTD_SOMClass_somFindMethod = somTP_SOMClass_somFindMethod;
 (*
  *  If the receiving class supports a method with the specified
@@ -4919,7 +4919,7 @@ function SOMClass_somFindMethod(somSelf: SOMClass; methodId: somId;
  *)
 type
   somTP_SOMClass_somFindMethodOk = function(somSelf: SOMClass;
-		methodId: somId; out m: somMethodPtr): CORBABoolean; stdcall;
+    methodId: somId; out m: somMethodPtr): CORBABoolean; stdcall;
   somTD_SOMClass_somFindMethodOk = somTP_SOMClass_somFindMethodOk;
 (*
  *  Just like <somFindMethod> except that if the method is not
@@ -4935,7 +4935,7 @@ function SOMClass_somFindMethodOk(somSelf: SOMClass; methodId: somId;
  *)
 type
   somTP_SOMClass_somFindSMethod = function(somSelf: SOMClass;
-		methodId: somId): somMethodPtr; stdcall;
+    methodId: somId): somMethodPtr; stdcall;
   somTD_SOMClass_somFindSMethod = somTP_SOMClass_somFindSMethod;
 (*
  *  Finds the indicated method, which must be a static method supported
@@ -4946,7 +4946,7 @@ type
  *  Overrides are not expected.
  *)
 const somMD_SOMClass_somFindSMethod = '::SOMClass::somFindSMethod';
-function SOMClass_somFindSMethod(somSelf: SOMClass;	methodId: somId):
+function SOMClass_somFindSMethod(somSelf: SOMClass; methodId: somId):
   somMethodPtr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
@@ -5026,7 +5026,7 @@ function SOMClass_somGetPClsMtab(somSelf: SOMClass): somMethodTabs; {$IFDEF DELP
  *)
 type
   somTP_SOMClass_somCheckVersion = function(somSelf: SOMClass;
-		majorVersion, minorVersion: LongInt): CORBABoolean; stdcall;
+    majorVersion, minorVersion: LongInt): CORBABoolean; stdcall;
   somTD_SOMClass_somCheckVersion = somTP_SOMClass_somCheckVersion;
 (*
  *  Returns 1 (true) if the implementation of this class is
@@ -5043,7 +5043,7 @@ type
  *)
 const somMD_SOMClass_somCheckVersion = '::SOMClass::somCheckVersion';
 function SOMClass_somCheckVersion(somSelf: SOMClass;
-	majorVersion, minorVersion: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  majorVersion, minorVersion: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somDescendedFrom
@@ -5067,7 +5067,7 @@ function SOMClass_somDescendedFrom(somSelf: SOMClass; aClassObj: SOMClass):
  *)
 type
   somTP_SOMClass_somSupportsMethod = function(somSelf: SOMClass;
-		mId: somId): CORBABoolean; stdcall;
+    mId: somId): CORBABoolean; stdcall;
   somTD_SOMClass_somSupportsMethod = somTP_SOMClass_somSupportsMethod;
 (*
  *  Returns 1 (true) if the indicated method is supported by this
@@ -5082,7 +5082,7 @@ function SOMClass_somSupportsMethod(somSelf: SOMClass; mId: somId): CORBABoolean
  *)
 type
   somTP_SOMClass_somDefinedMethod = function(somSelf: SOMClass;
-		method: somMToken): somMethodPtr; stdcall;
+    method: somMToken): somMethodPtr; stdcall;
   somTD_SOMClass_somDefinedMethod = somTP_SOMClass_somDefinedMethod;
 (*
  *  If the receiving class explicitly defines an implementation for
@@ -5091,7 +5091,7 @@ type
  *  Overrides are not expected.
  *)
 const somMD_SOMClass_somDefinedMethod = '::SOMClass::somDefinedMethod';
-function SOMClass_somDefinedMethod(somSelf: SOMClass;	method: somMToken):
+function SOMClass_somDefinedMethod(somSelf: SOMClass; method: somMToken):
   somMethodPtr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
@@ -5099,7 +5099,7 @@ function SOMClass_somDefinedMethod(somSelf: SOMClass;	method: somMToken):
  *)
 type
   somTP_SOMClass_somMethodImplOwner = function(somSelf: SOMClass;
-		var md: somMethodData): SOMClass; stdcall;
+    var md: somMethodData): SOMClass; stdcall;
   somTD_SOMClass_somMethodImplOwner = somTP_SOMClass_somMethodImplOwner;
 (*
  *  Returns the owner of the implementation of the method indicated by md
@@ -5112,7 +5112,7 @@ type
  *  Overrides are not expected.
  *)
 const somMD_SOMClass_somMethodImplOwner = '::SOMClass::somMethodImplOwner';
-function SOMClass_somMethodImplOwner(somSelf: SOMClass;	var md: somMethodData):
+function SOMClass_somMethodImplOwner(somSelf: SOMClass; var md: somMethodData):
   SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
@@ -5176,38 +5176,38 @@ const
  *)
 function SOMClassMgrNewClass(
   somtmajorVersion: integer4 = SOMClassMgr_MajorVersion;
-	somtminorVersion: integer4 = SOMClassMgr_MinorVersion): SOMClass; stdcall;
+  somtminorVersion: integer4 = SOMClassMgr_MinorVersion): SOMClass; stdcall;
 
 (*
  * Declare the ABI 2 ClassData structure
  *)
 type SOMClassMgrClassDataStructure = record
-	classObject: SOMClass;
-	somFindClsInFile: somMToken;
-	somFindClass: somMToken;
-	somClassFromId: somMToken;
-	somRegisterClass: somMToken;
-	somUnregisterClass: somMToken;
-	somLocateClassFile: somMToken;
-	somLoadClassFile: somMToken;
-	somUnloadClassFile: somMToken;
-	somGetInitFunction: somMToken;
-	somMergeInto: somMToken;
-	somGetRelatedClasses: somMToken;
-	somSubstituteClass: somMToken;
-	_get_somInterfaceRepository: somMToken;
-	_set_somInterfaceRepository: somMToken;
-	_get_somRegisteredClasses: somMToken;
-	somBeginPersistentClasses: somMToken;
-	somEndPersistentClasses: somMToken;
-	somcmPrivate1: somMToken;
-	somcmPrivate2: somMToken;
-	somRegisterClassLibrary: somMToken;
-	somJoinAffinityGroup: somMToken;
-	somUnregisterClassLibrary: somMToken;
-	somImportObject: somMToken;
-	somcmPrivate3: somMToken;
-	somcmPrivate4: somMToken;
+  classObject: SOMClass;
+  somFindClsInFile: somMToken;
+  somFindClass: somMToken;
+  somClassFromId: somMToken;
+  somRegisterClass: somMToken;
+  somUnregisterClass: somMToken;
+  somLocateClassFile: somMToken;
+  somLoadClassFile: somMToken;
+  somUnloadClassFile: somMToken;
+  somGetInitFunction: somMToken;
+  somMergeInto: somMToken;
+  somGetRelatedClasses: somMToken;
+  somSubstituteClass: somMToken;
+  _get_somInterfaceRepository: somMToken;
+  _set_somInterfaceRepository: somMToken;
+  _get_somRegisteredClasses: somMToken;
+  somBeginPersistentClasses: somMToken;
+  somEndPersistentClasses: somMToken;
+  somcmPrivate1: somMToken;
+  somcmPrivate2: somMToken;
+  somRegisterClassLibrary: somMToken;
+  somJoinAffinityGroup: somMToken;
+  somUnregisterClassLibrary: somMToken;
+  somImportObject: somMToken;
+  somcmPrivate3: somMToken;
+  somcmPrivate4: somMToken;
 end;
 PSOMClassMgrClassDataStructure = ^SOMClassMgrClassDataStructure;
 function SOMClassMgrClassData: PSOMClassMgrClassDataStructure;
@@ -5216,8 +5216,8 @@ function SOMClassMgrClassData: PSOMClassMgrClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type SOMClassMgrCClassDataStructure = record
-	parentMtab: somMethodTabs;
-	instanceDataToken: somDToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PSOMClassMgrCClassDataStructure = ^SOMClassMgrCClassDataStructure;
 function SOMClassMgrCClassData: PSOMClassMgrCClassDataStructure;
@@ -5253,7 +5253,7 @@ function SOMClassMgr_somLoadClassFile(somSelf: SOMClassMgr; classId: somId;
  *)
 type
   somTP_SOMClassMgr_somLocateClassFile = function(somSelf: SOMClassMgr;
-		classId: somId;	majorVersion,	minorVersion: LongInt): CORBAString; stdcall;
+    classId: somId; majorVersion, minorVersion: LongInt): CORBAString; stdcall;
   somTD_SOMClassMgr_somLocateClassFile = somTP_SOMClassMgr_somLocateClassFile;
 (*
  *  Real implementation supplied by subclasses.  Default implementation
@@ -5264,15 +5264,15 @@ type
  *  info to assist in deriving the file name.
  *)
 const somMD_SOMClassMgr_somLocateClassFile = '::SOMClassMgr::somLocateClassFile';
-function SOMClassMgr_somLocateClassFile(somSelf: SOMClassMgr;	classId: somId;
-  majorVersion,	minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClassMgr_somLocateClassFile(somSelf: SOMClassMgr; classId: somId;
+  majorVersion, minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
 (*
  * New Method: somRegisterClass
  *)
 type
   somTP_SOMClassMgr_somRegisterClass = procedure(somSelf: SOMClassMgr;
-		classObj: SOMClass); stdcall;
+    classObj: SOMClass); stdcall;
   somTD_SOMClassMgr_somRegisterClass = somTP_SOMClassMgr_somRegisterClass;
 (*
  *  Lets the class manager know that the specified class is installed
@@ -5287,7 +5287,7 @@ procedure SOMClassMgr_somRegisterClass(somSelf: SOMClassMgr;
  *)
 type
   somTP_SOMClassMgr_somRegisterClassLibrary = procedure(somSelf: SOMClassMgr;
-		libraryName: CORBAString; libraryInitRtn: somTD_SOMInitModule); stdcall;
+    libraryName: CORBAString; libraryInitRtn: somTD_SOMInitModule); stdcall;
   somTD_SOMClassMgr_somRegisterClassLibrary =
     somTP_SOMClassMgr_somRegisterClassLibrary;
 (*
@@ -5331,7 +5331,7 @@ procedure SOMClassMgr_somUnregisterClassLibrary(somSelf: SOMClassMgr;
  *)
 type
   somTP_SOMClassMgr_somUnloadClassFile = function(somSelf: SOMClassMgr;
-		classObj: SOMClass): LongInt; stdcall;
+    classObj: SOMClass): LongInt; stdcall;
   somTD_SOMClassMgr_somUnloadClassFile = somTP_SOMClassMgr_somUnloadClassFile;
 (*
  *  Releases the class' code and unregisters all classes in the
@@ -5482,7 +5482,7 @@ function SOMClassMgr__get_somRegisteredClasses(somSelf: SOMClassMgr):
  *)
 type
   somTP_SOMClassMgr_somGetRelatedClasses = function(somSelf: SOMClassMgr;
-		classObj: SOMClass): SOMClassMgr_SOMClassArray; stdcall;
+    classObj: SOMClass): SOMClassMgr_SOMClassArray; stdcall;
   somTD_SOMClassMgr_somGetRelatedClasses =
     somTP_SOMClassMgr_somGetRelatedClasses;
 (*
@@ -5531,7 +5531,7 @@ function SOMClassMgr_somClassFromId(somSelf: SOMClassMgr; classId: somId):
  *)
 type
   somTP_SOMClassMgr_somFindClass = function(somSelf: SOMClassMgr;
-		classId: somId; majorVersion, minorVersion: LongInt): SOMClass; stdcall;
+    classId: somId; majorVersion, minorVersion: LongInt): SOMClass; stdcall;
   somTD_SOMClassMgr_somFindClass = somTP_SOMClassMgr_somFindClass;
 (*
  *  Returns the class object for the specified class.  This may result
@@ -5588,7 +5588,7 @@ procedure SOMClassMgr_somMergeInto(somSelf: SOMClassMgr; targetObj: SOMObject); 
  *)
 type
   somTP_SOMClassMgr_somSubstituteClass = function(somSelf: SOMClassMgr;
-		origClassName, newClassName: CORBAString): LongInt; stdcall;
+    origClassName, newClassName: CORBAString): LongInt; stdcall;
   somTD_SOMClassMgr_somSubstituteClass = somTP_SOMClassMgr_somSubstituteClass;
 (*
  *  This method causes the somFindClass, somFindClsInFile, and
@@ -5613,7 +5613,7 @@ function SOMClassMgr_somSubstituteClass(somSelf: SOMClassMgr;
  *)
 type
   somTP_SOMClassMgr_somImportObject = function(somSelf: SOMClassMgr;
-		objToBeShared: SOMObject): CORBABoolean; stdcall;
+    objToBeShared: SOMObject): CORBABoolean; stdcall;
   somTD_SOMClassMgr_somImportObject = somTP_SOMClassMgr_somImportObject;
 (*
  *  This method causes the local class manager to load the
@@ -6436,7 +6436,7 @@ var
 begin
   cls := _SOMCLASS_SOMObject;
   if not Assigned(cls) then cls := SOMObjectNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 procedure SOMObject_somDefaultInit(somSelf: SOMObject; ctrl: som3InitCtrlPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6449,7 +6449,7 @@ begin
 end;
 
 procedure SOMObject_somDestruct(somSelf: SOMObject;
-		doFree: octet; ctrl: som3DestructCtrlPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    doFree: octet; ctrl: som3DestructCtrlPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -6459,7 +6459,7 @@ begin
 end;
 
 procedure SOMObject_somDefaultCopyInit(somSelf: SOMObject;
-	ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -6470,7 +6470,7 @@ begin
 end;
 
 function SOMObject_somDefaultAssign(somSelf: SOMObject;
-	ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -6482,7 +6482,7 @@ begin
 end;
 
 procedure SOMObject_somDefaultConstCopyInit(somSelf: SOMObject;
-	ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -6493,7 +6493,7 @@ begin
 end;
 
 procedure SOMObject_somDefaultVCopyInit(somSelf: SOMObject;
-	ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -6504,7 +6504,7 @@ begin
 end;
 
 procedure SOMObject_somDefaultConstVCopyInit(somSelf: SOMObject;
-	ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3InitCtrlPtr; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -6539,7 +6539,7 @@ begin
 end;
 
 function SOMObject_somDefaultConstVAssign(somSelf: SOMObject;
-	ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  ctrl: som3AssignCtrlPtr; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -6619,7 +6619,7 @@ begin
 end;
 
 function SOMObject_somIsInstanceOf(somSelf: SOMObject;
-	aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -6642,9 +6642,9 @@ begin
 end;
 
 function SOMObject_somDispatch(somSelf: SOMObject;
-	out retValue: somToken;
-	methodId: somId;
-	ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  out retValue: somToken;
+  methodId: somId;
+  ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -6658,10 +6658,10 @@ end;
 function somva_SOMObject_somDispatch; external SOM_DLL_Name;
 
 function SOMObject_somClassDispatch(somSelf: SOMObject;
-	clsObj: SOMClass;
-	out retValue: somToken;
-	methodId: somId;
-	ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  clsObj: SOMClass;
+  out retValue: somToken;
+  methodId: somId;
+  ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -6675,7 +6675,7 @@ end;
 function somva_SOMObject_somClassDispatch; external SOM_DLL_Name;
 
 function SOMObject_somCastObj(somSelf: SOMObject;
-	castedCls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  castedCls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -6775,7 +6775,7 @@ var
 begin
   cls := _SOMCLASS_SOMClass;
   if not Assigned(cls) then cls := SOMClassNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMClass_somNew(somSelf: SOMClass): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6850,7 +6850,7 @@ begin
      (SOM_Resolve(somSelf, cd.classObject, cd.somAllocate))(somSelf, size);
 end;
 
-procedure SOMClass_somDeallocate(somSelf: SOMClass;	memptr: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure SOMClass_somDeallocate(somSelf: SOMClass; memptr: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -6892,9 +6892,9 @@ begin
 end;
 
 procedure SOMClass_somInitMIClass(somSelf: SOMClass;
-	inherit_vars: LongWord; className: CORBAString;
+  inherit_vars: LongWord; className: CORBAString;
   parentClasses: PSOMClass_SOMClassSequence;
-	dataSize, dataAlignment, maxNDMethods, majorVersion, minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  dataSize, dataAlignment, maxNDMethods, majorVersion, minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -6906,8 +6906,8 @@ begin
 end;
 
 function SOMClass_somAddStaticMethod(somSelf: SOMClass;
-	methodId, methodDescriptor: somId;
-	method, redispatchStub, applyStub: somMethodPtr): somMToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  methodId, methodDescriptor: somId;
+  method, redispatchStub, applyStub: somMethodPtr): somMToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -6919,7 +6919,7 @@ begin
 end;
 
 procedure SOMClass_somOverrideSMethod(somSelf: SOMClass;
-	methodId: somId; method: somMethodPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  methodId: somId; method: somMethodPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -6939,7 +6939,7 @@ begin
 end;
 
 procedure SOMClass_somAddDynamicMethod(somSelf: SOMClass;
-	methodId, methodDescriptor: somId; methodImpl, applyStub: somMethodPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  methodId, methodDescriptor: somId; methodImpl, applyStub: somMethodPtr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -7164,7 +7164,7 @@ begin
        (somSelf, methodId);
 end;
 
-function SOMClass_somGetMethodData(somSelf: SOMClass;	methodId: somId;
+function SOMClass_somGetMethodData(somSelf: SOMClass; methodId: somId;
   out md: somMethodData): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
@@ -7212,7 +7212,7 @@ begin
        (somSelf, methodId, m);
 end;
 
-function SOMClass_somFindSMethod(somSelf: SOMClass;	methodId: somId):
+function SOMClass_somFindSMethod(somSelf: SOMClass; methodId: somId):
   somMethodPtr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
@@ -7271,7 +7271,7 @@ begin
 end;
 
 function SOMClass_somCheckVersion(somSelf: SOMClass;
-	majorVersion, minorVersion: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  majorVersion, minorVersion: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -7304,7 +7304,7 @@ begin
      (SOM_Resolve(somSelf, cd.classObject, cd.somSupportsMethod))(somSelf, mId);
 end;
 
-function SOMClass_somDefinedMethod(somSelf: SOMClass;	method: somMToken):
+function SOMClass_somDefinedMethod(somSelf: SOMClass; method: somMToken):
   somMethodPtr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
@@ -7316,7 +7316,7 @@ begin
        (somSelf, method);
 end;
 
-function SOMClass_somMethodImplOwner(somSelf: SOMClass;	var md: somMethodData):
+function SOMClass_somMethodImplOwner(somSelf: SOMClass; var md: somMethodData):
   SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
@@ -7399,7 +7399,7 @@ var
 begin
   cls := _SOMCLASS_SOMClassMgr;
   if not Assigned(cls) then cls := SOMClassMgrNewClass;
-	Result := SOMClass_somRenew(cls, buf);
+  Result := SOMClass_somRenew(cls, buf);
 end;
 
 function SOMClassMgr_somLoadClassFile(somSelf: SOMClassMgr; classId: somId;
@@ -7414,8 +7414,8 @@ begin
        (somSelf, classId, majorVersion, minorVersion, fileName);
 end;
 
-function SOMClassMgr_somLocateClassFile(somSelf: SOMClassMgr;	classId: somId;
-  majorVersion,	minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClassMgr_somLocateClassFile(somSelf: SOMClassMgr; classId: somId;
+  majorVersion, minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassMgrClassDataStructure;
 begin

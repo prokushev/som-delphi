@@ -99,11 +99,11 @@ function tcGetZeroOriginEnum(t: TypeCode; ev: PEnvironment): CORBABoolean; stdca
  *      labelFlag, labelValue, mbrName, mbrTC, [...,] NULL);
  *      [labelFlag, labelValue, mbrName & TypeCode repeat as needed]
  *      labelFlag has the following meanings:
- *	    TCREGULAR_CASE - regular labelValue, cast as a long, follows,
- *	    TCDEFAULT_CASE - default case, with 0L for labelValue follows.
+ *      TCREGULAR_CASE - regular labelValue, cast as a long, follows,
+ *      TCDEFAULT_CASE - default case, with 0L for labelValue follows.
  *
  *  tcNew (tk_enum, name, enumId, [...,] NULL);
- *	[enumId repeats as needed]
+ *  [enumId repeats as needed]
  *
  *  NULL is returned if tcNew detects an error or an attempt
  *  to construct an illegal TypeCode
