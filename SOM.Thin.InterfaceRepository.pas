@@ -1157,10 +1157,732 @@ type
  *  See CORBA 1.1, 7.5.7, p.136
  *)
 
+(*
+ * Start of bindings for IDL types
+ *)
 
+type
+  ParameterDef_ParameterMode = type LongWord;
+const
+  ParameterDef_IN = ParameterDef_ParameterMode(1);
+  ParameterDef_OUT = ParameterDef_ParameterMode(2);
+  ParameterDef_INOUT = ParameterDef_ParameterMode(3);
+type
+  ParameterDef_ParameterDescription = record
+    name: Identifier;
+    id: RepositoryId;
+    defined_in: RepositoryId;
+    type_code: TypeCode;
+    mode: ParameterDef_ParameterMode;
+  end;
+  PParameterDef_ParameterDescription = ^ParameterDef_ParameterDescription;
+(*
+ *  The inherited describe method returns an instance of this
+ *  (ParameterDescription) structure in the "value" member of the
+ *  Description structure defined in the Contained interface.
+ *)
 
+(*
+ * End of bindings for IDL types.
+ *)
 
+const
+  ParameterDef_MajorVersion = 2;
+  ParameterDef_MinorVersion = 3;
 
+(*
+ * Declare the class creation procedure
+ *)
+function ParameterDefNewClass(
+  somtmajorVersion: integer4 = ParameterDef_MajorVersion;
+  somtminorVersion: integer4 = ParameterDef_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type ParameterDefClassDataStructure = record
+  classObject: SOMClass;
+  _get_type: somMToken;
+  _set_type: somMToken;
+  _get_mode: somMToken;
+  _set_mode: somMToken;
+end;
+PParameterDefClassDataStructure = ^ParameterDefClassDataStructure;
+function ParameterDefClassData: PParameterDefClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type ParameterDefCClassDataStructure = record
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
+end;
+PParameterDefCClassDataStructure = ^ParameterDefCClassDataStructure;
+function ParameterDefCClassData: PParameterDefCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_ParameterDef: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for ParameterDef
+ *)
+function ParameterDefNew: ParameterDef;
+function ParameterDefRenew(buf: Pointer): ParameterDef;
+
+(*
+ * New Method: _get_type
+ *)
+type
+  somTP_ParameterDef__get_type = function(somSelf: ParameterDef;
+    ev: PEnvironment): TypeCode; stdcall;
+  somTD_ParameterDef__get_type = somTP_ParameterDef__get_type;
+(*
+ *  The TypeCode of the receiving object.  The memory used to hold
+ *  the TypeCode is contained in the receiving object, which retains
+ *  ownership.  Hence, do not free the returned TypeCode.  If you want
+ *  to obtain a separate copy, use the TypeCode_copy operation.
+ *)
+const somMD_ParameterDef__get_type = '::ParameterDef::_get_type';
+function ParameterDef__get_type(somSelf: ParameterDef; ev: PEnvironment):
+  TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_type
+ *)
+type
+  somTP_ParameterDef__set_type = procedure(somSelf: ParameterDef;
+    ev: PEnvironment; type_code: TypeCode); stdcall;
+  somTD_ParameterDef__set_type = somTP_ParameterDef__set_type;
+(*
+ *  The TypeCode of the receiving object.  The memory used to hold
+ *  the TypeCode is contained in the receiving object, which retains
+ *  ownership.  Hence, do not free the returned TypeCode.  If you want
+ *  to obtain a separate copy, use the TypeCode_copy operation.
+ *)
+const somMD_ParameterDef__set_type = '::ParameterDef::_set_type';
+procedure ParameterDef__set_type(somSelf: ParameterDef; ev: PEnvironment;
+  type_code: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_mode
+ *)
+type
+  somTP_ParameterDef__get_mode = function(somSelf: ParameterDef;
+    ev: PEnvironment): ParameterDef_ParameterMode; stdcall;
+  somTD_ParameterDef__get_mode = somTP_ParameterDef__get_mode;
+(*
+ *  The ParameterMode of the receiving object;
+ *)
+const somMD_ParameterDef__get_mode = '::ParameterDef::_get_mode';
+function ParameterDef__get_mode(somSelf: ParameterDef; ev: PEnvironment):
+  ParameterDef_ParameterMode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_mode
+ *)
+type
+  somTP_ParameterDef__set_mode = procedure(somSelf: ParameterDef;
+    ev: PEnvironment; mode: ParameterDef_ParameterMode); stdcall;
+  somTD_ParameterDef__set_mode = somTP_ParameterDef__set_mode;
+(*
+ *  The ParameterMode of the receiving object;
+ *)
+const somMD_ParameterDef__set_mode = '::ParameterDef::_set_mode';
+procedure ParameterDef__set_mode(somSelf: ParameterDef; ev: PEnvironment;
+  mode: ParameterDef_ParameterMode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+// #include <typedef.h>
+
+(*
+ * Define the class name as an object type
+ *)
+type
+  TypeDef = Contained;
+(*
+ *  This interface is used to access information associated with
+ *  typedefs, unions, enums, & structs defined in an IDL file.
+ * 
+ *  See CORBA 1.1, 7.5.8, p.137
+ *)
+
+(*
+ * Start of bindings for IDL types
+ *)
+
+type
+  TypeDef_TypeDescription = record
+    name: Identifier;
+    id: RepositoryId;
+    defined_in: RepositoryId;
+    type_code: TypeCode;
+  end;
+  PTypeDef_TypeDescription = ^TypeDef_TypeDescription;
+(*
+ *  The inherited describe method returns an instance of this
+ *  (TypeDescription) structure in the "value" member of the
+ *  Description structure defined in the Contained interface.
+ *)
+
+(*
+ * End of bindings for IDL types.
+ *)
+
+const
+  TypeDef_MajorVersion = 2;
+  TypeDef_MinorVersion = 3;
+
+(*
+ * Declare the class creation procedure
+ *)
+function TypeDefNewClass(
+  somtmajorVersion: integer4 = TypeDef_MajorVersion;
+  somtminorVersion: integer4 = TypeDef_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type TypeDefClassDataStructure = record
+  classObject: SOMClass;
+  _get_type: somMToken;
+  _set_type: somMToken;
+end;
+PTypeDefClassDataStructure = ^TypeDefClassDataStructure;
+function TypeDefClassData: PTypeDefClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type TypeDefCClassDataStructure = record
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
+end;
+PTypeDefCClassDataStructure = ^TypeDefCClassDataStructure;
+function TypeDefCClassData: PTypeDefCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_TypeDef: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for TypeDef
+ *)
+function TypeDefNew: TypeDef;
+function TypeDefRenew(buf: Pointer): TypeDef;
+
+(*
+ * New Method: _get_type
+ *)
+type
+  somTP_TypeDef__get_type = function(somSelf: TypeDef; ev: PEnvironment):
+    TypeCode; stdcall;
+  somTD_TypeDef__get_type = somTP_TypeDef__get_type;
+(*
+ *  The TypeCode of the receiving object.  The memory used to hold
+ *  the TypeCode is contained in the receiving object, which retains
+ *  ownership.  Hence, do not free the returned TypeCode.  If you want
+ *  to obtain a separate copy, use the TypeCode_copy operation.
+ *)
+const somMD_TypeDef__get_type = '::TypeDef::_get_type';
+function TypeDef__get_type(somSelf: TypeDef; ev: PEnvironment): TypeCode;
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_type
+ *)
+type
+  somTP_TypeDef__set_type = procedure(somSelf: TypeDef; ev: PEnvironment;
+    type_code: TypeCode); stdcall;
+  somTD_TypeDef__set_type = somTP_TypeDef__set_type;
+(*
+ *  The TypeCode of the receiving object.  The memory used to hold
+ *  the TypeCode is contained in the receiving object, which retains
+ *  ownership.  Hence, do not free the returned TypeCode.  If you want
+ *  to obtain a separate copy, use the TypeCode_copy operation.
+ *)
+const somMD_TypeDef__set_type = '::TypeDef::_set_type';
+procedure TypeDef__set_type(somSelf: TypeDef; ev: PEnvironment;
+  type_code: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+// #include <operatdf.h>
+
+(*
+ * Define the class name as an object type
+ *)
+type
+  OperationDef = Container; // , Contained
+(*
+ *  This interface is used to access information associated with
+ *  operations defined in an IDL interface.
+ * 
+ *  See CORBA 1.1, 7.5.6, pp.135-136
+ *)
+
+(*
+ * Start of bindings for IDL types
+ *)
+
+type
+  OperationDef_OperationMode = type LongWord;
+const
+  OperationDef_NORMAL = OperationDef_OperationMode(1);
+  OperationDef_ONEWAY = OperationDef_OperationMode(2);
+type
+  _IDL_SEQUENCE_string = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PCORBAString;
+  end;
+  P_IDL_SEQUENCE_string = ^_IDL_SEQUENCE_string;
+  _IDL_SEQUENCE_ParameterDef_ParameterDescription = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PParameterDef_ParameterDescription;
+  end;
+  P_IDL_SEQUENCE_ParameterDef_ParameterDescription = ^_IDL_SEQUENCE_ParameterDef_ParameterDescription;
+  _IDL_SEQUENCE_ExceptionDef_ExceptionDescription = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PExceptionDef_ExceptionDescription;
+  end;
+  P_IDL_SEQUENCE_ExceptionDef_ExceptionDescription = ^_IDL_SEQUENCE_ExceptionDef_ExceptionDescription;
+  OperationDef_OperationDescription = record
+    name: Identifier;
+    id: RepositoryId;
+    defined_in: RepositoryId;
+    result_code: TypeCode;
+    mode: OperationDef_OperationMode;
+    contexts: _IDL_SEQUENCE_string;
+    parameter: _IDL_SEQUENCE_ParameterDef_ParameterDescription;
+    exceptions: _IDL_SEQUENCE_ExceptionDef_ExceptionDescription;
+  end;
+  POperationDef_OperationDescription = ^OperationDef_OperationDescription;
+(*
+ *  The inherited describe method returns an instance of this
+ *  (OperationDescription) structure in the "value" member of the
+ *  Description structure defined in the Contained interface.
+ *  The inherited describe_contents method in the Container
+ *  interface returns a sequence of these Description structures
+ *  each carrying a reference to an OperationDescription structure
+ *  in its "value" member.
+ *)
+
+(*
+ * End of bindings for IDL types.
+ *)
+
+const
+  OperationDef_MajorVersion = 2;
+  OperationDef_MinorVersion = 3;
+
+(*
+ * Declare the class creation procedure
+ *)
+function OperationDefNewClass(
+  somtmajorVersion: integer4 = OperationDef_MajorVersion;
+  somtminorVersion: integer4 = OperationDef_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type OperationDefClassDataStructure = record
+  classObject: SOMClass;
+  _get_result: somMToken;
+  _set_result: somMToken;
+  _get_mode: somMToken;
+  _set_mode: somMToken;
+  _get_contexts: somMToken;
+  _set_contexts: somMToken;
+end;
+POperationDefClassDataStructure = ^OperationDefClassDataStructure;
+function OperationDefClassData: POperationDefClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type OperationDefCClassDataStructure = record
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
+end;
+POperationDefCClassDataStructure = ^OperationDefCClassDataStructure;
+function OperationDefCClassData: POperationDefCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_OperationDef: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for OperationDef
+ *)
+function OperationDefNew: OperationDef;
+function OperationDefRenew(buf: Pointer): OperationDef;
+
+(*
+ * New Method: _get_result
+ *)
+type
+  somTP_OperationDef__get_result = function(somSelf: OperationDef;
+    ev: PEnvironment): TypeCode; stdcall;
+  somTD_OperationDef__get_result = somTP_OperationDef__get_result;
+(*
+ *  The TypeCode of the receiving object.  The memory used to hold
+ *  the TypeCode is contained in the receiving object, which retains
+ *  ownership.  Hence, do not free the returned TypeCode.  If you want
+ *  to obtain a separate copy, use the TypeCode_copy operation.
+ *)
+const somMD_OperationDef__get_result = '::OperationDef::_get_result';
+function OperationDef__get_result(somSelf: OperationDef; ev: PEnvironment):
+  TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_result
+ *)
+type
+  somTP_OperationDef__set_result = procedure(somSelf: OperationDef;
+    ev: PEnvironment; result_code: TypeCode); stdcall;
+  somTD_OperationDef__set_result = somTP_OperationDef__set_result;
+(*
+ *  The TypeCode of the receiving object.  The memory used to hold
+ *  the TypeCode is contained in the receiving object, which retains
+ *  ownership.  Hence, do not free the returned TypeCode.  If you want
+ *  to obtain a separate copy, use the TypeCode_copy operation.
+ *)
+const somMD_OperationDef__set_result = '::OperationDef::_set_result';
+procedure OperationDef__set_result(somSelf: OperationDef;
+  ev: PEnvironment; result_code: TypeCode);
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_mode
+ *)
+type
+  somTP_OperationDef__get_mode = function(somSelf: OperationDef;
+    ev: PEnvironment): OperationDef_OperationMode; stdcall;
+  somTD_OperationDef__get_mode = somTP_OperationDef__get_mode;
+(*
+ *  The OperationMode of the receiving object;
+ *)
+const somMD_OperationDef__get_mode = '::OperationDef::_get_mode';
+function OperationDef__get_mode(somSelf: OperationDef; ev: PEnvironment):
+  OperationDef_OperationMode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_mode
+ *)
+type
+  somTP_OperationDef__set_mode = procedure(somSelf: OperationDef; ev: PEnvironment;
+    mode: OperationDef_OperationMode); stdcall;
+  somTD_OperationDef__set_mode = somTP_OperationDef__set_mode;
+(*
+ *  The OperationMode of the receiving object;
+ *)
+const somMD_OperationDef__set_mode = '::OperationDef::_set_mode';
+procedure OperationDef__set_mode(somSelf: OperationDef; ev: PEnvironment;
+  mode: OperationDef_OperationMode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_contexts
+ *)
+type
+  somTP_OperationDef__get_contexts = function(somSelf: OperationDef;
+    ev: PEnvironment): _IDL_SEQUENCE_string; stdcall;
+  somTD_OperationDef__get_contexts = somTP_OperationDef__get_contexts;
+(*
+ *  The list of ContextIdentifiers associated with the
+ *  receiving object.
+ *)
+const somMD_OperationDef__get_contexts = '::OperationDef::_get_contexts';
+function OperationDef__get_contexts(somSelf: OperationDef; ev: PEnvironment):
+  _IDL_SEQUENCE_string; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_contexts
+ *)
+type
+  somTP_OperationDef__set_contexts = procedure(somSelf: OperationDef; ev: PEnvironment;
+    contexts: P_IDL_SEQUENCE_string); stdcall;
+  somTD_OperationDef__set_contexts = somTP_OperationDef__set_contexts;
+(*
+ *  The list of ContextIdentifiers associated with the
+ *  receiving object.
+ *)
+const somMD_OperationDef__set_contexts = '::OperationDef::_set_contexts';
+procedure somMD_OperationDef__set_contexts(somSelf: OperationDef;
+  ev: PEnvironment; contexts: P_IDL_SEQUENCE_string);
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+// #include <intfacdf.h>
+
+(*
+ * Define the class name as an object type
+ *)
+type
+  InterfaceDef = Container; // , Contained
+(*
+ *  This interface is used to access information associated with
+ *  interfaces defined in an IDL file.
+ * 
+ *  See CORBA 1.1, 7.5.4, p.134
+ *)
+
+(*
+ * Start of bindings for IDL types
+ *)
+
+type
+  _IDL_SEQUENCE_OperationDef_OperationDescription = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: POperationDef_OperationDescription;
+  end;
+  P_IDL_SEQUENCE_OperationDef_OperationDescription = ^_IDL_SEQUENCE_OperationDef_OperationDescription;
+  _IDL_SEQUENCE_AttributeDef_AttributeDescription = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PAttributeDef_AttributeDescription;
+  end;
+  P_IDL_SEQUENCE_AttributeDef_AttributeDescription = ^_IDL_SEQUENCE_AttributeDef_AttributeDescription;
+  InterfaceDef_FullInterfaceDescription = record
+    name: Identifier;
+    id: RepositoryId;
+    defined_in: RepositoryId;
+    operation: _IDL_SEQUENCE_OperationDef_OperationDescription;
+    attributes: _IDL_SEQUENCE_AttributeDef_AttributeDescription;
+  end;
+  PInterfaceDef_FullInterfaceDescription = ^InterfaceDef_FullInterfaceDescription;
+  InterfaceDef_InterfaceDescription = record
+    name: Identifier;
+    id: RepositoryId;
+    defined_in: RepositoryId;
+  end;
+  PInterfaceDef_InterfaceDescription = ^InterfaceDef_InterfaceDescription;
+(*
+ *  The inherited describe method returns an instance of this
+ *  (InterfaceDescription) structure in the "value" member of the
+ *  Description structure defined in the Contained interface.
+ *  The inherited describe_contents method in the Container
+ *  interface returns a sequence of these Description structures
+ *  each carrying a reference to an InterfaceDescription structure
+ *  in its "value" member.
+ *)
+
+(*
+ * End of bindings for IDL types.
+ *)
+
+const
+  InterfaceDef_MajorVersion = 2;
+  InterfaceDef_MinorVersion = 3;
+
+(*
+ * Declare the class creation procedure
+ *)
+function InterfaceDefNewClass(
+  somtmajorVersion: integer4 = InterfaceDef_MajorVersion;
+  somtminorVersion: integer4 = InterfaceDef_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type InterfaceDefClassDataStructure = record
+  classObject: SOMClass;
+  describe_interface: somMToken;
+  _get_base_interfaces: somMToken;
+  _set_base_interfaces: somMToken;
+  _get_instanceData: somMToken;
+  _set_instanceData: somMToken;
+end;
+PInterfaceDefClassDataStructure = ^InterfaceDefClassDataStructure;
+function InterfaceDefClassData: PInterfaceDefClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type InterfaceDefCClassDataStructure = record
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
+end;
+PInterfaceDefCClassDataStructure = ^InterfaceDefCClassDataStructure;
+function InterfaceDefCClassData: PInterfaceDefCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_InterfaceDef: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for InterfaceDef
+ *)
+function InterfaceDefNew: InterfaceDef;
+function InterfaceDefRenew(buf: Pointer): InterfaceDef;
+
+(*
+ * New Method: _get_base_interfaces
+ *)
+type
+  somTP_InterfaceDef__get_base_interfaces = function(somSelf: InterfaceDef;
+    ev: PEnvironment): _IDL_SEQUENCE_string; stdcall;
+  somTD_InterfaceDef__get_base_interfaces = somTP_InterfaceDef__get_base_interfaces;
+(*
+ *  The sequence of RepositoryIds for all of the interfaces that the
+ *  receiving interface inherits.  Do not free the buffer,
+ *  its storage is still owned by the InterfaceDef object.
+ *)
+const somMD_InterfaceDef__get_base_interfaces = '::InterfaceDef::_get_base_interfaces';
+function InterfaceDef__get_base_interfaces(somSelf: InterfaceDef;
+  ev: PEnvironment): _IDL_SEQUENCE_string;
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_base_interfaces
+ *)
+type
+  somTP_InterfaceDef__set_base_interfaces = procedure(somSelf: InterfaceDef;
+    ev: PEnvironment; base_interfaces: P_IDL_SEQUENCE_string); stdcall;
+  somTD_InterfaceDef__set_base_interfaces = somTP_InterfaceDef__set_base_interfaces;
+(*
+ *  The sequence of RepositoryIds for all of the interfaces that the
+ *  receiving interface inherits.  Do not free the buffer,
+ *  its storage is still owned by the InterfaceDef object.
+ *)
+const somMD_InterfaceDef__set_base_interfaces = '::InterfaceDef::_set_base_interfaces';
+procedure InterfaceDef__set_base_interfaces(somSelf: InterfaceDef;
+  ev: PEnvironment; base_interfaces: P_IDL_SEQUENCE_string);
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: describe_interface
+ *)
+type
+  somTP_InterfaceDef_describe_interface = function(somSelf: InterfaceDef;
+    ev: PEnvironment): InterfaceDef_FullInterfaceDescription; stdcall;
+  somTD_InterfaceDef_describe_interface = somTP_InterfaceDef_describe_interface;
+(*
+ *  Returns a description of all the operations and attributes in
+ *  an interface.
+ *)
+const somMD_InterfaceDef_describe_interface = '::InterfaceDef::describe_interface';
+function InterfaceDef_describe_interface(somSelf: InterfaceDef;
+  ev: PEnvironment): InterfaceDef_FullInterfaceDescription;
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _get_instanceData
+ *)
+type
+  somTP_InterfaceDef__get_instanceData = function(somSelf: InterfaceDef;
+    ev: PEnvironment): TypeCode; stdcall;
+  somTD_InterfaceDef__get_instanceData = somTP_InterfaceDef__get_instanceData;
+(*
+ *  [SOM-unique extension]
+ * 
+ *  The instance data members (if any) described in the SOM
+ *  implementation section of the IDL source file.
+ *)
+const somMD_InterfaceDef__get_instanceData = '::InterfaceDef::_get_instanceData';
+function InterfaceDef__get_instanceData(somSelf: InterfaceDef;
+  ev: PEnvironment): TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New Method: _set_instanceData
+ *)
+type
+  somTP_InterfaceDef__set_instanceData = procedure(somSelf: InterfaceDef; ev: PEnvironment;
+    instanceData: TypeCode); stdcall;
+  somTD_InterfaceDef__set_instanceData = somTP_InterfaceDef__set_instanceData;
+(*
+ *  [SOM-unique extension]
+ * 
+ *  The instance data members (if any) described in the SOM
+ *  implementation section of the IDL source file.
+ *)
+const somMD_InterfaceDef__set_instanceData = '::InterfaceDef::_set_instanceData';
+procedure InterfaceDef__set_instanceData(somSelf: InterfaceDef;
+  ev: PEnvironment; instanceData: TypeCode);
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+// #include <moduledf.h>
+
+(*
+ * Define the class name as an object type
+ *)
+type
+  ModuleDef = Container; // , Contained
+(*
+ *  This interface is used to access information associated with
+ *  modules defined in an IDL file.
+ * 
+ *  See CORBA 1.1, 7.5.3, p.133
+ *)
+
+(*
+ * Start of bindings for IDL types
+ *)
+
+type
+  ModuleDef_ModuleDescription = record
+    name: Identifier;
+    id: RepositoryId;
+    defined_in: RepositoryId;
+  end;
+  PModuleDef_ModuleDescription = ^ModuleDef_ModuleDescription;
+(*
+ *  The inherited describe method returns an instance of this
+ *  (ModuleDescription) structure in the "value" member of the
+ *  Description structure defined in the Contained interface.
+ *  The inherited describe_contents method in the Container
+ *  interface returns a sequence of these Description structures
+ *  each carrying a reference to a ModuleDescription structure
+ *  in its "value" member.
+ *)
+
+(*
+ * End of bindings for IDL types.
+ *)
+
+const
+  ModuleDef_MajorVersion = 2;
+  ModuleDef_MinorVersion = 3;
+
+(*
+ * Declare the class creation procedure
+ *)
+function ModuleDefNewClass(
+  somtmajorVersion: integer4 = ModuleDef_MajorVersion;
+  somtminorVersion: integer4 = ModuleDef_MinorVersion): SOMClass; stdcall;
+
+(*
+ * Declare the ABI 2 ClassData structure
+ *)
+type ModuleDefClassDataStructure = record
+  classObject: SOMClass;
+end;
+PModuleDefClassDataStructure = ^ModuleDefClassDataStructure;
+function ModuleDefClassData: PModuleDefClassDataStructure;
+
+(*
+ * Declare the ABI 2 CClassData structure
+ *)
+type ModuleDefCClassDataStructure = record
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
+end;
+PModuleDefCClassDataStructure = ^ModuleDefCClassDataStructure; 
+function ModuleDefCClassData: PModuleDefCClassDataStructure;
+
+(*
+ * Class Object and Method Token Macros
+ *)
+function _SOMCLASS_ModuleDef: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*
+ * New and Renew macros for ModuleDef
+ *)
+function ModuleDefNew: ModuleDef;
+function ModuleDefRenew(buf: Pointer): ModuleDef;
 
 
 
@@ -1170,11 +1892,11 @@ type
 
 (*
  *  Valid values for InterfaceName are limited to the following set:
- *    {"AttributeDef", "ConstantDef", "ExceptionDef",
- *                  "ParameterDef",
+ *    {"AttributeDef", "ConstantDef", "ExceptionDef", "InterfaceDef",
+ *     "ModuleDef", "ParameterDef", "OperationDef", "TypeDef",
  *
- *                                                    "InterfaceDef",
- *     "ModuleDef",                 "OperationDef", "TypeDef", "all"}
+ *                                                    
+ *                                                             "all"}
  *)
 
 
@@ -1850,10 +2572,470 @@ end;
 
 // #include <paramdef.h>
 
+function ParameterDefNewClass; external SOMIR_DLL_Name;
 
+var
+  SOMIR_DLL_ParameterDefClassData: PParameterDefClassDataStructure;
 
+function ParameterDefClassData: PParameterDefClassDataStructure;
+begin
+  if Assigned(SOMIR_DLL_ParameterDefClassData) then
+    Result := SOMIR_DLL_ParameterDefClassData
+  else
+  begin
+    SOME_Load_Variable(SOMIR_DLL_ParameterDefClassData, 'ParameterDefClassData');
+    Result := SOMIR_DLL_ParameterDefClassData;
+  end;
+end;
 
+var
+  SOMIR_DLL_ParameterDefCClassData: PParameterDefCClassDataStructure;
 
+function ParameterDefCClassData: PParameterDefCClassDataStructure;
+begin
+  if Assigned(SOMIR_DLL_ParameterDefCClassData) then
+    Result := SOMIR_DLL_ParameterDefCClassData
+  else
+  begin
+    SOME_Load_Variable(SOMIR_DLL_ParameterDefCClassData, 'ParameterDefCClassData');
+    Result := SOMIR_DLL_ParameterDefCClassData;
+  end;
+end;
 
+function _SOMCLASS_ParameterDef: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ParameterDefClassData.classObject;
+end;
+
+function ParameterDefNew: ParameterDef;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_ParameterDef;
+  if not Assigned(cls) then cls := ParameterDefNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function ParameterDefRenew(buf: Pointer): ParameterDef;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_ParameterDef;
+  if not Assigned(cls) then cls := ParameterDefNewClass;
+  Result := SOMClass_somRenew(cls, buf);
+end;
+
+function ParameterDef__get_type(somSelf: ParameterDef; ev: PEnvironment):
+  TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PParameterDefClassDataStructure;
+begin
+  cd := ParameterDefClassData;
+  Result :=
+    somTD_ParameterDef__get_type
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_type))(somSelf, ev);
+end;
+
+procedure ParameterDef__set_type(somSelf: ParameterDef; ev: PEnvironment;
+  type_code: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PParameterDefClassDataStructure;
+begin
+  cd := ParameterDefClassData;
+  somTD_ParameterDef__set_type
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_type))
+     (somSelf, ev, type_code);
+end;
+
+function ParameterDef__get_mode(somSelf: ParameterDef; ev: PEnvironment):
+  ParameterDef_ParameterMode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PParameterDefClassDataStructure;
+begin
+  cd := ParameterDefClassData;
+  Result :=
+    somTD_ParameterDef__get_mode
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_mode))(somSelf, ev);
+end;
+
+procedure ParameterDef__set_mode(somSelf: ParameterDef; ev: PEnvironment;
+  mode: ParameterDef_ParameterMode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PParameterDefClassDataStructure;
+begin
+  cd := ParameterDefClassData;
+  somTD_ParameterDef__set_mode
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_mode))(somSelf, ev, mode);
+end;
+
+// #include <typedef.h>
+
+function TypeDefNewClass; external SOMIR_DLL_Name;
+
+var
+  SOMIR_DLL_TypeDefClassData: PTypeDefClassDataStructure;
+
+function TypeDefClassData: PTypeDefClassDataStructure;
+begin
+  if Assigned(SOMIR_DLL_TypeDefClassData) then
+    Result := SOMIR_DLL_TypeDefClassData
+  else
+  begin
+    SOME_Load_Variable(SOMIR_DLL_TypeDefClassData, 'TypeDefClassData');
+    Result := SOMIR_DLL_TypeDefClassData;
+  end;
+end;
+
+var
+  SOMIR_DLL_TypeDefCClassData: PTypeDefCClassDataStructure;
+
+function TypeDefCClassData: PTypeDefCClassDataStructure;
+begin
+  if Assigned(SOMIR_DLL_TypeDefCClassData) then
+    Result := SOMIR_DLL_TypeDefCClassData
+  else
+  begin
+    SOME_Load_Variable(SOMIR_DLL_TypeDefCClassData, 'TypeDefCClassData');
+    Result := SOMIR_DLL_TypeDefCClassData;
+  end;
+end;
+
+function _SOMCLASS_TypeDef: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := TypeDefClassData.classObject;
+end;
+
+function TypeDefNew: TypeDef;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_TypeDef;
+  if not Assigned(cls) then cls := TypeDefNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function TypeDefRenew(buf: Pointer): TypeDef;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_TypeDef;
+  if not Assigned(cls) then cls := TypeDefNewClass;
+  Result := SOMClass_somRenew(cls, buf);
+end;
+
+function TypeDef__get_type(somSelf: TypeDef; ev: PEnvironment):
+  TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PTypeDefClassDataStructure;
+begin
+  cd := TypeDefClassData;
+  Result :=
+    somTD_TypeDef__get_type
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_type))(somSelf, ev);
+end;
+
+procedure TypeDef__set_type(somSelf: TypeDef; ev: PEnvironment;
+  type_code: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PTypeDefClassDataStructure;
+begin
+  cd := TypeDefClassData;
+  somTD_TypeDef__set_type
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_type))
+     (somSelf, ev, type_code);
+end;
+
+// #include <operatdf.h>
+
+function OperationDefNewClass; external SOMIR_DLL_Name;
+
+var
+  SOMIR_DLL_OperationDefClassData: POperationDefClassDataStructure;
+
+function OperationDefClassData: POperationDefClassDataStructure;
+begin
+  if Assigned(SOMIR_DLL_OperationDefClassData) then
+    Result := SOMIR_DLL_OperationDefClassData
+  else
+  begin
+    SOME_Load_Variable(SOMIR_DLL_OperationDefClassData, 'OperationDefClassData');
+    Result := SOMIR_DLL_OperationDefClassData;
+  end;
+end;
+
+var
+  SOMIR_DLL_OperationDefCClassData: POperationDefCClassDataStructure;
+
+function OperationDefCClassData: POperationDefCClassDataStructure;
+begin
+  if Assigned(SOMIR_DLL_OperationDefCClassData) then
+    Result := SOMIR_DLL_OperationDefCClassData
+  else
+  begin
+    SOME_Load_Variable(SOMIR_DLL_OperationDefCClassData, 'OperationDefCClassData');
+    Result := SOMIR_DLL_OperationDefCClassData;
+  end;
+end;
+
+function _SOMCLASS_OperationDef: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := OperationDefClassData.classObject;
+end;
+
+function OperationDefNew: OperationDef;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_OperationDef;
+  if not Assigned(cls) then cls := OperationDefNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function OperationDefRenew(buf: Pointer): OperationDef;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_OperationDef;
+  if not Assigned(cls) then cls := OperationDefNewClass;
+  Result := SOMClass_somRenew(cls, buf);
+end;
+
+function OperationDef__get_result(somSelf: OperationDef; ev: PEnvironment):
+  TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: POperationDefClassDataStructure;
+begin
+  cd := OperationDefClassData;
+  Result :=
+    somTD_OperationDef__get_result
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_result))(somSelf, ev);
+end;
+
+procedure OperationDef__set_result(somSelf: OperationDef;
+  ev: PEnvironment; result_code: TypeCode);
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: POperationDefClassDataStructure;
+begin
+  cd := OperationDefClassData;
+  somTD_OperationDef__set_result
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_result))
+     (somSelf, ev, result_code);
+end;
+
+function OperationDef__get_mode(somSelf: OperationDef; ev: PEnvironment):
+  OperationDef_OperationMode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: POperationDefClassDataStructure;
+begin
+  cd := OperationDefClassData;
+  Result :=
+    somTD_OperationDef__get_mode
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_mode))(somSelf, ev);
+end;
+
+procedure OperationDef__set_mode(somSelf: OperationDef; ev: PEnvironment;
+  mode: OperationDef_OperationMode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: POperationDefClassDataStructure;
+begin
+  cd := OperationDefClassData;
+  somTD_OperationDef__set_mode
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_mode))(somSelf, ev, mode);
+end;
+
+function OperationDef__get_contexts(somSelf: OperationDef; ev: PEnvironment):
+  _IDL_SEQUENCE_string; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: POperationDefClassDataStructure;
+begin
+  cd := OperationDefClassData;
+  Result :=
+    somTD_OperationDef__get_contexts
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_contexts))(somSelf, ev);
+end;
+
+procedure somMD_OperationDef__set_contexts(somSelf: OperationDef;
+  ev: PEnvironment; contexts: P_IDL_SEQUENCE_string);
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: POperationDefClassDataStructure;
+begin
+  cd := OperationDefClassData;
+  somTD_OperationDef__set_contexts
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_contexts))
+     (somSelf, ev, contexts);
+end;
+
+// #include <intfacdf.h>
+
+function InterfaceDefNewClass; external SOMIR_DLL_Name;
+
+var
+  SOMIR_DLL_InterfaceDefClassData: PInterfaceDefClassDataStructure;
+
+function InterfaceDefClassData: PInterfaceDefClassDataStructure;
+begin
+  if Assigned(SOMIR_DLL_InterfaceDefClassData) then
+    Result := SOMIR_DLL_InterfaceDefClassData
+  else
+  begin
+    SOME_Load_Variable(SOMIR_DLL_InterfaceDefClassData, 'InterfaceDefClassData');
+    Result := SOMIR_DLL_InterfaceDefClassData;
+  end;
+end;
+
+var
+  SOMIR_DLL_InterfaceDefCClassData: PInterfaceDefCClassDataStructure;
+
+function InterfaceDefCClassData: PInterfaceDefCClassDataStructure;
+begin
+  if Assigned(SOMIR_DLL_InterfaceDefCClassData) then
+    Result := SOMIR_DLL_InterfaceDefCClassData
+  else
+  begin
+    SOME_Load_Variable(SOMIR_DLL_InterfaceDefCClassData, 'InterfaceDefCClassData');
+    Result := SOMIR_DLL_InterfaceDefCClassData;
+  end;
+end;
+
+function _SOMCLASS_InterfaceDef: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := InterfaceDefClassData.classObject;
+end;
+
+function InterfaceDefNew: InterfaceDef;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_InterfaceDef;
+  if not Assigned(cls) then cls := InterfaceDefNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function InterfaceDefRenew(buf: Pointer): InterfaceDef;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_InterfaceDef;
+  if not Assigned(cls) then cls := InterfaceDefNewClass;
+  Result := SOMClass_somRenew(cls, buf);
+end;
+
+function InterfaceDef__get_base_interfaces(somSelf: InterfaceDef;
+  ev: PEnvironment): _IDL_SEQUENCE_string;
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PInterfaceDefClassDataStructure;
+begin
+  cd := InterfaceDefClassData;
+  Result :=
+    somTD_InterfaceDef__get_base_interfaces
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_base_interfaces))
+       (somSelf, ev);
+end;
+
+procedure InterfaceDef__set_base_interfaces(somSelf: InterfaceDef;
+  ev: PEnvironment; base_interfaces: P_IDL_SEQUENCE_string);
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PInterfaceDefClassDataStructure;
+begin
+  cd := InterfaceDefClassData;
+  somTD_InterfaceDef__set_base_interfaces
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_base_interfaces))
+     (somSelf, ev, base_interfaces);
+end;
+
+function InterfaceDef_describe_interface(somSelf: InterfaceDef;
+  ev: PEnvironment): InterfaceDef_FullInterfaceDescription;
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PInterfaceDefClassDataStructure;
+begin
+  cd := InterfaceDefClassData;
+  Result :=
+    somTD_InterfaceDef_describe_interface
+     (SOM_Resolve(somSelf, cd.classObject, cd.describe_interface))
+       (somSelf, ev);
+end;
+
+function InterfaceDef__get_instanceData(somSelf: InterfaceDef;
+  ev: PEnvironment): TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PInterfaceDefClassDataStructure;
+begin
+  cd := InterfaceDefClassData;
+  Result :=
+    somTD_InterfaceDef__get_instanceData
+     (SOM_Resolve(somSelf, cd.classObject, cd._get_instanceData))(somSelf, ev);
+end;
+
+procedure InterfaceDef__set_instanceData(somSelf: InterfaceDef;
+  ev: PEnvironment; instanceData: TypeCode);
+  {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+var
+  cd: PInterfaceDefClassDataStructure;
+begin
+  cd := InterfaceDefClassData;
+  somTD_InterfaceDef__set_instanceData
+   (SOM_Resolve(somSelf, cd.classObject, cd._set_instanceData))
+     (somSelf, ev, result_code);
+end;
+
+// #include <moduledf.h>
+
+function ModuleDefNewClass; external SOMIR_DLL_Name;
+
+var
+  SOMIR_DLL_ModuleDefClassData: PModuleDefClassDataStructure;
+
+function ModuleDefClassData: PModuleDefClassDataStructure;
+begin
+  if Assigned(SOMIR_DLL_ModuleDefClassData) then
+    Result := SOMIR_DLL_ModuleDefClassData
+  else
+  begin
+    SOME_Load_Variable(SOMIR_DLL_ModuleDefClassData, 'ModuleDefClassData');
+    Result := SOMIR_DLL_ModuleDefClassData;
+  end;
+end;
+
+var
+  SOMIR_DLL_ModuleDefCClassData: PModuleDefCClassDataStructure;
+
+function ModuleDefCClassData: PModuleDefCClassDataStructure;
+begin
+  if Assigned(SOMIR_DLL_ModuleDefCClassData) then
+    Result := SOMIR_DLL_ModuleDefCClassData
+  else
+  begin
+    SOME_Load_Variable(SOMIR_DLL_ModuleDefCClassData, 'ModuleDefCClassData');
+    Result := SOMIR_DLL_ModuleDefCClassData;
+  end;
+end;
+
+function _SOMCLASS_ModuleDef: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ModuleDefClassData.classObject;
+end;
+
+function ModuleDefNew: ModuleDef;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_ModuleDef;
+  if not Assigned(cls) then cls := ModuleDefNewClass;
+  Result := SOMClass_somNew(cls);
+end;
+
+function ModuleDefRenew(buf: Pointer): ModuleDef;
+var
+  cls: SOMClass;
+begin
+  cls := _SOMCLASS_ModuleDef;
+  if not Assigned(cls) then cls := ModuleDefNewClass;
+  Result := SOMClass_somRenew(cls, buf);
+end;
 
 end.
