@@ -468,11 +468,12 @@ type
   TypeCode = Pointer;
 
 (* CORBA 5.7, p.89 *)
-  any = record
+  any = type Int64; // returned in edx:eax by vanilla IBM SOM
+  Pany = ^any;
+  TAnyRecord = record
     _type: TypeCode;
     _value: Pointer;
   end;
-  Pany = ^any;
 
 (* per CORBA 5.10, p.91 *)
   _IDL_SEQUENCE_void = record
@@ -2208,11 +2209,12 @@ const
 //   TypeCode = Pointer;
 
 (* CORBA 5.7, p.89 *)
-//   any = record
+//   any = type Int64; // returned in edx:eax by vanilla IBM SOM
+//   Pany = ^any;
+//   TAnyRecord = record
 //     _type: TypeCode;
 //     _value: Pointer;
 //   end;
-//   Pany = ^any;
 
 (* per CORBA 5.10, p.91 *)
 //   _IDL_SEQUENCE_void = record

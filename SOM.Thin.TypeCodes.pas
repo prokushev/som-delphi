@@ -62,7 +62,7 @@ function tcAlignment(t: TypeCode; ev: PEnvironment): SmallInt; stdcall;
 function tcCopy(t: TypeCode; ev: PEnvironment): TypeCode; stdcall;
 function tcEqual(x: TypeCode; ev: PEnvironment; y: TypeCode): CORBABoolean; stdcall;
 procedure tcFree(t: TypeCode; ev: PEnvironment); stdcall;
-// function tcKind(t: TypeCode; ev: PEnvironment): SOM.Thin.TCKind; stdcall; // conflicts with TCKind
+// function tcKind(t: TypeCode; ev: PEnvironment): SOM.Thin.TCKind; stdcall; // conflicts with TCKind, use TypeCode_kind
 function tcParmCount(t: TypeCode; ev: PEnvironment): LongInt; stdcall;
 function tcParameter(t: TypeCode; ev: PEnvironment; index: LongInt): any; stdcall;
 procedure tcPrint(t: TypeCode; ev: PEnvironment); stdcall;
@@ -184,9 +184,14 @@ type
 function somVaBuf_create(vb: PAnsiChar; size: Integer): somVaBuf; stdcall;
 procedure somVaBuf_get_valist(vb: somVaBuf; out ap: va_list); stdcall;
 procedure somVaBuf_destroy(vb: somVaBuf); stdcall;
-function somVaBuf_add(vb: somVaBuf; arg: PAnsiChar; argType: Integer): LongInt; stdcall;
+function somVaBuf_add(vb: somVaBuf; arg: Pointer; argType: Integer): LongInt; stdcall;
 function somvalistGetTarget(ap: va_list): LongWord; stdcall;
 procedure somvalistSetTarget(ap: va_list; val: LongWord); stdcall;
+
+// #include <somdext.h>
+
+procedure SOMD_FreeType(ev: PEnvironment; ptr: Pointer; tc: TypeCode); stdcall;
+procedure AnyFree(value: any; ev: PEnvironment);
 
 implementation
 
@@ -637,6 +642,24 @@ procedure somVaBuf_destroy; external SOMTC_DLL_Name;
 function somVaBuf_add; external SOMTC_DLL_Name;
 function somvalistGetTarget; external SOMTC_DLL_Name;
 procedure somvalistSetTarget; external SOMTC_DLL_Name;
+
+procedure SOMD_FreeType; external SOMDCOMM_DLL_Name;
+
+procedure AnyFree(value: any; ev: PEnvironment);
+begin
+  // http://octagram.name/pub/somobjects/3.0beta/pdf/refsom/rvol1.pdf
+  // Chapter 2. DSOM Framework Classes
+  // Page 177 (193 in PDF absolute numbers)
+
+  (* Free the storage in the value of the any value *)
+  SOMD_FreeType(ev, TAnyRecord(value)._value, TAnyRecord(value)._type);
+
+  (* Free the storage value._value points to (not freed above) *)
+  SOMFree(TAnyRecord(value)._value);
+
+  (* Free the _type field of value *)
+  TypeCode_free(TAnyRecord(value)._type, ev);
+end;
 
 initialization
 

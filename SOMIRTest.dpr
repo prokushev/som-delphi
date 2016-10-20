@@ -62,19 +62,168 @@ begin
   end;
 end;
 
-procedure WriteMethodDefinition(var F: Text; Definition: OperationDef);
+function IdToImportedType(const Id, RootNamespace, CurrentNamespace: string): string;
 begin
-   if tcEqual(OperationDef__get_result(Definition, ev), ev, TC_void) then
-   begin
-     WriteLn(F, '    procedure ', Contained__get_name(Definition, ev), '( { ... } );');
-   end
-   else
-   begin
-     WriteLn(F, '    function ', Contained__get_name(Definition, ev), '( { ... } ): { ... };');
-   end;
+  // TODO better resolution
+  if CurrentNamespace = RootNamespace then
+  begin
+    if Length(Id) >= 2 then
+    begin
+      if Copy(Id, 1, 2) = '::' then
+      begin
+        Result := Copy(Id, 3, Length(Id) - 2);
+      end
+      else
+      begin
+        Result := Id;
+      end;
+    end
+    else
+    begin
+      Result := Id;
+    end;
+  end
+  else
+  begin
+    Result := RootNamespace + '.' + Id;
+  end;
 end;
 
-procedure WriteClassDefinition(var F: Text; Definition: InterfaceDef);
+procedure WriteObjRefType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+var
+  ParamCount: LongInt;
+  Parameter: any;
+  Parameter_TC: TypeCode;
+  Parameter_Kind: TCKind;
+begin
+  ParamCount := TypeCode_param_count(TC, ev);
+  if ParamCount = 1 then
+  begin
+    Parameter := TypeCode_parameter(TC, ev, 0);
+    Parameter_TC := TAnyRecord(Parameter)._type;
+    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+    if Parameter_Kind = TypeCode_tk_string then
+    begin
+      Write(F, IdToImportedType(PAnsiChar(TAnyRecord(Parameter)._value^), RootNamespace, CurrentNamespace));
+    end
+    else
+    begin
+      Write(F, '{reference to object with parameter kind ', Parameter_Kind, '}');
+    end;
+  end
+  else
+  begin
+    Write(F, '{reference to object with TypeCode_param_count = ', TypeCode_param_count(TC, ev), '}');
+  end;
+end;
+
+procedure WriteType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+var
+  Kind: TCKind;
+begin
+  Kind := TypeCode_kind(TC, ev);
+  case Kind of
+  TypeCode_tk_null: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_null}');
+  TypeCode_tk_void: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_void}');
+  TypeCode_tk_short: Write(F, 'SmallInt');
+  TypeCode_tk_long: Write(F, 'LongInt');
+  TypeCode_tk_ushort: Write(F, 'Word');
+  TypeCode_tk_ulong: Write(F, 'LongWord');
+  TypeCode_tk_float: Write(F, 'Single');
+  TypeCode_tk_double: Write(F, 'Double');
+  TypeCode_tk_boolean: Write(F, 'CORBABoolean');
+  TypeCode_tk_char: Write(F, 'AnsiChar');
+  TypeCode_tk_octet: Write(F, 'Byte');
+  TypeCode_tk_any: Write(F, 'any');
+  TypeCode_tk_TypeCode: Write(F, 'TypeCode');
+  TypeCode_tk_Principal: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_Principal}');
+  TypeCode_tk_objref: WriteObjRefType(F, RootNamespace, CurrentNamespace, TC);
+  TypeCode_tk_struct: Write(F, 'record {...} end');
+  TypeCode_tk_union: Write(F, 'record case Integer of {...} end');
+  TypeCode_tk_enum: Write(F, 'type LongWord { enumeration }');
+  TypeCode_tk_string: Write(F, 'CORBAString');
+  TypeCode_tk_sequence: Write(F, '_IDL_Sequence_{...}');
+  TypeCode_tk_array: Write(F, 'array [0 .. {...}] of {...}');
+                       
+  TypeCode_tk_pointer: Write(F, '^{...}');
+  TypeCode_tk_self: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_self}');
+  TypeCode_tk_foreign: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_foreign}');
+  else Write(F, '{unknown type with TypeCode_kind = ', LongWord(Kind), '}');
+  end;
+end;
+
+procedure WriteMethodArguments(var F: Text; const RootNamespace, CurrentNamespace: string; Definition: OperationDef);
+var
+  Contents: _IDL_SEQUENCE_Contained;
+  I: LongWord;
+  Item: Contained;
+  Mode: ParameterDef_ParameterMode;
+  WasArgument: Boolean;
+begin
+  Contents := Container_contents(Definition, ev, 'all', False);
+  if Contents._length > 0 then
+  begin
+    WasArgument := False;
+
+    Write(F, '(');
+    for I := 0 to Contents._length - 1 do
+    begin
+      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      if SOMObject_somIsA(Item, _SOMCLASS_ParameterDef) then
+      begin
+        if not WasArgument then
+        begin
+          WasArgument := True
+        end
+        else
+        begin
+          Write(F, '; ');
+        end;
+        Mode := ParameterDef__get_mode(Item, ev);
+        case Mode of
+        ParameterDef_IN: ;
+        ParameterDef_OUT: Write(F, 'out ');
+        ParameterDef_INOUT: Write(F, 'var ');
+        else Write(F, '{unknown mode ', LongWord(Mode), '}');
+        end;
+
+        Write(F, Contained__get_name(Item, ev), ': ');
+        WriteType(F, RootNamespace, CurrentNamespace, ParameterDef__get_type(Item, ev));
+      end
+      else
+      begin
+        Write(F, '{ Found item: ', Contained__get_name(Item, ev), ' }');
+      end;
+
+      SOMFreeAndNil(Item);
+    end;
+    Write(F, ')');
+    SOMFree(Contents._buffer);
+  end;
+end;
+
+procedure WriteMethodDefinition(var F: Text; const RootNamespace, CurrentNamespace: string; Definition: OperationDef);
+var
+  Result_TC: TypeCode;
+begin
+  Result_TC := OperationDef__get_result(Definition, ev);
+  if TypeCode_kind(Result_TC, ev) = TypeCode_tk_void then // tcEqual(OperationDef__get_result(Definition, ev), ev, TC_void) then
+  begin
+    Write(F, '    procedure ', Contained__get_name(Definition, ev));
+    WriteMethodArguments(F, RootNamespace, CurrentNamespace, Definition);
+    WriteLn(F, ';');
+  end
+  else
+  begin
+    Write(F, '    function ', Contained__get_name(Definition, ev));
+    WriteMethodArguments(F, RootNamespace, CurrentNamespace, Definition);
+    Write(F, ': ');
+    WriteType(F, RootNamespace, CurrentNamespace, Result_TC);
+    WriteLn(F, ';');
+  end;
+end;
+
+procedure WriteClassDefinition(var F: Text; const RootNamespace, CurrentNamespace: string; Definition: InterfaceDef);
 var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
@@ -99,7 +248,6 @@ begin
       begin
         WriteLn(F, '    { Found item: ', Contained__get_name(Item, ev), ' }');
       end;
-
     end;
 
     // Second pass: property setters and getters
@@ -119,7 +267,7 @@ begin
               WriteLn(F, '  private');
               WasPrivate := True;
             end;
-            WriteMethodDefinition(F, Item);
+            WriteMethodDefinition(F, RootNamespace, CurrentNamespace, Item);
           end;
         end;
       end;
@@ -142,7 +290,7 @@ begin
               WriteLn(F, '  public');
               WasPublic := True;
             end;
-            WriteMethodDefinition(F, Item);
+            WriteMethodDefinition(F, RootNamespace, CurrentNamespace, Item);
           end;
         end
         else
@@ -152,7 +300,7 @@ begin
             WriteLn(F, '  public');
             WasPublic := True;
           end;
-          WriteMethodDefinition(F, Item);
+          WriteMethodDefinition(F, RootNamespace, CurrentNamespace, Item);
         end;
       end;
     end;
@@ -169,7 +317,9 @@ begin
           WasPublic := True;
         end;
         Name := Contained__get_name(Item, ev);
-        WriteLn(F, '    property ', Name, ': { ... } read _get_', Name, ' write _set_', Name, ';'); // can be read-only or write-only
+        Write(F, '    property ', Name, ': ');
+        WriteType(F, RootNamespace, CurrentNamespace, AttributeDef__get_type(Item, ev));
+        WriteLn(F, ' read _get_', Name, ' write _set_', Name, ';'); // TODO: can be read-only or write-only
         Name := nil;
       end;
 
@@ -236,7 +386,7 @@ begin
           begin
             WriteLn(F);
             WriteLn(F, '  ', Contained__get_name(Item, ev), ' = class');
-            WriteClassDefinition(F, Item);
+            WriteClassDefinition(F, RootNamespace, CurrentNamespace, Item);
             WriteLn(F, '  end;');
           end;
         end;
