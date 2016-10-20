@@ -62,17 +62,129 @@ begin
   end;
 end;
 
-const
-  All_Global: array[0 .. 3] of AnsiChar = 'all'#0;
+procedure WriteMethodDefinition(var F: Text; Definition: OperationDef);
+begin
+   if tcEqual(OperationDef__get_result(Definition, ev), ev, TC_void) then
+   begin
+     WriteLn(F, '    procedure ', Contained__get_name(Definition, ev), '( { ... } );');
+   end
+   else
+   begin
+     WriteLn(F, '    function ', Contained__get_name(Definition, ev), '( { ... } ): { ... };');
+   end;
+end;
+
+procedure WriteClassDefinition(var F: Text; Definition: InterfaceDef);
+var
+  Contents: _IDL_SEQUENCE_Contained;
+  I: LongWord;
+  Item: Contained;
+  Name: Identifier;
+  NameS: AnsiString;
+  WasPrivate, WasPublic: Boolean;
+begin
+  Contents := Container_contents(Definition, ev, 'all', False);
+  if Contents._length > 0 then
+  begin
+    WasPrivate := False;
+    WasPublic := False;
+
+    // First pass: unknown stuff
+    for I := 0 to Contents._length - 1 do
+    begin
+      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      if SOMObject_somIsA(Item, _SOMCLASS_OperationDef) then begin end
+      else if SOMObject_somIsA(Item, _SOMCLASS_AttributeDef) then begin end
+      else
+      begin
+        WriteLn(F, '    { Found item: ', Contained__get_name(Item, ev), ' }');
+      end;
+
+    end;
+
+    // Second pass: property setters and getters
+    for I := 0 to Contents._length - 1 do
+    begin
+      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      if SOMObject_somIsA(Item, _SOMCLASS_OperationDef) then
+      begin
+        NameS := Contained__get_name(Item, ev);
+        if Length(NameS) > 5 then
+        begin
+          NameS := Copy(NameS, 1, 5);
+          if (NameS = '_get_') or (NameS = '_set_') then
+          begin
+            if not WasPrivate then
+            begin
+              WriteLn(F, '  private');
+              WasPrivate := True;
+            end;
+            WriteMethodDefinition(F, Item);
+          end;
+        end;
+      end;
+    end;
+
+    // Third pass: public methods except for getters/setters
+    for I := 0 to Contents._length - 1 do
+    begin
+      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      if SOMObject_somIsA(Item, _SOMCLASS_OperationDef) then
+      begin
+        NameS := Contained__get_name(Item, ev);
+        if Length(NameS) > 5 then
+        begin
+          NameS := Copy(NameS, 1, 5);
+          if (NameS <> '_get_') and (NameS <> '_set_') then
+          begin
+            if not WasPublic then
+            begin
+              WriteLn(F, '  public');
+              WasPublic := True;
+            end;
+            WriteMethodDefinition(F, Item);
+          end;
+        end
+        else
+        begin
+          if not WasPublic then
+          begin
+            WriteLn(F, '  public');
+            WasPublic := True;
+          end;
+          WriteMethodDefinition(F, Item);
+        end;
+      end;
+    end;
+
+    // Fourth pass: properties
+    for I := 0 to Contents._length - 1 do
+    begin
+      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      if SOMObject_somIsA(Item, _SOMCLASS_AttributeDef) then
+      begin
+        if not WasPublic then
+        begin
+          WriteLn(F, '  public');
+          WasPublic := True;
+        end;
+        Name := Contained__get_name(Item, ev);
+        WriteLn(F, '    property ', Name, ': { ... } read _get_', Name, ' write _set_', Name, ';'); // can be read-only or write-only
+        Name := nil;
+      end;
+
+      SOMFreeAndNil(Item);
+    end;
+    SOMFree(Contents._buffer);
+  end;
+end;
 
 procedure WriteNamespaceToUnit(RepositoryOrModule: Container; const RootNamespace, CurrentNamespace: string);
 var
   F: Text;
   Contents: _IDL_SEQUENCE_Contained;
-  All: Container_InterfaceName;
   I: LongWord;
   Item: Contained;
-  Name: Identifier;
   WasForwardType: Boolean;
 begin
   Assign(F, CurrentNamespace + '.pas');
@@ -90,9 +202,7 @@ begin
     WriteLn(F, '{$INCLUDE ''SOM.DelphiFeatures.inc''}');
     WriteLn(F);
 
-    All := SOMMalloc(4);
-    Move(All_Global, All^, 4);
-    Contents := Container_contents(RepositoryOrModule, ev, All, False);
+    Contents := Container_contents(RepositoryOrModule, ev, 'all', False);
     WriteLn(F, '{ Amount of items: ', Contents._length, ' }');
     if Contents._length > 0 then
     begin
@@ -107,14 +217,16 @@ begin
           if not WasForwardType then
           begin
             WriteLn(F, 'type');
+            WriteLn(F, '  { Forward definitions }');
             WasForwardType := True;
           end;
-          Name := Contained__get_name(Item, ev);
-          WriteLn(F, '  ', Name, ' = class;');
+          WriteLn(F, '  ', Contained__get_name(Item, ev), ' = class;');
         end;
       end;
 
-      // Second pass: satisfy forward type references
+      // Second pass: build other types
+
+      // Third pass: satisfy forward type references
       if WasForwardType then
       begin
         for I := 0 to Contents._length - 1 do
@@ -122,10 +234,9 @@ begin
           Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
           if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
           begin
-            Name := Contained__get_name(Item, ev);
             WriteLn(F);
-            WriteLn(F, '  ', Name, ' = class');
-            WriteLn(F, '    {...}');
+            WriteLn(F, '  ', Contained__get_name(Item, ev), ' = class');
+            WriteClassDefinition(F, Item);
             WriteLn(F, '  end;');
           end;
         end;
@@ -135,9 +246,8 @@ begin
       for I := 0 to Contents._length - 1 do
       begin
         Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        Name := Contained__get_name(Item, ev);
         WriteLn(F);
-        WriteLn(F, '{ Found item: ', Name, ' }');
+        WriteLn(F, '{ Found item: ', Contained__get_name(Item, ev), ' }');
 
         SOMFreeAndNil(Item);
       end;
