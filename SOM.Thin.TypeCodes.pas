@@ -191,7 +191,7 @@ procedure somvalistSetTarget(ap: va_list; val: LongWord); stdcall;
 implementation
 
 uses
-  SOM.Thin.DLL;
+  Windows, SOM.Thin.DLL;
 
 var
   SOMTC_DLL: System.HMODULE = 0;
@@ -218,7 +218,7 @@ begin
     Result := SOMTC_DLL_TC__null
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__null, 'TC__null');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__null, 'TC__null');
     Result := SOMTC_DLL_TC__null;
   end;
 end;
@@ -232,7 +232,7 @@ begin
     Result := SOMTC_DLL_TC__void
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__void, 'TC__void');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__void, 'TC__void');
     Result := SOMTC_DLL_TC__void;
   end;
 end;
@@ -246,7 +246,7 @@ begin
     Result := SOMTC_DLL_TC__short
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__short, 'TC__short');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__short, 'TC__short');
     Result := SOMTC_DLL_TC__short;
   end;
 end;
@@ -260,7 +260,7 @@ begin
     Result := SOMTC_DLL_TC__long
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__long, 'TC__long');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__long, 'TC__long');
     Result := SOMTC_DLL_TC__long;
   end;
 end;
@@ -274,7 +274,7 @@ begin
     Result := SOMTC_DLL_TC__ushort
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__ushort, 'TC__ushort');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__ushort, 'TC__ushort');
     Result := SOMTC_DLL_TC__ushort;
   end;
 end;
@@ -288,7 +288,7 @@ begin
     Result := SOMTC_DLL_TC__ulong
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__ulong, 'TC__ulong');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__ulong, 'TC__ulong');
     Result := SOMTC_DLL_TC__ulong;
   end;
 end;
@@ -302,7 +302,7 @@ begin
     Result := SOMTC_DLL_TC__float
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__float, 'TC__float');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__float, 'TC__float');
     Result := SOMTC_DLL_TC__float;
   end;
 end;
@@ -316,7 +316,7 @@ begin
     Result := SOMTC_DLL_TC__double
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__double, 'TC__double');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__double, 'TC__double');
     Result := SOMTC_DLL_TC__double;
   end;
 end;
@@ -330,7 +330,7 @@ begin
     Result := SOMTC_DLL_TC__boolean
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__boolean, 'TC__boolean');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__boolean, 'TC__boolean');
     Result := SOMTC_DLL_TC__boolean;
   end;
 end;
@@ -344,7 +344,7 @@ begin
     Result := SOMTC_DLL_TC__char
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__char, 'TC__char');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__char, 'TC__char');
     Result := SOMTC_DLL_TC__char;
   end;
 end;
@@ -358,7 +358,7 @@ begin
     Result := SOMTC_DLL_TC__octet
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__octet, 'TC__octet');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__octet, 'TC__octet');
     Result := SOMTC_DLL_TC__octet;
   end;
 end;
@@ -372,7 +372,7 @@ begin
     Result := SOMTC_DLL_TC__any
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__any, 'TC__any');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__any, 'TC__any');
     Result := SOMTC_DLL_TC__any;
   end;
 end;
@@ -386,7 +386,7 @@ begin
     Result := SOMTC_DLL_TC__TypeCode
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__TypeCode, 'TC__TypeCode');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__TypeCode, 'TC__TypeCode');
     Result := SOMTC_DLL_TC__TypeCode;
   end;
 end;
@@ -400,7 +400,7 @@ begin
     Result := SOMTC_DLL_TC__Principal
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__Principal, 'TC__Principal');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__Principal, 'TC__Principal');
     Result := SOMTC_DLL_TC__Principal;
   end;
 end;
@@ -414,7 +414,7 @@ begin
     Result := SOMTC_DLL_TC__Object
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__Object, 'TC__Object');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__Object, 'TC__Object');
     Result := SOMTC_DLL_TC__Object;
   end;
 end;
@@ -428,7 +428,7 @@ begin
     Result := SOMTC_DLL_TC__string
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__string, 'TC__string');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__string, 'TC__string');
     Result := SOMTC_DLL_TC__string;
   end;
 end;
@@ -442,7 +442,7 @@ begin
     Result := SOMTC_DLL_TC__NamedValue
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__NamedValue, 'TC__NamedValue');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__NamedValue, 'TC__NamedValue');
     Result := SOMTC_DLL_TC__NamedValue;
   end;
 end;
@@ -456,7 +456,7 @@ begin
     Result := SOMTC_DLL_TC__InterfaceDescription
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__InterfaceDescription, 'TC__InterfaceDescription');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__InterfaceDescription, 'TC__InterfaceDescription');
     Result := SOMTC_DLL_TC__InterfaceDescription;
   end;
 end;
@@ -470,7 +470,7 @@ begin
     Result := SOMTC_DLL_TC__OperationDescription
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__OperationDescription, 'TC__OperationDescription');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__OperationDescription, 'TC__OperationDescription');
     Result := SOMTC_DLL_TC__OperationDescription;
   end;
 end;
@@ -484,7 +484,7 @@ begin
     Result := SOMTC_DLL_TC__AttributeDescription
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__AttributeDescription, 'TC__AttributeDescription');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__AttributeDescription, 'TC__AttributeDescription');
     Result := SOMTC_DLL_TC__AttributeDescription;
   end;
 end;
@@ -498,7 +498,7 @@ begin
     Result := SOMTC_DLL_TC__ParameterDescription
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__ParameterDescription, 'TC__ParameterDescription');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__ParameterDescription, 'TC__ParameterDescription');
     Result := SOMTC_DLL_TC__ParameterDescription;
   end;
 end;
@@ -512,7 +512,7 @@ begin
     Result := SOMTC_DLL_TC__RepositoryDescription
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__RepositoryDescription, 'TC__RepositoryDescription');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__RepositoryDescription, 'TC__RepositoryDescription');
     Result := SOMTC_DLL_TC__RepositoryDescription;
   end;
 end;
@@ -526,7 +526,7 @@ begin
     Result := SOMTC_DLL_TC__ModuleDescription
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__ModuleDescription, 'TC__ModuleDescription');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__ModuleDescription, 'TC__ModuleDescription');
     Result := SOMTC_DLL_TC__ModuleDescription;
   end;
 end;
@@ -540,7 +540,7 @@ begin
     Result := SOMTC_DLL_TC__ConstDescription
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__ConstDescription, 'TC__ConstDescription');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__ConstDescription, 'TC__ConstDescription');
     Result := SOMTC_DLL_TC__ConstDescription;
   end;
 end;
@@ -554,7 +554,7 @@ begin
     Result := SOMTC_DLL_TC__ConstantDescription
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__ConstantDescription, 'TC__ConstantDescription');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__ConstantDescription, 'TC__ConstantDescription');
     Result := SOMTC_DLL_TC__ConstantDescription;
   end;
 end;
@@ -568,7 +568,7 @@ begin
     Result := SOMTC_DLL_TC__ExceptionDescription
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__ExceptionDescription, 'TC__ExceptionDescription');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__ExceptionDescription, 'TC__ExceptionDescription');
     Result := SOMTC_DLL_TC__ExceptionDescription;
   end;
 end;
@@ -582,7 +582,7 @@ begin
     Result := SOMTC_DLL_TC__TypeDescription
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__TypeDescription, 'TC__TypeDescription');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__TypeDescription, 'TC__TypeDescription');
     Result := SOMTC_DLL_TC__TypeDescription;
   end;
 end;
@@ -596,7 +596,7 @@ begin
     Result := SOMTC_DLL_TC__FullInterfaceDescription
   else
   begin
-    SOME_Load_Variable(SOMTC_DLL_TC__FullInterfaceDescription, 'TC__FullInterfaceDescription');
+    SOMTC_Load_Variable(SOMTC_DLL_TC__FullInterfaceDescription, 'TC__FullInterfaceDescription');
     Result := SOMTC_DLL_TC__FullInterfaceDescription;
   end;
 end;
@@ -638,4 +638,13 @@ function somVaBuf_add; external SOMTC_DLL_Name;
 function somvalistGetTarget; external SOMTC_DLL_Name;
 procedure somvalistSetTarget; external SOMTC_DLL_Name;
 
+initialization
+
+finalization
+  if SOMTC_DLL <> 0 then
+  begin
+    Windows.EnterCriticalSection(DLLLoad_CriticalSection);
+    FreeLibrary(SOMTC_DLL);
+    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
 end.

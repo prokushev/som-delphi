@@ -5629,9 +5629,15 @@ const somMD_SOMClassMgr_somImportObject = '::SOMClassMgr::somImportObject';
 function SOMClassMgr_somImportObject(somSelf: SOMClassMgr;
   objToBeShared: SOMObject): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+type
+  _IDL_SEQUENCE_string = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PCORBAString;
+  end;
+  P_IDL_SEQUENCE_string = ^_IDL_SEQUENCE_string;
 
-
-
+procedure SOMFreeAndNil(var Obj);
 
 implementation
 
@@ -7640,6 +7646,15 @@ begin
     somTD_SOMClassMgr_somImportObject
      (SOM_Resolve(somSelf, cd.classObject, cd.somImportObject))
        (somSelf, objToBeShared);
+end;
+
+procedure SOMFreeAndNil(var Obj);
+begin
+  if Assigned(SOMObject(Obj)) then
+  begin
+    SOMObject_somFree(SOMObject(Obj));
+    SOMObject(Obj) := nil;
+  end;
 end;
 
 initialization

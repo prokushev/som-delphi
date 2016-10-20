@@ -44,9 +44,17 @@ function irGetLastFileName: PAnsiChar; stdcall;
 // #include <containd.h>
 
 type
+  RepositoryId = CORBAString;
+  PRepositoryId = ^RepositoryId;
+  _IDL_SEQUENCE_RepositoryId = _IDL_SEQUENCE_string;
+  P_IDL_SEQUENCE_RepositoryId = ^_IDL_SEQUENCE_RepositoryId;
+
+(*
+ * Define the class name as an object type
+ *)
+type
   Contained = SOMObject;
   PContained = ^Contained;
-
 (*
  *  CORBA 1.1, 7.5.1, p.130
  * 
@@ -120,8 +128,8 @@ function ContainedClassData: PContainedClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type ContainedCClassDataStructure = record
-  somMethodTabs parentMtab;
-  somDToken instanceDataToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PContainedCClassDataStructure = ^ContainedCClassDataStructure;
 function ContainedCClassData: PContainedCClassDataStructure;
@@ -360,6 +368,7 @@ function Contained_describe(somSelf: Contained; ev: PEnvironment):
 
 type
   Container_InterfaceName = CORBAString;
+  PContainer_InterfaceName = ^Container_InterfaceName;
 (*
  *  Valid values for InterfaceName are limited to the following set:
  *    {"AttributeDef", "ConstantDef", "ExceptionDef", "InterfaceDef",
@@ -1092,8 +1101,8 @@ function ExceptionDefClassData: PExceptionDefClassDataStructure;
  * Declare the ABI 2 CClassData structure
  *)
 type ExceptionDefCClassDataStructure = record
-  somMethodTabs parentMtab;
-  somDToken instanceDataToken;
+  parentMtab: somMethodTabs;
+  instanceDataToken: somDToken;
 end;
 PExceptionDefCClassDataStructure = ^ExceptionDefCClassDataStructure;
 function ExceptionDefCClassData: PExceptionDefCClassDataStructure;
@@ -1430,12 +1439,6 @@ const
   OperationDef_NORMAL = OperationDef_OperationMode(1);
   OperationDef_ONEWAY = OperationDef_OperationMode(2);
 type
-  _IDL_SEQUENCE_string = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PCORBAString;
-  end;
-  P_IDL_SEQUENCE_string = ^_IDL_SEQUENCE_string;
   _IDL_SEQUENCE_ParameterDef_ParameterDescription = record
     _maximum: LongWord;
     _length: LongWord;
@@ -1610,7 +1613,7 @@ type
  *  receiving object.
  *)
 const somMD_OperationDef__set_contexts = '::OperationDef::_set_contexts';
-procedure somMD_OperationDef__set_contexts(somSelf: OperationDef;
+procedure OperationDef__set_contexts(somSelf: OperationDef;
   ev: PEnvironment; contexts: P_IDL_SEQUENCE_string);
   {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
@@ -1947,7 +1950,7 @@ begin
     Result := SOMIR_DLL_ContainedClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ContainedClassData, 'ContainedClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ContainedClassData, 'ContainedClassData');
     Result := SOMIR_DLL_ContainedClassData;
   end;
 end;
@@ -1961,7 +1964,7 @@ begin
     Result := SOMIR_DLL_ContainedCClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ContainedCClassData, 'ContainedCClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ContainedCClassData, 'ContainedCClassData');
     Result := SOMIR_DLL_ContainedCClassData;
   end;
 end;
@@ -2110,7 +2113,7 @@ begin
     Result := SOMIR_DLL_ContainerClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ContainerClassData, 'ContainerClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ContainerClassData, 'ContainerClassData');
     Result := SOMIR_DLL_ContainerClassData;
   end;
 end;
@@ -2124,7 +2127,7 @@ begin
     Result := SOMIR_DLL_ContainerCClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ContainerCClassData, 'ContainerCClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ContainerCClassData, 'ContainerCClassData');
     Result := SOMIR_DLL_ContainerCClassData;
   end;
 end;
@@ -2207,7 +2210,7 @@ begin
     Result := SOMIR_DLL_RepositoryClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_RepositoryClassData, 'RepositoryClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_RepositoryClassData, 'RepositoryClassData');
     Result := SOMIR_DLL_RepositoryClassData;
   end;
 end;
@@ -2221,7 +2224,7 @@ begin
     Result := SOMIR_DLL_RepositoryCClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_RepositoryCClassData, 'RepositoryCClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_RepositoryCClassData, 'RepositoryCClassData');
     Result := SOMIR_DLL_RepositoryCClassData;
   end;
 end;
@@ -2308,7 +2311,7 @@ begin
     Result := SOMIR_DLL_AttributeDefClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_AttributeDefClassData, 'AttributeDefClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_AttributeDefClassData, 'AttributeDefClassData');
     Result := SOMIR_DLL_AttributeDefClassData;
   end;
 end;
@@ -2322,7 +2325,7 @@ begin
     Result := SOMIR_DLL_AttributeDefCClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_AttributeDefCClassData, 'AttributeDefCClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_AttributeDefCClassData, 'AttributeDefCClassData');
     Result := SOMIR_DLL_AttributeDefCClassData;
   end;
 end;
@@ -2407,7 +2410,7 @@ begin
     Result := SOMIR_DLL_ConstantDefClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ConstantDefClassData, 'ConstantDefClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ConstantDefClassData, 'ConstantDefClassData');
     Result := SOMIR_DLL_ConstantDefClassData;
   end;
 end;
@@ -2421,7 +2424,7 @@ begin
     Result := SOMIR_DLL_ConstantDefCClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ConstantDefCClassData, 'ConstantDefCClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ConstantDefCClassData, 'ConstantDefCClassData');
     Result := SOMIR_DLL_ConstantDefCClassData;
   end;
 end;
@@ -2506,7 +2509,7 @@ begin
     Result := SOMIR_DLL_ExceptionDefClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ExceptionDefClassData, 'ExceptionDefClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ExceptionDefClassData, 'ExceptionDefClassData');
     Result := SOMIR_DLL_ExceptionDefClassData;
   end;
 end;
@@ -2520,7 +2523,7 @@ begin
     Result := SOMIR_DLL_ExceptionDefCClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ExceptionDefCClassData, 'ExceptionDefCClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ExceptionDefCClassData, 'ExceptionDefCClassData');
     Result := SOMIR_DLL_ExceptionDefCClassData;
   end;
 end;
@@ -2583,7 +2586,7 @@ begin
     Result := SOMIR_DLL_ParameterDefClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ParameterDefClassData, 'ParameterDefClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ParameterDefClassData, 'ParameterDefClassData');
     Result := SOMIR_DLL_ParameterDefClassData;
   end;
 end;
@@ -2597,7 +2600,7 @@ begin
     Result := SOMIR_DLL_ParameterDefCClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ParameterDefCClassData, 'ParameterDefCClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ParameterDefCClassData, 'ParameterDefCClassData');
     Result := SOMIR_DLL_ParameterDefCClassData;
   end;
 end;
@@ -2681,7 +2684,7 @@ begin
     Result := SOMIR_DLL_TypeDefClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_TypeDefClassData, 'TypeDefClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_TypeDefClassData, 'TypeDefClassData');
     Result := SOMIR_DLL_TypeDefClassData;
   end;
 end;
@@ -2695,7 +2698,7 @@ begin
     Result := SOMIR_DLL_TypeDefCClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_TypeDefCClassData, 'TypeDefCClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_TypeDefCClassData, 'TypeDefCClassData');
     Result := SOMIR_DLL_TypeDefCClassData;
   end;
 end;
@@ -2758,7 +2761,7 @@ begin
     Result := SOMIR_DLL_OperationDefClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_OperationDefClassData, 'OperationDefClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_OperationDefClassData, 'OperationDefClassData');
     Result := SOMIR_DLL_OperationDefClassData;
   end;
 end;
@@ -2772,7 +2775,7 @@ begin
     Result := SOMIR_DLL_OperationDefCClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_OperationDefCClassData, 'OperationDefCClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_OperationDefCClassData, 'OperationDefCClassData');
     Result := SOMIR_DLL_OperationDefCClassData;
   end;
 end;
@@ -2855,7 +2858,7 @@ begin
      (SOM_Resolve(somSelf, cd.classObject, cd._get_contexts))(somSelf, ev);
 end;
 
-procedure somMD_OperationDef__set_contexts(somSelf: OperationDef;
+procedure OperationDef__set_contexts(somSelf: OperationDef;
   ev: PEnvironment; contexts: P_IDL_SEQUENCE_string);
   {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
@@ -2880,7 +2883,7 @@ begin
     Result := SOMIR_DLL_InterfaceDefClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_InterfaceDefClassData, 'InterfaceDefClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_InterfaceDefClassData, 'InterfaceDefClassData');
     Result := SOMIR_DLL_InterfaceDefClassData;
   end;
 end;
@@ -2894,7 +2897,7 @@ begin
     Result := SOMIR_DLL_InterfaceDefCClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_InterfaceDefCClassData, 'InterfaceDefCClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_InterfaceDefCClassData, 'InterfaceDefCClassData');
     Result := SOMIR_DLL_InterfaceDefCClassData;
   end;
 end;
@@ -2980,7 +2983,7 @@ begin
   cd := InterfaceDefClassData;
   somTD_InterfaceDef__set_instanceData
    (SOM_Resolve(somSelf, cd.classObject, cd._set_instanceData))
-     (somSelf, ev, result_code);
+     (somSelf, ev, instanceData);
 end;
 
 // #include <moduledf.h>
@@ -2996,7 +2999,7 @@ begin
     Result := SOMIR_DLL_ModuleDefClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ModuleDefClassData, 'ModuleDefClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ModuleDefClassData, 'ModuleDefClassData');
     Result := SOMIR_DLL_ModuleDefClassData;
   end;
 end;
@@ -3010,7 +3013,7 @@ begin
     Result := SOMIR_DLL_ModuleDefCClassData
   else
   begin
-    SOME_Load_Variable(SOMIR_DLL_ModuleDefCClassData, 'ModuleDefCClassData');
+    SOMIR_Load_Variable(SOMIR_DLL_ModuleDefCClassData, 'ModuleDefCClassData');
     Result := SOMIR_DLL_ModuleDefCClassData;
   end;
 end;
@@ -3038,4 +3041,13 @@ begin
   Result := SOMClass_somRenew(cls, buf);
 end;
 
+initialization
+
+finalization
+  if SOMIR_DLL <> 0 then
+  begin
+    Windows.EnterCriticalSection(DLLLoad_CriticalSection);
+    FreeLibrary(SOMIR_DLL);
+    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
 end.

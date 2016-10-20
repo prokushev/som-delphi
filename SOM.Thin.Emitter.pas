@@ -9727,5 +9727,14 @@ procedure somtresetEmitSignalsSL; external SOMC_DLL_Name;
 procedure somtunsetEmitSignalsSL; external SOMC_DLL_Name;
 procedure somtwarnSL; external SOMC_DLL_Name;
 
+initialization
+
+finalization
+  if SOME_DLL <> 0 then
+  begin
+    Windows.EnterCriticalSection(DLLLoad_CriticalSection);
+    FreeLibrary(SOME_DLL);
+    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
 end.
 
