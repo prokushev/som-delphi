@@ -89,6 +89,8 @@ begin
   end;
 end;
 
+procedure WriteType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode); forward;
+
 procedure WriteObjRefType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
 var
   ParamCount: LongInt;
@@ -113,7 +115,294 @@ begin
   end
   else
   begin
-    Write(F, '{reference to object with TypeCode_param_count = ', TypeCode_param_count(TC, ev), '}');
+    Write(F, '{reference to object with TypeCode_param_count = ', ParamCount, '}');
+  end;
+end;
+
+procedure WriteForeignType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+var
+  ParamCount: LongInt;
+  Parameter: any;
+  Parameter_TC: TypeCode;
+  Parameter_Kind: TCKind;
+begin
+  ParamCount := TypeCode_param_count(TC, ev);
+  if ParamCount >= 1 then
+  begin
+    Parameter := TypeCode_parameter(TC, ev, 0);
+    Parameter_TC := TAnyRecord(Parameter)._type;
+    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+    if Parameter_Kind = TypeCode_tk_string then
+    begin
+      Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
+    end
+    else
+    begin
+      Write(F, '{foreign type with parameter kind ', Parameter_Kind, '}');
+    end;
+  end
+  else
+  begin
+    Write(F, '{foreign type with TypeCode_param_count = ', ParamCount, '}');
+  end;
+end;
+
+// TODO consider inhertied context
+// function describe: Description; in ExceptionDef
+// should be Contained_Description instead
+procedure WriteRecordType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+var
+  ParamCount: LongInt;
+  Parameter: any;
+  Parameter_TC: TypeCode;
+  Parameter_Kind: TCKind;
+begin
+  ParamCount := TypeCode_param_count(TC, ev);
+  if ParamCount >= 1 then
+  begin
+    Parameter := TypeCode_parameter(TC, ev, 0);
+    Parameter_TC := TAnyRecord(Parameter)._type;
+    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+    if Parameter_Kind = TypeCode_tk_string then
+    begin
+      Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
+    end
+    else
+    begin
+      Write(F, 'record { TypeCode_kind = ', Parameter_Kind, '} end');
+    end;
+  end
+  else
+  begin
+    Write(F, 'record { TypeCode_param_count = ', ParamCount, '} end');
+  end;
+end;
+
+procedure WriteEnumType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+var
+  ParamCount: LongInt;
+  Parameter: any;
+  Parameter_TC: TypeCode;
+  Parameter_Kind: TCKind;
+begin
+  ParamCount := TypeCode_param_count(TC, ev);
+  if ParamCount >= 1 then
+  begin
+    Parameter := TypeCode_parameter(TC, ev, 0);
+    Parameter_TC := TAnyRecord(Parameter)._type;
+    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+    if Parameter_Kind = TypeCode_tk_string then
+    begin
+      Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
+    end
+    else
+    begin
+      Write(F, 'type LongWord {enum with TypeCode_kind = ', Parameter_Kind, '}');
+    end;
+  end
+  else
+  begin
+    Write(F, 'type LongWord {enum with TypeCode_param_count = ', ParamCount, '}');
+  end;
+end;
+
+procedure WritePointerType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+var
+  ParamCount: LongInt;
+  Parameter: any;
+  Parameter_TC: TypeCode;
+  Parameter_Kind: TCKind;
+  TC2: TypeCode;
+  Kind: TCKind;
+begin
+  ParamCount := TypeCode_param_count(TC, ev);
+  if ParamCount >= 1 then
+  begin
+    Parameter := TypeCode_parameter(TC, ev, 0);
+    Parameter_TC := TAnyRecord(Parameter)._type;
+    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+    if Parameter_Kind = TypeCode_tk_TypeCode then
+    begin
+      TC2 := TypeCode(TAnyRecord(Parameter)._value^);
+      Kind := TypeCode_kind(TC2, ev);
+      if Kind = TypeCode_tk_struct then
+      begin
+        ParamCount := TypeCode_param_count(TC2, ev);
+        if ParamCount >= 1 then
+        begin
+          Parameter := TypeCode_parameter(TC2, ev, 0);
+          Parameter_TC := TAnyRecord(Parameter)._type;
+          Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+          if Parameter_Kind = TypeCode_tk_string then
+          begin
+            Write(F, 'P', PAnsiChar(TAnyRecord(Parameter)._value^));
+          end
+          else
+          begin
+            Write(F, '^record { TypeCode_kind = ', Parameter_Kind, '} end');
+          end;
+        end
+        else
+        begin
+          Write(F, '^record { TypeCode_param_count = ', ParamCount, '} end');
+        end;
+      end
+      else if Kind = TypeCode_tk_foreign then
+      begin
+        ParamCount := TypeCode_param_count(TC2, ev);
+        if ParamCount >= 1 then
+        begin
+          Parameter := TypeCode_parameter(TC2, ev, 0);
+          Parameter_TC := TAnyRecord(Parameter)._type;
+          Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+          if Parameter_Kind = TypeCode_tk_string then
+          begin
+            Write(F, 'P', PAnsiChar(TAnyRecord(Parameter)._value^));
+          end
+          else
+          begin
+            Write(F, '^{foreign type with TypeCode_kind = ', Parameter_Kind, '}');
+          end;
+        end
+        else
+        begin
+          Write(F, '^{foreign type with TypeCode_param_count = ', ParamCount, '}');
+        end;
+      end
+      else if Kind = TypeCode_tk_void then
+      begin
+        Write(F, 'Pointer');
+      end
+      else if Kind = TypeCode_tk_pointer then
+      begin
+        ParamCount := TypeCode_param_count(TC2, ev);
+        if ParamCount >= 1 then
+        begin
+          Parameter := TypeCode_parameter(TC2, ev, 0);
+          Parameter_TC := TAnyRecord(Parameter)._type;
+          Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+          if Parameter_Kind = TypeCode_tk_TypeCode then
+          begin
+            TC2 := TypeCode(TAnyRecord(Parameter)._value^);
+            Kind := TypeCode_kind(TC2, ev);
+            if Kind = TypeCode_tk_void then
+            begin
+              Write(F, 'PPointer');
+            end
+            else
+            begin
+              Write(F, '^^');
+              WriteType(F, RootNamespace, CurrentNamespace, TC2);
+            end;
+          end
+          else
+          begin
+            Write(F, '^^{ TypeCode_kind = ', Parameter_Kind, '}');
+          end;
+        end
+        else
+        begin
+          Write(F, '^^{ TypeCode_param_count = ', ParamCount, '}');
+        end;
+      end
+      else
+      begin
+        Write(F, '^');
+        WriteType(F, RootNamespace, CurrentNamespace, TC2);
+      end;
+    end
+    else
+    begin
+      Write(F, '^{ TypeCode_kind = ', Parameter_Kind, '}');
+    end;
+  end
+  else
+  begin
+    Write(F, '^{ TypeCode_param_count = ', ParamCount, '}');
+  end;
+end;
+
+procedure WriteSequenceType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+var
+  ParamCount: LongInt;
+  Parameter: any;
+  Parameter_TC: TypeCode;
+  Parameter_Kind: TCKind;
+  TC2: TypeCode;
+  Kind: TCKind;
+begin
+  ParamCount := TypeCode_param_count(TC, ev);
+  if ParamCount >= 1 then
+  begin
+    Parameter := TypeCode_parameter(TC, ev, 0);
+    Parameter_TC := TAnyRecord(Parameter)._type;
+    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+    if Parameter_Kind = TypeCode_tk_TypeCode then
+    begin
+      TC2 := TypeCode(TAnyRecord(Parameter)._value^);
+      Kind := TypeCode_kind(TC2, ev);
+      if Kind = TypeCode_tk_struct then
+      begin
+        ParamCount := TypeCode_param_count(TC2, ev);
+        if ParamCount >= 1 then
+        begin
+          Parameter := TypeCode_parameter(TC2, ev, 0);
+          Parameter_TC := TAnyRecord(Parameter)._type;
+          Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+          if Parameter_Kind = TypeCode_tk_string then
+          begin
+            Write(F, '_IDL_Sequence_', PAnsiChar(TAnyRecord(Parameter)._value^));
+          end
+          else
+          begin
+            Write(F, '_IDL_Sequence_record { TypeCode_kind = ', Parameter_Kind, '} end');
+          end;
+        end
+        else
+        begin
+          Write(F, '_IDL_Sequence_record { TypeCode_param_count = ', ParamCount, '} end');
+        end;
+      end
+      else if Kind = TypeCode_tk_objref then
+      begin
+        ParamCount := TypeCode_param_count(TC2, ev);
+        if ParamCount >= 1 then
+        begin
+          Parameter := TypeCode_parameter(TC2, ev, 0);
+          Parameter_TC := TAnyRecord(Parameter)._type;
+          Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+          if Parameter_Kind = TypeCode_tk_string then
+          begin
+            Write(F, '_IDL_Sequence_', IdToImportedType(PAnsiChar(TAnyRecord(Parameter)._value^), RootNamespace, CurrentNamespace));
+          end
+          else
+          begin
+            Write(F, '_IDL_Sequence_{object reference with TypeCode_kind = ', Parameter_Kind, '} end');
+          end;
+        end
+        else
+        begin
+          Write(F, '_IDL_Sequence_{object reference with TypeCode_param_count = ', ParamCount, '} end');
+        end;
+      end
+      else if Kind = TypeCode_tk_void then
+      begin
+        Write(F, '_IDL_Sequence_void');
+      end
+      else
+      begin
+        Write(F, '_IDL_Sequence_');
+        WriteType(F, RootNamespace, CurrentNamespace, TC2);
+      end;
+    end
+    else
+    begin
+      Write(F, '_IDL_Sequence_{ TypeCode_kind = ', Parameter_Kind, '}');
+    end;
+  end
+  else
+  begin
+    Write(F, '_IDL_Sequence_{ TypeCode_param_count = ', ParamCount, '}');
   end;
 end;
 
@@ -138,16 +427,16 @@ begin
   TypeCode_tk_TypeCode: Write(F, 'TypeCode');
   TypeCode_tk_Principal: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_Principal}');
   TypeCode_tk_objref: WriteObjRefType(F, RootNamespace, CurrentNamespace, TC);
-  TypeCode_tk_struct: Write(F, 'record {...} end');
+  TypeCode_tk_struct: WriteRecordType(F, RootNamespace, CurrentNamespace, TC);
   TypeCode_tk_union: Write(F, 'record case Integer of {...} end');
-  TypeCode_tk_enum: Write(F, 'type LongWord { enumeration }');
-  TypeCode_tk_string: Write(F, 'CORBAString');
-  TypeCode_tk_sequence: Write(F, '_IDL_Sequence_{...}');
+  TypeCode_tk_enum: WriteEnumType(F, RootNamespace, CurrentNamespace, TC);
+  TypeCode_tk_string: Write(F, 'CORBAString'); // TODO string[255]
+  TypeCode_tk_sequence: WriteSequenceType(F, RootNamespace, CurrentNamespace, TC);
   TypeCode_tk_array: Write(F, 'array [0 .. {...}] of {...}');
                        
-  TypeCode_tk_pointer: Write(F, '^{...}');
+  TypeCode_tk_pointer: WritePointerType(F, RootNamespace, CurrentNamespace, TC);
   TypeCode_tk_self: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_self}');
-  TypeCode_tk_foreign: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_foreign}');
+  TypeCode_tk_foreign: WriteForeignType(F, RootNamespace, CurrentNamespace, TC);
   else Write(F, '{unknown type with TypeCode_kind = ', LongWord(Kind), '}');
   end;
 end;
