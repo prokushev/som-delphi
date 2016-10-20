@@ -62,6 +62,98 @@ begin
   end;
 end;
 
+const
+  All_Global: array[0 .. 3] of AnsiChar = 'all'#0;
+
+procedure WriteNamespaceToUnit(RepositoryOrModule: Container; const RootNamespace, CurrentNamespace: string);
+var
+  F: Text;
+  Contents: _IDL_SEQUENCE_Contained;
+  All: Container_InterfaceName;
+  I: LongWord;
+  Item: Contained;
+  Name: Identifier;
+  WasForwardType: Boolean;
+begin
+  Assign(F, CurrentNamespace + '.pas');
+  Rewrite(F);
+  try
+    Write('Writing ', CurrentNamespace, '.pas...');
+    WriteLn(F, '{$WARN UNSAFE_TYPE OFF}');
+    WriteLn(F);
+    WriteLn(F, 'unit ', CurrentNamespace, ';');
+    WriteLn(F);
+    WriteLn(F, 'interface');
+    WriteLn(F, 'uses');
+    WriteLn(F, '  SOM.DelphiFeatures, SOM.Thin;');
+    WriteLn(F);
+    WriteLn(F, '{$INCLUDE ''SOM.DelphiFeatures.inc''}');
+    WriteLn(F);
+
+    All := SOMMalloc(4);
+    Move(All_Global, All^, 4);
+    Contents := Container_contents(RepositoryOrModule, ev, All, False);
+    WriteLn(F, '{ Amount of items: ', Contents._length, ' }');
+    if Contents._length > 0 then
+    begin
+      WasForwardType := False;
+
+      // First pass: forward type references
+      for I := 0 to Contents._length - 1 do
+      begin
+        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+        begin
+          if not WasForwardType then
+          begin
+            WriteLn(F, 'type');
+            WasForwardType := True;
+          end;
+          Name := Contained__get_name(Item, ev);
+          WriteLn(F, '  ', Name, ' = class;');
+        end;
+      end;
+
+      // Second pass: satisfy forward type references
+      if WasForwardType then
+      begin
+        for I := 0 to Contents._length - 1 do
+        begin
+          Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+          if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+          begin
+            Name := Contained__get_name(Item, ev);
+            WriteLn(F);
+            WriteLn(F, '  ', Name, ' = class');
+            WriteLn(F, '    {...}');
+            WriteLn(F, '  end;');
+          end;
+        end;
+      end;
+
+      // Last pass: others
+      for I := 0 to Contents._length - 1 do
+      begin
+        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        Name := Contained__get_name(Item, ev);
+        WriteLn(F);
+        WriteLn(F, '{ Found item: ', Name, ' }');
+
+        SOMFreeAndNil(Item);
+      end;
+      SOMFree(Contents._buffer);
+    end;
+
+    WriteLn(F);
+    WriteLn(F, 'implementation');
+    WriteLn(F);
+    WriteLn(F, 'end.');
+  finally
+    Close(F);
+    WriteLn(' done!');
+  end;
+end;
+
 procedure TestSOM_IR;
 var
   repo: Repository;
@@ -88,7 +180,7 @@ begin
     end;
 
     WriteLn('IR opened');
-
+    WriteNamespaceToUnit(repo, 'SOMIRTest.DumpOut', 'SOMIRTest.DumpOut');
 
   finally
     SOMFreeAndNil(repo);
@@ -108,5 +200,4 @@ begin
     on e: Exception do
       WriteLn(GetTypeData(e.ClassInfo).UnitName + '.' + e.ClassName + ':' + e.Message);
   end;
-  ReadLn;
 end.
