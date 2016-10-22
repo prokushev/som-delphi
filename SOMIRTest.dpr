@@ -53,9 +53,11 @@ type
     FExistingTypeIds: TStringList; // '::TypeName', '::ModuleName::TypeName'
     FReservedWords: TStringList; // 'file', 'type', 'result', ...
     FGeneratedOnDemand: TStringList; // '_IDL_Sequence_Byte', '^SOM_FILE', ...
+    FResolutionAid: TStringList; // 'Binding=::CosNaming::Binding', ...
   public
     constructor Create(const ARootNamespace: string; ARepo: Repository);
     destructor Destroy; override;
+    function FallbackResolveTypeId(const Id: string): string;
     function ResolveTypeId(const Id, CurrentNamespace: string): string;
     function UnreserveIdentifier(const Identifier: string): string;
     function IdToImportedType(const Id, CurrentNamespace: string): string;
@@ -93,6 +95,7 @@ begin
   FExistingTypeIds := TStringList.Create;
   FReservedWords := TStringList.Create;
   FGeneratedOnDemand := TStringList.Create;
+  FResolutionAid := TStringList.Create;
   FReservedWords.Add('file');
   FReservedWords.Add('function');
   FReservedWords.Add('mod');
@@ -117,10 +120,21 @@ end;
 destructor TSOMIRImporter.Destroy;
 begin
   // Close(F);
+  FreeAndNil(FResolutionAid);
   FreeAndNil(FGeneratedOnDemand);
   FreeAndNil(FReservedWords);
   FreeAndNil(FExistingTypeIds);
   inherited Destroy;
+end;
+
+function TSOMIRImporter.FallbackResolveTypeId(const Id: string): string;
+begin
+  Result := FResolutionAid.Values[Id];
+  if Result = '' then
+  begin
+    Result := '::Unresolved::' + Id;
+    Exit;
+  end;
 end;
 
 function TSOMIRImporter.ResolveTypeId(const Id, CurrentNamespace: string): string;
@@ -141,24 +155,21 @@ begin
   if Length(CurrentNamespace) < 2 then
   begin
     // should not happen
-    // actually we can resolve from global namespace, but that should be signalled instead
-    Result := '::Unresolved::' + Id;
+    Result := FallbackResolveTypeId(Id);
     Exit;
   end;
 
   if Copy(CurrentNamespace, 1, 2) <> '::' then
   begin
     // should not happen
-    // actually we can resolve from global namespace, but that should be signalled instead
-    Result := '::Unresolved::' + Id;
+    Result := FallbackResolveTypeId(Id);
     Exit;
   end;
 
   if (Length(CurrentNamespace) > 2) and (Copy(CurrentNamespace, Length(CurrentNamespace) - 1, 2) <> '::') then
   begin
     // should not happen
-    // actually we can resolve from global namespace, but that should be signalled instead
-    Result := '::Unresolved::' + Id;
+    Result := FallbackResolveTypeId(Id);
     Exit;
   end;
 
@@ -170,7 +181,7 @@ begin
 
   if Length(CurrentNamespace) < 5 then //  Length('::N::') = 5
   begin
-    Result := '::Unresolved::' + Id;
+    Result := FallbackResolveTypeId(Id);
     Exit;
   end;
 
@@ -178,7 +189,7 @@ begin
   repeat
     if Length(ParentNamespace) < 5 then //  Length('::N::') = 5
     begin
-      Result := '::Unresolved::' + Id;
+      Result := FallbackResolveTypeId(Id);
       Exit;
     end;
 
@@ -194,13 +205,13 @@ begin
 
     if Index < 0 then
     begin
-      Result := '::Unresolved::' + Id;
+      Result := FallbackResolveTypeId(Id);
       Exit;
     end;
 
     if ParentNamespace[Index] <> ':' then
     begin
-      Result := '::Unresolved::' + Id;
+      Result := FallbackResolveTypeId(Id);
       Exit;
     end;
 
@@ -903,6 +914,7 @@ var
   SubItem: Contained;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
+  OriginalNamespace: string;
   NewNamespace: string;
 begin
   Recurse := False;
@@ -917,16 +929,41 @@ begin
     end;
     Name := Contained__get_name(Item, ev);
     FExistingTypeIds.Add(CurrentNamespace + Name);
+    FResolutionAid.Values[Name] := CurrentNamespace + Name;
     WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = class;');
     Recurse := True;
   end
   else if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
   begin
-    FExistingTypeIds.Add(CurrentNamespace + Contained__get_name(Item, ev));
+    Name := Contained__get_name(Item, ev);
+    FExistingTypeIds.Add(CurrentNamespace + Name);
+
+    OriginalNamespace := Contained__get_defined_in(Item, ev);
+    if Length(OriginalNamespace) > 2 then
+    begin
+      OriginalNamespace := OriginalNamespace + '::';
+    end;
+
+    if CurrentNamespace = OriginalNamespace then
+    begin
+      FResolutionAid.Values[Name] := CurrentNamespace + Name;
+    end;
   end
   else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then
   begin
-    FExistingTypeIds.Add(CurrentNamespace + Contained__get_name(Item, ev));
+    Name := Contained__get_name(Item, ev);
+    FExistingTypeIds.Add(CurrentNamespace + Name);
+
+    OriginalNamespace := Contained__get_defined_in(Item, ev);
+    if Length(OriginalNamespace) > 2 then
+    begin
+      OriginalNamespace := OriginalNamespace + '::';
+    end;
+
+    if CurrentNamespace = OriginalNamespace then
+    begin
+      FResolutionAid.Values[Name] := CurrentNamespace + Name;
+    end;
   end
   else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
   begin

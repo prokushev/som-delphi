@@ -1398,16 +1398,10 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  PUnresolved_Binding = ^Unresolved_Binding;
-  _IDL_Sequence_Unresolved_Binding = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PUnresolved_Binding;
-  end;
   Biter_BINDITER_TWO = class
   public
-    procedure BI_Init2(var ctrl: Pointer; bl: _IDL_Sequence_Unresolved_Binding);
-    procedure add_bindings(bl: _IDL_Sequence_Unresolved_Binding);
+    procedure BI_Init2(var ctrl: Pointer; bl: _IDL_Sequence_CosNaming_Binding);
+    procedure add_bindings(bl: _IDL_Sequence_CosNaming_Binding);
     function next_one(out b: CosNaming_Binding): CORBABoolean;
     function next_n(how_many: LongWord; out bl: _IDL_Sequence_CosNaming_Binding): CORBABoolean;
     procedure destroy;
@@ -2457,12 +2451,6 @@ type
     _length: LongWord;
     _buffer: PTypeCode;
   end;
-  PUnresolved_NameComponent = ^Unresolved_NameComponent;
-  _IDL_Sequence_Unresolved_NameComponent = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PUnresolved_NameComponent;
-  end;
   ExtendedNaming_ExtendedNamingContext = class
   private
     function _get_allowed_object_types: _IDL_Sequence_TypeCode;
@@ -2472,29 +2460,29 @@ type
     function _get_shared_property_names: _IDL_Sequence_CORBAString;
   public
     function get_features_supported: Word;
-    procedure add_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: ExtendedNaming_Property_struct);
-    procedure add_properties(n: _IDL_Sequence_Unresolved_NameComponent; props: _IDL_Sequence_ExtendedNaming_Property_struct);
-    procedure bind_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
-    procedure bind_context_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
-    procedure rebind_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
-    procedure rebind_context_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
-    procedure share_property(target_n: _IDL_Sequence_Unresolved_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_Unresolved_NameComponent; pname: CORBAString);
-    procedure share_properties(target_n: _IDL_Sequence_Unresolved_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_Unresolved_NameComponent; pnames: _IDL_Sequence_CORBAString);
-    procedure unshare_property(n: _IDL_Sequence_Unresolved_NameComponent; property_name: CORBAString);
-    procedure unshare_properties(n: _IDL_Sequence_Unresolved_NameComponent; pnames: _IDL_Sequence_CORBAString);
-    procedure list_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out pbl: _IDL_Sequence_ExtendedNaming_PropertyBinding_struct; out rest: ExtendedNaming_PropertyBindingIterator);
-    procedure get_property(n: _IDL_Sequence_Unresolved_NameComponent; pn: CORBAString; out prop: ExtendedNaming_Property_struct);
-    procedure get_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
-    procedure get_all_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
-    function resolve_with_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: CORBAString; out v: any): SOMObject;
-    function resolve_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
-    function resolve_with_all_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
-    procedure remove_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: CORBAString);
-    procedure remove_properties(n: _IDL_Sequence_Unresolved_NameComponent; plist: _IDL_Sequence_CORBAString);
-    procedure remove_all_properties(n: _IDL_Sequence_Unresolved_NameComponent);
+    procedure add_property(n: _IDL_Sequence_CosNaming_NameComponent; prop: ExtendedNaming_Property_struct);
+    procedure add_properties(n: _IDL_Sequence_CosNaming_NameComponent; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure bind_with_properties(n: _IDL_Sequence_CosNaming_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure bind_context_with_properties(n: _IDL_Sequence_CosNaming_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure rebind_with_properties(n: _IDL_Sequence_CosNaming_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure rebind_context_with_properties(n: _IDL_Sequence_CosNaming_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure share_property(target_n: _IDL_Sequence_CosNaming_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_CosNaming_NameComponent; pname: CORBAString);
+    procedure share_properties(target_n: _IDL_Sequence_CosNaming_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_CosNaming_NameComponent; pnames: _IDL_Sequence_CORBAString);
+    procedure unshare_property(n: _IDL_Sequence_CosNaming_NameComponent; property_name: CORBAString);
+    procedure unshare_properties(n: _IDL_Sequence_CosNaming_NameComponent; pnames: _IDL_Sequence_CORBAString);
+    procedure list_properties(n: _IDL_Sequence_CosNaming_NameComponent; howMany: LongWord; out pbl: _IDL_Sequence_ExtendedNaming_PropertyBinding_struct; out rest: ExtendedNaming_PropertyBindingIterator);
+    procedure get_property(n: _IDL_Sequence_CosNaming_NameComponent; pn: CORBAString; out prop: ExtendedNaming_Property_struct);
+    procedure get_properties(n: _IDL_Sequence_CosNaming_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
+    procedure get_all_properties(n: _IDL_Sequence_CosNaming_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
+    function resolve_with_property(n: _IDL_Sequence_CosNaming_NameComponent; prop: CORBAString; out v: any): SOMObject;
+    function resolve_with_properties(n: _IDL_Sequence_CosNaming_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
+    function resolve_with_all_properties(n: _IDL_Sequence_CosNaming_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
+    procedure remove_property(n: _IDL_Sequence_CosNaming_NameComponent; prop: CORBAString);
+    procedure remove_properties(n: _IDL_Sequence_CosNaming_NameComponent; plist: _IDL_Sequence_CORBAString);
+    procedure remove_all_properties(n: _IDL_Sequence_CosNaming_NameComponent);
     function find_any(c: CORBAString; distance: LongWord): SOMObject;
-    procedure find_all(c: CORBAString; distance: LongWord; howMany: LongWord; out bl: _IDL_Sequence_Unresolved_Binding; out bi: CosNaming_BindingIterator);
-    procedure find_any_name_binding(c: CORBAString; distance: LongWord; out bi: Unresolved_Binding);
+    procedure find_all(c: CORBAString; distance: LongWord; howMany: LongWord; out bl: _IDL_Sequence_CosNaming_Binding; out bi: CosNaming_BindingIterator);
+    procedure find_any_name_binding(c: CORBAString; distance: LongWord; out bi: CosNaming_Binding);
     procedure add_index(i: ExtendedNaming_IndexDescriptor_struct);
     procedure list_indexes(howMany: LongWord; out il: _IDL_Sequence_ExtendedNaming_IndexDescriptor_struct; out rest: ExtendedNaming_IndexIterator);
     procedure remove_index(i: ExtendedNaming_IndexDescriptor_struct);
@@ -2592,7 +2580,7 @@ type
     procedure somdDeleteObj(somobj: SOMObject);
     function somdGetClassObj(objclass: CORBAString): SOMClass;
     function somdObjReferencesCached: CORBABoolean;
-    function somdCreateFactory(className: CORBAString; props: _IDL_Sequence_Unresolved_Property_struct): SOMObject;
+    function somdCreateFactory(className: CORBAString; props: _IDL_Sequence_ExtendedNaming_Property_struct): SOMObject;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -2793,12 +2781,6 @@ type
     property constant_random_id: LongWord read _get_constant_random_id;
   end;
 
-  PUnresolved_Property_struct = ^Unresolved_Property_struct;
-  _IDL_Sequence_Unresolved_Property_struct = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PUnresolved_Property_struct;
-  end;
   SOMDServer = class
   public
     function somdRefFromSOMObj(somobj: SOMObject): SOMDObject;
@@ -2808,7 +2790,7 @@ type
     procedure somdDeleteObj(somobj: SOMObject);
     function somdGetClassObj(objclass: CORBAString): SOMClass;
     function somdObjReferencesCached: CORBABoolean;
-    function somdCreateFactory(className: CORBAString; props: _IDL_Sequence_Unresolved_Property_struct): SOMObject;
+    function somdCreateFactory(className: CORBAString; props: _IDL_Sequence_ExtendedNaming_Property_struct): SOMObject;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -3144,7 +3126,7 @@ type
 
   SOMDForeignMarshaler = class
   public
-    procedure marshal(latent_param: CORBAString; dataPtr: Pointer; direction: Unresolved_marshaling_direction_t; SOM_function: Unresolved_marshaling_op_t; streamio: CosStream_StreamIO);
+    procedure marshal(latent_param: CORBAString; dataPtr: Pointer; direction: SOMD_marshaling_direction_t; SOM_function: SOMD_marshaling_op_t; streamio: CosStream_StreamIO);
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -3511,8 +3493,8 @@ type
     function num_components: LongWord;
     function equal(ln: LName): CORBABoolean;
     function less_than(ln: LName): CORBABoolean;
-    function to_idl_form: _IDL_Sequence_Unresolved_NameComponent;
-    procedure from_idl_form(n: _IDL_Sequence_Unresolved_NameComponent);
+    function to_idl_form: _IDL_Sequence_CosNaming_NameComponent;
+    procedure from_idl_form(n: _IDL_Sequence_CosNaming_NameComponent);
     procedure destroy;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
@@ -6089,12 +6071,6 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  PUnresolved_SOMDServiceContext = ^Unresolved_SOMDServiceContext;
-  _IDL_Sequence_Unresolved_SOMDServiceContext = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PUnresolved_SOMDServiceContext;
-  end;
   SOMOA = class
   public
     function execute_next_request(waitFlag: LongWord): LongWord;
@@ -6105,7 +6081,7 @@ type
     function get_SOM_object(somref: SOMDObject): SOMObject;
     procedure activate_impl_failed(impl: ImplementationDef; rc: LongWord);
     procedure interrupt_server;
-    function get_service_contexts(obj: SOMDObject): _IDL_Sequence_Unresolved_SOMDServiceContext;
+    function get_service_contexts(obj: SOMDObject): _IDL_Sequence_IIOP_SOMDServiceContext;
     function create(id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject;
     procedure dispose(obj: SOMDObject);
     function get_id(obj: SOMDObject): _IDL_Sequence_Byte;
@@ -6706,29 +6682,29 @@ type
     function _get_constant_random_id: LongWord;
   public
     function get_features_supported: Word;
-    procedure add_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: ExtendedNaming_Property_struct);
-    procedure add_properties(n: _IDL_Sequence_Unresolved_NameComponent; props: _IDL_Sequence_ExtendedNaming_Property_struct);
-    procedure bind_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
-    procedure bind_context_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
-    procedure rebind_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
-    procedure rebind_context_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
-    procedure share_property(target_n: _IDL_Sequence_Unresolved_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_Unresolved_NameComponent; pname: CORBAString);
-    procedure share_properties(target_n: _IDL_Sequence_Unresolved_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_Unresolved_NameComponent; pnames: _IDL_Sequence_CORBAString);
-    procedure unshare_property(n: _IDL_Sequence_Unresolved_NameComponent; property_name: CORBAString);
-    procedure unshare_properties(n: _IDL_Sequence_Unresolved_NameComponent; pnames: _IDL_Sequence_CORBAString);
-    procedure list_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out pbl: _IDL_Sequence_ExtendedNaming_PropertyBinding_struct; out rest: ExtendedNaming_PropertyBindingIterator);
-    procedure get_property(n: _IDL_Sequence_Unresolved_NameComponent; pn: CORBAString; out prop: ExtendedNaming_Property_struct);
-    procedure get_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
-    procedure get_all_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
-    function resolve_with_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: CORBAString; out v: any): SOMObject;
-    function resolve_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
-    function resolve_with_all_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
-    procedure remove_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: CORBAString);
-    procedure remove_properties(n: _IDL_Sequence_Unresolved_NameComponent; plist: _IDL_Sequence_CORBAString);
-    procedure remove_all_properties(n: _IDL_Sequence_Unresolved_NameComponent);
+    procedure add_property(n: _IDL_Sequence_CosNaming_NameComponent; prop: ExtendedNaming_Property_struct);
+    procedure add_properties(n: _IDL_Sequence_CosNaming_NameComponent; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure bind_with_properties(n: _IDL_Sequence_CosNaming_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure bind_context_with_properties(n: _IDL_Sequence_CosNaming_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure rebind_with_properties(n: _IDL_Sequence_CosNaming_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure rebind_context_with_properties(n: _IDL_Sequence_CosNaming_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure share_property(target_n: _IDL_Sequence_CosNaming_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_CosNaming_NameComponent; pname: CORBAString);
+    procedure share_properties(target_n: _IDL_Sequence_CosNaming_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_CosNaming_NameComponent; pnames: _IDL_Sequence_CORBAString);
+    procedure unshare_property(n: _IDL_Sequence_CosNaming_NameComponent; property_name: CORBAString);
+    procedure unshare_properties(n: _IDL_Sequence_CosNaming_NameComponent; pnames: _IDL_Sequence_CORBAString);
+    procedure list_properties(n: _IDL_Sequence_CosNaming_NameComponent; howMany: LongWord; out pbl: _IDL_Sequence_ExtendedNaming_PropertyBinding_struct; out rest: ExtendedNaming_PropertyBindingIterator);
+    procedure get_property(n: _IDL_Sequence_CosNaming_NameComponent; pn: CORBAString; out prop: ExtendedNaming_Property_struct);
+    procedure get_properties(n: _IDL_Sequence_CosNaming_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
+    procedure get_all_properties(n: _IDL_Sequence_CosNaming_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
+    function resolve_with_property(n: _IDL_Sequence_CosNaming_NameComponent; prop: CORBAString; out v: any): SOMObject;
+    function resolve_with_properties(n: _IDL_Sequence_CosNaming_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
+    function resolve_with_all_properties(n: _IDL_Sequence_CosNaming_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
+    procedure remove_property(n: _IDL_Sequence_CosNaming_NameComponent; prop: CORBAString);
+    procedure remove_properties(n: _IDL_Sequence_CosNaming_NameComponent; plist: _IDL_Sequence_CORBAString);
+    procedure remove_all_properties(n: _IDL_Sequence_CosNaming_NameComponent);
     function find_any(c: CORBAString; distance: LongWord): SOMObject;
-    procedure find_all(c: CORBAString; distance: LongWord; howMany: LongWord; out bl: _IDL_Sequence_Unresolved_Binding; out bi: CosNaming_BindingIterator);
-    procedure find_any_name_binding(c: CORBAString; distance: LongWord; out bi: Unresolved_Binding);
+    procedure find_all(c: CORBAString; distance: LongWord; howMany: LongWord; out bl: _IDL_Sequence_CosNaming_Binding; out bi: CosNaming_BindingIterator);
+    procedure find_any_name_binding(c: CORBAString; distance: LongWord; out bi: CosNaming_Binding);
     procedure add_index(i: ExtendedNaming_IndexDescriptor_struct);
     procedure list_indexes(howMany: LongWord; out il: _IDL_Sequence_ExtendedNaming_IndexDescriptor_struct; out rest: ExtendedNaming_IndexIterator);
     procedure remove_index(i: ExtendedNaming_IndexDescriptor_struct);
@@ -6789,7 +6765,7 @@ type
   FileXNaming_FileBindingIterator = class
   public
     procedure FileBindingIterator_Init1(var ctrl: Pointer; key: _IDL_Sequence_CORBAString; databaseFile: CORBAString);
-    procedure FileBindingIterator_Init2(var ctrl: Pointer; bl: _IDL_Sequence_Unresolved_Binding);
+    procedure FileBindingIterator_Init2(var ctrl: Pointer; bl: _IDL_Sequence_CosNaming_Binding);
     function next_one(out b: CosNaming_Binding): CORBABoolean;
     function next_n(how_many: LongWord; out bl: _IDL_Sequence_CosNaming_Binding): CORBABoolean;
     procedure destroy;
