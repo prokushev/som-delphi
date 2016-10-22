@@ -83,16 +83,14 @@ type
   TSIdentification = class;
   TypeDef = class;
   SysAdminException = class;
+  somId = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
+  va_list = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
   int = LongInt;
   uchar_t = Byte;
   size_t = LongWord;
   signed_char = Byte;
   SOMFOREIGN = Pointer;
-  SOM_FILE = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
-  va_list = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
-  SOMHANDLE = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
   somToken = Pointer;
-  somId = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
   TCKind = type LongWord;
   integer1 = ShortInt;
   integer2 = SmallInt;
@@ -393,7 +391,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  PSOM_FILE = ^SOM_FILE;
+  PSOM_FILE = Pointer{ opaque ^SOM_FILE };
   SOMTEmitC = class
     { Found item: SOMObjectSequence }
     { Found item: BooleanSequence }
@@ -3641,12 +3639,12 @@ type
     procedure somtSetSymbolCopyValue(name: CORBAString; value: CORBAString);
     procedure somtSetSymbolCopyBoth(name: CORBAString; value: CORBAString);
     function somtCheckSymbol(name: CORBAString): CORBABoolean;
-    procedure somtSetOutputFile(var fp: SOM_FILE);
+    procedure somtSetOutputFile(var fp{: opaque SOM_FILE});
     procedure somto(tmplt: CORBAString);
     procedure somtOutputComment(comment: CORBAString);
     procedure somtOutputSection(sectionName: CORBAString);
     procedure somtAddSectionDefinitions(defString: CORBAString);
-    procedure somtReadSectionDefinitions(var fp: SOM_FILE);
+    procedure somtReadSectionDefinitions(var fp{: opaque SOM_FILE});
     function somtExpandSymbol(s: CORBAString; buf: CORBAString): CORBAString;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);

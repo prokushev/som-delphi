@@ -64,10 +64,12 @@ begin
 end;
 
 type
-  TWriteTypePass = (wtpOnDemandBeforeTypeDef, wtpOnDemand, wtpTypeDef, wtpFinal);
-  // wtpOnDemand: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
+  TWriteTypePass = (wtpOnDemandForeignOnly, wtpOnDemandBeforeTypeDef, wtpOnDemand, wtpTypeDef, wtpFinal);
+  // wtpOnDemandForeignOnly: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
+  //                         only foreign types can be output at this moment (this is to make as much opaque pointers as possible)
   // wtpOnDemandBeforeTypeDef: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
   //                           however, the next action would be to output this type, so it does not make sense to output it sometimes
+  // wtpOnDemand: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
   // wtpTypeDef: '  xxx = ' is already written, and it's time to output something that is appropriate for type definition
   // wtpFinal: it's too late to define anything now, it's time to output identifier that should be defined previously
 
@@ -259,67 +261,35 @@ begin
 end;
 
 procedure TSOMIRImporter.WriteObjRefType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
-var
-  ParamCount: LongInt;
-  Parameter: any;
-  Parameter_TC: TypeCode;
-  Parameter_Kind: TCKind;
 begin
-  if Pass <= wtpOnDemand then Exit; // TODO
-  ParamCount := TypeCode_param_count(TC, ev);
-  if ParamCount = 1 then
+  if Pass > wtpOnDemand then
   begin
-    Parameter := TypeCode_parameter(TC, ev, 0);
-    Parameter_TC := TAnyRecord(Parameter)._type;
-    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
-    if Parameter_Kind = TypeCode_tk_string then
-    begin
-      Write(F, IdToImportedType(PAnsiChar(TAnyRecord(Parameter)._value^), CurrentNamespace));
-    end
-    else
-    begin
-      Write(F, '{reference to object with parameter kind ', Parameter_Kind, '}');
-    end;
-  end
-  else
-  begin
-    Write(F, '{reference to object with TypeCode_param_count = ', ParamCount, '}');
+    Write(F, IdToImportedType(ExtractName(TC), CurrentNamespace));
   end;
 end;
 
 procedure TSOMIRImporter.WriteForeignType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 var
-  ParamCount: LongInt;
-  Parameter: any;
-  Parameter_TC: TypeCode;
-  Parameter_Kind: TCKind;
+  Name: string;
+  Index: Integer;
 begin
-  if Pass <= wtpOnDemand then Exit;
-  ParamCount := TypeCode_param_count(TC, ev);
-  if ParamCount >= 1 then
+  Name := TCToImportedType(TC, CurrentNamespace);
+  if Pass > wtpOnDemand then
   begin
-    Parameter := TypeCode_parameter(TC, ev, 0);
-    Parameter_TC := TAnyRecord(Parameter)._type;
-    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
-    if Parameter_Kind = TypeCode_tk_string then
-    begin
-      if Pass = wtpTypeDef then
-      begin
-        Write(F, 'Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) }');
-      end
-      else
-      begin
-        Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
-      end;
-    end
-    else
-    begin
-      Write(F, '{foreign type with parameter kind ', Parameter_Kind, '}');
-    end;
+    Write(F, Name);
   end
-  else
+  else if Pass = wtpOnDemandForeignOnly then
   begin
-    Write(F, '{foreign type with TypeCode_param_count = ', ParamCount, '}');
+    if not FGeneratedOnDemand.Find(Name, Index) then
+    begin
+      if not FWasType then
+      begin
+        WriteLn(F, 'type');
+        FWasType := True;
+      end;
+      WriteLn(F, '  ', Name, ' = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };');
+      FGeneratedOnDemand.Add(Name);
+    end;
   end;
 end;
 
@@ -341,24 +311,17 @@ begin
     Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
     if Parameter_Kind = TypeCode_tk_string then
     begin
-      if Pass = wtpFinal then
+      if Pass > wtpOnDemand then
       begin
-        Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
-      end
-      else
+        WriteLn(F, 'record');
+        WriteLn(F, '    { ... }');
+      end;
+
+      { TODO record fields }
+
+      if Pass > wtpOnDemand then
       begin
-        if Pass > wtpOnDemand then
-        begin
-          WriteLn(F, 'record');
-          WriteLn(F, '    { ... }');
-        end;
-
-        { TODO record fields }
-
-        if Pass > wtpOnDemand then
-        begin
-          Write(F, '  end');
-        end;
+        Write(F, '  end');
       end;
     end
     else
@@ -379,49 +342,23 @@ begin
 end;
 
 procedure TSOMIRImporter.WriteEnumType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
-var
-  ParamCount: LongInt;
-  Parameter: any;
-  Parameter_TC: TypeCode;
-  Parameter_Kind: TCKind;
 begin
-  if Pass <= wtpOnDemand then Exit;
-  ParamCount := TypeCode_param_count(TC, ev);
-  if ParamCount >= 1 then
+  if Pass > wtpOnDemand then
   begin
-    Parameter := TypeCode_parameter(TC, ev, 0);
-    Parameter_TC := TAnyRecord(Parameter)._type;
-    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
-    if Parameter_Kind = TypeCode_tk_string then
-    begin
-      if Pass = wtpTypeDef then
-      begin
-        Write(F, 'type LongWord');
-      end
-      else
-      begin
-        Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
-      end;
-    end
-    else
-    begin
-      Write(F, 'type LongWord {enum with TypeCode_kind = ', Parameter_Kind, '}');
-    end;
-  end
-  else
-  begin
-    Write(F, 'type LongWord {enum with TypeCode_param_count = ', ParamCount, '}');
+    Write(F, 'type LongWord');
   end;
 end;
 
 procedure TSOMIRImporter.WritePointerType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 var
   TC2: TypeCode;
+  Parameter_Kind: TCKind;
   Index: Integer;
   Name: string;
 begin
   TC2 := ExtractSubTC(TC, 0);
-  if TypeCode_kind(TC2, ev) = TypeCode_tk_void then
+  Parameter_Kind := TypeCode_kind(TC2, ev);
+  if Parameter_Kind = TypeCode_tk_void then
   begin
     if Pass > wtpOnDemand then
     begin
@@ -433,23 +370,61 @@ begin
     Name := TCToImportedType(TC2, CurrentNamespace);
     if Pass <= wtpOnDemand then
     begin
+      if Pass = wtpOnDemandForeignOnly then
+      begin
+        if Parameter_Kind <> TypeCode_tk_foreign then
+        begin
+          WriteType(CurrentNamespace, wtpOnDemandForeignOnly, TC2);
+        end;
+      end
+      else
       if Pass = wtpOnDemandBeforeTypedef then
       begin
-        WriteType(CurrentNamespace, wtpOnDemand, TC2);
+        if Parameter_Kind <> TypeCode_tk_foreign then
+        begin
+          WriteType(CurrentNamespace, wtpOnDemand, TC2);
+        end;
       end
       else
       begin
         if not FGeneratedOnDemand.Find('P' + Name, Index) then
         begin
-          WriteType(CurrentNamespace, wtpOnDemand, TC2);
-          WriteLn(F, '  P', Name, ' = ^', Name, ';');
+          if not FWasType then
+          begin
+            WriteLn(F, 'type');
+            FWasType := True;
+          end;
+          if Parameter_Kind <> TypeCode_tk_foreign then
+          begin
+            WriteType(CurrentNamespace, wtpOnDemand, TC2);
+            WriteLn(F, '  P', Name, ' = ^', Name, ';');
+          end
+          else if FGeneratedOnDemand.Find(Name, Index) then
+          begin
+            WriteLn(F, '  P', Name, ' = ^', Name, ';');
+          end
+          else
+          begin
+            WriteLn(F, '  P', Name, ' = Pointer{ opaque ^', Name, ' };');
+          end;
           FGeneratedOnDemand.Add('P' + Name);
         end;
       end;
     end
     else
     begin
-      Write(F, '^', Name);
+      if Parameter_Kind <> TypeCode_tk_foreign then
+      begin
+        Write(F, '^', Name);
+      end
+      else if FGeneratedOnDemand.Find(Name, Index) then
+      begin
+        Write(F, '^', Name);  // tried to make it opaque, but failed
+      end
+      else
+      begin
+        Write(F, 'P', Name);
+      end;
     end;
   end;
 end;
@@ -462,10 +437,19 @@ var
 begin
   TC2 := ExtractSubTC(TC, 0);
   Name := TCToImportedType(TC2, CurrentNamespace);
-  if Pass <= wtpOnDemand then
+  if Pass = wtpOnDemandForeignOnly then
+  begin
+    WriteType(CurrentNamespace, wtpOnDemandForeignOnly, TC2);
+  end
+  else if Pass <= wtpOnDemand then
   begin
     if not FGeneratedOnDemand.Find('_IDL_Sequence_' + Name, Index) then
     begin
+      if not FWasType then
+      begin
+        WriteLn(F, 'type');
+        FWasType := True;
+      end;
       if not FGeneratedOnDemand.Find('P' + Name, Index) then
       begin
         WriteType(CurrentNamespace, wtpOnDemand, TC2);
@@ -638,6 +622,9 @@ var
   Item: Contained;
   Mode: ParameterDef_ParameterMode;
   WasArgument: Boolean;
+  TC: TypeCode;
+  Name: string;
+  Index: Integer;
 begin
   if Pass = wtpTypeDef then Exit;
   Contents := Container_contents(Definition, ev, 'all', False);
@@ -654,6 +641,7 @@ begin
       Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
       if SOMObject_somIsA(Item, _SOMCLASS_ParameterDef) then
       begin
+        Mode := ParameterDef__get_mode(Item, ev);
         if Pass > wtpOnDemand then
         begin
           if not WasArgument then
@@ -664,7 +652,6 @@ begin
           begin
             Write(F, '; ');
           end;
-          Mode := ParameterDef__get_mode(Item, ev);
           case Mode of
           ParameterDef_IN: ;
           ParameterDef_OUT: Write(F, 'out ');
@@ -672,9 +659,46 @@ begin
           else Write(F, '{unknown mode ', LongWord(Mode), '}');
           end;
 
-          Write(F, Contained__get_name(Item, ev), ': ');
+          Write(F, Contained__get_name(Item, ev));
         end;
-        WriteType(CurrentNamespace, Pass, ParameterDef__get_type(Item, ev));
+
+        TC := ParameterDef__get_type(Item, ev);
+        if Mode = ParameterDef_IN then
+        begin
+          if Pass > wtpOnDemand then
+          begin
+            Write(F, ': ');
+          end;
+          WriteType(CurrentNamespace, Pass, TC);
+        end
+        else if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
+        begin
+          if Pass > wtpOnDemand then
+          begin
+            Write(F, ': ');
+          end;
+          WriteType(CurrentNamespace, Pass, TC);
+        end
+        else
+        begin
+          Name := TCToImportedType(TC, CurrentNamespace);
+          if FGeneratedOnDemand.Find(Name, Index) then
+          begin
+            // tried to avoid this foreign type, but failed
+            if Pass > wtpOnDemand then
+            begin
+              Write(F, ': ', Name);
+            end;
+          end
+          else
+          begin
+            // managed to avoid this foreign type by writing "var X" and "out X" arguments
+            if Pass > wtpOnDemand then
+            begin
+              Write(F, '{: opaque ', Name, '}');
+            end;
+          end;
+        end;
       end
       else
       begin
@@ -866,6 +890,7 @@ var
   Item: Contained;
   WasForwardType: Boolean;
   Name: PAnsiChar;
+  TC: TypeCode;
 begin
   Assign(F, RootNamespace + '.pas');
   Rewrite(F);
@@ -913,32 +938,51 @@ begin
       FExistingTypeIds.Sorted := True;
       Write(' 1');
 
-      // TODO Forward pointer types
-
-      // Second pass: build non-class types
+      // Second pass: find foreign types that can't go into opaque pointers
       for I := 0 to Contents._length - 1 do
       begin
         Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
         if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
         begin
-          if not FWasType then
+          TC := TypeDef__get_type(Item, ev);
+          if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
           begin
-            WriteLn(F, 'type');
-            FWasType := True;
+            WriteType('::', wtpOnDemandForeignOnly, TC);
           end;
-          WriteType('::', wtpOnDemandBeforeTypeDef, TypeDef__get_type(Item, ev));
-          Write(F, '  ', IdToImportedType('::' + Contained__get_name(Item, ev), '::'), ' = ');
-          WriteType('::', wtpTypeDef, TypeDef__get_type(Item, ev));
-          WriteLn(F, ';');
-        end (*
+        end
         else if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
         begin
-
-        end *);
+          WriteClassDefinition('::', wtpOnDemandForeignOnly, Item);
+        end;
       end;
       Write(' 2');
 
-      // Third pass: satisfy forward type references
+      // TODO Forward pointer types?
+
+      // Third pass: build non-class types
+      for I := 0 to Contents._length - 1 do
+      begin
+        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+        begin
+          TC := TypeDef__get_type(Item, ev);
+          if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
+          begin
+            if not FWasType then
+            begin
+              WriteLn(F, 'type');
+              FWasType := True;
+            end;
+            WriteType('::', wtpOnDemandBeforeTypeDef, TC);
+            Write(F, '  ', IdToImportedType('::' + Contained__get_name(Item, ev), '::'), ' = ');
+            WriteType('::', wtpTypeDef, TC);
+            WriteLn(F, ';');
+          end;
+        end;
+      end;
+      Write(' 3');
+
+      // Fourth pass: satisfy forward type references with classes
       if WasForwardType then
       begin
         for I := 0 to Contents._length - 1 do
@@ -954,7 +998,7 @@ begin
           end;
         end;
       end;
-      Write(' 3');
+      Write(' 4');
 
       // Last pass: others
       for I := 0 to Contents._length - 1 do
