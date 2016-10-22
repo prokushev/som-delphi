@@ -137,13 +137,13 @@ type
   somClassList = record
     { ... }
   end;
-  somClasses = PsomClassList;
+  somClasses = ^somClassList;
   somObjects = Pointer;
   somMethodTabList = record
     { ... }
   end;
-  somMethodTabs = PsomMethodTabList;
-  somParentMtabStructPtr = PsomMethodTabList;
+  somMethodTabs = ^somMethodTabList;
+  somParentMtabStructPtr = ^somMethodTabList;
   somBooleanVector = ^Byte;
   exception_type = type LongWord;
   Environment = record
@@ -164,6 +164,11 @@ type
   RepositoryId = CORBAString;
   completion_status = type LongWord;
   ORBStatus = LongWord;
+  _IDL_Sequence_Byte = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PByte;
+  end;
   ReferenceData = _IDL_Sequence_Byte;
   Flags = LongWord;
   ORBid = CORBAString;
@@ -185,7 +190,9 @@ type
   entryT = record
     { ... }
   end;
-  tablePT = ^^PentryT;
+  PentryT = ^entryT;
+  PPentryT = ^PentryT;
+  tablePT = ^PPentryT;
 
   SOMObject = class
     { Found item: SOMObjectSequence }
@@ -238,7 +245,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Description;
+    function describe: Unresolved_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -282,8 +289,8 @@ type
   private
     function _get_type: TypeCode;
     procedure _set_type(type: TypeCode);
-    function _get_mode: AttributeMode;
-    procedure _set_mode(mode: AttributeMode);
+    function _get_mode: Unresolved_AttributeMode;
+    procedure _set_mode(mode: Unresolved_AttributeMode);
     function _get_name: CORBAString;
     procedure _set_name(name: CORBAString);
     function _get_id: CORBAString;
@@ -294,7 +301,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Description;
+    function describe: Unresolved_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -322,7 +329,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property type: TypeCode read _get_type write _set_type;
-    property mode: AttributeMode read _get_mode write _set_mode;
+    property mode: Unresolved_AttributeMode read _get_mode write _set_mode;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
     property defined_in: CORBAString read _get_defined_in write _set_defined_in;
@@ -381,8 +388,8 @@ type
   private
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
-    function _get_somtTargetFile: PFILE;
-    procedure _set_somtTargetFile(somtTargetFile: PFILE);
+    function _get_somtTargetFile: PSOM_FILE;
+    procedure _set_somtTargetFile(somtTargetFile: PSOM_FILE);
     function _get_somtTargetClass: SOMTClassEntryC;
     procedure _set_somtTargetClass(somtTargetClass: SOMTClassEntryC);
     function _get_somtTargetModule: SOMTModuleEntryC;
@@ -393,7 +400,7 @@ type
     procedure _set_somtEmitterName(somtEmitterName: CORBAString);
   public
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PFILE;
+    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -499,7 +506,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somtTemplate: SOMTTemplateOutputC read _get_somtTemplate write _set_somtTemplate;
-    property somtTargetFile: PFILE read _get_somtTargetFile write _set_somtTargetFile;
+    property somtTargetFile: PSOM_FILE read _get_somtTargetFile write _set_somtTargetFile;
     property somtTargetClass: SOMTClassEntryC read _get_somtTargetClass write _set_somtTargetClass;
     property somtTargetModule: SOMTModuleEntryC read _get_somtTargetModule write _set_somtTargetModule;
     property somtTargetType: SOMTTargetTypeT read _get_somtTargetType write _set_somtTargetType;
@@ -514,8 +521,8 @@ type
   private
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
-    function _get_somtTargetFile: PFILE;
-    procedure _set_somtTargetFile(somtTargetFile: PFILE);
+    function _get_somtTargetFile: PSOM_FILE;
+    procedure _set_somtTargetFile(somtTargetFile: PSOM_FILE);
     function _get_somtTargetClass: SOMTClassEntryC;
     procedure _set_somtTargetClass(somtTargetClass: SOMTClassEntryC);
     function _get_somtTargetModule: SOMTModuleEntryC;
@@ -526,7 +533,7 @@ type
     procedure _set_somtEmitterName(somtEmitterName: CORBAString);
   public
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PFILE;
+    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -632,7 +639,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somtTemplate: SOMTTemplateOutputC read _get_somtTemplate write _set_somtTemplate;
-    property somtTargetFile: PFILE read _get_somtTargetFile write _set_somtTargetFile;
+    property somtTargetFile: PSOM_FILE read _get_somtTargetFile write _set_somtTargetFile;
     property somtTargetClass: SOMTClassEntryC read _get_somtTargetClass write _set_somtTargetClass;
     property somtTargetModule: SOMTModuleEntryC read _get_somtTargetModule write _set_somtTargetModule;
     property somtTargetType: SOMTTargetTypeT read _get_somtTargetType write _set_somtTargetType;
@@ -701,7 +708,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Description;
+    function describe: Unresolved_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -746,7 +753,7 @@ type
   public
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
-    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_ContainerDescription;
+    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Unresolved_ContainerDescription;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -783,8 +790,8 @@ type
   private
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
-    function _get_somtTargetFile: PFILE;
-    procedure _set_somtTargetFile(somtTargetFile: PFILE);
+    function _get_somtTargetFile: PSOM_FILE;
+    procedure _set_somtTargetFile(somtTargetFile: PSOM_FILE);
     function _get_somtTargetClass: SOMTClassEntryC;
     procedure _set_somtTargetClass(somtTargetClass: SOMTClassEntryC);
     function _get_somtTargetModule: SOMTModuleEntryC;
@@ -802,7 +809,7 @@ type
     procedure chkUDA(entry: SOMTMethodEntryC);
     procedure chkOptDefaultCtor(entry: SOMTMethodEntryC);
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PFILE;
+    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -908,7 +915,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somtTemplate: SOMTTemplateOutputC read _get_somtTemplate write _set_somtTemplate;
-    property somtTargetFile: PFILE read _get_somtTargetFile write _set_somtTargetFile;
+    property somtTargetFile: PSOM_FILE read _get_somtTargetFile write _set_somtTargetFile;
     property somtTargetClass: SOMTClassEntryC read _get_somtTargetClass write _set_somtTargetClass;
     property somtTargetModule: SOMTModuleEntryC read _get_somtTargetModule write _set_somtTargetModule;
     property somtTargetType: SOMTTargetTypeT read _get_somtTargetType write _set_somtTargetType;
@@ -923,8 +930,8 @@ type
   private
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
-    function _get_somtTargetFile: PFILE;
-    procedure _set_somtTargetFile(somtTargetFile: PFILE);
+    function _get_somtTargetFile: PSOM_FILE;
+    procedure _set_somtTargetFile(somtTargetFile: PSOM_FILE);
     function _get_somtTargetClass: SOMTClassEntryC;
     procedure _set_somtTargetClass(somtTargetClass: SOMTClassEntryC);
     function _get_somtTargetModule: SOMTModuleEntryC;
@@ -940,7 +947,7 @@ type
     procedure emitAssignmentOpTemplate(method: SOMTMethodEntryC);
     procedure emitDestructorTemplate(method: SOMTMethodEntryC);
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PFILE;
+    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -1046,7 +1053,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somtTemplate: SOMTTemplateOutputC read _get_somtTemplate write _set_somtTemplate;
-    property somtTargetFile: PFILE read _get_somtTargetFile write _set_somtTargetFile;
+    property somtTargetFile: PSOM_FILE read _get_somtTargetFile write _set_somtTargetFile;
     property somtTargetClass: SOMTClassEntryC read _get_somtTargetClass write _set_somtTargetClass;
     property somtTargetModule: SOMTModuleEntryC read _get_somtTargetModule write _set_somtTargetModule;
     property somtTargetType: SOMTTargetTypeT read _get_somtTargetType write _set_somtTargetType;
@@ -1061,8 +1068,8 @@ type
   private
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
-    function _get_somtTargetFile: PFILE;
-    procedure _set_somtTargetFile(somtTargetFile: PFILE);
+    function _get_somtTargetFile: PSOM_FILE;
+    procedure _set_somtTargetFile(somtTargetFile: PSOM_FILE);
     function _get_somtTargetClass: SOMTClassEntryC;
     procedure _set_somtTargetClass(somtTargetClass: SOMTClassEntryC);
     function _get_somtTargetModule: SOMTModuleEntryC;
@@ -1074,7 +1081,7 @@ type
   public
     procedure emitSectionForNamedEntry(entryName: CORBAString);
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PFILE;
+    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -1180,7 +1187,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somtTemplate: SOMTTemplateOutputC read _get_somtTemplate write _set_somtTemplate;
-    property somtTargetFile: PFILE read _get_somtTargetFile write _set_somtTargetFile;
+    property somtTargetFile: PSOM_FILE read _get_somtTargetFile write _set_somtTargetFile;
     property somtTargetClass: SOMTClassEntryC read _get_somtTargetClass write _set_somtTargetClass;
     property somtTargetModule: SOMTModuleEntryC read _get_somtTargetModule write _set_somtTargetModule;
     property somtTargetType: SOMTTargetTypeT read _get_somtTargetType write _set_somtTargetType;
@@ -1207,7 +1214,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Description;
+    function describe: Unresolved_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1254,7 +1261,7 @@ type
     procedure somdDeleteObj(somobj: SOMObject);
     function somdGetClassObj(objclass: CORBAString): SOMClass;
     function somdObjReferencesCached: CORBABoolean;
-    function somdCreateFactory(className: CORBAString; props: _IDL_Sequence_Property_struct): SOMObject;
+    function somdCreateFactory(className: CORBAString; props: _IDL_Sequence_Unresolved_Property_struct): SOMObject;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1289,7 +1296,7 @@ type
     { Found item: somObjectOffset }
     { Found item: somObjectOffsets }
   public
-    procedure marshal(latent_param: CORBAString; dataPtr: Pointer; direction: marshaling_direction_t; function: marshaling_op_t; streamio: CosStream_StreamIO);
+    procedure marshal(latent_param: CORBAString; dataPtr: Pointer; direction: Unresolved_marshaling_direction_t; function: Unresolved_marshaling_op_t; streamio: CosStream_StreamIO);
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1333,8 +1340,8 @@ type
     procedure _set_symbolsFileName(symbolsFileName: CORBAString);
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
-    function _get_somtTargetFile: PFILE;
-    procedure _set_somtTargetFile(somtTargetFile: PFILE);
+    function _get_somtTargetFile: PSOM_FILE;
+    procedure _set_somtTargetFile(somtTargetFile: PSOM_FILE);
     function _get_somtTargetClass: SOMTClassEntryC;
     procedure _set_somtTargetClass(somtTargetClass: SOMTClassEntryC);
     function _get_somtTargetModule: SOMTModuleEntryC;
@@ -1345,10 +1352,10 @@ type
     procedure _set_somtEmitterName(somtEmitterName: CORBAString);
   public
     procedure somtAddClassEntry(cls: PPointer);
-    function emitInitTermFunctions(file: CORBAString; ext: CORBAString): PFILE;
+    function emitInitTermFunctions(file: CORBAString; ext: CORBAString): PSOM_FILE;
     function buildInitModFileName(fromFileName: CORBAString; suffix: CORBAString): CORBAString;
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PFILE;
+    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -1457,7 +1464,7 @@ type
     property targetFileName: CORBAString read _get_targetFileName write _set_targetFileName;
     property symbolsFileName: CORBAString read _get_symbolsFileName write _set_symbolsFileName;
     property somtTemplate: SOMTTemplateOutputC read _get_somtTemplate write _set_somtTemplate;
-    property somtTargetFile: PFILE read _get_somtTargetFile write _set_somtTargetFile;
+    property somtTargetFile: PSOM_FILE read _get_somtTargetFile write _set_somtTargetFile;
     property somtTargetClass: SOMTClassEntryC read _get_somtTargetClass write _set_somtTargetClass;
     property somtTargetModule: SOMTModuleEntryC read _get_somtTargetModule write _set_somtTargetModule;
     property somtTargetType: SOMTTargetTypeT read _get_somtTargetType write _set_somtTargetType;
@@ -1499,12 +1506,12 @@ type
     procedure _set_config_file(config_file: CORBAString);
     function _get_impldef_class: CORBAString;
     procedure _set_impldef_class(impldef_class: CORBAString);
-    function _get_svr_objref: ^_IDL_Sequence_Byte;
-    procedure _set_svr_objref(svr_objref: ^_IDL_Sequence_Byte);
+    function _get_svr_objref: P_IDL_Sequence_Byte;
+    procedure _set_svr_objref(svr_objref: P_IDL_Sequence_Byte);
     function _get_protocols: CORBAString;
     procedure _set_protocols(protocols: CORBAString);
-    function _get_registrar_resp: ^_IDL_Sequence_prot_response;
-    procedure _set_registrar_resp(registrar_resp: ^_IDL_Sequence_prot_response);
+    function _get_registrar_resp: P_IDL_Sequence_Unresolved_prot_response;
+    procedure _set_registrar_resp(registrar_resp: P_IDL_Sequence_Unresolved_prot_response);
     function _get_constant_random_id: LongWord;
   public
     procedure externalize_to_stream(stream: CosStream_StreamIO);
@@ -1546,9 +1553,9 @@ type
     property impl_hostname: CORBAString read _get_impl_hostname write _set_impl_hostname;
     property config_file: CORBAString read _get_config_file write _set_config_file;
     property impldef_class: CORBAString read _get_impldef_class write _set_impldef_class;
-    property svr_objref: ^_IDL_Sequence_Byte read _get_svr_objref write _set_svr_objref;
+    property svr_objref: P_IDL_Sequence_Byte read _get_svr_objref write _set_svr_objref;
     property protocols: CORBAString read _get_protocols write _set_protocols;
-    property registrar_resp: ^_IDL_Sequence_prot_response read _get_registrar_resp write _set_registrar_resp;
+    property registrar_resp: P_IDL_Sequence_Unresolved_prot_response read _get_registrar_resp write _set_registrar_resp;
     property constant_random_id: LongWord read _get_constant_random_id write _set_constant_random_id;
   end;
 
@@ -1574,7 +1581,7 @@ type
     procedure remove_class_from_all(classname: CORBAString);
     function find_classes_by_impldef(implid: CORBAString): _IDL_Sequence_CORBAString;
     function add_class_to_all(classname: CORBAString): LongWord;
-    function add_class_with_properties(implid: CORBAString; classname: CORBAString; pvl: _IDL_Sequence_PV): LongWord;
+    function add_class_with_properties(implid: CORBAString; classname: CORBAString; pvl: _IDL_Sequence_Unresolved_PV): LongWord;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1627,9 +1634,9 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier;
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
-    function describe_interface: FullInterfaceDescription;
+    function describe_interface: Unresolved_FullInterfaceDescription;
     function within: _IDL_Sequence_Container;
-    function describe: Description;
+    function describe: Unresolved_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1658,7 +1665,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
-    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_ContainerDescription;
+    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Unresolved_ContainerDescription;
     property base_interfaces: _IDL_Sequence_CORBAString read _get_base_interfaces write _set_base_interfaces;
     property instanceData: TypeCode read _get_instanceData write _set_instanceData;
     property name: CORBAString read _get_name write _set_name;
@@ -1682,8 +1689,8 @@ type
     function num_components: LongWord;
     function equal(ln: LName): CORBABoolean;
     function less_than(ln: LName): CORBABoolean;
-    function to_idl_form: _IDL_Sequence_NameComponent;
-    procedure from_idl_form(n: _IDL_Sequence_NameComponent);
+    function to_idl_form: _IDL_Sequence_Unresolved_NameComponent;
+    procedure from_idl_form(n: _IDL_Sequence_Unresolved_NameComponent);
     procedure destroy;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
@@ -1773,7 +1780,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Description;
+    function describe: Unresolved_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1802,7 +1809,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
-    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_ContainerDescription;
+    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Unresolved_ContainerDescription;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
     property defined_in: CORBAString read _get_defined_in write _set_defined_in;
@@ -1901,8 +1908,8 @@ type
   private
     function _get_result: TypeCode;
     procedure _set_result(result: TypeCode);
-    function _get_mode: OperationMode;
-    procedure _set_mode(mode: OperationMode);
+    function _get_mode: Unresolved_OperationMode;
+    procedure _set_mode(mode: Unresolved_OperationMode);
     function _get_contexts: _IDL_Sequence_CORBAString;
     procedure _set_contexts(contexts: _IDL_Sequence_CORBAString);
     function _get_name: CORBAString;
@@ -1915,7 +1922,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Description;
+    function describe: Unresolved_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1944,9 +1951,9 @@ type
     procedure somDumpSelfInt(level: LongInt);
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
-    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_ContainerDescription;
+    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Unresolved_ContainerDescription;
     property result: TypeCode read _get_result write _set_result;
-    property mode: OperationMode read _get_mode write _set_mode;
+    property mode: Unresolved_OperationMode read _get_mode write _set_mode;
     property contexts: _IDL_Sequence_CORBAString read _get_contexts write _set_contexts;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
@@ -2013,8 +2020,8 @@ type
   private
     function _get_type: TypeCode;
     procedure _set_type(type: TypeCode);
-    function _get_mode: ParameterMode;
-    procedure _set_mode(mode: ParameterMode);
+    function _get_mode: Unresolved_ParameterMode;
+    procedure _set_mode(mode: Unresolved_ParameterMode);
     function _get_name: CORBAString;
     procedure _set_name(name: CORBAString);
     function _get_id: CORBAString;
@@ -2025,7 +2032,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Description;
+    function describe: Unresolved_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -2053,7 +2060,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property type: TypeCode read _get_type write _set_type;
-    property mode: ParameterMode read _get_mode write _set_mode;
+    property mode: Unresolved_ParameterMode read _get_mode write _set_mode;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
     property defined_in: CORBAString read _get_defined_in write _set_defined_in;
@@ -2118,7 +2125,7 @@ type
     function queryException: CORBABoolean;
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
-    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_ContainerDescription;
+    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Unresolved_ContainerDescription;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -2955,7 +2962,7 @@ type
     function _get_somtIsPrivateMethod: CORBABoolean;
     function _get_somtIsOneway: CORBABoolean;
     function _get_somtArgCount: SmallInt;
-    function _get_somtContextArray: ^CORBAString;
+    function _get_somtContextArray: PCORBAString;
     function _get_somtCReturnType: CORBAString;
     function _get_somtTypeObj: SOMTEntryC;
     function _get_somtPtrs: CORBAString;
@@ -3029,7 +3036,7 @@ type
     property somtIsPrivateMethod: CORBABoolean read _get_somtIsPrivateMethod write _set_somtIsPrivateMethod;
     property somtIsOneway: CORBABoolean read _get_somtIsOneway write _set_somtIsOneway;
     property somtArgCount: SmallInt read _get_somtArgCount write _set_somtArgCount;
-    property somtContextArray: ^CORBAString read _get_somtContextArray write _set_somtContextArray;
+    property somtContextArray: PCORBAString read _get_somtContextArray write _set_somtContextArray;
     property somtCReturnType: CORBAString read _get_somtCReturnType write _set_somtCReturnType;
     property somtTypeObj: SOMTEntryC read _get_somtTypeObj write _set_somtTypeObj;
     property somtPtrs: CORBAString read _get_somtPtrs write _set_somtPtrs;
@@ -3570,12 +3577,12 @@ type
     procedure somtSetSymbolCopyValue(name: CORBAString; value: CORBAString);
     procedure somtSetSymbolCopyBoth(name: CORBAString; value: CORBAString);
     function somtCheckSymbol(name: CORBAString): CORBABoolean;
-    procedure somtSetOutputFile(var fp: FILE);
+    procedure somtSetOutputFile(var fp: SOM_FILE);
     procedure somto(tmplt: CORBAString);
     procedure somtOutputComment(comment: CORBAString);
     procedure somtOutputSection(sectionName: CORBAString);
     procedure somtAddSectionDefinitions(defString: CORBAString);
-    procedure somtReadSectionDefinitions(var fp: FILE);
+    procedure somtReadSectionDefinitions(var fp: SOM_FILE);
     function somtExpandSymbol(s: CORBAString; buf: CORBAString): CORBAString;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
@@ -3629,8 +3636,8 @@ type
     function _get_somtIDLScopedName: CORBAString;
     function _get_somtCScopedName: CORBAString;
   public
-    function somtGetFirstCaseEntry: PsomtCaseEntry;
-    function somtGetNextCaseEntry: PsomtCaseEntry;
+    function somtGetFirstCaseEntry: PUnresolved_somtCaseEntry;
+    function somtGetNextCaseEntry: PUnresolved_somtCaseEntry;
     function somtGetModifierValue(modifierName: CORBAString): CORBAString;
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean;
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean;
@@ -3812,7 +3819,7 @@ type
     { Found item: somObjectOffsets }
   private
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function somNew: SOMObject;
@@ -3891,7 +3898,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
   end;
 
@@ -3907,7 +3914,7 @@ type
     { Found item: somObjectOffsets }
   private
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function sommGetSingleInstance: SOMObject;
@@ -3988,7 +3995,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
   end;
 
@@ -4038,7 +4045,7 @@ type
     { Found item: somObjectOffsets }
   private
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function sommBeforeMethod(object: SOMObject; methodId: somId; ap: va_list): CORBABoolean;
@@ -4119,7 +4126,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
   end;
 
@@ -4145,7 +4152,7 @@ type
     procedure somEndPersistentClasses;
     function somJoinAffinityGroup(newClass: SOMClass; affClass: SOMClass): CORBABoolean;
     function somGetInitFunction: CORBAString;
-    function somGetRelatedClasses(classObj: SOMClass): ^SOMClass;
+    function somGetRelatedClasses(classObj: SOMClass): PSOMClass;
     function somClassFromId(classId: somId): SOMClass;
     function somFindClass(classId: somId; majorVersion: LongInt; minorVersion: LongInt): SOMClass;
     function somFindClsInFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; file: CORBAString): SOMClass;
@@ -4192,7 +4199,7 @@ type
     function _get_sommProxyTarget: SOMObject;
     procedure _set_sommProxyTarget(sommProxyTarget: SOMObject);
   public
-    function sommProxyDispatch(out returnBufferPointer: Pointer; dispatchInfo: sommProxyDispatchInfo; ap: va_list): CORBABoolean;
+    function sommProxyDispatch(out returnBufferPointer: Pointer; dispatchInfo: Unresolved_sommProxyDispatchInfo; ap: va_list): CORBABoolean;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -4289,7 +4296,7 @@ type
     function somdProxyGetClass: SOMClass;
     function somdProxyGetClassName: CORBAString;
     procedure somdReleaseResources;
-    function sommProxyDispatch(out returnBufferPointer: Pointer; dispatchInfo: sommProxyDispatchInfo; ap: va_list): CORBABoolean;
+    function sommProxyDispatch(out returnBufferPointer: Pointer; dispatchInfo: Unresolved_sommProxyDispatchInfo; ap: va_list): CORBABoolean;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -4429,7 +4436,7 @@ type
     function get_SOM_object(somref: SOMDObject): SOMObject;
     procedure activate_impl_failed(impl: ImplementationDef; rc: LongWord);
     procedure interrupt_server;
-    function get_service_contexts(obj: SOMDObject): _IDL_Sequence_SOMDServiceContext;
+    function get_service_contexts(obj: SOMDObject): _IDL_Sequence_Unresolved_SOMDServiceContext;
     function create(id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject;
     procedure dispose(obj: SOMDObject);
     function get_id(obj: SOMDObject): _IDL_Sequence_Byte;
@@ -4480,7 +4487,7 @@ type
     { Found item: somObjectOffsets }
   private
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     procedure somwpclsInitData;
@@ -4561,7 +4568,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
   end;
 
@@ -4578,7 +4585,7 @@ type
   private
     function _get_somNonDerivedFrontier: _IDL_Sequence_SOMClass;
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function somNew: SOMObject;
@@ -4658,7 +4665,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
     property somNonDerivedFrontier: _IDL_Sequence_SOMClass read _get_somNonDerivedFrontier write _set_somNonDerivedFrontier;
     property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
   end;
 
@@ -4674,7 +4681,7 @@ type
     { Found item: somObjectOffsets }
   private
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function sommMakeProxyClass(targetClass: SOMClass; className: CORBAString): SOMClass;
@@ -4754,7 +4761,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
   end;
 
@@ -4863,7 +4870,7 @@ type
     function _get_sommTraceIsOn: CORBABoolean;
     procedure _set_sommTraceIsOn(sommTraceIsOn: CORBABoolean);
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function sommBeforeMethod(object: SOMObject; methodId: somId; ap: va_list): CORBABoolean;
@@ -4945,7 +4952,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
     property sommTraceIsOn: CORBABoolean read _get_sommTraceIsOn write _set_sommTraceIsOn;
     property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
   end;
 
@@ -5012,7 +5019,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Description;
+    function describe: Unresolved_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
