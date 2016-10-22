@@ -111,11 +111,12 @@ type
   FileXNaming_FileIndexIterator = class;
   somId = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
   va_list = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
-  Pany = ^any;
+  ArrayOfany = packed array[0 .. (MaxLongInt div (Abs(SizeOf(any) - 1) + 1))-1] of any;
+  PArrayOfany = ^ArrayOfany;
   _IDL_Sequence_any = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: Pany;
+    _buffer: PArrayOfany;
   end;
   bhany_set_of_any = _IDL_Sequence_any;
   int = LongInt;
@@ -193,27 +194,31 @@ type
   end;
   Identifier = CORBAString;
   RepositoryId = CORBAString;
-  PSOMObject = ^SOMObject;
+  ArrayOfSOMObject = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMObject) - 1) + 1))-1] of SOMObject;
+  PArrayOfSOMObject = ^ArrayOfSOMObject;
   _IDL_Sequence_SOMObject = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PSOMObject;
+    _buffer: PArrayOfSOMObject;
   end;
   SOMObject_SOMObjectSequence = _IDL_Sequence_SOMObject;
+  ArrayOfByte = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Byte) - 1) + 1))-1] of Byte;
+  PArrayOfByte = ^ArrayOfByte;
   _IDL_Sequence_Byte = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PByte;
+    _buffer: PArrayOfByte;
   end;
   SOMObject_BooleanSequence = _IDL_Sequence_Byte;
   SOMObject_somObjectOffset = record
     { ... }
   end;
-  PSOMObject_somObjectOffset = ^SOMObject_somObjectOffset;
+  ArrayOfSOMObject_somObjectOffset = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMObject_somObjectOffset) - 1) + 1))-1] of SOMObject_somObjectOffset;
+  PArrayOfSOMObject_somObjectOffset = ^ArrayOfSOMObject_somObjectOffset;
   _IDL_Sequence_SOMObject_somObjectOffset = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PSOMObject_somObjectOffset;
+    _buffer: PArrayOfSOMObject_somObjectOffset;
   end;
   SOMObject_somObjectOffsets = _IDL_Sequence_SOMObject_somObjectOffset;
   Contained_Description = record
@@ -236,22 +241,24 @@ type
   CosNaming_NameComponent = record
     { ... }
   end;
-  PCosNaming_NameComponent = ^CosNaming_NameComponent;
+  ArrayOfCosNaming_NameComponent = packed array[0 .. (MaxLongInt div (Abs(SizeOf(CosNaming_NameComponent) - 1) + 1))-1] of CosNaming_NameComponent;
+  PArrayOfCosNaming_NameComponent = ^ArrayOfCosNaming_NameComponent;
   _IDL_Sequence_CosNaming_NameComponent = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PCosNaming_NameComponent;
+    _buffer: PArrayOfCosNaming_NameComponent;
   end;
   CosNaming_Name = _IDL_Sequence_CosNaming_NameComponent;
   CosNaming_BindingType = type LongWord;
   CosNaming_Binding = record
     { ... }
   end;
-  PCosNaming_Binding = ^CosNaming_Binding;
+  ArrayOfCosNaming_Binding = packed array[0 .. (MaxLongInt div (Abs(SizeOf(CosNaming_Binding) - 1) + 1))-1] of CosNaming_Binding;
+  PArrayOfCosNaming_Binding = ^ArrayOfCosNaming_Binding;
   _IDL_Sequence_CosNaming_Binding = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PCosNaming_Binding;
+    _buffer: PArrayOfCosNaming_Binding;
   end;
   CosNaming_BindingList = _IDL_Sequence_CosNaming_Binding;
   CosNaming_BindingIterator_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
@@ -276,11 +283,12 @@ type
   Biter_BINDITER_TWO_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   Biter_BINDITER_TWO_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   Biter_BINDITER_TWO_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
-  PCORBAString = ^CORBAString;
+  ArrayOfCORBAString = packed array[0 .. (MaxLongInt div (Abs(SizeOf(CORBAString) - 1) + 1))-1] of CORBAString;
+  PArrayOfCORBAString = ^ArrayOfCORBAString;
   _IDL_Sequence_CORBAString = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PCORBAString;
+    _buffer: PArrayOfCORBAString;
   end;
   Biter_BINDITER_ONE_stringSeq = _IDL_Sequence_CORBAString;
   Biter_BINDITER_ONE_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
@@ -364,11 +372,12 @@ type
   ExtendedNaming_PropertyBinding = record
     { ... }
   end;
-  PExtendedNaming_PropertyBinding_struct = ^ExtendedNaming_PropertyBinding_struct;
+  ArrayOfExtendedNaming_PropertyBinding_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExtendedNaming_PropertyBinding_struct) - 1) + 1))-1] of ExtendedNaming_PropertyBinding_struct;
+  PArrayOfExtendedNaming_PropertyBinding_struct = ^ArrayOfExtendedNaming_PropertyBinding_struct;
   _IDL_Sequence_ExtendedNaming_PropertyBinding_struct = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PExtendedNaming_PropertyBinding_struct;
+    _buffer: PArrayOfExtendedNaming_PropertyBinding_struct;
   end;
   ExtendedNaming_PropertyBindingList = _IDL_Sequence_ExtendedNaming_PropertyBinding_struct;
   ExtendedNaming_Property_struct = record
@@ -377,11 +386,12 @@ type
   ExtendedNaming_Property = record
     { ... }
   end;
-  PExtendedNaming_Property_struct = ^ExtendedNaming_Property_struct;
+  ArrayOfExtendedNaming_Property_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExtendedNaming_Property_struct) - 1) + 1))-1] of ExtendedNaming_Property_struct;
+  PArrayOfExtendedNaming_Property_struct = ^ArrayOfExtendedNaming_Property_struct;
   _IDL_Sequence_ExtendedNaming_Property_struct = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PExtendedNaming_Property_struct;
+    _buffer: PArrayOfExtendedNaming_Property_struct;
   end;
   ExtendedNaming_PropertyList = _IDL_Sequence_ExtendedNaming_Property_struct;
   ExtendedNaming_IndexDescriptor_struct = record
@@ -390,11 +400,12 @@ type
   ExtendedNaming_IndexDescriptor = record
     { ... }
   end;
-  PExtendedNaming_IndexDescriptor_struct = ^ExtendedNaming_IndexDescriptor_struct;
+  ArrayOfExtendedNaming_IndexDescriptor_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExtendedNaming_IndexDescriptor_struct) - 1) + 1))-1] of ExtendedNaming_IndexDescriptor_struct;
+  PArrayOfExtendedNaming_IndexDescriptor_struct = ^ArrayOfExtendedNaming_IndexDescriptor_struct;
   _IDL_Sequence_ExtendedNaming_IndexDescriptor_struct = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PExtendedNaming_IndexDescriptor_struct;
+    _buffer: PArrayOfExtendedNaming_IndexDescriptor_struct;
   end;
   ExtendedNaming_IndexDescriptorList = _IDL_Sequence_ExtendedNaming_IndexDescriptor_struct;
   ExtendedNaming_PropertyBindingIterator_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
@@ -439,11 +450,12 @@ type
   IIOP_ServiceContext = record
     { ... }
   end;
-  PIIOP_ServiceContext = ^IIOP_ServiceContext;
+  ArrayOfIIOP_ServiceContext = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IIOP_ServiceContext) - 1) + 1))-1] of IIOP_ServiceContext;
+  PArrayOfIIOP_ServiceContext = ^ArrayOfIIOP_ServiceContext;
   _IDL_Sequence_IIOP_ServiceContext = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PIIOP_ServiceContext;
+    _buffer: PArrayOfIIOP_ServiceContext;
   end;
   IIOP_ServiceContextList = _IDL_Sequence_IIOP_ServiceContext;
   IIOP_RequestHeader = record
@@ -478,11 +490,12 @@ type
   IIOP_SOMDServiceContexts = record
     { ... }
   end;
-  PIIOP_SOMDServiceContext = ^IIOP_SOMDServiceContext;
+  ArrayOfIIOP_SOMDServiceContext = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IIOP_SOMDServiceContext) - 1) + 1))-1] of IIOP_SOMDServiceContext;
+  PArrayOfIIOP_SOMDServiceContext = ^ArrayOfIIOP_SOMDServiceContext;
   _IDL_Sequence_IIOP_SOMDServiceContext = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PIIOP_SOMDServiceContext;
+    _buffer: PArrayOfIIOP_SOMDServiceContext;
   end;
   IIOP_SOMDServiceContextList = _IDL_Sequence_IIOP_SOMDServiceContext;
   IOR_ProfileId = LongWord;
@@ -492,11 +505,12 @@ type
   IOR_TaggedProfiles = record
     { ... }
   end;
-  PIOR_TaggedProfile = ^IOR_TaggedProfile;
+  ArrayOfIOR_TaggedProfile = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IOR_TaggedProfile) - 1) + 1))-1] of IOR_TaggedProfile;
+  PArrayOfIOR_TaggedProfile = ^ArrayOfIOR_TaggedProfile;
   _IDL_Sequence_IOR_TaggedProfile = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PIOR_TaggedProfile;
+    _buffer: PArrayOfIOR_TaggedProfile;
   end;
   IOR_seq_TaggedProfiles = _IDL_Sequence_IOR_TaggedProfile;
   IOR_IOR = record
@@ -506,11 +520,12 @@ type
   IOR_TaggedComponent = record
     { ... }
   end;
-  PIOR_TaggedComponent = ^IOR_TaggedComponent;
+  ArrayOfIOR_TaggedComponent = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IOR_TaggedComponent) - 1) + 1))-1] of IOR_TaggedComponent;
+  PArrayOfIOR_TaggedComponent = ^ArrayOfIOR_TaggedComponent;
   _IDL_Sequence_IOR_TaggedComponent = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PIOR_TaggedComponent;
+    _buffer: PArrayOfIOR_TaggedComponent;
   end;
   IOR_MultipleComponentProfile = _IDL_Sequence_IOR_TaggedComponent;
   IOR_SOMDTaggedProfile = record
@@ -519,11 +534,12 @@ type
   IOR_SOMDTaggedProfiles = record
     { ... }
   end;
-  PIOR_SOMDTaggedProfile = ^IOR_SOMDTaggedProfile;
+  ArrayOfIOR_SOMDTaggedProfile = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IOR_SOMDTaggedProfile) - 1) + 1))-1] of IOR_SOMDTaggedProfile;
+  PArrayOfIOR_SOMDTaggedProfile = ^ArrayOfIOR_SOMDTaggedProfile;
   _IDL_Sequence_IOR_SOMDTaggedProfile = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PIOR_SOMDTaggedProfile;
+    _buffer: PArrayOfIOR_SOMDTaggedProfile;
   end;
   IOR_seq_SOMDTaggedProfiles = _IDL_Sequence_IOR_SOMDTaggedProfile;
   IOR_SOMDTaggedComponent = record
@@ -549,11 +565,12 @@ type
   somOS_Server_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   somOS_Server_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   somOS_Server_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
-  PsomOS_metastate_struct = ^somOS_metastate_struct;
+  ArrayOfsomOS_metastate_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(somOS_metastate_struct) - 1) + 1))-1] of somOS_metastate_struct;
+  PArrayOfsomOS_metastate_struct = ^ArrayOfsomOS_metastate_struct;
   _IDL_Sequence_somOS_metastate_struct = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PsomOS_metastate_struct;
+    _buffer: PArrayOfsomOS_metastate_struct;
   end;
   somOS_ServiceBase_metastate_t = _IDL_Sequence_somOS_metastate_struct;
   somOS_ServiceBase_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
@@ -627,11 +644,12 @@ type
   ImplementationDef_prot_response = record
     { ... }
   end;
-  PImplementationDef_prot_response = ^ImplementationDef_prot_response;
+  ArrayOfImplementationDef_prot_response = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ImplementationDef_prot_response) - 1) + 1))-1] of ImplementationDef_prot_response;
+  PArrayOfImplementationDef_prot_response = ^ArrayOfImplementationDef_prot_response;
   _IDL_Sequence_ImplementationDef_prot_response = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PImplementationDef_prot_response;
+    _buffer: PArrayOfImplementationDef_prot_response;
   end;
   ImplementationDef_seq_prot_responses = _IDL_Sequence_ImplementationDef_prot_response;
   ImplementationDef_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
@@ -644,11 +662,12 @@ type
   ImplRepository_PropertyValue = record
     { ... }
   end;
-  PImplRepository_PV = ^ImplRepository_PV;
+  ArrayOfImplRepository_PV = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ImplRepository_PV) - 1) + 1))-1] of ImplRepository_PV;
+  PArrayOfImplRepository_PV = ^ArrayOfImplRepository_PV;
   _IDL_Sequence_ImplRepository_PV = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PImplRepository_PV;
+    _buffer: PArrayOfImplRepository_PV;
   end;
   ImplRepository_PVList = _IDL_Sequence_ImplRepository_PV;
   ImplRepository_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
@@ -838,34 +857,39 @@ type
   SOMDServerMgr_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   SOMDServerMgr_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   SOMDServerMgr_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ArrayOfPointer = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Pointer) - 1) + 1))-1] of Pointer;
+  PArrayOfPointer = ^ArrayOfPointer;
   _IDL_Sequence_Pointer = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PPointer;
+    _buffer: PArrayOfPointer;
   end;
   SOMClass_somTokenSequence = _IDL_Sequence_Pointer;
-  PSOMClass = ^SOMClass;
+  ArrayOfSOMClass = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMClass) - 1) + 1))-1] of SOMClass;
+  PArrayOfSOMClass = ^ArrayOfSOMClass;
   _IDL_Sequence_SOMClass = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PSOMClass;
+    _buffer: PArrayOfSOMClass;
   end;
   SOMClass_SOMClassSequence = _IDL_Sequence_SOMClass;
   SOMClass_somOffsetInfo = record
     { ... }
   end;
-  PSOMClass_somOffsetInfo = ^SOMClass_somOffsetInfo;
+  ArrayOfSOMClass_somOffsetInfo = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMClass_somOffsetInfo) - 1) + 1))-1] of SOMClass_somOffsetInfo;
+  PArrayOfSOMClass_somOffsetInfo = ^ArrayOfSOMClass_somOffsetInfo;
   _IDL_Sequence_SOMClass_somOffsetInfo = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PSOMClass_somOffsetInfo;
+    _buffer: PArrayOfSOMClass_somOffsetInfo;
   end;
   SOMClass_somOffsets = _IDL_Sequence_SOMClass_somOffsetInfo;
-  PsomId = ^somId;
+  ArrayOfsomId = packed array[0 .. (MaxLongInt div (Abs(SizeOf(somId) - 1) + 1))-1] of somId;
+  PArrayOfsomId = ^ArrayOfsomId;
   _IDL_Sequence_somId = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PsomId;
+    _buffer: PArrayOfsomId;
   end;
   SOMClass_somIdSequence = _IDL_Sequence_somId;
   SOMClass_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
@@ -1186,17 +1210,19 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  PsomModifier = ^somModifier;
+  ArrayOfsomModifier = packed array[0 .. (MaxLongInt div (Abs(SizeOf(somModifier) - 1) + 1))-1] of somModifier;
+  PArrayOfsomModifier = ^ArrayOfsomModifier;
   _IDL_Sequence_somModifier = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PsomModifier;
+    _buffer: PArrayOfsomModifier;
   end;
-  PContainer = ^Container;
+  ArrayOfContainer = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Container) - 1) + 1))-1] of Container;
+  PArrayOfContainer = ^ArrayOfContainer;
   _IDL_Sequence_Container = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PContainer;
+    _buffer: PArrayOfContainer;
   end;
   Contained = class
   private
@@ -1822,17 +1848,19 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
-  PContained = ^Contained;
+  ArrayOfContained = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Contained) - 1) + 1))-1] of Contained;
+  PArrayOfContained = ^ArrayOfContained;
   _IDL_Sequence_Contained = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PContained;
+    _buffer: PArrayOfContained;
   end;
-  PContainer_ContainerDescription = ^Container_ContainerDescription;
+  ArrayOfContainer_ContainerDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Container_ContainerDescription) - 1) + 1))-1] of Container_ContainerDescription;
+  PArrayOfContainer_ContainerDescription = ^ArrayOfContainer_ContainerDescription;
   _IDL_Sequence_Container_ContainerDescription = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PContainer_ContainerDescription;
+    _buffer: PArrayOfContainer_ContainerDescription;
   end;
   Container = class
   public
@@ -2414,11 +2442,12 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  PTypeCode = ^TypeCode;
+  ArrayOfTypeCode = packed array[0 .. (MaxLongInt div (Abs(SizeOf(TypeCode) - 1) + 1))-1] of TypeCode;
+  PArrayOfTypeCode = ^ArrayOfTypeCode;
   _IDL_Sequence_TypeCode = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PTypeCode;
+    _buffer: PArrayOfTypeCode;
   end;
   ExtendedNaming_ExtendedNamingContext = class
   private
@@ -3349,11 +3378,12 @@ type
     property constant_random_id: LongWord read _get_constant_random_id;
   end;
 
-  PImplementationDef = ^ImplementationDef;
+  ArrayOfImplementationDef = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ImplementationDef) - 1) + 1))-1] of ImplementationDef;
+  PArrayOfImplementationDef = ^ArrayOfImplementationDef;
   _IDL_Sequence_ImplementationDef = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PImplementationDef;
+    _buffer: PArrayOfImplementationDef;
   end;
   ImplRepository = class
   public
@@ -4621,6 +4651,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
+  PCORBAString = ^CORBAString;
   SOMTMethodEntryC = class
   private
     function _get_somtIsVarargs: CORBABoolean;
@@ -5769,6 +5800,7 @@ type
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
+  PSOMClass = ^SOMClass;
   SOMClassMgr = class
   private
     function _get_somInterfaceRepository: Repository;
@@ -5957,11 +5989,12 @@ type
     property type_id: CORBAString read _get_type_id write _set_type_id;
   end;
 
-  PSOMDServer = ^SOMDServer;
+  ArrayOfSOMDServer = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMDServer) - 1) + 1))-1] of SOMDServer;
+  PArrayOfSOMDServer = ^ArrayOfSOMDServer;
   _IDL_Sequence_SOMDServer = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PSOMDServer;
+    _buffer: PArrayOfSOMDServer;
   end;
   SOMDObjectMgr = class
   private

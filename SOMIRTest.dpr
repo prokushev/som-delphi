@@ -480,17 +480,25 @@ begin
         WriteLn(F, 'type');
         FWasType := True;
       end;
-      if not FGeneratedOnDemand.Find('P' + Name, Index) then
+
+      if not FGeneratedOnDemand.Find('ArrayOf' + Name, Index) then
       begin
         WriteType(CurrentNamespace, wtpOnDemand, TC2);
-        WriteLn(F, '  P', Name, ' = ^', Name, ';');
-        FGeneratedOnDemand.Add('P' + Name);
+        // avoid division by zero in compiler
+        WriteLn(F, '  ArrayOf', Name, ' = packed array[0 .. (MaxLongInt div (Abs(SizeOf(', Name,') - 1) + 1))-1] of ', Name, ';');
+        FGeneratedOnDemand.Add('ArrayOf' + Name);
+      end;
+
+      if not FGeneratedOnDemand.Find('PArrayOf' + Name, Index) then
+      begin
+        WriteLn(F, '  PArrayOf', Name, ' = ^ArrayOf', Name, ';');
+        FGeneratedOnDemand.Add('PArrayOf' + Name);
       end;
 
       WriteLn(F, '  _IDL_Sequence_', Name, ' = record');
       WriteLn(F, '    _maximum: LongWord;');
       WriteLn(F, '    _length: LongWord;');
-      WriteLn(F, '    _buffer: P', Name,';');
+      WriteLn(F, '    _buffer: PArrayOf', Name,';');
       WriteLn(F, '  end;');
       FGeneratedOnDemand.Add('_IDL_Sequence_' + Name);
     end;
