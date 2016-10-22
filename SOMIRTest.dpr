@@ -20,37 +20,6 @@ uses
 var
   ev: PEnvironment;
 
-{ 
-procedure TestSOM_Basic;
-var
-  o: SOMObject;
-  s: CORBAString;
-begin
-  o := SOMObjectNew;
-  s := SOMObject_somGetClassName(o);
-  WriteLn('Object''s class name is ', s);
-  SOMFree(s);
-  SOMObject_somFree(o);
-end;
-
-procedure TestSOM_Renew;
-var
-  a: array of Byte;
-  Size: LongInt;
-  o: SOMObject;
-  s: CORBAString;
-begin
-  Size := SOMClass_somGetInstanceSize(_SOMCLASS_SOMObject);
-  WriteLn('SOMObject''s size is ', Size);
-  SetLength(a, Size);
-  o := SOMObjectRenew(@(a[0]));
-  s := SOMObject_somGetClassName(o);
-  WriteLn('Object''s class name is ', s);
-  SOMFree(s);
-  SOMObject_somUninit(o);
-end;
-}
-
 function getErrorType(ec: Repository_irOpenErrorCodes): string;
 begin
   case ec of
@@ -88,6 +57,7 @@ type
     constructor Create(const ARootNamespace: string; ARepo: Repository);
     destructor Destroy; override;
     function ResolveTypeId(const Id, CurrentNamespace: string): string;
+    function UnreserveIdentifier(const Identifier: string): string;
     function IdToImportedType(const Id, CurrentNamespace: string): string;
     procedure WriteObjRefType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
     procedure WriteForeignType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
@@ -120,6 +90,9 @@ begin
   FReservedWords := TStringList.Create;
   FGeneratedOnDemand := TStringList.Create;
   FReservedWords.Add('file');
+  FReservedWords.Add('function');
+  FReservedWords.Add('mod');
+  FReservedWords.Add('object');
   FReservedWords.Add('result');
   FReservedWords.Add('type');
   FReservedWords.Sorted := True;
@@ -232,6 +205,20 @@ begin
   Result := ParentNamespace + Id;
 end;
 
+function TSOMIRImporter.UnreserveIdentifier(const Identifier: string): string;
+var
+  Index: Integer;
+begin
+  if FReservedWords.Find(LowerCase(Identifier), Index) then
+  begin
+    Result := 'SOM_' + Identifier;
+  end
+  else
+  begin
+    Result := Identifier;
+  end;
+end;
+
 function TSOMIRImporter.IdToImportedType(const Id, CurrentNamespace: string): string;
 var
   Index: Integer;
@@ -254,10 +241,7 @@ begin
     Index := Pos('::', Result);
   end;
 
-  if FReservedWords.Find(LowerCase(Result), Index) then
-  begin
-    Result := 'SOM_' + Result;
-  end;
+  Result := UnreserveIdentifier(Result);
 end;
 
 procedure TSOMIRImporter.WriteObjRefType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
@@ -659,7 +643,7 @@ begin
           else Write(F, '{unknown mode ', LongWord(Mode), '}');
           end;
 
-          Write(F, Contained__get_name(Item, ev));
+          Write(F, UnreserveIdentifier(Contained__get_name(Item, ev)));
         end;
 
         TC := ParameterDef__get_type(Item, ev);
@@ -729,7 +713,7 @@ begin
   begin
     if Pass > wtpOnDemand then
     begin
-      Write(F, '    procedure ', Contained__get_name(Definition, ev));
+      Write(F, '    procedure ', UnreserveIdentifier(Contained__get_name(Definition, ev)));
     end;
     WriteMethodArguments(CurrentNamespace, Pass, Definition);
     if Pass > wtpOnDemand then
@@ -741,7 +725,7 @@ begin
   begin
     if Pass > wtpOnDemand then
     begin
-      Write(F, '    function ', Contained__get_name(Definition, ev));
+      Write(F, '    function ', UnreserveIdentifier(Contained__get_name(Definition, ev)));
     end;
     WriteMethodArguments(CurrentNamespace, Pass, Definition);
     if Pass > wtpOnDemand then
@@ -867,12 +851,19 @@ begin
         Name := Contained__get_name(Item, ev);
         if Pass > wtpOnDemand then
         begin
-          Write(F, '    property ', Name, ': ');
+          Write(F, '    property ', UnreserveIdentifier(Name), ': ');
         end;
         WriteType(CurrentNamespace, Pass, AttributeDef__get_type(Item, ev));
         if Pass > wtpOnDemand then
         begin
-          WriteLn(F, ' read _get_', Name, ' write _set_', Name, ';'); // TODO: can be read-only or write-only
+          if AttributeDef__get_mode(Item, ev) = AttributeDef_READONLY then
+          begin
+            WriteLn(F, ' read _get_', Name, ';');
+          end
+          else
+          begin
+            WriteLn(F, ' read _get_', Name, ' write _set_', Name, ';');
+          end;
         end;
         Name := nil;
       end;

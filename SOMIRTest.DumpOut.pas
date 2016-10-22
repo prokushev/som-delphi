@@ -299,7 +299,7 @@ type
     { Found item: somObjectOffsets }
   private
     function _get_type: TypeCode;
-    procedure _set_type(type: TypeCode);
+    procedure _set_type(SOM_type: TypeCode);
     function _get_mode: Unresolved_AttributeMode;
     procedure _set_mode(mode: Unresolved_AttributeMode);
     function _get_name: CORBAString;
@@ -339,7 +339,7 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property type: TypeCode read _get_type write _set_type;
+    property SOM_type: TypeCode read _get_type write _set_type;
     property mode: Unresolved_AttributeMode read _get_mode write _set_mode;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
@@ -412,7 +412,7 @@ type
     procedure _set_somtEmitterName(somtEmitterName: CORBAString);
   public
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
+    function somtOpenSymbolsFile(SOM_file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -454,7 +454,7 @@ type
     procedure somtEmitInterface(intfc: SOMTClassEntryC);
     procedure somtEmitInterfaceEpilog;
     procedure somtEmitModuleProlog;
-    procedure somtEmitModule(mod: SOMTModuleEntryC);
+    procedure somtEmitModule(SOM_mod: SOMTModuleEntryC);
     procedure somtEmitModuleEpilog;
     procedure somtEmitMethodsProlog;
     procedure somtEmitMethods(method: SOMTMethodEntryC);
@@ -545,7 +545,7 @@ type
     procedure _set_somtEmitterName(somtEmitterName: CORBAString);
   public
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
+    function somtOpenSymbolsFile(SOM_file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -587,7 +587,7 @@ type
     procedure somtEmitInterface(intfc: SOMTClassEntryC);
     procedure somtEmitInterfaceEpilog;
     procedure somtEmitModuleProlog;
-    procedure somtEmitModule(mod: SOMTModuleEntryC);
+    procedure somtEmitModule(SOM_mod: SOMTModuleEntryC);
     procedure somtEmitModuleEpilog;
     procedure somtEmitMethodsProlog;
     procedure somtEmitMethods(method: SOMTMethodEntryC);
@@ -707,7 +707,7 @@ type
     { Found item: somObjectOffsets }
   private
     function _get_type: TypeCode;
-    procedure _set_type(type: TypeCode);
+    procedure _set_type(SOM_type: TypeCode);
     function _get_value: any;
     procedure _set_value(value: any);
     function _get_name: CORBAString;
@@ -747,7 +747,7 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property type: TypeCode read _get_type write _set_type;
+    property SOM_type: TypeCode read _get_type write _set_type;
     property value: any read _get_value write _set_value;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
@@ -833,7 +833,7 @@ type
     procedure chkUDA(entry: SOMTMethodEntryC);
     procedure chkOptDefaultCtor(entry: SOMTMethodEntryC);
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
+    function somtOpenSymbolsFile(SOM_file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -875,7 +875,7 @@ type
     procedure somtEmitInterface(intfc: SOMTClassEntryC);
     procedure somtEmitInterfaceEpilog;
     procedure somtEmitModuleProlog;
-    procedure somtEmitModule(mod: SOMTModuleEntryC);
+    procedure somtEmitModule(SOM_mod: SOMTModuleEntryC);
     procedure somtEmitModuleEpilog;
     procedure somtEmitMethodsProlog;
     procedure somtEmitMethods(method: SOMTMethodEntryC);
@@ -965,13 +965,13 @@ type
     function _get_somtEmitterName: CORBAString;
     procedure _set_somtEmitterName(somtEmitterName: CORBAString);
   public
-    procedure emitModule(mod: SOMTModuleEntryC);
+    procedure emitModule(SOM_mod: SOMTModuleEntryC);
     procedure emitParentMethodCalls(method: SOMTMethodEntryC);
     procedure emitInitializerTemplate(method: SOMTMethodEntryC);
     procedure emitAssignmentOpTemplate(method: SOMTMethodEntryC);
     procedure emitDestructorTemplate(method: SOMTMethodEntryC);
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
+    function somtOpenSymbolsFile(SOM_file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -1013,7 +1013,7 @@ type
     procedure somtEmitInterface(intfc: SOMTClassEntryC);
     procedure somtEmitInterfaceEpilog;
     procedure somtEmitModuleProlog;
-    procedure somtEmitModule(mod: SOMTModuleEntryC);
+    procedure somtEmitModule(SOM_mod: SOMTModuleEntryC);
     procedure somtEmitModuleEpilog;
     procedure somtEmitMethodsProlog;
     procedure somtEmitMethods(method: SOMTMethodEntryC);
@@ -1105,7 +1105,7 @@ type
   public
     procedure emitSectionForNamedEntry(entryName: CORBAString);
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
+    function somtOpenSymbolsFile(SOM_file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -1147,7 +1147,7 @@ type
     procedure somtEmitInterface(intfc: SOMTClassEntryC);
     procedure somtEmitInterfaceEpilog;
     procedure somtEmitModuleProlog;
-    procedure somtEmitModule(mod: SOMTModuleEntryC);
+    procedure somtEmitModule(SOM_mod: SOMTModuleEntryC);
     procedure somtEmitModuleEpilog;
     procedure somtEmitMethodsProlog;
     procedure somtEmitMethods(method: SOMTMethodEntryC);
@@ -1227,7 +1227,7 @@ type
     { Found item: somObjectOffsets }
   private
     function _get_type: TypeCode;
-    procedure _set_type(type: TypeCode);
+    procedure _set_type(SOM_type: TypeCode);
     function _get_name: CORBAString;
     procedure _set_name(name: CORBAString);
     function _get_id: CORBAString;
@@ -1265,7 +1265,7 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property type: TypeCode read _get_type write _set_type;
+    property SOM_type: TypeCode read _get_type write _set_type;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
     property defined_in: CORBAString read _get_defined_in write _set_defined_in;
@@ -1326,7 +1326,7 @@ type
     { Found item: somObjectOffset }
     { Found item: somObjectOffsets }
   public
-    procedure marshal(latent_param: CORBAString; dataPtr: Pointer; direction: Unresolved_marshaling_direction_t; function: Unresolved_marshaling_op_t; streamio: CosStream_StreamIO);
+    procedure marshal(latent_param: CORBAString; dataPtr: Pointer; direction: Unresolved_marshaling_direction_t; SOM_function: Unresolved_marshaling_op_t; streamio: CosStream_StreamIO);
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1382,10 +1382,10 @@ type
     procedure _set_somtEmitterName(somtEmitterName: CORBAString);
   public
     procedure somtAddClassEntry(cls: PPointer);
-    function emitInitTermFunctions(file: CORBAString; ext: CORBAString): PSOM_FILE;
+    function emitInitTermFunctions(SOM_file: CORBAString; ext: CORBAString): PSOM_FILE;
     function buildInitModFileName(fromFileName: CORBAString; suffix: CORBAString): CORBAString;
     function somtGenerateSections: CORBABoolean;
-    function somtOpenSymbolsFile(file: CORBAString; mode: CORBAString): PSOM_FILE;
+    function somtOpenSymbolsFile(SOM_file: CORBAString; mode: CORBAString): PSOM_FILE;
     procedure somtSetPredefinedSymbols;
     procedure somtFileSymbols;
     procedure somtEmitProlog;
@@ -1427,7 +1427,7 @@ type
     procedure somtEmitInterface(intfc: SOMTClassEntryC);
     procedure somtEmitInterfaceEpilog;
     procedure somtEmitModuleProlog;
-    procedure somtEmitModule(mod: SOMTModuleEntryC);
+    procedure somtEmitModule(SOM_mod: SOMTModuleEntryC);
     procedure somtEmitModuleEpilog;
     procedure somtEmitMethodsProlog;
     procedure somtEmitMethods(method: SOMTMethodEntryC);
@@ -1594,7 +1594,7 @@ type
     property svr_objref: P_IDL_Sequence_Byte read _get_svr_objref write _set_svr_objref;
     property protocols: CORBAString read _get_protocols write _set_protocols;
     property registrar_resp: P_IDL_Sequence_Unresolved_prot_response read _get_registrar_resp write _set_registrar_resp;
-    property constant_random_id: LongWord read _get_constant_random_id write _set_constant_random_id;
+    property constant_random_id: LongWord read _get_constant_random_id;
   end;
 
   PCORBAString = ^CORBAString;
@@ -1969,7 +1969,7 @@ type
     { Found item: ContainerDescription }
   private
     function _get_result: TypeCode;
-    procedure _set_result(result: TypeCode);
+    procedure _set_result(SOM_result: TypeCode);
     function _get_mode: Unresolved_OperationMode;
     procedure _set_mode(mode: Unresolved_OperationMode);
     function _get_contexts: _IDL_Sequence_CORBAString;
@@ -2014,7 +2014,7 @@ type
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Unresolved_ContainerDescription;
-    property result: TypeCode read _get_result write _set_result;
+    property SOM_result: TypeCode read _get_result write _set_result;
     property mode: Unresolved_OperationMode read _get_mode write _set_mode;
     property contexts: _IDL_Sequence_CORBAString read _get_contexts write _set_contexts;
     property name: CORBAString read _get_name write _set_name;
@@ -2081,7 +2081,7 @@ type
     { Found item: somObjectOffsets }
   private
     function _get_type: TypeCode;
-    procedure _set_type(type: TypeCode);
+    procedure _set_type(SOM_type: TypeCode);
     function _get_mode: Unresolved_ParameterMode;
     procedure _set_mode(mode: Unresolved_ParameterMode);
     function _get_name: CORBAString;
@@ -2121,7 +2121,7 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property type: TypeCode read _get_type write _set_type;
+    property SOM_type: TypeCode read _get_type write _set_type;
     property mode: Unresolved_ParameterMode read _get_mode write _set_mode;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
@@ -2308,13 +2308,13 @@ type
     procedure somDumpSelfInt(level: LongInt);
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTAttributeEntryC = class
@@ -2376,17 +2376,17 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtIsReadonly: CORBABoolean read _get_somtIsReadonly write _set_somtIsReadonly;
-    property somtAttribType: SOMTEntryC read _get_somtAttribType write _set_somtAttribType;
+    property somtIsReadonly: CORBABoolean read _get_somtIsReadonly;
+    property somtAttribType: SOMTEntryC read _get_somtAttribType;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTBaseClassEntryC = class
@@ -2441,16 +2441,16 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtBaseClassDef: SOMTClassEntryC read _get_somtBaseClassDef write _set_somtBaseClassDef;
+    property somtBaseClassDef: SOMTClassEntryC read _get_somtBaseClassDef;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTClassEntryC = class
@@ -2554,31 +2554,31 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtSourceFileName: CORBAString read _get_somtSourceFileName write _set_somtSourceFileName;
-    property somtMetaClassEntry: SOMTMetaClassEntryC read _get_somtMetaClassEntry write _set_somtMetaClassEntry;
-    property somtClassModule: SOMTModuleEntryC read _get_somtClassModule write _set_somtClassModule;
-    property somtNewMethodCount: LongInt read _get_somtNewMethodCount write _set_somtNewMethodCount;
-    property somtLocalInclude: CORBABoolean read _get_somtLocalInclude write _set_somtLocalInclude;
-    property somtPrivateMethodCount: LongInt read _get_somtPrivateMethodCount write _set_somtPrivateMethodCount;
-    property somtStaticMethodCount: LongInt read _get_somtStaticMethodCount write _set_somtStaticMethodCount;
-    property somtOverrideMethodCount: LongInt read _get_somtOverrideMethodCount write _set_somtOverrideMethodCount;
-    property somtProcMethodCount: LongInt read _get_somtProcMethodCount write _set_somtProcMethodCount;
-    property somtVAMethodCount: LongInt read _get_somtVAMethodCount write _set_somtVAMethodCount;
-    property somtBaseCount: LongInt read _get_somtBaseCount write _set_somtBaseCount;
-    property somtExternalDataCount: LongInt read _get_somtExternalDataCount write _set_somtExternalDataCount;
-    property somtPublicDataCount: LongInt read _get_somtPublicDataCount write _set_somtPublicDataCount;
-    property somtPrivateDataCount: LongInt read _get_somtPrivateDataCount write _set_somtPrivateDataCount;
-    property somtMetaclassFor: SOMTClassEntryC read _get_somtMetaclassFor write _set_somtMetaclassFor;
-    property somtForwardRef: CORBABoolean read _get_somtForwardRef write _set_somtForwardRef;
+    property somtSourceFileName: CORBAString read _get_somtSourceFileName;
+    property somtMetaClassEntry: SOMTMetaClassEntryC read _get_somtMetaClassEntry;
+    property somtClassModule: SOMTModuleEntryC read _get_somtClassModule;
+    property somtNewMethodCount: LongInt read _get_somtNewMethodCount;
+    property somtLocalInclude: CORBABoolean read _get_somtLocalInclude;
+    property somtPrivateMethodCount: LongInt read _get_somtPrivateMethodCount;
+    property somtStaticMethodCount: LongInt read _get_somtStaticMethodCount;
+    property somtOverrideMethodCount: LongInt read _get_somtOverrideMethodCount;
+    property somtProcMethodCount: LongInt read _get_somtProcMethodCount;
+    property somtVAMethodCount: LongInt read _get_somtVAMethodCount;
+    property somtBaseCount: LongInt read _get_somtBaseCount;
+    property somtExternalDataCount: LongInt read _get_somtExternalDataCount;
+    property somtPublicDataCount: LongInt read _get_somtPublicDataCount;
+    property somtPrivateDataCount: LongInt read _get_somtPrivateDataCount;
+    property somtMetaclassFor: SOMTClassEntryC read _get_somtMetaclassFor;
+    property somtForwardRef: CORBABoolean read _get_somtForwardRef;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTCommonEntryC = class
@@ -2642,21 +2642,21 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtTypeObj: SOMTEntryC read _get_somtTypeObj write _set_somtTypeObj;
-    property somtPtrs: CORBAString read _get_somtPtrs write _set_somtPtrs;
-    property somtArrayDimsString: CORBAString read _get_somtArrayDimsString write _set_somtArrayDimsString;
-    property somtSourceText: CORBAString read _get_somtSourceText write _set_somtSourceText;
-    property somtType: CORBAString read _get_somtType write _set_somtType;
-    property somtVisibility: somtVisibilityT read _get_somtVisibility write _set_somtVisibility;
+    property somtTypeObj: SOMTEntryC read _get_somtTypeObj;
+    property somtPtrs: CORBAString read _get_somtPtrs;
+    property somtArrayDimsString: CORBAString read _get_somtArrayDimsString;
+    property somtSourceText: CORBAString read _get_somtSourceText;
+    property somtType: CORBAString read _get_somtType;
+    property somtVisibility: somtVisibilityT read _get_somtVisibility;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTConstEntryC = class
@@ -2717,22 +2717,22 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtConstTypeObj: SOMTEntryC read _get_somtConstTypeObj write _set_somtConstTypeObj;
-    property somtConstType: CORBAString read _get_somtConstType write _set_somtConstType;
-    property somtConstStringVal: CORBAString read _get_somtConstStringVal write _set_somtConstStringVal;
-    property somtConstNumVal: LongWord read _get_somtConstNumVal write _set_somtConstNumVal;
-    property somtConstNumNegVal: LongInt read _get_somtConstNumNegVal write _set_somtConstNumNegVal;
-    property somtConstIsNegative: CORBABoolean read _get_somtConstIsNegative write _set_somtConstIsNegative;
-    property somtConstVal: CORBAString read _get_somtConstVal write _set_somtConstVal;
+    property somtConstTypeObj: SOMTEntryC read _get_somtConstTypeObj;
+    property somtConstType: CORBAString read _get_somtConstType;
+    property somtConstStringVal: CORBAString read _get_somtConstStringVal;
+    property somtConstNumVal: LongWord read _get_somtConstNumVal;
+    property somtConstNumNegVal: LongInt read _get_somtConstNumNegVal;
+    property somtConstIsNegative: CORBABoolean read _get_somtConstIsNegative;
+    property somtConstVal: CORBAString read _get_somtConstVal;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTDataEntryC = class
@@ -2797,22 +2797,22 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtIsSelfRef: CORBABoolean read _get_somtIsSelfRef write _set_somtIsSelfRef;
-    property somtTypeObj: SOMTEntryC read _get_somtTypeObj write _set_somtTypeObj;
-    property somtPtrs: CORBAString read _get_somtPtrs write _set_somtPtrs;
-    property somtArrayDimsString: CORBAString read _get_somtArrayDimsString write _set_somtArrayDimsString;
-    property somtSourceText: CORBAString read _get_somtSourceText write _set_somtSourceText;
-    property somtType: CORBAString read _get_somtType write _set_somtType;
-    property somtVisibility: somtVisibilityT read _get_somtVisibility write _set_somtVisibility;
+    property somtIsSelfRef: CORBABoolean read _get_somtIsSelfRef;
+    property somtTypeObj: SOMTEntryC read _get_somtTypeObj;
+    property somtPtrs: CORBAString read _get_somtPtrs;
+    property somtArrayDimsString: CORBAString read _get_somtArrayDimsString;
+    property somtSourceText: CORBAString read _get_somtSourceText;
+    property somtType: CORBAString read _get_somtType;
+    property somtVisibility: somtVisibilityT read _get_somtVisibility;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTEnumEntryC = class
@@ -2870,13 +2870,13 @@ type
     procedure somDumpSelfInt(level: LongInt);
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTEnumNameEntryC = class
@@ -2932,17 +2932,17 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtEnumPtr: SOMTEnumEntryC read _get_somtEnumPtr write _set_somtEnumPtr;
-    property somtEnumVal: LongWord read _get_somtEnumVal write _set_somtEnumVal;
+    property somtEnumPtr: SOMTEnumEntryC read _get_somtEnumPtr;
+    property somtEnumVal: LongWord read _get_somtEnumVal;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTMetaClassEntryC = class
@@ -2998,17 +2998,17 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtMetaFile: CORBAString read _get_somtMetaFile write _set_somtMetaFile;
-    property somtMetaClassDef: SOMTClassEntryC read _get_somtMetaClassDef write _set_somtMetaClassDef;
+    property somtMetaFile: CORBAString read _get_somtMetaFile;
+    property somtMetaClassDef: SOMTClassEntryC read _get_somtMetaClassDef;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTMethodEntryC = class
@@ -3091,30 +3091,30 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtIsVarargs: CORBABoolean read _get_somtIsVarargs write _set_somtIsVarargs;
-    property somtOriginalMethod: SOMTMethodEntryC read _get_somtOriginalMethod write _set_somtOriginalMethod;
-    property somtOriginalClass: SOMTClassEntryC read _get_somtOriginalClass write _set_somtOriginalClass;
-    property somtMethodGroup: SOMTEntryC read _get_somtMethodGroup write _set_somtMethodGroup;
-    property somtIsPrivateMethod: CORBABoolean read _get_somtIsPrivateMethod write _set_somtIsPrivateMethod;
-    property somtIsOneway: CORBABoolean read _get_somtIsOneway write _set_somtIsOneway;
-    property somtArgCount: SmallInt read _get_somtArgCount write _set_somtArgCount;
-    property somtContextArray: PCORBAString read _get_somtContextArray write _set_somtContextArray;
-    property somtCReturnType: CORBAString read _get_somtCReturnType write _set_somtCReturnType;
-    property somtTypeObj: SOMTEntryC read _get_somtTypeObj write _set_somtTypeObj;
-    property somtPtrs: CORBAString read _get_somtPtrs write _set_somtPtrs;
-    property somtArrayDimsString: CORBAString read _get_somtArrayDimsString write _set_somtArrayDimsString;
-    property somtSourceText: CORBAString read _get_somtSourceText write _set_somtSourceText;
-    property somtType: CORBAString read _get_somtType write _set_somtType;
-    property somtVisibility: somtVisibilityT read _get_somtVisibility write _set_somtVisibility;
+    property somtIsVarargs: CORBABoolean read _get_somtIsVarargs;
+    property somtOriginalMethod: SOMTMethodEntryC read _get_somtOriginalMethod;
+    property somtOriginalClass: SOMTClassEntryC read _get_somtOriginalClass;
+    property somtMethodGroup: SOMTEntryC read _get_somtMethodGroup;
+    property somtIsPrivateMethod: CORBABoolean read _get_somtIsPrivateMethod;
+    property somtIsOneway: CORBABoolean read _get_somtIsOneway;
+    property somtArgCount: SmallInt read _get_somtArgCount;
+    property somtContextArray: PCORBAString read _get_somtContextArray;
+    property somtCReturnType: CORBAString read _get_somtCReturnType;
+    property somtTypeObj: SOMTEntryC read _get_somtTypeObj;
+    property somtPtrs: CORBAString read _get_somtPtrs;
+    property somtArrayDimsString: CORBAString read _get_somtArrayDimsString;
+    property somtSourceText: CORBAString read _get_somtSourceText;
+    property somtType: CORBAString read _get_somtType;
+    property somtVisibility: somtVisibilityT read _get_somtVisibility;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTModuleEntryC = class
@@ -3188,17 +3188,17 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtOuterModule: SOMTModuleEntryC read _get_somtOuterModule write _set_somtOuterModule;
-    property somtModuleFile: CORBAString read _get_somtModuleFile write _set_somtModuleFile;
+    property somtOuterModule: SOMTModuleEntryC read _get_somtOuterModule;
+    property somtModuleFile: CORBAString read _get_somtModuleFile;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTParameterEntryC = class
@@ -3265,24 +3265,24 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtParameterDirection: somtParameterDirectionT read _get_somtParameterDirection write _set_somtParameterDirection;
-    property somtIDLParameterDeclaration: CORBAString read _get_somtIDLParameterDeclaration write _set_somtIDLParameterDeclaration;
-    property somtCParameterDeclaration: CORBAString read _get_somtCParameterDeclaration write _set_somtCParameterDeclaration;
-    property somtTypeObj: SOMTEntryC read _get_somtTypeObj write _set_somtTypeObj;
-    property somtPtrs: CORBAString read _get_somtPtrs write _set_somtPtrs;
-    property somtArrayDimsString: CORBAString read _get_somtArrayDimsString write _set_somtArrayDimsString;
-    property somtSourceText: CORBAString read _get_somtSourceText write _set_somtSourceText;
-    property somtType: CORBAString read _get_somtType write _set_somtType;
-    property somtVisibility: somtVisibilityT read _get_somtVisibility write _set_somtVisibility;
+    property somtParameterDirection: somtParameterDirectionT read _get_somtParameterDirection;
+    property somtIDLParameterDeclaration: CORBAString read _get_somtIDLParameterDeclaration;
+    property somtCParameterDeclaration: CORBAString read _get_somtCParameterDeclaration;
+    property somtTypeObj: SOMTEntryC read _get_somtTypeObj;
+    property somtPtrs: CORBAString read _get_somtPtrs;
+    property somtArrayDimsString: CORBAString read _get_somtArrayDimsString;
+    property somtSourceText: CORBAString read _get_somtSourceText;
+    property somtType: CORBAString read _get_somtType;
+    property somtVisibility: somtVisibilityT read _get_somtVisibility;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTPassthruEntryC = class
@@ -3340,18 +3340,18 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtPassthruBody: CORBAString read _get_somtPassthruBody write _set_somtPassthruBody;
-    property somtPassthruLanguage: CORBAString read _get_somtPassthruLanguage write _set_somtPassthruLanguage;
-    property somtPassthruTarget: CORBAString read _get_somtPassthruTarget write _set_somtPassthruTarget;
+    property somtPassthruBody: CORBAString read _get_somtPassthruBody;
+    property somtPassthruLanguage: CORBAString read _get_somtPassthruLanguage;
+    property somtPassthruTarget: CORBAString read _get_somtPassthruTarget;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTSequenceEntryC = class
@@ -3407,17 +3407,17 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtSeqLength: LongInt read _get_somtSeqLength write _set_somtSeqLength;
-    property somtSeqType: SOMTEntryC read _get_somtSeqType write _set_somtSeqType;
+    property somtSeqLength: LongInt read _get_somtSeqLength;
+    property somtSeqType: SOMTEntryC read _get_somtSeqType;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTStringEntryC = class
@@ -3472,16 +3472,16 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtStringLength: LongInt read _get_somtStringLength write _set_somtStringLength;
+    property somtStringLength: LongInt read _get_somtStringLength;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTStructEntryC = class
@@ -3539,17 +3539,17 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtStructClass: SOMTClassEntryC read _get_somtStructClass write _set_somtStructClass;
-    property somtIsException: CORBABoolean read _get_somtIsException write _set_somtIsException;
+    property somtStructClass: SOMTClassEntryC read _get_somtStructClass;
+    property somtIsException: CORBABoolean read _get_somtIsException;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTTypedefEntryC = class
@@ -3606,16 +3606,16 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtTypedefType: SOMTEntryC read _get_somtTypedefType write _set_somtTypedefType;
+    property somtTypedefType: SOMTEntryC read _get_somtTypedefType;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTTemplateOutputC = class
@@ -3734,16 +3734,16 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtSwitchType: SOMTEntryC read _get_somtSwitchType write _set_somtSwitchType;
+    property somtSwitchType: SOMTEntryC read _get_somtSwitchType;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMTUserDefinedTypeEntryC = class
@@ -3809,23 +3809,23 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somtOriginalTypedef: SOMTTypedefEntryC read _get_somtOriginalTypedef write _set_somtOriginalTypedef;
-    property somtBaseTypeObj: SOMTEntryC read _get_somtBaseTypeObj write _set_somtBaseTypeObj;
-    property somtTypeObj: SOMTEntryC read _get_somtTypeObj write _set_somtTypeObj;
-    property somtPtrs: CORBAString read _get_somtPtrs write _set_somtPtrs;
-    property somtArrayDimsString: CORBAString read _get_somtArrayDimsString write _set_somtArrayDimsString;
-    property somtSourceText: CORBAString read _get_somtSourceText write _set_somtSourceText;
-    property somtType: CORBAString read _get_somtType write _set_somtType;
-    property somtVisibility: somtVisibilityT read _get_somtVisibility write _set_somtVisibility;
+    property somtOriginalTypedef: SOMTTypedefEntryC read _get_somtOriginalTypedef;
+    property somtBaseTypeObj: SOMTEntryC read _get_somtBaseTypeObj;
+    property somtTypeObj: SOMTEntryC read _get_somtTypeObj;
+    property somtPtrs: CORBAString read _get_somtPtrs;
+    property somtArrayDimsString: CORBAString read _get_somtArrayDimsString;
+    property somtSourceText: CORBAString read _get_somtSourceText;
+    property somtType: CORBAString read _get_somtType;
+    property somtVisibility: somtVisibilityT read _get_somtVisibility;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
-    property somtElementTypeName: CORBAString read _get_somtElementTypeName write _set_somtElementTypeName;
-    property somtEntryComment: CORBAString read _get_somtEntryComment write _set_somtEntryComment;
-    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber write _set_somtSourceLineNumber;
-    property somtTypeCode: TypeCode read _get_somtTypeCode write _set_somtTypeCode;
-    property somtIsReference: CORBABoolean read _get_somtIsReference write _set_somtIsReference;
-    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName write _set_somtIDLScopedName;
-    property somtCScopedName: CORBAString read _get_somtCScopedName write _set_somtCScopedName;
+    property somtElementTypeName: CORBAString read _get_somtElementTypeName;
+    property somtEntryComment: CORBAString read _get_somtEntryComment;
+    property somtSourceLineNumber: LongWord read _get_somtSourceLineNumber;
+    property somtTypeCode: TypeCode read _get_somtTypeCode;
+    property somtIsReference: CORBABoolean read _get_somtIsReference;
+    property somtIDLScopedName: CORBAString read _get_somtIDLScopedName;
+    property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
   SOMDServerMgr = class
@@ -3974,9 +3974,9 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
-    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
+    property somDataAlignment: LongInt read _get_somDataAlignment;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   SOMMSingleInstance = class
@@ -4071,9 +4071,9 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
-    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
+    property somDataAlignment: LongInt read _get_somDataAlignment;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   TypecodeDataManipulator = class
@@ -4125,8 +4125,8 @@ type
     function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
-    function sommBeforeMethod(object: SOMObject; methodId: somId; ap: va_list): CORBABoolean;
-    procedure sommAfterMethod(object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list);
+    function sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean;
+    procedure sommAfterMethod(SOM_object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list);
     function somNew: SOMObject;
     function somNewNoInit: SOMObject;
     function somRenew(obj: Pointer): SOMObject;
@@ -4202,9 +4202,9 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
-    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
+    property somDataAlignment: LongInt read _get_somDataAlignment;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   SOMClassMgr = class
@@ -4218,7 +4218,7 @@ type
     procedure _set_somInterfaceRepository(somInterfaceRepository: Repository);
     function _get_somRegisteredClasses: _IDL_Sequence_SOMClass;
   public
-    function somLoadClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; file: CORBAString): SOMClass;
+    function somLoadClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass;
     function somLocateClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString;
     procedure somRegisterClass(classObj: SOMClass);
     procedure somRegisterClassLibrary(libraryName: CORBAString; libraryInitRtn: Pointer);
@@ -4232,7 +4232,7 @@ type
     function somGetRelatedClasses(classObj: SOMClass): PSOMClass;
     function somClassFromId(classId: somId): SOMClass;
     function somFindClass(classId: somId; majorVersion: LongInt; minorVersion: LongInt): SOMClass;
-    function somFindClsInFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; file: CORBAString): SOMClass;
+    function somFindClsInFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass;
     procedure somMergeInto(targetObj: SOMObject);
     function somSubstituteClass(origClassName: CORBAString; newClassName: CORBAString): LongInt;
     function somImportObject(objToBeShared: SOMObject): CORBABoolean;
@@ -4263,7 +4263,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somInterfaceRepository: Repository read _get_somInterfaceRepository write _set_somInterfaceRepository;
-    property somRegisteredClasses: _IDL_Sequence_SOMClass read _get_somRegisteredClasses write _set_somRegisteredClasses;
+    property somRegisteredClasses: _IDL_Sequence_SOMClass read _get_somRegisteredClasses;
   end;
 
   SOMMProxyForObject = class
@@ -4323,8 +4323,8 @@ type
     function is_proxy: CORBABoolean;
     function duplicate: SOMObject;
     procedure release;
-    function create_request(ctx: Context; operation: CORBAString; arg_list: NVList; var result: NamedValue; out request: Request; req_flags: LongWord): LongWord;
-    function create_request_args(operation: CORBAString; out arg_list: NVList; out result: NamedValue): LongWord;
+    function create_request(ctx: Context; operation: CORBAString; arg_list: NVList; var SOM_result: NamedValue; out request: Request; req_flags: LongWord): LongWord;
+    function create_request_args(operation: CORBAString; out arg_list: NVList; out SOM_result: NamedValue): LongWord;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -4408,8 +4408,8 @@ type
     function is_proxy: CORBABoolean;
     function duplicate: SOMObject;
     procedure release;
-    function create_request(ctx: Context; operation: CORBAString; arg_list: NVList; var result: NamedValue; out request: Request; req_flags: LongWord): LongWord;
-    function create_request_args(operation: CORBAString; out arg_list: NVList; out result: NamedValue): LongWord;
+    function create_request(ctx: Context; operation: CORBAString; arg_list: NVList; var SOM_result: NamedValue; out request: Request; req_flags: LongWord): LongWord;
+    function create_request_args(operation: CORBAString; out arg_list: NVList; out SOM_result: NamedValue): LongWord;
     property sommProxyTarget: SOMObject read _get_sommProxyTarget write _set_sommProxyTarget;
     property type_id: CORBAString read _get_type_id write _set_type_id;
   end;
@@ -4656,9 +4656,9 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
-    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
+    property somDataAlignment: LongInt read _get_somDataAlignment;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   SOMParentDerivedMetaclass = class
@@ -4752,10 +4752,10 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somNonDerivedFrontier: _IDL_Sequence_SOMClass read _get_somNonDerivedFrontier write _set_somNonDerivedFrontier;
-    property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
-    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
+    property somNonDerivedFrontier: _IDL_Sequence_SOMClass read _get_somNonDerivedFrontier;
+    property somDataAlignment: LongInt read _get_somDataAlignment;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   SOMMProxyFor = class
@@ -4849,9 +4849,9 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
-    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
+    property somDataAlignment: LongInt read _get_somDataAlignment;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   SOMUTStringId = class
@@ -4942,7 +4942,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somstTargetCapacity: LongWord read _get_somstTargetCapacity write _set_somstTargetCapacity;
-    property somstAssociationsCount: LongWord read _get_somstAssociationsCount write _set_somstAssociationsCount;
+    property somstAssociationsCount: LongWord read _get_somstAssociationsCount;
   end;
 
   SOMMTraced = class
@@ -4962,8 +4962,8 @@ type
     function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
-    function sommBeforeMethod(object: SOMObject; methodId: somId; ap: va_list): CORBABoolean;
-    procedure sommAfterMethod(object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list);
+    function sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean;
+    procedure sommAfterMethod(SOM_object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list);
     function somNew: SOMObject;
     function somNewNoInit: SOMObject;
     function somRenew(obj: Pointer): SOMObject;
@@ -5040,9 +5040,9 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property sommTraceIsOn: CORBABoolean read _get_sommTraceIsOn write _set_sommTraceIsOn;
-    property somDataAlignment: LongInt read _get_somDataAlignment write _set_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets write _set_somInstanceDataOffsets;
-    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
+    property somDataAlignment: LongInt read _get_somDataAlignment;
+    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   TSIdentification = class
@@ -5084,8 +5084,8 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property sender: TSPortability_Sender read _get_sender write _set_sender;
-    property receiver: TSPortability_Receiver read _get_receiver write _set_receiver;
+    property sender: TSPortability_Sender read _get_sender;
+    property receiver: TSPortability_Receiver read _get_receiver;
   end;
 
   TypeDef = class
@@ -5097,7 +5097,7 @@ type
     { Found item: somObjectOffsets }
   private
     function _get_type: TypeCode;
-    procedure _set_type(type: TypeCode);
+    procedure _set_type(SOM_type: TypeCode);
     function _get_name: CORBAString;
     procedure _set_name(name: CORBAString);
     function _get_id: CORBAString;
@@ -5135,7 +5135,7 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property type: TypeCode read _get_type write _set_type;
+    property SOM_type: TypeCode read _get_type write _set_type;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
     property defined_in: CORBAString read _get_defined_in write _set_defined_in;
