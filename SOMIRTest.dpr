@@ -741,7 +741,6 @@ var
   NameS: AnsiString;
   WasPrivate, WasPublic: Boolean;
 begin
-  if Pass <= wtpOnDemand then Exit; // TODO
   Contents := Container_contents(Definition, ev, 'all', False);
   if Contents._length > 0 then
   begin
@@ -756,7 +755,10 @@ begin
       else if SOMObject_somIsA(Item, _SOMCLASS_AttributeDef) then begin end
       else
       begin
-        WriteLn(F, '    { Found item: ', Contained__get_name(Item, ev), ' }');
+        if Pass > wtpOnDemand then
+        begin
+          WriteLn(F, '    { Found item: ', Contained__get_name(Item, ev), ' }');
+        end;
       end;
     end;
 
@@ -774,7 +776,10 @@ begin
           begin
             if not WasPrivate then
             begin
-              WriteLn(F, '  private');
+              if Pass > wtpOnDemand then
+              begin
+                WriteLn(F, '  private');
+              end;
               WasPrivate := True;
             end;
             WriteMethodDefinition(CurrentNamespace, Pass, Item);
@@ -797,7 +802,10 @@ begin
           begin
             if not WasPublic then
             begin
-              WriteLn(F, '  public');
+              if Pass > wtpOnDemand then
+              begin
+                WriteLn(F, '  public');
+              end;
               WasPublic := True;
             end;
             WriteMethodDefinition(CurrentNamespace, Pass, Item);
@@ -807,7 +815,10 @@ begin
         begin
           if not WasPublic then
           begin
-            WriteLn(F, '  public');
+            if Pass > wtpOnDemand then
+            begin
+              WriteLn(F, '  public');
+            end;
             WasPublic := True;
           end;
           WriteMethodDefinition(CurrentNamespace, Pass, Item);
@@ -823,13 +834,22 @@ begin
       begin
         if not WasPublic then
         begin
-          WriteLn(F, '  public');
+          if Pass > wtpOnDemand then
+          begin
+            WriteLn(F, '  public');
+          end;
           WasPublic := True;
         end;
         Name := Contained__get_name(Item, ev);
-        Write(F, '    property ', Name, ': ');
+        if Pass > wtpOnDemand then
+        begin
+          Write(F, '    property ', Name, ': ');
+        end;
         WriteType(CurrentNamespace, Pass, AttributeDef__get_type(Item, ev));
-        WriteLn(F, ' read _get_', Name, ' write _set_', Name, ';'); // TODO: can be read-only or write-only
+        if Pass > wtpOnDemand then
+        begin
+          WriteLn(F, ' read _get_', Name, ' write _set_', Name, ';'); // TODO: can be read-only or write-only
+        end;
         Name := nil;
       end;
 
@@ -910,7 +930,11 @@ begin
           Write(F, '  ', IdToImportedType('::' + Contained__get_name(Item, ev), '::'), ' = ');
           WriteType('::', wtpTypeDef, TypeDef__get_type(Item, ev));
           WriteLn(F, ';');
-        end;
+        end (*
+        else if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+        begin
+
+        end *);
       end;
       Write(' 2');
 

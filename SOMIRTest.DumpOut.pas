@@ -194,6 +194,7 @@ type
   PPentryT = ^PentryT;
   tablePT = ^PPentryT;
 
+  PsomGenericCtrl = ^somGenericCtrl;
   SOMObject = class
     { Found item: SOMObjectSequence }
     { Found item: BooleanSequence }
@@ -228,6 +229,18 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
+  PsomModifier = ^somModifier;
+  _IDL_Sequence_somModifier = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PsomModifier;
+  end;
+  PContainer = ^Container;
+  _IDL_Sequence_Container = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PContainer;
+  end;
   Contained = class
     { Found item: Description }
     { Found item: SOMObjectSequence }
@@ -380,6 +393,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
+  PSOM_FILE = ^SOM_FILE;
   SOMTEmitC = class
     { Found item: SOMObjectSequence }
     { Found item: BooleanSequence }
@@ -743,6 +757,18 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
+  PContained = ^Contained;
+  _IDL_Sequence_Contained = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PContained;
+  end;
+  PUnresolved_ContainerDescription = ^Unresolved_ContainerDescription;
+  _IDL_Sequence_Unresolved_ContainerDescription = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PUnresolved_ContainerDescription;
+  end;
   Container = class
     { Found item: InterfaceName }
     { Found item: ContainerDescription }
@@ -1248,6 +1274,12 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
+  PUnresolved_Property_struct = ^Unresolved_Property_struct;
+  _IDL_Sequence_Unresolved_Property_struct = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PUnresolved_Property_struct;
+  end;
   SOMDServer = class
     { Found item: SOMObjectSequence }
     { Found item: BooleanSequence }
@@ -1471,6 +1503,14 @@ type
     property somtEmitterName: CORBAString read _get_somtEmitterName write _set_somtEmitterName;
   end;
 
+  P_IDL_Sequence_Byte = ^_IDL_Sequence_Byte;
+  PUnresolved_prot_response = ^Unresolved_prot_response;
+  _IDL_Sequence_Unresolved_prot_response = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PUnresolved_prot_response;
+  end;
+  P_IDL_Sequence_Unresolved_prot_response = ^_IDL_Sequence_Unresolved_prot_response;
   ImplementationDef = class
     { Found item: SOMD_MAXLEN_IMPL_ID }
     { Found item: SOMD_MAXLEN_IMPL_ALIAS }
@@ -1559,6 +1599,24 @@ type
     property constant_random_id: LongWord read _get_constant_random_id write _set_constant_random_id;
   end;
 
+  PCORBAString = ^CORBAString;
+  _IDL_Sequence_CORBAString = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PCORBAString;
+  end;
+  PImplementationDef = ^ImplementationDef;
+  _IDL_Sequence_ImplementationDef = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PImplementationDef;
+  end;
+  PUnresolved_PV = ^Unresolved_PV;
+  _IDL_Sequence_Unresolved_PV = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PUnresolved_PV;
+  end;
   ImplRepository = class
     { Found item: PV }
     { Found item: PropertyValue }
@@ -1674,6 +1732,12 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
+  PUnresolved_NameComponent = ^Unresolved_NameComponent;
+  _IDL_Sequence_Unresolved_NameComponent = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PUnresolved_NameComponent;
+  end;
   LName = class
     { Found item: NoComponent }
     { Found item: OverFlow }
@@ -3615,6 +3679,7 @@ type
     property somtCommentNewline: CORBABoolean read _get_somtCommentNewline write _set_somtCommentNewline;
   end;
 
+  PUnresolved_somtCaseEntry = ^Unresolved_somtCaseEntry;
   SOMTUnionEntryC = class
     { Found item: somtLabelList }
     { Found item: somtCaseEntry }
@@ -3807,6 +3872,20 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
+  PUnresolved_somOffsetInfo = ^Unresolved_somOffsetInfo;
+  _IDL_Sequence_Unresolved_somOffsetInfo = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PUnresolved_somOffsetInfo;
+  end;
+  PSOMClass = ^SOMClass;
+  _IDL_Sequence_SOMClass = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PSOMClass;
+  end;
+  PsomMethodTab = ^somMethodTab;
+  PsomMethodTabList = ^somMethodTabList;
   SOMClass = class
     { Found item: somTokenSequence }
     { Found item: SOMClassSequence }
@@ -4337,6 +4416,12 @@ type
     property type_id: CORBAString read _get_type_id write _set_type_id;
   end;
 
+  PSOMDServer = ^SOMDServer;
+  _IDL_Sequence_SOMDServer = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PSOMDServer;
+  end;
   SOMDObjectMgr = class
     { Found item: SOMObjectSequence }
     { Found item: BooleanSequence }
@@ -4422,6 +4507,12 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
+  PUnresolved_SOMDServiceContext = ^Unresolved_SOMDServiceContext;
+  _IDL_Sequence_Unresolved_SOMDServiceContext = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PUnresolved_SOMDServiceContext;
+  end;
   SOMOA = class
     { Found item: SOMObjectSequence }
     { Found item: BooleanSequence }
