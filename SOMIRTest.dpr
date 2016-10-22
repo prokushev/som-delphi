@@ -263,10 +263,38 @@ begin
 end;
 
 procedure TSOMIRImporter.WriteObjRefType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
+var
+  Name: string;
+  Index: Integer;
 begin
-  if Pass > wtpOnDemand then
+  if Pass <= wtpOnDemand then
   begin
-    Write(F, IdToImportedType(ExtractName(TC), CurrentNamespace));
+    if Pass <> wtpOnDemandForeignOnly then
+    begin
+      Name := ExtractName(TC);
+      if Length(Name) >= 2 then
+      begin
+        if Copy(Name, 1, 2) = '::' then
+        begin
+          if not FExistingTypeIds.Find(Name, Index) then
+          begin
+            if not FWasType then
+            begin
+              WriteLn(F, 'type');
+              FWasType := True;
+            end;
+            WriteLn(F, '  ', IdToImportedType(Name, CurrentNamespace), ' = SOMObject { unresolved class name };');
+            // TODO we can generate SOMObject interface clone to make it distinguished type, but no creation means
+            FExistingTypeIds.Add(Name);
+          end;
+        end;
+      end;
+    end;
+  end
+  else
+  begin
+    Name := ExtractName(TC);
+    Write(F, IdToImportedType(Name, CurrentNamespace));
   end;
 end;
 

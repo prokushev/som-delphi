@@ -6526,6 +6526,8 @@ type
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
+  TSPortability_Sender = SOMObject { unresolved class name };
+  TSPortability_Receiver = SOMObject { unresolved class name };
   TSIdentification = class
   private
     function _get_sender: TSPortability_Sender;
