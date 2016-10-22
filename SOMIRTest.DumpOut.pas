@@ -258,17 +258,15 @@ type
   CosNaming_BindingIterator_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   CosNaming_BindingIterator_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   CosNaming_BindingIterator_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
-  CosNaming_NamingContext_NotFound = record
+  CosNaming_NamingContext_NotFound = { exception } record
     { ... }
   end;
-  CosNaming_NamingContext_CannotProceed = record
+  CosNaming_NamingContext_CannotProceed = { exception } record
     { ... }
   end;
-  CosNaming_NamingContext_InvalidName = record
+  CosNaming_NamingContext_InvalidName = { exception } record
     { ... }
   end;
-  CosNaming_NamingContext_AlreadyBound = {unknown type with TypeCode_kind = TypeCode_tk_null};
-  CosNaming_NamingContext_NotEmpty = {unknown type with TypeCode_kind = TypeCode_tk_null};
   CosNaming_NamingContext_NotFoundReason = type LongWord;
   CosNaming_NamingContext_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
   CosNaming_NamingContext_BooleanSequence = { inherited } SOMObject_BooleanSequence;
@@ -411,23 +409,14 @@ type
   ExtendedNaming_IndexIterator_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   ExtendedNaming_IndexIterator_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   ExtendedNaming_IndexIterator_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
-  ExtendedNaming_ExtendedNamingContext_InvalidPropertyName = {unknown type with TypeCode_kind = TypeCode_tk_null};
-  ExtendedNaming_ExtendedNamingContext_NotSupported = {unknown type with TypeCode_kind = TypeCode_tk_null};
-  ExtendedNaming_ExtendedNamingContext_ConflictingPropertyName = {unknown type with TypeCode_kind = TypeCode_tk_null};
-  ExtendedNaming_ExtendedNamingContext_PropertyNotFound = record
+  ExtendedNaming_ExtendedNamingContext_PropertyNotFound = { exception } record
     { ... }
   end;
-  ExtendedNaming_ExtendedNamingContext_PropertiesNotShared = {unknown type with TypeCode_kind = TypeCode_tk_null};
-  ExtendedNaming_ExtendedNamingContext_IllegalConstraintExpression = {unknown type with TypeCode_kind = TypeCode_tk_null};
-  ExtendedNaming_ExtendedNamingContext_BindingNotFound = {unknown type with TypeCode_kind = TypeCode_tk_null};
   ExtendedNaming_ExtendedNamingContext_Constraint = CORBAString;
   ExtendedNaming_ExtendedNamingContext_Strings = ^ShortInt;
-  ExtendedNaming_ExtendedNamingContext_NonSharableProperties = {unknown type with TypeCode_kind = TypeCode_tk_null};
   ExtendedNaming_ExtendedNamingContext_NotFound = { inherited exception } CosNaming_NamingContext_NotFound;
   ExtendedNaming_ExtendedNamingContext_CannotProceed = { inherited exception } CosNaming_NamingContext_CannotProceed;
   ExtendedNaming_ExtendedNamingContext_InvalidName = { inherited exception } CosNaming_NamingContext_InvalidName;
-  ExtendedNaming_ExtendedNamingContext_AlreadyBound = { inherited exception } CosNaming_NamingContext_AlreadyBound;
-  ExtendedNaming_ExtendedNamingContext_NotEmpty = { inherited exception } CosNaming_NamingContext_NotEmpty;
   ExtendedNaming_ExtendedNamingContext_NotFoundReason = { inherited } CosNaming_NamingContext_NotFoundReason;
   ExtendedNaming_ExtendedNamingContext_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
   ExtendedNaming_ExtendedNamingContext_BooleanSequence = { inherited } SOMObject_BooleanSequence;
@@ -594,8 +583,6 @@ type
   CosLifeCycle_FactoryFinder_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   CosLifeCycle_FactoryFinder_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   CosLifeCycle_FactoryFinder_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
-  CosStream_ObjectCreationError = {unknown type with TypeCode_kind = TypeCode_tk_null};
-  CosStream_StreamDataFormatError = {unknown type with TypeCode_kind = TypeCode_tk_null};
   CosStream_StreamIO_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
   CosStream_StreamIO_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   CosStream_StreamIO_somObjectOffset = { inherited } SOMObject_somObjectOffset;
@@ -682,14 +669,10 @@ type
   InterfaceDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
   InterfaceDef_InterfaceName = { inherited } Container_InterfaceName;
   InterfaceDef_ContainerDescription = { inherited } Container_ContainerDescription;
-  LName_NoComponent = {unknown type with TypeCode_kind = TypeCode_tk_null};
-  LName_OverFlow = {unknown type with TypeCode_kind = TypeCode_tk_null};
-  LName_InvalidName = {unknown type with TypeCode_kind = TypeCode_tk_null};
   LName_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
   LName_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   LName_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   LName_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
-  LNameComponent_NotSet = {unknown type with TypeCode_kind = TypeCode_tk_null};
   LNameComponent_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
   LNameComponent_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   LNameComponent_somObjectOffset = { inherited } SOMObject_somObjectOffset;
@@ -723,7 +706,6 @@ type
   OperationDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
   OperationDef_InterfaceName = { inherited } Container_InterfaceName;
   OperationDef_ContainerDescription = { inherited } Container_ContainerDescription;
-  ORB_InvalidName = {unknown type with TypeCode_kind = TypeCode_tk_null};
   ORB_ObjectId = CORBAString;
   ORB_ObjectIdList = _IDL_Sequence_CORBAString;
   ORB_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
@@ -747,7 +729,7 @@ type
     { ... }
   end;
   Repository_irOpenErrorCodes = type LongWord;
-  Repository_irOpenError = record
+  Repository_irOpenError = { exception } record
     { ... }
   end;
   Repository_InterfaceName = { inherited } Container_InterfaceName;
@@ -1000,107 +982,105 @@ type
   SOMMTraced_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   SOMMTraced_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   SOMMTraced_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
-  StExcep_UNKNOWN = record
+  StExcep_UNKNOWN = { exception } record
     { ... }
   end;
-  StExcep_BAD_PARAM = record
+  StExcep_BAD_PARAM = { exception } record
     { ... }
   end;
-  StExcep_NO_MEMORY = record
+  StExcep_NO_MEMORY = { exception } record
     { ... }
   end;
-  StExcep_IMP_LIMIT = record
+  StExcep_IMP_LIMIT = { exception } record
     { ... }
   end;
-  StExcep_COMM_FAILURE = record
+  StExcep_COMM_FAILURE = { exception } record
     { ... }
   end;
-  StExcep_INV_OBJREF = record
+  StExcep_INV_OBJREF = { exception } record
     { ... }
   end;
-  StExcep_NO_PERMISSION = record
+  StExcep_NO_PERMISSION = { exception } record
     { ... }
   end;
-  StExcep_INTERNAL = record
+  StExcep_INTERNAL = { exception } record
     { ... }
   end;
-  StExcep_MARSHAL = record
+  StExcep_MARSHAL = { exception } record
     { ... }
   end;
-  StExcep_INITIALIZE = record
+  StExcep_INITIALIZE = { exception } record
     { ... }
   end;
-  StExcep_NO_IMPLEMENT = record
+  StExcep_NO_IMPLEMENT = { exception } record
     { ... }
   end;
-  StExcep_BAD_TYPECODE = record
+  StExcep_BAD_TYPECODE = { exception } record
     { ... }
   end;
-  StExcep_BAD_OPERATION = record
+  StExcep_BAD_OPERATION = { exception } record
     { ... }
   end;
-  StExcep_NO_RESOURCES = record
+  StExcep_NO_RESOURCES = { exception } record
     { ... }
   end;
-  StExcep_NO_RESPONSE = record
+  StExcep_NO_RESPONSE = { exception } record
     { ... }
   end;
-  StExcep_PERSIST_STORE = record
+  StExcep_PERSIST_STORE = { exception } record
     { ... }
   end;
-  StExcep_BAD_INV_ORDER = record
+  StExcep_BAD_INV_ORDER = { exception } record
     { ... }
   end;
-  StExcep_TRANSIENT = record
+  StExcep_TRANSIENT = { exception } record
     { ... }
   end;
-  StExcep_FREE_MEM = record
+  StExcep_FREE_MEM = { exception } record
     { ... }
   end;
-  StExcep_INV_IDENT = record
+  StExcep_INV_IDENT = { exception } record
     { ... }
   end;
-  StExcep_INV_FLAG = record
+  StExcep_INV_FLAG = { exception } record
     { ... }
   end;
-  StExcep_INTF_REPOS = record
+  StExcep_INTF_REPOS = { exception } record
     { ... }
   end;
-  StExcep_CONTEXT = record
+  StExcep_CONTEXT = { exception } record
     { ... }
   end;
-  StExcep_OBJ_ADAPTER = record
+  StExcep_OBJ_ADAPTER = { exception } record
     { ... }
   end;
-  StExcep_DATA_CONVERSION = record
+  StExcep_DATA_CONVERSION = { exception } record
     { ... }
   end;
-  StExcep_OPSYS = record
+  StExcep_OPSYS = { exception } record
     { ... }
   end;
-  StExcep_WMQUIT = record
+  StExcep_WMQUIT = { exception } record
     { ... }
   end;
-  StExcep_DISPATCH = record
+  StExcep_DISPATCH = { exception } record
     { ... }
   end;
-  StExcep_TransactionRequired = record
+  StExcep_TransactionRequired = { exception } record
     { ... }
   end;
-  StExcep_TransactionRolledBack = record
+  StExcep_TransactionRolledBack = { exception } record
     { ... }
   end;
-  StExcep_InvalidTransaction = record
+  StExcep_InvalidTransaction = { exception } record
     { ... }
   end;
-  StExcep_WrongTransaction = record
+  StExcep_WrongTransaction = { exception } record
     { ... }
   end;
-  StExcep_DB_FAILURE = record
+  StExcep_DB_FAILURE = { exception } record
     { ... }
   end;
-  TSIdentification_NotAvailable = {unknown type with TypeCode_kind = TypeCode_tk_null};
-  TSIdentification_AlreadyIdentified = {unknown type with TypeCode_kind = TypeCode_tk_null};
   TSIdentification_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
   TSIdentification_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   TSIdentification_somObjectOffset = { inherited } SOMObject_somObjectOffset;
@@ -1113,32 +1093,32 @@ type
   TypeDef_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   TypeDef_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   TypeDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
-  SysAdminException_Exception = record
+  SysAdminException_Exception = { exception } record
     { ... }
   end;
   SysAdminException_MsgContext = _IDL_Sequence_Byte;
-  SysAdminException_ExException = record
+  SysAdminException_ExException = { exception } record
     { ... }
   end;
-  SysAdminException_ExFailed = record
+  SysAdminException_ExFailed = { exception } record
     { ... }
   end;
-  SysAdminException_ExInvalid = record
+  SysAdminException_ExInvalid = { exception } record
     { ... }
   end;
-  SysAdminException_ExNotFound = record
+  SysAdminException_ExNotFound = { exception } record
     { ... }
   end;
-  SysAdminException_ExExists = record
+  SysAdminException_ExExists = { exception } record
     { ... }
   end;
-  SysAdminException_ExFileIO = record
+  SysAdminException_ExFileIO = { exception } record
     { ... }
   end;
-  SysAdminException_ExObjNotFound = record
+  SysAdminException_ExObjNotFound = { exception } record
     { ... }
   end;
-  SysAdminException_ExNoMoreMemory = record
+  SysAdminException_ExNoMoreMemory = { exception } record
     { ... }
   end;
   SysAdminException_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
@@ -1147,21 +1127,12 @@ type
   SysAdminException_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
   FileXNaming_FileENC_Constraint = CORBAString;
   FileXNaming_FileENC_Strings = ^ShortInt;
-  FileXNaming_FileENC_InvalidPropertyName = { inherited exception } ExtendedNaming_ExtendedNamingContext_InvalidPropertyName;
-  FileXNaming_FileENC_NotSupported = { inherited exception } ExtendedNaming_ExtendedNamingContext_NotSupported;
-  FileXNaming_FileENC_ConflictingPropertyName = { inherited exception } ExtendedNaming_ExtendedNamingContext_ConflictingPropertyName;
   FileXNaming_FileENC_PropertyNotFound = { inherited exception } ExtendedNaming_ExtendedNamingContext_PropertyNotFound;
-  FileXNaming_FileENC_PropertiesNotShared = { inherited exception } ExtendedNaming_ExtendedNamingContext_PropertiesNotShared;
-  FileXNaming_FileENC_IllegalConstraintExpression = { inherited exception } ExtendedNaming_ExtendedNamingContext_IllegalConstraintExpression;
-  FileXNaming_FileENC_BindingNotFound = { inherited exception } ExtendedNaming_ExtendedNamingContext_BindingNotFound;
   FileXNaming_FileENC_Constraint = { inherited } ExtendedNaming_ExtendedNamingContext_Constraint;
   FileXNaming_FileENC_Strings = { inherited } ExtendedNaming_ExtendedNamingContext_Strings;
-  FileXNaming_FileENC_NonSharableProperties = { inherited exception } ExtendedNaming_ExtendedNamingContext_NonSharableProperties;
   FileXNaming_FileENC_NotFound = { inherited exception } CosNaming_NamingContext_NotFound;
   FileXNaming_FileENC_CannotProceed = { inherited exception } CosNaming_NamingContext_CannotProceed;
   FileXNaming_FileENC_InvalidName = { inherited exception } CosNaming_NamingContext_InvalidName;
-  FileXNaming_FileENC_AlreadyBound = { inherited exception } CosNaming_NamingContext_AlreadyBound;
-  FileXNaming_FileENC_NotEmpty = { inherited exception } CosNaming_NamingContext_NotEmpty;
   FileXNaming_FileENC_NotFoundReason = { inherited } CosNaming_NamingContext_NotFoundReason;
   FileXNaming_FileENC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
   FileXNaming_FileENC_BooleanSequence = { inherited } SOMObject_BooleanSequence;

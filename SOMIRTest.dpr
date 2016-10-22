@@ -1047,6 +1047,7 @@ end;
 procedure TSOMIRImporter.WriteRepositoryThirdPass(Item: Contained; const CurrentNamespace: string);
 var
   TC: TypeCode;
+  Kind: TCKind;
   Name: PAnsiChar;
   Recurse: Boolean;
   SubItem: Contained;
@@ -1090,7 +1091,8 @@ begin
   else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then
   begin
     TC := ExceptionDef__get_type(Item, ev);
-    if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
+    Kind := TypeCode_kind(TC, ev);
+    if (Kind <> TypeCode_tk_foreign) and (Kind <> TypeCode_tk_null) then
     begin
       if not FWasType then
       begin
@@ -1112,7 +1114,7 @@ begin
       else
       begin
         WriteType(CurrentNamespace, wtpOnDemandBeforeTypeDef, TC);
-        Write(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = ');
+        Write(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = { exception } ');
         WriteType(CurrentNamespace, wtpTypeDef, TC);
         WriteLn(F, ';');
       end;
