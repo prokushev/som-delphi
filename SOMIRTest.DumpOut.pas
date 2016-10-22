@@ -1128,8 +1128,6 @@ type
   FileXNaming_FileENC_Constraint = CORBAString;
   FileXNaming_FileENC_Strings = ^ShortInt;
   FileXNaming_FileENC_PropertyNotFound = { inherited exception } ExtendedNaming_ExtendedNamingContext_PropertyNotFound;
-  FileXNaming_FileENC_Constraint = { inherited } ExtendedNaming_ExtendedNamingContext_Constraint;
-  FileXNaming_FileENC_Strings = { inherited } ExtendedNaming_ExtendedNamingContext_Strings;
   FileXNaming_FileENC_NotFound = { inherited exception } CosNaming_NamingContext_NotFound;
   FileXNaming_FileENC_CannotProceed = { inherited exception } CosNaming_NamingContext_CannotProceed;
   FileXNaming_FileENC_InvalidName = { inherited exception } CosNaming_NamingContext_InvalidName;

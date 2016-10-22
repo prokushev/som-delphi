@@ -54,6 +54,7 @@ type
     FReservedWords: TStringList; // 'file', 'type', 'result', ...
     FGeneratedOnDemand: TStringList; // '_IDL_Sequence_Byte', '^SOM_FILE', ...
     FResolutionAid: TStringList; // 'Binding=::CosNaming::Binding', ...
+    FOriginalTypeIds: TStringList; // non-inherited '::TypeName', '::ModuleName::TypeName'
   public
     constructor Create(const ARootNamespace: string; ARepo: Repository);
     destructor Destroy; override;
@@ -96,6 +97,7 @@ begin
   FReservedWords := TStringList.Create;
   FGeneratedOnDemand := TStringList.Create;
   FResolutionAid := TStringList.Create;
+  FOriginalTypeIds := TStringList.Create;
   FReservedWords.Add('file');
   FReservedWords.Add('function');
   FReservedWords.Add('mod');
@@ -120,6 +122,7 @@ end;
 destructor TSOMIRImporter.Destroy;
 begin
   // Close(F);
+  FreeAndNil(FOriginalTypeIds);
   FreeAndNil(FResolutionAid);
   FreeAndNil(FGeneratedOnDemand);
   FreeAndNil(FReservedWords);
@@ -946,6 +949,7 @@ begin
 
     if CurrentNamespace = OriginalNamespace then
     begin
+      FOriginalTypeIds.Add(CurrentNamespace + Name);
       FResolutionAid.Values[Name] := CurrentNamespace + Name;
     end;
   end
@@ -962,6 +966,7 @@ begin
 
     if CurrentNamespace = OriginalNamespace then
     begin
+      FOriginalTypeIds.Add(CurrentNamespace + Name);
       FResolutionAid.Values[Name] := CurrentNamespace + Name;
     end;
   end
@@ -1055,6 +1060,7 @@ var
   I: LongWord;
   OriginalNamespace: string;
   NewNamespace: string;
+  Index: Integer;
 begin
   Recurse := False;
   if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
@@ -1077,7 +1083,10 @@ begin
       if OriginalNamespace <> CurrentNamespace then
       begin
         Name := Contained__get_name(Item, ev);
-        WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
+        if not FOriginalTypeIds.Find(CurrentNamespace + Name, Index) then // if inherited type was not replaced by new one
+        begin
+          WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
+        end;
       end
       else
       begin
@@ -1109,7 +1118,10 @@ begin
       if OriginalNamespace <> CurrentNamespace then
       begin
         Name := Contained__get_name(Item, ev);
-        WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited exception } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
+        if not FOriginalTypeIds.Find(CurrentNamespace + Name, Index) then // if inherited type was not replaced by new one
+        begin
+          WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited exception } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
+        end;
       end
       else
       begin
@@ -1228,6 +1240,7 @@ begin
         WriteRepositoryFirstPass(Item, '::', WasForwardType);
       end;
       FExistingTypeIds.Sorted := True;
+      FOriginalTypeIds.Sorted := True;
       Write(' 1');
 
       // Second pass: find foreign types that can't go into opaque pointers
