@@ -323,15 +323,14 @@ begin
   end;
 end;
 
-// TODO consider inherited context
-// function describe: Description; in ExceptionDef
-// should be Contained_Description instead
 procedure TSOMIRImporter.WriteRecordType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 var
   ParamCount: LongInt;
   Parameter: any;
   Parameter_TC: TypeCode;
   Parameter_Kind: TCKind;
+  I: Integer;
+  Name: string;
 begin
   ParamCount := TypeCode_param_count(TC, ev);
   if ParamCount >= 1 then
@@ -341,13 +340,51 @@ begin
     Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
     if Parameter_Kind = TypeCode_tk_string then
     begin
+      Name := TCToImportedType(TC, CurrentNamespace);
       if Pass > wtpOnDemand then
       begin
         WriteLn(F, 'record');
-        WriteLn(F, '    { ... }');
       end;
 
-      { TODO record fields }
+      for I := 1 to ParamCount div 2 do
+      begin
+        if Pass > wtpOnDemand then
+        begin
+          Write(F, '    ');
+        end;
+        Parameter := TypeCode_parameter(TC, ev, I * 2 - 1);
+        Parameter_TC := TAnyRecord(Parameter)._type;
+        Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+        if Pass > wtpOnDemand then
+        begin
+          if Parameter_Kind = TypeCode_tk_string then
+          begin
+            Write(F, UnreserveIdentifier(PAnsiChar(TAnyRecord(Parameter)._value^)), ': ');
+          end
+          else
+          begin
+            Write(F, '{ TypeCode_kind = ', LongWord(Parameter_Kind), ' }: ');
+          end;
+        end;
+
+        if Pass = wtpOnDemandBeforeTypeDef then
+        begin
+          WriteType(CurrentNamespace, wtpOnDemand, ExtractSubTC(TC, I * 2));
+        end
+        else if Pass = wtpTypeDef then
+        begin
+          WriteType(CurrentNamespace, wtpFinal, ExtractSubTC(TC, I * 2));
+        end
+        else
+        begin
+          WriteType(CurrentNamespace, Pass, ExtractSubTC(TC, I * 2));
+        end;
+
+        if Pass > wtpOnDemand then
+        begin
+          WriteLn(F, ';');
+        end;
+      end;
 
       if Pass > wtpOnDemand then
       begin
@@ -481,24 +518,24 @@ begin
         FWasType := True;
       end;
 
-      if not FGeneratedOnDemand.Find('ArrayOf' + Name, Index) then
+      if not FGeneratedOnDemand.Find('_IDL_ArrayOf_' + Name, Index) then
       begin
         WriteType(CurrentNamespace, wtpOnDemand, TC2);
         // avoid division by zero in compiler
-        WriteLn(F, '  ArrayOf', Name, ' = packed array[0 .. (MaxLongInt div (Abs(SizeOf(', Name,') - 1) + 1))-1] of ', Name, ';');
-        FGeneratedOnDemand.Add('ArrayOf' + Name);
+        WriteLn(F, '  _IDL_ArrayOf_', Name, ' = packed array[0 .. (MaxLongInt div (Abs(SizeOf(', Name,') - 1) + 1))-1] of ', Name, ';');
+        FGeneratedOnDemand.Add('_IDL_ArrayOf_' + Name);
       end;
 
-      if not FGeneratedOnDemand.Find('PArrayOf' + Name, Index) then
+      if not FGeneratedOnDemand.Find('P_IDL_ArrayOf_' + Name, Index) then
       begin
-        WriteLn(F, '  PArrayOf', Name, ' = ^ArrayOf', Name, ';');
-        FGeneratedOnDemand.Add('PArrayOf' + Name);
+        WriteLn(F, '  P_IDL_ArrayOf_', Name, ' = ^_IDL_ArrayOf_', Name, ';');
+        FGeneratedOnDemand.Add('P_IDL_ArrayOf_' + Name);
       end;
 
       WriteLn(F, '  _IDL_Sequence_', Name, ' = record');
       WriteLn(F, '    _maximum: LongWord;');
       WriteLn(F, '    _length: LongWord;');
-      WriteLn(F, '    _buffer: PArrayOf', Name,';');
+      WriteLn(F, '    _buffer: P_IDL_ArrayOf_', Name,';');
       WriteLn(F, '  end;');
       FGeneratedOnDemand.Add('_IDL_Sequence_' + Name);
     end;
@@ -544,7 +581,7 @@ begin
   TypeCode_tk_array: if Pass > wtpOnDemand then Write(F, 'array [0 .. {...}] of {...}');
                        
   TypeCode_tk_pointer: WritePointerType(CurrentNamespace, Pass, TC);
-  TypeCode_tk_self: if Pass > wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_self}');
+  TypeCode_tk_self: if Pass > wtpOnDemand then Write(F, IdToImportedType(ExtractName(TC), CurrentNamespace));
   TypeCode_tk_foreign: WriteForeignType(CurrentNamespace, Pass, TC);
   else if Pass <> wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = ', LongWord(Kind), '}');
   end;
@@ -647,7 +684,7 @@ begin
       Result := 'P' + TCToImportedType(TC2, CurrentNamespace);
     end;
   end;
-  TypeCode_tk_self: Result := '{unknown type with TypeCode_kind = TypeCode_tk_self}';
+  TypeCode_tk_self: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
   TypeCode_tk_foreign: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
   else Result := '{unknown type with TypeCode_kind = ' + IntToStr(Integer(Kind)) + '}';
   end;
@@ -1286,8 +1323,6 @@ begin
         WriteRepositorySecondPass(Item, '::');
       end;
       Write(' 2');
-
-      // TODO Forward pointer types?
 
       // Third pass: build non-class types
       for I := 0 to Contents._length - 1 do
