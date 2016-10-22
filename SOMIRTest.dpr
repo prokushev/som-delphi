@@ -67,11 +67,13 @@ type
     procedure WriteRecordType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
     procedure WriteEnumType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
     procedure WritePointerType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
+    procedure WriteArrayType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
     procedure WriteSequenceType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
     procedure WriteType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 
     function ExtractName(TC: TypeCode): string;
     function ExtractSubTC(TC: TypeCode; Index: LongInt): TypeCode;
+    function ExtractInteger(TC: TypeCode; Index: LongInt): LongInt;
     function TCToImportedType(TC: TypeCode; const CurrentNamespace: string): string;
 
     procedure WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
@@ -496,6 +498,48 @@ begin
   end;
 end;
 
+procedure TSOMIRImporter.WriteArrayType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
+var
+  TC2: TypeCode;
+  Index: Integer;
+  Name: string;
+  Size: LongInt;
+begin
+  TC2 := ExtractSubTC(TC, 0);
+  Size := ExtractInteger(TC, 1);
+  Name := TCToImportedType(TC2, CurrentNamespace);
+  if Pass <= wtpOnDemand then
+  begin
+    if Pass = wtpOnDemandForeignOnly then
+    begin
+      WriteType(CurrentNamespace, wtpOnDemandForeignOnly, TC2);
+    end
+    else
+    if Pass = wtpOnDemandBeforeTypedef then
+    begin
+      WriteType(CurrentNamespace, wtpOnDemand, TC2);
+    end
+    else
+    begin
+      if not FGeneratedOnDemand.Find('_IDL_Array' + IntToStr(Size) + 'Of_' + Name, Index) then
+      begin
+        if not FWasType then
+        begin
+          WriteLn(F, 'type');
+          FWasType := True;
+        end;
+        WriteType(CurrentNamespace, wtpOnDemand, TC2);
+        WriteLn(F, '  _IDL_Array' + IntToStr(Size) + 'Of_', Name, ' = array[0 .. ', Size - 1, '] of ', Name, ';');
+        FGeneratedOnDemand.Add('_IDL_Array' + IntToStr(Size) + 'Of_' + Name);
+      end;
+    end;
+  end
+  else
+  begin
+    Write(F, 'array[0 .. ', Size - 1, '] of ', Name);
+  end;
+end;
+
 procedure TSOMIRImporter.WriteSequenceType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 var
   TC2: TypeCode;
@@ -522,7 +566,7 @@ begin
       begin
         WriteType(CurrentNamespace, wtpOnDemand, TC2);
         // avoid division by zero in compiler
-        WriteLn(F, '  _IDL_ArrayOf_', Name, ' = packed array[0 .. (MaxLongInt div (Abs(SizeOf(', Name,') - 1) + 1))-1] of ', Name, ';');
+        WriteLn(F, '  _IDL_ArrayOf_', Name, ' = packed array[0 .. (MaxLongInt div (Abs(SizeOf(', Name,') - 1) + 1)) - 1] of ', Name, ';');
         FGeneratedOnDemand.Add('_IDL_ArrayOf_' + Name);
       end;
 
@@ -535,7 +579,7 @@ begin
       WriteLn(F, '  _IDL_Sequence_', Name, ' = record');
       WriteLn(F, '    _maximum: LongWord;');
       WriteLn(F, '    _length: LongWord;');
-      WriteLn(F, '    _buffer: P_IDL_ArrayOf_', Name,';');
+      WriteLn(F, '    _buffer: P_IDL_ArrayOf_', Name, ';');
       WriteLn(F, '  end;');
       FGeneratedOnDemand.Add('_IDL_Sequence_' + Name);
     end;
@@ -578,7 +622,7 @@ begin
   TypeCode_tk_enum: WriteEnumType(CurrentNamespace, Pass, TC);
   TypeCode_tk_string: if Pass > wtpOnDemand then Write(F, 'CORBAString');
   TypeCode_tk_sequence: WriteSequenceType(CurrentNamespace, Pass, TC);
-  TypeCode_tk_array: if Pass > wtpOnDemand then Write(F, 'array [0 .. {...}] of {...}');
+  TypeCode_tk_array: WriteArrayType(CurrentNamespace, Pass, TC);
                        
   TypeCode_tk_pointer: WritePointerType(CurrentNamespace, Pass, TC);
   TypeCode_tk_self: if Pass > wtpOnDemand then Write(F, IdToImportedType(ExtractName(TC), CurrentNamespace));
@@ -643,6 +687,34 @@ begin
   end;
 end;
 
+function TSOMIRImporter.ExtractInteger(TC: TypeCode; Index: LongInt): LongInt;
+var
+  ParamCount: LongInt;
+  Parameter: any;
+  Parameter_TC: TypeCode;
+  Parameter_Kind: TCKind;
+begin
+  ParamCount := TypeCode_param_count(TC, ev);
+  if ParamCount >= Index + 1 then
+  begin
+    Parameter := TypeCode_parameter(TC, ev, Index);
+    Parameter_TC := TAnyRecord(Parameter)._type;
+    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
+    if Parameter_Kind = TypeCode_tk_long then
+    begin
+      Result := LongInt(TAnyRecord(Parameter)._value^);
+    end
+    else
+    begin
+      Result := -1;
+    end;
+  end
+  else
+  begin
+    Result := -1;
+  end;
+end;
+
 function TSOMIRImporter.TCToImportedType(TC: TypeCode; const CurrentNamespace: string): string;
 var
   Kind: TCKind;
@@ -670,7 +742,7 @@ begin
   TypeCode_tk_enum: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
   TypeCode_tk_string: Result := 'CORBAString';
   TypeCode_tk_sequence: Result := '_IDL_Sequence_' + TCToImportedType(ExtractSubTC(TC, 0), CurrentNamespace);
-  TypeCode_tk_array: Result := 'array[0 .. {...}] of {...}';
+  TypeCode_tk_array: Result := '_IDL_Array' + IntToStr(ExtractInteger(TC, 1)) + 'Of_' + TCToImportedType(ExtractSubTC(TC, 0), CurrentNamespace);
                        
   TypeCode_tk_pointer:
   begin

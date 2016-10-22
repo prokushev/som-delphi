@@ -111,7 +111,7 @@ type
   FileXNaming_FileIndexIterator = class;
   somId = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
   va_list = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
-  _IDL_ArrayOf_any = packed array[0 .. (MaxLongInt div (Abs(SizeOf(any) - 1) + 1))-1] of any;
+  _IDL_ArrayOf_any = packed array[0 .. (MaxLongInt div (Abs(SizeOf(any) - 1) + 1)) - 1] of any;
   P_IDL_ArrayOf_any = ^_IDL_ArrayOf_any;
   _IDL_Sequence_any = record
     _maximum: LongWord;
@@ -205,9 +205,10 @@ type
   somParentMtabStructPtr = ^somMethodTabList;
   somBooleanVector = ^Byte;
   exception_type = type LongWord;
+  _IDL_Array12Of_Byte = array[0 .. 11] of Byte;
   Environment = record
     major: exception_type;
-    opaque_data: array[0 .. {...}] of {...};
+    opaque_data: _IDL_Array12Of_Byte;
   end;
   somCClassDataStructurePtr = Pointer;
   somClassDataStructurePtr = Pointer;
@@ -223,7 +224,7 @@ type
   end;
   Identifier = CORBAString;
   RepositoryId = CORBAString;
-  _IDL_ArrayOf_SOMObject = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMObject) - 1) + 1))-1] of SOMObject;
+  _IDL_ArrayOf_SOMObject = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMObject) - 1) + 1)) - 1] of SOMObject;
   P_IDL_ArrayOf_SOMObject = ^_IDL_ArrayOf_SOMObject;
   _IDL_Sequence_SOMObject = record
     _maximum: LongWord;
@@ -231,7 +232,7 @@ type
     _buffer: P_IDL_ArrayOf_SOMObject;
   end;
   SOMObject_SOMObjectSequence = _IDL_Sequence_SOMObject;
-  _IDL_ArrayOf_Byte = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Byte) - 1) + 1))-1] of Byte;
+  _IDL_ArrayOf_Byte = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Byte) - 1) + 1)) - 1] of Byte;
   P_IDL_ArrayOf_Byte = ^_IDL_ArrayOf_Byte;
   _IDL_Sequence_Byte = record
     _maximum: LongWord;
@@ -243,7 +244,7 @@ type
     obj: SOMObject;
     offset: LongInt;
   end;
-  _IDL_ArrayOf_SOMObject_somObjectOffset = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMObject_somObjectOffset) - 1) + 1))-1] of SOMObject_somObjectOffset;
+  _IDL_ArrayOf_SOMObject_somObjectOffset = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMObject_somObjectOffset) - 1) + 1)) - 1] of SOMObject_somObjectOffset;
   P_IDL_ArrayOf_SOMObject_somObjectOffset = ^_IDL_ArrayOf_SOMObject_somObjectOffset;
   _IDL_Sequence_SOMObject_somObjectOffset = record
     _maximum: LongWord;
@@ -277,7 +278,7 @@ type
     id: CORBAString;
     kind: CORBAString;
   end;
-  _IDL_ArrayOf_CosNaming_NameComponent = packed array[0 .. (MaxLongInt div (Abs(SizeOf(CosNaming_NameComponent) - 1) + 1))-1] of CosNaming_NameComponent;
+  _IDL_ArrayOf_CosNaming_NameComponent = packed array[0 .. (MaxLongInt div (Abs(SizeOf(CosNaming_NameComponent) - 1) + 1)) - 1] of CosNaming_NameComponent;
   P_IDL_ArrayOf_CosNaming_NameComponent = ^_IDL_ArrayOf_CosNaming_NameComponent;
   _IDL_Sequence_CosNaming_NameComponent = record
     _maximum: LongWord;
@@ -290,7 +291,7 @@ type
     binding_name: _IDL_Sequence_CosNaming_NameComponent;
     binding_type: CosNaming_BindingType;
   end;
-  _IDL_ArrayOf_CosNaming_Binding = packed array[0 .. (MaxLongInt div (Abs(SizeOf(CosNaming_Binding) - 1) + 1))-1] of CosNaming_Binding;
+  _IDL_ArrayOf_CosNaming_Binding = packed array[0 .. (MaxLongInt div (Abs(SizeOf(CosNaming_Binding) - 1) + 1)) - 1] of CosNaming_Binding;
   P_IDL_ArrayOf_CosNaming_Binding = ^_IDL_ArrayOf_CosNaming_Binding;
   _IDL_Sequence_CosNaming_Binding = record
     _maximum: LongWord;
@@ -322,7 +323,7 @@ type
   Biter_BINDITER_TWO_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   Biter_BINDITER_TWO_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   Biter_BINDITER_TWO_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
-  _IDL_ArrayOf_CORBAString = packed array[0 .. (MaxLongInt div (Abs(SizeOf(CORBAString) - 1) + 1))-1] of CORBAString;
+  _IDL_ArrayOf_CORBAString = packed array[0 .. (MaxLongInt div (Abs(SizeOf(CORBAString) - 1) + 1)) - 1] of CORBAString;
   P_IDL_ArrayOf_CORBAString = ^_IDL_ArrayOf_CORBAString;
   _IDL_Sequence_CORBAString = record
     _maximum: LongWord;
@@ -426,7 +427,7 @@ type
     property_name: CORBAString;
     sharable: CORBABoolean;
   end;
-  _IDL_ArrayOf_ExtendedNaming_PropertyBinding_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExtendedNaming_PropertyBinding_struct) - 1) + 1))-1] of ExtendedNaming_PropertyBinding_struct;
+  _IDL_ArrayOf_ExtendedNaming_PropertyBinding_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExtendedNaming_PropertyBinding_struct) - 1) + 1)) - 1] of ExtendedNaming_PropertyBinding_struct;
   P_IDL_ArrayOf_ExtendedNaming_PropertyBinding_struct = ^_IDL_ArrayOf_ExtendedNaming_PropertyBinding_struct;
   _IDL_Sequence_ExtendedNaming_PropertyBinding_struct = record
     _maximum: LongWord;
@@ -442,7 +443,7 @@ type
     binding: ExtendedNaming_PropertyBinding_struct;
     value: any;
   end;
-  _IDL_ArrayOf_ExtendedNaming_Property_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExtendedNaming_Property_struct) - 1) + 1))-1] of ExtendedNaming_Property_struct;
+  _IDL_ArrayOf_ExtendedNaming_Property_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExtendedNaming_Property_struct) - 1) + 1)) - 1] of ExtendedNaming_Property_struct;
   P_IDL_ArrayOf_ExtendedNaming_Property_struct = ^_IDL_ArrayOf_ExtendedNaming_Property_struct;
   _IDL_Sequence_ExtendedNaming_Property_struct = record
     _maximum: LongWord;
@@ -460,7 +461,7 @@ type
     property_type: TypeCode;
     distance: LongWord;
   end;
-  _IDL_ArrayOf_ExtendedNaming_IndexDescriptor_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExtendedNaming_IndexDescriptor_struct) - 1) + 1))-1] of ExtendedNaming_IndexDescriptor_struct;
+  _IDL_ArrayOf_ExtendedNaming_IndexDescriptor_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExtendedNaming_IndexDescriptor_struct) - 1) + 1)) - 1] of ExtendedNaming_IndexDescriptor_struct;
   P_IDL_ArrayOf_ExtendedNaming_IndexDescriptor_struct = ^_IDL_ArrayOf_ExtendedNaming_IndexDescriptor_struct;
   _IDL_Sequence_ExtendedNaming_IndexDescriptor_struct = record
     _maximum: LongWord;
@@ -510,8 +511,9 @@ type
     object_key: _IDL_Sequence_Byte;
   end;
   IIOP_MsgType = type LongWord;
+  _IDL_Array4Of_ShortInt = array[0 .. 3] of ShortInt;
   IIOP_MessageHeader = record
-    magic: array[0 .. {...}] of {...};
+    magic: _IDL_Array4Of_ShortInt;
     iiop_version: IIOP_Version;
     byte_order: CORBABoolean;
     message_type: Byte;
@@ -522,7 +524,7 @@ type
     context_id: LongWord;
     context_data: _IDL_Sequence_Byte;
   end;
-  _IDL_ArrayOf_IIOP_ServiceContext = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IIOP_ServiceContext) - 1) + 1))-1] of IIOP_ServiceContext;
+  _IDL_ArrayOf_IIOP_ServiceContext = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IIOP_ServiceContext) - 1) + 1)) - 1] of IIOP_ServiceContext;
   P_IDL_ArrayOf_IIOP_ServiceContext = ^_IDL_ArrayOf_IIOP_ServiceContext;
   _IDL_Sequence_IIOP_ServiceContext = record
     _maximum: LongWord;
@@ -577,7 +579,7 @@ type
     context_data: _IDL_Sequence_Byte;
     context_body: Pointer;
   end;
-  _IDL_ArrayOf_IIOP_SOMDServiceContext = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IIOP_SOMDServiceContext) - 1) + 1))-1] of IIOP_SOMDServiceContext;
+  _IDL_ArrayOf_IIOP_SOMDServiceContext = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IIOP_SOMDServiceContext) - 1) + 1)) - 1] of IIOP_SOMDServiceContext;
   P_IDL_ArrayOf_IIOP_SOMDServiceContext = ^_IDL_ArrayOf_IIOP_SOMDServiceContext;
   _IDL_Sequence_IIOP_SOMDServiceContext = record
     _maximum: LongWord;
@@ -594,7 +596,7 @@ type
     tag: LongWord;
     profile_data: _IDL_Sequence_Byte;
   end;
-  _IDL_ArrayOf_IOR_TaggedProfile = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IOR_TaggedProfile) - 1) + 1))-1] of IOR_TaggedProfile;
+  _IDL_ArrayOf_IOR_TaggedProfile = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IOR_TaggedProfile) - 1) + 1)) - 1] of IOR_TaggedProfile;
   P_IDL_ArrayOf_IOR_TaggedProfile = ^_IDL_ArrayOf_IOR_TaggedProfile;
   _IDL_Sequence_IOR_TaggedProfile = record
     _maximum: LongWord;
@@ -611,7 +613,7 @@ type
     tag: LongWord;
     component_data: _IDL_Sequence_Byte;
   end;
-  _IDL_ArrayOf_IOR_TaggedComponent = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IOR_TaggedComponent) - 1) + 1))-1] of IOR_TaggedComponent;
+  _IDL_ArrayOf_IOR_TaggedComponent = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IOR_TaggedComponent) - 1) + 1)) - 1] of IOR_TaggedComponent;
   P_IDL_ArrayOf_IOR_TaggedComponent = ^_IDL_ArrayOf_IOR_TaggedComponent;
   _IDL_Sequence_IOR_TaggedComponent = record
     _maximum: LongWord;
@@ -629,7 +631,7 @@ type
     profile_data: _IDL_Sequence_Byte;
     profile_body: Pointer;
   end;
-  _IDL_ArrayOf_IOR_SOMDTaggedProfile = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IOR_SOMDTaggedProfile) - 1) + 1))-1] of IOR_SOMDTaggedProfile;
+  _IDL_ArrayOf_IOR_SOMDTaggedProfile = packed array[0 .. (MaxLongInt div (Abs(SizeOf(IOR_SOMDTaggedProfile) - 1) + 1)) - 1] of IOR_SOMDTaggedProfile;
   P_IDL_ArrayOf_IOR_SOMDTaggedProfile = ^_IDL_ArrayOf_IOR_SOMDTaggedProfile;
   _IDL_Sequence_IOR_SOMDTaggedProfile = record
     _maximum: LongWord;
@@ -669,7 +671,7 @@ type
   somOS_Server_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   somOS_Server_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   somOS_Server_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
-  _IDL_ArrayOf_somOS_metastate_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(somOS_metastate_struct) - 1) + 1))-1] of somOS_metastate_struct;
+  _IDL_ArrayOf_somOS_metastate_struct = packed array[0 .. (MaxLongInt div (Abs(SizeOf(somOS_metastate_struct) - 1) + 1)) - 1] of somOS_metastate_struct;
   P_IDL_ArrayOf_somOS_metastate_struct = ^_IDL_ArrayOf_somOS_metastate_struct;
   _IDL_Sequence_somOS_metastate_struct = record
     _maximum: LongWord;
@@ -750,7 +752,7 @@ type
     protocol: CORBAString;
     response: P_IDL_Sequence_CORBAString;
   end;
-  _IDL_ArrayOf_ImplementationDef_prot_response = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ImplementationDef_prot_response) - 1) + 1))-1] of ImplementationDef_prot_response;
+  _IDL_ArrayOf_ImplementationDef_prot_response = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ImplementationDef_prot_response) - 1) + 1)) - 1] of ImplementationDef_prot_response;
   P_IDL_ArrayOf_ImplementationDef_prot_response = ^_IDL_ArrayOf_ImplementationDef_prot_response;
   _IDL_Sequence_ImplementationDef_prot_response = record
     _maximum: LongWord;
@@ -770,7 +772,7 @@ type
     name: CORBAString;
     value: CORBAString;
   end;
-  _IDL_ArrayOf_ImplRepository_PV = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ImplRepository_PV) - 1) + 1))-1] of ImplRepository_PV;
+  _IDL_ArrayOf_ImplRepository_PV = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ImplRepository_PV) - 1) + 1)) - 1] of ImplRepository_PV;
   P_IDL_ArrayOf_ImplRepository_PV = ^_IDL_ArrayOf_ImplRepository_PV;
   _IDL_Sequence_ImplRepository_PV = record
     _maximum: LongWord;
@@ -783,28 +785,28 @@ type
   ImplRepository_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   ImplRepository_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
   ContextIdentifier = CORBAString;
-  _IDL_ArrayOf_ParameterDef_ParameterDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ParameterDef_ParameterDescription) - 1) + 1))-1] of ParameterDef_ParameterDescription;
+  _IDL_ArrayOf_ParameterDef_ParameterDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ParameterDef_ParameterDescription) - 1) + 1)) - 1] of ParameterDef_ParameterDescription;
   P_IDL_ArrayOf_ParameterDef_ParameterDescription = ^_IDL_ArrayOf_ParameterDef_ParameterDescription;
   _IDL_Sequence_ParameterDef_ParameterDescription = record
     _maximum: LongWord;
     _length: LongWord;
     _buffer: P_IDL_ArrayOf_ParameterDef_ParameterDescription;
   end;
-  _IDL_ArrayOf_ExceptionDef_ExceptionDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExceptionDef_ExceptionDescription) - 1) + 1))-1] of ExceptionDef_ExceptionDescription;
+  _IDL_ArrayOf_ExceptionDef_ExceptionDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExceptionDef_ExceptionDescription) - 1) + 1)) - 1] of ExceptionDef_ExceptionDescription;
   P_IDL_ArrayOf_ExceptionDef_ExceptionDescription = ^_IDL_ArrayOf_ExceptionDef_ExceptionDescription;
   _IDL_Sequence_ExceptionDef_ExceptionDescription = record
     _maximum: LongWord;
     _length: LongWord;
     _buffer: P_IDL_ArrayOf_ExceptionDef_ExceptionDescription;
   end;
-  _IDL_ArrayOf_OperationDef_OperationDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(OperationDef_OperationDescription) - 1) + 1))-1] of OperationDef_OperationDescription;
+  _IDL_ArrayOf_OperationDef_OperationDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(OperationDef_OperationDescription) - 1) + 1)) - 1] of OperationDef_OperationDescription;
   P_IDL_ArrayOf_OperationDef_OperationDescription = ^_IDL_ArrayOf_OperationDef_OperationDescription;
   _IDL_Sequence_OperationDef_OperationDescription = record
     _maximum: LongWord;
     _length: LongWord;
     _buffer: P_IDL_ArrayOf_OperationDef_OperationDescription;
   end;
-  _IDL_ArrayOf_AttributeDef_AttributeDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(AttributeDef_AttributeDescription) - 1) + 1))-1] of AttributeDef_AttributeDescription;
+  _IDL_ArrayOf_AttributeDef_AttributeDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(AttributeDef_AttributeDescription) - 1) + 1)) - 1] of AttributeDef_AttributeDescription;
   P_IDL_ArrayOf_AttributeDef_AttributeDescription = ^_IDL_ArrayOf_AttributeDef_AttributeDescription;
   _IDL_Sequence_AttributeDef_AttributeDescription = record
     _maximum: LongWord;
@@ -1019,7 +1021,7 @@ type
   SOMDServerMgr_BooleanSequence = { inherited } SOMObject_BooleanSequence;
   SOMDServerMgr_somObjectOffset = { inherited } SOMObject_somObjectOffset;
   SOMDServerMgr_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
-  _IDL_ArrayOf_Pointer = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Pointer) - 1) + 1))-1] of Pointer;
+  _IDL_ArrayOf_Pointer = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Pointer) - 1) + 1)) - 1] of Pointer;
   P_IDL_ArrayOf_Pointer = ^_IDL_ArrayOf_Pointer;
   _IDL_Sequence_Pointer = record
     _maximum: LongWord;
@@ -1027,7 +1029,7 @@ type
     _buffer: P_IDL_ArrayOf_Pointer;
   end;
   SOMClass_somTokenSequence = _IDL_Sequence_Pointer;
-  _IDL_ArrayOf_SOMClass = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMClass) - 1) + 1))-1] of SOMClass;
+  _IDL_ArrayOf_SOMClass = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMClass) - 1) + 1)) - 1] of SOMClass;
   P_IDL_ArrayOf_SOMClass = ^_IDL_ArrayOf_SOMClass;
   _IDL_Sequence_SOMClass = record
     _maximum: LongWord;
@@ -1039,7 +1041,7 @@ type
     cls: SOMClass;
     offset: LongInt;
   end;
-  _IDL_ArrayOf_SOMClass_somOffsetInfo = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMClass_somOffsetInfo) - 1) + 1))-1] of SOMClass_somOffsetInfo;
+  _IDL_ArrayOf_SOMClass_somOffsetInfo = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMClass_somOffsetInfo) - 1) + 1)) - 1] of SOMClass_somOffsetInfo;
   P_IDL_ArrayOf_SOMClass_somOffsetInfo = ^_IDL_ArrayOf_SOMClass_somOffsetInfo;
   _IDL_Sequence_SOMClass_somOffsetInfo = record
     _maximum: LongWord;
@@ -1047,7 +1049,7 @@ type
     _buffer: P_IDL_ArrayOf_SOMClass_somOffsetInfo;
   end;
   SOMClass_somOffsets = _IDL_Sequence_SOMClass_somOffsetInfo;
-  _IDL_ArrayOf_somId = packed array[0 .. (MaxLongInt div (Abs(SizeOf(somId) - 1) + 1))-1] of somId;
+  _IDL_ArrayOf_somId = packed array[0 .. (MaxLongInt div (Abs(SizeOf(somId) - 1) + 1)) - 1] of somId;
   P_IDL_ArrayOf_somId = ^_IDL_ArrayOf_somId;
   _IDL_Sequence_somId = record
     _maximum: LongWord;
@@ -1460,14 +1462,14 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  _IDL_ArrayOf_somModifier = packed array[0 .. (MaxLongInt div (Abs(SizeOf(somModifier) - 1) + 1))-1] of somModifier;
+  _IDL_ArrayOf_somModifier = packed array[0 .. (MaxLongInt div (Abs(SizeOf(somModifier) - 1) + 1)) - 1] of somModifier;
   P_IDL_ArrayOf_somModifier = ^_IDL_ArrayOf_somModifier;
   _IDL_Sequence_somModifier = record
     _maximum: LongWord;
     _length: LongWord;
     _buffer: P_IDL_ArrayOf_somModifier;
   end;
-  _IDL_ArrayOf_Container = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Container) - 1) + 1))-1] of Container;
+  _IDL_ArrayOf_Container = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Container) - 1) + 1)) - 1] of Container;
   P_IDL_ArrayOf_Container = ^_IDL_ArrayOf_Container;
   _IDL_Sequence_Container = record
     _maximum: LongWord;
@@ -2098,14 +2100,14 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
-  _IDL_ArrayOf_Contained = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Contained) - 1) + 1))-1] of Contained;
+  _IDL_ArrayOf_Contained = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Contained) - 1) + 1)) - 1] of Contained;
   P_IDL_ArrayOf_Contained = ^_IDL_ArrayOf_Contained;
   _IDL_Sequence_Contained = record
     _maximum: LongWord;
     _length: LongWord;
     _buffer: P_IDL_ArrayOf_Contained;
   end;
-  _IDL_ArrayOf_Container_ContainerDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Container_ContainerDescription) - 1) + 1))-1] of Container_ContainerDescription;
+  _IDL_ArrayOf_Container_ContainerDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Container_ContainerDescription) - 1) + 1)) - 1] of Container_ContainerDescription;
   P_IDL_ArrayOf_Container_ContainerDescription = ^_IDL_ArrayOf_Container_ContainerDescription;
   _IDL_Sequence_Container_ContainerDescription = record
     _maximum: LongWord;
@@ -2692,7 +2694,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  _IDL_ArrayOf_TypeCode = packed array[0 .. (MaxLongInt div (Abs(SizeOf(TypeCode) - 1) + 1))-1] of TypeCode;
+  _IDL_ArrayOf_TypeCode = packed array[0 .. (MaxLongInt div (Abs(SizeOf(TypeCode) - 1) + 1)) - 1] of TypeCode;
   P_IDL_ArrayOf_TypeCode = ^_IDL_ArrayOf_TypeCode;
   _IDL_Sequence_TypeCode = record
     _maximum: LongWord;
@@ -3628,7 +3630,7 @@ type
     property constant_random_id: LongWord read _get_constant_random_id;
   end;
 
-  _IDL_ArrayOf_ImplementationDef = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ImplementationDef) - 1) + 1))-1] of ImplementationDef;
+  _IDL_ArrayOf_ImplementationDef = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ImplementationDef) - 1) + 1)) - 1] of ImplementationDef;
   P_IDL_ArrayOf_ImplementationDef = ^_IDL_ArrayOf_ImplementationDef;
   _IDL_Sequence_ImplementationDef = record
     _maximum: LongWord;
@@ -6237,7 +6239,7 @@ type
     property type_id: CORBAString read _get_type_id write _set_type_id;
   end;
 
-  _IDL_ArrayOf_SOMDServer = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMDServer) - 1) + 1))-1] of SOMDServer;
+  _IDL_ArrayOf_SOMDServer = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMDServer) - 1) + 1)) - 1] of SOMDServer;
   P_IDL_ArrayOf_SOMDServer = ^_IDL_ArrayOf_SOMDServer;
   _IDL_Sequence_SOMDServer = record
     _maximum: LongWord;
