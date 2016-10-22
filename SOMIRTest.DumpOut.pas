@@ -88,7 +88,7 @@ type
   size_t = LongWord;
   signed_char = Byte;
   SOMFOREIGN = Pointer;
-  FILE = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
+  SOM_FILE = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
   va_list = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
   SOMHANDLE = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
   somToken = Pointer;
@@ -1289,7 +1289,7 @@ type
     { Found item: somObjectOffset }
     { Found item: somObjectOffsets }
   public
-    procedure marshal(latent_param: CORBAString; dataPtr: Pointer; direction: marshaling_direction_t; function: marshaling_op_t; streamio: CosStream::StreamIO);
+    procedure marshal(latent_param: CORBAString; dataPtr: Pointer; direction: marshaling_direction_t; function: marshaling_op_t; streamio: CosStream_StreamIO);
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1507,9 +1507,9 @@ type
     procedure _set_registrar_resp(registrar_resp: ^_IDL_Sequence_prot_response);
     function _get_constant_random_id: LongWord;
   public
-    procedure externalize_to_stream(stream: CosStream::StreamIO);
-    procedure internalize_from_stream(stream: CosStream::StreamIO; ff: CosLifeCycle::FactoryFinder);
-    function is_identical(other_object: CosObjectIdentity::IdentifiableObject): CORBABoolean;
+    procedure externalize_to_stream(stream: CosStream_StreamIO);
+    procedure internalize_from_stream(stream: CosStream_StreamIO; ff: CosLifeCycle_FactoryFinder);
+    function is_identical(other_object: CosObjectIdentity_IdentifiableObject): CORBABoolean;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -4957,11 +4957,11 @@ type
     { Found item: somObjectOffset }
     { Found item: somObjectOffsets }
   private
-    function _get_sender: TSPortability::Sender;
-    function _get_receiver: TSPortability::Receiver;
+    function _get_sender: TSPortability_Sender;
+    function _get_receiver: TSPortability_Receiver;
   public
-    procedure identify_sender(sender: TSPortability::Sender);
-    procedure identify_receiver(receiver: TSPortability::Receiver);
+    procedure identify_sender(sender: TSPortability_Sender);
+    procedure identify_receiver(receiver: TSPortability_Receiver);
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -4988,8 +4988,8 @@ type
     function somPrintSelf: SOMObject;
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
-    property sender: TSPortability::Sender read _get_sender write _set_sender;
-    property receiver: TSPortability::Receiver read _get_receiver write _set_receiver;
+    property sender: TSPortability_Sender read _get_sender write _set_sender;
+    property receiver: TSPortability_Receiver read _get_receiver write _set_receiver;
   end;
 
   TypeDef = class

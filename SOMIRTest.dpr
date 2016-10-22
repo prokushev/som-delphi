@@ -6,6 +6,7 @@ program SOMIRTest;
 
 uses
   SysUtils,
+  Classes,
   TypInfo,
   SOM in 'SOM.pas',
   SOM.Thin in 'SOM.Thin.pas',
@@ -74,9 +75,12 @@ type
     F: Text;
     FRepo: Repository;
     FWasType: Boolean;
+    FExistingTypeIds: TStringList; // '::TypeName', '::ModuleName::TypeName'
+    FReservedWords: TStringList; // 'file', 'type', 'result', ...
   public
     constructor Create(const ARootNamespace: string; ARepo: Repository);
     destructor Destroy; override;
+    function ResolveTypeId(const Id, CurrentNamespace: string): string;
     function IdToImportedType(const Id, CurrentNamespace: string): string;
     procedure WriteObjRefType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
     procedure WriteForeignType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
@@ -99,38 +103,133 @@ begin
   inherited Create;
   FRootNamespace := ARootNamespace;
   FRepo := ARepo;
+  FExistingTypeIds := TStringList.Create;
+  FReservedWords := TStringList.Create;
+  FReservedWords.Add('file');
+  FReservedWords.Add('result');
+  FReservedWords.Add('type');
+  FReservedWords.Sorted := True;
 end;
 
 destructor TSOMIRImporter.Destroy;
 begin
   // Close(F);
+  FreeAndNil(FReservedWords);
+  FreeAndNil(FExistingTypeIds);
   inherited Destroy;
 end;
 
-function TSOMIRImporter.IdToImportedType(const Id, CurrentNamespace: string): string;
+function TSOMIRImporter.ResolveTypeId(const Id, CurrentNamespace: string): string;
+var
+  Index, I: Integer;
+  ParentNamespace: string;
 begin
-  // TODO better resolution
-  if CurrentNamespace = '::' then
+  if Length(Id) >= 2 then
   begin
-    if Length(Id) >= 2 then
+    if Copy(Id, 1, 2) = '::' then
     begin
-      if Copy(Id, 1, 2) = '::' then
-      begin
-        Result := Copy(Id, 3, Length(Id) - 2);
-      end
-      else
-      begin
-        Result := Id;
-      end;
-    end
-    else
-    begin
+      // Absolute id
       Result := Id;
+      Exit;
     end;
-  end
-  else
+  end;
+
+  if Length(CurrentNamespace) < 2 then
   begin
-    Result := RootNamespace + '.' + Id;
+    // should not happen
+    // actually we can resolve from global namespace, but that should be signalled instead
+    Result := '::Unresolved::' + Id;
+    Exit;
+  end;
+
+  if Copy(CurrentNamespace, 1, 2) <> '::' then
+  begin
+    // should not happen
+    // actually we can resolve from global namespace, but that should be signalled instead
+    Result := '::Unresolved::' + Id;
+    Exit;
+  end;
+
+  if (Length(CurrentNamespace) > 2) and (Copy(CurrentNamespace, Length(CurrentNamespace) - 1, 2) <> '::') then
+  begin
+    // should not happen
+    // actually we can resolve from global namespace, but that should be signalled instead
+    Result := '::Unresolved::' + Id;
+    Exit;
+  end;
+
+  if FExistingTypeIds.Find(CurrentNamespace + Id, Index) then
+  begin
+    Result := CurrentNamespace + Id;
+    Exit;
+  end;
+
+  if Length(CurrentNamespace) < 5 then //  Length('::N::') = 5
+  begin
+    Result := '::Unresolved::' + Id;
+    Exit;
+  end;
+
+  ParentNamespace := CurrentNamespace;
+  repeat
+    if Length(ParentNamespace) < 5 then //  Length('::N::') = 5
+    begin
+      Result := '::Unresolved::' + Id;
+      Exit;
+    end;
+
+    Index := -1;
+    for I := Length(ParentNamespace) - 2 downto 2 do
+    begin
+      if ParentNamespace[I] = ':' then
+      begin
+        Index := I - 1;
+        Break;
+      end;
+    end;
+
+    if Index < 0 then
+    begin
+      Result := '::Unresolved::' + Id;
+      Exit;
+    end;
+
+    if ParentNamespace[Index] <> ':' then
+    begin
+      Result := '::Unresolved::' + Id;
+      Exit;
+    end;
+
+    SetLength(ParentNamespace, Index + 1);
+  until FExistingTypeIds.Find(ParentNamespace + Id, Index);
+  Result := ParentNamespace + Id;
+end;
+
+function TSOMIRImporter.IdToImportedType(const Id, CurrentNamespace: string): string;
+var
+  Index: Integer;
+begin
+  Result := ResolveTypeId(Id, CurrentNamespace);
+
+  if Length(Result) >= 2 then
+  begin
+    if Copy(Result, 1, 2) = '::' then
+    begin
+      Result := Copy(Result, 3, Length(Result) - 2);
+    end
+  end;
+
+  Index := Pos('::', Result);
+  
+  while Index > 0 do
+  begin
+    Result := Copy(Result, 1, Index - 1) + '_' + Copy(Result, Index + 2, Length(Result) - Index - 1);
+    Index := Pos('::', Result);
+  end;
+
+  if FReservedWords.Find(LowerCase(Result), Index) then
+  begin
+    Result := 'SOM_' + Result;
   end;
 end;
 
@@ -741,6 +840,7 @@ var
   I: LongWord;
   Item: Contained;
   WasForwardType: Boolean;
+  Name: PAnsiChar;
 begin
   Assign(F, RootNamespace + '.pas');
   Rewrite(F);
@@ -763,7 +863,7 @@ begin
     begin
       WasForwardType := False;
 
-      // First pass: forward type references
+      // First pass: write forward type references, populate existing types for resolution
       for I := 0 to Contents._length - 1 do
       begin
         Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
@@ -776,9 +876,16 @@ begin
             WasForwardType := True;
             FWasType := True;
           end;
-          WriteLn(F, '  ', Contained__get_name(Item, ev), ' = class;');
+          Name := Contained__get_name(Item, ev);
+          FExistingTypeIds.Add('::' + Name);
+          WriteLn(F, '  ', IdToImportedType('::' + Name, '::'), ' = class;');
+        end
+        else if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+        begin
+          FExistingTypeIds.Add('::' + Contained__get_name(Item, ev));
         end;
       end;
+      FExistingTypeIds.Sorted := True;
       Write(' 1');
 
       // TODO Forward pointer types
@@ -794,10 +901,8 @@ begin
             WriteLn(F, 'type');
             FWasType := True;
           end;
-          // Write(' ', Contained__get_name(Item, ev), '-ondemand');
           WriteType('::', wtpOnDemand, TypeDef__get_type(Item, ev));
-          // Write(' ', Contained__get_name(Item, ev), '-typedef');
-          Write(F, '  ', Contained__get_name(Item, ev), ' = ');
+          Write(F, '  ', IdToImportedType('::' + Contained__get_name(Item, ev), '::'), ' = ');
           WriteType('::', wtpTypeDef, TypeDef__get_type(Item, ev));
           WriteLn(F, ';');
         end;
@@ -814,7 +919,7 @@ begin
           begin
             WriteLn(F);
             WriteClassDefinition('::', wtpOnDemand, Item);
-            WriteLn(F, '  ', Contained__get_name(Item, ev), ' = class');
+            WriteLn(F, '  ', IdToImportedType('::' + Contained__get_name(Item, ev), '::'), ' = class');
             WriteClassDefinition('::', wtpFinal, Item);
             WriteLn(F, '  end;');
           end;
