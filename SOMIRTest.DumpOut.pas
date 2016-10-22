@@ -83,6 +83,109 @@ type
   TSIdentification = class;
   TypeDef = class;
   SysAdminException = class;
+  int = LongInt;
+  uchar_t = Byte;
+  size_t = LongWord;
+  signed_char = Byte;
+  SOMFOREIGN = Pointer;
+  FILE = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
+  va_list = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
+  SOMHANDLE = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
+  somToken = Pointer;
+  somId = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
+  TCKind = type LongWord;
+  integer1 = ShortInt;
+  integer2 = SmallInt;
+  uinteger2 = Word;
+  integer4 = LongInt;
+  uinteger4 = LongWord;
+  float4 = Single;
+  float8 = Double;
+  zString = CORBAString;
+  fString = CORBAString;
+  somMethodProc = Pointer;
+  somMethodPtr = Pointer;
+  somMethodTab = record
+    { ... }
+  end;
+  SOMAny = record
+    { ... }
+  end;
+  somMToken = Pointer;
+  somDToken = Pointer;
+  somGenericCtrl = record
+    { ... }
+  end;
+  som3InitCtrl = record
+    { ... }
+  end;
+  som3DestructCtrl = record
+    { ... }
+  end;
+  som3AssignCtrl = record
+    { ... }
+  end;
+  somInitCtrl = Pointer;
+  somDestructCtrl = Pointer;
+  somAssignCtrl = Pointer;
+  somMethodDataStruct = record
+    { ... }
+  end;
+  somMethodData = record
+    { ... }
+  end;
+  somClassList = record
+    { ... }
+  end;
+  somClasses = PsomClassList;
+  somObjects = Pointer;
+  somMethodTabList = record
+    { ... }
+  end;
+  somMethodTabs = PsomMethodTabList;
+  somParentMtabStructPtr = PsomMethodTabList;
+  somBooleanVector = ^Byte;
+  exception_type = type LongWord;
+  Environment = record
+    { ... }
+  end;
+  somCClassDataStructurePtr = Pointer;
+  somClassDataStructurePtr = Pointer;
+  somMethodTabPtr = Pointer;
+  somEmbeddedObjStructPtr = Pointer;
+  somMethodDefnPtr = Pointer;
+  somClassMemPtr = Pointer;
+  somClassVars3Ptr = Pointer;
+  SOM_CIBPtr = Pointer;
+  somModifier = record
+    { ... }
+  end;
+  Identifier = CORBAString;
+  RepositoryId = CORBAString;
+  completion_status = type LongWord;
+  ORBStatus = LongWord;
+  ReferenceData = _IDL_Sequence_Byte;
+  Flags = LongWord;
+  ORBid = CORBAString;
+  NamedValue = record
+    { ... }
+  end;
+  ImplId = CORBAString;
+  somtCommentStyleT = type LongWord;
+  Entry = Pointer;
+  SOMTTargetTypeT = type LongWord;
+  SOMTTypes = LongWord;
+  Mlist = Pointer;
+  AttList = Pointer;
+  NumberList = Pointer;
+  SwitchBody = Pointer;
+  ContextIdentifier = CORBAString;
+  somtVisibilityT = type LongWord;
+  somtParameterDirectionT = type LongWord;
+  entryT = record
+    { ... }
+  end;
+  tablePT = ^^PentryT;
 
   SOMObject = class
     { Found item: SOMObjectSequence }
@@ -4989,169 +5092,11 @@ type
 
 { Found item: bhany }
 
-{ Found item: int }
-
-{ Found item: uchar_t }
-
-{ Found item: size_t }
-
-{ Found item: signed_char }
-
-{ Found item: SOMFOREIGN }
-
-{ Found item: FILE }
-
-{ Found item: va_list }
-
-{ Found item: SOMHANDLE }
-
-{ Found item: somToken }
-
-{ Found item: somId }
-
-{ Found item: TCKind }
-
-{ Found item: integer1 }
-
-{ Found item: integer2 }
-
-{ Found item: uinteger2 }
-
-{ Found item: integer4 }
-
-{ Found item: uinteger4 }
-
-{ Found item: float4 }
-
-{ Found item: float8 }
-
-{ Found item: zString }
-
-{ Found item: fString }
-
-{ Found item: somMethodProc }
-
-{ Found item: somMethodPtr }
-
-{ Found item: somMethodTab }
-
-{ Found item: SOMAny }
-
-{ Found item: somMToken }
-
-{ Found item: somDToken }
-
-{ Found item: somGenericCtrl }
-
-{ Found item: som3InitCtrl }
-
-{ Found item: som3DestructCtrl }
-
-{ Found item: som3AssignCtrl }
-
-{ Found item: somInitCtrl }
-
-{ Found item: somDestructCtrl }
-
-{ Found item: somAssignCtrl }
-
-{ Found item: somMethodDataStruct }
-
-{ Found item: somMethodData }
-
-{ Found item: somClassList }
-
-{ Found item: somClasses }
-
-{ Found item: somObjects }
-
-{ Found item: somMethodTabList }
-
-{ Found item: somMethodTabs }
-
-{ Found item: somParentMtabStructPtr }
-
-{ Found item: somBooleanVector }
-
-{ Found item: exception_type }
-
-{ Found item: Environment }
-
-{ Found item: somCClassDataStructurePtr }
-
-{ Found item: somClassDataStructurePtr }
-
-{ Found item: somMethodTabPtr }
-
-{ Found item: somEmbeddedObjStructPtr }
-
-{ Found item: somMethodDefnPtr }
-
-{ Found item: somClassMemPtr }
-
-{ Found item: somClassVars3Ptr }
-
-{ Found item: SOM_CIBPtr }
-
-{ Found item: somModifier }
-
-{ Found item: Identifier }
-
-{ Found item: RepositoryId }
-
-{ Found item: SOMObject }
-
-{ Found item: Contained }
-
-{ Found item: AttributeDef }
-
 { Found item: CosNaming }
 
 { Found item: Biter }
 
-{ Found item: completion_status }
-
-{ Found item: ORBStatus }
-
-{ Found item: ReferenceData }
-
-{ Found item: Flags }
-
-{ Found item: ORBid }
-
-{ Found item: NamedValue }
-
-{ Found item: ImplId }
-
 { Found item: SOMD }
-
-{ Found item: BOA }
-
-{ Found item: somtCommentStyleT }
-
-{ Found item: Entry }
-
-{ Found item: SOMTTargetTypeT }
-
-{ Found item: SOMTTypes }
-
-{ Found item: SOMTEmitC }
-
-{ Found item: brsclassc }
-
-{ Found item: Context }
-
-{ Found item: ConstantDef }
-
-{ Found item: Container }
-
-{ Found item: DirectToSomCpp }
-
-{ Found item: CTMEmitC }
-
-{ Found item: DTSImplTmpl }
-
-{ Found item: ExceptionDef }
 
 { Found item: ExtendedNaming }
 
@@ -5163,153 +5108,17 @@ type
 
 { Found item: somOS }
 
-{ Found item: SOMDServer }
-
 { Found item: CosLifeCycle }
 
 { Found item: CosStream }
 
 { Found item: somStream }
 
-{ Found item: SOMDForeignMarshaler }
-
-{ Found item: Mlist }
-
-{ Found item: AttList }
-
-{ Found item: NumberList }
-
-{ Found item: SwitchBody }
-
-{ Found item: somInitModEmitter }
-
-{ Found item: ImplementationDef }
-
-{ Found item: ImplRepository }
-
-{ Found item: ContextIdentifier }
-
-{ Found item: InterfaceDef }
-
-{ Found item: LName }
-
-{ Found item: LNameComponent }
-
-{ Found item: ModuleDef }
-
-{ Found item: NVList }
-
-{ Found item: ObjectMgr }
-
-{ Found item: OperationDef }
-
-{ Found item: ORB }
-
-{ Found item: ParameterDef }
-
-{ Found item: Principal }
-
-{ Found item: Repository }
-
-{ Found item: Request }
-
-{ Found item: SOMTEntryC }
-
-{ Found item: SOMTAttributeEntryC }
-
-{ Found item: SOMTBaseClassEntryC }
-
-{ Found item: SOMTClassEntryC }
-
-{ Found item: somtVisibilityT }
-
-{ Found item: SOMTCommonEntryC }
-
-{ Found item: SOMTConstEntryC }
-
-{ Found item: SOMTDataEntryC }
-
-{ Found item: SOMTEnumEntryC }
-
-{ Found item: SOMTEnumNameEntryC }
-
-{ Found item: SOMTMetaClassEntryC }
-
-{ Found item: SOMTMethodEntryC }
-
-{ Found item: SOMTModuleEntryC }
-
-{ Found item: somtParameterDirectionT }
-
-{ Found item: SOMTParameterEntryC }
-
-{ Found item: SOMTPassthruEntryC }
-
-{ Found item: SOMTSequenceEntryC }
-
-{ Found item: SOMTStringEntryC }
-
-{ Found item: SOMTStructEntryC }
-
-{ Found item: SOMTTypedefEntryC }
-
-{ Found item: SOMTTemplateOutputC }
-
-{ Found item: SOMTUnionEntryC }
-
-{ Found item: SOMTUserDefinedTypeEntryC }
-
-{ Found item: SOMDServerMgr }
-
-{ Found item: SOMClass }
-
-{ Found item: SOMMSingleInstance }
-
 { Found item: somAttributePersistence }
-
-{ Found item: TypecodeDataManipulator }
-
-{ Found item: SOMMBeforeAfter }
-
-{ Found item: SOMClassMgr }
-
-{ Found item: SOMMProxyForObject }
-
-{ Found item: SOMDObject }
-
-{ Found item: SOMDClientProxy }
-
-{ Found item: SOMDObjectMgr }
-
-{ Found item: SOMUTId }
-
-{ Found item: SOMOA }
-
-{ Found item: SOMParentDerived }
-
-{ Found item: SOMParentDerivedMetaclass }
-
-{ Found item: SOMMProxyFor }
-
-{ Found item: SOMUTStringId }
-
-{ Found item: entryT }
-
-{ Found item: tablePT }
-
-{ Found item: SOMStringTableC }
-
-{ Found item: SOMMTraced }
 
 { Found item: StExcep }
 
 { Found item: TSPortability }
-
-{ Found item: TSIdentification }
-
-{ Found item: TypeDef }
-
-{ Found item: SysAdminException }
 
 { Found item: FileXNaming }
 

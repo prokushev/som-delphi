@@ -62,10 +62,55 @@ begin
   end;
 end;
 
-function IdToImportedType(const Id, RootNamespace, CurrentNamespace: string): string;
+type
+  TWriteTypePass = (wtpOnDemand, wtpTypeDef, wtpFinal);
+  // wtpOnDemand: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
+  // wtpTypeDef: '  xxx = ' is already written, and it's time to output something that is appropriate for type definition
+  // wtpFinal: it's too late to define anything now, it's time to output identifier that should be defined previously
+
+  TSOMIRImporter = class
+  private
+    FRootNamespace: string;
+    F: Text;
+    FRepo: Repository;
+    FWasType: Boolean;
+  public
+    constructor Create(const ARootNamespace: string; ARepo: Repository);
+    destructor Destroy; override;
+    function IdToImportedType(const Id, CurrentNamespace: string): string;
+    procedure WriteObjRefType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
+    procedure WriteForeignType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
+    procedure WriteRecordType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
+    procedure WriteEnumType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
+    procedure WritePointerType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
+    procedure WriteSequenceType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
+    procedure WriteType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
+    procedure WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
+    procedure WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
+    procedure WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef);
+    procedure WriteRepository;
+
+    property RootNamespace: string read FRootNamespace;
+    property Repo: Repository read FRepo;
+  end;
+
+constructor TSOMIRImporter.Create(const ARootNamespace: string; ARepo: Repository);
+begin
+  inherited Create;
+  FRootNamespace := ARootNamespace;
+  FRepo := ARepo;
+end;
+
+destructor TSOMIRImporter.Destroy;
+begin
+  // Close(F);
+  inherited Destroy;
+end;
+
+function TSOMIRImporter.IdToImportedType(const Id, CurrentNamespace: string): string;
 begin
   // TODO better resolution
-  if CurrentNamespace = RootNamespace then
+  if CurrentNamespace = '::' then
   begin
     if Length(Id) >= 2 then
     begin
@@ -89,15 +134,14 @@ begin
   end;
 end;
 
-procedure WriteType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode); forward;
-
-procedure WriteObjRefType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+procedure TSOMIRImporter.WriteObjRefType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 var
   ParamCount: LongInt;
   Parameter: any;
   Parameter_TC: TypeCode;
   Parameter_Kind: TCKind;
 begin
+  if Pass = wtpOnDemand then Exit; // TODO
   ParamCount := TypeCode_param_count(TC, ev);
   if ParamCount = 1 then
   begin
@@ -106,7 +150,7 @@ begin
     Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
     if Parameter_Kind = TypeCode_tk_string then
     begin
-      Write(F, IdToImportedType(PAnsiChar(TAnyRecord(Parameter)._value^), RootNamespace, CurrentNamespace));
+      Write(F, IdToImportedType(PAnsiChar(TAnyRecord(Parameter)._value^), CurrentNamespace));
     end
     else
     begin
@@ -119,13 +163,14 @@ begin
   end;
 end;
 
-procedure WriteForeignType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+procedure TSOMIRImporter.WriteForeignType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 var
   ParamCount: LongInt;
   Parameter: any;
   Parameter_TC: TypeCode;
   Parameter_Kind: TCKind;
 begin
+  if Pass = wtpOnDemand then Exit;
   ParamCount := TypeCode_param_count(TC, ev);
   if ParamCount >= 1 then
   begin
@@ -134,7 +179,14 @@ begin
     Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
     if Parameter_Kind = TypeCode_tk_string then
     begin
-      Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
+      if Pass = wtpTypeDef then
+      begin
+        Write(F, 'Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) }');
+      end
+      else
+      begin
+        Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
+      end;
     end
     else
     begin
@@ -147,10 +199,10 @@ begin
   end;
 end;
 
-// TODO consider inhertied context
+// TODO consider inherited context
 // function describe: Description; in ExceptionDef
 // should be Contained_Description instead
-procedure WriteRecordType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+procedure TSOMIRImporter.WriteRecordType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 var
   ParamCount: LongInt;
   Parameter: any;
@@ -165,26 +217,51 @@ begin
     Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
     if Parameter_Kind = TypeCode_tk_string then
     begin
-      Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
+      if Pass = wtpFinal then
+      begin
+        Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
+      end
+      else
+      begin
+        if Pass <> wtpOnDemand then
+        begin
+          WriteLn(F, 'record');
+          WriteLn(F, '    { ... }');
+        end;
+
+        { TODO record fields }
+
+        if Pass <> wtpOnDemand then
+        begin
+          Write(F, '  end');
+        end;
+      end;
     end
     else
     begin
-      Write(F, 'record { TypeCode_kind = ', Parameter_Kind, '} end');
+      if Pass <> wtpOnDemand then
+      begin
+        Write(F, 'record { TypeCode_kind = ', Parameter_Kind, '} end');
+      end;
     end;
   end
   else
   begin
-    Write(F, 'record { TypeCode_param_count = ', ParamCount, '} end');
+    if Pass <> wtpOnDemand then
+    begin
+      Write(F, 'record { TypeCode_param_count = ', ParamCount, '} end');
+    end;
   end;
 end;
 
-procedure WriteEnumType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+procedure TSOMIRImporter.WriteEnumType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 var
   ParamCount: LongInt;
   Parameter: any;
   Parameter_TC: TypeCode;
   Parameter_Kind: TCKind;
 begin
+  if Pass = wtpOnDemand then Exit;
   ParamCount := TypeCode_param_count(TC, ev);
   if ParamCount >= 1 then
   begin
@@ -193,7 +270,14 @@ begin
     Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
     if Parameter_Kind = TypeCode_tk_string then
     begin
-      Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
+      if Pass = wtpTypeDef then
+      begin
+        Write(F, 'type LongWord');
+      end
+      else
+      begin
+        Write(F, PAnsiChar(TAnyRecord(Parameter)._value^));
+      end;
     end
     else
     begin
@@ -206,7 +290,7 @@ begin
   end;
 end;
 
-procedure WritePointerType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+procedure TSOMIRImporter.WritePointerType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 var
   ParamCount: LongInt;
   Parameter: any;
@@ -215,6 +299,7 @@ var
   TC2: TypeCode;
   Kind: TCKind;
 begin
+  if Pass = wtpOnDemand then Exit; // TODO
   ParamCount := TypeCode_param_count(TC, ev);
   if ParamCount >= 1 then
   begin
@@ -292,7 +377,7 @@ begin
             else
             begin
               Write(F, '^^');
-              WriteType(F, RootNamespace, CurrentNamespace, TC2);
+              WriteType(CurrentNamespace, Pass, TC2);
             end;
           end
           else
@@ -308,7 +393,7 @@ begin
       else
       begin
         Write(F, '^');
-        WriteType(F, RootNamespace, CurrentNamespace, TC2);
+        WriteType(CurrentNamespace, Pass, TC2);
       end;
     end
     else
@@ -322,7 +407,7 @@ begin
   end;
 end;
 
-procedure WriteSequenceType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+procedure TSOMIRImporter.WriteSequenceType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 var
   ParamCount: LongInt;
   Parameter: any;
@@ -331,6 +416,7 @@ var
   TC2: TypeCode;
   Kind: TCKind;
 begin
+  if Pass = wtpOnDemand then Exit; // TODO
   ParamCount := TypeCode_param_count(TC, ev);
   if ParamCount >= 1 then
   begin
@@ -373,7 +459,7 @@ begin
           Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
           if Parameter_Kind = TypeCode_tk_string then
           begin
-            Write(F, '_IDL_Sequence_', IdToImportedType(PAnsiChar(TAnyRecord(Parameter)._value^), RootNamespace, CurrentNamespace));
+            Write(F, '_IDL_Sequence_', IdToImportedType(PAnsiChar(TAnyRecord(Parameter)._value^), CurrentNamespace));
           end
           else
           begin
@@ -392,7 +478,7 @@ begin
       else
       begin
         Write(F, '_IDL_Sequence_');
-        WriteType(F, RootNamespace, CurrentNamespace, TC2);
+        WriteType(CurrentNamespace, Pass, TC2);
       end;
     end
     else
@@ -406,42 +492,42 @@ begin
   end;
 end;
 
-procedure WriteType(var F: Text; const RootNamespace, CurrentNamespace: string; TC: TypeCode);
+procedure TSOMIRImporter.WriteType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 var
   Kind: TCKind;
 begin
   Kind := TypeCode_kind(TC, ev);
   case Kind of
-  TypeCode_tk_null: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_null}');
-  TypeCode_tk_void: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_void}');
-  TypeCode_tk_short: Write(F, 'SmallInt');
-  TypeCode_tk_long: Write(F, 'LongInt');
-  TypeCode_tk_ushort: Write(F, 'Word');
-  TypeCode_tk_ulong: Write(F, 'LongWord');
-  TypeCode_tk_float: Write(F, 'Single');
-  TypeCode_tk_double: Write(F, 'Double');
-  TypeCode_tk_boolean: Write(F, 'CORBABoolean');
-  TypeCode_tk_char: Write(F, 'AnsiChar');
-  TypeCode_tk_octet: Write(F, 'Byte');
-  TypeCode_tk_any: Write(F, 'any');
-  TypeCode_tk_TypeCode: Write(F, 'TypeCode');
-  TypeCode_tk_Principal: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_Principal}');
-  TypeCode_tk_objref: WriteObjRefType(F, RootNamespace, CurrentNamespace, TC);
-  TypeCode_tk_struct: WriteRecordType(F, RootNamespace, CurrentNamespace, TC);
-  TypeCode_tk_union: Write(F, 'record case Integer of {...} end');
-  TypeCode_tk_enum: WriteEnumType(F, RootNamespace, CurrentNamespace, TC);
-  TypeCode_tk_string: Write(F, 'CORBAString'); // TODO string[255]
-  TypeCode_tk_sequence: WriteSequenceType(F, RootNamespace, CurrentNamespace, TC);
-  TypeCode_tk_array: Write(F, 'array [0 .. {...}] of {...}');
+  TypeCode_tk_null: if Pass <> wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_null}');
+  TypeCode_tk_void: if Pass <> wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_void}');
+  TypeCode_tk_short: if Pass <> wtpOnDemand then Write(F, 'SmallInt');
+  TypeCode_tk_long: if Pass <> wtpOnDemand then Write(F, 'LongInt');
+  TypeCode_tk_ushort: if Pass <> wtpOnDemand then Write(F, 'Word');
+  TypeCode_tk_ulong: if Pass <> wtpOnDemand then Write(F, 'LongWord');
+  TypeCode_tk_float: if Pass <> wtpOnDemand then Write(F, 'Single');
+  TypeCode_tk_double: if Pass <> wtpOnDemand then Write(F, 'Double');
+  TypeCode_tk_boolean: if Pass <> wtpOnDemand then Write(F, 'CORBABoolean');
+  TypeCode_tk_char: if Pass <> wtpOnDemand then Write(F, 'ShortInt');
+  TypeCode_tk_octet: if Pass <> wtpOnDemand then Write(F, 'Byte');
+  TypeCode_tk_any: if Pass <> wtpOnDemand then Write(F, 'any');
+  TypeCode_tk_TypeCode: if Pass <> wtpOnDemand then Write(F, 'TypeCode');
+  TypeCode_tk_Principal: if Pass <> wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_Principal}');
+  TypeCode_tk_objref: WriteObjRefType(CurrentNamespace, Pass, TC);
+  TypeCode_tk_struct: WriteRecordType(CurrentNamespace, Pass, TC);
+  TypeCode_tk_union: if Pass <> wtpOnDemand then Write(F, 'record case Integer of {...} end');
+  TypeCode_tk_enum: WriteEnumType(CurrentNamespace, Pass, TC);
+  TypeCode_tk_string: if Pass <> wtpOnDemand then Write(F, 'CORBAString'); // TODO string[255]
+  TypeCode_tk_sequence: WriteSequenceType(CurrentNamespace, Pass, TC); // TODO sequence[]
+  TypeCode_tk_array: if Pass <> wtpOnDemand then Write(F, 'array [0 .. {...}] of {...}');
                        
-  TypeCode_tk_pointer: WritePointerType(F, RootNamespace, CurrentNamespace, TC);
-  TypeCode_tk_self: Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_self}');
-  TypeCode_tk_foreign: WriteForeignType(F, RootNamespace, CurrentNamespace, TC);
-  else Write(F, '{unknown type with TypeCode_kind = ', LongWord(Kind), '}');
+  TypeCode_tk_pointer: WritePointerType(CurrentNamespace, Pass, TC);
+  TypeCode_tk_self: if Pass <> wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_self}');
+  TypeCode_tk_foreign: WriteForeignType(CurrentNamespace, Pass, TC);
+  else if Pass <> wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = ', LongWord(Kind), '}');
   end;
 end;
 
-procedure WriteMethodArguments(var F: Text; const RootNamespace, CurrentNamespace: string; Definition: OperationDef);
+procedure TSOMIRImporter.WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
 var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
@@ -449,70 +535,100 @@ var
   Mode: ParameterDef_ParameterMode;
   WasArgument: Boolean;
 begin
+  if Pass = wtpTypeDef then Exit;
   Contents := Container_contents(Definition, ev, 'all', False);
   if Contents._length > 0 then
   begin
     WasArgument := False;
 
-    Write(F, '(');
+    if Pass <> wtpOnDemand then
+    begin
+      Write(F, '(');
+    end;
     for I := 0 to Contents._length - 1 do
     begin
       Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
       if SOMObject_somIsA(Item, _SOMCLASS_ParameterDef) then
       begin
-        if not WasArgument then
+        if Pass <> wtpOnDemand then
         begin
-          WasArgument := True
-        end
-        else
-        begin
-          Write(F, '; ');
-        end;
-        Mode := ParameterDef__get_mode(Item, ev);
-        case Mode of
-        ParameterDef_IN: ;
-        ParameterDef_OUT: Write(F, 'out ');
-        ParameterDef_INOUT: Write(F, 'var ');
-        else Write(F, '{unknown mode ', LongWord(Mode), '}');
-        end;
+          if not WasArgument then
+          begin
+            WasArgument := True
+          end
+          else
+          begin
+            Write(F, '; ');
+          end;
+          Mode := ParameterDef__get_mode(Item, ev);
+          case Mode of
+          ParameterDef_IN: ;
+          ParameterDef_OUT: Write(F, 'out ');
+          ParameterDef_INOUT: Write(F, 'var ');
+          else Write(F, '{unknown mode ', LongWord(Mode), '}');
+          end;
 
-        Write(F, Contained__get_name(Item, ev), ': ');
-        WriteType(F, RootNamespace, CurrentNamespace, ParameterDef__get_type(Item, ev));
+          Write(F, Contained__get_name(Item, ev), ': ');
+        end;
+        WriteType(CurrentNamespace, Pass, ParameterDef__get_type(Item, ev));
       end
       else
       begin
-        Write(F, '{ Found item: ', Contained__get_name(Item, ev), ' }');
+        if Pass <> wtpOnDemand then
+        begin
+          Write(F, '{ Found item: ', Contained__get_name(Item, ev), ' }');
+        end;
       end;
 
       SOMFreeAndNil(Item);
     end;
-    Write(F, ')');
+
+    if Pass <> wtpOnDemand then
+    begin
+      Write(F, ')');
+    end;
     SOMFree(Contents._buffer);
   end;
 end;
 
-procedure WriteMethodDefinition(var F: Text; const RootNamespace, CurrentNamespace: string; Definition: OperationDef);
+procedure TSOMIRImporter.WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
 var
   Result_TC: TypeCode;
 begin
+  if Pass = wtpTypeDef then Exit;
   Result_TC := OperationDef__get_result(Definition, ev);
-  if TypeCode_kind(Result_TC, ev) = TypeCode_tk_void then // tcEqual(OperationDef__get_result(Definition, ev), ev, TC_void) then
+  if TypeCode_kind(Result_TC, ev) = TypeCode_tk_void then
   begin
-    Write(F, '    procedure ', Contained__get_name(Definition, ev));
-    WriteMethodArguments(F, RootNamespace, CurrentNamespace, Definition);
-    WriteLn(F, ';');
+    if Pass <> wtpOnDemand then
+    begin
+      Write(F, '    procedure ', Contained__get_name(Definition, ev));
+    end;
+    WriteMethodArguments(CurrentNamespace, Pass, Definition);
+    if Pass <> wtpOnDemand then
+    begin
+      WriteLn(F, ';');
+    end;
   end
   else
   begin
-    Write(F, '    function ', Contained__get_name(Definition, ev));
-    WriteMethodArguments(F, RootNamespace, CurrentNamespace, Definition);
-    Write(F, ': ');
-    WriteType(F, RootNamespace, CurrentNamespace, Result_TC);
-    WriteLn(F, ';');
+    if Pass <> wtpOnDemand then
+    begin
+      Write(F, '    function ', Contained__get_name(Definition, ev));
+    end;
+    WriteMethodArguments(CurrentNamespace, Pass, Definition);
+    if Pass <> wtpOnDemand then
+    begin
+      Write(F, ': ');
+    end;
+    WriteType(CurrentNamespace, Pass, Result_TC);
+    if Pass <> wtpOnDemand then
+    begin
+      WriteLn(F, ';');
+    end;
   end;
 end;
 
-procedure WriteClassDefinition(var F: Text; const RootNamespace, CurrentNamespace: string; Definition: InterfaceDef);
+procedure TSOMIRImporter.WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef);
 var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
@@ -521,6 +637,7 @@ var
   NameS: AnsiString;
   WasPrivate, WasPublic: Boolean;
 begin
+  if Pass = wtpOnDemand then Exit; // TODO
   Contents := Container_contents(Definition, ev, 'all', False);
   if Contents._length > 0 then
   begin
@@ -556,7 +673,7 @@ begin
               WriteLn(F, '  private');
               WasPrivate := True;
             end;
-            WriteMethodDefinition(F, RootNamespace, CurrentNamespace, Item);
+            WriteMethodDefinition(CurrentNamespace, Pass, Item);
           end;
         end;
       end;
@@ -579,7 +696,7 @@ begin
               WriteLn(F, '  public');
               WasPublic := True;
             end;
-            WriteMethodDefinition(F, RootNamespace, CurrentNamespace, Item);
+            WriteMethodDefinition(CurrentNamespace, Pass, Item);
           end;
         end
         else
@@ -589,7 +706,7 @@ begin
             WriteLn(F, '  public');
             WasPublic := True;
           end;
-          WriteMethodDefinition(F, RootNamespace, CurrentNamespace, Item);
+          WriteMethodDefinition(CurrentNamespace, Pass, Item);
         end;
       end;
     end;
@@ -607,7 +724,7 @@ begin
         end;
         Name := Contained__get_name(Item, ev);
         Write(F, '    property ', Name, ': ');
-        WriteType(F, RootNamespace, CurrentNamespace, AttributeDef__get_type(Item, ev));
+        WriteType(CurrentNamespace, Pass, AttributeDef__get_type(Item, ev));
         WriteLn(F, ' read _get_', Name, ' write _set_', Name, ';'); // TODO: can be read-only or write-only
         Name := nil;
       end;
@@ -618,21 +735,20 @@ begin
   end;
 end;
 
-procedure WriteNamespaceToUnit(RepositoryOrModule: Container; const RootNamespace, CurrentNamespace: string);
+procedure TSOMIRImporter.WriteRepository;
 var
-  F: Text;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
   Item: Contained;
   WasForwardType: Boolean;
 begin
-  Assign(F, CurrentNamespace + '.pas');
+  Assign(F, RootNamespace + '.pas');
   Rewrite(F);
   try
-    Write('Writing ', CurrentNamespace, '.pas...');
+    Write('Writing ', RootNamespace, '.pas...');
     WriteLn(F, '{$WARN UNSAFE_TYPE OFF}');
     WriteLn(F);
-    WriteLn(F, 'unit ', CurrentNamespace, ';');
+    WriteLn(F, 'unit ', RootNamespace, ';');
     WriteLn(F);
     WriteLn(F, 'interface');
     WriteLn(F, 'uses');
@@ -641,7 +757,7 @@ begin
     WriteLn(F, '{$INCLUDE ''SOM.DelphiFeatures.inc''}');
     WriteLn(F);
 
-    Contents := Container_contents(RepositoryOrModule, ev, 'all', False);
+    Contents := Container_contents(Repo, ev, 'all', False);
     WriteLn(F, '{ Amount of items: ', Contents._length, ' }');
     if Contents._length > 0 then
     begin
@@ -658,12 +774,35 @@ begin
             WriteLn(F, 'type');
             WriteLn(F, '  { Forward definitions }');
             WasForwardType := True;
+            FWasType := True;
           end;
           WriteLn(F, '  ', Contained__get_name(Item, ev), ' = class;');
         end;
       end;
+      Write(' 1');
 
-      // Second pass: build other types
+      // TODO Forward pointer types
+
+      // Second pass: build non-class types
+      for I := 0 to Contents._length - 1 do
+      begin
+        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+        begin
+          if not FWasType then
+          begin
+            WriteLn(F, 'type');
+            FWasType := True;
+          end;
+          // Write(' ', Contained__get_name(Item, ev), '-ondemand');
+          WriteType('::', wtpOnDemand, TypeDef__get_type(Item, ev));
+          // Write(' ', Contained__get_name(Item, ev), '-typedef');
+          Write(F, '  ', Contained__get_name(Item, ev), ' = ');
+          WriteType('::', wtpTypeDef, TypeDef__get_type(Item, ev));
+          WriteLn(F, ';');
+        end;
+      end;
+      Write(' 2');
 
       // Third pass: satisfy forward type references
       if WasForwardType then
@@ -674,19 +813,26 @@ begin
           if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
           begin
             WriteLn(F);
+            WriteClassDefinition('::', wtpOnDemand, Item);
             WriteLn(F, '  ', Contained__get_name(Item, ev), ' = class');
-            WriteClassDefinition(F, RootNamespace, CurrentNamespace, Item);
+            WriteClassDefinition('::', wtpFinal, Item);
             WriteLn(F, '  end;');
           end;
         end;
       end;
+      Write(' 3');
 
       // Last pass: others
       for I := 0 to Contents._length - 1 do
       begin
         Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        WriteLn(F);
-        WriteLn(F, '{ Found item: ', Contained__get_name(Item, ev), ' }');
+        if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+        else if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+        else
+        begin
+          WriteLn(F);
+          WriteLn(F, '{ Found item: ', Contained__get_name(Item, ev), ' }');
+        end;
 
         SOMFreeAndNil(Item);
       end;
@@ -708,6 +854,7 @@ var
   repo: Repository;
   exname: CORBAString;
   oep: PRepository_irOpenError;
+  imp: TSOMIRImporter;
 begin
   repo := RepositoryNew;
   try
@@ -729,8 +876,12 @@ begin
     end;
 
     WriteLn('IR opened');
-    WriteNamespaceToUnit(repo, 'SOMIRTest.DumpOut', 'SOMIRTest.DumpOut');
-
+    imp := TSOMIRImporter.Create('SOMIRTest.DumpOut', repo);
+    try
+      imp.WriteRepository;
+    finally
+      FreeAndNil(imp);
+    end;
   finally
     SOMFreeAndNil(repo);
   end;
