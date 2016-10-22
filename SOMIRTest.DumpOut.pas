@@ -8,12 +8,15 @@ uses
 
 {$INCLUDE 'SOM.DelphiFeatures.inc'}
 
-{ Amount of items: 163 }
 type
   { Forward definitions }
   SOMObject = class;
   Contained = class;
   AttributeDef = class;
+  CosNaming_BindingIterator = class;
+  CosNaming_NamingContext = class;
+  Biter_BINDITER_TWO = class;
+  Biter_BINDITER_ONE = class;
   BOA = class;
   SOMTEmitC = class;
   brsclassc = class;
@@ -24,7 +27,24 @@ type
   CTMEmitC = class;
   DTSImplTmpl = class;
   ExceptionDef = class;
+  ExtendedNaming_PropertyBindingIterator = class;
+  ExtendedNaming_PropertyIterator = class;
+  ExtendedNaming_IndexIterator = class;
+  ExtendedNaming_ExtendedNamingContext = class;
+  CosObjectIdentity_IdentifiableObject = class;
+  somOS_Server = class;
+  somOS_ServiceBase = class;
+  somOS_ServiceBasePRef = class;
+  somOS_ServiceBaseCORBA = class;
+  somOS_ServiceBasePRefCORBA = class;
   SOMDServer = class;
+  CosLifeCycle_FactoryFinder = class;
+  CosStream_StreamIO = class;
+  CosStream_Streamable = class;
+  CosStream_StreamableFactory = class;
+  somStream_StreamIO = class;
+  somStream_MemoryStreamIO = class;
+  somStream_Streamable = class;
   SOMDForeignMarshaler = class;
   somInitModEmitter = class;
   ImplementationDef = class;
@@ -65,6 +85,7 @@ type
   SOMDServerMgr = class;
   SOMClass = class;
   SOMMSingleInstance = class;
+  somAttributePersistence_Persist = class;
   TypecodeDataManipulator = class;
   SOMMBeforeAfter = class;
   SOMClassMgr = class;
@@ -83,8 +104,20 @@ type
   TSIdentification = class;
   TypeDef = class;
   SysAdminException = class;
+  FileXNaming_FileENC = class;
+  FileXNaming_FileBindingIterator = class;
+  FileXNaming_FPropertyBindingIterator = class;
+  FileXNaming_FPropertyIterator = class;
+  FileXNaming_FileIndexIterator = class;
   somId = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
   va_list = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };
+  Pany = ^any;
+  _IDL_Sequence_any = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: Pany;
+  end;
+  bhany_set_of_any = _IDL_Sequence_any;
   int = LongInt;
   uchar_t = Byte;
   size_t = LongWord;
@@ -160,13 +193,104 @@ type
   end;
   Identifier = CORBAString;
   RepositoryId = CORBAString;
-  completion_status = type LongWord;
-  ORBStatus = LongWord;
+  PSOMObject = ^SOMObject;
+  _IDL_Sequence_SOMObject = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PSOMObject;
+  end;
+  SOMObject_SOMObjectSequence = _IDL_Sequence_SOMObject;
   _IDL_Sequence_Byte = record
     _maximum: LongWord;
     _length: LongWord;
     _buffer: PByte;
   end;
+  SOMObject_BooleanSequence = _IDL_Sequence_Byte;
+  SOMObject_somObjectOffset = record
+    { ... }
+  end;
+  PSOMObject_somObjectOffset = ^SOMObject_somObjectOffset;
+  _IDL_Sequence_SOMObject_somObjectOffset = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PSOMObject_somObjectOffset;
+  end;
+  SOMObject_somObjectOffsets = _IDL_Sequence_SOMObject_somObjectOffset;
+  Contained_Description = record
+    { ... }
+  end;
+  Contained_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  Contained_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  Contained_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  Contained_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  AttributeDef_AttributeMode = type LongWord;
+  AttributeDef_AttributeDescription = record
+    { ... }
+  end;
+  AttributeDef_Description = { inherited } Contained_Description;
+  AttributeDef_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  AttributeDef_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  AttributeDef_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  AttributeDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  CosNaming_Istring = CORBAString;
+  CosNaming_NameComponent = record
+    { ... }
+  end;
+  PCosNaming_NameComponent = ^CosNaming_NameComponent;
+  _IDL_Sequence_CosNaming_NameComponent = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PCosNaming_NameComponent;
+  end;
+  CosNaming_Name = _IDL_Sequence_CosNaming_NameComponent;
+  CosNaming_BindingType = type LongWord;
+  CosNaming_Binding = record
+    { ... }
+  end;
+  PCosNaming_Binding = ^CosNaming_Binding;
+  _IDL_Sequence_CosNaming_Binding = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PCosNaming_Binding;
+  end;
+  CosNaming_BindingList = _IDL_Sequence_CosNaming_Binding;
+  CosNaming_BindingIterator_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  CosNaming_BindingIterator_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  CosNaming_BindingIterator_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  CosNaming_BindingIterator_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  CosNaming_NamingContext_NotFound = record
+    { ... }
+  end;
+  CosNaming_NamingContext_CannotProceed = record
+    { ... }
+  end;
+  CosNaming_NamingContext_InvalidName = record
+    { ... }
+  end;
+  CosNaming_NamingContext_AlreadyBound = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  CosNaming_NamingContext_NotEmpty = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  CosNaming_NamingContext_NotFoundReason = type LongWord;
+  CosNaming_NamingContext_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  CosNaming_NamingContext_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  CosNaming_NamingContext_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  CosNaming_NamingContext_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  Biter_BINDITER_TWO_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  Biter_BINDITER_TWO_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  Biter_BINDITER_TWO_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  Biter_BINDITER_TWO_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  PCORBAString = ^CORBAString;
+  _IDL_Sequence_CORBAString = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PCORBAString;
+  end;
+  Biter_BINDITER_ONE_stringSeq = _IDL_Sequence_CORBAString;
+  Biter_BINDITER_ONE_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  Biter_BINDITER_ONE_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  Biter_BINDITER_ONE_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  Biter_BINDITER_ONE_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  completion_status = type LongWord;
+  ORBStatus = LongWord;
   ReferenceData = _IDL_Sequence_Byte;
   Flags = LongWord;
   ORBid = CORBAString;
@@ -174,30 +298,896 @@ type
     { ... }
   end;
   ImplId = CORBAString;
+  SOMD_marshaling_direction_t = type LongWord;
+  SOMD_marshaling_op_t = type LongWord;
+  SOMD_ImplEntry = record
+    { ... }
+  end;
+  BOA_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  BOA_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  BOA_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  BOA_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
   somtCommentStyleT = type LongWord;
   Entry = Pointer;
   SOMTTargetTypeT = type LongWord;
   SOMTTypes = LongWord;
+  SOMTEmitC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTEmitC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTEmitC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTEmitC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  brsclassc_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  brsclassc_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  brsclassc_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  brsclassc_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  Context_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  Context_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  Context_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  Context_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ConstantDef_ConstantDescription = record
+    { ... }
+  end;
+  ConstantDef_Description = { inherited } Contained_Description;
+  ConstantDef_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ConstantDef_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ConstantDef_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ConstantDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  Container_InterfaceName = CORBAString;
+  Container_ContainerDescription = record
+    { ... }
+  end;
+  Container_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  Container_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  Container_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  Container_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  DirectToSomCpp_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  DirectToSomCpp_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  DirectToSomCpp_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  DirectToSomCpp_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  CTMEmitC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  CTMEmitC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  CTMEmitC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  CTMEmitC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  DTSImplTmpl_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  DTSImplTmpl_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  DTSImplTmpl_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  DTSImplTmpl_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ExceptionDef_ExceptionDescription = record
+    { ... }
+  end;
+  ExceptionDef_Description = { inherited } Contained_Description;
+  ExceptionDef_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ExceptionDef_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ExceptionDef_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ExceptionDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ExtendedNaming_IList = _IDL_Sequence_CORBAString;
+  ExtendedNaming_PropertyBinding_struct = record
+    { ... }
+  end;
+  ExtendedNaming_PropertyBinding = record
+    { ... }
+  end;
+  PExtendedNaming_PropertyBinding_struct = ^ExtendedNaming_PropertyBinding_struct;
+  _IDL_Sequence_ExtendedNaming_PropertyBinding_struct = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PExtendedNaming_PropertyBinding_struct;
+  end;
+  ExtendedNaming_PropertyBindingList = _IDL_Sequence_ExtendedNaming_PropertyBinding_struct;
+  ExtendedNaming_Property_struct = record
+    { ... }
+  end;
+  ExtendedNaming_Property = record
+    { ... }
+  end;
+  PExtendedNaming_Property_struct = ^ExtendedNaming_Property_struct;
+  _IDL_Sequence_ExtendedNaming_Property_struct = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PExtendedNaming_Property_struct;
+  end;
+  ExtendedNaming_PropertyList = _IDL_Sequence_ExtendedNaming_Property_struct;
+  ExtendedNaming_IndexDescriptor_struct = record
+    { ... }
+  end;
+  ExtendedNaming_IndexDescriptor = record
+    { ... }
+  end;
+  PExtendedNaming_IndexDescriptor_struct = ^ExtendedNaming_IndexDescriptor_struct;
+  _IDL_Sequence_ExtendedNaming_IndexDescriptor_struct = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PExtendedNaming_IndexDescriptor_struct;
+  end;
+  ExtendedNaming_IndexDescriptorList = _IDL_Sequence_ExtendedNaming_IndexDescriptor_struct;
+  ExtendedNaming_PropertyBindingIterator_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ExtendedNaming_PropertyBindingIterator_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ExtendedNaming_PropertyBindingIterator_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ExtendedNaming_PropertyBindingIterator_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ExtendedNaming_PropertyIterator_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ExtendedNaming_PropertyIterator_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ExtendedNaming_PropertyIterator_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ExtendedNaming_PropertyIterator_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ExtendedNaming_IndexIterator_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ExtendedNaming_IndexIterator_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ExtendedNaming_IndexIterator_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ExtendedNaming_IndexIterator_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ExtendedNaming_ExtendedNamingContext_InvalidPropertyName = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  ExtendedNaming_ExtendedNamingContext_NotSupported = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  ExtendedNaming_ExtendedNamingContext_ConflictingPropertyName = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  ExtendedNaming_ExtendedNamingContext_PropertyNotFound = record
+    { ... }
+  end;
+  ExtendedNaming_ExtendedNamingContext_PropertiesNotShared = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  ExtendedNaming_ExtendedNamingContext_IllegalConstraintExpression = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  ExtendedNaming_ExtendedNamingContext_BindingNotFound = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  ExtendedNaming_ExtendedNamingContext_Constraint = CORBAString;
+  ExtendedNaming_ExtendedNamingContext_Strings = ^ShortInt;
+  ExtendedNaming_ExtendedNamingContext_NonSharableProperties = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  ExtendedNaming_ExtendedNamingContext_NotFound = { inherited exception } CosNaming_NamingContext_NotFound;
+  ExtendedNaming_ExtendedNamingContext_CannotProceed = { inherited exception } CosNaming_NamingContext_CannotProceed;
+  ExtendedNaming_ExtendedNamingContext_InvalidName = { inherited exception } CosNaming_NamingContext_InvalidName;
+  ExtendedNaming_ExtendedNamingContext_AlreadyBound = { inherited exception } CosNaming_NamingContext_AlreadyBound;
+  ExtendedNaming_ExtendedNamingContext_NotEmpty = { inherited exception } CosNaming_NamingContext_NotEmpty;
+  ExtendedNaming_ExtendedNamingContext_NotFoundReason = { inherited } CosNaming_NamingContext_NotFoundReason;
+  ExtendedNaming_ExtendedNamingContext_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ExtendedNaming_ExtendedNamingContext_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ExtendedNaming_ExtendedNamingContext_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ExtendedNaming_ExtendedNamingContext_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  IIOP_Version = record
+    { ... }
+  end;
+  IIOP_ProfileBody = record
+    { ... }
+  end;
+  IIOP_ObjectLocator = record
+    { ... }
+  end;
+  IIOP_MsgType = type LongWord;
+  IIOP_MessageHeader = record
+    { ... }
+  end;
+  IIOP_ServiceID = LongWord;
+  IIOP_ServiceContext = record
+    { ... }
+  end;
+  PIIOP_ServiceContext = ^IIOP_ServiceContext;
+  _IDL_Sequence_IIOP_ServiceContext = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PIIOP_ServiceContext;
+  end;
+  IIOP_ServiceContextList = _IDL_Sequence_IIOP_ServiceContext;
+  IIOP_RequestHeader = record
+    { ... }
+  end;
+  IIOP_ReplyStatusType = type LongWord;
+  IIOP_ReplyHeader = record
+    { ... }
+  end;
+  IIOP_ConnectHeader = record
+    { ... }
+  end;
+  IIOP_AcceptHeader = record
+    { ... }
+  end;
+  IIOP_CancelRequestHeader = record
+    { ... }
+  end;
+  IIOP_LocateRequestHeader = record
+    { ... }
+  end;
+  IIOP_LocateStatusType = type LongWord;
+  IIOP_LocateReplyHeader = record
+    { ... }
+  end;
+  IIOP_ImplementationHeader = record
+    { ... }
+  end;
+  IIOP_SOMDServiceContext = record
+    { ... }
+  end;
+  IIOP_SOMDServiceContexts = record
+    { ... }
+  end;
+  PIIOP_SOMDServiceContext = ^IIOP_SOMDServiceContext;
+  _IDL_Sequence_IIOP_SOMDServiceContext = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PIIOP_SOMDServiceContext;
+  end;
+  IIOP_SOMDServiceContextList = _IDL_Sequence_IIOP_SOMDServiceContext;
+  IOR_ProfileId = LongWord;
+  IOR_TaggedProfile = record
+    { ... }
+  end;
+  IOR_TaggedProfiles = record
+    { ... }
+  end;
+  PIOR_TaggedProfile = ^IOR_TaggedProfile;
+  _IDL_Sequence_IOR_TaggedProfile = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PIOR_TaggedProfile;
+  end;
+  IOR_seq_TaggedProfiles = _IDL_Sequence_IOR_TaggedProfile;
+  IOR_IOR = record
+    { ... }
+  end;
+  IOR_ComponentId = LongWord;
+  IOR_TaggedComponent = record
+    { ... }
+  end;
+  PIOR_TaggedComponent = ^IOR_TaggedComponent;
+  _IDL_Sequence_IOR_TaggedComponent = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PIOR_TaggedComponent;
+  end;
+  IOR_MultipleComponentProfile = _IDL_Sequence_IOR_TaggedComponent;
+  IOR_SOMDTaggedProfile = record
+    { ... }
+  end;
+  IOR_SOMDTaggedProfiles = record
+    { ... }
+  end;
+  PIOR_SOMDTaggedProfile = ^IOR_SOMDTaggedProfile;
+  _IDL_Sequence_IOR_SOMDTaggedProfile = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PIOR_SOMDTaggedProfile;
+  end;
+  IOR_seq_SOMDTaggedProfiles = _IDL_Sequence_IOR_SOMDTaggedProfile;
+  IOR_SOMDTaggedComponent = record
+    { ... }
+  end;
+  IOR_SOMDIOR = record
+    { ... }
+  end;
+  CosObjectIdentity_ObjectIdentifier = LongWord;
+  CosObjectIdentity_IdentifiableObject_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  CosObjectIdentity_IdentifiableObject_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  CosObjectIdentity_IdentifiableObject_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  CosObjectIdentity_IdentifiableObject_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  somOS_service_id = type LongWord;
+  somOS_service_id_e = type LongWord;
+  somOS_metastate_struct = record
+    { ... }
+  end;
+  somOS_metastate_struct_t = record
+    { ... }
+  end;
+  somOS_Server_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  somOS_Server_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  somOS_Server_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  somOS_Server_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  PsomOS_metastate_struct = ^somOS_metastate_struct;
+  _IDL_Sequence_somOS_metastate_struct = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PsomOS_metastate_struct;
+  end;
+  somOS_ServiceBase_metastate_t = _IDL_Sequence_somOS_metastate_struct;
+  somOS_ServiceBase_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  somOS_ServiceBase_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  somOS_ServiceBase_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  somOS_ServiceBase_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  somOS_ServiceBasePRef_metastate_t = { inherited } somOS_ServiceBase_metastate_t;
+  somOS_ServiceBasePRef_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  somOS_ServiceBasePRef_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  somOS_ServiceBasePRef_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  somOS_ServiceBasePRef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  somOS_ServiceBaseCORBA_metastate_t = { inherited } somOS_ServiceBase_metastate_t;
+  somOS_ServiceBaseCORBA_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  somOS_ServiceBaseCORBA_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  somOS_ServiceBaseCORBA_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  somOS_ServiceBaseCORBA_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  somOS_ServiceBasePRefCORBA_metastate_t = { inherited } somOS_ServiceBase_metastate_t;
+  somOS_ServiceBasePRefCORBA_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  somOS_ServiceBasePRefCORBA_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  somOS_ServiceBasePRefCORBA_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  somOS_ServiceBasePRefCORBA_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMDServer_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMDServer_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMDServer_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMDServer_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  CosLifeCycle_FactoryFinder_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  CosLifeCycle_FactoryFinder_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  CosLifeCycle_FactoryFinder_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  CosLifeCycle_FactoryFinder_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  CosStream_ObjectCreationError = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  CosStream_StreamDataFormatError = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  CosStream_StreamIO_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  CosStream_StreamIO_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  CosStream_StreamIO_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  CosStream_StreamIO_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  CosStream_Streamable_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  CosStream_Streamable_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  CosStream_Streamable_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  CosStream_Streamable_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  CosStream_StreamableFactory_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  CosStream_StreamableFactory_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  CosStream_StreamableFactory_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  CosStream_StreamableFactory_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  somStream_seq_octet = _IDL_Sequence_Byte;
+  somStream_StreamIO_object_tags = type LongWord;
+  somStream_StreamIO_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  somStream_StreamIO_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  somStream_StreamIO_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  somStream_StreamIO_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  somStream_MemoryStreamIO_object_tags = { inherited } somStream_StreamIO_object_tags;
+  somStream_MemoryStreamIO_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  somStream_MemoryStreamIO_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  somStream_MemoryStreamIO_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  somStream_MemoryStreamIO_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  somStream_Streamable_metastate_t = { inherited } somOS_ServiceBase_metastate_t;
+  somStream_Streamable_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  somStream_Streamable_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  somStream_Streamable_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  somStream_Streamable_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMDForeignMarshaler_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMDForeignMarshaler_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMDForeignMarshaler_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMDForeignMarshaler_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
   Mlist = Pointer;
   AttList = Pointer;
   NumberList = Pointer;
   SwitchBody = Pointer;
+  somInitModEmitter_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  somInitModEmitter_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  somInitModEmitter_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  somInitModEmitter_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ImplementationDef_octet_seqP = ^_IDL_Sequence_Byte;
+  ImplementationDef_prot_response = record
+    { ... }
+  end;
+  PImplementationDef_prot_response = ^ImplementationDef_prot_response;
+  _IDL_Sequence_ImplementationDef_prot_response = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PImplementationDef_prot_response;
+  end;
+  ImplementationDef_seq_prot_responses = _IDL_Sequence_ImplementationDef_prot_response;
+  ImplementationDef_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ImplementationDef_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ImplementationDef_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ImplementationDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ImplRepository_PV = record
+    { ... }
+  end;
+  ImplRepository_PropertyValue = record
+    { ... }
+  end;
+  PImplRepository_PV = ^ImplRepository_PV;
+  _IDL_Sequence_ImplRepository_PV = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PImplRepository_PV;
+  end;
+  ImplRepository_PVList = _IDL_Sequence_ImplRepository_PV;
+  ImplRepository_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ImplRepository_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ImplRepository_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ImplRepository_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
   ContextIdentifier = CORBAString;
+  InterfaceDef_FullInterfaceDescription = record
+    { ... }
+  end;
+  InterfaceDef_InterfaceDescription = record
+    { ... }
+  end;
+  InterfaceDef_Description = { inherited } Contained_Description;
+  InterfaceDef_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  InterfaceDef_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  InterfaceDef_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  InterfaceDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  InterfaceDef_InterfaceName = { inherited } Container_InterfaceName;
+  InterfaceDef_ContainerDescription = { inherited } Container_ContainerDescription;
+  LName_NoComponent = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  LName_OverFlow = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  LName_InvalidName = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  LName_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  LName_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  LName_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  LName_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  LNameComponent_NotSet = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  LNameComponent_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  LNameComponent_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  LNameComponent_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  LNameComponent_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ModuleDef_ModuleDescription = record
+    { ... }
+  end;
+  ModuleDef_Description = { inherited } Contained_Description;
+  ModuleDef_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ModuleDef_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ModuleDef_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ModuleDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ModuleDef_InterfaceName = { inherited } Container_InterfaceName;
+  ModuleDef_ContainerDescription = { inherited } Container_ContainerDescription;
+  NVList_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  NVList_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  NVList_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  NVList_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ObjectMgr_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ObjectMgr_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ObjectMgr_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ObjectMgr_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  OperationDef_OperationMode = type LongWord;
+  OperationDef_OperationDescription = record
+    { ... }
+  end;
+  OperationDef_Description = { inherited } Contained_Description;
+  OperationDef_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  OperationDef_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  OperationDef_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  OperationDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  OperationDef_InterfaceName = { inherited } Container_InterfaceName;
+  OperationDef_ContainerDescription = { inherited } Container_ContainerDescription;
+  ORB_InvalidName = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  ORB_ObjectId = CORBAString;
+  ORB_ObjectIdList = _IDL_Sequence_CORBAString;
+  ORB_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ORB_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ORB_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ORB_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  ParameterDef_ParameterMode = type LongWord;
+  ParameterDef_ParameterDescription = record
+    { ... }
+  end;
+  ParameterDef_Description = { inherited } Contained_Description;
+  ParameterDef_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  ParameterDef_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  ParameterDef_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  ParameterDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  Principal_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  Principal_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  Principal_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  Principal_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  Repository_RepositoryDescription = record
+    { ... }
+  end;
+  Repository_irOpenErrorCodes = type LongWord;
+  Repository_irOpenError = record
+    { ... }
+  end;
+  Repository_InterfaceName = { inherited } Container_InterfaceName;
+  Repository_ContainerDescription = { inherited } Container_ContainerDescription;
+  Repository_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  Repository_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  Repository_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  Repository_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  Request_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  Request_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  Request_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  Request_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTAttributeEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTAttributeEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTAttributeEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTAttributeEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTBaseClassEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTBaseClassEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTBaseClassEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTBaseClassEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTClassEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTClassEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTClassEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTClassEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
   somtVisibilityT = type LongWord;
+  SOMTCommonEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTCommonEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTCommonEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTCommonEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTConstEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTConstEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTConstEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTConstEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTDataEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTDataEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTDataEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTDataEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTEnumEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTEnumEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTEnumEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTEnumEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTEnumNameEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTEnumNameEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTEnumNameEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTEnumNameEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTMetaClassEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTMetaClassEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTMetaClassEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTMetaClassEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTMethodEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTMethodEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTMethodEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTMethodEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTModuleEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTModuleEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTModuleEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTModuleEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
   somtParameterDirectionT = type LongWord;
+  SOMTParameterEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTParameterEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTParameterEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTParameterEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTPassthruEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTPassthruEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTPassthruEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTPassthruEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTSequenceEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTSequenceEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTSequenceEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTSequenceEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTStringEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTStringEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTStringEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTStringEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTStructEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTStructEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTStructEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTStructEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTTypedefEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTTypedefEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTTypedefEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTTypedefEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTTemplateOutputC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTTemplateOutputC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTTemplateOutputC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTTemplateOutputC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTUnionEntryC_somtLabelList = record
+    { ... }
+  end;
+  SOMTUnionEntryC_somtCaseEntry = record
+    { ... }
+  end;
+  SOMTUnionEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTUnionEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTUnionEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTUnionEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMTUserDefinedTypeEntryC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMTUserDefinedTypeEntryC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMTUserDefinedTypeEntryC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMTUserDefinedTypeEntryC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMDServerMgr_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMDServerMgr_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMDServerMgr_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMDServerMgr_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  _IDL_Sequence_Pointer = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PPointer;
+  end;
+  SOMClass_somTokenSequence = _IDL_Sequence_Pointer;
+  PSOMClass = ^SOMClass;
+  _IDL_Sequence_SOMClass = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PSOMClass;
+  end;
+  SOMClass_SOMClassSequence = _IDL_Sequence_SOMClass;
+  SOMClass_somOffsetInfo = record
+    { ... }
+  end;
+  PSOMClass_somOffsetInfo = ^SOMClass_somOffsetInfo;
+  _IDL_Sequence_SOMClass_somOffsetInfo = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PSOMClass_somOffsetInfo;
+  end;
+  SOMClass_somOffsets = _IDL_Sequence_SOMClass_somOffsetInfo;
+  PsomId = ^somId;
+  _IDL_Sequence_somId = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PsomId;
+  end;
+  SOMClass_somIdSequence = _IDL_Sequence_somId;
+  SOMClass_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMClass_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMClass_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMClass_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMMSingleInstance_somTokenSequence = { inherited } SOMClass_somTokenSequence;
+  SOMMSingleInstance_SOMClassSequence = { inherited } SOMClass_SOMClassSequence;
+  SOMMSingleInstance_somOffsetInfo = { inherited } SOMClass_somOffsetInfo;
+  SOMMSingleInstance_somOffsets = { inherited } SOMClass_somOffsets;
+  SOMMSingleInstance_somIdSequence = { inherited } SOMClass_somIdSequence;
+  SOMMSingleInstance_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMMSingleInstance_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMMSingleInstance_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMMSingleInstance_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  somAttributePersistence_Persist_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  somAttributePersistence_Persist_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  somAttributePersistence_Persist_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  somAttributePersistence_Persist_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  somAttributePersistence_Persist_metastate_t = { inherited } somOS_ServiceBase_metastate_t;
+  TypecodeDataManipulator_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  TypecodeDataManipulator_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  TypecodeDataManipulator_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  TypecodeDataManipulator_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMMBeforeAfter_somTokenSequence = { inherited } SOMClass_somTokenSequence;
+  SOMMBeforeAfter_SOMClassSequence = { inherited } SOMClass_SOMClassSequence;
+  SOMMBeforeAfter_somOffsetInfo = { inherited } SOMClass_somOffsetInfo;
+  SOMMBeforeAfter_somOffsets = { inherited } SOMClass_somOffsets;
+  SOMMBeforeAfter_somIdSequence = { inherited } SOMClass_somIdSequence;
+  SOMMBeforeAfter_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMMBeforeAfter_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMMBeforeAfter_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMMBeforeAfter_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMClassMgr_SOMClassArray = ^SOMClass;
+  SOMClassMgr_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMClassMgr_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMClassMgr_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMClassMgr_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMMProxyForObject_sommProxyDispatchInfo = record
+    { ... }
+  end;
+  SOMMProxyForObject_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMMProxyForObject_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMMProxyForObject_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMMProxyForObject_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMDObject_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMDObject_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMDObject_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMDObject_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMDClientProxy_sommProxyDispatchInfo = { inherited } SOMMProxyForObject_sommProxyDispatchInfo;
+  SOMDClientProxy_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMDClientProxy_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMDClientProxy_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMDClientProxy_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMDObjectMgr_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMDObjectMgr_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMDObjectMgr_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMDObjectMgr_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMUTId_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMUTId_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMUTId_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMUTId_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMOA_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMOA_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMOA_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMOA_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMParentDerived_somTokenSequence = { inherited } SOMClass_somTokenSequence;
+  SOMParentDerived_SOMClassSequence = { inherited } SOMClass_SOMClassSequence;
+  SOMParentDerived_somOffsetInfo = { inherited } SOMClass_somOffsetInfo;
+  SOMParentDerived_somOffsets = { inherited } SOMClass_somOffsets;
+  SOMParentDerived_somIdSequence = { inherited } SOMClass_somIdSequence;
+  SOMParentDerived_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMParentDerived_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMParentDerived_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMParentDerived_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMParentDerivedMetaclass_somTokenSequence = { inherited } SOMClass_somTokenSequence;
+  SOMParentDerivedMetaclass_SOMClassSequence = { inherited } SOMClass_SOMClassSequence;
+  SOMParentDerivedMetaclass_somOffsetInfo = { inherited } SOMClass_somOffsetInfo;
+  SOMParentDerivedMetaclass_somOffsets = { inherited } SOMClass_somOffsets;
+  SOMParentDerivedMetaclass_somIdSequence = { inherited } SOMClass_somIdSequence;
+  SOMParentDerivedMetaclass_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMParentDerivedMetaclass_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMParentDerivedMetaclass_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMParentDerivedMetaclass_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMMProxyFor_somTokenSequence = { inherited } SOMClass_somTokenSequence;
+  SOMMProxyFor_SOMClassSequence = { inherited } SOMClass_SOMClassSequence;
+  SOMMProxyFor_somOffsetInfo = { inherited } SOMClass_somOffsetInfo;
+  SOMMProxyFor_somOffsets = { inherited } SOMClass_somOffsets;
+  SOMMProxyFor_somIdSequence = { inherited } SOMClass_somIdSequence;
+  SOMMProxyFor_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMMProxyFor_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMMProxyFor_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMMProxyFor_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMUTStringId_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMUTStringId_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMUTStringId_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMUTStringId_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
   entryT = record
     { ... }
   end;
   PentryT = ^entryT;
   PPentryT = ^PentryT;
   tablePT = ^PPentryT;
+  SOMStringTableC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMStringTableC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMStringTableC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMStringTableC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SOMMTraced_somTokenSequence = { inherited } SOMClass_somTokenSequence;
+  SOMMTraced_SOMClassSequence = { inherited } SOMClass_SOMClassSequence;
+  SOMMTraced_somOffsetInfo = { inherited } SOMClass_somOffsetInfo;
+  SOMMTraced_somOffsets = { inherited } SOMClass_somOffsets;
+  SOMMTraced_somIdSequence = { inherited } SOMClass_somIdSequence;
+  SOMMTraced_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SOMMTraced_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SOMMTraced_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SOMMTraced_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  StExcep_UNKNOWN = record
+    { ... }
+  end;
+  StExcep_BAD_PARAM = record
+    { ... }
+  end;
+  StExcep_NO_MEMORY = record
+    { ... }
+  end;
+  StExcep_IMP_LIMIT = record
+    { ... }
+  end;
+  StExcep_COMM_FAILURE = record
+    { ... }
+  end;
+  StExcep_INV_OBJREF = record
+    { ... }
+  end;
+  StExcep_NO_PERMISSION = record
+    { ... }
+  end;
+  StExcep_INTERNAL = record
+    { ... }
+  end;
+  StExcep_MARSHAL = record
+    { ... }
+  end;
+  StExcep_INITIALIZE = record
+    { ... }
+  end;
+  StExcep_NO_IMPLEMENT = record
+    { ... }
+  end;
+  StExcep_BAD_TYPECODE = record
+    { ... }
+  end;
+  StExcep_BAD_OPERATION = record
+    { ... }
+  end;
+  StExcep_NO_RESOURCES = record
+    { ... }
+  end;
+  StExcep_NO_RESPONSE = record
+    { ... }
+  end;
+  StExcep_PERSIST_STORE = record
+    { ... }
+  end;
+  StExcep_BAD_INV_ORDER = record
+    { ... }
+  end;
+  StExcep_TRANSIENT = record
+    { ... }
+  end;
+  StExcep_FREE_MEM = record
+    { ... }
+  end;
+  StExcep_INV_IDENT = record
+    { ... }
+  end;
+  StExcep_INV_FLAG = record
+    { ... }
+  end;
+  StExcep_INTF_REPOS = record
+    { ... }
+  end;
+  StExcep_CONTEXT = record
+    { ... }
+  end;
+  StExcep_OBJ_ADAPTER = record
+    { ... }
+  end;
+  StExcep_DATA_CONVERSION = record
+    { ... }
+  end;
+  StExcep_OPSYS = record
+    { ... }
+  end;
+  StExcep_WMQUIT = record
+    { ... }
+  end;
+  StExcep_DISPATCH = record
+    { ... }
+  end;
+  StExcep_TransactionRequired = record
+    { ... }
+  end;
+  StExcep_TransactionRolledBack = record
+    { ... }
+  end;
+  StExcep_InvalidTransaction = record
+    { ... }
+  end;
+  StExcep_WrongTransaction = record
+    { ... }
+  end;
+  StExcep_DB_FAILURE = record
+    { ... }
+  end;
+  TSIdentification_NotAvailable = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  TSIdentification_AlreadyIdentified = {unknown type with TypeCode_kind = TypeCode_tk_null};
+  TSIdentification_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  TSIdentification_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  TSIdentification_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  TSIdentification_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  TypeDef_TypeDescription = record
+    { ... }
+  end;
+  TypeDef_Description = { inherited } Contained_Description;
+  TypeDef_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  TypeDef_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  TypeDef_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  TypeDef_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  SysAdminException_Exception = record
+    { ... }
+  end;
+  SysAdminException_MsgContext = _IDL_Sequence_Byte;
+  SysAdminException_ExException = record
+    { ... }
+  end;
+  SysAdminException_ExFailed = record
+    { ... }
+  end;
+  SysAdminException_ExInvalid = record
+    { ... }
+  end;
+  SysAdminException_ExNotFound = record
+    { ... }
+  end;
+  SysAdminException_ExExists = record
+    { ... }
+  end;
+  SysAdminException_ExFileIO = record
+    { ... }
+  end;
+  SysAdminException_ExObjNotFound = record
+    { ... }
+  end;
+  SysAdminException_ExNoMoreMemory = record
+    { ... }
+  end;
+  SysAdminException_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  SysAdminException_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  SysAdminException_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  SysAdminException_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  FileXNaming_FileENC_Constraint = CORBAString;
+  FileXNaming_FileENC_Strings = ^ShortInt;
+  FileXNaming_FileENC_InvalidPropertyName = { inherited exception } ExtendedNaming_ExtendedNamingContext_InvalidPropertyName;
+  FileXNaming_FileENC_NotSupported = { inherited exception } ExtendedNaming_ExtendedNamingContext_NotSupported;
+  FileXNaming_FileENC_ConflictingPropertyName = { inherited exception } ExtendedNaming_ExtendedNamingContext_ConflictingPropertyName;
+  FileXNaming_FileENC_PropertyNotFound = { inherited exception } ExtendedNaming_ExtendedNamingContext_PropertyNotFound;
+  FileXNaming_FileENC_PropertiesNotShared = { inherited exception } ExtendedNaming_ExtendedNamingContext_PropertiesNotShared;
+  FileXNaming_FileENC_IllegalConstraintExpression = { inherited exception } ExtendedNaming_ExtendedNamingContext_IllegalConstraintExpression;
+  FileXNaming_FileENC_BindingNotFound = { inherited exception } ExtendedNaming_ExtendedNamingContext_BindingNotFound;
+  FileXNaming_FileENC_Constraint = { inherited } ExtendedNaming_ExtendedNamingContext_Constraint;
+  FileXNaming_FileENC_Strings = { inherited } ExtendedNaming_ExtendedNamingContext_Strings;
+  FileXNaming_FileENC_NonSharableProperties = { inherited exception } ExtendedNaming_ExtendedNamingContext_NonSharableProperties;
+  FileXNaming_FileENC_NotFound = { inherited exception } CosNaming_NamingContext_NotFound;
+  FileXNaming_FileENC_CannotProceed = { inherited exception } CosNaming_NamingContext_CannotProceed;
+  FileXNaming_FileENC_InvalidName = { inherited exception } CosNaming_NamingContext_InvalidName;
+  FileXNaming_FileENC_AlreadyBound = { inherited exception } CosNaming_NamingContext_AlreadyBound;
+  FileXNaming_FileENC_NotEmpty = { inherited exception } CosNaming_NamingContext_NotEmpty;
+  FileXNaming_FileENC_NotFoundReason = { inherited } CosNaming_NamingContext_NotFoundReason;
+  FileXNaming_FileENC_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  FileXNaming_FileENC_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  FileXNaming_FileENC_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  FileXNaming_FileENC_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  FileXNaming_FileENC_metastate_t = { inherited } somOS_ServiceBase_metastate_t;
+  FileXNaming_FileBindingIterator_stringSeq = _IDL_Sequence_CORBAString;
+  FileXNaming_FileBindingIterator_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  FileXNaming_FileBindingIterator_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  FileXNaming_FileBindingIterator_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  FileXNaming_FileBindingIterator_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  FileXNaming_FPropertyBindingIterator_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  FileXNaming_FPropertyBindingIterator_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  FileXNaming_FPropertyBindingIterator_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  FileXNaming_FPropertyBindingIterator_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  FileXNaming_FPropertyIterator_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  FileXNaming_FPropertyIterator_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  FileXNaming_FPropertyIterator_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  FileXNaming_FPropertyIterator_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
+  FileXNaming_FileIndexIterator_SOMObjectSequence = { inherited } SOMObject_SOMObjectSequence;
+  FileXNaming_FileIndexIterator_BooleanSequence = { inherited } SOMObject_BooleanSequence;
+  FileXNaming_FileIndexIterator_somObjectOffset = { inherited } SOMObject_somObjectOffset;
+  FileXNaming_FileIndexIterator_somObjectOffsets = { inherited } SOMObject_somObjectOffsets;
 
   PsomGenericCtrl = ^somGenericCtrl;
   SOMObject = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
@@ -240,11 +1230,6 @@ type
     _buffer: PContainer;
   end;
   Contained = class
-    { Found item: Description }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_name: CORBAString;
     procedure _set_name(name: CORBAString);
@@ -256,7 +1241,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Unresolved_Description;
+    function describe: Contained_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -290,18 +1275,11 @@ type
   end;
 
   AttributeDef = class
-    { Found item: AttributeMode }
-    { Found item: AttributeDescription }
-    { Found item: Description }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_type: TypeCode;
     procedure _set_type(SOM_type: TypeCode);
-    function _get_mode: Unresolved_AttributeMode;
-    procedure _set_mode(mode: Unresolved_AttributeMode);
+    function _get_mode: AttributeDef_AttributeMode;
+    procedure _set_mode(mode: AttributeDef_AttributeMode);
     function _get_name: CORBAString;
     procedure _set_name(name: CORBAString);
     function _get_id: CORBAString;
@@ -312,7 +1290,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Unresolved_Description;
+    function describe: Contained_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -340,18 +1318,162 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property SOM_type: TypeCode read _get_type write _set_type;
-    property mode: Unresolved_AttributeMode read _get_mode write _set_mode;
+    property mode: AttributeDef_AttributeMode read _get_mode write _set_mode;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
     property defined_in: CORBAString read _get_defined_in write _set_defined_in;
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
+  CosNaming_BindingIterator = class
+  public
+    function next_one(out b: CosNaming_Binding): CORBABoolean;
+    function next_n(how_many: LongWord; out bl: _IDL_Sequence_CosNaming_Binding): CORBABoolean;
+    procedure destroy;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  CosNaming_NamingContext = class
+  public
+    procedure bind(n: _IDL_Sequence_CosNaming_NameComponent; obj: SOMObject);
+    procedure rebind(n: _IDL_Sequence_CosNaming_NameComponent; obj: SOMObject);
+    procedure bind_context(n: _IDL_Sequence_CosNaming_NameComponent; nc: CosNaming_NamingContext);
+    procedure rebind_context(n: _IDL_Sequence_CosNaming_NameComponent; nc: CosNaming_NamingContext);
+    function resolve(n: _IDL_Sequence_CosNaming_NameComponent): SOMObject;
+    procedure unbind(n: _IDL_Sequence_CosNaming_NameComponent);
+    function new_context: CosNaming_NamingContext;
+    function bind_new_context(n: _IDL_Sequence_CosNaming_NameComponent): CosNaming_NamingContext;
+    procedure destroy;
+    procedure list(how_many: LongWord; out bl: _IDL_Sequence_CosNaming_Binding; out bi: CosNaming_BindingIterator);
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  PUnresolved_Binding = ^Unresolved_Binding;
+  _IDL_Sequence_Unresolved_Binding = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PUnresolved_Binding;
+  end;
+  Biter_BINDITER_TWO = class
+  public
+    procedure BI_Init2(var ctrl: Pointer; bl: _IDL_Sequence_Unresolved_Binding);
+    procedure add_bindings(bl: _IDL_Sequence_Unresolved_Binding);
+    function next_one(out b: CosNaming_Binding): CORBABoolean;
+    function next_n(how_many: LongWord; out bl: _IDL_Sequence_CosNaming_Binding): CORBABoolean;
+    procedure destroy;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  Biter_BINDITER_ONE = class
+  public
+    procedure BI_Init1(var ctrl: Pointer; key: _IDL_Sequence_CORBAString; databaseFile: CORBAString);
+    function next_one(out b: CosNaming_Binding): CORBABoolean;
+    function next_n(how_many: LongWord; out bl: _IDL_Sequence_CosNaming_Binding): CORBABoolean;
+    procedure destroy;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
   BOA = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function create(id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject;
     procedure dispose(obj: SOMDObject);
@@ -393,10 +1515,6 @@ type
 
   PSOM_FILE = Pointer{ opaque ^SOM_FILE };
   SOMTEmitC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
@@ -526,10 +1644,6 @@ type
   end;
 
   brsclassc = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
@@ -659,10 +1773,6 @@ type
   end;
 
   Context = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function set_one_value(prop_name: CORBAString; value: CORBAString): LongWord;
     function set_values(values: NVList): LongWord;
@@ -699,12 +1809,6 @@ type
   end;
 
   ConstantDef = class
-    { Found item: ConstantDescription }
-    { Found item: Description }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_type: TypeCode;
     procedure _set_type(SOM_type: TypeCode);
@@ -720,7 +1824,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Unresolved_Description;
+    function describe: Contained_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -761,23 +1865,17 @@ type
     _length: LongWord;
     _buffer: PContained;
   end;
-  PUnresolved_ContainerDescription = ^Unresolved_ContainerDescription;
-  _IDL_Sequence_Unresolved_ContainerDescription = record
+  PContainer_ContainerDescription = ^Container_ContainerDescription;
+  _IDL_Sequence_Container_ContainerDescription = record
     _maximum: LongWord;
     _length: LongWord;
-    _buffer: PUnresolved_ContainerDescription;
+    _buffer: PContainer_ContainerDescription;
   end;
   Container = class
-    { Found item: InterfaceName }
-    { Found item: ContainerDescription }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
-    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Unresolved_ContainerDescription;
+    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -807,10 +1905,6 @@ type
   end;
 
   DirectToSomCpp = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
@@ -947,10 +2041,6 @@ type
   end;
 
   CTMEmitC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
@@ -1085,10 +2175,6 @@ type
   end;
 
   DTSImplTmpl = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
@@ -1219,12 +2305,6 @@ type
   end;
 
   ExceptionDef = class
-    { Found item: ExceptionDescription }
-    { Found item: Description }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_type: TypeCode;
     procedure _set_type(SOM_type: TypeCode);
@@ -1238,7 +2318,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Unresolved_Description;
+    function describe: Contained_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1272,6 +2352,447 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
+  ExtendedNaming_PropertyBindingIterator = class
+  public
+    function next_one(out pb: ExtendedNaming_PropertyBinding_struct): CORBABoolean;
+    function next_n(howMany: LongWord; out il: _IDL_Sequence_ExtendedNaming_PropertyBinding_struct): CORBABoolean;
+    procedure destroy;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  ExtendedNaming_PropertyIterator = class
+  public
+    function next_one(out p: ExtendedNaming_Property_struct): CORBABoolean;
+    function next_n(howMany: LongWord; out pl: _IDL_Sequence_ExtendedNaming_Property_struct): CORBABoolean;
+    procedure destroy;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  ExtendedNaming_IndexIterator = class
+  public
+    function next_one(out p: ExtendedNaming_IndexDescriptor_struct): CORBABoolean;
+    function next_n(howMany: LongWord; out il: _IDL_Sequence_ExtendedNaming_IndexDescriptor_struct): CORBABoolean;
+    procedure destroy;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  PTypeCode = ^TypeCode;
+  _IDL_Sequence_TypeCode = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PTypeCode;
+  end;
+  PUnresolved_NameComponent = ^Unresolved_NameComponent;
+  _IDL_Sequence_Unresolved_NameComponent = record
+    _maximum: LongWord;
+    _length: LongWord;
+    _buffer: PUnresolved_NameComponent;
+  end;
+  ExtendedNaming_ExtendedNamingContext = class
+  private
+    function _get_allowed_object_types: _IDL_Sequence_TypeCode;
+    function _get_allowed_property_types: _IDL_Sequence_TypeCode;
+    function _get_allowed_property_names: _IDL_Sequence_CORBAString;
+    function _get_shared_property_types: _IDL_Sequence_TypeCode;
+    function _get_shared_property_names: _IDL_Sequence_CORBAString;
+  public
+    function get_features_supported: Word;
+    procedure add_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: ExtendedNaming_Property_struct);
+    procedure add_properties(n: _IDL_Sequence_Unresolved_NameComponent; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure bind_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure bind_context_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure rebind_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure rebind_context_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure share_property(target_n: _IDL_Sequence_Unresolved_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_Unresolved_NameComponent; pname: CORBAString);
+    procedure share_properties(target_n: _IDL_Sequence_Unresolved_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_Unresolved_NameComponent; pnames: _IDL_Sequence_CORBAString);
+    procedure unshare_property(n: _IDL_Sequence_Unresolved_NameComponent; property_name: CORBAString);
+    procedure unshare_properties(n: _IDL_Sequence_Unresolved_NameComponent; pnames: _IDL_Sequence_CORBAString);
+    procedure list_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out pbl: _IDL_Sequence_ExtendedNaming_PropertyBinding_struct; out rest: ExtendedNaming_PropertyBindingIterator);
+    procedure get_property(n: _IDL_Sequence_Unresolved_NameComponent; pn: CORBAString; out prop: ExtendedNaming_Property_struct);
+    procedure get_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
+    procedure get_all_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
+    function resolve_with_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: CORBAString; out v: any): SOMObject;
+    function resolve_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
+    function resolve_with_all_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
+    procedure remove_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: CORBAString);
+    procedure remove_properties(n: _IDL_Sequence_Unresolved_NameComponent; plist: _IDL_Sequence_CORBAString);
+    procedure remove_all_properties(n: _IDL_Sequence_Unresolved_NameComponent);
+    function find_any(c: CORBAString; distance: LongWord): SOMObject;
+    procedure find_all(c: CORBAString; distance: LongWord; howMany: LongWord; out bl: _IDL_Sequence_Unresolved_Binding; out bi: CosNaming_BindingIterator);
+    procedure find_any_name_binding(c: CORBAString; distance: LongWord; out bi: Unresolved_Binding);
+    procedure add_index(i: ExtendedNaming_IndexDescriptor_struct);
+    procedure list_indexes(howMany: LongWord; out il: _IDL_Sequence_ExtendedNaming_IndexDescriptor_struct; out rest: ExtendedNaming_IndexIterator);
+    procedure remove_index(i: ExtendedNaming_IndexDescriptor_struct);
+    procedure bind(n: _IDL_Sequence_CosNaming_NameComponent; obj: SOMObject);
+    procedure rebind(n: _IDL_Sequence_CosNaming_NameComponent; obj: SOMObject);
+    procedure bind_context(n: _IDL_Sequence_CosNaming_NameComponent; nc: CosNaming_NamingContext);
+    procedure rebind_context(n: _IDL_Sequence_CosNaming_NameComponent; nc: CosNaming_NamingContext);
+    function resolve(n: _IDL_Sequence_CosNaming_NameComponent): SOMObject;
+    procedure unbind(n: _IDL_Sequence_CosNaming_NameComponent);
+    function new_context: CosNaming_NamingContext;
+    function bind_new_context(n: _IDL_Sequence_CosNaming_NameComponent): CosNaming_NamingContext;
+    procedure destroy;
+    procedure list(how_many: LongWord; out bl: _IDL_Sequence_CosNaming_Binding; out bi: CosNaming_BindingIterator);
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+    property allowed_object_types: _IDL_Sequence_TypeCode read _get_allowed_object_types;
+    property allowed_property_types: _IDL_Sequence_TypeCode read _get_allowed_property_types;
+    property allowed_property_names: _IDL_Sequence_CORBAString read _get_allowed_property_names;
+    property shared_property_types: _IDL_Sequence_TypeCode read _get_shared_property_types;
+    property shared_property_names: _IDL_Sequence_CORBAString read _get_shared_property_names;
+  end;
+
+  CosObjectIdentity_IdentifiableObject = class
+  private
+    function _get_constant_random_id: LongWord;
+  public
+    function is_identical(other_object: CosObjectIdentity_IdentifiableObject): CORBABoolean;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+    property constant_random_id: LongWord read _get_constant_random_id;
+  end;
+
+  somOS_Server = class
+  public
+    procedure restore_metastate(referenced_object: SOMObject);
+    procedure delete_ref(referenced_object: SOMObject);
+    function has_persistent_ref(referenced_object: SOMObject): CORBABoolean;
+    procedure passivate_object(referenced_object: SOMObject);
+    function make_persistent_ref(referenced_object: SOMObject): SOMObject;
+    procedure store_metastate(referenced_object: SOMObject);
+    procedure store_service_metastate(referenced_object: SOMObject; somos_service_id: somOS_service_id; service_metadata: any);
+    procedure passivate_all_objects;
+    function somdRefFromSOMObj(somobj: SOMObject): SOMDObject;
+    function somdSOMObjFromRef(objref: SOMDObject): SOMObject;
+    procedure somdDispatchMethod(somobj: SOMObject; out retValue: Pointer; methodId: somId; ap: va_list);
+    function somdCreateObj(objclass: CORBAString; hints: CORBAString): SOMObject;
+    procedure somdDeleteObj(somobj: SOMObject);
+    function somdGetClassObj(objclass: CORBAString): SOMClass;
+    function somdObjReferencesCached: CORBABoolean;
+    function somdCreateFactory(className: CORBAString; props: _IDL_Sequence_Unresolved_Property_struct): SOMObject;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  somOS_ServiceBase = class
+  private
+    function _get_constant_random_id: LongWord;
+  public
+    procedure reinit(meta_data: _IDL_Sequence_somOS_metastate_struct);
+    procedure capture(var meta_data: _IDL_Sequence_somOS_metastate_struct);
+    function GetInstanceManager: SOMObject;
+    procedure uninit_for_object_destruction;
+    function init_for_object_creation: SOMObject;
+    function init_for_object_reactivation: SOMObject;
+    function init_for_object_copy: SOMObject;
+    procedure uninit_for_object_move;
+    procedure uninit_for_object_passivation;
+    function is_identical(other_object: CosObjectIdentity_IdentifiableObject): CORBABoolean;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+    property constant_random_id: LongWord read _get_constant_random_id;
+  end;
+
+  somOS_ServiceBasePRef = class
+  private
+    function _get_constant_random_id: LongWord;
+  public
+    procedure reinit(meta_data: _IDL_Sequence_somOS_metastate_struct);
+    procedure capture(var meta_data: _IDL_Sequence_somOS_metastate_struct);
+    function GetInstanceManager: SOMObject;
+    procedure uninit_for_object_destruction;
+    function init_for_object_creation: SOMObject;
+    function init_for_object_reactivation: SOMObject;
+    function init_for_object_copy: SOMObject;
+    procedure uninit_for_object_move;
+    procedure uninit_for_object_passivation;
+    function is_identical(other_object: CosObjectIdentity_IdentifiableObject): CORBABoolean;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+    property constant_random_id: LongWord read _get_constant_random_id;
+  end;
+
+  somOS_ServiceBaseCORBA = class
+  private
+    function _get_constant_random_id: LongWord;
+  public
+    procedure reinit(meta_data: _IDL_Sequence_somOS_metastate_struct);
+    procedure capture(var meta_data: _IDL_Sequence_somOS_metastate_struct);
+    function GetInstanceManager: SOMObject;
+    procedure uninit_for_object_destruction;
+    function init_for_object_creation: SOMObject;
+    function init_for_object_reactivation: SOMObject;
+    function init_for_object_copy: SOMObject;
+    procedure uninit_for_object_move;
+    procedure uninit_for_object_passivation;
+    function is_identical(other_object: CosObjectIdentity_IdentifiableObject): CORBABoolean;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+    property constant_random_id: LongWord read _get_constant_random_id;
+  end;
+
+  somOS_ServiceBasePRefCORBA = class
+  private
+    function _get_constant_random_id: LongWord;
+  public
+    procedure reinit(meta_data: _IDL_Sequence_somOS_metastate_struct);
+    procedure capture(var meta_data: _IDL_Sequence_somOS_metastate_struct);
+    function GetInstanceManager: SOMObject;
+    procedure uninit_for_object_destruction;
+    function init_for_object_creation: SOMObject;
+    function init_for_object_reactivation: SOMObject;
+    function init_for_object_copy: SOMObject;
+    procedure uninit_for_object_move;
+    procedure uninit_for_object_passivation;
+    function is_identical(other_object: CosObjectIdentity_IdentifiableObject): CORBABoolean;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+    property constant_random_id: LongWord read _get_constant_random_id;
+  end;
+
   PUnresolved_Property_struct = ^Unresolved_Property_struct;
   _IDL_Sequence_Unresolved_Property_struct = record
     _maximum: LongWord;
@@ -1279,10 +2800,6 @@ type
     _buffer: PUnresolved_Property_struct;
   end;
   SOMDServer = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function somdRefFromSOMObj(somobj: SOMObject): SOMDObject;
     function somdSOMObjFromRef(objref: SOMDObject): SOMObject;
@@ -1320,11 +2837,312 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
+  CosLifeCycle_FactoryFinder = class
+  public
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  CosStream_StreamIO = class
+  public
+    procedure write_string(item: CORBAString);
+    procedure write_char(item: ShortInt);
+    procedure write_octet(item: Byte);
+    procedure write_unsigned_long(item: LongWord);
+    procedure write_unsigned_short(item: Word);
+    procedure write_long(item: LongInt);
+    procedure write_short(item: SmallInt);
+    procedure write_float(item: Single);
+    procedure write_double(item: Double);
+    procedure write_boolean(item: CORBABoolean);
+    procedure write_object(item: CosStream_Streamable);
+    function read_string: CORBAString;
+    function read_char: ShortInt;
+    function read_octet: Byte;
+    function read_unsigned_long: LongWord;
+    function read_unsigned_short: Word;
+    function read_long: LongInt;
+    function read_short: SmallInt;
+    function read_float: Single;
+    function read_double: Double;
+    function read_boolean: CORBABoolean;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  CosStream_Streamable = class
+  private
+    function _get_constant_random_id: LongWord;
+  public
+    procedure externalize_to_stream(stream: CosStream_StreamIO);
+    procedure internalize_from_stream(stream: CosStream_StreamIO; ff: CosLifeCycle_FactoryFinder);
+    function is_identical(other_object: CosObjectIdentity_IdentifiableObject): CORBABoolean;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+    property constant_random_id: LongWord read _get_constant_random_id;
+  end;
+
+  CosStream_StreamableFactory = class
+  public
+    function create_uninitialized: CosStream_Streamable;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  somStream_StreamIO = class
+  public
+    function already_streamed(obj: SOMObject; class_obj: SOMObject): CORBABoolean;
+    procedure reset;
+    procedure set_buffer(buffer: _IDL_Sequence_Byte);
+    function get_buffer: _IDL_Sequence_Byte;
+    procedure clear_buffer;
+    procedure write_string(item: CORBAString);
+    procedure write_char(item: ShortInt);
+    procedure write_octet(item: Byte);
+    procedure write_unsigned_long(item: LongWord);
+    procedure write_unsigned_short(item: Word);
+    procedure write_long(item: LongInt);
+    procedure write_short(item: SmallInt);
+    procedure write_float(item: Single);
+    procedure write_double(item: Double);
+    procedure write_boolean(item: CORBABoolean);
+    procedure write_object(item: CosStream_Streamable);
+    function read_string: CORBAString;
+    function read_char: ShortInt;
+    function read_octet: Byte;
+    function read_unsigned_long: LongWord;
+    function read_unsigned_short: Word;
+    function read_long: LongInt;
+    function read_short: SmallInt;
+    function read_float: Single;
+    function read_double: Double;
+    function read_boolean: CORBABoolean;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  somStream_MemoryStreamIO = class
+  public
+    function already_streamed(obj: SOMObject; class_obj: SOMObject): CORBABoolean;
+    procedure reset;
+    procedure set_buffer(buffer: _IDL_Sequence_Byte);
+    function get_buffer: _IDL_Sequence_Byte;
+    procedure clear_buffer;
+    procedure write_string(item: CORBAString);
+    procedure write_char(item: ShortInt);
+    procedure write_octet(item: Byte);
+    procedure write_unsigned_long(item: LongWord);
+    procedure write_unsigned_short(item: Word);
+    procedure write_long(item: LongInt);
+    procedure write_short(item: SmallInt);
+    procedure write_float(item: Single);
+    procedure write_double(item: Double);
+    procedure write_boolean(item: CORBABoolean);
+    procedure write_object(item: CosStream_Streamable);
+    function read_string: CORBAString;
+    function read_char: ShortInt;
+    function read_octet: Byte;
+    function read_unsigned_long: LongWord;
+    function read_unsigned_short: Word;
+    function read_long: LongInt;
+    function read_short: SmallInt;
+    function read_float: Single;
+    function read_double: Double;
+    function read_boolean: CORBABoolean;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
+
+  somStream_Streamable = class
+  private
+    function _get_constant_random_id: LongWord;
+  public
+    procedure reinit(meta_data: _IDL_Sequence_somOS_metastate_struct);
+    procedure capture(var meta_data: _IDL_Sequence_somOS_metastate_struct);
+    function GetInstanceManager: SOMObject;
+    procedure uninit_for_object_destruction;
+    function init_for_object_creation: SOMObject;
+    function init_for_object_reactivation: SOMObject;
+    function init_for_object_copy: SOMObject;
+    procedure uninit_for_object_move;
+    procedure uninit_for_object_passivation;
+    function is_identical(other_object: CosObjectIdentity_IdentifiableObject): CORBABoolean;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+    procedure externalize_to_stream(stream: CosStream_StreamIO);
+    procedure internalize_from_stream(stream: CosStream_StreamIO; ff: CosLifeCycle_FactoryFinder);
+    property constant_random_id: LongWord read _get_constant_random_id;
+  end;
+
   SOMDForeignMarshaler = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     procedure marshal(latent_param: CORBAString; dataPtr: Pointer; direction: Unresolved_marshaling_direction_t; SOM_function: Unresolved_marshaling_op_t; streamio: CosStream_StreamIO);
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
@@ -1357,10 +3175,6 @@ type
 
   somInitModEmitter = class
     { Found item: INIT_SUFFIX }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_targetDllName: CORBAString;
     procedure _set_targetDllName(targetDllName: CORBAString);
@@ -1502,13 +3316,7 @@ type
   end;
 
   P_IDL_Sequence_Byte = ^_IDL_Sequence_Byte;
-  PUnresolved_prot_response = ^Unresolved_prot_response;
-  _IDL_Sequence_Unresolved_prot_response = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PUnresolved_prot_response;
-  end;
-  P_IDL_Sequence_Unresolved_prot_response = ^_IDL_Sequence_Unresolved_prot_response;
+  P_IDL_Sequence_ImplementationDef_prot_response = ^_IDL_Sequence_ImplementationDef_prot_response;
   ImplementationDef = class
     { Found item: SOMD_MAXLEN_IMPL_ID }
     { Found item: SOMD_MAXLEN_IMPL_ALIAS }
@@ -1516,13 +3324,6 @@ type
     { Found item: SOMD_MAXLEN_FILENAME }
     { Found item: SOMD_MAXLEN_HOSTNAME }
     { Found item: SOMD_MAXLEN_CLASSNAME }
-    { Found item: octet_seqP }
-    { Found item: prot_response }
-    { Found item: seq_prot_responses }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_impl_id: CORBAString;
     procedure _set_impl_id(impl_id: CORBAString);
@@ -1548,8 +3349,8 @@ type
     procedure _set_svr_objref(svr_objref: P_IDL_Sequence_Byte);
     function _get_protocols: CORBAString;
     procedure _set_protocols(protocols: CORBAString);
-    function _get_registrar_resp: P_IDL_Sequence_Unresolved_prot_response;
-    procedure _set_registrar_resp(registrar_resp: P_IDL_Sequence_Unresolved_prot_response);
+    function _get_registrar_resp: P_IDL_Sequence_ImplementationDef_prot_response;
+    procedure _set_registrar_resp(registrar_resp: P_IDL_Sequence_ImplementationDef_prot_response);
     function _get_constant_random_id: LongWord;
   public
     procedure externalize_to_stream(stream: CosStream_StreamIO);
@@ -1593,36 +3394,17 @@ type
     property impldef_class: CORBAString read _get_impldef_class write _set_impldef_class;
     property svr_objref: P_IDL_Sequence_Byte read _get_svr_objref write _set_svr_objref;
     property protocols: CORBAString read _get_protocols write _set_protocols;
-    property registrar_resp: P_IDL_Sequence_Unresolved_prot_response read _get_registrar_resp write _set_registrar_resp;
+    property registrar_resp: P_IDL_Sequence_ImplementationDef_prot_response read _get_registrar_resp write _set_registrar_resp;
     property constant_random_id: LongWord read _get_constant_random_id;
   end;
 
-  PCORBAString = ^CORBAString;
-  _IDL_Sequence_CORBAString = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PCORBAString;
-  end;
   PImplementationDef = ^ImplementationDef;
   _IDL_Sequence_ImplementationDef = record
     _maximum: LongWord;
     _length: LongWord;
     _buffer: PImplementationDef;
   end;
-  PUnresolved_PV = ^Unresolved_PV;
-  _IDL_Sequence_Unresolved_PV = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PUnresolved_PV;
-  end;
   ImplRepository = class
-    { Found item: PV }
-    { Found item: PropertyValue }
-    { Found item: PVList }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function find_impldef(implid: CORBAString): ImplementationDef;
     function find_impldef_by_alias(alias_name: CORBAString): ImplementationDef;
@@ -1637,7 +3419,7 @@ type
     procedure remove_class_from_all(classname: CORBAString);
     function find_classes_by_impldef(implid: CORBAString): _IDL_Sequence_CORBAString;
     function add_class_to_all(classname: CORBAString): LongWord;
-    function add_class_with_properties(implid: CORBAString; classname: CORBAString; pvl: _IDL_Sequence_Unresolved_PV): LongWord;
+    function add_class_with_properties(implid: CORBAString; classname: CORBAString; pvl: _IDL_Sequence_ImplRepository_PV): LongWord;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1667,15 +3449,6 @@ type
   end;
 
   InterfaceDef = class
-    { Found item: FullInterfaceDescription }
-    { Found item: InterfaceDescription }
-    { Found item: Description }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
-    { Found item: InterfaceName }
-    { Found item: ContainerDescription }
   private
     function _get_base_interfaces: _IDL_Sequence_CORBAString;
     procedure _set_base_interfaces(base_interfaces: _IDL_Sequence_CORBAString);
@@ -1690,9 +3463,9 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier;
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
-    function describe_interface: Unresolved_FullInterfaceDescription;
+    function describe_interface: InterfaceDef_FullInterfaceDescription;
     function within: _IDL_Sequence_Container;
-    function describe: Unresolved_Description;
+    function describe: Contained_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1721,7 +3494,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
-    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Unresolved_ContainerDescription;
+    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription;
     property base_interfaces: _IDL_Sequence_CORBAString read _get_base_interfaces write _set_base_interfaces;
     property instanceData: TypeCode read _get_instanceData write _set_instanceData;
     property name: CORBAString read _get_name write _set_name;
@@ -1730,20 +3503,7 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
-  PUnresolved_NameComponent = ^Unresolved_NameComponent;
-  _IDL_Sequence_Unresolved_NameComponent = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PUnresolved_NameComponent;
-  end;
   LName = class
-    { Found item: NoComponent }
-    { Found item: OverFlow }
-    { Found item: InvalidName }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function insert_component(i: LongWord; n: LNameComponent): LName;
     function get_component(i: LongWord): LNameComponent;
@@ -1783,11 +3543,6 @@ type
   end;
 
   LNameComponent = class
-    { Found item: NotSet }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function get_id: CORBAString;
     procedure set_id(i: CORBAString);
@@ -1823,14 +3578,6 @@ type
   end;
 
   ModuleDef = class
-    { Found item: ModuleDescription }
-    { Found item: Description }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
-    { Found item: InterfaceName }
-    { Found item: ContainerDescription }
   private
     function _get_name: CORBAString;
     procedure _set_name(name: CORBAString);
@@ -1842,7 +3589,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Unresolved_Description;
+    function describe: Contained_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -1871,7 +3618,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
-    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Unresolved_ContainerDescription;
+    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
     property defined_in: CORBAString read _get_defined_in write _set_defined_in;
@@ -1879,10 +3626,6 @@ type
   end;
 
   NVList = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function add_item(item_name: CORBAString; item_type: TypeCode; value: Pointer; value_len: LongInt; item_flags: LongWord): LongWord;
     function free: LongWord;
@@ -1919,10 +3662,6 @@ type
   end;
 
   ObjectMgr = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function somdNewObject(objclass: CORBAString; hints: CORBAString): SOMObject;
     function somdGetIdFromObject(obj: SOMObject): CORBAString;
@@ -1958,20 +3697,11 @@ type
   end;
 
   OperationDef = class
-    { Found item: OperationMode }
-    { Found item: OperationDescription }
-    { Found item: Description }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
-    { Found item: InterfaceName }
-    { Found item: ContainerDescription }
   private
     function _get_result: TypeCode;
     procedure _set_result(SOM_result: TypeCode);
-    function _get_mode: Unresolved_OperationMode;
-    procedure _set_mode(mode: Unresolved_OperationMode);
+    function _get_mode: OperationDef_OperationMode;
+    procedure _set_mode(mode: OperationDef_OperationMode);
     function _get_contexts: _IDL_Sequence_CORBAString;
     procedure _set_contexts(contexts: _IDL_Sequence_CORBAString);
     function _get_name: CORBAString;
@@ -1984,7 +3714,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Unresolved_Description;
+    function describe: Contained_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -2013,9 +3743,9 @@ type
     procedure somDumpSelfInt(level: LongInt);
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
-    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Unresolved_ContainerDescription;
+    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription;
     property SOM_result: TypeCode read _get_result write _set_result;
-    property mode: Unresolved_OperationMode read _get_mode write _set_mode;
+    property mode: OperationDef_OperationMode read _get_mode write _set_mode;
     property contexts: _IDL_Sequence_CORBAString read _get_contexts write _set_contexts;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
@@ -2024,13 +3754,6 @@ type
   end;
 
   ORB = class
-    { Found item: InvalidName }
-    { Found item: ObjectId }
-    { Found item: ObjectIdList }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_stringToObject30: CORBABoolean;
     procedure _set_stringToObject30(stringToObject30: CORBABoolean);
@@ -2072,18 +3795,11 @@ type
   end;
 
   ParameterDef = class
-    { Found item: ParameterMode }
-    { Found item: ParameterDescription }
-    { Found item: Description }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_type: TypeCode;
     procedure _set_type(SOM_type: TypeCode);
-    function _get_mode: Unresolved_ParameterMode;
-    procedure _set_mode(mode: Unresolved_ParameterMode);
+    function _get_mode: ParameterDef_ParameterMode;
+    procedure _set_mode(mode: ParameterDef_ParameterMode);
     function _get_name: CORBAString;
     procedure _set_name(name: CORBAString);
     function _get_id: CORBAString;
@@ -2094,7 +3810,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Unresolved_Description;
+    function describe: Contained_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -2122,7 +3838,7 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property SOM_type: TypeCode read _get_type write _set_type;
-    property mode: Unresolved_ParameterMode read _get_mode write _set_mode;
+    property mode: ParameterDef_ParameterMode read _get_mode write _set_mode;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
     property defined_in: CORBAString read _get_defined_in write _set_defined_in;
@@ -2130,10 +3846,6 @@ type
   end;
 
   Principal = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_userName: CORBAString;
     procedure _set_userName(userName: CORBAString);
@@ -2171,15 +3883,6 @@ type
   end;
 
   Repository = class
-    { Found item: RepositoryDescription }
-    { Found item: irOpenErrorCodes }
-    { Found item: irOpenError }
-    { Found item: InterfaceName }
-    { Found item: ContainerDescription }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function lookup_id(search_id: CORBAString): Contained;
     function lookup_modifier(name: CORBAString; modifier: CORBAString): CORBAString;
@@ -2187,7 +3890,7 @@ type
     function queryException: CORBABoolean;
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
-    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Unresolved_ContainerDescription;
+    function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -2217,10 +3920,6 @@ type
   end;
 
   Request = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function add_arg(name: CORBAString; arg_type: TypeCode; value: Pointer; len: LongInt; arg_flags: LongWord): LongWord;
     function invoke(invoke_flags: LongWord): LongWord;
@@ -2256,10 +3955,6 @@ type
   end;
 
   SOMTEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtEntryName: CORBAString;
     procedure _set_somtEntryName(somtEntryName: CORBAString);
@@ -2318,10 +4013,6 @@ type
   end;
 
   SOMTAttributeEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtIsReadonly: CORBABoolean;
     function _get_somtAttribType: SOMTEntryC;
@@ -2390,10 +4081,6 @@ type
   end;
 
   SOMTBaseClassEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtBaseClassDef: SOMTClassEntryC;
     function _get_somtEntryName: CORBAString;
@@ -2454,10 +4141,6 @@ type
   end;
 
   SOMTClassEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtSourceFileName: CORBAString;
     function _get_somtMetaClassEntry: SOMTMetaClassEntryC;
@@ -2582,10 +4265,6 @@ type
   end;
 
   SOMTCommonEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtTypeObj: SOMTEntryC;
     function _get_somtPtrs: CORBAString;
@@ -2660,10 +4339,6 @@ type
   end;
 
   SOMTConstEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtConstTypeObj: SOMTEntryC;
     function _get_somtConstType: CORBAString;
@@ -2736,10 +4411,6 @@ type
   end;
 
   SOMTDataEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtIsSelfRef: CORBABoolean;
     function _get_somtTypeObj: SOMTEntryC;
@@ -2816,10 +4487,6 @@ type
   end;
 
   SOMTEnumEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtEntryName: CORBAString;
     procedure _set_somtEntryName(somtEntryName: CORBAString);
@@ -2880,10 +4547,6 @@ type
   end;
 
   SOMTEnumNameEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtEnumPtr: SOMTEnumEntryC;
     function _get_somtEnumVal: LongWord;
@@ -2946,10 +4609,6 @@ type
   end;
 
   SOMTMetaClassEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtMetaFile: CORBAString;
     function _get_somtMetaClassDef: SOMTClassEntryC;
@@ -3012,10 +4671,6 @@ type
   end;
 
   SOMTMethodEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtIsVarargs: CORBABoolean;
     function _get_somtOriginalMethod: SOMTMethodEntryC;
@@ -3118,10 +4773,6 @@ type
   end;
 
   SOMTModuleEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtOuterModule: SOMTModuleEntryC;
     function _get_somtModuleFile: CORBAString;
@@ -3202,10 +4853,6 @@ type
   end;
 
   SOMTParameterEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtParameterDirection: somtParameterDirectionT;
     function _get_somtIDLParameterDeclaration: CORBAString;
@@ -3286,10 +4933,6 @@ type
   end;
 
   SOMTPassthruEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtPassthruBody: CORBAString;
     function _get_somtPassthruLanguage: CORBAString;
@@ -3355,10 +4998,6 @@ type
   end;
 
   SOMTSequenceEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtSeqLength: LongInt;
     function _get_somtSeqType: SOMTEntryC;
@@ -3421,10 +5060,6 @@ type
   end;
 
   SOMTStringEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtStringLength: LongInt;
     function _get_somtEntryName: CORBAString;
@@ -3485,10 +5120,6 @@ type
   end;
 
   SOMTStructEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtStructClass: SOMTClassEntryC;
     function _get_somtIsException: CORBABoolean;
@@ -3553,10 +5184,6 @@ type
   end;
 
   SOMTTypedefEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtTypedefType: SOMTEntryC;
     function _get_somtEntryName: CORBAString;
@@ -3621,10 +5248,6 @@ type
   SOMTTemplateOutputC = class
     { Found item: MAX_INPUT_LINE_LENGTH }
     { Found item: MAX_OUTPUT_LINE_LENGTH }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtCommentStyle: somtCommentStyleT;
     procedure _set_somtCommentStyle(somtCommentStyle: somtCommentStyleT);
@@ -3677,14 +5300,8 @@ type
     property somtCommentNewline: CORBABoolean read _get_somtCommentNewline write _set_somtCommentNewline;
   end;
 
-  PUnresolved_somtCaseEntry = ^Unresolved_somtCaseEntry;
+  PSOMTUnionEntryC_somtCaseEntry = ^SOMTUnionEntryC_somtCaseEntry;
   SOMTUnionEntryC = class
-    { Found item: somtLabelList }
-    { Found item: somtCaseEntry }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtSwitchType: SOMTEntryC;
     function _get_somtEntryName: CORBAString;
@@ -3699,8 +5316,8 @@ type
     function _get_somtIDLScopedName: CORBAString;
     function _get_somtCScopedName: CORBAString;
   public
-    function somtGetFirstCaseEntry: PUnresolved_somtCaseEntry;
-    function somtGetNextCaseEntry: PUnresolved_somtCaseEntry;
+    function somtGetFirstCaseEntry: PSOMTUnionEntryC_somtCaseEntry;
+    function somtGetNextCaseEntry: PSOMTUnionEntryC_somtCaseEntry;
     function somtGetModifierValue(modifierName: CORBAString): CORBAString;
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean;
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean;
@@ -3747,10 +5364,6 @@ type
   end;
 
   SOMTUserDefinedTypeEntryC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somtOriginalTypedef: SOMTTypedefEntryC;
     function _get_somtBaseTypeObj: SOMTEntryC;
@@ -3829,10 +5442,6 @@ type
   end;
 
   SOMDServerMgr = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function somdShutdownServer(server_alias: CORBAString): LongWord;
     function somdShutdownImpl(impldef: ImplementationDef): LongWord;
@@ -3870,33 +5479,12 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  PUnresolved_somOffsetInfo = ^Unresolved_somOffsetInfo;
-  _IDL_Sequence_Unresolved_somOffsetInfo = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PUnresolved_somOffsetInfo;
-  end;
-  PSOMClass = ^SOMClass;
-  _IDL_Sequence_SOMClass = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PSOMClass;
-  end;
   PsomMethodTab = ^somMethodTab;
   PsomMethodTabList = ^somMethodTabList;
   SOMClass = class
-    { Found item: somTokenSequence }
-    { Found item: SOMClassSequence }
-    { Found item: somOffsetInfo }
-    { Found item: somOffsets }
-    { Found item: somIdSequence }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function somNew: SOMObject;
@@ -3975,23 +5563,14 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somDataAlignment: LongInt read _get_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   SOMMSingleInstance = class
-    { Found item: somTokenSequence }
-    { Found item: SOMClassSequence }
-    { Found item: somOffsetInfo }
-    { Found item: somOffsets }
-    { Found item: somIdSequence }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function sommGetSingleInstance: SOMObject;
@@ -4072,15 +5651,56 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somDataAlignment: LongInt read _get_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
+  somAttributePersistence_Persist = class
+  private
+    function _get_constant_random_id: LongWord;
+  public
+    procedure load_attribute(attribute_name: CORBAString; out buffer: Pointer; attribute_tc: TypeCode);
+    procedure store_attribute(attribute_name: CORBAString; buffer: Pointer; attribute_tc: TypeCode);
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+    procedure reinit(meta_data: _IDL_Sequence_somOS_metastate_struct);
+    procedure capture(var meta_data: _IDL_Sequence_somOS_metastate_struct);
+    function GetInstanceManager: SOMObject;
+    procedure uninit_for_object_destruction;
+    function init_for_object_creation: SOMObject;
+    function init_for_object_reactivation: SOMObject;
+    function init_for_object_copy: SOMObject;
+    procedure uninit_for_object_move;
+    procedure uninit_for_object_passivation;
+    function is_identical(other_object: CosObjectIdentity_IdentifiableObject): CORBABoolean;
+    property constant_random_id: LongWord read _get_constant_random_id;
+  end;
+
   TypecodeDataManipulator = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
@@ -4111,18 +5731,9 @@ type
   end;
 
   SOMMBeforeAfter = class
-    { Found item: somTokenSequence }
-    { Found item: SOMClassSequence }
-    { Found item: somOffsetInfo }
-    { Found item: somOffsets }
-    { Found item: somIdSequence }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean;
@@ -4203,16 +5814,11 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somDataAlignment: LongInt read _get_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   SOMClassMgr = class
-    { Found item: SOMClassArray }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somInterfaceRepository: Repository;
     procedure _set_somInterfaceRepository(somInterfaceRepository: Repository);
@@ -4267,16 +5873,11 @@ type
   end;
 
   SOMMProxyForObject = class
-    { Found item: sommProxyDispatchInfo }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_sommProxyTarget: SOMObject;
     procedure _set_sommProxyTarget(sommProxyTarget: SOMObject);
   public
-    function sommProxyDispatch(out returnBufferPointer: Pointer; dispatchInfo: Unresolved_sommProxyDispatchInfo; ap: va_list): CORBABoolean;
+    function sommProxyDispatch(out returnBufferPointer: Pointer; dispatchInfo: SOMMProxyForObject_sommProxyDispatchInfo; ap: va_list): CORBABoolean;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -4307,10 +5908,6 @@ type
   end;
 
   SOMDObject = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_type_id: CORBAString;
     procedure _set_type_id(type_id: CORBAString);
@@ -4355,11 +5952,6 @@ type
   end;
 
   SOMDClientProxy = class
-    { Found item: sommProxyDispatchInfo }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_sommProxyTarget: SOMObject;
     procedure _set_sommProxyTarget(sommProxyTarget: SOMObject);
@@ -4373,7 +5965,7 @@ type
     function somdProxyGetClass: SOMClass;
     function somdProxyGetClassName: CORBAString;
     procedure somdReleaseResources;
-    function sommProxyDispatch(out returnBufferPointer: Pointer; dispatchInfo: Unresolved_sommProxyDispatchInfo; ap: va_list): CORBABoolean;
+    function sommProxyDispatch(out returnBufferPointer: Pointer; dispatchInfo: SOMMProxyForObject_sommProxyDispatchInfo; ap: va_list): CORBABoolean;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -4421,10 +6013,6 @@ type
     _buffer: PSOMDServer;
   end;
   SOMDObjectMgr = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somd21somFree: CORBABoolean;
     procedure _set_somd21somFree(somd21somFree: CORBABoolean);
@@ -4468,10 +6056,6 @@ type
   end;
 
   SOMUTId = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     procedure somutSetIdId(otherId: SOMUTId);
     function somutEqualsId(otherId: SOMUTId): CORBABoolean;
@@ -4512,10 +6096,6 @@ type
     _buffer: PUnresolved_SOMDServiceContext;
   end;
   SOMOA = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function execute_next_request(waitFlag: LongWord): LongWord;
     function execute_request_loop(waitFlag: LongWord): LongWord;
@@ -4565,18 +6145,9 @@ type
   end;
 
   SOMParentDerived = class
-    { Found item: somTokenSequence }
-    { Found item: SOMClassSequence }
-    { Found item: somOffsetInfo }
-    { Found item: somOffsets }
-    { Found item: somIdSequence }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     procedure somwpclsInitData;
@@ -4657,24 +6228,15 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somDataAlignment: LongInt read _get_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   SOMParentDerivedMetaclass = class
-    { Found item: somTokenSequence }
-    { Found item: SOMClassSequence }
-    { Found item: somOffsetInfo }
-    { Found item: somOffsets }
-    { Found item: somIdSequence }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somNonDerivedFrontier: _IDL_Sequence_SOMClass;
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function somNew: SOMObject;
@@ -4754,23 +6316,14 @@ type
     procedure somDumpSelfInt(level: LongInt);
     property somNonDerivedFrontier: _IDL_Sequence_SOMClass read _get_somNonDerivedFrontier;
     property somDataAlignment: LongInt read _get_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   SOMMProxyFor = class
-    { Found item: somTokenSequence }
-    { Found item: SOMClassSequence }
-    { Found item: somOffsetInfo }
-    { Found item: somOffsets }
-    { Found item: somIdSequence }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function sommMakeProxyClass(targetClass: SOMClass; className: CORBAString): SOMClass;
@@ -4850,15 +6403,11 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
     property somDataAlignment: LongInt read _get_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   SOMUTStringId = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     function somutSetIdString(IdString: CORBAString): LongInt;
     function somutGetIdString(toBuffer: CORBAString): CORBAString;
@@ -4898,10 +6447,6 @@ type
   end;
 
   SOMStringTableC = class
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_somstTargetCapacity: LongWord;
     procedure _set_somstTargetCapacity(somstTargetCapacity: LongWord);
@@ -4946,20 +6491,11 @@ type
   end;
 
   SOMMTraced = class
-    { Found item: somTokenSequence }
-    { Found item: SOMClassSequence }
-    { Found item: somOffsetInfo }
-    { Found item: somOffsets }
-    { Found item: somIdSequence }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_sommTraceIsOn: CORBABoolean;
     procedure _set_sommTraceIsOn(sommTraceIsOn: CORBABoolean);
     function _get_somDataAlignment: LongInt;
-    function _get_somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo;
+    function _get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo;
     function _get_somDirectInitClasses: _IDL_Sequence_SOMClass;
   public
     function sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean;
@@ -5041,17 +6577,11 @@ type
     procedure somDumpSelfInt(level: LongInt);
     property sommTraceIsOn: CORBABoolean read _get_sommTraceIsOn write _set_sommTraceIsOn;
     property somDataAlignment: LongInt read _get_somDataAlignment;
-    property somInstanceDataOffsets: _IDL_Sequence_Unresolved_somOffsetInfo read _get_somInstanceDataOffsets;
+    property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses;
   end;
 
   TSIdentification = class
-    { Found item: NotAvailable }
-    { Found item: AlreadyIdentified }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_sender: TSPortability_Sender;
     function _get_receiver: TSPortability_Receiver;
@@ -5089,12 +6619,6 @@ type
   end;
 
   TypeDef = class
-    { Found item: TypeDescription }
-    { Found item: Description }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   private
     function _get_type: TypeCode;
     procedure _set_type(SOM_type: TypeCode);
@@ -5108,7 +6632,7 @@ type
     procedure _set_somModifiers(somModifiers: _IDL_Sequence_somModifier);
   public
     function within: _IDL_Sequence_Container;
-    function describe: Unresolved_Description;
+    function describe: Contained_Description;
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
     procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
@@ -5143,20 +6667,6 @@ type
   end;
 
   SysAdminException = class
-    { Found item: Exception }
-    { Found item: MsgContext }
-    { Found item: ExException }
-    { Found item: ExFailed }
-    { Found item: ExInvalid }
-    { Found item: ExNotFound }
-    { Found item: ExExists }
-    { Found item: ExFileIO }
-    { Found item: ExObjNotFound }
-    { Found item: ExNoMoreMemory }
-    { Found item: SOMObjectSequence }
-    { Found item: BooleanSequence }
-    { Found item: somObjectOffset }
-    { Found item: somObjectOffsets }
   public
     procedure somDefaultInit(ctrl: PsomGenericCtrl);
     procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
@@ -5186,37 +6696,230 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-{ Found item: bhany }
+  FileXNaming_FileENC = class
+  private
+    function _get_allowed_object_types: _IDL_Sequence_TypeCode;
+    function _get_allowed_property_types: _IDL_Sequence_TypeCode;
+    function _get_allowed_property_names: _IDL_Sequence_CORBAString;
+    function _get_shared_property_types: _IDL_Sequence_TypeCode;
+    function _get_shared_property_names: _IDL_Sequence_CORBAString;
+    function _get_constant_random_id: LongWord;
+  public
+    function get_features_supported: Word;
+    procedure add_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: ExtendedNaming_Property_struct);
+    procedure add_properties(n: _IDL_Sequence_Unresolved_NameComponent; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure bind_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure bind_context_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure rebind_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: SOMObject; prop: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure rebind_context_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; obj: ExtendedNaming_ExtendedNamingContext; props: _IDL_Sequence_ExtendedNaming_Property_struct);
+    procedure share_property(target_n: _IDL_Sequence_Unresolved_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_Unresolved_NameComponent; pname: CORBAString);
+    procedure share_properties(target_n: _IDL_Sequence_Unresolved_NameComponent; source_enc: ExtendedNaming_ExtendedNamingContext; source_n: _IDL_Sequence_Unresolved_NameComponent; pnames: _IDL_Sequence_CORBAString);
+    procedure unshare_property(n: _IDL_Sequence_Unresolved_NameComponent; property_name: CORBAString);
+    procedure unshare_properties(n: _IDL_Sequence_Unresolved_NameComponent; pnames: _IDL_Sequence_CORBAString);
+    procedure list_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out pbl: _IDL_Sequence_ExtendedNaming_PropertyBinding_struct; out rest: ExtendedNaming_PropertyBindingIterator);
+    procedure get_property(n: _IDL_Sequence_Unresolved_NameComponent; pn: CORBAString; out prop: ExtendedNaming_Property_struct);
+    procedure get_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
+    procedure get_all_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator);
+    function resolve_with_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: CORBAString; out v: any): SOMObject;
+    function resolve_with_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; inames: _IDL_Sequence_CORBAString; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
+    function resolve_with_all_properties(n: _IDL_Sequence_Unresolved_NameComponent; howMany: LongWord; out props: _IDL_Sequence_ExtendedNaming_Property_struct; out rest: ExtendedNaming_PropertyIterator): SOMObject;
+    procedure remove_property(n: _IDL_Sequence_Unresolved_NameComponent; prop: CORBAString);
+    procedure remove_properties(n: _IDL_Sequence_Unresolved_NameComponent; plist: _IDL_Sequence_CORBAString);
+    procedure remove_all_properties(n: _IDL_Sequence_Unresolved_NameComponent);
+    function find_any(c: CORBAString; distance: LongWord): SOMObject;
+    procedure find_all(c: CORBAString; distance: LongWord; howMany: LongWord; out bl: _IDL_Sequence_Unresolved_Binding; out bi: CosNaming_BindingIterator);
+    procedure find_any_name_binding(c: CORBAString; distance: LongWord; out bi: Unresolved_Binding);
+    procedure add_index(i: ExtendedNaming_IndexDescriptor_struct);
+    procedure list_indexes(howMany: LongWord; out il: _IDL_Sequence_ExtendedNaming_IndexDescriptor_struct; out rest: ExtendedNaming_IndexIterator);
+    procedure remove_index(i: ExtendedNaming_IndexDescriptor_struct);
+    procedure bind(n: _IDL_Sequence_CosNaming_NameComponent; obj: SOMObject);
+    procedure rebind(n: _IDL_Sequence_CosNaming_NameComponent; obj: SOMObject);
+    procedure bind_context(n: _IDL_Sequence_CosNaming_NameComponent; nc: CosNaming_NamingContext);
+    procedure rebind_context(n: _IDL_Sequence_CosNaming_NameComponent; nc: CosNaming_NamingContext);
+    function resolve(n: _IDL_Sequence_CosNaming_NameComponent): SOMObject;
+    procedure unbind(n: _IDL_Sequence_CosNaming_NameComponent);
+    function new_context: CosNaming_NamingContext;
+    function bind_new_context(n: _IDL_Sequence_CosNaming_NameComponent): CosNaming_NamingContext;
+    procedure destroy;
+    procedure list(how_many: LongWord; out bl: _IDL_Sequence_CosNaming_Binding; out bi: CosNaming_BindingIterator);
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+    procedure reinit(meta_data: _IDL_Sequence_somOS_metastate_struct);
+    procedure capture(var meta_data: _IDL_Sequence_somOS_metastate_struct);
+    function GetInstanceManager: SOMObject;
+    procedure uninit_for_object_destruction;
+    function init_for_object_creation: SOMObject;
+    function init_for_object_reactivation: SOMObject;
+    function init_for_object_copy: SOMObject;
+    procedure uninit_for_object_move;
+    procedure uninit_for_object_passivation;
+    function is_identical(other_object: CosObjectIdentity_IdentifiableObject): CORBABoolean;
+    property allowed_object_types: _IDL_Sequence_TypeCode read _get_allowed_object_types;
+    property allowed_property_types: _IDL_Sequence_TypeCode read _get_allowed_property_types;
+    property allowed_property_names: _IDL_Sequence_CORBAString read _get_allowed_property_names;
+    property shared_property_types: _IDL_Sequence_TypeCode read _get_shared_property_types;
+    property shared_property_names: _IDL_Sequence_CORBAString read _get_shared_property_names;
+    property constant_random_id: LongWord read _get_constant_random_id;
+  end;
 
-{ Found item: CosNaming }
+  FileXNaming_FileBindingIterator = class
+  public
+    procedure FileBindingIterator_Init1(var ctrl: Pointer; key: _IDL_Sequence_CORBAString; databaseFile: CORBAString);
+    procedure FileBindingIterator_Init2(var ctrl: Pointer; bl: _IDL_Sequence_Unresolved_Binding);
+    function next_one(out b: CosNaming_Binding): CORBABoolean;
+    function next_n(how_many: LongWord; out bl: _IDL_Sequence_CosNaming_Binding): CORBABoolean;
+    procedure destroy;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
 
-{ Found item: Biter }
+  FileXNaming_FPropertyBindingIterator = class
+  public
+    function next_one(out pb: ExtendedNaming_PropertyBinding_struct): CORBABoolean;
+    function next_n(howMany: LongWord; out il: _IDL_Sequence_ExtendedNaming_PropertyBinding_struct): CORBABoolean;
+    procedure destroy;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
 
-{ Found item: SOMD }
+  FileXNaming_FPropertyIterator = class
+  public
+    function next_one(out p: ExtendedNaming_Property_struct): CORBABoolean;
+    function next_n(howMany: LongWord; out pl: _IDL_Sequence_ExtendedNaming_Property_struct): CORBABoolean;
+    procedure destroy;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
 
-{ Found item: ExtendedNaming }
-
-{ Found item: IIOP }
-
-{ Found item: IOR }
-
-{ Found item: CosObjectIdentity }
-
-{ Found item: somOS }
-
-{ Found item: CosLifeCycle }
-
-{ Found item: CosStream }
-
-{ Found item: somStream }
-
-{ Found item: somAttributePersistence }
-
-{ Found item: StExcep }
-
-{ Found item: TSPortability }
-
-{ Found item: FileXNaming }
+  FileXNaming_FileIndexIterator = class
+  public
+    procedure FileIndexIterator_Init(var ctrl: Pointer; key: _IDL_Sequence_Byte; databaseFile: CORBAString);
+    function next_one(out p: ExtendedNaming_IndexDescriptor_struct): CORBABoolean;
+    function next_n(howMany: LongWord; out il: _IDL_Sequence_ExtendedNaming_IndexDescriptor_struct): CORBABoolean;
+    procedure destroy;
+    procedure somDefaultInit(ctrl: PsomGenericCtrl);
+    procedure somDestruct(doFree: Byte; ctrl: PsomGenericCtrl);
+    procedure somDefaultCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somDefaultConstCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    procedure somDefaultConstVCopyInit(ctrl: PsomGenericCtrl; fromObj: SOMObject);
+    function somDefaultConstAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    function somDefaultConstVAssign(ctrl: PsomGenericCtrl; fromObj: SOMObject): SOMObject;
+    procedure somInit;
+    procedure somUninit;
+    procedure somFree;
+    function somGetClass: SOMClass;
+    function somGetClassName: CORBAString;
+    function somGetSize: LongInt;
+    function somIsA(aClassObj: SOMClass): CORBABoolean;
+    function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean;
+    function somRespondsTo(mId: somId): CORBABoolean;
+    function somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean;
+    function somCastObj(castedCls: SOMClass): CORBABoolean;
+    function somResetObj: CORBABoolean;
+    function somPrintSelf: SOMObject;
+    procedure somDumpSelf(level: LongInt);
+    procedure somDumpSelfInt(level: LongInt);
+  end;
 
 implementation
 

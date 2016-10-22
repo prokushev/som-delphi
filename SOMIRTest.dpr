@@ -71,10 +71,14 @@ type
     function ExtractSubTC(TC: TypeCode; Index: LongInt): TypeCode;
     function TCToImportedType(TC: TypeCode; const CurrentNamespace: string): string;
 
-
     procedure WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
     procedure WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
     procedure WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef);
+
+    procedure WriteRepositoryFirstPass(Item: Contained; const CurrentNamespace: string; var WasForwardType: Boolean);
+    procedure WriteRepositorySecondPass(Item: Contained; const CurrentNamespace: string);
+    procedure WriteRepositoryThirdPass(Item: Contained; const CurrentNamespace: string);
+    procedure WriteRepositoryFourthPass(Item: Contained; const CurrentNamespace: string);
     procedure WriteRepository;
 
     property RootNamespace: string read FRootNamespace;
@@ -706,8 +710,16 @@ end;
 procedure TSOMIRImporter.WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
 var
   Result_TC: TypeCode;
+  OriginalNamespace: string;
 begin
   if Pass = wtpTypeDef then Exit;
+
+  OriginalNamespace := Contained__get_defined_in(Definition, ev);
+  if Length(OriginalNamespace) > 2 then
+  begin
+    OriginalNamespace := OriginalNamespace + '::';
+  end;
+
   Result_TC := OperationDef__get_result(Definition, ev);
   if TypeCode_kind(Result_TC, ev) = TypeCode_tk_void then
   begin
@@ -715,7 +727,7 @@ begin
     begin
       Write(F, '    procedure ', UnreserveIdentifier(Contained__get_name(Definition, ev)));
     end;
-    WriteMethodArguments(CurrentNamespace, Pass, Definition);
+    WriteMethodArguments(OriginalNamespace, Pass, Definition);
     if Pass > wtpOnDemand then
     begin
       WriteLn(F, ';');
@@ -727,12 +739,12 @@ begin
     begin
       Write(F, '    function ', UnreserveIdentifier(Contained__get_name(Definition, ev)));
     end;
-    WriteMethodArguments(CurrentNamespace, Pass, Definition);
+    WriteMethodArguments(OriginalNamespace, Pass, Definition);
     if Pass > wtpOnDemand then
     begin
       Write(F, ': ');
     end;
-    WriteType(CurrentNamespace, Pass, Result_TC);
+    WriteType(OriginalNamespace, Pass, Result_TC);
     if Pass > wtpOnDemand then
     begin
       WriteLn(F, ';');
@@ -748,8 +760,9 @@ var
   Name: Identifier;
   NameS: AnsiString;
   WasPrivate, WasPublic: Boolean;
+  OriginalNamespace: string;
 begin
-  Contents := Container_contents(Definition, ev, 'all', False);
+  Contents := Container_contents(Definition, ev, 'all', Pass <= wtpOnDemand);
   if Contents._length > 0 then
   begin
     WasPrivate := False;
@@ -761,6 +774,8 @@ begin
       Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
       if SOMObject_somIsA(Item, _SOMCLASS_OperationDef) then begin end
       else if SOMObject_somIsA(Item, _SOMCLASS_AttributeDef) then begin end
+      else if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then begin end
+      else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then begin end
       else
       begin
         if Pass > wtpOnDemand then
@@ -853,7 +868,14 @@ begin
         begin
           Write(F, '    property ', UnreserveIdentifier(Name), ': ');
         end;
-        WriteType(CurrentNamespace, Pass, AttributeDef__get_type(Item, ev));
+
+        OriginalNamespace := Contained__get_defined_in(Item, ev);
+        if Length(OriginalNamespace) > 2 then
+        begin
+          OriginalNamespace := OriginalNamespace + '::';
+        end;
+
+        WriteType(OriginalNamespace, Pass, AttributeDef__get_type(Item, ev));
         if Pass > wtpOnDemand then
         begin
           if AttributeDef__get_mode(Item, ev) = AttributeDef_READONLY then
@@ -874,14 +896,270 @@ begin
   end;
 end;
 
+procedure TSOMIRImporter.WriteRepositoryFirstPass(Item: Contained; const CurrentNamespace: string; var WasForwardType: Boolean);
+var
+  Name: PAnsiChar;
+  Recurse: Boolean;
+  SubItem: Contained;
+  Contents: _IDL_SEQUENCE_Contained;
+  I: LongWord;
+  NewNamespace: string;
+begin
+  Recurse := False;
+  if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  begin
+    if not WasForwardType then
+    begin
+      WriteLn(F, 'type');
+      WriteLn(F, '  { Forward definitions }');
+      WasForwardType := True;
+      FWasType := True;
+    end;
+    Name := Contained__get_name(Item, ev);
+    FExistingTypeIds.Add(CurrentNamespace + Name);
+    WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = class;');
+    Recurse := True;
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+  begin
+    FExistingTypeIds.Add(CurrentNamespace + Contained__get_name(Item, ev));
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then
+  begin
+    FExistingTypeIds.Add(CurrentNamespace + Contained__get_name(Item, ev));
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  begin
+    Name := Contained__get_name(Item, ev);
+    Recurse := True;
+  end;
+
+  if Recurse then
+  begin
+    NewNamespace := CurrentNamespace + Name + '::';
+    Contents := Container_contents(Item, ev, 'all', False);
+    if Contents._length > 0 then
+    begin
+      for I := 0 to Contents._length - 1 do
+      begin
+        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        WriteRepositoryFirstPass(SubItem, NewNamespace, WasForwardType);
+        SOMFreeAndNil(SubItem);
+      end;
+      SOMFree(Contents._buffer);
+    end;
+  end;
+end;
+
+procedure TSOMIRImporter.WriteRepositorySecondPass(Item: Contained; const CurrentNamespace: string);
+var
+  TC: TypeCode;
+  Name: PAnsiChar;
+  Recurse: Boolean;
+  SubItem: Contained;
+  Contents: _IDL_SEQUENCE_Contained;
+  I: LongWord;
+  NewNamespace: string;
+begin
+  Recurse := False;
+  if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+  begin
+    TC := TypeDef__get_type(Item, ev);
+    if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
+    begin
+      WriteType(CurrentNamespace, wtpOnDemandForeignOnly, TC);
+    end;
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then
+  begin
+    TC := ExceptionDef__get_type(Item, ev);
+    if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
+    begin
+      WriteType(CurrentNamespace, wtpOnDemandForeignOnly, TC);
+    end;
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  begin
+    Name := Contained__get_name(Item, ev);
+    WriteClassDefinition(CurrentNamespace + Name + '::' {CurrentNamespace}, wtpOnDemandForeignOnly, Item);
+    Recurse := True;
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  begin
+    Name := Contained__get_name(Item, ev);
+    Recurse := True;
+  end;
+
+  if Recurse then
+  begin
+    NewNamespace := CurrentNamespace + Name + '::';
+    Contents := Container_contents(Item, ev, 'all', True);
+    if Contents._length > 0 then
+    begin
+      for I := 0 to Contents._length - 1 do
+      begin
+        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        WriteRepositorySecondPass(SubItem, NewNamespace);
+        SOMFreeAndNil(SubItem);
+      end;
+      SOMFree(Contents._buffer);
+    end;
+  end;
+end;
+
+procedure TSOMIRImporter.WriteRepositoryThirdPass(Item: Contained; const CurrentNamespace: string);
+var
+  TC: TypeCode;
+  Name: PAnsiChar;
+  Recurse: Boolean;
+  SubItem: Contained;
+  Contents: _IDL_SEQUENCE_Contained;
+  I: LongWord;
+  OriginalNamespace: string;
+  NewNamespace: string;
+begin
+  Recurse := False;
+  if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+  begin
+    TC := TypeDef__get_type(Item, ev);
+    if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
+    begin
+      if not FWasType then
+      begin
+        WriteLn(F, 'type');
+        FWasType := True;
+      end;
+
+      OriginalNamespace := Contained__get_defined_in(Item, ev);
+      if Length(OriginalNamespace) > 2 then
+      begin
+        OriginalNamespace := OriginalNamespace + '::';
+      end;
+
+      if OriginalNamespace <> CurrentNamespace then
+      begin
+        Name := Contained__get_name(Item, ev);
+        WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
+      end
+      else
+      begin
+        WriteType(CurrentNamespace, wtpOnDemandBeforeTypeDef, TC);
+        Write(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = ');
+        WriteType(CurrentNamespace, wtpTypeDef, TC);
+        WriteLn(F, ';');
+      end;
+    end;
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then
+  begin
+    TC := ExceptionDef__get_type(Item, ev);
+    if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
+    begin
+      if not FWasType then
+      begin
+        WriteLn(F, 'type');
+        FWasType := True;
+      end;
+
+      OriginalNamespace := Contained__get_defined_in(Item, ev);
+      if Length(OriginalNamespace) > 2 then
+      begin
+        OriginalNamespace := OriginalNamespace + '::';
+      end;
+
+      if OriginalNamespace <> CurrentNamespace then
+      begin
+        Name := Contained__get_name(Item, ev);
+        WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited exception } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
+      end
+      else
+      begin
+        WriteType(CurrentNamespace, wtpOnDemandBeforeTypeDef, TC);
+        Write(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = ');
+        WriteType(CurrentNamespace, wtpTypeDef, TC);
+        WriteLn(F, ';');
+      end;
+    end;
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  begin
+    Name := Contained__get_name(Item, ev);
+    Recurse := True;
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  begin
+    Name := Contained__get_name(Item, ev);
+    Recurse := True;
+  end;
+
+  if Recurse then
+  begin
+    NewNamespace := CurrentNamespace + Name + '::';
+    Contents := Container_contents(Item, ev, 'all', False);
+    if Contents._length > 0 then
+    begin
+      for I := 0 to Contents._length - 1 do
+      begin
+        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        WriteRepositoryThirdPass(SubItem, NewNamespace);
+        SOMFreeAndNil(SubItem);
+      end;
+      SOMFree(Contents._buffer);
+    end;
+  end;
+end;
+
+procedure TSOMIRImporter.WriteRepositoryFourthPass(Item: Contained; const CurrentNamespace: string);
+var
+  Name: PAnsiChar;
+  Recurse: Boolean;
+  SubItem: Contained;
+  Contents: _IDL_SEQUENCE_Contained;
+  I: LongWord;
+  NewNamespace: string;
+begin
+  Recurse := False;
+  if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  begin
+    WriteLn(F);
+    Name := Contained__get_name(Item, ev);
+    WriteClassDefinition(CurrentNamespace + Name + '::' {CurrentNamespace}, wtpOnDemand, Item);
+    WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = class');
+    WriteClassDefinition(CurrentNamespace + Name + '::' {CurrentNamespace}, wtpFinal, Item);
+    // TODO more tricky resolution for inherited methods
+    // TODO types in methods should be resolved against class introduced them
+    WriteLn(F, '  end;');
+    // there can be no sub-interfaces or modules inside of interface
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  begin
+    Name := Contained__get_name(Item, ev);
+    Recurse := True;
+  end;
+
+  if Recurse then
+  begin
+    NewNamespace := CurrentNamespace + Name + '::';
+    Contents := Container_contents(Item, ev, 'all', False);
+    if Contents._length > 0 then
+    begin
+      for I := 0 to Contents._length - 1 do
+      begin
+        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        WriteRepositoryFourthPass(SubItem, NewNamespace);
+        SOMFreeAndNil(SubItem);
+      end;
+      SOMFree(Contents._buffer);
+    end;
+  end;
+end;
+
 procedure TSOMIRImporter.WriteRepository;
 var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
   Item: Contained;
   WasForwardType: Boolean;
-  Name: PAnsiChar;
-  TC: TypeCode;
 begin
   Assign(F, RootNamespace + '.pas');
   Rewrite(F);
@@ -899,7 +1177,7 @@ begin
     WriteLn(F);
 
     Contents := Container_contents(Repo, ev, 'all', False);
-    WriteLn(F, '{ Amount of items: ', Contents._length, ' }');
+    // WriteLn(F, '{ Amount of items: ', Contents._length, ' }');
     if Contents._length > 0 then
     begin
       WasForwardType := False;
@@ -908,23 +1186,7 @@ begin
       for I := 0 to Contents._length - 1 do
       begin
         Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
-        begin
-          if not WasForwardType then
-          begin
-            WriteLn(F, 'type');
-            WriteLn(F, '  { Forward definitions }');
-            WasForwardType := True;
-            FWasType := True;
-          end;
-          Name := Contained__get_name(Item, ev);
-          FExistingTypeIds.Add('::' + Name);
-          WriteLn(F, '  ', IdToImportedType('::' + Name, '::'), ' = class;');
-        end
-        else if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
-        begin
-          FExistingTypeIds.Add('::' + Contained__get_name(Item, ev));
-        end;
+        WriteRepositoryFirstPass(Item, '::', WasForwardType);
       end;
       FExistingTypeIds.Sorted := True;
       Write(' 1');
@@ -933,18 +1195,7 @@ begin
       for I := 0 to Contents._length - 1 do
       begin
         Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
-        begin
-          TC := TypeDef__get_type(Item, ev);
-          if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
-          begin
-            WriteType('::', wtpOnDemandForeignOnly, TC);
-          end;
-        end
-        else if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
-        begin
-          WriteClassDefinition('::', wtpOnDemandForeignOnly, Item);
-        end;
+        WriteRepositorySecondPass(Item, '::');
       end;
       Write(' 2');
 
@@ -954,22 +1205,7 @@ begin
       for I := 0 to Contents._length - 1 do
       begin
         Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
-        begin
-          TC := TypeDef__get_type(Item, ev);
-          if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
-          begin
-            if not FWasType then
-            begin
-              WriteLn(F, 'type');
-              FWasType := True;
-            end;
-            WriteType('::', wtpOnDemandBeforeTypeDef, TC);
-            Write(F, '  ', IdToImportedType('::' + Contained__get_name(Item, ev), '::'), ' = ');
-            WriteType('::', wtpTypeDef, TC);
-            WriteLn(F, ';');
-          end;
-        end;
+        WriteRepositoryThirdPass(Item, '::');
       end;
       Write(' 3');
 
@@ -979,14 +1215,7 @@ begin
         for I := 0 to Contents._length - 1 do
         begin
           Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-          if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
-          begin
-            WriteLn(F);
-            WriteClassDefinition('::', wtpOnDemand, Item);
-            WriteLn(F, '  ', IdToImportedType('::' + Contained__get_name(Item, ev), '::'), ' = class');
-            WriteClassDefinition('::', wtpFinal, Item);
-            WriteLn(F, '  end;');
-          end;
+          WriteRepositoryFourthPass(Item, '::');
         end;
       end;
       Write(' 4');
@@ -997,8 +1226,10 @@ begin
         Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
         if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
         else if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+        else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
         else
         begin
+          // TODO ExceptionDef
           WriteLn(F);
           WriteLn(F, '{ Found item: ', Contained__get_name(Item, ev), ' }');
         end;
