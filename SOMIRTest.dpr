@@ -33,7 +33,7 @@ begin
 end;
 
 type
-  TWriteTypePass = (wtpOnDemandForeignOnly, wtpOnDemandBeforeTypeDef, wtpOnDemand, wtpTypeDef, wtpFinal, wtpImplementation);
+  TWriteTypePass = (wtpOnDemandForeignOnly, wtpOnDemandBeforeTypeDef, wtpOnDemand, wtpTypeDef, wtpFinal, wtpImplementation, wtpLowLevelImplementation);
   // wtpOnDemandForeignOnly: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
   //                         only foreign types can be output at this moment (this is to make as much opaque pointers as possible)
   // wtpOnDemandBeforeTypeDef: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
@@ -42,6 +42,7 @@ type
   // wtpTypeDef: '  xxx = ' is already written, and it's time to output something that is appropriate for type definition
   // wtpFinal: it's too late to define anything now, it's time to output identifier that should be defined previously
   // wtpImplementation: write implementation part (equals to wtpFinal for types, makes difference for methods)
+  // wtpLowLevelImplementation: write typedef for methods; add "self" and "ev"; turn "any" result into TAnyResult
 
   // wtpFinal is not used for WriteRecordType; TCToImportedType should return string instead
 
@@ -862,6 +863,8 @@ var
   Result_TC: TypeCode;
   Result_Kind: TCKind;
   OriginalNamespace: string;
+  OriginalClass: string;
+  MethodName: string;
 begin
   if Pass = wtpTypeDef then Exit;
 
@@ -877,42 +880,54 @@ begin
   end;
   Result_TC := OperationDef__get_result(Definition, ev);
   Result_Kind := TypeCode_kind(Result_TC, ev);
+  MethodName := UnreserveIdentifier(Contained__get_name(Definition, ev));
+  if Pass > wtpOnDemand then
+  begin
+    if Pass < wtpImplementation then
+    begin
+      Write(F, '    ');
+    end
+    else if Pass = wtpLowLevelImplementation then
+    begin
+      OriginalClass := IdToImportedType(Copy(OriginalNamespace, 1, Length(OriginalNamespace) - 2), OriginalNamespace);
+      WriteLn(F, '(*');
+      WriteLn(F, ' * New Method: ', MethodName);
+      WriteLn(F, ' *)');
+      WriteLn(F, 'type');
+      Write(F, '  somTD_', OriginalClass, '_', MethodName, ' = ');
+    end;
+  end;
+
   if Result_Kind = TypeCode_tk_void then
   begin
     if Pass > wtpOnDemand then
     begin
-      if Pass < wtpImplementation then
-      begin
-        Write(F, '    ');
-      end;
       Write(F, 'procedure ');
-      if Pass >= wtpImplementation then
+      if Pass < wtpLowLevelImplementation then
       begin
-        // IdToImportedType(Contained__get_defined_in(Definition, ev)
-        Write(F, IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace), '.');
+        if Pass >= wtpImplementation then
+        begin
+          // IdToImportedType(Contained__get_defined_in(Definition, ev)
+          Write(F, IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace), '.');
+        end;
+        Write(F, MethodName);
       end;
-      Write(F, UnreserveIdentifier(Contained__get_name(Definition, ev)));
     end;
     WriteMethodArguments(OriginalNamespace, Pass, Definition);
-    if Pass > wtpOnDemand then
-    begin
-      WriteLn(F, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
-    end;
   end
   else
   begin
     if Pass > wtpOnDemand then
     begin
-      if Pass < wtpImplementation then
-      begin
-        Write(F, '    ');
-      end;
       Write(F, 'function ');
-      if Pass >= wtpImplementation then
+      if Pass < wtpLowLevelImplementation then
       begin
-        Write(F, IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace), '.');
+        if Pass >= wtpImplementation then
+        begin
+          Write(F, IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace), '.');
+        end;
+        Write(F, MethodName);
       end;
-      Write(F, UnreserveIdentifier(Contained__get_name(Definition, ev)));
     end;
     WriteMethodArguments(OriginalNamespace, Pass, Definition);
     if Pass > wtpOnDemand then
@@ -921,13 +936,21 @@ begin
     end;
     // if Result_Kind = tk_any then // TAnyResult
     WriteType(OriginalNamespace, Pass, Result_TC);
-    if Pass > wtpOnDemand then
+  end;
+
+  if Pass > wtpOnDemand then
+  begin
+    if Pass = wtpLowLevelImplementation then
+    begin
+      WriteLn(F, '; stdcall;');
+    end
+    else
     begin
       WriteLn(F, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     end;
   end;
 
-  if Pass >= wtpImplementation then
+  if Pass = wtpImplementation then
   begin
     WriteLn(F, 'begin');
     WriteLn(F, '  { ... }'); // TODO real invocation here
@@ -971,6 +994,13 @@ begin
               end;
               WasPrivate := True;
             end;
+            if Pass = wtpImplementation then
+            begin
+              if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
+              begin
+                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
+              end;
+            end;
             WriteMethodDefinition(CurrentNamespace, Pass, Item);
           end;
         end;
@@ -997,6 +1027,13 @@ begin
               end;
               WasPublic := True;
             end;
+            if Pass = wtpImplementation then
+            begin
+              if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
+              begin
+                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
+              end;
+            end;
             WriteMethodDefinition(CurrentNamespace, Pass, Item);
           end;
         end
@@ -1009,6 +1046,13 @@ begin
               WriteLn(F, '  public');
             end;
             WasPublic := True;
+          end;
+          if Pass = wtpImplementation then
+          begin
+            if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
+            begin
+              WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
+            end;
           end;
           WriteMethodDefinition(CurrentNamespace, Pass, Item);
         end;
@@ -1779,7 +1823,6 @@ begin
     WriteLn(F, 'begin');
     WriteLn(F, '  Result := ', ImportedType, 'ClassData.classObject;');
     WriteLn(F, 'end;');
-    WriteLn(F);
 
     WriteClassDefinition(CurrentNamespace + Name + '::', wtpImplementation, Item);
     // there can be no sub-interfaces or modules inside of interface
