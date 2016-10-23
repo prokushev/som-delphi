@@ -879,6 +879,9 @@ var
   OriginalNamespace: string;
   OriginalClass: string;
   MethodName: string;
+  Contents: _IDL_SEQUENCE_Contained;
+  I: LongWord;
+  Item: Contained;
 begin
   if Pass = wtpTypeDef then Exit;
 
@@ -972,8 +975,50 @@ begin
 
   if Pass = wtpImplementation then
   begin
+    OriginalClass := IdToImportedType(Copy(OriginalNamespace, 1, Length(OriginalNamespace) - 2), OriginalNamespace);
+    WriteLn(F, 'var');
+    WriteLn(F, '  cd: P', OriginalClass, 'ClassDataStructure;');
     WriteLn(F, 'begin');
-    WriteLn(F, '  { ... }'); // TODO real invocation here
+    WriteLn(F, '  cd := ', OriginalClass, 'ClassData;');
+
+    if Result_Kind = TypeCode_tk_any then
+    begin
+      WriteLn(F, '  Result := any(');
+    end
+    else if Result_Kind <> TypeCode_tk_void then
+    begin
+      WriteLn(F, '  Result :=');
+    end;
+    WriteLn(F, '  somTD_', OriginalClass, '_', MethodName);
+    WriteLn(F, '   (SOM_Resolve(somSelf, cd.classObject, cd.', MethodName, '))');
+    Write(F, '     (somSelf');
+
+    if not OIDL then
+    begin
+      Write(F, ', ev');
+    end;
+
+    Contents := Container_contents(Definition, ev, 'all', False);
+    if Contents._length > 0 then
+    begin
+      for I := 0 to Contents._length - 1 do
+      begin
+        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        if SOMObject_somIsA(Item, _SOMCLASS_ParameterDef) then
+        begin
+          Write(F, ', ', UnreserveIdentifier(Contained__get_name(Item, ev)));
+        end;
+        SOMFreeAndNil(Item);
+      end;
+      SOMFree(Contents._buffer);
+    end;
+
+    Write(F, ')');
+    if Result_Kind = TypeCode_tk_any then
+    begin
+      Write(F, ')');
+    end;
+    WriteLn(F, ';');
     WriteLn(F, 'end;');
   end;
 end;
@@ -1813,7 +1858,7 @@ begin
     WriteLn(F, '    Result := ', DllName_Id, '_', ImportedType, 'ClassData');
     WriteLn(F, '  else');
     WriteLn(F, '  begin');
-    WriteLn(F, '    SOMIR_Load_Variable(', DllName_Id, '_', ImportedType, 'ClassData, ''', ImportedType, 'ClassData'');');
+    WriteLn(F, '    ', DllName_Id, '_Load_Variable(', DllName_Id, '_', ImportedType, 'ClassData, ''', ImportedType, 'ClassData'');');
     WriteLn(F, '    Result := ', DllName_Id, '_', ImportedType, 'ClassData;');
     WriteLn(F, '  end;');
     WriteLn(F, 'end;');
@@ -1837,7 +1882,7 @@ begin
     WriteLn(F, '    Result := ', DllName_Id, '_', ImportedType, 'CClassData');
     WriteLn(F, '  else');
     WriteLn(F, '  begin');
-    WriteLn(F, '    SOMIR_Load_Variable(', DllName_Id, '_', ImportedType, 'CClassData, ''', ImportedType, 'CClassData'');');
+    WriteLn(F, '    ', DllName_Id, '_Load_Variable(', DllName_Id, '_', ImportedType, 'CClassData, ''', ImportedType, 'CClassData'');');
     WriteLn(F, '    Result := ', DllName_Id, '_', ImportedType, 'CClassData;');
     WriteLn(F, '  end;');
     WriteLn(F, 'end;');
