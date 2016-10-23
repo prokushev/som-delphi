@@ -57,6 +57,7 @@ type
     FOriginalTypeIds: TStringList; // non-inherited '::TypeName', '::ModuleName::TypeName'
     FPostponedArrayNames: TStringList; // 'CosNaming_NameComponent', 'CosNaming_Binding', ...
     FWasConst: Boolean;
+    FDLLs: TStringList; // 'som.dll', 'somir.dll', ...
   public
     constructor Create(const ARootNamespace: string; ARepo: Repository);
     destructor Destroy; override;
@@ -106,6 +107,7 @@ begin
   FResolutionAid := TStringList.Create;
   FOriginalTypeIds := TStringList.Create;
   FPostponedArrayNames := TStringList.Create;
+  FDLLs := TStringList.Create;
   FReservedWords.Add('file');
   FReservedWords.Add('function');
   FReservedWords.Add('label');
@@ -127,11 +129,14 @@ begin
   FGeneratedOnDemand.Add('PSmallInt');
   FGeneratedOnDemand.Add('PWord');
   FGeneratedOnDemand.Sorted := True;
+
+  FDLLs.Sorted := True;
 end;
 
 destructor TSOMIRImporter.Destroy;
 begin
   // Close(F);
+  FreeAndNil(FDLLs);
   FreeAndNil(FPostponedArrayNames);
   FreeAndNil(FOriginalTypeIds);
   FreeAndNil(FResolutionAid);
@@ -754,6 +759,7 @@ var
   Mode: ParameterDef_ParameterMode;
   WasArgument: Boolean;
   TC: TypeCode;
+  Kind: TCKind;
   Name: string;
   Index: Integer;
 begin
@@ -773,6 +779,8 @@ begin
       if SOMObject_somIsA(Item, _SOMCLASS_ParameterDef) then
       begin
         Mode := ParameterDef__get_mode(Item, ev);
+        TC := ParameterDef__get_type(Item, ev);
+        Kind := TypeCode_kind(TC, ev);
         if Pass > wtpOnDemand then
         begin
           if not WasArgument then
@@ -784,7 +792,7 @@ begin
             Write(F, '; ');
           end;
           case Mode of
-          ParameterDef_IN: ;
+          ParameterDef_IN: if (Kind = tk_struct) or (Kind = tk_union) or (Kind = tk_self) or (Kind = tk_any) or (Kind = tk_sequence) or (Kind = tk_array) then Write(F, 'const ');
           ParameterDef_OUT: Write(F, 'out ');
           ParameterDef_INOUT: Write(F, 'var ');
           else Write(F, '{unknown mode ', LongWord(Mode), '}');
@@ -793,7 +801,6 @@ begin
           Write(F, UnreserveIdentifier(Contained__get_name(Item, ev)));
         end;
 
-        TC := ParameterDef__get_type(Item, ev);
         if Mode = ParameterDef_IN then
         begin
           if Pass > wtpOnDemand then
@@ -802,7 +809,7 @@ begin
           end;
           WriteType(CurrentNamespace, Pass, TC);
         end
-        else if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
+        else if Kind <> TypeCode_tk_foreign then
         begin
           if Pass > wtpOnDemand then
           begin
@@ -853,6 +860,7 @@ end;
 procedure TSOMIRImporter.WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
 var
   Result_TC: TypeCode;
+  Result_Kind: TCKind;
   OriginalNamespace: string;
 begin
   if Pass = wtpTypeDef then Exit;
@@ -868,7 +876,8 @@ begin
     WriteLn(F);
   end;
   Result_TC := OperationDef__get_result(Definition, ev);
-  if TypeCode_kind(Result_TC, ev) = TypeCode_tk_void then
+  Result_Kind := TypeCode_kind(Result_TC, ev);
+  if Result_Kind = TypeCode_tk_void then
   begin
     if Pass > wtpOnDemand then
     begin
@@ -887,7 +896,7 @@ begin
     WriteMethodArguments(OriginalNamespace, Pass, Definition);
     if Pass > wtpOnDemand then
     begin
-      WriteLn(F, ';');
+      WriteLn(F, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     end;
   end
   else
@@ -910,10 +919,11 @@ begin
     begin
       Write(F, ': ');
     end;
+    // if Result_Kind = tk_any then // TAnyResult
     WriteType(OriginalNamespace, Pass, Result_TC);
     if Pass > wtpOnDemand then
     begin
-      WriteLn(F, ';');
+      WriteLn(F, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     end;
   end;
 
@@ -1621,19 +1631,155 @@ end;
 
 procedure TSOMIRImporter.WriteRepositoryEighthPass(Item: Contained; const CurrentNamespace: string);
 var
-  Name: PAnsiChar;
+  Name, ReleaseOrder, MajorVersion, MinorVersion, DllName: PAnsiChar;
   Recurse: Boolean;
   SubItem: Contained;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
-  NewNamespace: string;
+  Index: Integer;
+  ImportedType, NewNamespace, DllName_Id: string;
+  Modifiers: _IDL_SEQUENCE_somModifier;
+  Modifier: somModifier;
 begin
   Recurse := False;
   if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
   begin
-    WriteLn(F);
     Name := Contained__get_name(Item, ev);
-    // TODO New, Renew, As_ ... must be here
+    ImportedType := IdToImportedType(CurrentNamespace + Name, CurrentNamespace);
+    // TODO name should not be unreserved in dll entry names
+
+    MajorVersion := '0';
+    MinorVersion := '0';
+    ReleaseOrder := '';
+    Modifiers := Contained__get_somModifiers(Item, ev);
+    if Modifiers._length > 0 then
+    begin
+      for I := 0 to Modifiers._length - 1 do
+      begin
+        Modifier := PsomModifier(PAnsiChar(Modifiers._buffer) + I * SizeOf(somModifier))^;
+        if Modifier.name = 'releaseorder' then
+        begin
+          ReleaseOrder := Modifier.value;
+        end
+        else if Modifier.name = 'majorversion' then
+        begin
+          MajorVersion := Modifier.value;
+        end
+        else if Modifier.name = 'minorversion' then
+        begin
+          MinorVersion := Modifier.value;
+        end
+        else if Modifier.name = 'dllname' then
+        begin
+          DllName := Modifier.value;
+        end;
+      end;
+    end;
+    DllName_Id := UpperCase(DllName);
+    for I := 1 to Length(DllName_Id) do
+    begin
+      if DllName_Id[I] = '.' then
+      begin
+        DllName_Id[I] := '_';
+      end;
+    end;
+
+    if not FDLLs.Find(dllname, Index) then
+    begin
+      WriteLn(F);
+      WriteLn(F, 'const');
+      WriteLn(F, '  ', DllName_Id, '_Name = ''', dllname, ''';');
+      WriteLn(F);
+      WriteLn(F, 'var');
+      WriteLn(F, '  ', DllName_Id, ': System.HMODULE = 0;');
+      WriteLn(F, '');
+      WriteLn(F, 'procedure ', DllName_Id, '_Load_Variable(var V_Pointer; const Var_Name: AnsiString);');
+      WriteLn(F, 'begin');
+      WriteLn(F, '  if ', DllName_Id, ' = 0 then');
+      WriteLn(F, '  begin');
+      WriteLn(F, '    Windows.EnterCriticalSection(DLLLoad_CriticalSection);');
+      WriteLn(F, '    if ', DllName_Id, ' = 0 then');
+      WriteLn(F, '      ', DllName_Id, ' := Windows.LoadLibraryW(', DllName_Id, '_Name);');
+      WriteLn(F, '    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);');
+      WriteLn(F, '  end;');
+      WriteLn(F, '  if ', DllName_Id, ' <> 0 then');
+      WriteLn(F, '    Pointer(V_Pointer) := Windows.GetProcAddress(', DllName_Id, ', PAnsiChar(Var_Name));');
+      WriteLn(F, 'end;');
+      FDLLs.Add(dllname);
+    end;
+
+    WriteLn(F);
+    WriteLn(F, 'const');
+    WriteLn(F, '  ', ImportedType, '_MajorVersion = ', MajorVersion, ';');
+    WriteLn(F, '  ', ImportedType, '_MinorVersion = ', MinorVersion, ';');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Declare the class creation procedure');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function ', ImportedType, 'NewClass(');
+    WriteLn(F, '  somtmajorVersion: integer4 = ', ImportedType, '_MajorVersion;');
+    WriteLn(F, '  somtminorVersion: integer4 = ', ImportedType, '_MinorVersion):');
+    WriteLn(F, '  SOMClass; stdcall; external ', DllName_Id, '_Name name ''', ImportedType, 'NewClass'';');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Declare the ABI 2 ClassData structure');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'type');
+    WriteLn(F, '  ', ImportedType, 'ClassDataStructure = record');
+    WriteLn(F, '    classObject: SOMClass;');
+    if ReleaseOrder <> '' then
+    begin
+      WriteLn(F, '    ', ReleaseOrder, ': somMToken;');
+    end;
+    WriteLn(F, '  end;');
+    WriteLn(F, '  P', ImportedType, 'ClassDataStructure = ^', ImportedType, 'ClassDataStructure;');
+    WriteLn(F);
+    WriteLn(F, 'var');
+    WriteLn(F, '  ', DllName_Id, '_', ImportedType, 'ClassData: P', ImportedType, 'ClassDataStructure = nil;');
+    WriteLn(F);
+    WriteLn(F, 'function ', ImportedType, 'ClassData: P', ImportedType, 'ClassDataStructure;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if Assigned(', DllName_Id, '_', ImportedType, 'ClassData) then');
+    WriteLn(F, '    Result := ', DllName_Id, '_', ImportedType, 'ClassData');
+    WriteLn(F, '  else');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    SOMIR_Load_Variable(', DllName_Id, '_', ImportedType, 'ClassData, ''', ImportedType, 'ClassData'');');
+    WriteLn(F, '    Result := ', DllName_Id, '_', ImportedType, 'ClassData;');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Declare the ABI 2 CClassData structure');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'type');
+    WriteLn(F, '  ', ImportedType, 'CClassDataStructure = record');
+    WriteLn(F, '    parentMtab: somMethodTabs;');
+    WriteLn(F, '    instanceDataToken: somDToken;');
+    WriteLn(F, '  end;');
+    WriteLn(F, '  P', ImportedType, 'CClassDataStructure = ^', ImportedType, 'CClassDataStructure;');
+    WriteLn(F);
+    WriteLn(F, 'var');
+    WriteLn(F, '  ', DllName_Id, '_', ImportedType, 'CClassData: P', ImportedType, 'CClassDataStructure = nil;');
+    WriteLn(F);
+    WriteLn(F, 'function ', ImportedType, 'CClassData: P', ImportedType, 'CClassDataStructure;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if Assigned(', DllName_Id, '_', ImportedType, 'CClassData) then');
+    WriteLn(F, '    Result := ', DllName_Id, '_', ImportedType, 'CClassData');
+    WriteLn(F, '  else');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    SOMIR_Load_Variable(', DllName_Id, '_', ImportedType, 'CClassData, ''', ImportedType, 'CClassData'');');
+    WriteLn(F, '    Result := ', DllName_Id, '_', ImportedType, 'CClassData;');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Class Object and Method Token Macros');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function _SOMCLASS_', ImportedType, ': SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := ', ImportedType, 'ClassData.classObject;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
 
     WriteClassDefinition(CurrentNamespace + Name + '::', wtpImplementation, Item);
     // there can be no sub-interfaces or modules inside of interface
@@ -1690,12 +1836,12 @@ begin
     WriteLn(F, '  { Hardwired definitions }');
     WriteLn(F, '  CORBAString = PAnsiChar;');
     WriteLn(F, '  CORBABoolean = ByteBool;');
-    WriteLn(F, '  any = type Int64; { returned in edx:eax by vanilla IBM SOM, but passed via hidden pointer by Delphi when record }');
     WriteLn(F, '  TypeCode = Pointer;'); // TODO convert to object
-    WriteLn(F, '  TAnyRecord = record');
+    WriteLn(F, '  any = record');
     WriteLn(F, '    _type: TypeCode;');
     WriteLn(F, '    _value: Pointer;');
     WriteLn(F, '  end;');
+    WriteLn(F, '  TAnyResult = type Int64; { returned in edx:eax by vanilla IBM SOM, but passed via hidden pointer by Delphi when record }');
     WriteLn(F);
 
     Contents := Container_contents(Repo, ev, 'all', False);
@@ -1751,7 +1897,7 @@ begin
       WriteLn(F, '    procedure Create; reintroduce;');
       WriteLn(F, '    procedure Destroy; reintroduce;');
       WriteLn(F, '  public');
-      WriteLn(F, '    function As_SOMObject: SOMObject;');
+      WriteLn(F, '    function As_SOMObject: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
       WriteLn(F, '  end;');
 
       // Fifth pass: satisfy forward type references with classes
@@ -1787,6 +1933,12 @@ begin
       WriteLn(F);
       WriteLn(F, 'implementation');
       WriteLn(F);
+      WriteLn(F, 'uses');
+      WriteLn(F, '  Windows;');
+      WriteLn(F);
+      WriteLn(F, 'var');
+      WriteLn(F, '  DLLLoad_CriticalSection : Windows.TRTLCriticalSection;');
+      WriteLn(F);
       WriteLn(F, 'procedure SOMObjectBase.Create;');
       WriteLn(F, 'begin');
       WriteLn(F, '  { hide this method }');
@@ -1797,7 +1949,7 @@ begin
       WriteLn(F, '  { hide this method }');
       WriteLn(F, 'end;');
       WriteLn(F);
-      WriteLn(F, 'function SOMObjectBase.As_SOMObject;');
+      WriteLn(F, 'function SOMObjectBase.As_SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
       WriteLn(F, 'begin');
       WriteLn(F, '  Result := SOMObject(Self); { upcast }');
       WriteLn(F, 'end;');
@@ -1815,6 +1967,10 @@ begin
     end;
 
     WriteLn(F);
+    WriteLn(F, 'initialization');
+    WriteLn(F, '  Windows.InitializeCriticalSection(DLLLoad_CriticalSection);');
+    WriteLn(F, 'finalization');
+    WriteLn(F, '  Windows.DeleteCriticalSection(DLLLoad_CriticalSection);');
     WriteLn(F, 'end.');
   finally
     Close(F);

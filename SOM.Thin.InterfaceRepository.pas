@@ -1887,30 +1887,6 @@ function _SOMCLASS_ModuleDef: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$END
 function ModuleDefNew: ModuleDef;
 function ModuleDefRenew(buf: Pointer): ModuleDef;
 
-
-
-
-
-
-
-(*
- *  Valid values for InterfaceName are limited to the following set:
- *    {"AttributeDef", "ConstantDef", "ExceptionDef", "InterfaceDef",
- *     "ModuleDef", "ParameterDef", "OperationDef", "TypeDef",
- *
- *                                                    
- *                                                             "all"}
- *)
-
-
-
-
-
-
-
-
-
-
 implementation
 
 uses
