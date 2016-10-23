@@ -33,7 +33,9 @@ begin
 end;
 
 type
-  TWriteTypePass = (wtpOnDemandForeignOnly, wtpOnDemandBeforeTypeDef, wtpOnDemand, wtpTypeDef, wtpFinal);
+  TWriteTypePass = ({wtpOnDemandImplementation, wtpOnDemandInterface, } wtpOnDemandForeignOnly, wtpOnDemandBeforeTypeDef, wtpOnDemand, wtpTypeDef, wtpFinal);
+  // wtpOnDemandImplementation: output implementation stuff
+  // wtpOnDemandInterface: output interface stuff outside of type block
   // wtpOnDemandForeignOnly: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
   //                         only foreign types can be output at this moment (this is to make as much opaque pointers as possible)
   // wtpOnDemandBeforeTypeDef: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
@@ -49,13 +51,13 @@ type
     FRootNamespace: string;
     F: Text;
     FRepo: Repository;
-    FWasType: Boolean;
     FExistingTypeIds: TStringList; // '::TypeName', '::ModuleName::TypeName'
     FReservedWords: TStringList; // 'file', 'type', 'result', ...
     FGeneratedOnDemand: TStringList; // '_IDL_Sequence_Byte', '^SOM_FILE', ...
     FResolutionAid: TStringList; // 'Binding=::CosNaming::Binding', ...
     FOriginalTypeIds: TStringList; // non-inherited '::TypeName', '::ModuleName::TypeName'
     FPostponedArrayNames: TStringList; // 'CosNaming_NameComponent', 'CosNaming_Binding', ...
+    FWasConst: Boolean;
   public
     constructor Create(const ARootNamespace: string; ARepo: Repository);
     destructor Destroy; override;
@@ -72,7 +74,7 @@ type
     procedure WriteSequenceType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
     procedure WriteType(const CurrentNamespace: string; Pass: TWriteTypePass; TC: TypeCode);
 
-    function ExtractName(TC: TypeCode): string;
+    function ExtractName(TC: TypeCode; Index: LongInt = 0): string;
     function ExtractSubTC(TC: TypeCode; Index: LongInt): TypeCode;
     function ExtractInteger(TC: TypeCode; Index: LongInt): LongInt;
     function TCToImportedType(TC: TypeCode; const CurrentNamespace: string): string;
@@ -86,6 +88,7 @@ type
     procedure WriteRepositoryThirdPass(Item: Contained; const CurrentNamespace: string);
     procedure WriteRepositoryFourthPass(Item: Contained; const CurrentNamespace: string);
     procedure WriteRepositoryFifthPass(Item: Contained; const CurrentNamespace: string);
+    procedure WriteRepositorySeventhPass(Item: Contained; const CurrentNamespace: string);
     procedure WriteRepository;
 
     property RootNamespace: string read FRootNamespace;
@@ -109,6 +112,7 @@ begin
   FReservedWords.Add('mod');
   FReservedWords.Add('object');
   FReservedWords.Add('result');
+  FReservedWords.Add('to');
   FReservedWords.Add('type');
   FReservedWords.Sorted := True;
 
@@ -285,12 +289,7 @@ begin
         begin
           if not FExistingTypeIds.Find(Name, Index) then
           begin
-            if not FWasType then
-            begin
-              WriteLn(F, 'type');
-              FWasType := True;
-            end;
-            WriteLn(F, '  ', IdToImportedType(Name, CurrentNamespace), ' = SOMObject { unresolved class name };');
+            WriteLn(F, '  ', IdToImportedType(Name, CurrentNamespace), ' = class(SOMObjectBase); { unresolved class name };');
             // TODO we can generate SOMObject interface clone to make it distinguished type, but no creation means
             FExistingTypeIds.Add(Name);
           end;
@@ -319,11 +318,6 @@ begin
   begin
     if not FGeneratedOnDemand.Find(Name, Index) then
     begin
-      if not FWasType then
-      begin
-        WriteLn(F, 'type');
-        FWasType := True;
-      end;
       WriteLn(F, '  ', Name, ' = Pointer { WARNING: foreign type, size may be different than SizeOf(Pointer) };');
       FGeneratedOnDemand.Add(Name);
     end;
@@ -463,11 +457,6 @@ begin
       begin
         if not FGeneratedOnDemand.Find('P' + Name, Index) then
         begin
-          if not FWasType then
-          begin
-            WriteLn(F, 'type');
-            FWasType := True;
-          end;
           FGeneratedOnDemand.Add('P' + Name); // support self-referential types
           if Parameter_Kind <> TypeCode_tk_foreign then
           begin
@@ -528,11 +517,6 @@ begin
     begin
       if not FGeneratedOnDemand.Find('_IDL_Array' + IntToStr(Size) + 'Of_' + Name, Index) then
       begin
-        if not FWasType then
-        begin
-          WriteLn(F, 'type');
-          FWasType := True;
-        end;
         WriteType(CurrentNamespace, wtpOnDemand, TC2);
         WriteLn(F, '  _IDL_Array' + IntToStr(Size) + 'Of_', Name, ' = array[0 .. ', Size - 1, '] of ', Name, ';');
         FGeneratedOnDemand.Add('_IDL_Array' + IntToStr(Size) + 'Of_' + Name);
@@ -561,12 +545,6 @@ begin
   begin
     if not FGeneratedOnDemand.Find('_IDL_Sequence_' + Name, Index) then
     begin
-      if not FWasType then
-      begin
-        WriteLn(F, 'type');
-        FWasType := True;
-      end;
-
       if not FGeneratedOnDemand.Find('_IDL_ArrayOf_' + Name, Index) then
       begin
         WriteType(CurrentNamespace, wtpOnDemand, TC2);
@@ -637,7 +615,7 @@ begin
   end;
 end;
 
-function TSOMIRImporter.ExtractName(TC: TypeCode): string;
+function TSOMIRImporter.ExtractName(TC: TypeCode; Index: LongInt = 0): string;
 var
   ParamCount: LongInt;
   Parameter: any;
@@ -645,9 +623,9 @@ var
   Parameter_Kind: TCKind;
 begin
   ParamCount := TypeCode_param_count(TC, ev);
-  if ParamCount >= 1 then
+  if ParamCount >= Index + 1 then
   begin
-    Parameter := TypeCode_parameter(TC, ev, 0);
+    Parameter := TypeCode_parameter(TC, ev, Index);
     Parameter_TC := TAnyRecord(Parameter)._type;
     Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
     if Parameter_Kind = TypeCode_tk_string then
@@ -1076,10 +1054,8 @@ begin
   begin
     if not WasForwardType then
     begin
-      WriteLn(F, 'type');
       WriteLn(F, '  { Forward definitions }');
       WasForwardType := True;
-      FWasType := True;
     end;
     Name := Contained__get_name(Item, ev);
     FExistingTypeIds.Add(CurrentNamespace + Name);
@@ -1220,12 +1196,6 @@ begin
     Kind := TypeCode_kind(TC, ev);
     if (Kind <> TypeCode_tk_foreign) and (Kind <> TypeCode_tk_struct) then
     begin
-      if not FWasType then
-      begin
-        WriteLn(F, 'type');
-        FWasType := True;
-      end;
-
       OriginalNamespace := Contained__get_defined_in(Item, ev);
       if Length(OriginalNamespace) > 2 then
       begin
@@ -1255,12 +1225,6 @@ begin
     Kind := TypeCode_kind(TC, ev);
     if (Kind <> TypeCode_tk_foreign) and (Kind <> TypeCode_tk_null) and (Kind <> TypeCode_tk_struct) then
     begin
-      if not FWasType then
-      begin
-        WriteLn(F, 'type');
-        FWasType := True;
-      end;
-
       OriginalNamespace := Contained__get_defined_in(Item, ev);
       if Length(OriginalNamespace) > 2 then
       begin
@@ -1330,12 +1294,6 @@ begin
     TC := TypeDef__get_type(Item, ev);
     if TypeCode_kind(TC, ev) = TypeCode_tk_struct then
     begin
-      if not FWasType then
-      begin
-        WriteLn(F, 'type');
-        FWasType := True;
-      end;
-
       OriginalNamespace := Contained__get_defined_in(Item, ev);
       if Length(OriginalNamespace) > 2 then
       begin
@@ -1364,12 +1322,6 @@ begin
     TC := ExceptionDef__get_type(Item, ev);
     if TypeCode_kind(TC, ev) = TypeCode_tk_struct then
     begin
-      if not FWasType then
-      begin
-        WriteLn(F, 'type');
-        FWasType := True;
-      end;
-
       OriginalNamespace := Contained__get_defined_in(Item, ev);
       if Length(OriginalNamespace) > 2 then
       begin
@@ -1436,7 +1388,7 @@ begin
     WriteLn(F);
     Name := Contained__get_name(Item, ev);
     WriteClassDefinition(CurrentNamespace + Name + '::' {CurrentNamespace}, wtpOnDemand, Item);
-    WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = class');
+    WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = class(SOMObjectBase)');
     WriteClassDefinition(CurrentNamespace + Name + '::' {CurrentNamespace}, wtpFinal, Item);
     WriteLn(F, '  end;');
     // there can be no sub-interfaces or modules inside of interface
@@ -1464,6 +1416,193 @@ begin
   end;
 end;
 
+procedure TSOMIRImporter.WriteRepositorySeventhPass(Item: Contained; const CurrentNamespace: string);
+var
+  TC: TypeCode;
+  Name: PAnsiChar;
+  Recurse: Boolean;
+  SubItem: Contained;
+  Contents: _IDL_SEQUENCE_Contained;
+  I: LongWord;
+  OriginalNamespace, NewNamespace: string;
+  ImportedType, EnumElementName: string;
+  ParamCount: LongInt;
+  ConstantValue: any;
+  ConstantStringValue: string;
+begin
+  Recurse := False;
+  if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+  begin
+    TC := TypeDef__get_type(Item, ev);
+    if TypeCode_kind(TC, ev) = TypeCode_tk_enum then
+    begin
+      ParamCount := TypeCode_param_count(TC, ev);
+
+      if ParamCount > 1 then
+      begin
+        Name := Contained__get_name(Item, ev);
+        ImportedType := IdToImportedType(CurrentNamespace + Name, CurrentNamespace);
+        OriginalNamespace := Contained__get_defined_in(Item, ev);
+        if Length(OriginalNamespace) > 2 then
+        begin
+          OriginalNamespace := OriginalNamespace + '::';
+        end;
+
+        if not FWasConst then
+        begin
+          WriteLn(F);
+          WriteLn(F, 'const');
+          FWasConst := True;
+        end;
+
+        if CurrentNamespace = OriginalNamespace then
+        begin
+          if (CurrentNamespace = '::') and (Name = 'TCKind') then
+          begin
+            for I := 1 to ParamCount - 1 do
+            begin
+              EnumElementName := ExtractName(TC, I);
+              Write(F, '  ', IdToImportedType(CurrentNamespace + EnumElementName, CurrentNamespace), ' = ', ImportedType, '(');
+              if EnumElementName = 'tk_pointer' then
+              begin
+                Write(F, '101');
+              end
+              else if EnumElementName = 'tk_self' then
+              begin
+                Write(F, '102');
+              end
+              else if EnumElementName = 'tk_foreign' then
+              begin
+                Write(F, '103');
+              end
+              else
+              begin
+                Write(F, I - 1);
+              end;
+              WriteLn(F, ');');
+            end;
+          end
+          else
+          begin
+            for I := 1 to ParamCount - 1 do
+            begin
+              WriteLn(F, '  ', IdToImportedType(CurrentNamespace + ExtractName(TC, I), CurrentNamespace), ' = ', ImportedType, '(', I - 1, ');');
+            end;
+          end;
+        end
+        else
+        begin
+          for I := 1 to ParamCount - 1 do
+          begin
+            EnumElementName := ExtractName(TC, I);
+            WriteLn(F, '  ', IdToImportedType(CurrentNamespace + EnumElementName, CurrentNamespace), ' = ', IdToImportedType(OriginalNamespace + EnumElementName, OriginalNamespace), ';');
+          end;
+        end;
+      end;
+    end;
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_ConstantDef) then
+  begin
+    Name := Contained__get_name(Item, ev);
+    ImportedType := IdToImportedType(CurrentNamespace + Name, CurrentNamespace);
+
+    ConstantValue := ConstantDef__get_value(Item, ev);
+    if TypeCode_kind(TAnyRecord(ConstantValue)._type, ev) <> tk_string then
+    begin
+      if not FWasConst then
+      begin
+        WriteLn(F);
+        WriteLn(F, 'const');
+        FWasConst := True;
+      end;
+      WriteLn(F, '  ', ImportedType, ' = Bad TypeCode_kind in ConstantDef;');
+    end
+    else
+    begin
+      OriginalNamespace := Contained__get_defined_in(Item, ev);
+      if Length(OriginalNamespace) > 2 then
+      begin
+        OriginalNamespace := OriginalNamespace + '::';
+      end;
+
+      if not FWasConst then
+      begin
+        WriteLn(F);
+        WriteLn(F, 'const');
+        FWasConst := True;
+      end;
+      if CurrentNamespace = OriginalNamespace then
+      begin
+        // TODO better parsing of integer and string literals
+        ConstantStringValue := PAnsiChar(TAnyRecord(ConstantValue)._value^);
+        if Length(ConstantStringValue) >= 2 then
+        begin
+          if (ConstantStringValue[1] = '"') and (ConstantStringValue[Length(ConstantStringValue)] = '"') then
+          begin
+            ConstantStringValue := '''' + Copy(ConstantStringValue, 2, Length(ConstantStringValue) - 2) + '''';
+          end;
+        end;
+        WriteLn(F, '  ', ImportedType, ' = ', ConstantStringValue, ';');
+      end
+      else
+      begin
+        WriteLn(F, '  ', ImportedType, ' = ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace));
+      end;
+    end;
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then
+  begin
+    Name := Contained__get_name(Item, ev);
+
+    OriginalNamespace := Contained__get_defined_in(Item, ev);
+    if Length(OriginalNamespace) > 2 then
+    begin
+      OriginalNamespace := OriginalNamespace + '::';
+    end;
+
+    if not FWasConst then
+    begin
+      WriteLn(F);
+      WriteLn(F, 'const');
+      FWasConst := True;
+    end;
+    if CurrentNamespace = OriginalNamespace then
+    begin
+      WriteLn(F, '  ex_', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = ''', CurrentNamespace + Name, ''';');
+    end
+    else
+    begin
+      WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace));
+    end;
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  begin
+    Name := Contained__get_name(Item, ev);
+    Recurse := True;
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  begin
+    Name := Contained__get_name(Item, ev);
+    Recurse := True;
+  end;
+
+  if Recurse then
+  begin
+    NewNamespace := CurrentNamespace + Name + '::';
+    Contents := Container_contents(Item, ev, 'all', False);
+    if Contents._length > 0 then
+    begin
+      for I := 0 to Contents._length - 1 do
+      begin
+        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        WriteRepositorySeventhPass(SubItem, NewNamespace);
+        SOMFreeAndNil(SubItem);
+      end;
+      SOMFree(Contents._buffer);
+    end;
+  end;
+end;
+
 procedure TSOMIRImporter.WriteRepository;
 var
   Contents: _IDL_SEQUENCE_Contained;
@@ -1476,15 +1615,29 @@ begin
   Rewrite(F);
   try
     Write('Writing ', RootNamespace, '.pas...');
-    WriteLn(F, '{$WARN UNSAFE_TYPE OFF}');
-    WriteLn(F);
     WriteLn(F, 'unit ', RootNamespace, ';');
     WriteLn(F);
-    WriteLn(F, 'interface');
-    WriteLn(F, 'uses');
-    WriteLn(F, '  SOM.DelphiFeatures, SOM.Thin;');
+    WriteLn(F, '{$WARN UNSAFE_TYPE OFF}');
     WriteLn(F);
-    WriteLn(F, '{$INCLUDE ''SOM.DelphiFeatures.inc''}');
+    WriteLn(F, '{$IF CompilerVersion >= 17.0}');
+    WriteLn(F, '  {$DEFINE DELPHI_HAS_INLINE}');
+    WriteLn(F, '{$IFEND}');
+    WriteLn(F);
+    WriteLn(F, 'interface');
+    WriteLn(F);
+    WriteLn(F, 'uses');
+    WriteLn(F, '  SysUtils;');
+    WriteLn(F);
+    WriteLn(F, 'type');
+    WriteLn(F, '  { Hardwired definitions }');
+    WriteLn(F, '  CORBAString = PAnsiChar;');
+    WriteLn(F, '  CORBABoolean = ByteBool;');
+    WriteLn(F, '  any = type Int64; { returned in edx:eax by vanilla IBM SOM, but passed via hidden pointer by Delphi when record }');
+    WriteLn(F, '  TypeCode = Pointer;'); // TODO convert to object
+    WriteLn(F, '  TAnyRecord = record');
+    WriteLn(F, '    _type: TypeCode;');
+    WriteLn(F, '    _value: Pointer;');
+    WriteLn(F, '  end;');
     WriteLn(F);
 
     Contents := Container_contents(Repo, ev, 'all', False);
@@ -1534,6 +1687,14 @@ begin
       Write(' 4');
       WriteLn(F);
       WriteLn(F, '  { Classes }');
+      WriteLn(F, '  SOMObjectBase = class');
+      WriteLn(F, '  private');
+      WriteLn(F, '    { hide TObject methods }');
+      WriteLn(F, '    procedure Create; reintroduce;');
+      WriteLn(F, '    procedure Destroy; reintroduce;');
+      WriteLn(F, '  public');
+      WriteLn(F, '    function As_SOMObject: SOMObject;');
+      WriteLn(F, '  end;');
 
       // Fifth pass: satisfy forward type references with classes
       if WasForwardType then
@@ -1545,35 +1706,28 @@ begin
         end;
       end;
       Write(' 5');
+      WriteLn(F);
       WriteLn(F, '  { Arrays }');
 
-      // Fifth pass: print deferred arrays (for sequences)
+      // Sixth pass: print deferred arrays (for sequences)
       for I := 0 to FPostponedArrayNames.Count - 1 do
       begin
         Name := FPostponedArrayNames[I];
-        WriteLn(F, '  _IDL_ArrayOf_', Name, ' = packed array[0 .. (MaxLongInt div (Abs(SizeOf(', Name,') - 1) + 1)) - 1] of ', Name, ';');
+        WriteLn(F, '  _IDL_ArrayOf_', Name, ' = array[0 .. (MaxLongInt div (Abs(SizeOf(', Name,') - 1) + 1)) - 1] of ', Name, ';');
       end;
       Write(' 6');
       WriteLn(F);
-      WriteLn(F, '{ Others }');
-      WriteLn(F);
+      WriteLn(F, '{ Constants }');
 
-      // Last pass: others
+      // Seventh pass: constants from enums, ConstDef and ExceptionDef
       for I := 0 to Contents._length - 1 do
       begin
         Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
-        else if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
-        else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
-        else
-        begin
-          // TODO ExceptionDef
-          WriteLn(F);
-          WriteLn(F, '{ Found item: ', Contained__get_name(Item, ev), ' }');
-        end;
+        WriteRepositorySeventhPass(Item, '::');
 
         SOMFreeAndNil(Item);
       end;
+
       SOMFree(Contents._buffer);
     end;
 

@@ -1,14 +1,27 @@
-{$WARN UNSAFE_TYPE OFF}
-
 unit SOMIRTest.DumpOut;
 
-interface
-uses
-  SOM.DelphiFeatures, SOM.Thin;
+{$WARN UNSAFE_TYPE OFF}
 
-{$INCLUDE 'SOM.DelphiFeatures.inc'}
+{$IF CompilerVersion >= 17.0}
+  {$DEFINE DELPHI_HAS_INLINE}
+{$IFEND}
+
+interface
+
+uses
+  SysUtils;
 
 type
+  { Hardwired definitions }
+  CORBAString = PAnsiChar;
+  CORBABoolean = ByteBool;
+  any = type Int64; { returned in edx:eax by vanilla IBM SOM, but passed via hidden pointer by Delphi when record }
+  TypeCode = Pointer;
+  TAnyRecord = record
+    _type: TypeCode;
+    _value: Pointer;
+  end;
+
   { Forward definitions }
   SOMObject = class;
   Contained = class;
@@ -821,8 +834,16 @@ type
   SOMEWorkProcEvent_somObjectOffset = { inherited } SOMObject_somObjectOffset;
 
   { Classes }
+  SOMObjectBase = class
+  private
+    { hide TObject methods }
+    procedure Create; reintroduce;
+    procedure Destroy; reintroduce;
+  public
+    function As_SOMObject: SOMObject;
+  end;
 
-  SOMObject = class
+  SOMObject = class(SOMObjectBase)
   public
     procedure somDefaultInit(var ctrl: Pointer);
     procedure somDestruct(doFree: Byte; var ctrl: Pointer);
@@ -864,7 +885,7 @@ type
     _length: LongWord;
     _buffer: P_IDL_ArrayOf_Container;
   end;
-  Contained = class
+  Contained = class(SOMObjectBase)
   private
     function _get_name: CORBAString;
     procedure _set_name(name: CORBAString);
@@ -909,7 +930,7 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
-  AttributeDef = class
+  AttributeDef = class(SOMObjectBase)
   private
     function _get_type: TypeCode;
     procedure _set_type(SOM_type: TypeCode);
@@ -960,7 +981,7 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
-  BOA = class
+  BOA = class(SOMObjectBase)
   public
     function create(id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject;
     procedure dispose(obj: SOMDObject);
@@ -1000,7 +1021,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  SOMEEvent = class
+  SOMEEvent = class(SOMObjectBase)
   public
     function somevGetEventTime: LongWord;
     function somevGetEventType: LongWord;
@@ -1034,7 +1055,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  SOMEClientEvent = class
+  SOMEClientEvent = class(SOMObjectBase)
   public
     function somevGetEventClientData: Pointer;
     function somevGetEventClientType: CORBAString;
@@ -1072,7 +1093,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  Context = class
+  Context = class(SOMObjectBase)
   public
     function set_one_value(prop_name: CORBAString; value: CORBAString): LongWord;
     function set_values(values: NVList): LongWord;
@@ -1108,7 +1129,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  ConstantDef = class
+  ConstantDef = class(SOMObjectBase)
   private
     function _get_type: TypeCode;
     procedure _set_type(SOM_type: TypeCode);
@@ -1171,7 +1192,7 @@ type
     _length: LongWord;
     _buffer: P_IDL_ArrayOf_Container_ContainerDescription;
   end;
-  Container = class
+  Container = class(SOMObjectBase)
   public
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained;
@@ -1204,7 +1225,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  SOMEEMan = class
+  SOMEEMan = class(SOMObjectBase)
   public
     procedure someGetEManSem;
     procedure someReleaseEManSem;
@@ -1245,7 +1266,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  SOMEEMRegisterData = class
+  SOMEEMRegisterData = class(SOMObjectBase)
   public
     procedure someClearRegData;
     procedure someSetRegDataClientType(clientType: CORBAString);
@@ -1282,7 +1303,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  ExceptionDef = class
+  ExceptionDef = class(SOMObjectBase)
   private
     function _get_type: TypeCode;
     procedure _set_type(SOM_type: TypeCode);
@@ -1330,7 +1351,7 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
-  ImplementationDef = class
+  ImplementationDef = class(SOMObjectBase)
   private
     function _get_impl_id: CORBAString;
     procedure _set_impl_id(impl_id: CORBAString);
@@ -1391,7 +1412,7 @@ type
     _length: LongWord;
     _buffer: P_IDL_ArrayOf_ImplementationDef;
   end;
-  ImplRepository = class
+  ImplRepository = class(SOMObjectBase)
   public
     function find_impldef(implid: CORBAString): ImplementationDef;
     function find_impldef_by_alias(alias_name: CORBAString): ImplementationDef;
@@ -1432,7 +1453,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  InterfaceDef = class
+  InterfaceDef = class(SOMObjectBase)
   private
     function _get_base_interfaces: _IDL_Sequence_CORBAString;
     procedure _set_base_interfaces(base_interfaces: _IDL_Sequence_CORBAString);
@@ -1487,7 +1508,7 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
-  ModuleDef = class
+  ModuleDef = class(SOMObjectBase)
   private
     function _get_name: CORBAString;
     procedure _set_name(name: CORBAString);
@@ -1535,7 +1556,7 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
-  NVList = class
+  NVList = class(SOMObjectBase)
   public
     function add_item(item_name: CORBAString; item_type: TypeCode; value: Pointer; value_len: LongInt; item_flags: LongWord): LongWord;
     function free: LongWord;
@@ -1571,7 +1592,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  ObjectMgr = class
+  ObjectMgr = class(SOMObjectBase)
   public
     function somdNewObject(objclass: CORBAString; hints: CORBAString): SOMObject;
     function somdGetIdFromObject(obj: SOMObject): CORBAString;
@@ -1606,7 +1627,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  OperationDef = class
+  OperationDef = class(SOMObjectBase)
   private
     function _get_result: TypeCode;
     procedure _set_result(SOM_result: TypeCode);
@@ -1663,7 +1684,7 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
-  ORB = class
+  ORB = class(SOMObjectBase)
   public
     function object_to_string(obj: SOMDObject): CORBAString;
     function string_to_object(str: CORBAString): SOMDObject;
@@ -1698,7 +1719,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  ParameterDef = class
+  ParameterDef = class(SOMObjectBase)
   private
     function _get_type: TypeCode;
     procedure _set_type(SOM_type: TypeCode);
@@ -1749,7 +1770,7 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
-  Principal = class
+  Principal = class(SOMObjectBase)
   private
     function _get_userName: CORBAString;
     procedure _set_userName(userName: CORBAString);
@@ -1786,7 +1807,7 @@ type
     property hostName: CORBAString read _get_hostName write _set_hostName;
   end;
 
-  Repository = class
+  Repository = class(SOMObjectBase)
   public
     function lookup_id(search_id: CORBAString): Contained;
     function lookup_modifier(name: CORBAString; modifier: CORBAString): CORBAString;
@@ -1822,7 +1843,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  Request = class
+  Request = class(SOMObjectBase)
   public
     function add_arg(name: CORBAString; arg_type: TypeCode; value: Pointer; len: LongInt; arg_flags: LongWord): LongWord;
     function invoke(invoke_flags: LongWord): LongWord;
@@ -1857,7 +1878,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  SOMTEntryC = class
+  SOMTEntryC = class(SOMObjectBase)
   private
     function _get_somtEntryName: CORBAString;
     procedure _set_somtEntryName(somtEntryName: CORBAString);
@@ -1915,7 +1936,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTAttributeEntryC = class
+  SOMTAttributeEntryC = class(SOMObjectBase)
   private
     function _get_somtIsReadonly: CORBABoolean;
     function _get_somtAttribType: SOMTEntryC;
@@ -1983,7 +2004,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTBaseClassEntryC = class
+  SOMTBaseClassEntryC = class(SOMObjectBase)
   private
     function _get_somtBaseClassDef: SOMTClassEntryC;
     function _get_somtEntryName: CORBAString;
@@ -2043,7 +2064,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTClassEntryC = class
+  SOMTClassEntryC = class(SOMObjectBase)
   private
     function _get_somtSourceFileName: CORBAString;
     function _get_somtMetaClassEntry: SOMTMetaClassEntryC;
@@ -2167,7 +2188,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTCommonEntryC = class
+  SOMTCommonEntryC = class(SOMObjectBase)
   private
     function _get_somtTypeObj: SOMTEntryC;
     function _get_somtPtrs: CORBAString;
@@ -2241,7 +2262,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTConstEntryC = class
+  SOMTConstEntryC = class(SOMObjectBase)
   private
     function _get_somtConstTypeObj: SOMTEntryC;
     function _get_somtConstType: CORBAString;
@@ -2313,7 +2334,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTDataEntryC = class
+  SOMTDataEntryC = class(SOMObjectBase)
   private
     function _get_somtIsSelfRef: CORBABoolean;
     function _get_somtTypeObj: SOMTEntryC;
@@ -2390,7 +2411,7 @@ type
   end;
 
   PSOM_FILE = Pointer{ opaque ^SOM_FILE };
-  SOMTEmitC = class
+  SOMTEmitC = class(SOMObjectBase)
   private
     function _get_somtTemplate: SOMTTemplateOutputC;
     procedure _set_somtTemplate(somtTemplate: SOMTTemplateOutputC);
@@ -2519,7 +2540,7 @@ type
     property somtEmitterName: CORBAString read _get_somtEmitterName write _set_somtEmitterName;
   end;
 
-  SOMTEnumEntryC = class
+  SOMTEnumEntryC = class(SOMObjectBase)
   private
     function _get_somtEntryName: CORBAString;
     procedure _set_somtEntryName(somtEntryName: CORBAString);
@@ -2579,7 +2600,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTEnumNameEntryC = class
+  SOMTEnumNameEntryC = class(SOMObjectBase)
   private
     function _get_somtEnumPtr: SOMTEnumEntryC;
     function _get_somtEnumVal: LongWord;
@@ -2641,7 +2662,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTMetaClassEntryC = class
+  SOMTMetaClassEntryC = class(SOMObjectBase)
   private
     function _get_somtMetaFile: CORBAString;
     function _get_somtMetaClassDef: SOMTClassEntryC;
@@ -2704,7 +2725,7 @@ type
   end;
 
   PCORBAString = ^CORBAString;
-  SOMTMethodEntryC = class
+  SOMTMethodEntryC = class(SOMObjectBase)
   private
     function _get_somtIsVarargs: CORBABoolean;
     function _get_somtOriginalMethod: SOMTMethodEntryC;
@@ -2806,7 +2827,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTModuleEntryC = class
+  SOMTModuleEntryC = class(SOMObjectBase)
   private
     function _get_somtOuterModule: SOMTModuleEntryC;
     function _get_somtModuleFile: CORBAString;
@@ -2886,7 +2907,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTParameterEntryC = class
+  SOMTParameterEntryC = class(SOMObjectBase)
   private
     function _get_somtParameterDirection: somtParameterDirectionT;
     function _get_somtIDLParameterDeclaration: CORBAString;
@@ -2966,7 +2987,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTPassthruEntryC = class
+  SOMTPassthruEntryC = class(SOMObjectBase)
   private
     function _get_somtPassthruBody: CORBAString;
     function _get_somtPassthruLanguage: CORBAString;
@@ -3031,7 +3052,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTSequenceEntryC = class
+  SOMTSequenceEntryC = class(SOMObjectBase)
   private
     function _get_somtSeqLength: LongInt;
     function _get_somtSeqType: SOMTEntryC;
@@ -3093,7 +3114,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTStringEntryC = class
+  SOMTStringEntryC = class(SOMObjectBase)
   private
     function _get_somtStringLength: LongInt;
     function _get_somtEntryName: CORBAString;
@@ -3153,7 +3174,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTStructEntryC = class
+  SOMTStructEntryC = class(SOMObjectBase)
   private
     function _get_somtStructClass: SOMTClassEntryC;
     function _get_somtIsException: CORBABoolean;
@@ -3217,7 +3238,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTTypedefEntryC = class
+  SOMTTypedefEntryC = class(SOMObjectBase)
   private
     function _get_somtTypedefType: SOMTEntryC;
     function _get_somtEntryName: CORBAString;
@@ -3279,7 +3300,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTTemplateOutputC = class
+  SOMTTemplateOutputC = class(SOMObjectBase)
     { Found item: MAX_INPUT_LINE_LENGTH }
     { Found item: MAX_OUTPUT_LINE_LENGTH }
   private
@@ -3335,7 +3356,7 @@ type
   end;
 
   PSOMTUnionEntryC_somtCaseEntry = ^SOMTUnionEntryC_somtCaseEntry;
-  SOMTUnionEntryC = class
+  SOMTUnionEntryC = class(SOMObjectBase)
   private
     function _get_somtSwitchType: SOMTEntryC;
     function _get_somtEntryName: CORBAString;
@@ -3397,7 +3418,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMTUserDefinedTypeEntryC = class
+  SOMTUserDefinedTypeEntryC = class(SOMObjectBase)
   private
     function _get_somtOriginalTypedef: SOMTTypedefEntryC;
     function _get_somtBaseTypeObj: SOMTEntryC;
@@ -3475,7 +3496,7 @@ type
     property somtCScopedName: CORBAString read _get_somtCScopedName;
   end;
 
-  SOMDServerMgr = class
+  SOMDServerMgr = class(SOMObjectBase)
   public
     function somdShutdownServer(server_alias: CORBAString): LongWord;
     function somdStartServer(server_alias: CORBAString): LongWord;
@@ -3512,7 +3533,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  SOMESinkEvent = class
+  SOMESinkEvent = class(SOMObjectBase)
   public
     function somevGetEventSink: LongInt;
     procedure somevSetEventSink(sink: LongInt);
@@ -3549,7 +3570,7 @@ type
   end;
 
   PsomClassDataStructure = ^somClassDataStructure;
-  SOMClass = class
+  SOMClass = class(SOMObjectBase)
   private
     function _get_somDataAlignment: LongInt;
     function _get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo;
@@ -3642,7 +3663,7 @@ type
     property somClassDeallocate: PPointer read _get_somClassDeallocate;
   end;
 
-  SOMMSingleInstance = class
+  SOMMSingleInstance = class(SOMObjectBase)
   private
     function _get_somDataAlignment: LongInt;
     function _get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo;
@@ -3737,7 +3758,7 @@ type
     property somClassDeallocate: PPointer read _get_somClassDeallocate;
   end;
 
-  SOMMBeforeAfter = class
+  SOMMBeforeAfter = class(SOMObjectBase)
   private
     function _get_somDataAlignment: LongInt;
     function _get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo;
@@ -3833,7 +3854,7 @@ type
   end;
 
   PSOMClass = ^SOMClass;
-  SOMClassMgr = class
+  SOMClassMgr = class(SOMObjectBase)
   private
     function _get_somInterfaceRepository: Repository;
     procedure _set_somInterfaceRepository(somInterfaceRepository: Repository);
@@ -3886,7 +3907,7 @@ type
     property somRegisteredClasses: _IDL_Sequence_SOMClass read _get_somRegisteredClasses;
   end;
 
-  SOMDObject = class
+  SOMDObject = class(SOMObjectBase)
   public
     function get_implementation: ImplementationDef;
     function get_interface: InterfaceDef;
@@ -3926,7 +3947,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  SOMDClientProxy = class
+  SOMDClientProxy = class(SOMObjectBase)
   public
     procedure somdTargetFree;
     function somdTargetGetClass: SOMClass;
@@ -3973,7 +3994,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  SOMDMetaproxy = class
+  SOMDMetaproxy = class(SOMObjectBase)
   private
     function _get_somDataAlignment: LongInt;
     function _get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo;
@@ -4072,7 +4093,7 @@ type
     _length: LongWord;
     _buffer: P_IDL_ArrayOf_SOMDServer;
   end;
-  SOMDObjectMgr = class
+  SOMDObjectMgr = class(SOMObjectBase)
   private
     function _get_somd21somFree: CORBABoolean;
     procedure _set_somd21somFree(somd21somFree: CORBABoolean);
@@ -4115,7 +4136,7 @@ type
     property somd21somFree: CORBABoolean read _get_somd21somFree write _set_somd21somFree;
   end;
 
-  SOMDServer = class
+  SOMDServer = class(SOMObjectBase)
   public
     function somdRefFromSOMObj(somobj: SOMObject): SOMDObject;
     function somdSOMObjFromRef(objref: SOMDObject): SOMObject;
@@ -4152,7 +4173,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  SOMUTId = class
+  SOMUTId = class(SOMObjectBase)
   public
     procedure somutSetIdId(otherId: SOMUTId);
     function somutEqualsId(otherId: SOMUTId): CORBABoolean;
@@ -4186,7 +4207,7 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  SOMOA = class
+  SOMOA = class(SOMObjectBase)
   public
     function execute_next_request(waitFlag: LongWord): LongWord;
     function execute_request_loop(waitFlag: LongWord): LongWord;
@@ -4236,7 +4257,7 @@ type
 
   PSockets_hostent = Pointer{ opaque ^Sockets_hostent };
   PSockets_servent = Pointer{ opaque ^Sockets_servent };
-  Sockets = class
+  Sockets = class(SOMObjectBase)
   private
     function _get_serrno: LongInt;
     procedure _set_serrno(serrno: LongInt);
@@ -4272,7 +4293,7 @@ type
     function somsSelect(nfds: LongInt; var readfds{: opaque Sockets_fd_set}; var writefds{: opaque Sockets_fd_set}; var exceptfds{: opaque Sockets_fd_set}; var timeout{: opaque Sockets_timeval}): LongInt;
     function somsSend(s: LongInt; msg: PShortInt; len: LongInt; flags: LongInt): LongInt;
     function somsSendmsg(s: LongInt; var msg{: opaque Sockets_msghdr}; flags: LongInt): LongInt;
-    function somsSendto(s: LongInt; var msg: ShortInt; len: LongInt; flags: LongInt; var to{: opaque Sockets_sockaddr}; tolen: LongInt): LongInt;
+    function somsSendto(s: LongInt; var msg: ShortInt; len: LongInt; flags: LongInt; var SOM_to{: opaque Sockets_sockaddr}; tolen: LongInt): LongInt;
     function somsSetsockopt(s: LongInt; level: LongInt; optname: LongInt; optval: PShortInt; optlen: LongInt): LongInt;
     function somsShutdown(s: LongInt; how: LongInt): LongInt;
     function somsSocket(domain: LongInt; SOM_type: LongInt; protocol: LongInt): LongInt;
@@ -4307,7 +4328,7 @@ type
     property serrno: LongInt read _get_serrno write _set_serrno;
   end;
 
-  SOMStringTableC = class
+  SOMStringTableC = class(SOMObjectBase)
   private
     function _get_somstTargetCapacity: LongWord;
     procedure _set_somstTargetCapacity(somstTargetCapacity: LongWord);
@@ -4351,7 +4372,7 @@ type
     property somstAssociationsCount: LongWord read _get_somstAssociationsCount;
   end;
 
-  SOMMTraced = class
+  SOMMTraced = class(SOMObjectBase)
   private
     function _get_sommTraceIsOn: CORBABoolean;
     procedure _set_sommTraceIsOn(sommTraceIsOn: CORBABoolean);
@@ -4449,7 +4470,7 @@ type
     property somClassDeallocate: PPointer read _get_somClassDeallocate;
   end;
 
-  SOMETimerEvent = class
+  SOMETimerEvent = class(SOMObjectBase)
   public
     function somevGetEventInterval: LongInt;
     procedure somevSetEventInterval(interval: LongInt);
@@ -4485,9 +4506,9 @@ type
     procedure somDumpSelfInt(level: LongInt);
   end;
 
-  TSPortability_Sender = SOMObject { unresolved class name };
-  TSPortability_Receiver = SOMObject { unresolved class name };
-  TSIdentification = class
+  TSPortability_Sender = class(SOMObjectBase); { unresolved class name };
+  TSPortability_Receiver = class(SOMObjectBase); { unresolved class name };
+  TSIdentification = class(SOMObjectBase)
   private
     function _get_sender: TSPortability_Sender;
     function _get_receiver: TSPortability_Receiver;
@@ -4524,7 +4545,7 @@ type
     property receiver: TSPortability_Receiver read _get_receiver;
   end;
 
-  TypeDef = class
+  TypeDef = class(SOMObjectBase)
   private
     function _get_type: TypeCode;
     procedure _set_type(SOM_type: TypeCode);
@@ -4572,7 +4593,7 @@ type
     property somModifiers: _IDL_Sequence_somModifier read _get_somModifiers write _set_somModifiers;
   end;
 
-  SOMEWorkProcEvent = class
+  SOMEWorkProcEvent = class(SOMObjectBase)
   public
     function somevGetEventTime: LongWord;
     function somevGetEventType: LongWord;
@@ -4605,28 +4626,124 @@ type
     procedure somDumpSelf(level: LongInt);
     procedure somDumpSelfInt(level: LongInt);
   end;
+
   { Arrays }
-  _IDL_ArrayOf_SOMObject = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMObject) - 1) + 1)) - 1] of SOMObject;
-  _IDL_ArrayOf_Byte = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Byte) - 1) + 1)) - 1] of Byte;
-  _IDL_ArrayOf_SOMObject_somObjectOffset = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMObject_somObjectOffset) - 1) + 1)) - 1] of SOMObject_somObjectOffset;
-  _IDL_ArrayOf_Pointer = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Pointer) - 1) + 1)) - 1] of Pointer;
-  _IDL_ArrayOf_SOMClass = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMClass) - 1) + 1)) - 1] of SOMClass;
-  _IDL_ArrayOf_SOMClass_somOffsetInfo = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMClass_somOffsetInfo) - 1) + 1)) - 1] of SOMClass_somOffsetInfo;
-  _IDL_ArrayOf_somId = packed array[0 .. (MaxLongInt div (Abs(SizeOf(somId) - 1) + 1)) - 1] of somId;
-  _IDL_ArrayOf_CORBAString = packed array[0 .. (MaxLongInt div (Abs(SizeOf(CORBAString) - 1) + 1)) - 1] of CORBAString;
-  _IDL_ArrayOf_ParameterDef_ParameterDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ParameterDef_ParameterDescription) - 1) + 1)) - 1] of ParameterDef_ParameterDescription;
-  _IDL_ArrayOf_ExceptionDef_ExceptionDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ExceptionDef_ExceptionDescription) - 1) + 1)) - 1] of ExceptionDef_ExceptionDescription;
-  _IDL_ArrayOf_OperationDef_OperationDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(OperationDef_OperationDescription) - 1) + 1)) - 1] of OperationDef_OperationDescription;
-  _IDL_ArrayOf_AttributeDef_AttributeDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(AttributeDef_AttributeDescription) - 1) + 1)) - 1] of AttributeDef_AttributeDescription;
-  _IDL_ArrayOf_somModifier = packed array[0 .. (MaxLongInt div (Abs(SizeOf(somModifier) - 1) + 1)) - 1] of somModifier;
-  _IDL_ArrayOf_Container = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Container) - 1) + 1)) - 1] of Container;
-  _IDL_ArrayOf_Contained = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Contained) - 1) + 1)) - 1] of Contained;
-  _IDL_ArrayOf_Container_ContainerDescription = packed array[0 .. (MaxLongInt div (Abs(SizeOf(Container_ContainerDescription) - 1) + 1)) - 1] of Container_ContainerDescription;
-  _IDL_ArrayOf_ImplementationDef = packed array[0 .. (MaxLongInt div (Abs(SizeOf(ImplementationDef) - 1) + 1)) - 1] of ImplementationDef;
-  _IDL_ArrayOf_SOMDServer = packed array[0 .. (MaxLongInt div (Abs(SizeOf(SOMDServer) - 1) + 1)) - 1] of SOMDServer;
+  _IDL_ArrayOf_SOMObject = array[0 .. (MaxLongInt div (Abs(SizeOf(SOMObject) - 1) + 1)) - 1] of SOMObject;
+  _IDL_ArrayOf_Byte = array[0 .. (MaxLongInt div (Abs(SizeOf(Byte) - 1) + 1)) - 1] of Byte;
+  _IDL_ArrayOf_SOMObject_somObjectOffset = array[0 .. (MaxLongInt div (Abs(SizeOf(SOMObject_somObjectOffset) - 1) + 1)) - 1] of SOMObject_somObjectOffset;
+  _IDL_ArrayOf_Pointer = array[0 .. (MaxLongInt div (Abs(SizeOf(Pointer) - 1) + 1)) - 1] of Pointer;
+  _IDL_ArrayOf_SOMClass = array[0 .. (MaxLongInt div (Abs(SizeOf(SOMClass) - 1) + 1)) - 1] of SOMClass;
+  _IDL_ArrayOf_SOMClass_somOffsetInfo = array[0 .. (MaxLongInt div (Abs(SizeOf(SOMClass_somOffsetInfo) - 1) + 1)) - 1] of SOMClass_somOffsetInfo;
+  _IDL_ArrayOf_somId = array[0 .. (MaxLongInt div (Abs(SizeOf(somId) - 1) + 1)) - 1] of somId;
+  _IDL_ArrayOf_CORBAString = array[0 .. (MaxLongInt div (Abs(SizeOf(CORBAString) - 1) + 1)) - 1] of CORBAString;
+  _IDL_ArrayOf_ParameterDef_ParameterDescription = array[0 .. (MaxLongInt div (Abs(SizeOf(ParameterDef_ParameterDescription) - 1) + 1)) - 1] of ParameterDef_ParameterDescription;
+  _IDL_ArrayOf_ExceptionDef_ExceptionDescription = array[0 .. (MaxLongInt div (Abs(SizeOf(ExceptionDef_ExceptionDescription) - 1) + 1)) - 1] of ExceptionDef_ExceptionDescription;
+  _IDL_ArrayOf_OperationDef_OperationDescription = array[0 .. (MaxLongInt div (Abs(SizeOf(OperationDef_OperationDescription) - 1) + 1)) - 1] of OperationDef_OperationDescription;
+  _IDL_ArrayOf_AttributeDef_AttributeDescription = array[0 .. (MaxLongInt div (Abs(SizeOf(AttributeDef_AttributeDescription) - 1) + 1)) - 1] of AttributeDef_AttributeDescription;
+  _IDL_ArrayOf_somModifier = array[0 .. (MaxLongInt div (Abs(SizeOf(somModifier) - 1) + 1)) - 1] of somModifier;
+  _IDL_ArrayOf_Container = array[0 .. (MaxLongInt div (Abs(SizeOf(Container) - 1) + 1)) - 1] of Container;
+  _IDL_ArrayOf_Contained = array[0 .. (MaxLongInt div (Abs(SizeOf(Contained) - 1) + 1)) - 1] of Contained;
+  _IDL_ArrayOf_Container_ContainerDescription = array[0 .. (MaxLongInt div (Abs(SizeOf(Container_ContainerDescription) - 1) + 1)) - 1] of Container_ContainerDescription;
+  _IDL_ArrayOf_ImplementationDef = array[0 .. (MaxLongInt div (Abs(SizeOf(ImplementationDef) - 1) + 1)) - 1] of ImplementationDef;
+  _IDL_ArrayOf_SOMDServer = array[0 .. (MaxLongInt div (Abs(SizeOf(SOMDServer) - 1) + 1)) - 1] of SOMDServer;
 
-{ Others }
+{ Constants }
 
+const
+  tk_null = TCKind(0);
+  tk_void = TCKind(1);
+  tk_short = TCKind(2);
+  tk_long = TCKind(3);
+  tk_ushort = TCKind(4);
+  tk_ulong = TCKind(5);
+  tk_float = TCKind(6);
+  tk_double = TCKind(7);
+  tk_boolean = TCKind(8);
+  tk_char = TCKind(9);
+  tk_octet = TCKind(10);
+  tk_any = TCKind(11);
+  tk_TypeCode = TCKind(12);
+  tk_Principal = TCKind(13);
+  tk_objref = TCKind(14);
+  tk_struct = TCKind(15);
+  tk_union = TCKind(16);
+  tk_enum = TCKind(17);
+  tk_string = TCKind(18);
+  tk_sequence = TCKind(19);
+  tk_array = TCKind(20);
+  tk_pointer = TCKind(101);
+  tk_self = TCKind(102);
+  tk_foreign = TCKind(103);
+  NO_EXCEPTION = exception_type(0);
+  USER_EXCEPTION = exception_type(1);
+  SYSTEM_EXCEPTION = exception_type(2);
+  AttributeDef_NORMAL = AttributeDef_AttributeMode(0);
+  AttributeDef_READONLY = AttributeDef_AttributeMode(1);
+  YES = completion_status(0);
+  NO = completion_status(1);
+  MAYBE = completion_status(2);
+  SOMD_SOMDVersion = '2.1';
+  OperationDef_NORMAL = OperationDef_OperationMode(0);
+  OperationDef_ONEWAY = OperationDef_OperationMode(1);
+  ParameterDef_IN = ParameterDef_ParameterMode(0);
+  ParameterDef_OUT = ParameterDef_ParameterMode(1);
+  ParameterDef_INOUT = ParameterDef_ParameterMode(2);
+  Repository_NOACCESS = Repository_irOpenErrorCodes(0);
+  Repository_BADMAGICNUMBER = Repository_irOpenErrorCodes(1);
+  Repository_MISSINGVERSIONINFO = Repository_irOpenErrorCodes(2);
+  Repository_IOERROR = Repository_irOpenErrorCodes(3);
+  Repository_VERSIONMISMATCH = Repository_irOpenErrorCodes(4);
+  ex_Repository_irOpenError = '::Repository::irOpenError';
+  somtPrivateE = SOMTTargetTypeT(0);
+  somtPublicE = SOMTTargetTypeT(1);
+  somtImplementationE = SOMTTargetTypeT(2);
+  somtAllE = SOMTTargetTypeT(3);
+  somtInternalVE = somtVisibilityT(0);
+  somtPublicVE = somtVisibilityT(1);
+  somtPrivateVE = somtVisibilityT(2);
+  somtDashesE = somtCommentStyleT(0);
+  somtCPPE = somtCommentStyleT(1);
+  somtCSimpleE = somtCommentStyleT(2);
+  somtCBlockE = somtCommentStyleT(3);
+  somtInE = somtParameterDirectionT(0);
+  somtOutE = somtParameterDirectionT(1);
+  somtInOutE = somtParameterDirectionT(2);
+  SOMTTemplateOutputC_MAX_INPUT_LINE_LENGTH = 1024;
+  SOMTTemplateOutputC_MAX_OUTPUT_LINE_LENGTH = 4096;
+  ex_StExcep_UNKNOWN = '::StExcep::UNKNOWN';
+  ex_StExcep_BAD_PARAM = '::StExcep::BAD_PARAM';
+  ex_StExcep_NO_MEMORY = '::StExcep::NO_MEMORY';
+  ex_StExcep_IMP_LIMIT = '::StExcep::IMP_LIMIT';
+  ex_StExcep_COMM_FAILURE = '::StExcep::COMM_FAILURE';
+  ex_StExcep_INV_OBJREF = '::StExcep::INV_OBJREF';
+  ex_StExcep_NO_PERMISSION = '::StExcep::NO_PERMISSION';
+  ex_StExcep_INTERNAL = '::StExcep::INTERNAL';
+  ex_StExcep_MARSHAL = '::StExcep::MARSHAL';
+  ex_StExcep_INITIALIZE = '::StExcep::INITIALIZE';
+  ex_StExcep_NO_IMPLEMENT = '::StExcep::NO_IMPLEMENT';
+  ex_StExcep_BAD_TYPECODE = '::StExcep::BAD_TYPECODE';
+  ex_StExcep_BAD_OPERATION = '::StExcep::BAD_OPERATION';
+  ex_StExcep_NO_RESOURCES = '::StExcep::NO_RESOURCES';
+  ex_StExcep_NO_RESPONSE = '::StExcep::NO_RESPONSE';
+  ex_StExcep_PERSIST_STORE = '::StExcep::PERSIST_STORE';
+  ex_StExcep_BAD_INV_ORDER = '::StExcep::BAD_INV_ORDER';
+  ex_StExcep_TRANSIENT = '::StExcep::TRANSIENT';
+  ex_StExcep_FREE_MEM = '::StExcep::FREE_MEM';
+  ex_StExcep_INV_IDENT = '::StExcep::INV_IDENT';
+  ex_StExcep_INV_FLAG = '::StExcep::INV_FLAG';
+  ex_StExcep_INTF_REPOS = '::StExcep::INTF_REPOS';
+  ex_StExcep_CONTEXT = '::StExcep::CONTEXT';
+  ex_StExcep_OBJ_ADAPTER = '::StExcep::OBJ_ADAPTER';
+  ex_StExcep_DATA_CONVERSION = '::StExcep::DATA_CONVERSION';
+  ex_StExcep_OPSYS = '::StExcep::OPSYS';
+  ex_StExcep_WMQUIT = '::StExcep::WMQUIT';
+  ex_StExcep_DISPATCH = '::StExcep::DISPATCH';
+  ex_StExcep_TransactionRequired = '::StExcep::TransactionRequired';
+  ex_StExcep_TransactionRolledBack = '::StExcep::TransactionRolledBack';
+  ex_StExcep_InvalidTransaction = '::StExcep::InvalidTransaction';
+  ex_StExcep_WrongTransaction = '::StExcep::WrongTransaction';
+  ex_TSIdentification_NotAvailable = '::TSIdentification::NotAvailable';
+  ex_TSIdentification_AlreadyIdentified = '::TSIdentification::AlreadyIdentified';
 
 implementation
 
