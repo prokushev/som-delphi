@@ -33,9 +33,7 @@ begin
 end;
 
 type
-  TWriteTypePass = ({wtpOnDemandImplementation, wtpOnDemandInterface, } wtpOnDemandForeignOnly, wtpOnDemandBeforeTypeDef, wtpOnDemand, wtpTypeDef, wtpFinal);
-  // wtpOnDemandImplementation: output implementation stuff
-  // wtpOnDemandInterface: output interface stuff outside of type block
+  TWriteTypePass = (wtpOnDemandForeignOnly, wtpOnDemandBeforeTypeDef, wtpOnDemand, wtpTypeDef, wtpFinal, wtpImplementation);
   // wtpOnDemandForeignOnly: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
   //                         only foreign types can be output at this moment (this is to make as much opaque pointers as possible)
   // wtpOnDemandBeforeTypeDef: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
@@ -43,6 +41,7 @@ type
   // wtpOnDemand: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
   // wtpTypeDef: '  xxx = ' is already written, and it's time to output something that is appropriate for type definition
   // wtpFinal: it's too late to define anything now, it's time to output identifier that should be defined previously
+  // wtpImplementation: write implementation part (equals to wtpFinal for types, makes difference for methods)
 
   // wtpFinal is not used for WriteRecordType; TCToImportedType should return string instead
 
@@ -89,6 +88,7 @@ type
     procedure WriteRepositoryFourthPass(Item: Contained; const CurrentNamespace: string);
     procedure WriteRepositoryFifthPass(Item: Contained; const CurrentNamespace: string);
     procedure WriteRepositorySeventhPass(Item: Contained; const CurrentNamespace: string);
+    procedure WriteRepositoryEighthPass(Item: Contained; const CurrentNamespace: string);
     procedure WriteRepository;
 
     property RootNamespace: string read FRootNamespace;
@@ -289,7 +289,7 @@ begin
         begin
           if not FExistingTypeIds.Find(Name, Index) then
           begin
-            WriteLn(F, '  ', IdToImportedType(Name, CurrentNamespace), ' = class(SOMObjectBase); { unresolved class name };');
+            WriteLn(F, '  ', IdToImportedType(Name, CurrentNamespace), ' = class(SOMObjectBase) { unresolved class name };');
             // TODO we can generate SOMObject interface clone to make it distinguished type, but no creation means
             FExistingTypeIds.Add(Name);
           end;
@@ -578,7 +578,7 @@ procedure TSOMIRImporter.WriteType(const CurrentNamespace: string; Pass: TWriteT
 var
   Kind: TCKind;
 begin
-  if Pass = wtpFinal then
+  if Pass >= wtpFinal then
   begin
     Write(F, TCToImportedType(TC, CurrentNamespace));
     Exit;
@@ -863,12 +863,26 @@ begin
     OriginalNamespace := OriginalNamespace + '::';
   end;
 
+  if Pass >= wtpImplementation then
+  begin
+    WriteLn(F);
+  end;
   Result_TC := OperationDef__get_result(Definition, ev);
   if TypeCode_kind(Result_TC, ev) = TypeCode_tk_void then
   begin
     if Pass > wtpOnDemand then
     begin
-      Write(F, '    procedure ', UnreserveIdentifier(Contained__get_name(Definition, ev)));
+      if Pass < wtpImplementation then
+      begin
+        Write(F, '    ');
+      end;
+      Write(F, 'procedure ');
+      if Pass >= wtpImplementation then
+      begin
+        // IdToImportedType(Contained__get_defined_in(Definition, ev)
+        Write(F, IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace), '.');
+      end;
+      Write(F, UnreserveIdentifier(Contained__get_name(Definition, ev)));
     end;
     WriteMethodArguments(OriginalNamespace, Pass, Definition);
     if Pass > wtpOnDemand then
@@ -880,7 +894,16 @@ begin
   begin
     if Pass > wtpOnDemand then
     begin
-      Write(F, '    function ', UnreserveIdentifier(Contained__get_name(Definition, ev)));
+      if Pass < wtpImplementation then
+      begin
+        Write(F, '    ');
+      end;
+      Write(F, 'function ');
+      if Pass >= wtpImplementation then
+      begin
+        Write(F, IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace), '.');
+      end;
+      Write(F, UnreserveIdentifier(Contained__get_name(Definition, ev)));
     end;
     WriteMethodArguments(OriginalNamespace, Pass, Definition);
     if Pass > wtpOnDemand then
@@ -892,6 +915,13 @@ begin
     begin
       WriteLn(F, ';');
     end;
+  end;
+
+  if Pass >= wtpImplementation then
+  begin
+    WriteLn(F, 'begin');
+    WriteLn(F, '  { ... }'); // TODO real invocation here
+    WriteLn(F, 'end;');
   end;
 end;
 
@@ -911,24 +941,7 @@ begin
     WasPrivate := False;
     WasPublic := False;
 
-    // First pass: unknown stuff
-    for I := 0 to Contents._length - 1 do
-    begin
-      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-      if SOMObject_somIsA(Item, _SOMCLASS_OperationDef) then begin end
-      else if SOMObject_somIsA(Item, _SOMCLASS_AttributeDef) then begin end
-      else if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then begin end
-      else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then begin end
-      else
-      begin
-        if Pass > wtpOnDemand then
-        begin
-          WriteLn(F, '    { Found item: ', Contained__get_name(Item, ev), ' }');
-        end;
-      end;
-    end;
-
-    // Second pass: property setters and getters
+    // First pass: property setters and getters
     for I := 0 to Contents._length - 1 do
     begin
       Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
@@ -942,7 +955,7 @@ begin
           begin
             if not WasPrivate then
             begin
-              if Pass > wtpOnDemand then
+              if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
               begin
                 WriteLn(F, '  private');
               end;
@@ -954,7 +967,7 @@ begin
       end;
     end;
 
-    // Third pass: public methods except for getters/setters
+    // Second pass: public methods except for getters/setters
     for I := 0 to Contents._length - 1 do
     begin
       Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
@@ -968,7 +981,7 @@ begin
           begin
             if not WasPublic then
             begin
-              if Pass > wtpOnDemand then
+              if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
               begin
                 WriteLn(F, '  public');
               end;
@@ -981,7 +994,7 @@ begin
         begin
           if not WasPublic then
           begin
-            if Pass > wtpOnDemand then
+            if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
             begin
               WriteLn(F, '  public');
             end;
@@ -992,45 +1005,48 @@ begin
       end;
     end;
 
-    // Fourth pass: properties
+    // Third pass: properties
     for I := 0 to Contents._length - 1 do
     begin
       Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-      if SOMObject_somIsA(Item, _SOMCLASS_AttributeDef) then
+      if Pass < wtpImplementation then
       begin
-        if not WasPublic then
+        if SOMObject_somIsA(Item, _SOMCLASS_AttributeDef) then
         begin
-          if Pass > wtpOnDemand then
+          if not WasPublic then
           begin
-            WriteLn(F, '  public');
+            if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
+            begin
+              WriteLn(F, '  public');
+            end;
+            WasPublic := True;
           end;
-          WasPublic := True;
-        end;
-        Name := Contained__get_name(Item, ev);
-        if Pass > wtpOnDemand then
-        begin
-          Write(F, '    property ', UnreserveIdentifier(Name), ': ');
-        end;
-
-        OriginalNamespace := Contained__get_defined_in(Item, ev);
-        if Length(OriginalNamespace) > 2 then
-        begin
-          OriginalNamespace := OriginalNamespace + '::';
-        end;
-
-        WriteType(OriginalNamespace, Pass, AttributeDef__get_type(Item, ev));
-        if Pass > wtpOnDemand then
-        begin
-          if AttributeDef__get_mode(Item, ev) = AttributeDef_READONLY then
+          Name := Contained__get_name(Item, ev);
+          if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
           begin
-            WriteLn(F, ' read _get_', Name, ';');
-          end
-          else
-          begin
-            WriteLn(F, ' read _get_', Name, ' write _set_', Name, ';');
+            Write(F, '    property ', UnreserveIdentifier(Name), ': ');
           end;
+
+          OriginalNamespace := Contained__get_defined_in(Item, ev);
+          if Length(OriginalNamespace) > 2 then
+          begin
+            OriginalNamespace := OriginalNamespace + '::';
+          end;
+
+          WriteType(OriginalNamespace, Pass, AttributeDef__get_type(Item, ev));
+          if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
+          begin
+            if AttributeDef__get_mode(Item, ev) = AttributeDef_READONLY then
+            begin
+              WriteLn(F, ' read _get_', Name, ';');
+            end
+            else
+            begin
+              WriteLn(F, ' read _get_', Name, ' write _set_', Name, ';');
+            end;
+          end;
+          Name := nil;
         end;
-        Name := nil;
       end;
 
       SOMFreeAndNil(Item);
@@ -1387,9 +1403,9 @@ begin
   begin
     WriteLn(F);
     Name := Contained__get_name(Item, ev);
-    WriteClassDefinition(CurrentNamespace + Name + '::' {CurrentNamespace}, wtpOnDemand, Item);
+    WriteClassDefinition(CurrentNamespace + Name + '::', wtpOnDemand, Item);
     WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = class(SOMObjectBase)');
-    WriteClassDefinition(CurrentNamespace + Name + '::' {CurrentNamespace}, wtpFinal, Item);
+    WriteClassDefinition(CurrentNamespace + Name + '::', wtpFinal, Item);
     WriteLn(F, '  end;');
     // there can be no sub-interfaces or modules inside of interface
   end
@@ -1402,7 +1418,7 @@ begin
   if Recurse then
   begin
     NewNamespace := CurrentNamespace + Name + '::';
-    Contents := Container_contents(Item, ev, 'all', False);
+    Contents := Container_contents(Item, ev, 'all', True);
     if Contents._length > 0 then
     begin
       for I := 0 to Contents._length - 1 do
@@ -1603,6 +1619,48 @@ begin
   end;
 end;
 
+procedure TSOMIRImporter.WriteRepositoryEighthPass(Item: Contained; const CurrentNamespace: string);
+var
+  Name: PAnsiChar;
+  Recurse: Boolean;
+  SubItem: Contained;
+  Contents: _IDL_SEQUENCE_Contained;
+  I: LongWord;
+  NewNamespace: string;
+begin
+  Recurse := False;
+  if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  begin
+    WriteLn(F);
+    Name := Contained__get_name(Item, ev);
+    // TODO New, Renew, As_ ... must be here
+
+    WriteClassDefinition(CurrentNamespace + Name + '::', wtpImplementation, Item);
+    // there can be no sub-interfaces or modules inside of interface
+  end
+  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  begin
+    Name := Contained__get_name(Item, ev);
+    Recurse := True;
+  end;
+
+  if Recurse then
+  begin
+    NewNamespace := CurrentNamespace + Name + '::';
+    Contents := Container_contents(Item, ev, 'all', True);
+    if Contents._length > 0 then
+    begin
+      for I := 0 to Contents._length - 1 do
+      begin
+        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        WriteRepositoryEighthPass(SubItem, NewNamespace);
+        SOMFreeAndNil(SubItem);
+      end;
+      SOMFree(Contents._buffer);
+    end;
+  end;
+end;
+
 procedure TSOMIRImporter.WriteRepository;
 var
   Contents: _IDL_SEQUENCE_Contained;
@@ -1719,11 +1777,36 @@ begin
       WriteLn(F);
       WriteLn(F, '{ Constants }');
 
-      // Seventh pass: constants from enums, ConstDef and ExceptionDef
+      // Seventh pass: constants from TypeDef tk_enum, ConstDef and ExceptionDef
       for I := 0 to Contents._length - 1 do
       begin
         Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
         WriteRepositorySeventhPass(Item, '::');
+      end;
+      Write(' 7');
+      WriteLn(F);
+      WriteLn(F, 'implementation');
+      WriteLn(F);
+      WriteLn(F, 'procedure SOMObjectBase.Create;');
+      WriteLn(F, 'begin');
+      WriteLn(F, '  { hide this method }');
+      WriteLn(F, 'end;');
+      WriteLn(F);
+      WriteLn(F, 'procedure SOMObjectBase.Destroy;');
+      WriteLn(F, 'begin');
+      WriteLn(F, '  { hide this method }');
+      WriteLn(F, 'end;');
+      WriteLn(F);
+      WriteLn(F, 'function SOMObjectBase.As_SOMObject;');
+      WriteLn(F, 'begin');
+      WriteLn(F, '  Result := SOMObject(Self); { upcast }');
+      WriteLn(F, 'end;');
+
+      // Eighth pass: class and method implementation
+      for I := 0 to Contents._length - 1 do
+      begin
+        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        WriteRepositoryEighthPass(Item, '::');
 
         SOMFreeAndNil(Item);
       end;
@@ -1731,8 +1814,6 @@ begin
       SOMFree(Contents._buffer);
     end;
 
-    WriteLn(F);
-    WriteLn(F, 'implementation');
     WriteLn(F);
     WriteLn(F, 'end.');
   finally
