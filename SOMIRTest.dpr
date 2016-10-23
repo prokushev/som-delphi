@@ -80,9 +80,9 @@ type
     function ExtractInteger(TC: TypeCode; Index: LongInt): LongInt;
     function TCToImportedType(TC: TypeCode; const CurrentNamespace: string): string;
 
-    procedure WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
-    procedure WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
-    procedure WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef);
+    procedure WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef; OIDL: Boolean = False);
+    procedure WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef; OIDL: Boolean = False);
+    procedure WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef; OIDL: Boolean = False);
 
     procedure WriteRepositoryFirstPass(Item: Contained; const CurrentNamespace: string; var WasForwardType: Boolean);
     procedure WriteRepositorySecondPass(Item: Contained; const CurrentNamespace: string);
@@ -121,6 +121,7 @@ begin
 
   // from System
   FGeneratedOnDemand.Add('PByte');
+  FGeneratedOnDemand.Add('PEnvironment'); // from hardwired
   FGeneratedOnDemand.Add('PDouble');
   FGeneratedOnDemand.Add('PLongInt');
   FGeneratedOnDemand.Add('PLongWord');
@@ -752,7 +753,7 @@ begin
   end;
 end;
 
-procedure TSOMIRImporter.WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
+procedure TSOMIRImporter.WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef; OIDL: Boolean = False);
 var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
@@ -763,10 +764,11 @@ var
   Kind: TCKind;
   Name: string;
   Index: Integer;
+  OriginalClass: string;
 begin
   if Pass = wtpTypeDef then Exit;
   Contents := Container_contents(Definition, ev, 'all', False);
-  if Contents._length > 0 then
+  if (Contents._length > 0) or (Pass = wtpLowLevelImplementation) then
   begin
     WasArgument := False;
 
@@ -774,7 +776,19 @@ begin
     begin
       Write(F, '(');
     end;
-    for I := 0 to Contents._length - 1 do
+
+    if Pass = wtpLowLevelImplementation then
+    begin
+      WasArgument := True;
+      OriginalClass := IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace);
+      Write(F, 'somSelf: ', OriginalClass);
+      if not OIDL then
+      begin
+        Write(F, '; ev: PEnvironment');
+      end;
+    end;
+
+    if Contents._length > 0 then for I := 0 to Contents._length - 1 do
     begin
       Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
       if SOMObject_somIsA(Item, _SOMCLASS_ParameterDef) then
@@ -858,7 +872,7 @@ begin
   end;
 end;
 
-procedure TSOMIRImporter.WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
+procedure TSOMIRImporter.WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef; OIDL: Boolean = False);
 var
   Result_TC: TypeCode;
   Result_Kind: TCKind;
@@ -913,7 +927,7 @@ begin
         Write(F, MethodName);
       end;
     end;
-    WriteMethodArguments(OriginalNamespace, Pass, Definition);
+    WriteMethodArguments(OriginalNamespace, Pass, Definition, OIDL);
   end
   else
   begin
@@ -929,13 +943,19 @@ begin
         Write(F, MethodName);
       end;
     end;
-    WriteMethodArguments(OriginalNamespace, Pass, Definition);
+    WriteMethodArguments(OriginalNamespace, Pass, Definition, OIDL);
     if Pass > wtpOnDemand then
     begin
       Write(F, ': ');
     end;
-    // if Result_Kind = tk_any then // TAnyResult
-    WriteType(OriginalNamespace, Pass, Result_TC);
+    if (Pass = wtpLowLevelImplementation) and (Result_Kind = tk_any) then
+    begin
+      Write(F, 'TAnyResult');
+    end
+    else
+    begin
+      WriteType(OriginalNamespace, Pass, Result_TC);
+    end;
   end;
 
   if Pass > wtpOnDemand then
@@ -958,7 +978,7 @@ begin
   end;
 end;
 
-procedure TSOMIRImporter.WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef);
+procedure TSOMIRImporter.WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef; OIDL: Boolean = False);
 var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
@@ -998,7 +1018,7 @@ begin
             begin
               if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
               begin
-                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
+                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item, OIDL);
               end;
             end;
             WriteMethodDefinition(CurrentNamespace, Pass, Item);
@@ -1031,7 +1051,7 @@ begin
             begin
               if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
               begin
-                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
+                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item, OIDL);
               end;
             end;
             WriteMethodDefinition(CurrentNamespace, Pass, Item);
@@ -1051,7 +1071,7 @@ begin
           begin
             if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
             begin
-              WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
+              WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item, OIDL);
             end;
           end;
           WriteMethodDefinition(CurrentNamespace, Pass, Item);
@@ -1682,6 +1702,7 @@ var
   I: LongWord;
   Index: Integer;
   ImportedType, NewNamespace, DllName_Id: string;
+  OIDL: Boolean;
   Modifiers: _IDL_SEQUENCE_somModifier;
   Modifier: somModifier;
 begin
@@ -1695,6 +1716,7 @@ begin
     MajorVersion := '0';
     MinorVersion := '0';
     ReleaseOrder := '';
+    OIDL := False;
     Modifiers := Contained__get_somModifiers(Item, ev);
     if Modifiers._length > 0 then
     begin
@@ -1716,6 +1738,10 @@ begin
         else if Modifier.name = 'dllname' then
         begin
           DllName := Modifier.value;
+        end
+        else if Modifier.name = 'callstyle' then
+        begin
+          OIDL := Modifier.value = 'oidl';
         end;
       end;
     end;
@@ -1824,7 +1850,7 @@ begin
     WriteLn(F, '  Result := ', ImportedType, 'ClassData.classObject;');
     WriteLn(F, 'end;');
 
-    WriteClassDefinition(CurrentNamespace + Name + '::', wtpImplementation, Item);
+    WriteClassDefinition(CurrentNamespace + Name + '::', wtpImplementation, Item, OIDL);
     // there can be no sub-interfaces or modules inside of interface
   end
   else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
@@ -1885,6 +1911,7 @@ begin
     WriteLn(F, '    _value: Pointer;');
     WriteLn(F, '  end;');
     WriteLn(F, '  TAnyResult = type Int64; { returned in edx:eax by vanilla IBM SOM, but passed via hidden pointer by Delphi when record }');
+    WriteLn(F, '  PEnvironment = ^Environment;');
     WriteLn(F);
 
     Contents := Container_contents(Repo, ev, 'all', False);

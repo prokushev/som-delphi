@@ -21,6 +21,7 @@ type
     _value: Pointer;
   end;
   TAnyResult = type Int64; { returned in edx:eax by vanilla IBM SOM, but passed via hidden pointer by Delphi when record }
+  PEnvironment = ^Environment;
 
   { Forward definitions }
   SOMObject = class;
@@ -4857,7 +4858,7 @@ end;
  * New Method: somDefaultInit
  *)
 type
-  somTD_SOMObject_somDefaultInit = procedure (var ctrl: Pointer); stdcall;
+  somTD_SOMObject_somDefaultInit = procedure (somSelf: SOMObject; var ctrl: Pointer); stdcall;
 
 procedure SOMObject.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4868,7 +4869,7 @@ end;
  * New Method: somDestruct
  *)
 type
-  somTD_SOMObject_somDestruct = procedure (doFree: Byte; var ctrl: Pointer); stdcall;
+  somTD_SOMObject_somDestruct = procedure (somSelf: SOMObject; doFree: Byte; var ctrl: Pointer); stdcall;
 
 procedure SOMObject.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4879,7 +4880,7 @@ end;
  * New Method: somDefaultCopyInit
  *)
 type
-  somTD_SOMObject_somDefaultCopyInit = procedure (var ctrl: Pointer; fromObj: SOMObject); stdcall;
+  somTD_SOMObject_somDefaultCopyInit = procedure (somSelf: SOMObject; var ctrl: Pointer; fromObj: SOMObject); stdcall;
 
 procedure SOMObject.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4890,7 +4891,7 @@ end;
  * New Method: somDefaultAssign
  *)
 type
-  somTD_SOMObject_somDefaultAssign = function (var ctrl: Pointer; fromObj: SOMObject): SOMObject; stdcall;
+  somTD_SOMObject_somDefaultAssign = function (somSelf: SOMObject; var ctrl: Pointer; fromObj: SOMObject): SOMObject; stdcall;
 
 function SOMObject.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4901,7 +4902,7 @@ end;
  * New Method: somDefaultConstCopyInit
  *)
 type
-  somTD_SOMObject_somDefaultConstCopyInit = procedure (var ctrl: Pointer; fromObj: SOMObject); stdcall;
+  somTD_SOMObject_somDefaultConstCopyInit = procedure (somSelf: SOMObject; var ctrl: Pointer; fromObj: SOMObject); stdcall;
 
 procedure SOMObject.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4912,7 +4913,7 @@ end;
  * New Method: somDefaultVCopyInit
  *)
 type
-  somTD_SOMObject_somDefaultVCopyInit = procedure (var ctrl: Pointer; fromObj: SOMObject); stdcall;
+  somTD_SOMObject_somDefaultVCopyInit = procedure (somSelf: SOMObject; var ctrl: Pointer; fromObj: SOMObject); stdcall;
 
 procedure SOMObject.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4923,7 +4924,7 @@ end;
  * New Method: somDefaultConstVCopyInit
  *)
 type
-  somTD_SOMObject_somDefaultConstVCopyInit = procedure (var ctrl: Pointer; fromObj: SOMObject); stdcall;
+  somTD_SOMObject_somDefaultConstVCopyInit = procedure (somSelf: SOMObject; var ctrl: Pointer; fromObj: SOMObject); stdcall;
 
 procedure SOMObject.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4934,7 +4935,7 @@ end;
  * New Method: somDefaultConstAssign
  *)
 type
-  somTD_SOMObject_somDefaultConstAssign = function (var ctrl: Pointer; fromObj: SOMObject): SOMObject; stdcall;
+  somTD_SOMObject_somDefaultConstAssign = function (somSelf: SOMObject; var ctrl: Pointer; fromObj: SOMObject): SOMObject; stdcall;
 
 function SOMObject.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4945,7 +4946,7 @@ end;
  * New Method: somDefaultVAssign
  *)
 type
-  somTD_SOMObject_somDefaultVAssign = function (var ctrl: Pointer; fromObj: SOMObject): SOMObject; stdcall;
+  somTD_SOMObject_somDefaultVAssign = function (somSelf: SOMObject; var ctrl: Pointer; fromObj: SOMObject): SOMObject; stdcall;
 
 function SOMObject.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4956,7 +4957,7 @@ end;
  * New Method: somDefaultConstVAssign
  *)
 type
-  somTD_SOMObject_somDefaultConstVAssign = function (var ctrl: Pointer; fromObj: SOMObject): SOMObject; stdcall;
+  somTD_SOMObject_somDefaultConstVAssign = function (somSelf: SOMObject; var ctrl: Pointer; fromObj: SOMObject): SOMObject; stdcall;
 
 function SOMObject.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4967,7 +4968,7 @@ end;
  * New Method: somInit
  *)
 type
-  somTD_SOMObject_somInit = procedure ; stdcall;
+  somTD_SOMObject_somInit = procedure (somSelf: SOMObject); stdcall;
 
 procedure SOMObject.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4978,7 +4979,7 @@ end;
  * New Method: somFree
  *)
 type
-  somTD_SOMObject_somFree = procedure ; stdcall;
+  somTD_SOMObject_somFree = procedure (somSelf: SOMObject); stdcall;
 
 procedure SOMObject.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -4989,7 +4990,7 @@ end;
  * New Method: somUninit
  *)
 type
-  somTD_SOMObject_somUninit = procedure ; stdcall;
+  somTD_SOMObject_somUninit = procedure (somSelf: SOMObject); stdcall;
 
 procedure SOMObject.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5000,7 +5001,7 @@ end;
  * New Method: somGetClass
  *)
 type
-  somTD_SOMObject_somGetClass = function : SOMClass; stdcall;
+  somTD_SOMObject_somGetClass = function (somSelf: SOMObject): SOMClass; stdcall;
 
 function SOMObject.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5011,7 +5012,7 @@ end;
  * New Method: somGetClassName
  *)
 type
-  somTD_SOMObject_somGetClassName = function : CORBAString; stdcall;
+  somTD_SOMObject_somGetClassName = function (somSelf: SOMObject): CORBAString; stdcall;
 
 function SOMObject.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5022,7 +5023,7 @@ end;
  * New Method: somGetSize
  *)
 type
-  somTD_SOMObject_somGetSize = function : LongInt; stdcall;
+  somTD_SOMObject_somGetSize = function (somSelf: SOMObject): LongInt; stdcall;
 
 function SOMObject.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5033,7 +5034,7 @@ end;
  * New Method: somIsA
  *)
 type
-  somTD_SOMObject_somIsA = function (aClassObj: SOMClass): CORBABoolean; stdcall;
+  somTD_SOMObject_somIsA = function (somSelf: SOMObject; aClassObj: SOMClass): CORBABoolean; stdcall;
 
 function SOMObject.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5044,7 +5045,7 @@ end;
  * New Method: somIsInstanceOf
  *)
 type
-  somTD_SOMObject_somIsInstanceOf = function (aClassObj: SOMClass): CORBABoolean; stdcall;
+  somTD_SOMObject_somIsInstanceOf = function (somSelf: SOMObject; aClassObj: SOMClass): CORBABoolean; stdcall;
 
 function SOMObject.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5055,7 +5056,7 @@ end;
  * New Method: somRespondsTo
  *)
 type
-  somTD_SOMObject_somRespondsTo = function (mId: somId): CORBABoolean; stdcall;
+  somTD_SOMObject_somRespondsTo = function (somSelf: SOMObject; mId: somId): CORBABoolean; stdcall;
 
 function SOMObject.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5066,7 +5067,7 @@ end;
  * New Method: somDispatch
  *)
 type
-  somTD_SOMObject_somDispatch = function (out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; stdcall;
+  somTD_SOMObject_somDispatch = function (somSelf: SOMObject; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; stdcall;
 
 function SOMObject.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5077,7 +5078,7 @@ end;
  * New Method: somClassDispatch
  *)
 type
-  somTD_SOMObject_somClassDispatch = function (clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; stdcall;
+  somTD_SOMObject_somClassDispatch = function (somSelf: SOMObject; clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; stdcall;
 
 function SOMObject.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5088,7 +5089,7 @@ end;
  * New Method: somCastObj
  *)
 type
-  somTD_SOMObject_somCastObj = function (cls: SOMClass): CORBABoolean; stdcall;
+  somTD_SOMObject_somCastObj = function (somSelf: SOMObject; cls: SOMClass): CORBABoolean; stdcall;
 
 function SOMObject.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5099,7 +5100,7 @@ end;
  * New Method: somResetObj
  *)
 type
-  somTD_SOMObject_somResetObj = function : CORBABoolean; stdcall;
+  somTD_SOMObject_somResetObj = function (somSelf: SOMObject): CORBABoolean; stdcall;
 
 function SOMObject.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5110,7 +5111,7 @@ end;
  * New Method: somPrintSelf
  *)
 type
-  somTD_SOMObject_somPrintSelf = function : SOMObject; stdcall;
+  somTD_SOMObject_somPrintSelf = function (somSelf: SOMObject): SOMObject; stdcall;
 
 function SOMObject.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5121,7 +5122,7 @@ end;
  * New Method: somDumpSelf
  *)
 type
-  somTD_SOMObject_somDumpSelf = procedure (level: LongInt); stdcall;
+  somTD_SOMObject_somDumpSelf = procedure (somSelf: SOMObject; level: LongInt); stdcall;
 
 procedure SOMObject.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5132,7 +5133,7 @@ end;
  * New Method: somDumpSelfInt
  *)
 type
-  somTD_SOMObject_somDumpSelfInt = procedure (level: LongInt); stdcall;
+  somTD_SOMObject_somDumpSelfInt = procedure (somSelf: SOMObject; level: LongInt); stdcall;
 
 procedure SOMObject.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5230,7 +5231,7 @@ end;
  * New Method: _get_name
  *)
 type
-  somTD_Contained__get_name = function : CORBAString; stdcall;
+  somTD_Contained__get_name = function (somSelf: Contained; ev: PEnvironment): CORBAString; stdcall;
 
 function Contained._get_name: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5241,7 +5242,7 @@ end;
  * New Method: _set_name
  *)
 type
-  somTD_Contained__set_name = procedure (name: CORBAString); stdcall;
+  somTD_Contained__set_name = procedure (somSelf: Contained; ev: PEnvironment; name: CORBAString); stdcall;
 
 procedure Contained._set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5252,7 +5253,7 @@ end;
  * New Method: _get_id
  *)
 type
-  somTD_Contained__get_id = function : CORBAString; stdcall;
+  somTD_Contained__get_id = function (somSelf: Contained; ev: PEnvironment): CORBAString; stdcall;
 
 function Contained._get_id: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5263,7 +5264,7 @@ end;
  * New Method: _set_id
  *)
 type
-  somTD_Contained__set_id = procedure (id: CORBAString); stdcall;
+  somTD_Contained__set_id = procedure (somSelf: Contained; ev: PEnvironment; id: CORBAString); stdcall;
 
 procedure Contained._set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5274,7 +5275,7 @@ end;
  * New Method: _get_defined_in
  *)
 type
-  somTD_Contained__get_defined_in = function : CORBAString; stdcall;
+  somTD_Contained__get_defined_in = function (somSelf: Contained; ev: PEnvironment): CORBAString; stdcall;
 
 function Contained._get_defined_in: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5285,7 +5286,7 @@ end;
  * New Method: _set_defined_in
  *)
 type
-  somTD_Contained__set_defined_in = procedure (defined_in: CORBAString); stdcall;
+  somTD_Contained__set_defined_in = procedure (somSelf: Contained; ev: PEnvironment; defined_in: CORBAString); stdcall;
 
 procedure Contained._set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5296,7 +5297,7 @@ end;
  * New Method: _get_somModifiers
  *)
 type
-  somTD_Contained__get_somModifiers = function : _IDL_Sequence_somModifier; stdcall;
+  somTD_Contained__get_somModifiers = function (somSelf: Contained; ev: PEnvironment): _IDL_Sequence_somModifier; stdcall;
 
 function Contained._get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5307,7 +5308,7 @@ end;
  * New Method: _set_somModifiers
  *)
 type
-  somTD_Contained__set_somModifiers = procedure (const somModifiers: _IDL_Sequence_somModifier); stdcall;
+  somTD_Contained__set_somModifiers = procedure (somSelf: Contained; ev: PEnvironment; const somModifiers: _IDL_Sequence_somModifier); stdcall;
 
 procedure Contained._set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5318,7 +5319,7 @@ end;
  * New Method: within
  *)
 type
-  somTD_Contained_within = function : _IDL_Sequence_Container; stdcall;
+  somTD_Contained_within = function (somSelf: Contained; ev: PEnvironment): _IDL_Sequence_Container; stdcall;
 
 function Contained.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5329,7 +5330,7 @@ end;
  * New Method: describe
  *)
 type
-  somTD_Contained_describe = function : Contained_Description; stdcall;
+  somTD_Contained_describe = function (somSelf: Contained; ev: PEnvironment): Contained_Description; stdcall;
 
 function Contained.describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5538,7 +5539,7 @@ end;
  * New Method: _get_type
  *)
 type
-  somTD_AttributeDef__get_type = function : TypeCode; stdcall;
+  somTD_AttributeDef__get_type = function (somSelf: AttributeDef; ev: PEnvironment): TypeCode; stdcall;
 
 function AttributeDef._get_type: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5549,7 +5550,7 @@ end;
  * New Method: _set_type
  *)
 type
-  somTD_AttributeDef__set_type = procedure (SOM_type: TypeCode); stdcall;
+  somTD_AttributeDef__set_type = procedure (somSelf: AttributeDef; ev: PEnvironment; SOM_type: TypeCode); stdcall;
 
 procedure AttributeDef._set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5560,7 +5561,7 @@ end;
  * New Method: _get_mode
  *)
 type
-  somTD_AttributeDef__get_mode = function : AttributeDef_AttributeMode; stdcall;
+  somTD_AttributeDef__get_mode = function (somSelf: AttributeDef; ev: PEnvironment): AttributeDef_AttributeMode; stdcall;
 
 function AttributeDef._get_mode: AttributeDef_AttributeMode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5571,7 +5572,7 @@ end;
  * New Method: _set_mode
  *)
 type
-  somTD_AttributeDef__set_mode = procedure (mode: AttributeDef_AttributeMode); stdcall;
+  somTD_AttributeDef__set_mode = procedure (somSelf: AttributeDef; ev: PEnvironment; mode: AttributeDef_AttributeMode); stdcall;
 
 procedure AttributeDef._set_mode(mode: AttributeDef_AttributeMode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5849,7 +5850,7 @@ end;
  * New Method: create
  *)
 type
-  somTD_BOA_create = function (const id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject; stdcall;
+  somTD_BOA_create = function (somSelf: BOA; ev: PEnvironment; const id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject; stdcall;
 
 function BOA.create(const id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5860,7 +5861,7 @@ end;
  * New Method: dispose
  *)
 type
-  somTD_BOA_dispose = procedure (obj: SOMDObject); stdcall;
+  somTD_BOA_dispose = procedure (somSelf: BOA; ev: PEnvironment; obj: SOMDObject); stdcall;
 
 procedure BOA.dispose(obj: SOMDObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5871,7 +5872,7 @@ end;
  * New Method: get_id
  *)
 type
-  somTD_BOA_get_id = function (obj: SOMDObject): _IDL_Sequence_Byte; stdcall;
+  somTD_BOA_get_id = function (somSelf: BOA; ev: PEnvironment; obj: SOMDObject): _IDL_Sequence_Byte; stdcall;
 
 function BOA.get_id(obj: SOMDObject): _IDL_Sequence_Byte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5882,7 +5883,7 @@ end;
  * New Method: get_principal
  *)
 type
-  somTD_BOA_get_principal = function (obj: SOMDObject; const req_ev: Environment): Principal; stdcall;
+  somTD_BOA_get_principal = function (somSelf: BOA; ev: PEnvironment; obj: SOMDObject; const req_ev: Environment): Principal; stdcall;
 
 function BOA.get_principal(obj: SOMDObject; const req_ev: Environment): Principal; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5893,7 +5894,7 @@ end;
  * New Method: set_exception
  *)
 type
-  somTD_BOA_set_exception = procedure (major: exception_type; userid: CORBAString; param: Pointer); stdcall;
+  somTD_BOA_set_exception = procedure (somSelf: BOA; ev: PEnvironment; major: exception_type; userid: CORBAString; param: Pointer); stdcall;
 
 procedure BOA.set_exception(major: exception_type; userid: CORBAString; param: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5904,7 +5905,7 @@ end;
  * New Method: impl_is_ready
  *)
 type
-  somTD_BOA_impl_is_ready = procedure (impl: ImplementationDef); stdcall;
+  somTD_BOA_impl_is_ready = procedure (somSelf: BOA; ev: PEnvironment; impl: ImplementationDef); stdcall;
 
 procedure BOA.impl_is_ready(impl: ImplementationDef); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5915,7 +5916,7 @@ end;
  * New Method: deactivate_impl
  *)
 type
-  somTD_BOA_deactivate_impl = procedure (impl: ImplementationDef); stdcall;
+  somTD_BOA_deactivate_impl = procedure (somSelf: BOA; ev: PEnvironment; impl: ImplementationDef); stdcall;
 
 procedure BOA.deactivate_impl(impl: ImplementationDef); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5926,7 +5927,7 @@ end;
  * New Method: change_implementation
  *)
 type
-  somTD_BOA_change_implementation = procedure (obj: SOMDObject; impl: ImplementationDef); stdcall;
+  somTD_BOA_change_implementation = procedure (somSelf: BOA; ev: PEnvironment; obj: SOMDObject; impl: ImplementationDef); stdcall;
 
 procedure BOA.change_implementation(obj: SOMDObject; impl: ImplementationDef); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5937,7 +5938,7 @@ end;
  * New Method: obj_is_ready
  *)
 type
-  somTD_BOA_obj_is_ready = procedure (obj: SOMDObject; impl: ImplementationDef); stdcall;
+  somTD_BOA_obj_is_ready = procedure (somSelf: BOA; ev: PEnvironment; obj: SOMDObject; impl: ImplementationDef); stdcall;
 
 procedure BOA.obj_is_ready(obj: SOMDObject; impl: ImplementationDef); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -5948,7 +5949,7 @@ end;
  * New Method: deactivate_obj
  *)
 type
-  somTD_BOA_deactivate_obj = procedure (obj: SOMDObject); stdcall;
+  somTD_BOA_deactivate_obj = procedure (somSelf: BOA; ev: PEnvironment; obj: SOMDObject); stdcall;
 
 procedure BOA.deactivate_obj(obj: SOMDObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6176,7 +6177,7 @@ end;
  * New Method: somevGetEventTime
  *)
 type
-  somTD_SOMEEvent_somevGetEventTime = function : LongWord; stdcall;
+  somTD_SOMEEvent_somevGetEventTime = function (somSelf: SOMEEvent; ev: PEnvironment): LongWord; stdcall;
 
 function SOMEEvent.somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6187,7 +6188,7 @@ end;
  * New Method: somevGetEventType
  *)
 type
-  somTD_SOMEEvent_somevGetEventType = function : LongWord; stdcall;
+  somTD_SOMEEvent_somevGetEventType = function (somSelf: SOMEEvent; ev: PEnvironment): LongWord; stdcall;
 
 function SOMEEvent.somevGetEventType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6198,7 +6199,7 @@ end;
  * New Method: somevSetEventTime
  *)
 type
-  somTD_SOMEEvent_somevSetEventTime = procedure (time: LongWord); stdcall;
+  somTD_SOMEEvent_somevSetEventTime = procedure (somSelf: SOMEEvent; ev: PEnvironment; time: LongWord); stdcall;
 
 procedure SOMEEvent.somevSetEventTime(time: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6209,7 +6210,7 @@ end;
  * New Method: somevSetEventType
  *)
 type
-  somTD_SOMEEvent_somevSetEventType = procedure (SOM_type: LongWord); stdcall;
+  somTD_SOMEEvent_somevSetEventType = procedure (somSelf: SOMEEvent; ev: PEnvironment; SOM_type: LongWord); stdcall;
 
 procedure SOMEEvent.somevSetEventType(SOM_type: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6418,7 +6419,7 @@ end;
  * New Method: somevGetEventClientData
  *)
 type
-  somTD_SOMEClientEvent_somevGetEventClientData = function : Pointer; stdcall;
+  somTD_SOMEClientEvent_somevGetEventClientData = function (somSelf: SOMEClientEvent; ev: PEnvironment): Pointer; stdcall;
 
 function SOMEClientEvent.somevGetEventClientData: Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6429,7 +6430,7 @@ end;
  * New Method: somevGetEventClientType
  *)
 type
-  somTD_SOMEClientEvent_somevGetEventClientType = function : CORBAString; stdcall;
+  somTD_SOMEClientEvent_somevGetEventClientType = function (somSelf: SOMEClientEvent; ev: PEnvironment): CORBAString; stdcall;
 
 function SOMEClientEvent.somevGetEventClientType: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6440,7 +6441,7 @@ end;
  * New Method: somevSetEventClientData
  *)
 type
-  somTD_SOMEClientEvent_somevSetEventClientData = procedure (clientData: Pointer); stdcall;
+  somTD_SOMEClientEvent_somevSetEventClientData = procedure (somSelf: SOMEClientEvent; ev: PEnvironment; clientData: Pointer); stdcall;
 
 procedure SOMEClientEvent.somevSetEventClientData(clientData: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6451,7 +6452,7 @@ end;
  * New Method: somevSetEventClientType
  *)
 type
-  somTD_SOMEClientEvent_somevSetEventClientType = procedure (clientType: CORBAString); stdcall;
+  somTD_SOMEClientEvent_somevSetEventClientType = procedure (somSelf: SOMEClientEvent; ev: PEnvironment; clientType: CORBAString); stdcall;
 
 procedure SOMEClientEvent.somevSetEventClientType(clientType: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6680,7 +6681,7 @@ end;
  * New Method: set_one_value
  *)
 type
-  somTD_Context_set_one_value = function (prop_name: CORBAString; value: CORBAString): LongWord; stdcall;
+  somTD_Context_set_one_value = function (somSelf: Context; ev: PEnvironment; prop_name: CORBAString; value: CORBAString): LongWord; stdcall;
 
 function Context.set_one_value(prop_name: CORBAString; value: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6691,7 +6692,7 @@ end;
  * New Method: set_values
  *)
 type
-  somTD_Context_set_values = function (values: NVList): LongWord; stdcall;
+  somTD_Context_set_values = function (somSelf: Context; ev: PEnvironment; values: NVList): LongWord; stdcall;
 
 function Context.set_values(values: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6702,7 +6703,7 @@ end;
  * New Method: get_values
  *)
 type
-  somTD_Context_get_values = function (start_scope: CORBAString; op_flags: LongWord; prop_name: CORBAString; out values: NVList): LongWord; stdcall;
+  somTD_Context_get_values = function (somSelf: Context; ev: PEnvironment; start_scope: CORBAString; op_flags: LongWord; prop_name: CORBAString; out values: NVList): LongWord; stdcall;
 
 function Context.get_values(start_scope: CORBAString; op_flags: LongWord; prop_name: CORBAString; out values: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6713,7 +6714,7 @@ end;
  * New Method: delete_values
  *)
 type
-  somTD_Context_delete_values = function (prop_name: CORBAString): LongWord; stdcall;
+  somTD_Context_delete_values = function (somSelf: Context; ev: PEnvironment; prop_name: CORBAString): LongWord; stdcall;
 
 function Context.delete_values(prop_name: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6724,7 +6725,7 @@ end;
  * New Method: create_child
  *)
 type
-  somTD_Context_create_child = function (ctx_name: CORBAString; out child_ctx: Context): LongWord; stdcall;
+  somTD_Context_create_child = function (somSelf: Context; ev: PEnvironment; ctx_name: CORBAString; out child_ctx: Context): LongWord; stdcall;
 
 function Context.create_child(ctx_name: CORBAString; out child_ctx: Context): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6735,7 +6736,7 @@ end;
  * New Method: destroy
  *)
 type
-  somTD_Context_destroy = function (flags: LongWord): LongWord; stdcall;
+  somTD_Context_destroy = function (somSelf: Context; ev: PEnvironment; flags: LongWord): LongWord; stdcall;
 
 function Context.destroy(flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6944,7 +6945,7 @@ end;
  * New Method: _get_type
  *)
 type
-  somTD_ConstantDef__get_type = function : TypeCode; stdcall;
+  somTD_ConstantDef__get_type = function (somSelf: ConstantDef; ev: PEnvironment): TypeCode; stdcall;
 
 function ConstantDef._get_type: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6955,7 +6956,7 @@ end;
  * New Method: _set_type
  *)
 type
-  somTD_ConstantDef__set_type = procedure (SOM_type: TypeCode); stdcall;
+  somTD_ConstantDef__set_type = procedure (somSelf: ConstantDef; ev: PEnvironment; SOM_type: TypeCode); stdcall;
 
 procedure ConstantDef._set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6966,7 +6967,7 @@ end;
  * New Method: _get_value
  *)
 type
-  somTD_ConstantDef__get_value = function : any; stdcall;
+  somTD_ConstantDef__get_value = function (somSelf: ConstantDef; ev: PEnvironment): TAnyResult; stdcall;
 
 function ConstantDef._get_value: any; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -6977,7 +6978,7 @@ end;
  * New Method: _set_value
  *)
 type
-  somTD_ConstantDef__set_value = procedure (const value: any); stdcall;
+  somTD_ConstantDef__set_value = procedure (somSelf: ConstantDef; ev: PEnvironment; const value: any); stdcall;
 
 procedure ConstantDef._set_value(const value: any); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7236,7 +7237,7 @@ end;
  * New Method: contents
  *)
 type
-  somTD_Container_contents = function (limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; stdcall;
+  somTD_Container_contents = function (somSelf: Container; ev: PEnvironment; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; stdcall;
 
 function Container.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7247,7 +7248,7 @@ end;
  * New Method: lookup_name
  *)
 type
-  somTD_Container_lookup_name = function (search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; stdcall;
+  somTD_Container_lookup_name = function (somSelf: Container; ev: PEnvironment; search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; stdcall;
 
 function Container.lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7258,7 +7259,7 @@ end;
  * New Method: describe_contents
  *)
 type
-  somTD_Container_describe_contents = function (limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; stdcall;
+  somTD_Container_describe_contents = function (somSelf: Container; ev: PEnvironment; limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; stdcall;
 
 function Container.describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7467,7 +7468,7 @@ end;
  * New Method: someGetEManSem
  *)
 type
-  somTD_SOMEEMan_someGetEManSem = procedure ; stdcall;
+  somTD_SOMEEMan_someGetEManSem = procedure (somSelf: SOMEEMan; ev: PEnvironment); stdcall;
 
 procedure SOMEEMan.someGetEManSem; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7478,7 +7479,7 @@ end;
  * New Method: someReleaseEManSem
  *)
 type
-  somTD_SOMEEMan_someReleaseEManSem = procedure ; stdcall;
+  somTD_SOMEEMan_someReleaseEManSem = procedure (somSelf: SOMEEMan; ev: PEnvironment); stdcall;
 
 procedure SOMEEMan.someReleaseEManSem; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7489,7 +7490,7 @@ end;
  * New Method: someChangeRegData
  *)
 type
-  somTD_SOMEEMan_someChangeRegData = procedure (registrationId: LongInt; registerData: SOMEEMRegisterData); stdcall;
+  somTD_SOMEEMan_someChangeRegData = procedure (somSelf: SOMEEMan; ev: PEnvironment; registrationId: LongInt; registerData: SOMEEMRegisterData); stdcall;
 
 procedure SOMEEMan.someChangeRegData(registrationId: LongInt; registerData: SOMEEMRegisterData); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7500,7 +7501,7 @@ end;
  * New Method: someProcessEvent
  *)
 type
-  somTD_SOMEEMan_someProcessEvent = procedure (mask: LongWord); stdcall;
+  somTD_SOMEEMan_someProcessEvent = procedure (somSelf: SOMEEMan; ev: PEnvironment; mask: LongWord); stdcall;
 
 procedure SOMEEMan.someProcessEvent(mask: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7511,7 +7512,7 @@ end;
  * New Method: someProcessEvents
  *)
 type
-  somTD_SOMEEMan_someProcessEvents = procedure ; stdcall;
+  somTD_SOMEEMan_someProcessEvents = procedure (somSelf: SOMEEMan; ev: PEnvironment); stdcall;
 
 procedure SOMEEMan.someProcessEvents; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7522,7 +7523,7 @@ end;
  * New Method: someQueueEvent
  *)
 type
-  somTD_SOMEEMan_someQueueEvent = procedure (event: SOMEClientEvent); stdcall;
+  somTD_SOMEEMan_someQueueEvent = procedure (somSelf: SOMEEMan; ev: PEnvironment; event: SOMEClientEvent); stdcall;
 
 procedure SOMEEMan.someQueueEvent(event: SOMEClientEvent); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7533,7 +7534,7 @@ end;
  * New Method: someRegister
  *)
 type
-  somTD_SOMEEMan_someRegister = function (registerData: SOMEEMRegisterData; targetObject: SOMObject; targetMethod: CORBAString; targetData: Pointer): LongInt; stdcall;
+  somTD_SOMEEMan_someRegister = function (somSelf: SOMEEMan; ev: PEnvironment; registerData: SOMEEMRegisterData; targetObject: SOMObject; targetMethod: CORBAString; targetData: Pointer): LongInt; stdcall;
 
 function SOMEEMan.someRegister(registerData: SOMEEMRegisterData; targetObject: SOMObject; targetMethod: CORBAString; targetData: Pointer): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7544,7 +7545,7 @@ end;
  * New Method: someRegisterEv
  *)
 type
-  somTD_SOMEEMan_someRegisterEv = function (registerData: SOMEEMRegisterData; targetObject: SOMObject; var callbackEv: Environment; targetMethod: CORBAString; targetData: Pointer): LongInt; stdcall;
+  somTD_SOMEEMan_someRegisterEv = function (somSelf: SOMEEMan; ev: PEnvironment; registerData: SOMEEMRegisterData; targetObject: SOMObject; var callbackEv: Environment; targetMethod: CORBAString; targetData: Pointer): LongInt; stdcall;
 
 function SOMEEMan.someRegisterEv(registerData: SOMEEMRegisterData; targetObject: SOMObject; var callbackEv: Environment; targetMethod: CORBAString; targetData: Pointer): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7555,7 +7556,7 @@ end;
  * New Method: someRegisterProc
  *)
 type
-  somTD_SOMEEMan_someRegisterProc = function (registerData: SOMEEMRegisterData; targetProcedure: PPointer; targetData: Pointer): LongInt; stdcall;
+  somTD_SOMEEMan_someRegisterProc = function (somSelf: SOMEEMan; ev: PEnvironment; registerData: SOMEEMRegisterData; targetProcedure: PPointer; targetData: Pointer): LongInt; stdcall;
 
 function SOMEEMan.someRegisterProc(registerData: SOMEEMRegisterData; targetProcedure: PPointer; targetData: Pointer): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7566,7 +7567,7 @@ end;
  * New Method: someShutdown
  *)
 type
-  somTD_SOMEEMan_someShutdown = procedure ; stdcall;
+  somTD_SOMEEMan_someShutdown = procedure (somSelf: SOMEEMan; ev: PEnvironment); stdcall;
 
 procedure SOMEEMan.someShutdown; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7577,7 +7578,7 @@ end;
  * New Method: someUnRegister
  *)
 type
-  somTD_SOMEEMan_someUnRegister = procedure (registrationId: LongInt); stdcall;
+  somTD_SOMEEMan_someUnRegister = procedure (somSelf: SOMEEMan; ev: PEnvironment; registrationId: LongInt); stdcall;
 
 procedure SOMEEMan.someUnRegister(registrationId: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7786,7 +7787,7 @@ end;
  * New Method: someClearRegData
  *)
 type
-  somTD_SOMEEMRegisterData_someClearRegData = procedure ; stdcall;
+  somTD_SOMEEMRegisterData_someClearRegData = procedure (somSelf: SOMEEMRegisterData; ev: PEnvironment); stdcall;
 
 procedure SOMEEMRegisterData.someClearRegData; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7797,7 +7798,7 @@ end;
  * New Method: someSetRegDataClientType
  *)
 type
-  somTD_SOMEEMRegisterData_someSetRegDataClientType = procedure (clientType: CORBAString); stdcall;
+  somTD_SOMEEMRegisterData_someSetRegDataClientType = procedure (somSelf: SOMEEMRegisterData; ev: PEnvironment; clientType: CORBAString); stdcall;
 
 procedure SOMEEMRegisterData.someSetRegDataClientType(clientType: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7808,7 +7809,7 @@ end;
  * New Method: someSetRegDataEventMask
  *)
 type
-  somTD_SOMEEMRegisterData_someSetRegDataEventMask = procedure (eventType: LongInt; ap: va_list); stdcall;
+  somTD_SOMEEMRegisterData_someSetRegDataEventMask = procedure (somSelf: SOMEEMRegisterData; ev: PEnvironment; eventType: LongInt; ap: va_list); stdcall;
 
 procedure SOMEEMRegisterData.someSetRegDataEventMask(eventType: LongInt; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7819,7 +7820,7 @@ end;
  * New Method: someSetRegDataSink
  *)
 type
-  somTD_SOMEEMRegisterData_someSetRegDataSink = procedure (sink: LongInt); stdcall;
+  somTD_SOMEEMRegisterData_someSetRegDataSink = procedure (somSelf: SOMEEMRegisterData; ev: PEnvironment; sink: LongInt); stdcall;
 
 procedure SOMEEMRegisterData.someSetRegDataSink(sink: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7830,7 +7831,7 @@ end;
  * New Method: someSetRegDataSinkMask
  *)
 type
-  somTD_SOMEEMRegisterData_someSetRegDataSinkMask = procedure (sinkMask: LongWord); stdcall;
+  somTD_SOMEEMRegisterData_someSetRegDataSinkMask = procedure (somSelf: SOMEEMRegisterData; ev: PEnvironment; sinkMask: LongWord); stdcall;
 
 procedure SOMEEMRegisterData.someSetRegDataSinkMask(sinkMask: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7841,7 +7842,7 @@ end;
  * New Method: someSetRegDataTimerCount
  *)
 type
-  somTD_SOMEEMRegisterData_someSetRegDataTimerCount = procedure (count: LongInt); stdcall;
+  somTD_SOMEEMRegisterData_someSetRegDataTimerCount = procedure (somSelf: SOMEEMRegisterData; ev: PEnvironment; count: LongInt); stdcall;
 
 procedure SOMEEMRegisterData.someSetRegDataTimerCount(count: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -7852,7 +7853,7 @@ end;
  * New Method: someSetRegDataTimerInterval
  *)
 type
-  somTD_SOMEEMRegisterData_someSetRegDataTimerInterval = procedure (interval: LongInt); stdcall;
+  somTD_SOMEEMRegisterData_someSetRegDataTimerInterval = procedure (somSelf: SOMEEMRegisterData; ev: PEnvironment; interval: LongInt); stdcall;
 
 procedure SOMEEMRegisterData.someSetRegDataTimerInterval(interval: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8061,7 +8062,7 @@ end;
  * New Method: _get_type
  *)
 type
-  somTD_ExceptionDef__get_type = function : TypeCode; stdcall;
+  somTD_ExceptionDef__get_type = function (somSelf: ExceptionDef; ev: PEnvironment): TypeCode; stdcall;
 
 function ExceptionDef._get_type: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8072,7 +8073,7 @@ end;
  * New Method: _set_type
  *)
 type
-  somTD_ExceptionDef__set_type = procedure (SOM_type: TypeCode); stdcall;
+  somTD_ExceptionDef__set_type = procedure (somSelf: ExceptionDef; ev: PEnvironment; SOM_type: TypeCode); stdcall;
 
 procedure ExceptionDef._set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8331,7 +8332,7 @@ end;
  * New Method: _get_impl_id
  *)
 type
-  somTD_ImplementationDef__get_impl_id = function : CORBAString; stdcall;
+  somTD_ImplementationDef__get_impl_id = function (somSelf: ImplementationDef; ev: PEnvironment): CORBAString; stdcall;
 
 function ImplementationDef._get_impl_id: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8342,7 +8343,7 @@ end;
  * New Method: _set_impl_id
  *)
 type
-  somTD_ImplementationDef__set_impl_id = procedure (impl_id: CORBAString); stdcall;
+  somTD_ImplementationDef__set_impl_id = procedure (somSelf: ImplementationDef; ev: PEnvironment; impl_id: CORBAString); stdcall;
 
 procedure ImplementationDef._set_impl_id(impl_id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8353,7 +8354,7 @@ end;
  * New Method: _get_impl_alias
  *)
 type
-  somTD_ImplementationDef__get_impl_alias = function : CORBAString; stdcall;
+  somTD_ImplementationDef__get_impl_alias = function (somSelf: ImplementationDef; ev: PEnvironment): CORBAString; stdcall;
 
 function ImplementationDef._get_impl_alias: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8364,7 +8365,7 @@ end;
  * New Method: _set_impl_alias
  *)
 type
-  somTD_ImplementationDef__set_impl_alias = procedure (impl_alias: CORBAString); stdcall;
+  somTD_ImplementationDef__set_impl_alias = procedure (somSelf: ImplementationDef; ev: PEnvironment; impl_alias: CORBAString); stdcall;
 
 procedure ImplementationDef._set_impl_alias(impl_alias: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8375,7 +8376,7 @@ end;
  * New Method: _get_impl_program
  *)
 type
-  somTD_ImplementationDef__get_impl_program = function : CORBAString; stdcall;
+  somTD_ImplementationDef__get_impl_program = function (somSelf: ImplementationDef; ev: PEnvironment): CORBAString; stdcall;
 
 function ImplementationDef._get_impl_program: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8386,7 +8387,7 @@ end;
  * New Method: _set_impl_program
  *)
 type
-  somTD_ImplementationDef__set_impl_program = procedure (impl_program: CORBAString); stdcall;
+  somTD_ImplementationDef__set_impl_program = procedure (somSelf: ImplementationDef; ev: PEnvironment; impl_program: CORBAString); stdcall;
 
 procedure ImplementationDef._set_impl_program(impl_program: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8397,7 +8398,7 @@ end;
  * New Method: _get_impl_flags
  *)
 type
-  somTD_ImplementationDef__get_impl_flags = function : LongWord; stdcall;
+  somTD_ImplementationDef__get_impl_flags = function (somSelf: ImplementationDef; ev: PEnvironment): LongWord; stdcall;
 
 function ImplementationDef._get_impl_flags: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8408,7 +8409,7 @@ end;
  * New Method: _set_impl_flags
  *)
 type
-  somTD_ImplementationDef__set_impl_flags = procedure (impl_flags: LongWord); stdcall;
+  somTD_ImplementationDef__set_impl_flags = procedure (somSelf: ImplementationDef; ev: PEnvironment; impl_flags: LongWord); stdcall;
 
 procedure ImplementationDef._set_impl_flags(impl_flags: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8419,7 +8420,7 @@ end;
  * New Method: _get_impl_server_class
  *)
 type
-  somTD_ImplementationDef__get_impl_server_class = function : CORBAString; stdcall;
+  somTD_ImplementationDef__get_impl_server_class = function (somSelf: ImplementationDef; ev: PEnvironment): CORBAString; stdcall;
 
 function ImplementationDef._get_impl_server_class: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8430,7 +8431,7 @@ end;
  * New Method: _set_impl_server_class
  *)
 type
-  somTD_ImplementationDef__set_impl_server_class = procedure (impl_server_class: CORBAString); stdcall;
+  somTD_ImplementationDef__set_impl_server_class = procedure (somSelf: ImplementationDef; ev: PEnvironment; impl_server_class: CORBAString); stdcall;
 
 procedure ImplementationDef._set_impl_server_class(impl_server_class: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8441,7 +8442,7 @@ end;
  * New Method: _get_impl_refdata_file
  *)
 type
-  somTD_ImplementationDef__get_impl_refdata_file = function : CORBAString; stdcall;
+  somTD_ImplementationDef__get_impl_refdata_file = function (somSelf: ImplementationDef; ev: PEnvironment): CORBAString; stdcall;
 
 function ImplementationDef._get_impl_refdata_file: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8452,7 +8453,7 @@ end;
  * New Method: _set_impl_refdata_file
  *)
 type
-  somTD_ImplementationDef__set_impl_refdata_file = procedure (impl_refdata_file: CORBAString); stdcall;
+  somTD_ImplementationDef__set_impl_refdata_file = procedure (somSelf: ImplementationDef; ev: PEnvironment; impl_refdata_file: CORBAString); stdcall;
 
 procedure ImplementationDef._set_impl_refdata_file(impl_refdata_file: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8463,7 +8464,7 @@ end;
  * New Method: _get_impl_refdata_bkup
  *)
 type
-  somTD_ImplementationDef__get_impl_refdata_bkup = function : CORBAString; stdcall;
+  somTD_ImplementationDef__get_impl_refdata_bkup = function (somSelf: ImplementationDef; ev: PEnvironment): CORBAString; stdcall;
 
 function ImplementationDef._get_impl_refdata_bkup: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8474,7 +8475,7 @@ end;
  * New Method: _set_impl_refdata_bkup
  *)
 type
-  somTD_ImplementationDef__set_impl_refdata_bkup = procedure (impl_refdata_bkup: CORBAString); stdcall;
+  somTD_ImplementationDef__set_impl_refdata_bkup = procedure (somSelf: ImplementationDef; ev: PEnvironment; impl_refdata_bkup: CORBAString); stdcall;
 
 procedure ImplementationDef._set_impl_refdata_bkup(impl_refdata_bkup: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8485,7 +8486,7 @@ end;
  * New Method: _get_impl_hostname
  *)
 type
-  somTD_ImplementationDef__get_impl_hostname = function : CORBAString; stdcall;
+  somTD_ImplementationDef__get_impl_hostname = function (somSelf: ImplementationDef; ev: PEnvironment): CORBAString; stdcall;
 
 function ImplementationDef._get_impl_hostname: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8496,7 +8497,7 @@ end;
  * New Method: _set_impl_hostname
  *)
 type
-  somTD_ImplementationDef__set_impl_hostname = procedure (impl_hostname: CORBAString); stdcall;
+  somTD_ImplementationDef__set_impl_hostname = procedure (somSelf: ImplementationDef; ev: PEnvironment; impl_hostname: CORBAString); stdcall;
 
 procedure ImplementationDef._set_impl_hostname(impl_hostname: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8705,7 +8706,7 @@ end;
  * New Method: find_impldef
  *)
 type
-  somTD_ImplRepository_find_impldef = function (implid: CORBAString): ImplementationDef; stdcall;
+  somTD_ImplRepository_find_impldef = function (somSelf: ImplRepository; ev: PEnvironment; implid: CORBAString): ImplementationDef; stdcall;
 
 function ImplRepository.find_impldef(implid: CORBAString): ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8716,7 +8717,7 @@ end;
  * New Method: find_impldef_by_alias
  *)
 type
-  somTD_ImplRepository_find_impldef_by_alias = function (alias_name: CORBAString): ImplementationDef; stdcall;
+  somTD_ImplRepository_find_impldef_by_alias = function (somSelf: ImplRepository; ev: PEnvironment; alias_name: CORBAString): ImplementationDef; stdcall;
 
 function ImplRepository.find_impldef_by_alias(alias_name: CORBAString): ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8727,7 +8728,7 @@ end;
  * New Method: find_all_impldefs
  *)
 type
-  somTD_ImplRepository_find_all_impldefs = function (out outimpldefs: _IDL_Sequence_ImplementationDef): LongWord; stdcall;
+  somTD_ImplRepository_find_all_impldefs = function (somSelf: ImplRepository; ev: PEnvironment; out outimpldefs: _IDL_Sequence_ImplementationDef): LongWord; stdcall;
 
 function ImplRepository.find_all_impldefs(out outimpldefs: _IDL_Sequence_ImplementationDef): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8738,7 +8739,7 @@ end;
  * New Method: find_impldef_by_class
  *)
 type
-  somTD_ImplRepository_find_impldef_by_class = function (classname: CORBAString): _IDL_Sequence_ImplementationDef; stdcall;
+  somTD_ImplRepository_find_impldef_by_class = function (somSelf: ImplRepository; ev: PEnvironment; classname: CORBAString): _IDL_Sequence_ImplementationDef; stdcall;
 
 function ImplRepository.find_impldef_by_class(classname: CORBAString): _IDL_Sequence_ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8749,7 +8750,7 @@ end;
  * New Method: add_impldef
  *)
 type
-  somTD_ImplRepository_add_impldef = procedure (impldef: ImplementationDef); stdcall;
+  somTD_ImplRepository_add_impldef = procedure (somSelf: ImplRepository; ev: PEnvironment; impldef: ImplementationDef); stdcall;
 
 procedure ImplRepository.add_impldef(impldef: ImplementationDef); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8760,7 +8761,7 @@ end;
  * New Method: update_impldef
  *)
 type
-  somTD_ImplRepository_update_impldef = procedure (impldef: ImplementationDef); stdcall;
+  somTD_ImplRepository_update_impldef = procedure (somSelf: ImplRepository; ev: PEnvironment; impldef: ImplementationDef); stdcall;
 
 procedure ImplRepository.update_impldef(impldef: ImplementationDef); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8771,7 +8772,7 @@ end;
  * New Method: delete_impldef
  *)
 type
-  somTD_ImplRepository_delete_impldef = procedure (implid: CORBAString); stdcall;
+  somTD_ImplRepository_delete_impldef = procedure (somSelf: ImplRepository; ev: PEnvironment; implid: CORBAString); stdcall;
 
 procedure ImplRepository.delete_impldef(implid: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8782,7 +8783,7 @@ end;
  * New Method: add_class_to_impldef
  *)
 type
-  somTD_ImplRepository_add_class_to_impldef = procedure (implid: CORBAString; classname: CORBAString); stdcall;
+  somTD_ImplRepository_add_class_to_impldef = procedure (somSelf: ImplRepository; ev: PEnvironment; implid: CORBAString; classname: CORBAString); stdcall;
 
 procedure ImplRepository.add_class_to_impldef(implid: CORBAString; classname: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8793,7 +8794,7 @@ end;
  * New Method: remove_class_from_impldef
  *)
 type
-  somTD_ImplRepository_remove_class_from_impldef = procedure (implid: CORBAString; classname: CORBAString); stdcall;
+  somTD_ImplRepository_remove_class_from_impldef = procedure (somSelf: ImplRepository; ev: PEnvironment; implid: CORBAString; classname: CORBAString); stdcall;
 
 procedure ImplRepository.remove_class_from_impldef(implid: CORBAString; classname: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8804,7 +8805,7 @@ end;
  * New Method: remove_class_from_all
  *)
 type
-  somTD_ImplRepository_remove_class_from_all = procedure (classname: CORBAString); stdcall;
+  somTD_ImplRepository_remove_class_from_all = procedure (somSelf: ImplRepository; ev: PEnvironment; classname: CORBAString); stdcall;
 
 procedure ImplRepository.remove_class_from_all(classname: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -8815,7 +8816,7 @@ end;
  * New Method: find_classes_by_impldef
  *)
 type
-  somTD_ImplRepository_find_classes_by_impldef = function (implid: CORBAString): _IDL_Sequence_CORBAString; stdcall;
+  somTD_ImplRepository_find_classes_by_impldef = function (somSelf: ImplRepository; ev: PEnvironment; implid: CORBAString): _IDL_Sequence_CORBAString; stdcall;
 
 function ImplRepository.find_classes_by_impldef(implid: CORBAString): _IDL_Sequence_CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9024,7 +9025,7 @@ end;
  * New Method: _get_base_interfaces
  *)
 type
-  somTD_InterfaceDef__get_base_interfaces = function : _IDL_Sequence_CORBAString; stdcall;
+  somTD_InterfaceDef__get_base_interfaces = function (somSelf: InterfaceDef; ev: PEnvironment): _IDL_Sequence_CORBAString; stdcall;
 
 function InterfaceDef._get_base_interfaces: _IDL_Sequence_CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9035,7 +9036,7 @@ end;
  * New Method: _set_base_interfaces
  *)
 type
-  somTD_InterfaceDef__set_base_interfaces = procedure (const base_interfaces: _IDL_Sequence_CORBAString); stdcall;
+  somTD_InterfaceDef__set_base_interfaces = procedure (somSelf: InterfaceDef; ev: PEnvironment; const base_interfaces: _IDL_Sequence_CORBAString); stdcall;
 
 procedure InterfaceDef._set_base_interfaces(const base_interfaces: _IDL_Sequence_CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9046,7 +9047,7 @@ end;
  * New Method: _get_instanceData
  *)
 type
-  somTD_InterfaceDef__get_instanceData = function : TypeCode; stdcall;
+  somTD_InterfaceDef__get_instanceData = function (somSelf: InterfaceDef; ev: PEnvironment): TypeCode; stdcall;
 
 function InterfaceDef._get_instanceData: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9057,7 +9058,7 @@ end;
  * New Method: _set_instanceData
  *)
 type
-  somTD_InterfaceDef__set_instanceData = procedure (instanceData: TypeCode); stdcall;
+  somTD_InterfaceDef__set_instanceData = procedure (somSelf: InterfaceDef; ev: PEnvironment; instanceData: TypeCode); stdcall;
 
 procedure InterfaceDef._set_instanceData(instanceData: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9108,7 +9109,7 @@ end;
  * New Method: describe_interface
  *)
 type
-  somTD_InterfaceDef_describe_interface = function : InterfaceDef_FullInterfaceDescription; stdcall;
+  somTD_InterfaceDef_describe_interface = function (somSelf: InterfaceDef; ev: PEnvironment): InterfaceDef_FullInterfaceDescription; stdcall;
 
 function InterfaceDef.describe_interface: InterfaceDef_FullInterfaceDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9605,7 +9606,7 @@ end;
  * New Method: add_item
  *)
 type
-  somTD_NVList_add_item = function (item_name: CORBAString; item_type: TypeCode; value: Pointer; value_len: LongInt; item_flags: LongWord): LongWord; stdcall;
+  somTD_NVList_add_item = function (somSelf: NVList; ev: PEnvironment; item_name: CORBAString; item_type: TypeCode; value: Pointer; value_len: LongInt; item_flags: LongWord): LongWord; stdcall;
 
 function NVList.add_item(item_name: CORBAString; item_type: TypeCode; value: Pointer; value_len: LongInt; item_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9616,7 +9617,7 @@ end;
  * New Method: free
  *)
 type
-  somTD_NVList_free = function : LongWord; stdcall;
+  somTD_NVList_free = function (somSelf: NVList; ev: PEnvironment): LongWord; stdcall;
 
 function NVList.free: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9627,7 +9628,7 @@ end;
  * New Method: free_memory
  *)
 type
-  somTD_NVList_free_memory = function : LongWord; stdcall;
+  somTD_NVList_free_memory = function (somSelf: NVList; ev: PEnvironment): LongWord; stdcall;
 
 function NVList.free_memory: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9638,7 +9639,7 @@ end;
  * New Method: get_count
  *)
 type
-  somTD_NVList_get_count = function (out count: LongInt): LongWord; stdcall;
+  somTD_NVList_get_count = function (somSelf: NVList; ev: PEnvironment; out count: LongInt): LongWord; stdcall;
 
 function NVList.get_count(out count: LongInt): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9649,7 +9650,7 @@ end;
  * New Method: set_item
  *)
 type
-  somTD_NVList_set_item = function (item_number: LongInt; item_name: CORBAString; item_type: TypeCode; value: Pointer; value_len: LongInt; item_flags: LongWord): LongWord; stdcall;
+  somTD_NVList_set_item = function (somSelf: NVList; ev: PEnvironment; item_number: LongInt; item_name: CORBAString; item_type: TypeCode; value: Pointer; value_len: LongInt; item_flags: LongWord): LongWord; stdcall;
 
 function NVList.set_item(item_number: LongInt; item_name: CORBAString; item_type: TypeCode; value: Pointer; value_len: LongInt; item_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9660,7 +9661,7 @@ end;
  * New Method: get_item
  *)
 type
-  somTD_NVList_get_item = function (item_number: LongInt; out item_name: CORBAString; out item_type: TypeCode; out value: Pointer; out value_len: LongInt; out item_flags: LongWord): LongWord; stdcall;
+  somTD_NVList_get_item = function (somSelf: NVList; ev: PEnvironment; item_number: LongInt; out item_name: CORBAString; out item_type: TypeCode; out value: Pointer; out value_len: LongInt; out item_flags: LongWord): LongWord; stdcall;
 
 function NVList.get_item(item_number: LongInt; out item_name: CORBAString; out item_type: TypeCode; out value: Pointer; out value_len: LongInt; out item_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9869,7 +9870,7 @@ end;
  * New Method: somdNewObject
  *)
 type
-  somTD_ObjectMgr_somdNewObject = function (objclass: CORBAString; hints: CORBAString): SOMObject; stdcall;
+  somTD_ObjectMgr_somdNewObject = function (somSelf: ObjectMgr; ev: PEnvironment; objclass: CORBAString; hints: CORBAString): SOMObject; stdcall;
 
 function ObjectMgr.somdNewObject(objclass: CORBAString; hints: CORBAString): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9880,7 +9881,7 @@ end;
  * New Method: somdGetIdFromObject
  *)
 type
-  somTD_ObjectMgr_somdGetIdFromObject = function (obj: SOMObject): CORBAString; stdcall;
+  somTD_ObjectMgr_somdGetIdFromObject = function (somSelf: ObjectMgr; ev: PEnvironment; obj: SOMObject): CORBAString; stdcall;
 
 function ObjectMgr.somdGetIdFromObject(obj: SOMObject): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9891,7 +9892,7 @@ end;
  * New Method: somdGetObjectFromId
  *)
 type
-  somTD_ObjectMgr_somdGetObjectFromId = function (id: CORBAString): SOMObject; stdcall;
+  somTD_ObjectMgr_somdGetObjectFromId = function (somSelf: ObjectMgr; ev: PEnvironment; id: CORBAString): SOMObject; stdcall;
 
 function ObjectMgr.somdGetObjectFromId(id: CORBAString): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9902,7 +9903,7 @@ end;
  * New Method: somdReleaseObject
  *)
 type
-  somTD_ObjectMgr_somdReleaseObject = procedure (obj: SOMObject); stdcall;
+  somTD_ObjectMgr_somdReleaseObject = procedure (somSelf: ObjectMgr; ev: PEnvironment; obj: SOMObject); stdcall;
 
 procedure ObjectMgr.somdReleaseObject(obj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -9913,7 +9914,7 @@ end;
  * New Method: somdDestroyObject
  *)
 type
-  somTD_ObjectMgr_somdDestroyObject = procedure (obj: SOMObject); stdcall;
+  somTD_ObjectMgr_somdDestroyObject = procedure (somSelf: ObjectMgr; ev: PEnvironment; obj: SOMObject); stdcall;
 
 procedure ObjectMgr.somdDestroyObject(obj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10122,7 +10123,7 @@ end;
  * New Method: _get_result
  *)
 type
-  somTD_OperationDef__get_result = function : TypeCode; stdcall;
+  somTD_OperationDef__get_result = function (somSelf: OperationDef; ev: PEnvironment): TypeCode; stdcall;
 
 function OperationDef._get_result: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10133,7 +10134,7 @@ end;
  * New Method: _set_result
  *)
 type
-  somTD_OperationDef__set_result = procedure (SOM_result: TypeCode); stdcall;
+  somTD_OperationDef__set_result = procedure (somSelf: OperationDef; ev: PEnvironment; SOM_result: TypeCode); stdcall;
 
 procedure OperationDef._set_result(SOM_result: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10144,7 +10145,7 @@ end;
  * New Method: _get_mode
  *)
 type
-  somTD_OperationDef__get_mode = function : OperationDef_OperationMode; stdcall;
+  somTD_OperationDef__get_mode = function (somSelf: OperationDef; ev: PEnvironment): OperationDef_OperationMode; stdcall;
 
 function OperationDef._get_mode: OperationDef_OperationMode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10155,7 +10156,7 @@ end;
  * New Method: _set_mode
  *)
 type
-  somTD_OperationDef__set_mode = procedure (mode: OperationDef_OperationMode); stdcall;
+  somTD_OperationDef__set_mode = procedure (somSelf: OperationDef; ev: PEnvironment; mode: OperationDef_OperationMode); stdcall;
 
 procedure OperationDef._set_mode(mode: OperationDef_OperationMode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10166,7 +10167,7 @@ end;
  * New Method: _get_contexts
  *)
 type
-  somTD_OperationDef__get_contexts = function : _IDL_Sequence_CORBAString; stdcall;
+  somTD_OperationDef__get_contexts = function (somSelf: OperationDef; ev: PEnvironment): _IDL_Sequence_CORBAString; stdcall;
 
 function OperationDef._get_contexts: _IDL_Sequence_CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10177,7 +10178,7 @@ end;
  * New Method: _set_contexts
  *)
 type
-  somTD_OperationDef__set_contexts = procedure (const contexts: _IDL_Sequence_CORBAString); stdcall;
+  somTD_OperationDef__set_contexts = procedure (somSelf: OperationDef; ev: PEnvironment; const contexts: _IDL_Sequence_CORBAString); stdcall;
 
 procedure OperationDef._set_contexts(const contexts: _IDL_Sequence_CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10451,7 +10452,7 @@ end;
  * New Method: object_to_string
  *)
 type
-  somTD_ORB_object_to_string = function (obj: SOMDObject): CORBAString; stdcall;
+  somTD_ORB_object_to_string = function (somSelf: ORB; ev: PEnvironment; obj: SOMDObject): CORBAString; stdcall;
 
 function ORB.object_to_string(obj: SOMDObject): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10462,7 +10463,7 @@ end;
  * New Method: string_to_object
  *)
 type
-  somTD_ORB_string_to_object = function (str: CORBAString): SOMDObject; stdcall;
+  somTD_ORB_string_to_object = function (somSelf: ORB; ev: PEnvironment; str: CORBAString): SOMDObject; stdcall;
 
 function ORB.string_to_object(str: CORBAString): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10473,7 +10474,7 @@ end;
  * New Method: create_list
  *)
 type
-  somTD_ORB_create_list = function (count: LongInt; out new_list: NVList): LongWord; stdcall;
+  somTD_ORB_create_list = function (somSelf: ORB; ev: PEnvironment; count: LongInt; out new_list: NVList): LongWord; stdcall;
 
 function ORB.create_list(count: LongInt; out new_list: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10484,7 +10485,7 @@ end;
  * New Method: create_operation_list
  *)
 type
-  somTD_ORB_create_operation_list = function (oper: OperationDef; out new_list: NVList): LongWord; stdcall;
+  somTD_ORB_create_operation_list = function (somSelf: ORB; ev: PEnvironment; oper: OperationDef; out new_list: NVList): LongWord; stdcall;
 
 function ORB.create_operation_list(oper: OperationDef; out new_list: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10495,7 +10496,7 @@ end;
  * New Method: get_default_context
  *)
 type
-  somTD_ORB_get_default_context = function (out ctx: Context): LongWord; stdcall;
+  somTD_ORB_get_default_context = function (somSelf: ORB; ev: PEnvironment; out ctx: Context): LongWord; stdcall;
 
 function ORB.get_default_context(out ctx: Context): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10704,7 +10705,7 @@ end;
  * New Method: _get_type
  *)
 type
-  somTD_ParameterDef__get_type = function : TypeCode; stdcall;
+  somTD_ParameterDef__get_type = function (somSelf: ParameterDef; ev: PEnvironment): TypeCode; stdcall;
 
 function ParameterDef._get_type: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10715,7 +10716,7 @@ end;
  * New Method: _set_type
  *)
 type
-  somTD_ParameterDef__set_type = procedure (SOM_type: TypeCode); stdcall;
+  somTD_ParameterDef__set_type = procedure (somSelf: ParameterDef; ev: PEnvironment; SOM_type: TypeCode); stdcall;
 
 procedure ParameterDef._set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10726,7 +10727,7 @@ end;
  * New Method: _get_mode
  *)
 type
-  somTD_ParameterDef__get_mode = function : ParameterDef_ParameterMode; stdcall;
+  somTD_ParameterDef__get_mode = function (somSelf: ParameterDef; ev: PEnvironment): ParameterDef_ParameterMode; stdcall;
 
 function ParameterDef._get_mode: ParameterDef_ParameterMode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10737,7 +10738,7 @@ end;
  * New Method: _set_mode
  *)
 type
-  somTD_ParameterDef__set_mode = procedure (mode: ParameterDef_ParameterMode); stdcall;
+  somTD_ParameterDef__set_mode = procedure (somSelf: ParameterDef; ev: PEnvironment; mode: ParameterDef_ParameterMode); stdcall;
 
 procedure ParameterDef._set_mode(mode: ParameterDef_ParameterMode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -10996,7 +10997,7 @@ end;
  * New Method: _get_userName
  *)
 type
-  somTD_Principal__get_userName = function : CORBAString; stdcall;
+  somTD_Principal__get_userName = function (somSelf: Principal; ev: PEnvironment): CORBAString; stdcall;
 
 function Principal._get_userName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11007,7 +11008,7 @@ end;
  * New Method: _set_userName
  *)
 type
-  somTD_Principal__set_userName = procedure (userName: CORBAString); stdcall;
+  somTD_Principal__set_userName = procedure (somSelf: Principal; ev: PEnvironment; userName: CORBAString); stdcall;
 
 procedure Principal._set_userName(userName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11018,7 +11019,7 @@ end;
  * New Method: _get_hostName
  *)
 type
-  somTD_Principal__get_hostName = function : CORBAString; stdcall;
+  somTD_Principal__get_hostName = function (somSelf: Principal; ev: PEnvironment): CORBAString; stdcall;
 
 function Principal._get_hostName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11029,7 +11030,7 @@ end;
  * New Method: _set_hostName
  *)
 type
-  somTD_Principal__set_hostName = procedure (hostName: CORBAString); stdcall;
+  somTD_Principal__set_hostName = procedure (somSelf: Principal; ev: PEnvironment; hostName: CORBAString); stdcall;
 
 procedure Principal._set_hostName(hostName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11238,7 +11239,7 @@ end;
  * New Method: lookup_id
  *)
 type
-  somTD_Repository_lookup_id = function (search_id: CORBAString): Contained; stdcall;
+  somTD_Repository_lookup_id = function (somSelf: Repository; ev: PEnvironment; search_id: CORBAString): Contained; stdcall;
 
 function Repository.lookup_id(search_id: CORBAString): Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11249,7 +11250,7 @@ end;
  * New Method: lookup_modifier
  *)
 type
-  somTD_Repository_lookup_modifier = function (name: CORBAString; modifier: CORBAString): CORBAString; stdcall;
+  somTD_Repository_lookup_modifier = function (somSelf: Repository; ev: PEnvironment; name: CORBAString; modifier: CORBAString): CORBAString; stdcall;
 
 function Repository.lookup_modifier(name: CORBAString; modifier: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11260,7 +11261,7 @@ end;
  * New Method: release_cache
  *)
 type
-  somTD_Repository_release_cache = procedure ; stdcall;
+  somTD_Repository_release_cache = procedure (somSelf: Repository; ev: PEnvironment); stdcall;
 
 procedure Repository.release_cache; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11484,7 +11485,7 @@ end;
  * New Method: add_arg
  *)
 type
-  somTD_Request_add_arg = function (name: CORBAString; arg_type: TypeCode; value: Pointer; len: LongInt; arg_flags: LongWord): LongWord; stdcall;
+  somTD_Request_add_arg = function (somSelf: Request; ev: PEnvironment; name: CORBAString; arg_type: TypeCode; value: Pointer; len: LongInt; arg_flags: LongWord): LongWord; stdcall;
 
 function Request.add_arg(name: CORBAString; arg_type: TypeCode; value: Pointer; len: LongInt; arg_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11495,7 +11496,7 @@ end;
  * New Method: invoke
  *)
 type
-  somTD_Request_invoke = function (invoke_flags: LongWord): LongWord; stdcall;
+  somTD_Request_invoke = function (somSelf: Request; ev: PEnvironment; invoke_flags: LongWord): LongWord; stdcall;
 
 function Request.invoke(invoke_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11506,7 +11507,7 @@ end;
  * New Method: send
  *)
 type
-  somTD_Request_send = function (invoke_flags: LongWord): LongWord; stdcall;
+  somTD_Request_send = function (somSelf: Request; ev: PEnvironment; invoke_flags: LongWord): LongWord; stdcall;
 
 function Request.send(invoke_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11517,7 +11518,7 @@ end;
  * New Method: get_response
  *)
 type
-  somTD_Request_get_response = function (response_flags: LongWord): LongWord; stdcall;
+  somTD_Request_get_response = function (somSelf: Request; ev: PEnvironment; response_flags: LongWord): LongWord; stdcall;
 
 function Request.get_response(response_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11528,7 +11529,7 @@ end;
  * New Method: destroy
  *)
 type
-  somTD_Request_destroy = function : LongWord; stdcall;
+  somTD_Request_destroy = function (somSelf: Request; ev: PEnvironment): LongWord; stdcall;
 
 function Request.destroy: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11737,7 +11738,7 @@ end;
  * New Method: _get_somtEntryName
  *)
 type
-  somTD_SOMTEntryC__get_somtEntryName = function : CORBAString; stdcall;
+  somTD_SOMTEntryC__get_somtEntryName = function (somSelf: SOMTEntryC): CORBAString; stdcall;
 
 function SOMTEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11748,7 +11749,7 @@ end;
  * New Method: _set_somtEntryName
  *)
 type
-  somTD_SOMTEntryC__set_somtEntryName = procedure (somtEntryName: CORBAString); stdcall;
+  somTD_SOMTEntryC__set_somtEntryName = procedure (somSelf: SOMTEntryC; somtEntryName: CORBAString); stdcall;
 
 procedure SOMTEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11759,7 +11760,7 @@ end;
  * New Method: _get_somtElementType
  *)
 type
-  somTD_SOMTEntryC__get_somtElementType = function : LongWord; stdcall;
+  somTD_SOMTEntryC__get_somtElementType = function (somSelf: SOMTEntryC): LongWord; stdcall;
 
 function SOMTEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11770,7 +11771,7 @@ end;
  * New Method: _set_somtElementType
  *)
 type
-  somTD_SOMTEntryC__set_somtElementType = procedure (somtElementType: LongWord); stdcall;
+  somTD_SOMTEntryC__set_somtElementType = procedure (somSelf: SOMTEntryC; somtElementType: LongWord); stdcall;
 
 procedure SOMTEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11781,7 +11782,7 @@ end;
  * New Method: _get_somtElementTypeName
  *)
 type
-  somTD_SOMTEntryC__get_somtElementTypeName = function : CORBAString; stdcall;
+  somTD_SOMTEntryC__get_somtElementTypeName = function (somSelf: SOMTEntryC): CORBAString; stdcall;
 
 function SOMTEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11792,7 +11793,7 @@ end;
  * New Method: _get_somtEntryComment
  *)
 type
-  somTD_SOMTEntryC__get_somtEntryComment = function : CORBAString; stdcall;
+  somTD_SOMTEntryC__get_somtEntryComment = function (somSelf: SOMTEntryC): CORBAString; stdcall;
 
 function SOMTEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11803,7 +11804,7 @@ end;
  * New Method: _get_somtSourceLineNumber
  *)
 type
-  somTD_SOMTEntryC__get_somtSourceLineNumber = function : LongWord; stdcall;
+  somTD_SOMTEntryC__get_somtSourceLineNumber = function (somSelf: SOMTEntryC): LongWord; stdcall;
 
 function SOMTEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11814,7 +11815,7 @@ end;
  * New Method: _get_somtTypeCode
  *)
 type
-  somTD_SOMTEntryC__get_somtTypeCode = function : TypeCode; stdcall;
+  somTD_SOMTEntryC__get_somtTypeCode = function (somSelf: SOMTEntryC): TypeCode; stdcall;
 
 function SOMTEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11825,7 +11826,7 @@ end;
  * New Method: _get_somtIsReference
  *)
 type
-  somTD_SOMTEntryC__get_somtIsReference = function : CORBABoolean; stdcall;
+  somTD_SOMTEntryC__get_somtIsReference = function (somSelf: SOMTEntryC): CORBABoolean; stdcall;
 
 function SOMTEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11836,7 +11837,7 @@ end;
  * New Method: _get_somtIDLScopedName
  *)
 type
-  somTD_SOMTEntryC__get_somtIDLScopedName = function : CORBAString; stdcall;
+  somTD_SOMTEntryC__get_somtIDLScopedName = function (somSelf: SOMTEntryC): CORBAString; stdcall;
 
 function SOMTEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11847,7 +11848,7 @@ end;
  * New Method: _get_somtCScopedName
  *)
 type
-  somTD_SOMTEntryC__get_somtCScopedName = function : CORBAString; stdcall;
+  somTD_SOMTEntryC__get_somtCScopedName = function (somSelf: SOMTEntryC): CORBAString; stdcall;
 
 function SOMTEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11858,7 +11859,7 @@ end;
  * New Method: somtGetModifierValue
  *)
 type
-  somTD_SOMTEntryC_somtGetModifierValue = function (modifierName: CORBAString): CORBAString; stdcall;
+  somTD_SOMTEntryC_somtGetModifierValue = function (somSelf: SOMTEntryC; modifierName: CORBAString): CORBAString; stdcall;
 
 function SOMTEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11869,7 +11870,7 @@ end;
  * New Method: somtGetFirstModifier
  *)
 type
-  somTD_SOMTEntryC_somtGetFirstModifier = function (var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEntryC_somtGetFirstModifier = function (somSelf: SOMTEntryC; var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11880,7 +11881,7 @@ end;
  * New Method: somtGetNextModifier
  *)
 type
-  somTD_SOMTEntryC_somtGetNextModifier = function (var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEntryC_somtGetNextModifier = function (somSelf: SOMTEntryC; var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11891,7 +11892,7 @@ end;
  * New Method: somtFormatModifier
  *)
 type
-  somTD_SOMTEntryC_somtFormatModifier = function (buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; stdcall;
+  somTD_SOMTEntryC_somtFormatModifier = function (somSelf: SOMTEntryC; buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; stdcall;
 
 function SOMTEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11902,7 +11903,7 @@ end;
  * New Method: somtGetModifierList
  *)
 type
-  somTD_SOMTEntryC_somtGetModifierList = function (buffer: CORBAString): LongInt; stdcall;
+  somTD_SOMTEntryC_somtGetModifierList = function (somSelf: SOMTEntryC; buffer: CORBAString): LongInt; stdcall;
 
 function SOMTEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11913,7 +11914,7 @@ end;
  * New Method: somtSetSymbolsOnEntry
  *)
 type
-  somTD_SOMTEntryC_somtSetSymbolsOnEntry = function (emitter: SOMTEmitC; prefix: CORBAString): LongInt; stdcall;
+  somTD_SOMTEntryC_somtSetSymbolsOnEntry = function (somSelf: SOMTEntryC; emitter: SOMTEmitC; prefix: CORBAString): LongInt; stdcall;
 
 function SOMTEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -11924,7 +11925,7 @@ end;
  * New Method: somtSetEntryStruct
  *)
 type
-  somTD_SOMTEntryC_somtSetEntryStruct = procedure (var es: Pointer); stdcall;
+  somTD_SOMTEntryC_somtSetEntryStruct = procedure (somSelf: SOMTEntryC; var es: Pointer); stdcall;
 
 procedure SOMTEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12133,7 +12134,7 @@ end;
  * New Method: _get_somtIsReadonly
  *)
 type
-  somTD_SOMTAttributeEntryC__get_somtIsReadonly = function : CORBABoolean; stdcall;
+  somTD_SOMTAttributeEntryC__get_somtIsReadonly = function (somSelf: SOMTAttributeEntryC): CORBABoolean; stdcall;
 
 function SOMTAttributeEntryC._get_somtIsReadonly: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12144,7 +12145,7 @@ end;
  * New Method: _get_somtAttribType
  *)
 type
-  somTD_SOMTAttributeEntryC__get_somtAttribType = function : SOMTEntryC; stdcall;
+  somTD_SOMTAttributeEntryC__get_somtAttribType = function (somSelf: SOMTAttributeEntryC): SOMTEntryC; stdcall;
 
 function SOMTAttributeEntryC._get_somtAttribType: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12210,7 +12211,7 @@ end;
  * New Method: somtGetFirstAttributeDeclarator
  *)
 type
-  somTD_SOMTAttributeEntryC_somtGetFirstAttributeDeclarator = function : SOMTDataEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetFirstAttributeDeclarator = function (somSelf: SOMTAttributeEntryC): SOMTDataEntryC; stdcall;
 
 function SOMTAttributeEntryC.somtGetFirstAttributeDeclarator: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12221,7 +12222,7 @@ end;
  * New Method: somtGetNextAttributeDeclarator
  *)
 type
-  somTD_SOMTAttributeEntryC_somtGetNextAttributeDeclarator = function : SOMTDataEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetNextAttributeDeclarator = function (somSelf: SOMTAttributeEntryC): SOMTDataEntryC; stdcall;
 
 function SOMTAttributeEntryC.somtGetNextAttributeDeclarator: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12232,7 +12233,7 @@ end;
  * New Method: somtGetFirstGetMethod
  *)
 type
-  somTD_SOMTAttributeEntryC_somtGetFirstGetMethod = function : SOMTMethodEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetFirstGetMethod = function (somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; stdcall;
 
 function SOMTAttributeEntryC.somtGetFirstGetMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12243,7 +12244,7 @@ end;
  * New Method: somtGetNextGetMethod
  *)
 type
-  somTD_SOMTAttributeEntryC_somtGetNextGetMethod = function : SOMTMethodEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetNextGetMethod = function (somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; stdcall;
 
 function SOMTAttributeEntryC.somtGetNextGetMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12254,7 +12255,7 @@ end;
  * New Method: somtGetFirstSetMethod
  *)
 type
-  somTD_SOMTAttributeEntryC_somtGetFirstSetMethod = function : SOMTMethodEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetFirstSetMethod = function (somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; stdcall;
 
 function SOMTAttributeEntryC.somtGetFirstSetMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12265,7 +12266,7 @@ end;
  * New Method: somtGetNextSetMethod
  *)
 type
-  somTD_SOMTAttributeEntryC_somtGetNextSetMethod = function : SOMTMethodEntryC; stdcall;
+  somTD_SOMTAttributeEntryC_somtGetNextSetMethod = function (somSelf: SOMTAttributeEntryC): SOMTMethodEntryC; stdcall;
 
 function SOMTAttributeEntryC.somtGetNextSetMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12509,7 +12510,7 @@ end;
  * New Method: _get_somtBaseClassDef
  *)
 type
-  somTD_SOMTBaseClassEntryC__get_somtBaseClassDef = function : SOMTClassEntryC; stdcall;
+  somTD_SOMTBaseClassEntryC__get_somtBaseClassDef = function (somSelf: SOMTBaseClassEntryC): SOMTClassEntryC; stdcall;
 
 function SOMTBaseClassEntryC._get_somtBaseClassDef: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12808,7 +12809,7 @@ end;
  * New Method: _get_somtSourceFileName
  *)
 type
-  somTD_SOMTClassEntryC__get_somtSourceFileName = function : CORBAString; stdcall;
+  somTD_SOMTClassEntryC__get_somtSourceFileName = function (somSelf: SOMTClassEntryC): CORBAString; stdcall;
 
 function SOMTClassEntryC._get_somtSourceFileName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12819,7 +12820,7 @@ end;
  * New Method: _get_somtMetaClassEntry
  *)
 type
-  somTD_SOMTClassEntryC__get_somtMetaClassEntry = function : SOMTMetaClassEntryC; stdcall;
+  somTD_SOMTClassEntryC__get_somtMetaClassEntry = function (somSelf: SOMTClassEntryC): SOMTMetaClassEntryC; stdcall;
 
 function SOMTClassEntryC._get_somtMetaClassEntry: SOMTMetaClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12830,7 +12831,7 @@ end;
  * New Method: _get_somtClassModule
  *)
 type
-  somTD_SOMTClassEntryC__get_somtClassModule = function : SOMTModuleEntryC; stdcall;
+  somTD_SOMTClassEntryC__get_somtClassModule = function (somSelf: SOMTClassEntryC): SOMTModuleEntryC; stdcall;
 
 function SOMTClassEntryC._get_somtClassModule: SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12841,7 +12842,7 @@ end;
  * New Method: _get_somtNewMethodCount
  *)
 type
-  somTD_SOMTClassEntryC__get_somtNewMethodCount = function : LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtNewMethodCount = function (somSelf: SOMTClassEntryC): LongInt; stdcall;
 
 function SOMTClassEntryC._get_somtNewMethodCount: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12852,7 +12853,7 @@ end;
  * New Method: _get_somtLocalInclude
  *)
 type
-  somTD_SOMTClassEntryC__get_somtLocalInclude = function : CORBABoolean; stdcall;
+  somTD_SOMTClassEntryC__get_somtLocalInclude = function (somSelf: SOMTClassEntryC): CORBABoolean; stdcall;
 
 function SOMTClassEntryC._get_somtLocalInclude: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12863,7 +12864,7 @@ end;
  * New Method: _get_somtPrivateMethodCount
  *)
 type
-  somTD_SOMTClassEntryC__get_somtPrivateMethodCount = function : LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtPrivateMethodCount = function (somSelf: SOMTClassEntryC): LongInt; stdcall;
 
 function SOMTClassEntryC._get_somtPrivateMethodCount: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12874,7 +12875,7 @@ end;
  * New Method: _get_somtStaticMethodCount
  *)
 type
-  somTD_SOMTClassEntryC__get_somtStaticMethodCount = function : LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtStaticMethodCount = function (somSelf: SOMTClassEntryC): LongInt; stdcall;
 
 function SOMTClassEntryC._get_somtStaticMethodCount: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12885,7 +12886,7 @@ end;
  * New Method: _get_somtOverrideMethodCount
  *)
 type
-  somTD_SOMTClassEntryC__get_somtOverrideMethodCount = function : LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtOverrideMethodCount = function (somSelf: SOMTClassEntryC): LongInt; stdcall;
 
 function SOMTClassEntryC._get_somtOverrideMethodCount: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12896,7 +12897,7 @@ end;
  * New Method: _get_somtProcMethodCount
  *)
 type
-  somTD_SOMTClassEntryC__get_somtProcMethodCount = function : LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtProcMethodCount = function (somSelf: SOMTClassEntryC): LongInt; stdcall;
 
 function SOMTClassEntryC._get_somtProcMethodCount: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12907,7 +12908,7 @@ end;
  * New Method: _get_somtVAMethodCount
  *)
 type
-  somTD_SOMTClassEntryC__get_somtVAMethodCount = function : LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtVAMethodCount = function (somSelf: SOMTClassEntryC): LongInt; stdcall;
 
 function SOMTClassEntryC._get_somtVAMethodCount: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12918,7 +12919,7 @@ end;
  * New Method: _get_somtBaseCount
  *)
 type
-  somTD_SOMTClassEntryC__get_somtBaseCount = function : LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtBaseCount = function (somSelf: SOMTClassEntryC): LongInt; stdcall;
 
 function SOMTClassEntryC._get_somtBaseCount: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12929,7 +12930,7 @@ end;
  * New Method: _get_somtExternalDataCount
  *)
 type
-  somTD_SOMTClassEntryC__get_somtExternalDataCount = function : LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtExternalDataCount = function (somSelf: SOMTClassEntryC): LongInt; stdcall;
 
 function SOMTClassEntryC._get_somtExternalDataCount: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12940,7 +12941,7 @@ end;
  * New Method: _get_somtPublicDataCount
  *)
 type
-  somTD_SOMTClassEntryC__get_somtPublicDataCount = function : LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtPublicDataCount = function (somSelf: SOMTClassEntryC): LongInt; stdcall;
 
 function SOMTClassEntryC._get_somtPublicDataCount: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12951,7 +12952,7 @@ end;
  * New Method: _get_somtPrivateDataCount
  *)
 type
-  somTD_SOMTClassEntryC__get_somtPrivateDataCount = function : LongInt; stdcall;
+  somTD_SOMTClassEntryC__get_somtPrivateDataCount = function (somSelf: SOMTClassEntryC): LongInt; stdcall;
 
 function SOMTClassEntryC._get_somtPrivateDataCount: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12962,7 +12963,7 @@ end;
  * New Method: _get_somtMetaclassFor
  *)
 type
-  somTD_SOMTClassEntryC__get_somtMetaclassFor = function : SOMTClassEntryC; stdcall;
+  somTD_SOMTClassEntryC__get_somtMetaclassFor = function (somSelf: SOMTClassEntryC): SOMTClassEntryC; stdcall;
 
 function SOMTClassEntryC._get_somtMetaclassFor: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -12973,7 +12974,7 @@ end;
  * New Method: _get_somtForwardRef
  *)
 type
-  somTD_SOMTClassEntryC__get_somtForwardRef = function : CORBABoolean; stdcall;
+  somTD_SOMTClassEntryC__get_somtForwardRef = function (somSelf: SOMTClassEntryC): CORBABoolean; stdcall;
 
 function SOMTClassEntryC._get_somtForwardRef: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13039,7 +13040,7 @@ end;
  * New Method: somtGetFirstBaseClass
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstBaseClass = function : SOMTBaseClassEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstBaseClass = function (somSelf: SOMTClassEntryC): SOMTBaseClassEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstBaseClass: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13050,7 +13051,7 @@ end;
  * New Method: somtGetNextBaseClass
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextBaseClass = function : SOMTBaseClassEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextBaseClass = function (somSelf: SOMTClassEntryC): SOMTBaseClassEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextBaseClass: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13061,7 +13062,7 @@ end;
  * New Method: somtGetFirstReleaseName
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstReleaseName = function : CORBAString; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstReleaseName = function (somSelf: SOMTClassEntryC): CORBAString; stdcall;
 
 function SOMTClassEntryC.somtGetFirstReleaseName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13072,7 +13073,7 @@ end;
  * New Method: somtGetNextReleaseName
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextReleaseName = function : CORBAString; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextReleaseName = function (somSelf: SOMTClassEntryC): CORBAString; stdcall;
 
 function SOMTClassEntryC.somtGetNextReleaseName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13083,7 +13084,7 @@ end;
  * New Method: somtGetReleaseNameList
  *)
 type
-  somTD_SOMTClassEntryC_somtGetReleaseNameList = function (buffer: CORBAString): LongInt; stdcall;
+  somTD_SOMTClassEntryC_somtGetReleaseNameList = function (somSelf: SOMTClassEntryC; buffer: CORBAString): LongInt; stdcall;
 
 function SOMTClassEntryC.somtGetReleaseNameList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13094,7 +13095,7 @@ end;
  * New Method: somtGetFirstPassthru
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstPassthru = function : SOMTPassthruEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstPassthru = function (somSelf: SOMTClassEntryC): SOMTPassthruEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstPassthru: SOMTPassthruEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13105,7 +13106,7 @@ end;
  * New Method: somtGetNextPassthru
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextPassthru = function : SOMTPassthruEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextPassthru = function (somSelf: SOMTClassEntryC): SOMTPassthruEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextPassthru: SOMTPassthruEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13116,7 +13117,7 @@ end;
  * New Method: somtGetFirstData
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstData = function : SOMTDataEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstData = function (somSelf: SOMTClassEntryC): SOMTDataEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstData: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13127,7 +13128,7 @@ end;
  * New Method: somtGetNextData
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextData = function : SOMTDataEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextData = function (somSelf: SOMTClassEntryC): SOMTDataEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextData: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13138,7 +13139,7 @@ end;
  * New Method: somtGetFirstStaticData
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstStaticData = function : SOMTDataEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstStaticData = function (somSelf: SOMTClassEntryC): SOMTDataEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstStaticData: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13149,7 +13150,7 @@ end;
  * New Method: somtGetNextStaticData
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextStaticData = function : SOMTDataEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextStaticData = function (somSelf: SOMTClassEntryC): SOMTDataEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextStaticData: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13160,7 +13161,7 @@ end;
  * New Method: somtGetFirstMethod
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstMethod = function : SOMTMethodEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstMethod = function (somSelf: SOMTClassEntryC): SOMTMethodEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13171,7 +13172,7 @@ end;
  * New Method: somtGetNextMethod
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextMethod = function : SOMTMethodEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextMethod = function (somSelf: SOMTClassEntryC): SOMTMethodEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13182,7 +13183,7 @@ end;
  * New Method: somtGetFirstInheritedMethod
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstInheritedMethod = function : SOMTMethodEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstInheritedMethod = function (somSelf: SOMTClassEntryC): SOMTMethodEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstInheritedMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13193,7 +13194,7 @@ end;
  * New Method: somtGetNextInheritedMethod
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextInheritedMethod = function : SOMTMethodEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextInheritedMethod = function (somSelf: SOMTClassEntryC): SOMTMethodEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextInheritedMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13204,7 +13205,7 @@ end;
  * New Method: somtGetFirstAttribute
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstAttribute = function : SOMTAttributeEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstAttribute = function (somSelf: SOMTClassEntryC): SOMTAttributeEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstAttribute: SOMTAttributeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13215,7 +13216,7 @@ end;
  * New Method: somtGetNextAttribute
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextAttribute = function : SOMTAttributeEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextAttribute = function (somSelf: SOMTClassEntryC): SOMTAttributeEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextAttribute: SOMTAttributeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13226,7 +13227,7 @@ end;
  * New Method: somtGetFirstStruct
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstStruct = function : SOMTStructEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstStruct = function (somSelf: SOMTClassEntryC): SOMTStructEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstStruct: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13237,7 +13238,7 @@ end;
  * New Method: somtGetNextStruct
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextStruct = function : SOMTStructEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextStruct = function (somSelf: SOMTClassEntryC): SOMTStructEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextStruct: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13248,7 +13249,7 @@ end;
  * New Method: somtGetFirstTypedef
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstTypedef = function : SOMTTypedefEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstTypedef = function (somSelf: SOMTClassEntryC): SOMTTypedefEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstTypedef: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13259,7 +13260,7 @@ end;
  * New Method: somtGetNextTypedef
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextTypedef = function : SOMTTypedefEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextTypedef = function (somSelf: SOMTClassEntryC): SOMTTypedefEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextTypedef: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13270,7 +13271,7 @@ end;
  * New Method: somtGetFirstUnion
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstUnion = function : SOMTUnionEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstUnion = function (somSelf: SOMTClassEntryC): SOMTUnionEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstUnion: SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13281,7 +13282,7 @@ end;
  * New Method: somtGetNextUnion
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextUnion = function : SOMTUnionEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextUnion = function (somSelf: SOMTClassEntryC): SOMTUnionEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextUnion: SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13292,7 +13293,7 @@ end;
  * New Method: somtGetFirstEnum
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstEnum = function : SOMTEnumEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstEnum = function (somSelf: SOMTClassEntryC): SOMTEnumEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstEnum: SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13303,7 +13304,7 @@ end;
  * New Method: somtGetNextEnum
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextEnum = function : SOMTEnumEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextEnum = function (somSelf: SOMTClassEntryC): SOMTEnumEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextEnum: SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13314,7 +13315,7 @@ end;
  * New Method: somtGetFirstConstant
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstConstant = function : SOMTConstEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstConstant = function (somSelf: SOMTClassEntryC): SOMTConstEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstConstant: SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13325,7 +13326,7 @@ end;
  * New Method: somtGetNextConstant
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextConstant = function : SOMTConstEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextConstant = function (somSelf: SOMTClassEntryC): SOMTConstEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextConstant: SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13336,7 +13337,7 @@ end;
  * New Method: somtGetFirstSequence
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstSequence = function : SOMTSequenceEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstSequence = function (somSelf: SOMTClassEntryC): SOMTSequenceEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstSequence: SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13347,7 +13348,7 @@ end;
  * New Method: somtGetNextSequence
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextSequence = function : SOMTSequenceEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextSequence = function (somSelf: SOMTClassEntryC): SOMTSequenceEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextSequence: SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13358,7 +13359,7 @@ end;
  * New Method: somtGetFirstPubdef
  *)
 type
-  somTD_SOMTClassEntryC_somtGetFirstPubdef = function : SOMTEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetFirstPubdef = function (somSelf: SOMTClassEntryC): SOMTEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetFirstPubdef: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13369,7 +13370,7 @@ end;
  * New Method: somtGetNextPubdef
  *)
 type
-  somTD_SOMTClassEntryC_somtGetNextPubdef = function : SOMTEntryC; stdcall;
+  somTD_SOMTClassEntryC_somtGetNextPubdef = function (somSelf: SOMTClassEntryC): SOMTEntryC; stdcall;
 
 function SOMTClassEntryC.somtGetNextPubdef: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13380,7 +13381,7 @@ end;
  * New Method: somtFilterNew
  *)
 type
-  somTD_SOMTClassEntryC_somtFilterNew = function (entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTClassEntryC_somtFilterNew = function (somSelf: SOMTClassEntryC; entry: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTClassEntryC.somtFilterNew(entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13391,7 +13392,7 @@ end;
  * New Method: somtFilterOverridden
  *)
 type
-  somTD_SOMTClassEntryC_somtFilterOverridden = function (entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTClassEntryC_somtFilterOverridden = function (somSelf: SOMTClassEntryC; entry: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTClassEntryC.somtFilterOverridden(entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13402,7 +13403,7 @@ end;
  * New Method: somtFilterPrivOrPub
  *)
 type
-  somTD_SOMTClassEntryC_somtFilterPrivOrPub = function (entry: SOMTCommonEntryC): CORBABoolean; stdcall;
+  somTD_SOMTClassEntryC_somtFilterPrivOrPub = function (somSelf: SOMTClassEntryC; entry: SOMTCommonEntryC): CORBABoolean; stdcall;
 
 function SOMTClassEntryC.somtFilterPrivOrPub(entry: SOMTCommonEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13646,7 +13647,7 @@ end;
  * New Method: _get_somtTypeObj
  *)
 type
-  somTD_SOMTCommonEntryC__get_somtTypeObj = function : SOMTEntryC; stdcall;
+  somTD_SOMTCommonEntryC__get_somtTypeObj = function (somSelf: SOMTCommonEntryC): SOMTEntryC; stdcall;
 
 function SOMTCommonEntryC._get_somtTypeObj: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13657,7 +13658,7 @@ end;
  * New Method: _get_somtPtrs
  *)
 type
-  somTD_SOMTCommonEntryC__get_somtPtrs = function : CORBAString; stdcall;
+  somTD_SOMTCommonEntryC__get_somtPtrs = function (somSelf: SOMTCommonEntryC): CORBAString; stdcall;
 
 function SOMTCommonEntryC._get_somtPtrs: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13668,7 +13669,7 @@ end;
  * New Method: _get_somtArrayDimsString
  *)
 type
-  somTD_SOMTCommonEntryC__get_somtArrayDimsString = function : CORBAString; stdcall;
+  somTD_SOMTCommonEntryC__get_somtArrayDimsString = function (somSelf: SOMTCommonEntryC): CORBAString; stdcall;
 
 function SOMTCommonEntryC._get_somtArrayDimsString: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13679,7 +13680,7 @@ end;
  * New Method: _get_somtSourceText
  *)
 type
-  somTD_SOMTCommonEntryC__get_somtSourceText = function : CORBAString; stdcall;
+  somTD_SOMTCommonEntryC__get_somtSourceText = function (somSelf: SOMTCommonEntryC): CORBAString; stdcall;
 
 function SOMTCommonEntryC._get_somtSourceText: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13690,7 +13691,7 @@ end;
  * New Method: _get_somtType
  *)
 type
-  somTD_SOMTCommonEntryC__get_somtType = function : CORBAString; stdcall;
+  somTD_SOMTCommonEntryC__get_somtType = function (somSelf: SOMTCommonEntryC): CORBAString; stdcall;
 
 function SOMTCommonEntryC._get_somtType: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13701,7 +13702,7 @@ end;
  * New Method: _get_somtVisibility
  *)
 type
-  somTD_SOMTCommonEntryC__get_somtVisibility = function : somtVisibilityT; stdcall;
+  somTD_SOMTCommonEntryC__get_somtVisibility = function (somSelf: SOMTCommonEntryC): somtVisibilityT; stdcall;
 
 function SOMTCommonEntryC._get_somtVisibility: somtVisibilityT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13767,7 +13768,7 @@ end;
  * New Method: somtGetFirstArrayDimension
  *)
 type
-  somTD_SOMTCommonEntryC_somtGetFirstArrayDimension = function : LongWord; stdcall;
+  somTD_SOMTCommonEntryC_somtGetFirstArrayDimension = function (somSelf: SOMTCommonEntryC): LongWord; stdcall;
 
 function SOMTCommonEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13778,7 +13779,7 @@ end;
  * New Method: somtGetNextArrayDimension
  *)
 type
-  somTD_SOMTCommonEntryC_somtGetNextArrayDimension = function : LongWord; stdcall;
+  somTD_SOMTCommonEntryC_somtGetNextArrayDimension = function (somSelf: SOMTCommonEntryC): LongWord; stdcall;
 
 function SOMTCommonEntryC.somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13789,7 +13790,7 @@ end;
  * New Method: somtIsArray
  *)
 type
-  somTD_SOMTCommonEntryC_somtIsArray = function (out size: LongInt): CORBABoolean; stdcall;
+  somTD_SOMTCommonEntryC_somtIsArray = function (somSelf: SOMTCommonEntryC; out size: LongInt): CORBABoolean; stdcall;
 
 function SOMTCommonEntryC.somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -13800,7 +13801,7 @@ end;
  * New Method: somtIsPointer
  *)
 type
-  somTD_SOMTCommonEntryC_somtIsPointer = function : CORBABoolean; stdcall;
+  somTD_SOMTCommonEntryC_somtIsPointer = function (somSelf: SOMTCommonEntryC): CORBABoolean; stdcall;
 
 function SOMTCommonEntryC.somtIsPointer: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14044,7 +14045,7 @@ end;
  * New Method: _get_somtConstTypeObj
  *)
 type
-  somTD_SOMTConstEntryC__get_somtConstTypeObj = function : SOMTEntryC; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstTypeObj = function (somSelf: SOMTConstEntryC): SOMTEntryC; stdcall;
 
 function SOMTConstEntryC._get_somtConstTypeObj: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14055,7 +14056,7 @@ end;
  * New Method: _get_somtConstType
  *)
 type
-  somTD_SOMTConstEntryC__get_somtConstType = function : CORBAString; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstType = function (somSelf: SOMTConstEntryC): CORBAString; stdcall;
 
 function SOMTConstEntryC._get_somtConstType: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14066,7 +14067,7 @@ end;
  * New Method: _get_somtConstStringVal
  *)
 type
-  somTD_SOMTConstEntryC__get_somtConstStringVal = function : CORBAString; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstStringVal = function (somSelf: SOMTConstEntryC): CORBAString; stdcall;
 
 function SOMTConstEntryC._get_somtConstStringVal: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14077,7 +14078,7 @@ end;
  * New Method: _get_somtConstNumVal
  *)
 type
-  somTD_SOMTConstEntryC__get_somtConstNumVal = function : LongWord; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstNumVal = function (somSelf: SOMTConstEntryC): LongWord; stdcall;
 
 function SOMTConstEntryC._get_somtConstNumVal: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14088,7 +14089,7 @@ end;
  * New Method: _get_somtConstNumNegVal
  *)
 type
-  somTD_SOMTConstEntryC__get_somtConstNumNegVal = function : LongInt; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstNumNegVal = function (somSelf: SOMTConstEntryC): LongInt; stdcall;
 
 function SOMTConstEntryC._get_somtConstNumNegVal: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14099,7 +14100,7 @@ end;
  * New Method: _get_somtConstIsNegative
  *)
 type
-  somTD_SOMTConstEntryC__get_somtConstIsNegative = function : CORBABoolean; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstIsNegative = function (somSelf: SOMTConstEntryC): CORBABoolean; stdcall;
 
 function SOMTConstEntryC._get_somtConstIsNegative: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14110,7 +14111,7 @@ end;
  * New Method: _get_somtConstVal
  *)
 type
-  somTD_SOMTConstEntryC__get_somtConstVal = function : CORBAString; stdcall;
+  somTD_SOMTConstEntryC__get_somtConstVal = function (somSelf: SOMTConstEntryC): CORBAString; stdcall;
 
 function SOMTConstEntryC._get_somtConstVal: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14409,7 +14410,7 @@ end;
  * New Method: _get_somtIsSelfRef
  *)
 type
-  somTD_SOMTDataEntryC__get_somtIsSelfRef = function : CORBABoolean; stdcall;
+  somTD_SOMTDataEntryC__get_somtIsSelfRef = function (somSelf: SOMTDataEntryC): CORBABoolean; stdcall;
 
 function SOMTDataEntryC._get_somtIsSelfRef: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14758,7 +14759,7 @@ end;
  * New Method: _get_somtTemplate
  *)
 type
-  somTD_SOMTEmitC__get_somtTemplate = function : SOMTTemplateOutputC; stdcall;
+  somTD_SOMTEmitC__get_somtTemplate = function (somSelf: SOMTEmitC): SOMTTemplateOutputC; stdcall;
 
 function SOMTEmitC._get_somtTemplate: SOMTTemplateOutputC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14769,7 +14770,7 @@ end;
  * New Method: _set_somtTemplate
  *)
 type
-  somTD_SOMTEmitC__set_somtTemplate = procedure (somtTemplate: SOMTTemplateOutputC); stdcall;
+  somTD_SOMTEmitC__set_somtTemplate = procedure (somSelf: SOMTEmitC; somtTemplate: SOMTTemplateOutputC); stdcall;
 
 procedure SOMTEmitC._set_somtTemplate(somtTemplate: SOMTTemplateOutputC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14780,7 +14781,7 @@ end;
  * New Method: _get_somtTargetFile
  *)
 type
-  somTD_SOMTEmitC__get_somtTargetFile = function : PSOM_FILE; stdcall;
+  somTD_SOMTEmitC__get_somtTargetFile = function (somSelf: SOMTEmitC): PSOM_FILE; stdcall;
 
 function SOMTEmitC._get_somtTargetFile: PSOM_FILE; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14791,7 +14792,7 @@ end;
  * New Method: _set_somtTargetFile
  *)
 type
-  somTD_SOMTEmitC__set_somtTargetFile = procedure (somtTargetFile: PSOM_FILE); stdcall;
+  somTD_SOMTEmitC__set_somtTargetFile = procedure (somSelf: SOMTEmitC; somtTargetFile: PSOM_FILE); stdcall;
 
 procedure SOMTEmitC._set_somtTargetFile(somtTargetFile: PSOM_FILE); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14802,7 +14803,7 @@ end;
  * New Method: _get_somtTargetClass
  *)
 type
-  somTD_SOMTEmitC__get_somtTargetClass = function : SOMTClassEntryC; stdcall;
+  somTD_SOMTEmitC__get_somtTargetClass = function (somSelf: SOMTEmitC): SOMTClassEntryC; stdcall;
 
 function SOMTEmitC._get_somtTargetClass: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14813,7 +14814,7 @@ end;
  * New Method: _set_somtTargetClass
  *)
 type
-  somTD_SOMTEmitC__set_somtTargetClass = procedure (somtTargetClass: SOMTClassEntryC); stdcall;
+  somTD_SOMTEmitC__set_somtTargetClass = procedure (somSelf: SOMTEmitC; somtTargetClass: SOMTClassEntryC); stdcall;
 
 procedure SOMTEmitC._set_somtTargetClass(somtTargetClass: SOMTClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14824,7 +14825,7 @@ end;
  * New Method: _get_somtTargetModule
  *)
 type
-  somTD_SOMTEmitC__get_somtTargetModule = function : SOMTModuleEntryC; stdcall;
+  somTD_SOMTEmitC__get_somtTargetModule = function (somSelf: SOMTEmitC): SOMTModuleEntryC; stdcall;
 
 function SOMTEmitC._get_somtTargetModule: SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14835,7 +14836,7 @@ end;
  * New Method: _set_somtTargetModule
  *)
 type
-  somTD_SOMTEmitC__set_somtTargetModule = procedure (somtTargetModule: SOMTModuleEntryC); stdcall;
+  somTD_SOMTEmitC__set_somtTargetModule = procedure (somSelf: SOMTEmitC; somtTargetModule: SOMTModuleEntryC); stdcall;
 
 procedure SOMTEmitC._set_somtTargetModule(somtTargetModule: SOMTModuleEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14846,7 +14847,7 @@ end;
  * New Method: _get_somtTargetType
  *)
 type
-  somTD_SOMTEmitC__get_somtTargetType = function : SOMTTargetTypeT; stdcall;
+  somTD_SOMTEmitC__get_somtTargetType = function (somSelf: SOMTEmitC): SOMTTargetTypeT; stdcall;
 
 function SOMTEmitC._get_somtTargetType: SOMTTargetTypeT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14857,7 +14858,7 @@ end;
  * New Method: _set_somtTargetType
  *)
 type
-  somTD_SOMTEmitC__set_somtTargetType = procedure (somtTargetType: SOMTTargetTypeT); stdcall;
+  somTD_SOMTEmitC__set_somtTargetType = procedure (somSelf: SOMTEmitC; somtTargetType: SOMTTargetTypeT); stdcall;
 
 procedure SOMTEmitC._set_somtTargetType(somtTargetType: SOMTTargetTypeT); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14868,7 +14869,7 @@ end;
  * New Method: _get_somtEmitterName
  *)
 type
-  somTD_SOMTEmitC__get_somtEmitterName = function : CORBAString; stdcall;
+  somTD_SOMTEmitC__get_somtEmitterName = function (somSelf: SOMTEmitC): CORBAString; stdcall;
 
 function SOMTEmitC._get_somtEmitterName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14879,7 +14880,7 @@ end;
  * New Method: _set_somtEmitterName
  *)
 type
-  somTD_SOMTEmitC__set_somtEmitterName = procedure (somtEmitterName: CORBAString); stdcall;
+  somTD_SOMTEmitC__set_somtEmitterName = procedure (somSelf: SOMTEmitC; somtEmitterName: CORBAString); stdcall;
 
 procedure SOMTEmitC._set_somtEmitterName(somtEmitterName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14890,7 +14891,7 @@ end;
  * New Method: somtGenerateSections
  *)
 type
-  somTD_SOMTEmitC_somtGenerateSections = function : CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtGenerateSections = function (somSelf: SOMTEmitC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtGenerateSections: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14901,7 +14902,7 @@ end;
  * New Method: somtOpenSymbolsFile
  *)
 type
-  somTD_SOMTEmitC_somtOpenSymbolsFile = function (SOM_file: CORBAString; mode: CORBAString): PSOM_FILE; stdcall;
+  somTD_SOMTEmitC_somtOpenSymbolsFile = function (somSelf: SOMTEmitC; SOM_file: CORBAString; mode: CORBAString): PSOM_FILE; stdcall;
 
 function SOMTEmitC.somtOpenSymbolsFile(SOM_file: CORBAString; mode: CORBAString): PSOM_FILE; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14912,7 +14913,7 @@ end;
  * New Method: somtSetPredefinedSymbols
  *)
 type
-  somTD_SOMTEmitC_somtSetPredefinedSymbols = procedure ; stdcall;
+  somTD_SOMTEmitC_somtSetPredefinedSymbols = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtSetPredefinedSymbols; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14923,7 +14924,7 @@ end;
  * New Method: somtFileSymbols
  *)
 type
-  somTD_SOMTEmitC_somtFileSymbols = procedure ; stdcall;
+  somTD_SOMTEmitC_somtFileSymbols = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtFileSymbols; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14934,7 +14935,7 @@ end;
  * New Method: somtEmitProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14945,7 +14946,7 @@ end;
  * New Method: somtEmitBaseIncludesProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitBaseIncludesProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitBaseIncludesProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitBaseIncludesProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14956,7 +14957,7 @@ end;
  * New Method: somtEmitBaseIncludes
  *)
 type
-  somTD_SOMTEmitC_somtEmitBaseIncludes = procedure (base: SOMTBaseClassEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitBaseIncludes = procedure (somSelf: SOMTEmitC; base: SOMTBaseClassEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitBaseIncludes(base: SOMTBaseClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14967,7 +14968,7 @@ end;
  * New Method: somtEmitBaseIncludesEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitBaseIncludesEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitBaseIncludesEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitBaseIncludesEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14978,7 +14979,7 @@ end;
  * New Method: somtEmitMetaInclude
  *)
 type
-  somTD_SOMTEmitC_somtEmitMetaInclude = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitMetaInclude = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitMetaInclude; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -14989,7 +14990,7 @@ end;
  * New Method: somtEmitClass
  *)
 type
-  somTD_SOMTEmitC_somtEmitClass = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitClass = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15000,7 +15001,7 @@ end;
  * New Method: somtEmitMeta
  *)
 type
-  somTD_SOMTEmitC_somtEmitMeta = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitMeta = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitMeta; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15011,7 +15012,7 @@ end;
  * New Method: somtEmitBaseProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitBaseProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitBaseProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitBaseProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15022,7 +15023,7 @@ end;
  * New Method: somtEmitBase
  *)
 type
-  somTD_SOMTEmitC_somtEmitBase = procedure (base: SOMTBaseClassEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitBase = procedure (somSelf: SOMTEmitC; base: SOMTBaseClassEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitBase(base: SOMTBaseClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15033,7 +15034,7 @@ end;
  * New Method: somtEmitBaseEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitBaseEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitBaseEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitBaseEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15044,7 +15045,7 @@ end;
  * New Method: somtEmitPassthruProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitPassthruProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitPassthruProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitPassthruProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15055,7 +15056,7 @@ end;
  * New Method: somtEmitPassthru
  *)
 type
-  somTD_SOMTEmitC_somtEmitPassthru = procedure (entry: SOMTPassthruEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitPassthru = procedure (somSelf: SOMTEmitC; entry: SOMTPassthruEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitPassthru(entry: SOMTPassthruEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15066,7 +15067,7 @@ end;
  * New Method: somtEmitPassthruEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitPassthruEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitPassthruEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitPassthruEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15077,7 +15078,7 @@ end;
  * New Method: somtEmitRelease
  *)
 type
-  somTD_SOMTEmitC_somtEmitRelease = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitRelease = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitRelease; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15088,7 +15089,7 @@ end;
  * New Method: somtEmitDataProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitDataProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitDataProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitDataProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15099,7 +15100,7 @@ end;
  * New Method: somtEmitData
  *)
 type
-  somTD_SOMTEmitC_somtEmitData = procedure (entry: SOMTDataEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitData = procedure (somSelf: SOMTEmitC; entry: SOMTDataEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitData(entry: SOMTDataEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15110,7 +15111,7 @@ end;
  * New Method: somtEmitDataEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitDataEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitDataEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitDataEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15121,7 +15122,7 @@ end;
  * New Method: somtEmitAttributeProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitAttributeProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitAttributeProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitAttributeProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15132,7 +15133,7 @@ end;
  * New Method: somtEmitAttribute
  *)
 type
-  somTD_SOMTEmitC_somtEmitAttribute = procedure (att: SOMTAttributeEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitAttribute = procedure (somSelf: SOMTEmitC; att: SOMTAttributeEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitAttribute(att: SOMTAttributeEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15143,7 +15144,7 @@ end;
  * New Method: somtEmitAttributeEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitAttributeEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitAttributeEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitAttributeEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15154,7 +15155,7 @@ end;
  * New Method: somtEmitConstantProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitConstantProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitConstantProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitConstantProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15165,7 +15166,7 @@ end;
  * New Method: somtEmitConstant
  *)
 type
-  somTD_SOMTEmitC_somtEmitConstant = procedure (con: SOMTConstEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitConstant = procedure (somSelf: SOMTEmitC; con: SOMTConstEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitConstant(con: SOMTConstEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15176,7 +15177,7 @@ end;
  * New Method: somtEmitConstantEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitConstantEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitConstantEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitConstantEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15187,7 +15188,7 @@ end;
  * New Method: somtEmitTypedefProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitTypedefProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitTypedefProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitTypedefProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15198,7 +15199,7 @@ end;
  * New Method: somtEmitTypedef
  *)
 type
-  somTD_SOMTEmitC_somtEmitTypedef = procedure (td: SOMTTypedefEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitTypedef = procedure (somSelf: SOMTEmitC; td: SOMTTypedefEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitTypedef(td: SOMTTypedefEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15209,7 +15210,7 @@ end;
  * New Method: somtEmitTypedefEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitTypedefEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitTypedefEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitTypedefEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15220,7 +15221,7 @@ end;
  * New Method: somtEmitStructProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitStructProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitStructProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitStructProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15231,7 +15232,7 @@ end;
  * New Method: somtEmitStruct
  *)
 type
-  somTD_SOMTEmitC_somtEmitStruct = procedure (struc: SOMTStructEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitStruct = procedure (somSelf: SOMTEmitC; struc: SOMTStructEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitStruct(struc: SOMTStructEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15242,7 +15243,7 @@ end;
  * New Method: somtEmitStructEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitStructEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitStructEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitStructEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15253,7 +15254,7 @@ end;
  * New Method: somtEmitUnionProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitUnionProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitUnionProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitUnionProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15264,7 +15265,7 @@ end;
  * New Method: somtEmitUnion
  *)
 type
-  somTD_SOMTEmitC_somtEmitUnion = procedure (un: SOMTUnionEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitUnion = procedure (somSelf: SOMTEmitC; un: SOMTUnionEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitUnion(un: SOMTUnionEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15275,7 +15276,7 @@ end;
  * New Method: somtEmitUnionEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitUnionEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitUnionEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitUnionEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15286,7 +15287,7 @@ end;
  * New Method: somtEmitEnumProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitEnumProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitEnumProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitEnumProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15297,7 +15298,7 @@ end;
  * New Method: somtEmitEnum
  *)
 type
-  somTD_SOMTEmitC_somtEmitEnum = procedure (en: SOMTEnumEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitEnum = procedure (somSelf: SOMTEmitC; en: SOMTEnumEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitEnum(en: SOMTEnumEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15308,7 +15309,7 @@ end;
  * New Method: somtEmitEnumEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitEnumEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitEnumEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitEnumEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15319,7 +15320,7 @@ end;
  * New Method: somtEmitInterfaceProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitInterfaceProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitInterfaceProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitInterfaceProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15330,7 +15331,7 @@ end;
  * New Method: somtEmitInterface
  *)
 type
-  somTD_SOMTEmitC_somtEmitInterface = procedure (intfc: SOMTClassEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitInterface = procedure (somSelf: SOMTEmitC; intfc: SOMTClassEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitInterface(intfc: SOMTClassEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15341,7 +15342,7 @@ end;
  * New Method: somtEmitInterfaceEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitInterfaceEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitInterfaceEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitInterfaceEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15352,7 +15353,7 @@ end;
  * New Method: somtEmitModuleProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitModuleProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitModuleProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitModuleProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15363,7 +15364,7 @@ end;
  * New Method: somtEmitModule
  *)
 type
-  somTD_SOMTEmitC_somtEmitModule = procedure (SOM_mod: SOMTModuleEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitModule = procedure (somSelf: SOMTEmitC; SOM_mod: SOMTModuleEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitModule(SOM_mod: SOMTModuleEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15374,7 +15375,7 @@ end;
  * New Method: somtEmitModuleEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitModuleEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitModuleEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitModuleEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15385,7 +15386,7 @@ end;
  * New Method: somtEmitMethodsProlog
  *)
 type
-  somTD_SOMTEmitC_somtEmitMethodsProlog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitMethodsProlog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitMethodsProlog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15396,7 +15397,7 @@ end;
  * New Method: somtEmitMethods
  *)
 type
-  somTD_SOMTEmitC_somtEmitMethods = procedure (method: SOMTMethodEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitMethods = procedure (somSelf: SOMTEmitC; method: SOMTMethodEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitMethods(method: SOMTMethodEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15407,7 +15408,7 @@ end;
  * New Method: somtEmitMethodsEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitMethodsEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitMethodsEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitMethodsEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15418,7 +15419,7 @@ end;
  * New Method: somtEmitMethod
  *)
 type
-  somTD_SOMTEmitC_somtEmitMethod = procedure (entry: SOMTMethodEntryC); stdcall;
+  somTD_SOMTEmitC_somtEmitMethod = procedure (somSelf: SOMTEmitC; entry: SOMTMethodEntryC); stdcall;
 
 procedure SOMTEmitC.somtEmitMethod(entry: SOMTMethodEntryC); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15429,7 +15430,7 @@ end;
  * New Method: somtEmitEpilog
  *)
 type
-  somTD_SOMTEmitC_somtEmitEpilog = procedure ; stdcall;
+  somTD_SOMTEmitC_somtEmitEpilog = procedure (somSelf: SOMTEmitC); stdcall;
 
 procedure SOMTEmitC.somtEmitEpilog; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15440,7 +15441,7 @@ end;
  * New Method: somtScanBases
  *)
 type
-  somTD_SOMTEmitC_somtScanBases = function (prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanBases = function (somSelf: SOMTEmitC; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanBases(prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15451,7 +15452,7 @@ end;
  * New Method: somtCheckVisibility
  *)
 type
-  somTD_SOMTEmitC_somtCheckVisibility = function (entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtCheckVisibility = function (somSelf: SOMTEmitC; entry: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtCheckVisibility(entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15462,7 +15463,7 @@ end;
  * New Method: somtNew
  *)
 type
-  somTD_SOMTEmitC_somtNew = function (entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtNew = function (somSelf: SOMTEmitC; entry: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtNew(entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15473,7 +15474,7 @@ end;
  * New Method: somtImplemented
  *)
 type
-  somTD_SOMTEmitC_somtImplemented = function (entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtImplemented = function (somSelf: SOMTEmitC; entry: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtImplemented(entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15484,7 +15485,7 @@ end;
  * New Method: somtOverridden
  *)
 type
-  somTD_SOMTEmitC_somtOverridden = function (entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtOverridden = function (somSelf: SOMTEmitC; entry: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtOverridden(entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15495,7 +15496,7 @@ end;
  * New Method: somtInherited
  *)
 type
-  somTD_SOMTEmitC_somtInherited = function (entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtInherited = function (somSelf: SOMTEmitC; entry: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtInherited(entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15506,7 +15507,7 @@ end;
  * New Method: somtAllVisible
  *)
 type
-  somTD_SOMTEmitC_somtAllVisible = function (entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtAllVisible = function (somSelf: SOMTEmitC; entry: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtAllVisible(entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15517,7 +15518,7 @@ end;
  * New Method: somtAll
  *)
 type
-  somTD_SOMTEmitC_somtAll = function (entry: SOMTMethodEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtAll = function (somSelf: SOMTEmitC; entry: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtAll(entry: SOMTMethodEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15528,7 +15529,7 @@ end;
  * New Method: somtNewNoProc
  *)
 type
-  somTD_SOMTEmitC_somtNewNoProc = function (entry: SOMTEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtNewNoProc = function (somSelf: SOMTEmitC; entry: SOMTEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtNewNoProc(entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15539,7 +15540,7 @@ end;
  * New Method: somtPrivOrPub
  *)
 type
-  somTD_SOMTEmitC_somtPrivOrPub = function (entry: SOMTEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtPrivOrPub = function (somSelf: SOMTEmitC; entry: SOMTEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtPrivOrPub(entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15550,7 +15551,7 @@ end;
  * New Method: somtNewProc
  *)
 type
-  somTD_SOMTEmitC_somtNewProc = function (entry: SOMTEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtNewProc = function (somSelf: SOMTEmitC; entry: SOMTEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtNewProc(entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15561,7 +15562,7 @@ end;
  * New Method: somtLink
  *)
 type
-  somTD_SOMTEmitC_somtLink = function (entry: SOMTEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtLink = function (somSelf: SOMTEmitC; entry: SOMTEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtLink(entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15572,7 +15573,7 @@ end;
  * New Method: somtVA
  *)
 type
-  somTD_SOMTEmitC_somtVA = function (entry: SOMTEntryC): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtVA = function (somSelf: SOMTEmitC; entry: SOMTEntryC): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtVA(entry: SOMTEntryC): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15583,7 +15584,7 @@ end;
  * New Method: somtScanMethods
  *)
 type
-  somTD_SOMTEmitC_somtScanMethods = function (filter: CORBAString; prolog: CORBAString; each: CORBAString; epilog: CORBAString; forceProlog: CORBABoolean): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanMethods = function (somSelf: SOMTEmitC; filter: CORBAString; prolog: CORBAString; each: CORBAString; epilog: CORBAString; forceProlog: CORBABoolean): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanMethods(filter: CORBAString; prolog: CORBAString; each: CORBAString; epilog: CORBAString; forceProlog: CORBABoolean): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15594,7 +15595,7 @@ end;
  * New Method: somtScanConstants
  *)
 type
-  somTD_SOMTEmitC_somtScanConstants = function (prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanConstants = function (somSelf: SOMTEmitC; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanConstants(prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15605,7 +15606,7 @@ end;
  * New Method: somtScanTypedefs
  *)
 type
-  somTD_SOMTEmitC_somtScanTypedefs = function (prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanTypedefs = function (somSelf: SOMTEmitC; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanTypedefs(prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15616,7 +15617,7 @@ end;
  * New Method: somtScanStructs
  *)
 type
-  somTD_SOMTEmitC_somtScanStructs = function (prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanStructs = function (somSelf: SOMTEmitC; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanStructs(prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15627,7 +15628,7 @@ end;
  * New Method: somtScanUnions
  *)
 type
-  somTD_SOMTEmitC_somtScanUnions = function (prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanUnions = function (somSelf: SOMTEmitC; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanUnions(prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15638,7 +15639,7 @@ end;
  * New Method: somtScanEnums
  *)
 type
-  somTD_SOMTEmitC_somtScanEnums = function (prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanEnums = function (somSelf: SOMTEmitC; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanEnums(prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15649,7 +15650,7 @@ end;
  * New Method: somtScanData
  *)
 type
-  somTD_SOMTEmitC_somtScanData = function (prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanData = function (somSelf: SOMTEmitC; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanData(prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15660,7 +15661,7 @@ end;
  * New Method: somtScanAttributes
  *)
 type
-  somTD_SOMTEmitC_somtScanAttributes = function (prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanAttributes = function (somSelf: SOMTEmitC; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanAttributes(prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15671,7 +15672,7 @@ end;
  * New Method: somtScanInterfaces
  *)
 type
-  somTD_SOMTEmitC_somtScanInterfaces = function (prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanInterfaces = function (somSelf: SOMTEmitC; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanInterfaces(prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15682,7 +15683,7 @@ end;
  * New Method: somtScanModules
  *)
 type
-  somTD_SOMTEmitC_somtScanModules = function (prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanModules = function (somSelf: SOMTEmitC; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanModules(prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15693,7 +15694,7 @@ end;
  * New Method: somtScanPassthru
  *)
 type
-  somTD_SOMTEmitC_somtScanPassthru = function (before: CORBABoolean; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanPassthru = function (somSelf: SOMTEmitC; before: CORBABoolean; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanPassthru(before: CORBABoolean; prolog: CORBAString; each: CORBAString; epilog: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15704,7 +15705,7 @@ end;
  * New Method: somtEmitFullPassthru
  *)
 type
-  somTD_SOMTEmitC_somtEmitFullPassthru = procedure (before: CORBABoolean; language: CORBAString); stdcall;
+  somTD_SOMTEmitC_somtEmitFullPassthru = procedure (somSelf: SOMTEmitC; before: CORBABoolean; language: CORBAString); stdcall;
 
 procedure SOMTEmitC.somtEmitFullPassthru(before: CORBABoolean; language: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15715,7 +15716,7 @@ end;
  * New Method: somtScanDataF
  *)
 type
-  somTD_SOMTEmitC_somtScanDataF = function (filter: CORBAString; prolog: CORBAString; each: CORBAString; epilog: CORBAString; forceProlog: CORBABoolean): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanDataF = function (somSelf: SOMTEmitC; filter: CORBAString; prolog: CORBAString; each: CORBAString; epilog: CORBAString; forceProlog: CORBABoolean): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanDataF(filter: CORBAString; prolog: CORBAString; each: CORBAString; epilog: CORBAString; forceProlog: CORBABoolean): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15726,7 +15727,7 @@ end;
  * New Method: somtScanBasesF
  *)
 type
-  somTD_SOMTEmitC_somtScanBasesF = function (filter: CORBAString; prolog: CORBAString; each: CORBAString; epilog: CORBAString; forceProlog: CORBABoolean): CORBABoolean; stdcall;
+  somTD_SOMTEmitC_somtScanBasesF = function (somSelf: SOMTEmitC; filter: CORBAString; prolog: CORBAString; each: CORBAString; epilog: CORBAString; forceProlog: CORBABoolean): CORBABoolean; stdcall;
 
 function SOMTEmitC.somtScanBasesF(filter: CORBAString; prolog: CORBAString; each: CORBAString; epilog: CORBAString; forceProlog: CORBABoolean): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15737,7 +15738,7 @@ end;
  * New Method: somtGetGlobalModifierValue
  *)
 type
-  somTD_SOMTEmitC_somtGetGlobalModifierValue = function (modifierName: CORBAString): CORBAString; stdcall;
+  somTD_SOMTEmitC_somtGetGlobalModifierValue = function (somSelf: SOMTEmitC; modifierName: CORBAString): CORBAString; stdcall;
 
 function SOMTEmitC.somtGetGlobalModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15748,7 +15749,7 @@ end;
  * New Method: somtGetFirstGlobalDefinition
  *)
 type
-  somTD_SOMTEmitC_somtGetFirstGlobalDefinition = function : SOMTEntryC; stdcall;
+  somTD_SOMTEmitC_somtGetFirstGlobalDefinition = function (somSelf: SOMTEmitC): SOMTEntryC; stdcall;
 
 function SOMTEmitC.somtGetFirstGlobalDefinition: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -15759,7 +15760,7 @@ end;
  * New Method: somtGetNextGlobalDefinition
  *)
 type
-  somTD_SOMTEmitC_somtGetNextGlobalDefinition = function : SOMTEntryC; stdcall;
+  somTD_SOMTEmitC_somtGetNextGlobalDefinition = function (somSelf: SOMTEmitC): SOMTEntryC; stdcall;
 
 function SOMTEmitC.somtGetNextGlobalDefinition: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16023,7 +16024,7 @@ end;
  * New Method: somtGetFirstEnumName
  *)
 type
-  somTD_SOMTEnumEntryC_somtGetFirstEnumName = function : SOMTEnumNameEntryC; stdcall;
+  somTD_SOMTEnumEntryC_somtGetFirstEnumName = function (somSelf: SOMTEnumEntryC): SOMTEnumNameEntryC; stdcall;
 
 function SOMTEnumEntryC.somtGetFirstEnumName: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16034,7 +16035,7 @@ end;
  * New Method: somtGetNextEnumName
  *)
 type
-  somTD_SOMTEnumEntryC_somtGetNextEnumName = function : SOMTEnumNameEntryC; stdcall;
+  somTD_SOMTEnumEntryC_somtGetNextEnumName = function (somSelf: SOMTEnumEntryC): SOMTEnumNameEntryC; stdcall;
 
 function SOMTEnumEntryC.somtGetNextEnumName: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16278,7 +16279,7 @@ end;
  * New Method: _get_somtEnumPtr
  *)
 type
-  somTD_SOMTEnumNameEntryC__get_somtEnumPtr = function : SOMTEnumEntryC; stdcall;
+  somTD_SOMTEnumNameEntryC__get_somtEnumPtr = function (somSelf: SOMTEnumNameEntryC): SOMTEnumEntryC; stdcall;
 
 function SOMTEnumNameEntryC._get_somtEnumPtr: SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16289,7 +16290,7 @@ end;
  * New Method: _get_somtEnumVal
  *)
 type
-  somTD_SOMTEnumNameEntryC__get_somtEnumVal = function : LongWord; stdcall;
+  somTD_SOMTEnumNameEntryC__get_somtEnumVal = function (somSelf: SOMTEnumNameEntryC): LongWord; stdcall;
 
 function SOMTEnumNameEntryC._get_somtEnumVal: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16588,7 +16589,7 @@ end;
  * New Method: _get_somtMetaFile
  *)
 type
-  somTD_SOMTMetaClassEntryC__get_somtMetaFile = function : CORBAString; stdcall;
+  somTD_SOMTMetaClassEntryC__get_somtMetaFile = function (somSelf: SOMTMetaClassEntryC): CORBAString; stdcall;
 
 function SOMTMetaClassEntryC._get_somtMetaFile: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16599,7 +16600,7 @@ end;
  * New Method: _get_somtMetaClassDef
  *)
 type
-  somTD_SOMTMetaClassEntryC__get_somtMetaClassDef = function : SOMTClassEntryC; stdcall;
+  somTD_SOMTMetaClassEntryC__get_somtMetaClassDef = function (somSelf: SOMTMetaClassEntryC): SOMTClassEntryC; stdcall;
 
 function SOMTMetaClassEntryC._get_somtMetaClassDef: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16898,7 +16899,7 @@ end;
  * New Method: _get_somtIsVarargs
  *)
 type
-  somTD_SOMTMethodEntryC__get_somtIsVarargs = function : CORBABoolean; stdcall;
+  somTD_SOMTMethodEntryC__get_somtIsVarargs = function (somSelf: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTMethodEntryC._get_somtIsVarargs: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16909,7 +16910,7 @@ end;
  * New Method: _get_somtOriginalMethod
  *)
 type
-  somTD_SOMTMethodEntryC__get_somtOriginalMethod = function : SOMTMethodEntryC; stdcall;
+  somTD_SOMTMethodEntryC__get_somtOriginalMethod = function (somSelf: SOMTMethodEntryC): SOMTMethodEntryC; stdcall;
 
 function SOMTMethodEntryC._get_somtOriginalMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16920,7 +16921,7 @@ end;
  * New Method: _get_somtOriginalClass
  *)
 type
-  somTD_SOMTMethodEntryC__get_somtOriginalClass = function : SOMTClassEntryC; stdcall;
+  somTD_SOMTMethodEntryC__get_somtOriginalClass = function (somSelf: SOMTMethodEntryC): SOMTClassEntryC; stdcall;
 
 function SOMTMethodEntryC._get_somtOriginalClass: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16931,7 +16932,7 @@ end;
  * New Method: _get_somtMethodGroup
  *)
 type
-  somTD_SOMTMethodEntryC__get_somtMethodGroup = function : SOMTEntryC; stdcall;
+  somTD_SOMTMethodEntryC__get_somtMethodGroup = function (somSelf: SOMTMethodEntryC): SOMTEntryC; stdcall;
 
 function SOMTMethodEntryC._get_somtMethodGroup: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16942,7 +16943,7 @@ end;
  * New Method: _get_somtIsPrivateMethod
  *)
 type
-  somTD_SOMTMethodEntryC__get_somtIsPrivateMethod = function : CORBABoolean; stdcall;
+  somTD_SOMTMethodEntryC__get_somtIsPrivateMethod = function (somSelf: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTMethodEntryC._get_somtIsPrivateMethod: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16953,7 +16954,7 @@ end;
  * New Method: _get_somtIsOneway
  *)
 type
-  somTD_SOMTMethodEntryC__get_somtIsOneway = function : CORBABoolean; stdcall;
+  somTD_SOMTMethodEntryC__get_somtIsOneway = function (somSelf: SOMTMethodEntryC): CORBABoolean; stdcall;
 
 function SOMTMethodEntryC._get_somtIsOneway: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16964,7 +16965,7 @@ end;
  * New Method: _get_somtArgCount
  *)
 type
-  somTD_SOMTMethodEntryC__get_somtArgCount = function : SmallInt; stdcall;
+  somTD_SOMTMethodEntryC__get_somtArgCount = function (somSelf: SOMTMethodEntryC): SmallInt; stdcall;
 
 function SOMTMethodEntryC._get_somtArgCount: SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16975,7 +16976,7 @@ end;
  * New Method: _get_somtContextArray
  *)
 type
-  somTD_SOMTMethodEntryC__get_somtContextArray = function : PCORBAString; stdcall;
+  somTD_SOMTMethodEntryC__get_somtContextArray = function (somSelf: SOMTMethodEntryC): PCORBAString; stdcall;
 
 function SOMTMethodEntryC._get_somtContextArray: PCORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -16986,7 +16987,7 @@ end;
  * New Method: _get_somtCReturnType
  *)
 type
-  somTD_SOMTMethodEntryC__get_somtCReturnType = function : CORBAString; stdcall;
+  somTD_SOMTMethodEntryC__get_somtCReturnType = function (somSelf: SOMTMethodEntryC): CORBAString; stdcall;
 
 function SOMTMethodEntryC._get_somtCReturnType: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17082,7 +17083,7 @@ end;
  * New Method: somtGetFirstParameter
  *)
 type
-  somTD_SOMTMethodEntryC_somtGetFirstParameter = function : SOMTParameterEntryC; stdcall;
+  somTD_SOMTMethodEntryC_somtGetFirstParameter = function (somSelf: SOMTMethodEntryC): SOMTParameterEntryC; stdcall;
 
 function SOMTMethodEntryC.somtGetFirstParameter: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17093,7 +17094,7 @@ end;
  * New Method: somtGetNextParameter
  *)
 type
-  somTD_SOMTMethodEntryC_somtGetNextParameter = function : SOMTParameterEntryC; stdcall;
+  somTD_SOMTMethodEntryC_somtGetNextParameter = function (somSelf: SOMTMethodEntryC): SOMTParameterEntryC; stdcall;
 
 function SOMTMethodEntryC.somtGetNextParameter: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17104,7 +17105,7 @@ end;
  * New Method: somtGetIDLParamList
  *)
 type
-  somTD_SOMTMethodEntryC_somtGetIDLParamList = function (buffer: CORBAString): CORBAString; stdcall;
+  somTD_SOMTMethodEntryC_somtGetIDLParamList = function (somSelf: SOMTMethodEntryC; buffer: CORBAString): CORBAString; stdcall;
 
 function SOMTMethodEntryC.somtGetIDLParamList(buffer: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17115,7 +17116,7 @@ end;
  * New Method: somtGetShortCParamList
  *)
 type
-  somTD_SOMTMethodEntryC_somtGetShortCParamList = function (buffer: CORBAString; selfParm: CORBAString; varargsParm: CORBAString): CORBAString; stdcall;
+  somTD_SOMTMethodEntryC_somtGetShortCParamList = function (somSelf: SOMTMethodEntryC; buffer: CORBAString; selfParm: CORBAString; varargsParm: CORBAString): CORBAString; stdcall;
 
 function SOMTMethodEntryC.somtGetShortCParamList(buffer: CORBAString; selfParm: CORBAString; varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17126,7 +17127,7 @@ end;
  * New Method: somtGetFullCParamList
  *)
 type
-  somTD_SOMTMethodEntryC_somtGetFullCParamList = function (buffer: CORBAString; varargsParm: CORBAString): CORBAString; stdcall;
+  somTD_SOMTMethodEntryC_somtGetFullCParamList = function (somSelf: SOMTMethodEntryC; buffer: CORBAString; varargsParm: CORBAString): CORBAString; stdcall;
 
 function SOMTMethodEntryC.somtGetFullCParamList(buffer: CORBAString; varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17137,7 +17138,7 @@ end;
  * New Method: somtGetShortParamNameList
  *)
 type
-  somTD_SOMTMethodEntryC_somtGetShortParamNameList = function (buffer: CORBAString; selfParm: CORBAString; varargsParm: CORBAString): CORBAString; stdcall;
+  somTD_SOMTMethodEntryC_somtGetShortParamNameList = function (somSelf: SOMTMethodEntryC; buffer: CORBAString; selfParm: CORBAString; varargsParm: CORBAString): CORBAString; stdcall;
 
 function SOMTMethodEntryC.somtGetShortParamNameList(buffer: CORBAString; selfParm: CORBAString; varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17148,7 +17149,7 @@ end;
  * New Method: somtGetFullParamNameList
  *)
 type
-  somTD_SOMTMethodEntryC_somtGetFullParamNameList = function (buffer: CORBAString; varargsParm: CORBAString): CORBAString; stdcall;
+  somTD_SOMTMethodEntryC_somtGetFullParamNameList = function (somSelf: SOMTMethodEntryC; buffer: CORBAString; varargsParm: CORBAString): CORBAString; stdcall;
 
 function SOMTMethodEntryC.somtGetFullParamNameList(buffer: CORBAString; varargsParm: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17159,7 +17160,7 @@ end;
  * New Method: somtGetNthParameter
  *)
 type
-  somTD_SOMTMethodEntryC_somtGetNthParameter = function (n: SmallInt): SOMTParameterEntryC; stdcall;
+  somTD_SOMTMethodEntryC_somtGetNthParameter = function (somSelf: SOMTMethodEntryC; n: SmallInt): SOMTParameterEntryC; stdcall;
 
 function SOMTMethodEntryC.somtGetNthParameter(n: SmallInt): SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17170,7 +17171,7 @@ end;
  * New Method: somtGetFirstException
  *)
 type
-  somTD_SOMTMethodEntryC_somtGetFirstException = function : SOMTStructEntryC; stdcall;
+  somTD_SOMTMethodEntryC_somtGetFirstException = function (somSelf: SOMTMethodEntryC): SOMTStructEntryC; stdcall;
 
 function SOMTMethodEntryC.somtGetFirstException: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17181,7 +17182,7 @@ end;
  * New Method: somtGetNextException
  *)
 type
-  somTD_SOMTMethodEntryC_somtGetNextException = function : SOMTStructEntryC; stdcall;
+  somTD_SOMTMethodEntryC_somtGetNextException = function (somSelf: SOMTMethodEntryC): SOMTStructEntryC; stdcall;
 
 function SOMTMethodEntryC.somtGetNextException: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17445,7 +17446,7 @@ end;
  * New Method: _get_somtOuterModule
  *)
 type
-  somTD_SOMTModuleEntryC__get_somtOuterModule = function : SOMTModuleEntryC; stdcall;
+  somTD_SOMTModuleEntryC__get_somtOuterModule = function (somSelf: SOMTModuleEntryC): SOMTModuleEntryC; stdcall;
 
 function SOMTModuleEntryC._get_somtOuterModule: SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17456,7 +17457,7 @@ end;
  * New Method: _get_somtModuleFile
  *)
 type
-  somTD_SOMTModuleEntryC__get_somtModuleFile = function : CORBAString; stdcall;
+  somTD_SOMTModuleEntryC__get_somtModuleFile = function (somSelf: SOMTModuleEntryC): CORBAString; stdcall;
 
 function SOMTModuleEntryC._get_somtModuleFile: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17522,7 +17523,7 @@ end;
  * New Method: somtGetFirstModuleStruct
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetFirstModuleStruct = function : SOMTStructEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleStruct = function (somSelf: SOMTModuleEntryC): SOMTStructEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetFirstModuleStruct: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17533,7 +17534,7 @@ end;
  * New Method: somtGetNextModuleStruct
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetNextModuleStruct = function : SOMTStructEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleStruct = function (somSelf: SOMTModuleEntryC): SOMTStructEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetNextModuleStruct: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17544,7 +17545,7 @@ end;
  * New Method: somtGetFirstModuleTypedef
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetFirstModuleTypedef = function : SOMTTypedefEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleTypedef = function (somSelf: SOMTModuleEntryC): SOMTTypedefEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetFirstModuleTypedef: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17555,7 +17556,7 @@ end;
  * New Method: somtGetNextModuleTypedef
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetNextModuleTypedef = function : SOMTTypedefEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleTypedef = function (somSelf: SOMTModuleEntryC): SOMTTypedefEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetNextModuleTypedef: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17566,7 +17567,7 @@ end;
  * New Method: somtGetFirstModuleUnion
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetFirstModuleUnion = function : SOMTUnionEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleUnion = function (somSelf: SOMTModuleEntryC): SOMTUnionEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetFirstModuleUnion: SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17577,7 +17578,7 @@ end;
  * New Method: somtGetNextModuleUnion
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetNextModuleUnion = function : SOMTUnionEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleUnion = function (somSelf: SOMTModuleEntryC): SOMTUnionEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetNextModuleUnion: SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17588,7 +17589,7 @@ end;
  * New Method: somtGetFirstModuleEnum
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetFirstModuleEnum = function : SOMTEnumEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleEnum = function (somSelf: SOMTModuleEntryC): SOMTEnumEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetFirstModuleEnum: SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17599,7 +17600,7 @@ end;
  * New Method: somtGetNextModuleEnum
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetNextModuleEnum = function : SOMTEnumEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleEnum = function (somSelf: SOMTModuleEntryC): SOMTEnumEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetNextModuleEnum: SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17610,7 +17611,7 @@ end;
  * New Method: somtGetFirstModuleConstant
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetFirstModuleConstant = function : SOMTConstEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleConstant = function (somSelf: SOMTModuleEntryC): SOMTConstEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetFirstModuleConstant: SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17621,7 +17622,7 @@ end;
  * New Method: somtGetNextModuleConstant
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetNextModuleConstant = function : SOMTConstEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleConstant = function (somSelf: SOMTModuleEntryC): SOMTConstEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetNextModuleConstant: SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17632,7 +17633,7 @@ end;
  * New Method: somtGetFirstModuleSequence
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetFirstModuleSequence = function : SOMTSequenceEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleSequence = function (somSelf: SOMTModuleEntryC): SOMTSequenceEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetFirstModuleSequence: SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17643,7 +17644,7 @@ end;
  * New Method: somtGetNextModuleSequence
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetNextModuleSequence = function : SOMTSequenceEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleSequence = function (somSelf: SOMTModuleEntryC): SOMTSequenceEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetNextModuleSequence: SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17654,7 +17655,7 @@ end;
  * New Method: somtGetFirstInterface
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetFirstInterface = function : SOMTClassEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstInterface = function (somSelf: SOMTModuleEntryC): SOMTClassEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetFirstInterface: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17665,7 +17666,7 @@ end;
  * New Method: somtGetNextInterface
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetNextInterface = function : SOMTClassEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextInterface = function (somSelf: SOMTModuleEntryC): SOMTClassEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetNextInterface: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17676,7 +17677,7 @@ end;
  * New Method: somtGetFirstModule
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetFirstModule = function : SOMTModuleEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModule = function (somSelf: SOMTModuleEntryC): SOMTModuleEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetFirstModule: SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17687,7 +17688,7 @@ end;
  * New Method: somtGetNextModule
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetNextModule = function : SOMTModuleEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModule = function (somSelf: SOMTModuleEntryC): SOMTModuleEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetNextModule: SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17698,7 +17699,7 @@ end;
  * New Method: somtGetFirstModuleDef
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetFirstModuleDef = function : SOMTEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetFirstModuleDef = function (somSelf: SOMTModuleEntryC): SOMTEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetFirstModuleDef: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17709,7 +17710,7 @@ end;
  * New Method: somtGetNextModuleDef
  *)
 type
-  somTD_SOMTModuleEntryC_somtGetNextModuleDef = function : SOMTEntryC; stdcall;
+  somTD_SOMTModuleEntryC_somtGetNextModuleDef = function (somSelf: SOMTModuleEntryC): SOMTEntryC; stdcall;
 
 function SOMTModuleEntryC.somtGetNextModuleDef: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17953,7 +17954,7 @@ end;
  * New Method: _get_somtParameterDirection
  *)
 type
-  somTD_SOMTParameterEntryC__get_somtParameterDirection = function : somtParameterDirectionT; stdcall;
+  somTD_SOMTParameterEntryC__get_somtParameterDirection = function (somSelf: SOMTParameterEntryC): somtParameterDirectionT; stdcall;
 
 function SOMTParameterEntryC._get_somtParameterDirection: somtParameterDirectionT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17964,7 +17965,7 @@ end;
  * New Method: _get_somtIDLParameterDeclaration
  *)
 type
-  somTD_SOMTParameterEntryC__get_somtIDLParameterDeclaration = function : CORBAString; stdcall;
+  somTD_SOMTParameterEntryC__get_somtIDLParameterDeclaration = function (somSelf: SOMTParameterEntryC): CORBAString; stdcall;
 
 function SOMTParameterEntryC._get_somtIDLParameterDeclaration: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -17975,7 +17976,7 @@ end;
  * New Method: _get_somtCParameterDeclaration
  *)
 type
-  somTD_SOMTParameterEntryC__get_somtCParameterDeclaration = function : CORBAString; stdcall;
+  somTD_SOMTParameterEntryC__get_somtCParameterDeclaration = function (somSelf: SOMTParameterEntryC): CORBAString; stdcall;
 
 function SOMTParameterEntryC._get_somtCParameterDeclaration: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -18324,7 +18325,7 @@ end;
  * New Method: _get_somtPassthruBody
  *)
 type
-  somTD_SOMTPassthruEntryC__get_somtPassthruBody = function : CORBAString; stdcall;
+  somTD_SOMTPassthruEntryC__get_somtPassthruBody = function (somSelf: SOMTPassthruEntryC): CORBAString; stdcall;
 
 function SOMTPassthruEntryC._get_somtPassthruBody: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -18335,7 +18336,7 @@ end;
  * New Method: _get_somtPassthruLanguage
  *)
 type
-  somTD_SOMTPassthruEntryC__get_somtPassthruLanguage = function : CORBAString; stdcall;
+  somTD_SOMTPassthruEntryC__get_somtPassthruLanguage = function (somSelf: SOMTPassthruEntryC): CORBAString; stdcall;
 
 function SOMTPassthruEntryC._get_somtPassthruLanguage: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -18346,7 +18347,7 @@ end;
  * New Method: _get_somtPassthruTarget
  *)
 type
-  somTD_SOMTPassthruEntryC__get_somtPassthruTarget = function : CORBAString; stdcall;
+  somTD_SOMTPassthruEntryC__get_somtPassthruTarget = function (somSelf: SOMTPassthruEntryC): CORBAString; stdcall;
 
 function SOMTPassthruEntryC._get_somtPassthruTarget: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -18412,7 +18413,7 @@ end;
  * New Method: somtIsBeforePassthru
  *)
 type
-  somTD_SOMTPassthruEntryC_somtIsBeforePassthru = function : CORBABoolean; stdcall;
+  somTD_SOMTPassthruEntryC_somtIsBeforePassthru = function (somSelf: SOMTPassthruEntryC): CORBABoolean; stdcall;
 
 function SOMTPassthruEntryC.somtIsBeforePassthru: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -18656,7 +18657,7 @@ end;
  * New Method: _get_somtSeqLength
  *)
 type
-  somTD_SOMTSequenceEntryC__get_somtSeqLength = function : LongInt; stdcall;
+  somTD_SOMTSequenceEntryC__get_somtSeqLength = function (somSelf: SOMTSequenceEntryC): LongInt; stdcall;
 
 function SOMTSequenceEntryC._get_somtSeqLength: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -18667,7 +18668,7 @@ end;
  * New Method: _get_somtSeqType
  *)
 type
-  somTD_SOMTSequenceEntryC__get_somtSeqType = function : SOMTEntryC; stdcall;
+  somTD_SOMTSequenceEntryC__get_somtSeqType = function (somSelf: SOMTSequenceEntryC): SOMTEntryC; stdcall;
 
 function SOMTSequenceEntryC._get_somtSeqType: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -18966,7 +18967,7 @@ end;
  * New Method: _get_somtStringLength
  *)
 type
-  somTD_SOMTStringEntryC__get_somtStringLength = function : LongInt; stdcall;
+  somTD_SOMTStringEntryC__get_somtStringLength = function (somSelf: SOMTStringEntryC): LongInt; stdcall;
 
 function SOMTStringEntryC._get_somtStringLength: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19265,7 +19266,7 @@ end;
  * New Method: _get_somtStructClass
  *)
 type
-  somTD_SOMTStructEntryC__get_somtStructClass = function : SOMTClassEntryC; stdcall;
+  somTD_SOMTStructEntryC__get_somtStructClass = function (somSelf: SOMTStructEntryC): SOMTClassEntryC; stdcall;
 
 function SOMTStructEntryC._get_somtStructClass: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19276,7 +19277,7 @@ end;
  * New Method: _get_somtIsException
  *)
 type
-  somTD_SOMTStructEntryC__get_somtIsException = function : CORBABoolean; stdcall;
+  somTD_SOMTStructEntryC__get_somtIsException = function (somSelf: SOMTStructEntryC): CORBABoolean; stdcall;
 
 function SOMTStructEntryC._get_somtIsException: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19342,7 +19343,7 @@ end;
  * New Method: somtGetFirstMember
  *)
 type
-  somTD_SOMTStructEntryC_somtGetFirstMember = function : SOMTTypedefEntryC; stdcall;
+  somTD_SOMTStructEntryC_somtGetFirstMember = function (somSelf: SOMTStructEntryC): SOMTTypedefEntryC; stdcall;
 
 function SOMTStructEntryC.somtGetFirstMember: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19353,7 +19354,7 @@ end;
  * New Method: somtGetNextMember
  *)
 type
-  somTD_SOMTStructEntryC_somtGetNextMember = function : SOMTTypedefEntryC; stdcall;
+  somTD_SOMTStructEntryC_somtGetNextMember = function (somSelf: SOMTStructEntryC): SOMTTypedefEntryC; stdcall;
 
 function SOMTStructEntryC.somtGetNextMember: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19597,7 +19598,7 @@ end;
  * New Method: _get_somtTypedefType
  *)
 type
-  somTD_SOMTTypedefEntryC__get_somtTypedefType = function : SOMTEntryC; stdcall;
+  somTD_SOMTTypedefEntryC__get_somtTypedefType = function (somSelf: SOMTTypedefEntryC): SOMTEntryC; stdcall;
 
 function SOMTTypedefEntryC._get_somtTypedefType: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19663,7 +19664,7 @@ end;
  * New Method: somtGetFirstDeclarator
  *)
 type
-  somTD_SOMTTypedefEntryC_somtGetFirstDeclarator = function : SOMTCommonEntryC; stdcall;
+  somTD_SOMTTypedefEntryC_somtGetFirstDeclarator = function (somSelf: SOMTTypedefEntryC): SOMTCommonEntryC; stdcall;
 
 function SOMTTypedefEntryC.somtGetFirstDeclarator: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19674,7 +19675,7 @@ end;
  * New Method: somtGetNextDeclarator
  *)
 type
-  somTD_SOMTTypedefEntryC_somtGetNextDeclarator = function : SOMTCommonEntryC; stdcall;
+  somTD_SOMTTypedefEntryC_somtGetNextDeclarator = function (somSelf: SOMTTypedefEntryC): SOMTCommonEntryC; stdcall;
 
 function SOMTTypedefEntryC.somtGetNextDeclarator: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19918,7 +19919,7 @@ end;
  * New Method: _get_somtCommentStyle
  *)
 type
-  somTD_SOMTTemplateOutputC__get_somtCommentStyle = function : somtCommentStyleT; stdcall;
+  somTD_SOMTTemplateOutputC__get_somtCommentStyle = function (somSelf: SOMTTemplateOutputC): somtCommentStyleT; stdcall;
 
 function SOMTTemplateOutputC._get_somtCommentStyle: somtCommentStyleT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19929,7 +19930,7 @@ end;
  * New Method: _set_somtCommentStyle
  *)
 type
-  somTD_SOMTTemplateOutputC__set_somtCommentStyle = procedure (somtCommentStyle: somtCommentStyleT); stdcall;
+  somTD_SOMTTemplateOutputC__set_somtCommentStyle = procedure (somSelf: SOMTTemplateOutputC; somtCommentStyle: somtCommentStyleT); stdcall;
 
 procedure SOMTTemplateOutputC._set_somtCommentStyle(somtCommentStyle: somtCommentStyleT); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19940,7 +19941,7 @@ end;
  * New Method: _get_somtLineLength
  *)
 type
-  somTD_SOMTTemplateOutputC__get_somtLineLength = function : LongInt; stdcall;
+  somTD_SOMTTemplateOutputC__get_somtLineLength = function (somSelf: SOMTTemplateOutputC): LongInt; stdcall;
 
 function SOMTTemplateOutputC._get_somtLineLength: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19951,7 +19952,7 @@ end;
  * New Method: _set_somtLineLength
  *)
 type
-  somTD_SOMTTemplateOutputC__set_somtLineLength = procedure (somtLineLength: LongInt); stdcall;
+  somTD_SOMTTemplateOutputC__set_somtLineLength = procedure (somSelf: SOMTTemplateOutputC; somtLineLength: LongInt); stdcall;
 
 procedure SOMTTemplateOutputC._set_somtLineLength(somtLineLength: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19962,7 +19963,7 @@ end;
  * New Method: _get_somtCommentNewline
  *)
 type
-  somTD_SOMTTemplateOutputC__get_somtCommentNewline = function : CORBABoolean; stdcall;
+  somTD_SOMTTemplateOutputC__get_somtCommentNewline = function (somSelf: SOMTTemplateOutputC): CORBABoolean; stdcall;
 
 function SOMTTemplateOutputC._get_somtCommentNewline: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19973,7 +19974,7 @@ end;
  * New Method: _set_somtCommentNewline
  *)
 type
-  somTD_SOMTTemplateOutputC__set_somtCommentNewline = procedure (somtCommentNewline: CORBABoolean); stdcall;
+  somTD_SOMTTemplateOutputC__set_somtCommentNewline = procedure (somSelf: SOMTTemplateOutputC; somtCommentNewline: CORBABoolean); stdcall;
 
 procedure SOMTTemplateOutputC._set_somtCommentNewline(somtCommentNewline: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19984,7 +19985,7 @@ end;
  * New Method: somtGetSymbol
  *)
 type
-  somTD_SOMTTemplateOutputC_somtGetSymbol = function (name: CORBAString): CORBAString; stdcall;
+  somTD_SOMTTemplateOutputC_somtGetSymbol = function (somSelf: SOMTTemplateOutputC; name: CORBAString): CORBAString; stdcall;
 
 function SOMTTemplateOutputC.somtGetSymbol(name: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -19995,7 +19996,7 @@ end;
  * New Method: somtSetSymbol
  *)
 type
-  somTD_SOMTTemplateOutputC_somtSetSymbol = procedure (name: CORBAString; value: CORBAString); stdcall;
+  somTD_SOMTTemplateOutputC_somtSetSymbol = procedure (somSelf: SOMTTemplateOutputC; name: CORBAString; value: CORBAString); stdcall;
 
 procedure SOMTTemplateOutputC.somtSetSymbol(name: CORBAString; value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20006,7 +20007,7 @@ end;
  * New Method: somtSetSymbolCopyName
  *)
 type
-  somTD_SOMTTemplateOutputC_somtSetSymbolCopyName = procedure (name: CORBAString; value: CORBAString); stdcall;
+  somTD_SOMTTemplateOutputC_somtSetSymbolCopyName = procedure (somSelf: SOMTTemplateOutputC; name: CORBAString; value: CORBAString); stdcall;
 
 procedure SOMTTemplateOutputC.somtSetSymbolCopyName(name: CORBAString; value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20017,7 +20018,7 @@ end;
  * New Method: somtSetSymbolCopyValue
  *)
 type
-  somTD_SOMTTemplateOutputC_somtSetSymbolCopyValue = procedure (name: CORBAString; value: CORBAString); stdcall;
+  somTD_SOMTTemplateOutputC_somtSetSymbolCopyValue = procedure (somSelf: SOMTTemplateOutputC; name: CORBAString; value: CORBAString); stdcall;
 
 procedure SOMTTemplateOutputC.somtSetSymbolCopyValue(name: CORBAString; value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20028,7 +20029,7 @@ end;
  * New Method: somtSetSymbolCopyBoth
  *)
 type
-  somTD_SOMTTemplateOutputC_somtSetSymbolCopyBoth = procedure (name: CORBAString; value: CORBAString); stdcall;
+  somTD_SOMTTemplateOutputC_somtSetSymbolCopyBoth = procedure (somSelf: SOMTTemplateOutputC; name: CORBAString; value: CORBAString); stdcall;
 
 procedure SOMTTemplateOutputC.somtSetSymbolCopyBoth(name: CORBAString; value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20039,7 +20040,7 @@ end;
  * New Method: somtCheckSymbol
  *)
 type
-  somTD_SOMTTemplateOutputC_somtCheckSymbol = function (name: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMTTemplateOutputC_somtCheckSymbol = function (somSelf: SOMTTemplateOutputC; name: CORBAString): CORBABoolean; stdcall;
 
 function SOMTTemplateOutputC.somtCheckSymbol(name: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20050,7 +20051,7 @@ end;
  * New Method: somtSetOutputFile
  *)
 type
-  somTD_SOMTTemplateOutputC_somtSetOutputFile = procedure (var fp{: opaque SOM_FILE}); stdcall;
+  somTD_SOMTTemplateOutputC_somtSetOutputFile = procedure (somSelf: SOMTTemplateOutputC; var fp{: opaque SOM_FILE}); stdcall;
 
 procedure SOMTTemplateOutputC.somtSetOutputFile(var fp{: opaque SOM_FILE}); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20061,7 +20062,7 @@ end;
  * New Method: somto
  *)
 type
-  somTD_SOMTTemplateOutputC_somto = procedure (tmplt: CORBAString); stdcall;
+  somTD_SOMTTemplateOutputC_somto = procedure (somSelf: SOMTTemplateOutputC; tmplt: CORBAString); stdcall;
 
 procedure SOMTTemplateOutputC.somto(tmplt: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20072,7 +20073,7 @@ end;
  * New Method: somtOutputComment
  *)
 type
-  somTD_SOMTTemplateOutputC_somtOutputComment = procedure (comment: CORBAString); stdcall;
+  somTD_SOMTTemplateOutputC_somtOutputComment = procedure (somSelf: SOMTTemplateOutputC; comment: CORBAString); stdcall;
 
 procedure SOMTTemplateOutputC.somtOutputComment(comment: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20083,7 +20084,7 @@ end;
  * New Method: somtOutputSection
  *)
 type
-  somTD_SOMTTemplateOutputC_somtOutputSection = procedure (sectionName: CORBAString); stdcall;
+  somTD_SOMTTemplateOutputC_somtOutputSection = procedure (somSelf: SOMTTemplateOutputC; sectionName: CORBAString); stdcall;
 
 procedure SOMTTemplateOutputC.somtOutputSection(sectionName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20094,7 +20095,7 @@ end;
  * New Method: somtAddSectionDefinitions
  *)
 type
-  somTD_SOMTTemplateOutputC_somtAddSectionDefinitions = procedure (defString: CORBAString); stdcall;
+  somTD_SOMTTemplateOutputC_somtAddSectionDefinitions = procedure (somSelf: SOMTTemplateOutputC; defString: CORBAString); stdcall;
 
 procedure SOMTTemplateOutputC.somtAddSectionDefinitions(defString: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20105,7 +20106,7 @@ end;
  * New Method: somtReadSectionDefinitions
  *)
 type
-  somTD_SOMTTemplateOutputC_somtReadSectionDefinitions = procedure (var fp{: opaque SOM_FILE}); stdcall;
+  somTD_SOMTTemplateOutputC_somtReadSectionDefinitions = procedure (somSelf: SOMTTemplateOutputC; var fp{: opaque SOM_FILE}); stdcall;
 
 procedure SOMTTemplateOutputC.somtReadSectionDefinitions(var fp{: opaque SOM_FILE}); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20116,7 +20117,7 @@ end;
  * New Method: somtExpandSymbol
  *)
 type
-  somTD_SOMTTemplateOutputC_somtExpandSymbol = function (s: CORBAString; buf: CORBAString): CORBAString; stdcall;
+  somTD_SOMTTemplateOutputC_somtExpandSymbol = function (somSelf: SOMTTemplateOutputC; s: CORBAString; buf: CORBAString): CORBAString; stdcall;
 
 function SOMTTemplateOutputC.somtExpandSymbol(s: CORBAString; buf: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20325,7 +20326,7 @@ end;
  * New Method: _get_somtSwitchType
  *)
 type
-  somTD_SOMTUnionEntryC__get_somtSwitchType = function : SOMTEntryC; stdcall;
+  somTD_SOMTUnionEntryC__get_somtSwitchType = function (somSelf: SOMTUnionEntryC): SOMTEntryC; stdcall;
 
 function SOMTUnionEntryC._get_somtSwitchType: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20391,7 +20392,7 @@ end;
  * New Method: somtGetFirstCaseEntry
  *)
 type
-  somTD_SOMTUnionEntryC_somtGetFirstCaseEntry = function : PSOMTUnionEntryC_somtCaseEntry; stdcall;
+  somTD_SOMTUnionEntryC_somtGetFirstCaseEntry = function (somSelf: SOMTUnionEntryC): PSOMTUnionEntryC_somtCaseEntry; stdcall;
 
 function SOMTUnionEntryC.somtGetFirstCaseEntry: PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20402,7 +20403,7 @@ end;
  * New Method: somtGetNextCaseEntry
  *)
 type
-  somTD_SOMTUnionEntryC_somtGetNextCaseEntry = function : PSOMTUnionEntryC_somtCaseEntry; stdcall;
+  somTD_SOMTUnionEntryC_somtGetNextCaseEntry = function (somSelf: SOMTUnionEntryC): PSOMTUnionEntryC_somtCaseEntry; stdcall;
 
 function SOMTUnionEntryC.somtGetNextCaseEntry: PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20646,7 +20647,7 @@ end;
  * New Method: _get_somtOriginalTypedef
  *)
 type
-  somTD_SOMTUserDefinedTypeEntryC__get_somtOriginalTypedef = function : SOMTTypedefEntryC; stdcall;
+  somTD_SOMTUserDefinedTypeEntryC__get_somtOriginalTypedef = function (somSelf: SOMTUserDefinedTypeEntryC): SOMTTypedefEntryC; stdcall;
 
 function SOMTUserDefinedTypeEntryC._get_somtOriginalTypedef: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -20657,7 +20658,7 @@ end;
  * New Method: _get_somtBaseTypeObj
  *)
 type
-  somTD_SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj = function : SOMTEntryC; stdcall;
+  somTD_SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj = function (somSelf: SOMTUserDefinedTypeEntryC): SOMTEntryC; stdcall;
 
 function SOMTUserDefinedTypeEntryC._get_somtBaseTypeObj: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21006,7 +21007,7 @@ end;
  * New Method: somdShutdownServer
  *)
 type
-  somTD_SOMDServerMgr_somdShutdownServer = function (server_alias: CORBAString): LongWord; stdcall;
+  somTD_SOMDServerMgr_somdShutdownServer = function (somSelf: SOMDServerMgr; ev: PEnvironment; server_alias: CORBAString): LongWord; stdcall;
 
 function SOMDServerMgr.somdShutdownServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21017,7 +21018,7 @@ end;
  * New Method: somdStartServer
  *)
 type
-  somTD_SOMDServerMgr_somdStartServer = function (server_alias: CORBAString): LongWord; stdcall;
+  somTD_SOMDServerMgr_somdStartServer = function (somSelf: SOMDServerMgr; ev: PEnvironment; server_alias: CORBAString): LongWord; stdcall;
 
 function SOMDServerMgr.somdStartServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21028,7 +21029,7 @@ end;
  * New Method: somdRestartServer
  *)
 type
-  somTD_SOMDServerMgr_somdRestartServer = function (server_alias: CORBAString): LongWord; stdcall;
+  somTD_SOMDServerMgr_somdRestartServer = function (somSelf: SOMDServerMgr; ev: PEnvironment; server_alias: CORBAString): LongWord; stdcall;
 
 function SOMDServerMgr.somdRestartServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21039,7 +21040,7 @@ end;
  * New Method: somdListServer
  *)
 type
-  somTD_SOMDServerMgr_somdListServer = function (server_alias: CORBAString): LongWord; stdcall;
+  somTD_SOMDServerMgr_somdListServer = function (somSelf: SOMDServerMgr; ev: PEnvironment; server_alias: CORBAString): LongWord; stdcall;
 
 function SOMDServerMgr.somdListServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21050,7 +21051,7 @@ end;
  * New Method: somdDisableServer
  *)
 type
-  somTD_SOMDServerMgr_somdDisableServer = function (server_alias: CORBAString): LongWord; stdcall;
+  somTD_SOMDServerMgr_somdDisableServer = function (somSelf: SOMDServerMgr; ev: PEnvironment; server_alias: CORBAString): LongWord; stdcall;
 
 function SOMDServerMgr.somdDisableServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21061,7 +21062,7 @@ end;
  * New Method: somdEnableServer
  *)
 type
-  somTD_SOMDServerMgr_somdEnableServer = function (server_alias: CORBAString): LongWord; stdcall;
+  somTD_SOMDServerMgr_somdEnableServer = function (somSelf: SOMDServerMgr; ev: PEnvironment; server_alias: CORBAString): LongWord; stdcall;
 
 function SOMDServerMgr.somdEnableServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21072,7 +21073,7 @@ end;
  * New Method: somdIsServerEnabled
  *)
 type
-  somTD_SOMDServerMgr_somdIsServerEnabled = function (impldef: ImplementationDef): CORBABoolean; stdcall;
+  somTD_SOMDServerMgr_somdIsServerEnabled = function (somSelf: SOMDServerMgr; ev: PEnvironment; impldef: ImplementationDef): CORBABoolean; stdcall;
 
 function SOMDServerMgr.somdIsServerEnabled(impldef: ImplementationDef): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21281,7 +21282,7 @@ end;
  * New Method: somevGetEventSink
  *)
 type
-  somTD_SOMESinkEvent_somevGetEventSink = function : LongInt; stdcall;
+  somTD_SOMESinkEvent_somevGetEventSink = function (somSelf: SOMESinkEvent; ev: PEnvironment): LongInt; stdcall;
 
 function SOMESinkEvent.somevGetEventSink: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21292,7 +21293,7 @@ end;
  * New Method: somevSetEventSink
  *)
 type
-  somTD_SOMESinkEvent_somevSetEventSink = procedure (sink: LongInt); stdcall;
+  somTD_SOMESinkEvent_somevSetEventSink = procedure (somSelf: SOMESinkEvent; ev: PEnvironment; sink: LongInt); stdcall;
 
 procedure SOMESinkEvent.somevSetEventSink(sink: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21521,7 +21522,7 @@ end;
  * New Method: _get_somDataAlignment
  *)
 type
-  somTD_SOMClass__get_somDataAlignment = function : LongInt; stdcall;
+  somTD_SOMClass__get_somDataAlignment = function (somSelf: SOMClass): LongInt; stdcall;
 
 function SOMClass._get_somDataAlignment: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21532,7 +21533,7 @@ end;
  * New Method: _get_somInstanceDataOffsets
  *)
 type
-  somTD_SOMClass__get_somInstanceDataOffsets = function : _IDL_Sequence_SOMClass_somOffsetInfo; stdcall;
+  somTD_SOMClass__get_somInstanceDataOffsets = function (somSelf: SOMClass): _IDL_Sequence_SOMClass_somOffsetInfo; stdcall;
 
 function SOMClass._get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21543,7 +21544,7 @@ end;
  * New Method: _get_somDirectInitClasses
  *)
 type
-  somTD_SOMClass__get_somDirectInitClasses = function : _IDL_Sequence_SOMClass; stdcall;
+  somTD_SOMClass__get_somDirectInitClasses = function (somSelf: SOMClass): _IDL_Sequence_SOMClass; stdcall;
 
 function SOMClass._get_somDirectInitClasses: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21554,7 +21555,7 @@ end;
  * New Method: _set_somDirectInitClasses
  *)
 type
-  somTD_SOMClass__set_somDirectInitClasses = procedure (const somDirectInitClasses: _IDL_Sequence_SOMClass); stdcall;
+  somTD_SOMClass__set_somDirectInitClasses = procedure (somSelf: SOMClass; const somDirectInitClasses: _IDL_Sequence_SOMClass); stdcall;
 
 procedure SOMClass._set_somDirectInitClasses(const somDirectInitClasses: _IDL_Sequence_SOMClass); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21565,7 +21566,7 @@ end;
  * New Method: _get_somClassAllocate
  *)
 type
-  somTD_SOMClass__get_somClassAllocate = function : PPointer; stdcall;
+  somTD_SOMClass__get_somClassAllocate = function (somSelf: SOMClass): PPointer; stdcall;
 
 function SOMClass._get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21576,7 +21577,7 @@ end;
  * New Method: _get_somClassDeallocate
  *)
 type
-  somTD_SOMClass__get_somClassDeallocate = function : PPointer; stdcall;
+  somTD_SOMClass__get_somClassDeallocate = function (somSelf: SOMClass): PPointer; stdcall;
 
 function SOMClass._get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21587,7 +21588,7 @@ end;
  * New Method: somNew
  *)
 type
-  somTD_SOMClass_somNew = function : SOMObject; stdcall;
+  somTD_SOMClass_somNew = function (somSelf: SOMClass): SOMObject; stdcall;
 
 function SOMClass.somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21598,7 +21599,7 @@ end;
  * New Method: somNewNoInit
  *)
 type
-  somTD_SOMClass_somNewNoInit = function : SOMObject; stdcall;
+  somTD_SOMClass_somNewNoInit = function (somSelf: SOMClass): SOMObject; stdcall;
 
 function SOMClass.somNewNoInit: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21609,7 +21610,7 @@ end;
  * New Method: somRenew
  *)
 type
-  somTD_SOMClass_somRenew = function (obj: Pointer): SOMObject; stdcall;
+  somTD_SOMClass_somRenew = function (somSelf: SOMClass; obj: Pointer): SOMObject; stdcall;
 
 function SOMClass.somRenew(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21620,7 +21621,7 @@ end;
  * New Method: somRenewNoInit
  *)
 type
-  somTD_SOMClass_somRenewNoInit = function (obj: Pointer): SOMObject; stdcall;
+  somTD_SOMClass_somRenewNoInit = function (somSelf: SOMClass; obj: Pointer): SOMObject; stdcall;
 
 function SOMClass.somRenewNoInit(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21631,7 +21632,7 @@ end;
  * New Method: somRenewNoZero
  *)
 type
-  somTD_SOMClass_somRenewNoZero = function (obj: Pointer): SOMObject; stdcall;
+  somTD_SOMClass_somRenewNoZero = function (somSelf: SOMClass; obj: Pointer): SOMObject; stdcall;
 
 function SOMClass.somRenewNoZero(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21642,7 +21643,7 @@ end;
  * New Method: somRenewNoInitNoZero
  *)
 type
-  somTD_SOMClass_somRenewNoInitNoZero = function (obj: Pointer): SOMObject; stdcall;
+  somTD_SOMClass_somRenewNoInitNoZero = function (somSelf: SOMClass; obj: Pointer): SOMObject; stdcall;
 
 function SOMClass.somRenewNoInitNoZero(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21653,7 +21654,7 @@ end;
  * New Method: somAllocate
  *)
 type
-  somTD_SOMClass_somAllocate = function (size: LongInt): CORBAString; stdcall;
+  somTD_SOMClass_somAllocate = function (somSelf: SOMClass; size: LongInt): CORBAString; stdcall;
 
 function SOMClass.somAllocate(size: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21664,7 +21665,7 @@ end;
  * New Method: somDeallocate
  *)
 type
-  somTD_SOMClass_somDeallocate = procedure (memptr: CORBAString); stdcall;
+  somTD_SOMClass_somDeallocate = procedure (somSelf: SOMClass; memptr: CORBAString); stdcall;
 
 procedure SOMClass.somDeallocate(memptr: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21675,7 +21676,7 @@ end;
  * New Method: somGetInstanceInitMask
  *)
 type
-  somTD_SOMClass_somGetInstanceInitMask = function (out ctrl: Pointer): PByte; stdcall;
+  somTD_SOMClass_somGetInstanceInitMask = function (somSelf: SOMClass; out ctrl: Pointer): PByte; stdcall;
 
 function SOMClass.somGetInstanceInitMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21686,7 +21687,7 @@ end;
  * New Method: somGetInstanceDestructionMask
  *)
 type
-  somTD_SOMClass_somGetInstanceDestructionMask = function (out ctrl: Pointer): PByte; stdcall;
+  somTD_SOMClass_somGetInstanceDestructionMask = function (somSelf: SOMClass; out ctrl: Pointer): PByte; stdcall;
 
 function SOMClass.somGetInstanceDestructionMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21697,7 +21698,7 @@ end;
  * New Method: somGetInstanceAssignmentMask
  *)
 type
-  somTD_SOMClass_somGetInstanceAssignmentMask = function (out ctrl: Pointer): PByte; stdcall;
+  somTD_SOMClass_somGetInstanceAssignmentMask = function (somSelf: SOMClass; out ctrl: Pointer): PByte; stdcall;
 
 function SOMClass.somGetInstanceAssignmentMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21708,7 +21709,7 @@ end;
  * New Method: somInitClass
  *)
 type
-  somTD_SOMClass_somInitClass = procedure (className: CORBAString; parentClass: SOMClass; dataSize: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); stdcall;
+  somTD_SOMClass_somInitClass = procedure (somSelf: SOMClass; className: CORBAString; parentClass: SOMClass; dataSize: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); stdcall;
 
 procedure SOMClass.somInitClass(className: CORBAString; parentClass: SOMClass; dataSize: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21719,7 +21720,7 @@ end;
  * New Method: somInitMIClass
  *)
 type
-  somTD_SOMClass_somInitMIClass = procedure (inherit_vars: LongInt; className: CORBAString; const parentClasses: _IDL_Sequence_SOMClass; dataSize: LongInt; dataAlignment: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); stdcall;
+  somTD_SOMClass_somInitMIClass = procedure (somSelf: SOMClass; inherit_vars: LongInt; className: CORBAString; const parentClasses: _IDL_Sequence_SOMClass; dataSize: LongInt; dataAlignment: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); stdcall;
 
 procedure SOMClass.somInitMIClass(inherit_vars: LongInt; className: CORBAString; const parentClasses: _IDL_Sequence_SOMClass; dataSize: LongInt; dataAlignment: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21730,7 +21731,7 @@ end;
  * New Method: somAddStaticMethod
  *)
 type
-  somTD_SOMClass_somAddStaticMethod = function (methodId: somId; methodDescriptor: somId; method: Pointer; redispatchStub: Pointer; applyStub: Pointer): Pointer; stdcall;
+  somTD_SOMClass_somAddStaticMethod = function (somSelf: SOMClass; methodId: somId; methodDescriptor: somId; method: Pointer; redispatchStub: Pointer; applyStub: Pointer): Pointer; stdcall;
 
 function SOMClass.somAddStaticMethod(methodId: somId; methodDescriptor: somId; method: Pointer; redispatchStub: Pointer; applyStub: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21741,7 +21742,7 @@ end;
  * New Method: somAddDynamicMethod
  *)
 type
-  somTD_SOMClass_somAddDynamicMethod = procedure (methodId: somId; methodDescriptor: somId; method: Pointer; applyStub: Pointer); stdcall;
+  somTD_SOMClass_somAddDynamicMethod = procedure (somSelf: SOMClass; methodId: somId; methodDescriptor: somId; method: Pointer; applyStub: Pointer); stdcall;
 
 procedure SOMClass.somAddDynamicMethod(methodId: somId; methodDescriptor: somId; method: Pointer; applyStub: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21752,7 +21753,7 @@ end;
  * New Method: somOverrideSMethod
  *)
 type
-  somTD_SOMClass_somOverrideSMethod = procedure (methodId: somId; method: Pointer); stdcall;
+  somTD_SOMClass_somOverrideSMethod = procedure (somSelf: SOMClass; methodId: somId; method: Pointer); stdcall;
 
 procedure SOMClass.somOverrideSMethod(methodId: somId; method: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21763,7 +21764,7 @@ end;
  * New Method: somClassReady
  *)
 type
-  somTD_SOMClass_somClassReady = procedure ; stdcall;
+  somTD_SOMClass_somClassReady = procedure (somSelf: SOMClass); stdcall;
 
 procedure SOMClass.somClassReady; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21774,7 +21775,7 @@ end;
  * New Method: somGetClassData
  *)
 type
-  somTD_SOMClass_somGetClassData = function : PsomClassDataStructure; stdcall;
+  somTD_SOMClass_somGetClassData = function (somSelf: SOMClass): PsomClassDataStructure; stdcall;
 
 function SOMClass.somGetClassData: PsomClassDataStructure; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21785,7 +21786,7 @@ end;
  * New Method: somSetClassData
  *)
 type
-  somTD_SOMClass_somSetClassData = procedure (const cds: somClassDataStructure); stdcall;
+  somTD_SOMClass_somSetClassData = procedure (somSelf: SOMClass; const cds: somClassDataStructure); stdcall;
 
 procedure SOMClass.somSetClassData(const cds: somClassDataStructure); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21796,7 +21797,7 @@ end;
  * New Method: somGetClassMtab
  *)
 type
-  somTD_SOMClass_somGetClassMtab = function : PsomMethodTab; stdcall;
+  somTD_SOMClass_somGetClassMtab = function (somSelf: SOMClass): PsomMethodTab; stdcall;
 
 function SOMClass.somGetClassMtab: PsomMethodTab; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21807,7 +21808,7 @@ end;
  * New Method: somGetInstanceOffset
  *)
 type
-  somTD_SOMClass_somGetInstanceOffset = function : LongInt; stdcall;
+  somTD_SOMClass_somGetInstanceOffset = function (somSelf: SOMClass): LongInt; stdcall;
 
 function SOMClass.somGetInstanceOffset: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21818,7 +21819,7 @@ end;
  * New Method: somGetInstancePartSize
  *)
 type
-  somTD_SOMClass_somGetInstancePartSize = function : LongInt; stdcall;
+  somTD_SOMClass_somGetInstancePartSize = function (somSelf: SOMClass): LongInt; stdcall;
 
 function SOMClass.somGetInstancePartSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21829,7 +21830,7 @@ end;
  * New Method: somGetInstanceSize
  *)
 type
-  somTD_SOMClass_somGetInstanceSize = function : LongInt; stdcall;
+  somTD_SOMClass_somGetInstanceSize = function (somSelf: SOMClass): LongInt; stdcall;
 
 function SOMClass.somGetInstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21840,7 +21841,7 @@ end;
  * New Method: somGetInstanceToken
  *)
 type
-  somTD_SOMClass_somGetInstanceToken = function : Pointer; stdcall;
+  somTD_SOMClass_somGetInstanceToken = function (somSelf: SOMClass): Pointer; stdcall;
 
 function SOMClass.somGetInstanceToken: Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21851,7 +21852,7 @@ end;
  * New Method: somGetMemberToken
  *)
 type
-  somTD_SOMClass_somGetMemberToken = function (memberOffset: LongInt; instanceToken: Pointer): Pointer; stdcall;
+  somTD_SOMClass_somGetMemberToken = function (somSelf: SOMClass; memberOffset: LongInt; instanceToken: Pointer): Pointer; stdcall;
 
 function SOMClass.somGetMemberToken(memberOffset: LongInt; instanceToken: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21862,7 +21863,7 @@ end;
  * New Method: somGetMethodData
  *)
 type
-  somTD_SOMClass_somGetMethodData = function (methodId: somId; out md: somMethodDataStruct): CORBABoolean; stdcall;
+  somTD_SOMClass_somGetMethodData = function (somSelf: SOMClass; methodId: somId; out md: somMethodDataStruct): CORBABoolean; stdcall;
 
 function SOMClass.somGetMethodData(methodId: somId; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21873,7 +21874,7 @@ end;
  * New Method: somGetRdStub
  *)
 type
-  somTD_SOMClass_somGetRdStub = function (methodId: somId): PPointer; stdcall;
+  somTD_SOMClass_somGetRdStub = function (somSelf: SOMClass; methodId: somId): PPointer; stdcall;
 
 function SOMClass.somGetRdStub(methodId: somId): PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21884,7 +21885,7 @@ end;
  * New Method: somGetMethodDescriptor
  *)
 type
-  somTD_SOMClass_somGetMethodDescriptor = function (methodId: somId): somId; stdcall;
+  somTD_SOMClass_somGetMethodDescriptor = function (somSelf: SOMClass; methodId: somId): somId; stdcall;
 
 function SOMClass.somGetMethodDescriptor(methodId: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21895,7 +21896,7 @@ end;
  * New Method: somGetMethodIndex
  *)
 type
-  somTD_SOMClass_somGetMethodIndex = function (id: somId): LongInt; stdcall;
+  somTD_SOMClass_somGetMethodIndex = function (somSelf: SOMClass; id: somId): LongInt; stdcall;
 
 function SOMClass.somGetMethodIndex(id: somId): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21906,7 +21907,7 @@ end;
  * New Method: somGetMethodToken
  *)
 type
-  somTD_SOMClass_somGetMethodToken = function (methodId: somId): Pointer; stdcall;
+  somTD_SOMClass_somGetMethodToken = function (somSelf: SOMClass; methodId: somId): Pointer; stdcall;
 
 function SOMClass.somGetMethodToken(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21917,7 +21918,7 @@ end;
  * New Method: somGetName
  *)
 type
-  somTD_SOMClass_somGetName = function : CORBAString; stdcall;
+  somTD_SOMClass_somGetName = function (somSelf: SOMClass): CORBAString; stdcall;
 
 function SOMClass.somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21928,7 +21929,7 @@ end;
  * New Method: somGetNthMethodData
  *)
 type
-  somTD_SOMClass_somGetNthMethodData = function (n: LongInt; out md: somMethodDataStruct): CORBABoolean; stdcall;
+  somTD_SOMClass_somGetNthMethodData = function (somSelf: SOMClass; n: LongInt; out md: somMethodDataStruct): CORBABoolean; stdcall;
 
 function SOMClass.somGetNthMethodData(n: LongInt; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21939,7 +21940,7 @@ end;
  * New Method: somGetNthMethodInfo
  *)
 type
-  somTD_SOMClass_somGetNthMethodInfo = function (n: LongInt; out descriptor: somId): somId; stdcall;
+  somTD_SOMClass_somGetNthMethodInfo = function (somSelf: SOMClass; n: LongInt; out descriptor: somId): somId; stdcall;
 
 function SOMClass.somGetNthMethodInfo(n: LongInt; out descriptor: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21950,7 +21951,7 @@ end;
  * New Method: somGetNumMethods
  *)
 type
-  somTD_SOMClass_somGetNumMethods = function : LongInt; stdcall;
+  somTD_SOMClass_somGetNumMethods = function (somSelf: SOMClass): LongInt; stdcall;
 
 function SOMClass.somGetNumMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21961,7 +21962,7 @@ end;
  * New Method: somGetNumStaticMethods
  *)
 type
-  somTD_SOMClass_somGetNumStaticMethods = function : LongInt; stdcall;
+  somTD_SOMClass_somGetNumStaticMethods = function (somSelf: SOMClass): LongInt; stdcall;
 
 function SOMClass.somGetNumStaticMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21972,7 +21973,7 @@ end;
  * New Method: somGetParent
  *)
 type
-  somTD_SOMClass_somGetParent = function : SOMClass; stdcall;
+  somTD_SOMClass_somGetParent = function (somSelf: SOMClass): SOMClass; stdcall;
 
 function SOMClass.somGetParent: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21983,7 +21984,7 @@ end;
  * New Method: somGetParents
  *)
 type
-  somTD_SOMClass_somGetParents = function : _IDL_Sequence_SOMClass; stdcall;
+  somTD_SOMClass_somGetParents = function (somSelf: SOMClass): _IDL_Sequence_SOMClass; stdcall;
 
 function SOMClass.somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -21994,7 +21995,7 @@ end;
  * New Method: somGetPClsMtab
  *)
 type
-  somTD_SOMClass_somGetPClsMtab = function : PsomMethodTabList; stdcall;
+  somTD_SOMClass_somGetPClsMtab = function (somSelf: SOMClass): PsomMethodTabList; stdcall;
 
 function SOMClass.somGetPClsMtab: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22005,7 +22006,7 @@ end;
  * New Method: somGetPClsMtabs
  *)
 type
-  somTD_SOMClass_somGetPClsMtabs = function : PsomMethodTabList; stdcall;
+  somTD_SOMClass_somGetPClsMtabs = function (somSelf: SOMClass): PsomMethodTabList; stdcall;
 
 function SOMClass.somGetPClsMtabs: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22016,7 +22017,7 @@ end;
  * New Method: somGetVersionNumbers
  *)
 type
-  somTD_SOMClass_somGetVersionNumbers = procedure (out majorVersion: LongInt; out minorVersion: LongInt); stdcall;
+  somTD_SOMClass_somGetVersionNumbers = procedure (somSelf: SOMClass; out majorVersion: LongInt; out minorVersion: LongInt); stdcall;
 
 procedure SOMClass.somGetVersionNumbers(out majorVersion: LongInt; out minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22027,7 +22028,7 @@ end;
  * New Method: somSetMethodDescriptor
  *)
 type
-  somTD_SOMClass_somSetMethodDescriptor = function (methodId: somId; descriptor: somId): CORBABoolean; stdcall;
+  somTD_SOMClass_somSetMethodDescriptor = function (somSelf: SOMClass; methodId: somId; descriptor: somId): CORBABoolean; stdcall;
 
 function SOMClass.somSetMethodDescriptor(methodId: somId; descriptor: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22038,7 +22039,7 @@ end;
  * New Method: somFindMethod
  *)
 type
-  somTD_SOMClass_somFindMethod = function (methodId: somId; out m: Pointer): CORBABoolean; stdcall;
+  somTD_SOMClass_somFindMethod = function (somSelf: SOMClass; methodId: somId; out m: Pointer): CORBABoolean; stdcall;
 
 function SOMClass.somFindMethod(methodId: somId; out m: Pointer): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22049,7 +22050,7 @@ end;
  * New Method: somFindMethodOk
  *)
 type
-  somTD_SOMClass_somFindMethodOk = function (methodId: somId; out m: Pointer): CORBABoolean; stdcall;
+  somTD_SOMClass_somFindMethodOk = function (somSelf: SOMClass; methodId: somId; out m: Pointer): CORBABoolean; stdcall;
 
 function SOMClass.somFindMethodOk(methodId: somId; out m: Pointer): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22060,7 +22061,7 @@ end;
  * New Method: somFindSMethod
  *)
 type
-  somTD_SOMClass_somFindSMethod = function (methodId: somId): Pointer; stdcall;
+  somTD_SOMClass_somFindSMethod = function (somSelf: SOMClass; methodId: somId): Pointer; stdcall;
 
 function SOMClass.somFindSMethod(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22071,7 +22072,7 @@ end;
  * New Method: somFindSMethodOk
  *)
 type
-  somTD_SOMClass_somFindSMethodOk = function (methodId: somId): Pointer; stdcall;
+  somTD_SOMClass_somFindSMethodOk = function (somSelf: SOMClass; methodId: somId): Pointer; stdcall;
 
 function SOMClass.somFindSMethodOk(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22082,7 +22083,7 @@ end;
  * New Method: somLookupMethod
  *)
 type
-  somTD_SOMClass_somLookupMethod = function (methodId: somId): Pointer; stdcall;
+  somTD_SOMClass_somLookupMethod = function (somSelf: SOMClass; methodId: somId): Pointer; stdcall;
 
 function SOMClass.somLookupMethod(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22093,7 +22094,7 @@ end;
  * New Method: somCheckVersion
  *)
 type
-  somTD_SOMClass_somCheckVersion = function (majorVersion: LongInt; minorVersion: LongInt): CORBABoolean; stdcall;
+  somTD_SOMClass_somCheckVersion = function (somSelf: SOMClass; majorVersion: LongInt; minorVersion: LongInt): CORBABoolean; stdcall;
 
 function SOMClass.somCheckVersion(majorVersion: LongInt; minorVersion: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22104,7 +22105,7 @@ end;
  * New Method: somDescendedFrom
  *)
 type
-  somTD_SOMClass_somDescendedFrom = function (aClassObj: SOMClass): CORBABoolean; stdcall;
+  somTD_SOMClass_somDescendedFrom = function (somSelf: SOMClass; aClassObj: SOMClass): CORBABoolean; stdcall;
 
 function SOMClass.somDescendedFrom(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22115,7 +22116,7 @@ end;
  * New Method: somSupportsMethod
  *)
 type
-  somTD_SOMClass_somSupportsMethod = function (mId: somId): CORBABoolean; stdcall;
+  somTD_SOMClass_somSupportsMethod = function (somSelf: SOMClass; mId: somId): CORBABoolean; stdcall;
 
 function SOMClass.somSupportsMethod(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22126,7 +22127,7 @@ end;
  * New Method: somDefinedMethod
  *)
 type
-  somTD_SOMClass_somDefinedMethod = function (method: Pointer): Pointer; stdcall;
+  somTD_SOMClass_somDefinedMethod = function (somSelf: SOMClass; method: Pointer): Pointer; stdcall;
 
 function SOMClass.somDefinedMethod(method: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22137,7 +22138,7 @@ end;
  * New Method: somOverrideMtab
  *)
 type
-  somTD_SOMClass_somOverrideMtab = procedure ; stdcall;
+  somTD_SOMClass_somOverrideMtab = procedure (somSelf: SOMClass); stdcall;
 
 procedure SOMClass.somOverrideMtab; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22376,7 +22377,7 @@ end;
  * New Method: sommGetSingleInstance
  *)
 type
-  somTD_SOMMSingleInstance_sommGetSingleInstance = function : SOMObject; stdcall;
+  somTD_SOMMSingleInstance_sommGetSingleInstance = function (somSelf: SOMMSingleInstance; ev: PEnvironment): SOMObject; stdcall;
 
 function SOMMSingleInstance.sommGetSingleInstance: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22387,7 +22388,7 @@ end;
  * New Method: sommFreeSingleInstance
  *)
 type
-  somTD_SOMMSingleInstance_sommFreeSingleInstance = procedure ; stdcall;
+  somTD_SOMMSingleInstance_sommFreeSingleInstance = procedure (somSelf: SOMMSingleInstance; ev: PEnvironment); stdcall;
 
 procedure SOMMSingleInstance.sommFreeSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22881,7 +22882,7 @@ end;
  * New Method: sommBeforeMethod
  *)
 type
-  somTD_SOMMBeforeAfter_sommBeforeMethod = function (SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; stdcall;
+  somTD_SOMMBeforeAfter_sommBeforeMethod = function (somSelf: SOMMBeforeAfter; ev: PEnvironment; SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; stdcall;
 
 function SOMMBeforeAfter.sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -22892,7 +22893,7 @@ end;
  * New Method: sommAfterMethod
  *)
 type
-  somTD_SOMMBeforeAfter_sommAfterMethod = procedure (SOM_object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list); stdcall;
+  somTD_SOMMBeforeAfter_sommAfterMethod = procedure (somSelf: SOMMBeforeAfter; ev: PEnvironment; SOM_object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list); stdcall;
 
 procedure SOMMBeforeAfter.sommAfterMethod(SOM_object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23356,7 +23357,7 @@ end;
  * New Method: _get_somInterfaceRepository
  *)
 type
-  somTD_SOMClassMgr__get_somInterfaceRepository = function : Repository; stdcall;
+  somTD_SOMClassMgr__get_somInterfaceRepository = function (somSelf: SOMClassMgr): Repository; stdcall;
 
 function SOMClassMgr._get_somInterfaceRepository: Repository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23367,7 +23368,7 @@ end;
  * New Method: _set_somInterfaceRepository
  *)
 type
-  somTD_SOMClassMgr__set_somInterfaceRepository = procedure (somInterfaceRepository: Repository); stdcall;
+  somTD_SOMClassMgr__set_somInterfaceRepository = procedure (somSelf: SOMClassMgr; somInterfaceRepository: Repository); stdcall;
 
 procedure SOMClassMgr._set_somInterfaceRepository(somInterfaceRepository: Repository); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23378,7 +23379,7 @@ end;
  * New Method: _get_somRegisteredClasses
  *)
 type
-  somTD_SOMClassMgr__get_somRegisteredClasses = function : _IDL_Sequence_SOMClass; stdcall;
+  somTD_SOMClassMgr__get_somRegisteredClasses = function (somSelf: SOMClassMgr): _IDL_Sequence_SOMClass; stdcall;
 
 function SOMClassMgr._get_somRegisteredClasses: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23389,7 +23390,7 @@ end;
  * New Method: somLoadClassFile
  *)
 type
-  somTD_SOMClassMgr_somLoadClassFile = function (classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; stdcall;
+  somTD_SOMClassMgr_somLoadClassFile = function (somSelf: SOMClassMgr; classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; stdcall;
 
 function SOMClassMgr.somLoadClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23400,7 +23401,7 @@ end;
  * New Method: somLocateClassFile
  *)
 type
-  somTD_SOMClassMgr_somLocateClassFile = function (classId: somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; stdcall;
+  somTD_SOMClassMgr_somLocateClassFile = function (somSelf: SOMClassMgr; classId: somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; stdcall;
 
 function SOMClassMgr.somLocateClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23411,7 +23412,7 @@ end;
  * New Method: somRegisterClass
  *)
 type
-  somTD_SOMClassMgr_somRegisterClass = procedure (classObj: SOMClass); stdcall;
+  somTD_SOMClassMgr_somRegisterClass = procedure (somSelf: SOMClassMgr; classObj: SOMClass); stdcall;
 
 procedure SOMClassMgr.somRegisterClass(classObj: SOMClass); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23422,7 +23423,7 @@ end;
  * New Method: somRegisterClassLibrary
  *)
 type
-  somTD_SOMClassMgr_somRegisterClassLibrary = procedure (libraryName: CORBAString; libraryInitRtn: Pointer); stdcall;
+  somTD_SOMClassMgr_somRegisterClassLibrary = procedure (somSelf: SOMClassMgr; libraryName: CORBAString; libraryInitRtn: Pointer); stdcall;
 
 procedure SOMClassMgr.somRegisterClassLibrary(libraryName: CORBAString; libraryInitRtn: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23433,7 +23434,7 @@ end;
  * New Method: somUnregisterClassLibrary
  *)
 type
-  somTD_SOMClassMgr_somUnregisterClassLibrary = procedure (libraryName: CORBAString); stdcall;
+  somTD_SOMClassMgr_somUnregisterClassLibrary = procedure (somSelf: SOMClassMgr; libraryName: CORBAString); stdcall;
 
 procedure SOMClassMgr.somUnregisterClassLibrary(libraryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23444,7 +23445,7 @@ end;
  * New Method: somUnloadClassFile
  *)
 type
-  somTD_SOMClassMgr_somUnloadClassFile = function (classObj: SOMClass): LongInt; stdcall;
+  somTD_SOMClassMgr_somUnloadClassFile = function (somSelf: SOMClassMgr; classObj: SOMClass): LongInt; stdcall;
 
 function SOMClassMgr.somUnloadClassFile(classObj: SOMClass): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23455,7 +23456,7 @@ end;
  * New Method: somUnregisterClass
  *)
 type
-  somTD_SOMClassMgr_somUnregisterClass = function (classObj: SOMClass): LongInt; stdcall;
+  somTD_SOMClassMgr_somUnregisterClass = function (somSelf: SOMClassMgr; classObj: SOMClass): LongInt; stdcall;
 
 function SOMClassMgr.somUnregisterClass(classObj: SOMClass): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23466,7 +23467,7 @@ end;
  * New Method: somBeginPersistentClasses
  *)
 type
-  somTD_SOMClassMgr_somBeginPersistentClasses = procedure ; stdcall;
+  somTD_SOMClassMgr_somBeginPersistentClasses = procedure (somSelf: SOMClassMgr); stdcall;
 
 procedure SOMClassMgr.somBeginPersistentClasses; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23477,7 +23478,7 @@ end;
  * New Method: somEndPersistentClasses
  *)
 type
-  somTD_SOMClassMgr_somEndPersistentClasses = procedure ; stdcall;
+  somTD_SOMClassMgr_somEndPersistentClasses = procedure (somSelf: SOMClassMgr); stdcall;
 
 procedure SOMClassMgr.somEndPersistentClasses; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23488,7 +23489,7 @@ end;
  * New Method: somJoinAffinityGroup
  *)
 type
-  somTD_SOMClassMgr_somJoinAffinityGroup = function (newClass: SOMClass; affClass: SOMClass): CORBABoolean; stdcall;
+  somTD_SOMClassMgr_somJoinAffinityGroup = function (somSelf: SOMClassMgr; newClass: SOMClass; affClass: SOMClass): CORBABoolean; stdcall;
 
 function SOMClassMgr.somJoinAffinityGroup(newClass: SOMClass; affClass: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23499,7 +23500,7 @@ end;
  * New Method: somGetInitFunction
  *)
 type
-  somTD_SOMClassMgr_somGetInitFunction = function : CORBAString; stdcall;
+  somTD_SOMClassMgr_somGetInitFunction = function (somSelf: SOMClassMgr): CORBAString; stdcall;
 
 function SOMClassMgr.somGetInitFunction: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23510,7 +23511,7 @@ end;
  * New Method: somGetRelatedClasses
  *)
 type
-  somTD_SOMClassMgr_somGetRelatedClasses = function (classObj: SOMClass): PSOMClass; stdcall;
+  somTD_SOMClassMgr_somGetRelatedClasses = function (somSelf: SOMClassMgr; classObj: SOMClass): PSOMClass; stdcall;
 
 function SOMClassMgr.somGetRelatedClasses(classObj: SOMClass): PSOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23521,7 +23522,7 @@ end;
  * New Method: somClassFromId
  *)
 type
-  somTD_SOMClassMgr_somClassFromId = function (classId: somId): SOMClass; stdcall;
+  somTD_SOMClassMgr_somClassFromId = function (somSelf: SOMClassMgr; classId: somId): SOMClass; stdcall;
 
 function SOMClassMgr.somClassFromId(classId: somId): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23532,7 +23533,7 @@ end;
  * New Method: somFindClass
  *)
 type
-  somTD_SOMClassMgr_somFindClass = function (classId: somId; majorVersion: LongInt; minorVersion: LongInt): SOMClass; stdcall;
+  somTD_SOMClassMgr_somFindClass = function (somSelf: SOMClassMgr; classId: somId; majorVersion: LongInt; minorVersion: LongInt): SOMClass; stdcall;
 
 function SOMClassMgr.somFindClass(classId: somId; majorVersion: LongInt; minorVersion: LongInt): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23543,7 +23544,7 @@ end;
  * New Method: somFindClsInFile
  *)
 type
-  somTD_SOMClassMgr_somFindClsInFile = function (classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; stdcall;
+  somTD_SOMClassMgr_somFindClsInFile = function (somSelf: SOMClassMgr; classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; stdcall;
 
 function SOMClassMgr.somFindClsInFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23554,7 +23555,7 @@ end;
  * New Method: somMergeInto
  *)
 type
-  somTD_SOMClassMgr_somMergeInto = procedure (targetObj: SOMObject); stdcall;
+  somTD_SOMClassMgr_somMergeInto = procedure (somSelf: SOMClassMgr; targetObj: SOMObject); stdcall;
 
 procedure SOMClassMgr.somMergeInto(targetObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23565,7 +23566,7 @@ end;
  * New Method: somSubstituteClass
  *)
 type
-  somTD_SOMClassMgr_somSubstituteClass = function (origClassName: CORBAString; newClassName: CORBAString): LongInt; stdcall;
+  somTD_SOMClassMgr_somSubstituteClass = function (somSelf: SOMClassMgr; origClassName: CORBAString; newClassName: CORBAString): LongInt; stdcall;
 
 function SOMClassMgr.somSubstituteClass(origClassName: CORBAString; newClassName: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23774,7 +23775,7 @@ end;
  * New Method: get_implementation
  *)
 type
-  somTD_SOMDObject_get_implementation = function : ImplementationDef; stdcall;
+  somTD_SOMDObject_get_implementation = function (somSelf: SOMDObject; ev: PEnvironment): ImplementationDef; stdcall;
 
 function SOMDObject.get_implementation: ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23785,7 +23786,7 @@ end;
  * New Method: get_interface
  *)
 type
-  somTD_SOMDObject_get_interface = function : InterfaceDef; stdcall;
+  somTD_SOMDObject_get_interface = function (somSelf: SOMDObject; ev: PEnvironment): InterfaceDef; stdcall;
 
 function SOMDObject.get_interface: InterfaceDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23796,7 +23797,7 @@ end;
  * New Method: is_nil
  *)
 type
-  somTD_SOMDObject_is_nil = function : CORBABoolean; stdcall;
+  somTD_SOMDObject_is_nil = function (somSelf: SOMDObject; ev: PEnvironment): CORBABoolean; stdcall;
 
 function SOMDObject.is_nil: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23807,7 +23808,7 @@ end;
  * New Method: is_SOM_ref
  *)
 type
-  somTD_SOMDObject_is_SOM_ref = function : CORBABoolean; stdcall;
+  somTD_SOMDObject_is_SOM_ref = function (somSelf: SOMDObject; ev: PEnvironment): CORBABoolean; stdcall;
 
 function SOMDObject.is_SOM_ref: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23818,7 +23819,7 @@ end;
  * New Method: is_constant
  *)
 type
-  somTD_SOMDObject_is_constant = function : CORBABoolean; stdcall;
+  somTD_SOMDObject_is_constant = function (somSelf: SOMDObject; ev: PEnvironment): CORBABoolean; stdcall;
 
 function SOMDObject.is_constant: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23829,7 +23830,7 @@ end;
  * New Method: is_proxy
  *)
 type
-  somTD_SOMDObject_is_proxy = function : CORBABoolean; stdcall;
+  somTD_SOMDObject_is_proxy = function (somSelf: SOMDObject; ev: PEnvironment): CORBABoolean; stdcall;
 
 function SOMDObject.is_proxy: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23840,7 +23841,7 @@ end;
  * New Method: duplicate
  *)
 type
-  somTD_SOMDObject_duplicate = function : SOMDObject; stdcall;
+  somTD_SOMDObject_duplicate = function (somSelf: SOMDObject; ev: PEnvironment): SOMDObject; stdcall;
 
 function SOMDObject.duplicate: SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23851,7 +23852,7 @@ end;
  * New Method: release
  *)
 type
-  somTD_SOMDObject_release = procedure ; stdcall;
+  somTD_SOMDObject_release = procedure (somSelf: SOMDObject; ev: PEnvironment); stdcall;
 
 procedure SOMDObject.release; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23862,7 +23863,7 @@ end;
  * New Method: create_request
  *)
 type
-  somTD_SOMDObject_create_request = function (ctx: Context; operation: CORBAString; arg_list: NVList; var SOM_result: NamedValue; out request: Request; req_flags: LongWord): LongWord; stdcall;
+  somTD_SOMDObject_create_request = function (somSelf: SOMDObject; ev: PEnvironment; ctx: Context; operation: CORBAString; arg_list: NVList; var SOM_result: NamedValue; out request: Request; req_flags: LongWord): LongWord; stdcall;
 
 function SOMDObject.create_request(ctx: Context; operation: CORBAString; arg_list: NVList; var SOM_result: NamedValue; out request: Request; req_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -23873,7 +23874,7 @@ end;
  * New Method: create_request_args
  *)
 type
-  somTD_SOMDObject_create_request_args = function (operation: CORBAString; out arg_list: NVList; out SOM_result: NamedValue): LongWord; stdcall;
+  somTD_SOMDObject_create_request_args = function (somSelf: SOMDObject; ev: PEnvironment; operation: CORBAString; out arg_list: NVList; out SOM_result: NamedValue): LongWord; stdcall;
 
 function SOMDObject.create_request_args(operation: CORBAString; out arg_list: NVList; out SOM_result: NamedValue): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24082,7 +24083,7 @@ end;
  * New Method: somdTargetFree
  *)
 type
-  somTD_SOMDClientProxy_somdTargetFree = procedure ; stdcall;
+  somTD_SOMDClientProxy_somdTargetFree = procedure (somSelf: SOMDClientProxy; ev: PEnvironment); stdcall;
 
 procedure SOMDClientProxy.somdTargetFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24093,7 +24094,7 @@ end;
  * New Method: somdTargetGetClass
  *)
 type
-  somTD_SOMDClientProxy_somdTargetGetClass = function : SOMClass; stdcall;
+  somTD_SOMDClientProxy_somdTargetGetClass = function (somSelf: SOMDClientProxy; ev: PEnvironment): SOMClass; stdcall;
 
 function SOMDClientProxy.somdTargetGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24104,7 +24105,7 @@ end;
  * New Method: somdTargetGetClassName
  *)
 type
-  somTD_SOMDClientProxy_somdTargetGetClassName = function : CORBAString; stdcall;
+  somTD_SOMDClientProxy_somdTargetGetClassName = function (somSelf: SOMDClientProxy; ev: PEnvironment): CORBAString; stdcall;
 
 function SOMDClientProxy.somdTargetGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24115,7 +24116,7 @@ end;
  * New Method: somdProxyFree
  *)
 type
-  somTD_SOMDClientProxy_somdProxyFree = procedure ; stdcall;
+  somTD_SOMDClientProxy_somdProxyFree = procedure (somSelf: SOMDClientProxy; ev: PEnvironment); stdcall;
 
 procedure SOMDClientProxy.somdProxyFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24126,7 +24127,7 @@ end;
  * New Method: somdProxyGetClass
  *)
 type
-  somTD_SOMDClientProxy_somdProxyGetClass = function : SOMClass; stdcall;
+  somTD_SOMDClientProxy_somdProxyGetClass = function (somSelf: SOMDClientProxy; ev: PEnvironment): SOMClass; stdcall;
 
 function SOMDClientProxy.somdProxyGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24137,7 +24138,7 @@ end;
  * New Method: somdProxyGetClassName
  *)
 type
-  somTD_SOMDClientProxy_somdProxyGetClassName = function : CORBAString; stdcall;
+  somTD_SOMDClientProxy_somdProxyGetClassName = function (somSelf: SOMDClientProxy; ev: PEnvironment): CORBAString; stdcall;
 
 function SOMDClientProxy.somdProxyGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24148,7 +24149,7 @@ end;
  * New Method: somdReleaseResources
  *)
 type
-  somTD_SOMDClientProxy_somdReleaseResources = procedure ; stdcall;
+  somTD_SOMDClientProxy_somdReleaseResources = procedure (somSelf: SOMDClientProxy; ev: PEnvironment); stdcall;
 
 procedure SOMDClientProxy.somdReleaseResources; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24890,7 +24891,7 @@ end;
  * New Method: _get_somd21somFree
  *)
 type
-  somTD_SOMDObjectMgr__get_somd21somFree = function : CORBABoolean; stdcall;
+  somTD_SOMDObjectMgr__get_somd21somFree = function (somSelf: SOMDObjectMgr; ev: PEnvironment): CORBABoolean; stdcall;
 
 function SOMDObjectMgr._get_somd21somFree: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24901,7 +24902,7 @@ end;
  * New Method: _set_somd21somFree
  *)
 type
-  somTD_SOMDObjectMgr__set_somd21somFree = procedure (somd21somFree: CORBABoolean); stdcall;
+  somTD_SOMDObjectMgr__set_somd21somFree = procedure (somSelf: SOMDObjectMgr; ev: PEnvironment; somd21somFree: CORBABoolean); stdcall;
 
 procedure SOMDObjectMgr._set_somd21somFree(somd21somFree: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24912,7 +24913,7 @@ end;
  * New Method: somdFindServer
  *)
 type
-  somTD_SOMDObjectMgr_somdFindServer = function (serverid: CORBAString): SOMDServer; stdcall;
+  somTD_SOMDObjectMgr_somdFindServer = function (somSelf: SOMDObjectMgr; ev: PEnvironment; serverid: CORBAString): SOMDServer; stdcall;
 
 function SOMDObjectMgr.somdFindServer(serverid: CORBAString): SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24923,7 +24924,7 @@ end;
  * New Method: somdFindServerByName
  *)
 type
-  somTD_SOMDObjectMgr_somdFindServerByName = function (servername: CORBAString): SOMDServer; stdcall;
+  somTD_SOMDObjectMgr_somdFindServerByName = function (somSelf: SOMDObjectMgr; ev: PEnvironment; servername: CORBAString): SOMDServer; stdcall;
 
 function SOMDObjectMgr.somdFindServerByName(servername: CORBAString): SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24934,7 +24935,7 @@ end;
  * New Method: somdFindServersByClass
  *)
 type
-  somTD_SOMDObjectMgr_somdFindServersByClass = function (objclass: CORBAString): _IDL_Sequence_SOMDServer; stdcall;
+  somTD_SOMDObjectMgr_somdFindServersByClass = function (somSelf: SOMDObjectMgr; ev: PEnvironment; objclass: CORBAString): _IDL_Sequence_SOMDServer; stdcall;
 
 function SOMDObjectMgr.somdFindServersByClass(objclass: CORBAString): _IDL_Sequence_SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -24945,7 +24946,7 @@ end;
  * New Method: somdFindAnyServerByClass
  *)
 type
-  somTD_SOMDObjectMgr_somdFindAnyServerByClass = function (objclass: CORBAString): SOMDServer; stdcall;
+  somTD_SOMDObjectMgr_somdFindAnyServerByClass = function (somSelf: SOMDObjectMgr; ev: PEnvironment; objclass: CORBAString): SOMDServer; stdcall;
 
 function SOMDObjectMgr.somdFindAnyServerByClass(objclass: CORBAString): SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25179,7 +25180,7 @@ end;
  * New Method: somdRefFromSOMObj
  *)
 type
-  somTD_SOMDServer_somdRefFromSOMObj = function (somobj: SOMObject): SOMDObject; stdcall;
+  somTD_SOMDServer_somdRefFromSOMObj = function (somSelf: SOMDServer; ev: PEnvironment; somobj: SOMObject): SOMDObject; stdcall;
 
 function SOMDServer.somdRefFromSOMObj(somobj: SOMObject): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25190,7 +25191,7 @@ end;
  * New Method: somdSOMObjFromRef
  *)
 type
-  somTD_SOMDServer_somdSOMObjFromRef = function (objref: SOMDObject): SOMObject; stdcall;
+  somTD_SOMDServer_somdSOMObjFromRef = function (somSelf: SOMDServer; ev: PEnvironment; objref: SOMDObject): SOMObject; stdcall;
 
 function SOMDServer.somdSOMObjFromRef(objref: SOMDObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25201,7 +25202,7 @@ end;
  * New Method: somdDispatchMethod
  *)
 type
-  somTD_SOMDServer_somdDispatchMethod = procedure (somobj: SOMObject; out retValue: Pointer; methodId: somId; ap: va_list); stdcall;
+  somTD_SOMDServer_somdDispatchMethod = procedure (somSelf: SOMDServer; ev: PEnvironment; somobj: SOMObject; out retValue: Pointer; methodId: somId; ap: va_list); stdcall;
 
 procedure SOMDServer.somdDispatchMethod(somobj: SOMObject; out retValue: Pointer; methodId: somId; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25212,7 +25213,7 @@ end;
  * New Method: somdCreateObj
  *)
 type
-  somTD_SOMDServer_somdCreateObj = function (objclass: CORBAString; hints: CORBAString): SOMObject; stdcall;
+  somTD_SOMDServer_somdCreateObj = function (somSelf: SOMDServer; ev: PEnvironment; objclass: CORBAString; hints: CORBAString): SOMObject; stdcall;
 
 function SOMDServer.somdCreateObj(objclass: CORBAString; hints: CORBAString): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25223,7 +25224,7 @@ end;
  * New Method: somdDeleteObj
  *)
 type
-  somTD_SOMDServer_somdDeleteObj = procedure (somobj: SOMObject); stdcall;
+  somTD_SOMDServer_somdDeleteObj = procedure (somSelf: SOMDServer; ev: PEnvironment; somobj: SOMObject); stdcall;
 
 procedure SOMDServer.somdDeleteObj(somobj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25234,7 +25235,7 @@ end;
  * New Method: somdGetClassObj
  *)
 type
-  somTD_SOMDServer_somdGetClassObj = function (objclass: CORBAString): SOMClass; stdcall;
+  somTD_SOMDServer_somdGetClassObj = function (somSelf: SOMDServer; ev: PEnvironment; objclass: CORBAString): SOMClass; stdcall;
 
 function SOMDServer.somdGetClassObj(objclass: CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25245,7 +25246,7 @@ end;
  * New Method: somdObjReferencesCached
  *)
 type
-  somTD_SOMDServer_somdObjReferencesCached = function : CORBABoolean; stdcall;
+  somTD_SOMDServer_somdObjReferencesCached = function (somSelf: SOMDServer; ev: PEnvironment): CORBABoolean; stdcall;
 
 function SOMDServer.somdObjReferencesCached: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25454,7 +25455,7 @@ end;
  * New Method: somutSetIdId
  *)
 type
-  somTD_SOMUTId_somutSetIdId = procedure (otherId: SOMUTId); stdcall;
+  somTD_SOMUTId_somutSetIdId = procedure (somSelf: SOMUTId; ev: PEnvironment; otherId: SOMUTId); stdcall;
 
 procedure SOMUTId.somutSetIdId(otherId: SOMUTId); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25465,7 +25466,7 @@ end;
  * New Method: somutEqualsId
  *)
 type
-  somTD_SOMUTId_somutEqualsId = function (otherId: SOMUTId): CORBABoolean; stdcall;
+  somTD_SOMUTId_somutEqualsId = function (somSelf: SOMUTId; ev: PEnvironment; otherId: SOMUTId): CORBABoolean; stdcall;
 
 function SOMUTId.somutEqualsId(otherId: SOMUTId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25476,7 +25477,7 @@ end;
  * New Method: somutCompareId
  *)
 type
-  somTD_SOMUTId_somutCompareId = function (otherId: SOMUTId): SmallInt; stdcall;
+  somTD_SOMUTId_somutCompareId = function (somSelf: SOMUTId; ev: PEnvironment; otherId: SOMUTId): SmallInt; stdcall;
 
 function SOMUTId.somutCompareId(otherId: SOMUTId): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25487,7 +25488,7 @@ end;
  * New Method: somutHashId
  *)
 type
-  somTD_SOMUTId_somutHashId = function : LongWord; stdcall;
+  somTD_SOMUTId_somutHashId = function (somSelf: SOMUTId; ev: PEnvironment): LongWord; stdcall;
 
 function SOMUTId.somutHashId: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25696,7 +25697,7 @@ end;
  * New Method: execute_next_request
  *)
 type
-  somTD_SOMOA_execute_next_request = function (waitFlag: LongWord): LongWord; stdcall;
+  somTD_SOMOA_execute_next_request = function (somSelf: SOMOA; ev: PEnvironment; waitFlag: LongWord): LongWord; stdcall;
 
 function SOMOA.execute_next_request(waitFlag: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25707,7 +25708,7 @@ end;
  * New Method: execute_request_loop
  *)
 type
-  somTD_SOMOA_execute_request_loop = function (waitFlag: LongWord): LongWord; stdcall;
+  somTD_SOMOA_execute_request_loop = function (somSelf: SOMOA; ev: PEnvironment; waitFlag: LongWord): LongWord; stdcall;
 
 function SOMOA.execute_request_loop(waitFlag: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25718,7 +25719,7 @@ end;
  * New Method: change_id
  *)
 type
-  somTD_SOMOA_change_id = procedure (objref: SOMDObject; const id: _IDL_Sequence_Byte); stdcall;
+  somTD_SOMOA_change_id = procedure (somSelf: SOMOA; ev: PEnvironment; objref: SOMDObject; const id: _IDL_Sequence_Byte); stdcall;
 
 procedure SOMOA.change_id(objref: SOMDObject; const id: _IDL_Sequence_Byte); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25729,7 +25730,7 @@ end;
  * New Method: create_constant
  *)
 type
-  somTD_SOMOA_create_constant = function (const id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject; stdcall;
+  somTD_SOMOA_create_constant = function (somSelf: SOMOA; ev: PEnvironment; const id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject; stdcall;
 
 function SOMOA.create_constant(const id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25740,7 +25741,7 @@ end;
  * New Method: create_SOM_ref
  *)
 type
-  somTD_SOMOA_create_SOM_ref = function (somobj: SOMObject; impl: ImplementationDef): SOMDObject; stdcall;
+  somTD_SOMOA_create_SOM_ref = function (somSelf: SOMOA; ev: PEnvironment; somobj: SOMObject; impl: ImplementationDef): SOMDObject; stdcall;
 
 function SOMOA.create_SOM_ref(somobj: SOMObject; impl: ImplementationDef): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25751,7 +25752,7 @@ end;
  * New Method: get_SOM_object
  *)
 type
-  somTD_SOMOA_get_SOM_object = function (somref: SOMDObject): SOMObject; stdcall;
+  somTD_SOMOA_get_SOM_object = function (somSelf: SOMOA; ev: PEnvironment; somref: SOMDObject): SOMObject; stdcall;
 
 function SOMOA.get_SOM_object(somref: SOMDObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25762,7 +25763,7 @@ end;
  * New Method: activate_impl_failed
  *)
 type
-  somTD_SOMOA_activate_impl_failed = procedure (impl: ImplementationDef; rc: LongWord); stdcall;
+  somTD_SOMOA_activate_impl_failed = procedure (somSelf: SOMOA; ev: PEnvironment; impl: ImplementationDef; rc: LongWord); stdcall;
 
 procedure SOMOA.activate_impl_failed(impl: ImplementationDef; rc: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -25773,7 +25774,7 @@ end;
  * New Method: interrupt_server
  *)
 type
-  somTD_SOMOA_interrupt_server = procedure ; stdcall;
+  somTD_SOMOA_interrupt_server = procedure (somSelf: SOMOA; ev: PEnvironment); stdcall;
 
 procedure SOMOA.interrupt_server; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26032,7 +26033,7 @@ end;
  * New Method: _get_serrno
  *)
 type
-  somTD_Sockets__get_serrno = function : LongInt; stdcall;
+  somTD_Sockets__get_serrno = function (somSelf: Sockets; ev: PEnvironment): LongInt; stdcall;
 
 function Sockets._get_serrno: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26043,7 +26044,7 @@ end;
  * New Method: _set_serrno
  *)
 type
-  somTD_Sockets__set_serrno = procedure (serrno: LongInt); stdcall;
+  somTD_Sockets__set_serrno = procedure (somSelf: Sockets; ev: PEnvironment; serrno: LongInt); stdcall;
 
 procedure Sockets._set_serrno(serrno: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26054,7 +26055,7 @@ end;
  * New Method: somsAccept
  *)
 type
-  somTD_Sockets_somsAccept = function (s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsAccept = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; stdcall;
 
 function Sockets.somsAccept(s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26065,7 +26066,7 @@ end;
  * New Method: somsBind
  *)
 type
-  somTD_Sockets_somsBind = function (s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsBind = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; stdcall;
 
 function Sockets.somsBind(s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26076,7 +26077,7 @@ end;
  * New Method: somsConnect
  *)
 type
-  somTD_Sockets_somsConnect = function (s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsConnect = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; stdcall;
 
 function Sockets.somsConnect(s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26087,7 +26088,7 @@ end;
  * New Method: somsGethostbyaddr
  *)
 type
-  somTD_Sockets_somsGethostbyaddr = function (addr: PShortInt; addrlen: LongInt; domain: LongInt): PSockets_hostent; stdcall;
+  somTD_Sockets_somsGethostbyaddr = function (somSelf: Sockets; ev: PEnvironment; addr: PShortInt; addrlen: LongInt; domain: LongInt): PSockets_hostent; stdcall;
 
 function Sockets.somsGethostbyaddr(addr: PShortInt; addrlen: LongInt; domain: LongInt): PSockets_hostent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26098,7 +26099,7 @@ end;
  * New Method: somsGethostbyname
  *)
 type
-  somTD_Sockets_somsGethostbyname = function (name: CORBAString): PSockets_hostent; stdcall;
+  somTD_Sockets_somsGethostbyname = function (somSelf: Sockets; ev: PEnvironment; name: CORBAString): PSockets_hostent; stdcall;
 
 function Sockets.somsGethostbyname(name: CORBAString): PSockets_hostent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26109,7 +26110,7 @@ end;
  * New Method: somsGethostent
  *)
 type
-  somTD_Sockets_somsGethostent = function : PSockets_hostent; stdcall;
+  somTD_Sockets_somsGethostent = function (somSelf: Sockets; ev: PEnvironment): PSockets_hostent; stdcall;
 
 function Sockets.somsGethostent: PSockets_hostent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26120,7 +26121,7 @@ end;
  * New Method: somsGethostid
  *)
 type
-  somTD_Sockets_somsGethostid = function : LongWord; stdcall;
+  somTD_Sockets_somsGethostid = function (somSelf: Sockets; ev: PEnvironment): LongWord; stdcall;
 
 function Sockets.somsGethostid: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26131,7 +26132,7 @@ end;
  * New Method: somsGethostname
  *)
 type
-  somTD_Sockets_somsGethostname = function (name: CORBAString; namelength: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsGethostname = function (somSelf: Sockets; ev: PEnvironment; name: CORBAString; namelength: LongInt): LongInt; stdcall;
 
 function Sockets.somsGethostname(name: CORBAString; namelength: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26142,7 +26143,7 @@ end;
  * New Method: somsGetpeername
  *)
 type
-  somTD_Sockets_somsGetpeername = function (s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsGetpeername = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; stdcall;
 
 function Sockets.somsGetpeername(s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26153,7 +26154,7 @@ end;
  * New Method: somsGetservbyname
  *)
 type
-  somTD_Sockets_somsGetservbyname = function (name: CORBAString; protocol: CORBAString): PSockets_servent; stdcall;
+  somTD_Sockets_somsGetservbyname = function (somSelf: Sockets; ev: PEnvironment; name: CORBAString; protocol: CORBAString): PSockets_servent; stdcall;
 
 function Sockets.somsGetservbyname(name: CORBAString; protocol: CORBAString): PSockets_servent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26164,7 +26165,7 @@ end;
  * New Method: somsGetsockname
  *)
 type
-  somTD_Sockets_somsGetsockname = function (s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsGetsockname = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; stdcall;
 
 function Sockets.somsGetsockname(s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26175,7 +26176,7 @@ end;
  * New Method: somsGetsockopt
  *)
 type
-  somTD_Sockets_somsGetsockopt = function (s: LongInt; level: LongInt; optname: LongInt; optval: PShortInt; out option: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsGetsockopt = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; level: LongInt; optname: LongInt; optval: PShortInt; out option: LongInt): LongInt; stdcall;
 
 function Sockets.somsGetsockopt(s: LongInt; level: LongInt; optname: LongInt; optval: PShortInt; out option: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26186,7 +26187,7 @@ end;
  * New Method: somsHtonl
  *)
 type
-  somTD_Sockets_somsHtonl = function (a: LongWord): LongWord; stdcall;
+  somTD_Sockets_somsHtonl = function (somSelf: Sockets; ev: PEnvironment; a: LongWord): LongWord; stdcall;
 
 function Sockets.somsHtonl(a: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26197,7 +26198,7 @@ end;
  * New Method: somsHtons
  *)
 type
-  somTD_Sockets_somsHtons = function (a: Word): Word; stdcall;
+  somTD_Sockets_somsHtons = function (somSelf: Sockets; ev: PEnvironment; a: Word): Word; stdcall;
 
 function Sockets.somsHtons(a: Word): Word; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26208,7 +26209,7 @@ end;
  * New Method: somsIoctl
  *)
 type
-  somTD_Sockets_somsIoctl = function (s: LongInt; cmd: LongInt; data: PShortInt; length: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsIoctl = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; cmd: LongInt; data: PShortInt; length: LongInt): LongInt; stdcall;
 
 function Sockets.somsIoctl(s: LongInt; cmd: LongInt; data: PShortInt; length: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26219,7 +26220,7 @@ end;
  * New Method: somsInet_addr
  *)
 type
-  somTD_Sockets_somsInet_addr = function (cp: CORBAString): LongWord; stdcall;
+  somTD_Sockets_somsInet_addr = function (somSelf: Sockets; ev: PEnvironment; cp: CORBAString): LongWord; stdcall;
 
 function Sockets.somsInet_addr(cp: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26230,7 +26231,7 @@ end;
  * New Method: somsInet_lnaof
  *)
 type
-  somTD_Sockets_somsInet_lnaof = function (addr: Sockets_in_addr): LongWord; stdcall;
+  somTD_Sockets_somsInet_lnaof = function (somSelf: Sockets; ev: PEnvironment; addr: Sockets_in_addr): LongWord; stdcall;
 
 function Sockets.somsInet_lnaof(addr: Sockets_in_addr): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26241,7 +26242,7 @@ end;
  * New Method: somsInet_makeaddr
  *)
 type
-  somTD_Sockets_somsInet_makeaddr = function (net: LongWord; lna: LongWord): Sockets_in_addr; stdcall;
+  somTD_Sockets_somsInet_makeaddr = function (somSelf: Sockets; ev: PEnvironment; net: LongWord; lna: LongWord): Sockets_in_addr; stdcall;
 
 function Sockets.somsInet_makeaddr(net: LongWord; lna: LongWord): Sockets_in_addr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26252,7 +26253,7 @@ end;
  * New Method: somsInet_netof
  *)
 type
-  somTD_Sockets_somsInet_netof = function (addr: Sockets_in_addr): LongWord; stdcall;
+  somTD_Sockets_somsInet_netof = function (somSelf: Sockets; ev: PEnvironment; addr: Sockets_in_addr): LongWord; stdcall;
 
 function Sockets.somsInet_netof(addr: Sockets_in_addr): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26263,7 +26264,7 @@ end;
  * New Method: somsInet_network
  *)
 type
-  somTD_Sockets_somsInet_network = function (cp: CORBAString): LongWord; stdcall;
+  somTD_Sockets_somsInet_network = function (somSelf: Sockets; ev: PEnvironment; cp: CORBAString): LongWord; stdcall;
 
 function Sockets.somsInet_network(cp: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26274,7 +26275,7 @@ end;
  * New Method: somsInet_ntoa
  *)
 type
-  somTD_Sockets_somsInet_ntoa = function (addr: Sockets_in_addr): CORBAString; stdcall;
+  somTD_Sockets_somsInet_ntoa = function (somSelf: Sockets; ev: PEnvironment; addr: Sockets_in_addr): CORBAString; stdcall;
 
 function Sockets.somsInet_ntoa(addr: Sockets_in_addr): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26285,7 +26286,7 @@ end;
  * New Method: somsListen
  *)
 type
-  somTD_Sockets_somsListen = function (s: LongInt; backlog: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsListen = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; backlog: LongInt): LongInt; stdcall;
 
 function Sockets.somsListen(s: LongInt; backlog: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26296,7 +26297,7 @@ end;
  * New Method: somsNtohl
  *)
 type
-  somTD_Sockets_somsNtohl = function (a: LongWord): LongWord; stdcall;
+  somTD_Sockets_somsNtohl = function (somSelf: Sockets; ev: PEnvironment; a: LongWord): LongWord; stdcall;
 
 function Sockets.somsNtohl(a: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26307,7 +26308,7 @@ end;
  * New Method: somsNtohs
  *)
 type
-  somTD_Sockets_somsNtohs = function (a: Word): Word; stdcall;
+  somTD_Sockets_somsNtohs = function (somSelf: Sockets; ev: PEnvironment; a: Word): Word; stdcall;
 
 function Sockets.somsNtohs(a: Word): Word; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26318,7 +26319,7 @@ end;
  * New Method: somsReadv
  *)
 type
-  somTD_Sockets_somsReadv = function (s: LongInt; var iov{: opaque Sockets_iovec}; iovcnt: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsReadv = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; var iov{: opaque Sockets_iovec}; iovcnt: LongInt): LongInt; stdcall;
 
 function Sockets.somsReadv(s: LongInt; var iov{: opaque Sockets_iovec}; iovcnt: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26329,7 +26330,7 @@ end;
  * New Method: somsRecv
  *)
 type
-  somTD_Sockets_somsRecv = function (s: LongInt; buf: PShortInt; len: LongInt; flags: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsRecv = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; buf: PShortInt; len: LongInt; flags: LongInt): LongInt; stdcall;
 
 function Sockets.somsRecv(s: LongInt; buf: PShortInt; len: LongInt; flags: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26340,7 +26341,7 @@ end;
  * New Method: somsRecvfrom
  *)
 type
-  somTD_Sockets_somsRecvfrom = function (s: LongInt; buf: PShortInt; len: LongInt; flags: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsRecvfrom = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; buf: PShortInt; len: LongInt; flags: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; stdcall;
 
 function Sockets.somsRecvfrom(s: LongInt; buf: PShortInt; len: LongInt; flags: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26351,7 +26352,7 @@ end;
  * New Method: somsRecvmsg
  *)
 type
-  somTD_Sockets_somsRecvmsg = function (s: LongInt; var msg{: opaque Sockets_msghdr}; flags: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsRecvmsg = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; var msg{: opaque Sockets_msghdr}; flags: LongInt): LongInt; stdcall;
 
 function Sockets.somsRecvmsg(s: LongInt; var msg{: opaque Sockets_msghdr}; flags: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26362,7 +26363,7 @@ end;
  * New Method: somsSelect
  *)
 type
-  somTD_Sockets_somsSelect = function (nfds: LongInt; var readfds{: opaque Sockets_fd_set}; var writefds{: opaque Sockets_fd_set}; var exceptfds{: opaque Sockets_fd_set}; var timeout{: opaque Sockets_timeval}): LongInt; stdcall;
+  somTD_Sockets_somsSelect = function (somSelf: Sockets; ev: PEnvironment; nfds: LongInt; var readfds{: opaque Sockets_fd_set}; var writefds{: opaque Sockets_fd_set}; var exceptfds{: opaque Sockets_fd_set}; var timeout{: opaque Sockets_timeval}): LongInt; stdcall;
 
 function Sockets.somsSelect(nfds: LongInt; var readfds{: opaque Sockets_fd_set}; var writefds{: opaque Sockets_fd_set}; var exceptfds{: opaque Sockets_fd_set}; var timeout{: opaque Sockets_timeval}): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26373,7 +26374,7 @@ end;
  * New Method: somsSend
  *)
 type
-  somTD_Sockets_somsSend = function (s: LongInt; msg: PShortInt; len: LongInt; flags: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsSend = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; msg: PShortInt; len: LongInt; flags: LongInt): LongInt; stdcall;
 
 function Sockets.somsSend(s: LongInt; msg: PShortInt; len: LongInt; flags: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26384,7 +26385,7 @@ end;
  * New Method: somsSendmsg
  *)
 type
-  somTD_Sockets_somsSendmsg = function (s: LongInt; var msg{: opaque Sockets_msghdr}; flags: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsSendmsg = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; var msg{: opaque Sockets_msghdr}; flags: LongInt): LongInt; stdcall;
 
 function Sockets.somsSendmsg(s: LongInt; var msg{: opaque Sockets_msghdr}; flags: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26395,7 +26396,7 @@ end;
  * New Method: somsSendto
  *)
 type
-  somTD_Sockets_somsSendto = function (s: LongInt; var msg: ShortInt; len: LongInt; flags: LongInt; var SOM_to{: opaque Sockets_sockaddr}; tolen: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsSendto = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; var msg: ShortInt; len: LongInt; flags: LongInt; var SOM_to{: opaque Sockets_sockaddr}; tolen: LongInt): LongInt; stdcall;
 
 function Sockets.somsSendto(s: LongInt; var msg: ShortInt; len: LongInt; flags: LongInt; var SOM_to{: opaque Sockets_sockaddr}; tolen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26406,7 +26407,7 @@ end;
  * New Method: somsSetsockopt
  *)
 type
-  somTD_Sockets_somsSetsockopt = function (s: LongInt; level: LongInt; optname: LongInt; optval: PShortInt; optlen: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsSetsockopt = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; level: LongInt; optname: LongInt; optval: PShortInt; optlen: LongInt): LongInt; stdcall;
 
 function Sockets.somsSetsockopt(s: LongInt; level: LongInt; optname: LongInt; optval: PShortInt; optlen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26417,7 +26418,7 @@ end;
  * New Method: somsShutdown
  *)
 type
-  somTD_Sockets_somsShutdown = function (s: LongInt; how: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsShutdown = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; how: LongInt): LongInt; stdcall;
 
 function Sockets.somsShutdown(s: LongInt; how: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26428,7 +26429,7 @@ end;
  * New Method: somsSocket
  *)
 type
-  somTD_Sockets_somsSocket = function (domain: LongInt; SOM_type: LongInt; protocol: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsSocket = function (somSelf: Sockets; ev: PEnvironment; domain: LongInt; SOM_type: LongInt; protocol: LongInt): LongInt; stdcall;
 
 function Sockets.somsSocket(domain: LongInt; SOM_type: LongInt; protocol: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26439,7 +26440,7 @@ end;
  * New Method: somsSoclose
  *)
 type
-  somTD_Sockets_somsSoclose = function (s: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsSoclose = function (somSelf: Sockets; ev: PEnvironment; s: LongInt): LongInt; stdcall;
 
 function Sockets.somsSoclose(s: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26450,7 +26451,7 @@ end;
  * New Method: somsWritev
  *)
 type
-  somTD_Sockets_somsWritev = function (s: LongInt; var iov{: opaque Sockets_iovec}; iovcnt: LongInt): LongInt; stdcall;
+  somTD_Sockets_somsWritev = function (somSelf: Sockets; ev: PEnvironment; s: LongInt; var iov{: opaque Sockets_iovec}; iovcnt: LongInt): LongInt; stdcall;
 
 function Sockets.somsWritev(s: LongInt; var iov{: opaque Sockets_iovec}; iovcnt: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26659,7 +26660,7 @@ end;
  * New Method: _get_somstTargetCapacity
  *)
 type
-  somTD_SOMStringTableC__get_somstTargetCapacity = function : LongWord; stdcall;
+  somTD_SOMStringTableC__get_somstTargetCapacity = function (somSelf: SOMStringTableC): LongWord; stdcall;
 
 function SOMStringTableC._get_somstTargetCapacity: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26670,7 +26671,7 @@ end;
  * New Method: _set_somstTargetCapacity
  *)
 type
-  somTD_SOMStringTableC__set_somstTargetCapacity = procedure (somstTargetCapacity: LongWord); stdcall;
+  somTD_SOMStringTableC__set_somstTargetCapacity = procedure (somSelf: SOMStringTableC; somstTargetCapacity: LongWord); stdcall;
 
 procedure SOMStringTableC._set_somstTargetCapacity(somstTargetCapacity: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26681,7 +26682,7 @@ end;
  * New Method: _get_somstAssociationsCount
  *)
 type
-  somTD_SOMStringTableC__get_somstAssociationsCount = function : LongWord; stdcall;
+  somTD_SOMStringTableC__get_somstAssociationsCount = function (somSelf: SOMStringTableC): LongWord; stdcall;
 
 function SOMStringTableC._get_somstAssociationsCount: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26692,7 +26693,7 @@ end;
  * New Method: somstAssociate
  *)
 type
-  somTD_SOMStringTableC_somstAssociate = function (key: CORBAString; value: CORBAString): SmallInt; stdcall;
+  somTD_SOMStringTableC_somstAssociate = function (somSelf: SOMStringTableC; key: CORBAString; value: CORBAString): SmallInt; stdcall;
 
 function SOMStringTableC.somstAssociate(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26703,7 +26704,7 @@ end;
  * New Method: somstAssociateCopyKey
  *)
 type
-  somTD_SOMStringTableC_somstAssociateCopyKey = function (key: CORBAString; value: CORBAString): SmallInt; stdcall;
+  somTD_SOMStringTableC_somstAssociateCopyKey = function (somSelf: SOMStringTableC; key: CORBAString; value: CORBAString): SmallInt; stdcall;
 
 function SOMStringTableC.somstAssociateCopyKey(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26714,7 +26715,7 @@ end;
  * New Method: somstAssociateCopyValue
  *)
 type
-  somTD_SOMStringTableC_somstAssociateCopyValue = function (key: CORBAString; value: CORBAString): SmallInt; stdcall;
+  somTD_SOMStringTableC_somstAssociateCopyValue = function (somSelf: SOMStringTableC; key: CORBAString; value: CORBAString): SmallInt; stdcall;
 
 function SOMStringTableC.somstAssociateCopyValue(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26725,7 +26726,7 @@ end;
  * New Method: somstAssociateCopyBoth
  *)
 type
-  somTD_SOMStringTableC_somstAssociateCopyBoth = function (key: CORBAString; value: CORBAString): SmallInt; stdcall;
+  somTD_SOMStringTableC_somstAssociateCopyBoth = function (somSelf: SOMStringTableC; key: CORBAString; value: CORBAString): SmallInt; stdcall;
 
 function SOMStringTableC.somstAssociateCopyBoth(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26736,7 +26737,7 @@ end;
  * New Method: somstGetAssociation
  *)
 type
-  somTD_SOMStringTableC_somstGetAssociation = function (key: CORBAString): CORBAString; stdcall;
+  somTD_SOMStringTableC_somstGetAssociation = function (somSelf: SOMStringTableC; key: CORBAString): CORBAString; stdcall;
 
 function SOMStringTableC.somstGetAssociation(key: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26747,7 +26748,7 @@ end;
  * New Method: somstClearAssociation
  *)
 type
-  somTD_SOMStringTableC_somstClearAssociation = function (key: CORBAString): CORBABoolean; stdcall;
+  somTD_SOMStringTableC_somstClearAssociation = function (somSelf: SOMStringTableC; key: CORBAString): CORBABoolean; stdcall;
 
 function SOMStringTableC.somstClearAssociation(key: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26758,7 +26759,7 @@ end;
  * New Method: somstGetIthKey
  *)
 type
-  somTD_SOMStringTableC_somstGetIthKey = function (i: LongWord): CORBAString; stdcall;
+  somTD_SOMStringTableC_somstGetIthKey = function (somSelf: SOMStringTableC; i: LongWord): CORBAString; stdcall;
 
 function SOMStringTableC.somstGetIthKey(i: LongWord): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26769,7 +26770,7 @@ end;
  * New Method: somstGetIthValue
  *)
 type
-  somTD_SOMStringTableC_somstGetIthValue = function (i: LongWord): CORBAString; stdcall;
+  somTD_SOMStringTableC_somstGetIthValue = function (somSelf: SOMStringTableC; i: LongWord): CORBAString; stdcall;
 
 function SOMStringTableC.somstGetIthValue(i: LongWord): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26978,7 +26979,7 @@ end;
  * New Method: _get_sommTraceIsOn
  *)
 type
-  somTD_SOMMTraced__get_sommTraceIsOn = function : CORBABoolean; stdcall;
+  somTD_SOMMTraced__get_sommTraceIsOn = function (somSelf: SOMMTraced; ev: PEnvironment): CORBABoolean; stdcall;
 
 function SOMMTraced._get_sommTraceIsOn: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -26989,7 +26990,7 @@ end;
  * New Method: _set_sommTraceIsOn
  *)
 type
-  somTD_SOMMTraced__set_sommTraceIsOn = procedure (sommTraceIsOn: CORBABoolean); stdcall;
+  somTD_SOMMTraced__set_sommTraceIsOn = procedure (somSelf: SOMMTraced; ev: PEnvironment; sommTraceIsOn: CORBABoolean); stdcall;
 
 procedure SOMMTraced._set_sommTraceIsOn(sommTraceIsOn: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -27493,7 +27494,7 @@ end;
  * New Method: somevGetEventInterval
  *)
 type
-  somTD_SOMETimerEvent_somevGetEventInterval = function : LongInt; stdcall;
+  somTD_SOMETimerEvent_somevGetEventInterval = function (somSelf: SOMETimerEvent; ev: PEnvironment): LongInt; stdcall;
 
 function SOMETimerEvent.somevGetEventInterval: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -27504,7 +27505,7 @@ end;
  * New Method: somevSetEventInterval
  *)
 type
-  somTD_SOMETimerEvent_somevSetEventInterval = procedure (interval: LongInt); stdcall;
+  somTD_SOMETimerEvent_somevSetEventInterval = procedure (somSelf: SOMETimerEvent; ev: PEnvironment; interval: LongInt); stdcall;
 
 procedure SOMETimerEvent.somevSetEventInterval(interval: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -27733,7 +27734,7 @@ end;
  * New Method: _get_sender
  *)
 type
-  somTD_TSIdentification__get_sender = function : TSPortability_Sender; stdcall;
+  somTD_TSIdentification__get_sender = function (somSelf: TSIdentification; ev: PEnvironment): TSPortability_Sender; stdcall;
 
 function TSIdentification._get_sender: TSPortability_Sender; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -27744,7 +27745,7 @@ end;
  * New Method: _get_receiver
  *)
 type
-  somTD_TSIdentification__get_receiver = function : TSPortability_Receiver; stdcall;
+  somTD_TSIdentification__get_receiver = function (somSelf: TSIdentification; ev: PEnvironment): TSPortability_Receiver; stdcall;
 
 function TSIdentification._get_receiver: TSPortability_Receiver; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -27755,7 +27756,7 @@ end;
  * New Method: identify_sender
  *)
 type
-  somTD_TSIdentification_identify_sender = procedure (sender: TSPortability_Sender); stdcall;
+  somTD_TSIdentification_identify_sender = procedure (somSelf: TSIdentification; ev: PEnvironment; sender: TSPortability_Sender); stdcall;
 
 procedure TSIdentification.identify_sender(sender: TSPortability_Sender); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -27766,7 +27767,7 @@ end;
  * New Method: identify_receiver
  *)
 type
-  somTD_TSIdentification_identify_receiver = procedure (receiver: TSPortability_Receiver); stdcall;
+  somTD_TSIdentification_identify_receiver = procedure (somSelf: TSIdentification; ev: PEnvironment; receiver: TSPortability_Receiver); stdcall;
 
 procedure TSIdentification.identify_receiver(receiver: TSPortability_Receiver); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -27975,7 +27976,7 @@ end;
  * New Method: _get_type
  *)
 type
-  somTD_TypeDef__get_type = function : TypeCode; stdcall;
+  somTD_TypeDef__get_type = function (somSelf: TypeDef; ev: PEnvironment): TypeCode; stdcall;
 
 function TypeDef._get_type: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
@@ -27986,7 +27987,7 @@ end;
  * New Method: _set_type
  *)
 type
-  somTD_TypeDef__set_type = procedure (SOM_type: TypeCode); stdcall;
+  somTD_TypeDef__set_type = procedure (somSelf: TypeDef; ev: PEnvironment; SOM_type: TypeCode); stdcall;
 
 procedure TypeDef._set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
