@@ -855,7 +855,7 @@ type
 
   SOMObject = class(SOMObjectBase)
   public
-    class function Create: SOMObject;
+    class function Create: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -883,6 +883,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   P_IDL_ArrayOf_somModifier = ^_IDL_ArrayOf_somModifier;
@@ -908,7 +909,7 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: Contained;
+    class function Create: Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -938,6 +939,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
     property defined_in: CORBAString read _get_defined_in write _set_defined_in;
@@ -959,7 +961,7 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: AttributeDef;
+    class function Create: AttributeDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -989,6 +991,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property SOM_type: TypeCode read _get_type write _set_type;
     property mode: AttributeDef_AttributeMode read _get_mode write _set_mode;
     property name: CORBAString read _get_name write _set_name;
@@ -1000,7 +1003,7 @@ type
   _IDL_Array12Of_Byte = array[0 .. 11] of Byte;
   BOA = class(SOMObjectBase)
   public
-    class function Create: BOA;
+    class function Create: BOA; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function SOM_create(const id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure dispose(obj: SOMDObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function get_id(obj: SOMDObject): _IDL_Sequence_Byte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1038,11 +1041,12 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   SOMEEvent = class(SOMObjectBase)
   public
-    class function Create: SOMEEvent;
+    class function Create: SOMEEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventTime(time: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1074,11 +1078,12 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   SOMEClientEvent = class(SOMObjectBase)
   public
-    class function Create: SOMEClientEvent;
+    class function Create: SOMEClientEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventClientData: Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventClientType: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventClientData(clientData: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1114,11 +1119,12 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   Context = class(SOMObjectBase)
   public
-    class function Create: Context;
+    class function Create: Context; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function set_one_value(prop_name: CORBAString; value: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function set_values(values: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function get_values(start_scope: CORBAString; op_flags: LongWord; prop_name: CORBAString; out values: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1152,6 +1158,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   ConstantDef = class(SOMObjectBase)
@@ -1169,7 +1176,7 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: ConstantDef;
+    class function Create: ConstantDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1199,6 +1206,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property SOM_type: TypeCode read _get_type write _set_type;
     property value: any read _get_value write _set_value;
     property name: CORBAString read _get_name write _set_name;
@@ -1221,7 +1229,7 @@ type
   end;
   Container = class(SOMObjectBase)
   public
-    class function Create: Container;
+    class function Create: Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1252,11 +1260,12 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   SOMEEMan = class(SOMObjectBase)
   public
-    class function Create: SOMEEMan;
+    class function Create: SOMEEMan; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someGetEManSem; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someReleaseEManSem; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someChangeRegData(registrationId: LongInt; registerData: SOMEEMRegisterData); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1295,11 +1304,12 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   SOMEEMRegisterData = class(SOMObjectBase)
   public
-    class function Create: SOMEEMRegisterData;
+    class function Create: SOMEEMRegisterData; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someClearRegData; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someSetRegDataClientType(clientType: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someSetRegDataEventMask(eventType: LongInt; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1334,6 +1344,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   ExceptionDef = class(SOMObjectBase)
@@ -1349,7 +1360,7 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: ExceptionDef;
+    class function Create: ExceptionDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1379,6 +1390,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property SOM_type: TypeCode read _get_type write _set_type;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
@@ -1405,7 +1417,7 @@ type
     function _get_impl_hostname: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_impl_hostname(impl_hostname: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: ImplementationDef;
+    class function Create: ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1433,6 +1445,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property impl_id: CORBAString read _get_impl_id write _set_impl_id;
     property impl_alias: CORBAString read _get_impl_alias write _set_impl_alias;
     property impl_program: CORBAString read _get_impl_program write _set_impl_program;
@@ -1451,7 +1464,7 @@ type
   end;
   ImplRepository = class(SOMObjectBase)
   public
-    class function Create: ImplRepository;
+    class function Create: ImplRepository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function find_impldef(implid: CORBAString): ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function find_impldef_by_alias(alias_name: CORBAString): ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function find_all_impldefs(out outimpldefs: _IDL_Sequence_ImplementationDef): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1490,6 +1503,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   InterfaceDef = class(SOMObjectBase)
@@ -1507,7 +1521,7 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: InterfaceDef;
+    class function Create: InterfaceDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_interface: InterfaceDef_FullInterfaceDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1541,6 +1555,7 @@ type
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property base_interfaces: _IDL_Sequence_CORBAString read _get_base_interfaces write _set_base_interfaces;
     property instanceData: TypeCode read _get_instanceData write _set_instanceData;
     property name: CORBAString read _get_name write _set_name;
@@ -1560,7 +1575,7 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: ModuleDef;
+    class function Create: ModuleDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1593,6 +1608,7 @@ type
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
     property defined_in: CORBAString read _get_defined_in write _set_defined_in;
@@ -1601,7 +1617,7 @@ type
 
   NVList = class(SOMObjectBase)
   public
-    class function Create: NVList;
+    class function Create: NVList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function add_item(item_name: CORBAString; item_type: TypeCode; value: Pointer; value_len: LongInt; item_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function free: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function free_memory: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1635,11 +1651,12 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   ObjectMgr = class(SOMObjectBase)
   public
-    class function Create: ObjectMgr;
+    class function Create: ObjectMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdNewObject(objclass: CORBAString; hints: CORBAString): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdGetIdFromObject(obj: SOMObject): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdGetObjectFromId(id: CORBAString): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1672,6 +1689,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   OperationDef = class(SOMObjectBase)
@@ -1691,7 +1709,7 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: OperationDef;
+    class function Create: OperationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1724,6 +1742,7 @@ type
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property SOM_result: TypeCode read _get_result write _set_result;
     property mode: OperationDef_OperationMode read _get_mode write _set_mode;
     property contexts: _IDL_Sequence_CORBAString read _get_contexts write _set_contexts;
@@ -1735,7 +1754,7 @@ type
 
   ORB = class(SOMObjectBase)
   public
-    class function Create: ORB;
+    class function Create: ORB; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function object_to_string(obj: SOMDObject): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function string_to_object(str: CORBAString): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function create_list(count: LongInt; out new_list: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1768,6 +1787,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   ParameterDef = class(SOMObjectBase)
@@ -1785,7 +1805,7 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: ParameterDef;
+    class function Create: ParameterDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1815,6 +1835,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property SOM_type: TypeCode read _get_type write _set_type;
     property mode: ParameterDef_ParameterMode read _get_mode write _set_mode;
     property name: CORBAString read _get_name write _set_name;
@@ -1830,7 +1851,7 @@ type
     function _get_hostName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_hostName(hostName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: Principal;
+    class function Create: Principal; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1858,13 +1879,14 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property userName: CORBAString read _get_userName write _set_userName;
     property hostName: CORBAString read _get_hostName write _set_hostName;
   end;
 
   Repository = class(SOMObjectBase)
   public
-    class function Create: Repository;
+    class function Create: Repository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function lookup_id(search_id: CORBAString): Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function lookup_modifier(name: CORBAString; modifier: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure release_cache; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1898,11 +1920,12 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   Request = class(SOMObjectBase)
   public
-    class function Create: Request;
+    class function Create: Request; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function add_arg(name: CORBAString; arg_type: TypeCode; value: Pointer; len: LongInt; arg_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function invoke(invoke_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function send(invoke_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1935,6 +1958,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   SOMTEntryC = class(SOMObjectBase)
@@ -1951,7 +1975,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTEntryC;
+    class function Create: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1986,6 +2010,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
     property somtElementTypeName: CORBAString read _get_somtElementTypeName;
@@ -2013,7 +2038,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTAttributeEntryC;
+    class function Create: SOMTAttributeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstAttributeDeclarator: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextAttributeDeclarator: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstGetMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2054,6 +2079,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtIsReadonly: CORBABoolean read _get_somtIsReadonly;
     property somtAttribType: SOMTEntryC read _get_somtAttribType;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
@@ -2082,7 +2108,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTBaseClassEntryC;
+    class function Create: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2117,6 +2143,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtBaseClassDef: SOMTClassEntryC read _get_somtBaseClassDef;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
@@ -2159,7 +2186,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTClassEntryC;
+    class function Create: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstBaseClass: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextBaseClass: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstReleaseName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2228,6 +2255,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtSourceFileName: CORBAString read _get_somtSourceFileName;
     property somtMetaClassEntry: SOMTMetaClassEntryC read _get_somtMetaClassEntry;
     property somtClassModule: SOMTModuleEntryC read _get_somtClassModule;
@@ -2275,7 +2303,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTCommonEntryC;
+    class function Create: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2314,6 +2342,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtTypeObj: SOMTEntryC read _get_somtTypeObj;
     property somtPtrs: CORBAString read _get_somtPtrs;
     property somtArrayDimsString: CORBAString read _get_somtArrayDimsString;
@@ -2352,7 +2381,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTConstEntryC;
+    class function Create: SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2387,6 +2416,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtConstTypeObj: SOMTEntryC read _get_somtConstTypeObj;
     property somtConstType: CORBAString read _get_somtConstType;
     property somtConstStringVal: CORBAString read _get_somtConstStringVal;
@@ -2426,7 +2456,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTDataEntryC;
+    class function Create: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2465,6 +2495,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtIsSelfRef: CORBABoolean read _get_somtIsSelfRef;
     property somtTypeObj: SOMTEntryC read _get_somtTypeObj;
     property somtPtrs: CORBAString read _get_somtPtrs;
@@ -2499,7 +2530,7 @@ type
     function _get_somtEmitterName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somtEmitterName(somtEmitterName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTEmitC;
+    class function Create: SOMTEmitC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGenerateSections: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtOpenSymbolsFile(SOM_file: CORBAString; mode: CORBAString): PSOM_FILE; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somtSetPredefinedSymbols; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2607,6 +2638,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtTemplate: SOMTTemplateOutputC read _get_somtTemplate write _set_somtTemplate;
     property somtTargetFile: PSOM_FILE read _get_somtTargetFile write _set_somtTargetFile;
     property somtTargetClass: SOMTClassEntryC read _get_somtTargetClass write _set_somtTargetClass;
@@ -2629,7 +2661,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTEnumEntryC;
+    class function Create: SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstEnumName: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextEnumName: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2666,6 +2698,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
     property somtElementTypeName: CORBAString read _get_somtElementTypeName;
@@ -2693,7 +2726,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTEnumNameEntryC;
+    class function Create: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2728,6 +2761,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtEnumPtr: SOMTEnumEntryC read _get_somtEnumPtr;
     property somtEnumVal: LongWord read _get_somtEnumVal;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
@@ -2757,7 +2791,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTMetaClassEntryC;
+    class function Create: SOMTMetaClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2792,6 +2826,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtMetaFile: CORBAString read _get_somtMetaFile;
     property somtMetaClassDef: SOMTClassEntryC read _get_somtMetaClassDef;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
@@ -2835,7 +2870,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTMethodEntryC;
+    class function Create: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstParameter: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextParameter: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetIDLParamList(buffer: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2884,6 +2919,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtIsVarargs: CORBABoolean read _get_somtIsVarargs;
     property somtOriginalMethod: SOMTMethodEntryC read _get_somtOriginalMethod;
     property somtOriginalClass: SOMTClassEntryC read _get_somtOriginalClass;
@@ -2926,7 +2962,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTModuleEntryC;
+    class function Create: SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModuleStruct: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModuleStruct: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModuleTypedef: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2979,6 +3015,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtOuterModule: SOMTModuleEntryC read _get_somtOuterModule;
     property somtModuleFile: CORBAString read _get_somtModuleFile;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
@@ -3015,7 +3052,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTParameterEntryC;
+    class function Create: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3054,6 +3091,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtParameterDirection: somtParameterDirectionT read _get_somtParameterDirection;
     property somtIDLParameterDeclaration: CORBAString read _get_somtIDLParameterDeclaration;
     property somtCParameterDeclaration: CORBAString read _get_somtCParameterDeclaration;
@@ -3091,7 +3129,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTPassthruEntryC;
+    class function Create: SOMTPassthruEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsBeforePassthru: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3127,6 +3165,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtPassthruBody: CORBAString read _get_somtPassthruBody;
     property somtPassthruLanguage: CORBAString read _get_somtPassthruLanguage;
     property somtPassthruTarget: CORBAString read _get_somtPassthruTarget;
@@ -3157,7 +3196,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTSequenceEntryC;
+    class function Create: SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3192,6 +3231,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtSeqLength: LongInt read _get_somtSeqLength;
     property somtSeqType: SOMTEntryC read _get_somtSeqType;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
@@ -3220,7 +3260,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTStringEntryC;
+    class function Create: SOMTStringEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3255,6 +3295,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtStringLength: LongInt read _get_somtStringLength;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
@@ -3283,7 +3324,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTStructEntryC;
+    class function Create: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstMember: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextMember: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3320,6 +3361,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtStructClass: SOMTClassEntryC read _get_somtStructClass;
     property somtIsException: CORBABoolean read _get_somtIsException;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
@@ -3348,7 +3390,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTTypedefEntryC;
+    class function Create: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstDeclarator: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextDeclarator: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3385,6 +3427,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtTypedefType: SOMTEntryC read _get_somtTypedefType;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
@@ -3406,7 +3449,7 @@ type
     function _get_somtCommentNewline: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somtCommentNewline(somtCommentNewline: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTTemplateOutputC;
+    class function Create: SOMTTemplateOutputC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetSymbol(name: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somtSetSymbol(name: CORBAString; value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somtSetSymbolCopyName(name: CORBAString; value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3447,6 +3490,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtCommentStyle: somtCommentStyleT read _get_somtCommentStyle write _set_somtCommentStyle;
     property somtLineLength: LongInt read _get_somtLineLength write _set_somtLineLength;
     property somtCommentNewline: CORBABoolean read _get_somtCommentNewline write _set_somtCommentNewline;
@@ -3468,7 +3512,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTUnionEntryC;
+    class function Create: SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstCaseEntry: PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextCaseEntry: PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3505,6 +3549,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtSwitchType: SOMTEntryC read _get_somtSwitchType;
     property somtEntryName: CORBAString read _get_somtEntryName write _set_somtEntryName;
     property somtElementType: LongWord read _get_somtElementType write _set_somtElementType;
@@ -3539,7 +3584,7 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTUserDefinedTypeEntryC;
+    class function Create: SOMTUserDefinedTypeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3578,6 +3623,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somtOriginalTypedef: SOMTTypedefEntryC read _get_somtOriginalTypedef;
     property somtBaseTypeObj: SOMTEntryC read _get_somtBaseTypeObj;
     property somtTypeObj: SOMTEntryC read _get_somtTypeObj;
@@ -3599,7 +3645,7 @@ type
 
   SOMDServerMgr = class(SOMObjectBase)
   public
-    class function Create: SOMDServerMgr;
+    class function Create: SOMDServerMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdShutdownServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdStartServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdRestartServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3634,11 +3680,12 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   SOMESinkEvent = class(SOMObjectBase)
   public
-    class function Create: SOMESinkEvent;
+    class function Create: SOMESinkEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventSink: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventSink(sink: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3672,6 +3719,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   PsomClassDataStructure = ^somClassDataStructure;
@@ -3684,7 +3732,7 @@ type
     function _get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMClass;
+    class function Create: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNewNoInit: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somRenew(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3763,6 +3811,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somDataAlignment: LongInt read _get_somDataAlignment;
     property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
@@ -3779,7 +3828,7 @@ type
     function _get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMMSingleInstance;
+    class function Create: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function sommGetSingleInstance: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure sommFreeSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3860,6 +3909,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somDataAlignment: LongInt read _get_somDataAlignment;
     property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
@@ -3876,7 +3926,7 @@ type
     function _get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMMBeforeAfter;
+    class function Create: SOMMBeforeAfter; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure sommAfterMethod(SOM_object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3957,6 +4007,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somDataAlignment: LongInt read _get_somDataAlignment;
     property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
@@ -3971,7 +4022,7 @@ type
     procedure _set_somInterfaceRepository(somInterfaceRepository: Repository); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somRegisteredClasses: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMClassMgr;
+    class function Create: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somLoadClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somLocateClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somRegisterClass(classObj: SOMClass); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4016,13 +4067,14 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somInterfaceRepository: Repository read _get_somInterfaceRepository write _set_somInterfaceRepository;
     property somRegisteredClasses: _IDL_Sequence_SOMClass read _get_somRegisteredClasses;
   end;
 
   SOMDObject = class(SOMObjectBase)
   public
-    class function Create: SOMDObject;
+    class function Create: SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function get_implementation: ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function get_interface: InterfaceDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function is_nil: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4060,11 +4112,12 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   SOMDClientProxy = class(SOMObjectBase)
   public
-    class function Create: SOMDClientProxy;
+    class function Create: SOMDClientProxy; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somdTargetFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdTargetGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdTargetGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4109,6 +4162,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   SOMDMetaproxy = class(SOMObjectBase)
@@ -4120,7 +4174,7 @@ type
     function _get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMDMetaproxy;
+    class function Create: SOMDMetaproxy; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNewNoInit: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somRenew(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4199,6 +4253,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somDataAlignment: LongInt read _get_somDataAlignment;
     property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
     property somDirectInitClasses: _IDL_Sequence_SOMClass read _get_somDirectInitClasses write _set_somDirectInitClasses;
@@ -4217,7 +4272,7 @@ type
     function _get_somd21somFree: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somd21somFree(somd21somFree: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMDObjectMgr;
+    class function Create: SOMDObjectMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdFindServer(serverid: CORBAString): SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdFindServerByName(servername: CORBAString): SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdFindServersByClass(objclass: CORBAString): _IDL_Sequence_SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4254,12 +4309,13 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somd21somFree: CORBABoolean read _get_somd21somFree write _set_somd21somFree;
   end;
 
   SOMDServer = class(SOMObjectBase)
   public
-    class function Create: SOMDServer;
+    class function Create: SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdRefFromSOMObj(somobj: SOMObject): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdSOMObjFromRef(objref: SOMDObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somdDispatchMethod(somobj: SOMObject; out retValue: Pointer; methodId: somId; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4294,11 +4350,12 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   SOMUTId = class(SOMObjectBase)
   public
-    class function Create: SOMUTId;
+    class function Create: SOMUTId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somutSetIdId(otherId: SOMUTId); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somutEqualsId(otherId: SOMUTId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somutCompareId(otherId: SOMUTId): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4330,11 +4387,12 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   SOMOA = class(SOMObjectBase)
   public
-    class function Create: SOMOA;
+    class function Create: SOMOA; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function execute_next_request(waitFlag: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function execute_request_loop(waitFlag: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure change_id(objref: SOMDObject; const id: _IDL_Sequence_Byte); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4380,6 +4438,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   PSockets_hostent = Pointer{ opaque ^Sockets_hostent };
@@ -4389,7 +4448,7 @@ type
     function _get_serrno: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_serrno(serrno: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: Sockets;
+    class function Create: Sockets; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somsAccept(s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somsBind(s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somsConnect(s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4454,6 +4513,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property serrno: LongInt read _get_serrno write _set_serrno;
   end;
 
@@ -4463,7 +4523,7 @@ type
     procedure _set_somstTargetCapacity(somstTargetCapacity: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somstAssociationsCount: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMStringTableC;
+    class function Create: SOMStringTableC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somstAssociate(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somstAssociateCopyKey(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somstAssociateCopyValue(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4499,6 +4559,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property somstTargetCapacity: LongWord read _get_somstTargetCapacity write _set_somstTargetCapacity;
     property somstAssociationsCount: LongWord read _get_somstAssociationsCount;
   end;
@@ -4514,7 +4575,7 @@ type
     function _get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMMTraced;
+    class function Create: SOMMTraced; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure sommAfterMethod(SOM_object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4595,6 +4656,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property sommTraceIsOn: CORBABoolean read _get_sommTraceIsOn write _set_sommTraceIsOn;
     property somDataAlignment: LongInt read _get_somDataAlignment;
     property somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo read _get_somInstanceDataOffsets;
@@ -4605,7 +4667,7 @@ type
 
   SOMETimerEvent = class(SOMObjectBase)
   public
-    class function Create: SOMETimerEvent;
+    class function Create: SOMETimerEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventInterval: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventInterval(interval: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4639,6 +4701,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   TSPortability_Sender = class(SOMObjectBase) { unresolved class name };
@@ -4648,7 +4711,7 @@ type
     function _get_sender: TSPortability_Sender; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_receiver: TSPortability_Receiver; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: TSIdentification;
+    class function Create: TSIdentification; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure identify_sender(sender: TSPortability_Sender); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure identify_receiver(receiver: TSPortability_Receiver); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4678,6 +4741,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property sender: TSPortability_Sender read _get_sender;
     property receiver: TSPortability_Receiver read _get_receiver;
   end;
@@ -4695,7 +4759,7 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: TypeDef;
+    class function Create: TypeDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4725,6 +4789,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
     property SOM_type: TypeCode read _get_type write _set_type;
     property name: CORBAString read _get_name write _set_name;
     property id: CORBAString read _get_id write _set_id;
@@ -4734,7 +4799,7 @@ type
 
   SOMEWorkProcEvent = class(SOMObjectBase)
   public
-    class function Create: SOMEWorkProcEvent;
+    class function Create: SOMEWorkProcEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventTime(time: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4766,6 +4831,7 @@ type
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created
+    class function NewClass: SOMClass; // (not really new every time, but autocreated)
   end;
 
   { Arrays }
@@ -4920,6 +4986,12 @@ function SOM_Resolve(o: SOMObjectBase; oc: SOMObjectBase{SOMClass}; m: somMToken
 (* from oc's mtbl, without verification of o *)
 function SOM_ResolveNoCheck(o: SOMObjectBase; oc: SOMObjectBase{SOMClass}; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+  (*
+   * Main programs should register for SOM cleanup at exit
+   *)
+
+function SOM_MainProgram: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
 (* Check the validity of method resolution using the specified target  *)
 (* object.  Note: this macro makes programs bigger and slower.  After  *)
 (* you are confident that your program is running correctly you should *)
@@ -4968,6 +5040,42 @@ procedure SOM_DestroyLocalEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLI
 procedure SOM_InitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 procedure SOM_UninitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
+// #include <somapi.h>
+
+(*
+ *  SOMAPI.H
+ *
+ *  This file documents the public data structures and functions
+ *  of the SOM API (Application Programming Interface). Primitive data
+ *  types are defined in sombtype.h, and the public methods provided by
+ *  the SOM kernel are declared in somobj.idl, somcls.idl and somcm.idl.
+ *  An important header file for language bindings is somdefs.h, which
+ *  defines the SOMLINK symbol used in various emitter outputs.
+ *
+ *  Note: typedefs & prototypes in this file explicitly show pointers
+ *  to objects that support an interface described by IDL. These are
+ *  C/C++ typedefs that reflect the implementation of object references
+ *  in SOM as pointers to structures in memory.
+ *)
+
+ (*
+  * HISTORY [04/19/96] #21264 nsk Temproary ADD WIN32 Code
+  *)
+
+(*  SOM Version Numbers  *)
+function Replaceable_SOM_MajorVersion: PLongInt;
+function SOM_MajorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Replaceable_SOM_MinorVersion: PLongInt;
+function SOM_MinorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*  SOM Thread Support  *)
+function Replaceable_SOM_MaxThreads: PLongInt;
+function SOM_MaxThreads: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+
+(*----------------------------------------
+ * Typedefs for pointers to functions
+ *----------------------------------------*)
+
 type
   somTD_SOMMalloc = function(nbytes: UIntPtr): somToken; stdcall;
   PsomTD_SOMMalloc = ^somTD_SOMMalloc;
@@ -4981,6 +5089,26 @@ type
   PsomTD_SOMRealloc = ^somTD_SOMRealloc;
   somTD_SOMFree = procedure(memory: somToken); stdcall;
   PsomTD_SOMFree = ^somTD_SOMFree;
+
+(*----------------------------------------------------------------------
+ * SOM Environment Initialization Section
+ *---------------------------------------------------------------------*)
+
+(*
+ *  Create and initialize the SOM environment.
+ *
+ *  This function is idempotent (may be invoked redundantly)
+ *
+ *  Will be called automatically when first object (including a class
+ *  object) is created, if it has not already been done.
+ *
+ *  Returns the SOMClassMgrObject
+ *)
+function somEnvironmentNew: SOMClassMgr; stdcall;
+
+procedure somEnvironmentEnd; stdcall;
+function somMainProgram: SOMClassMgr; stdcall;
+function somAbnormalEnd: ByteBool; stdcall;
 
 (*
  *  Replaceable SOM Memory Management Interfaces
@@ -5150,13 +5278,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMObject.Create: SOMObject;
-var
-  cls: SOMClass;
+class function SOMObject.Create: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMObjectNewClass);
-  Result := SOMObject(cls.somNew);
+  Result := SOMObject(NewClass.somNew);
 end;
 
 (*
@@ -5628,6 +5752,19 @@ begin
   end
 end;
 
+class function SOMObject.NewClass: SOMClass;
+begin
+  if Self = SOMObject then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMObjectClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMObjectNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMIR_DLL_Name = 'somir.dll';
 
@@ -5876,13 +6013,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function Contained.Create: Contained;
-var
-  cls: SOMClass;
+class function Contained.Create: Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(ContainedNewClass);
-  Result := Contained(cls.somNew);
+  Result := Contained(NewClass.somNew);
 end;
 
 (*
@@ -6238,6 +6371,19 @@ begin
   end
 end;
 
+class function Contained.NewClass: SOMClass;
+begin
+  if Self = Contained then { invoked on class name literal }
+  begin
+    Result := SOMClass(ContainedClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(ContainedNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   AttributeDef_MajorVersion = 2;
   AttributeDef_MinorVersion = 1;
@@ -6491,13 +6637,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function AttributeDef.Create: AttributeDef;
-var
-  cls: SOMClass;
+class function AttributeDef.Create: AttributeDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(AttributeDefNewClass);
-  Result := AttributeDef(cls.somNew);
+  Result := AttributeDef(NewClass.somNew);
 end;
 
 function AttributeDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6841,6 +6983,19 @@ begin
   end
 end;
 
+class function AttributeDef.NewClass: SOMClass;
+begin
+  if Self = AttributeDef then { invoked on class name literal }
+  begin
+    Result := SOMClass(AttributeDefClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(AttributeDefNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMD_DLL_Name = 'somd.dll';
 
@@ -6935,13 +7090,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function BOA.Create: BOA;
-var
-  cls: SOMClass;
+class function BOA.Create: BOA; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(BOANewClass);
-  Result := BOA(cls.somNew);
+  Result := BOA(NewClass.somNew);
 end;
 
 (*
@@ -7450,6 +7601,19 @@ begin
   end
 end;
 
+class function BOA.NewClass: SOMClass;
+begin
+  if Self = BOA then { invoked on class name literal }
+  begin
+    Result := SOMClass(BOAClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(BOANewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMEM_DLL_Name = 'somem.dll';
 
@@ -7536,13 +7700,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMEEvent.Create: SOMEEvent;
-var
-  cls: SOMClass;
+class function SOMEEvent.Create: SOMEEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMEEventNewClass);
-  Result := SOMEEvent(cls.somNew);
+  Result := SOMEEvent(NewClass.somNew);
 end;
 
 (*
@@ -7936,6 +8096,19 @@ begin
   end
 end;
 
+class function SOMEEvent.NewClass: SOMClass;
+begin
+  if Self = SOMEEvent then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMEEventClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMEEventNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMEClientEvent_MajorVersion = 2;
   SOMEClientEvent_MinorVersion = 1;
@@ -8003,13 +8176,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMEClientEvent.Create: SOMEClientEvent;
-var
-  cls: SOMClass;
+class function SOMEClientEvent.Create: SOMEClientEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMEClientEventNewClass);
-  Result := SOMEClientEvent(cls.somNew);
+  Result := SOMEClientEvent(NewClass.somNew);
 end;
 
 (*
@@ -8457,6 +8626,19 @@ begin
   end
 end;
 
+class function SOMEClientEvent.NewClass: SOMClass;
+begin
+  if Self = SOMEClientEvent then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMEClientEventClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMEClientEventNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   Context_MajorVersion = 2;
   Context_MinorVersion = 1;
@@ -8532,13 +8714,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function Context.Create: Context;
-var
-  cls: SOMClass;
+class function Context.Create: Context; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(ContextNewClass);
-  Result := Context(cls.somNew);
+  Result := Context(NewClass.somNew);
 end;
 
 (*
@@ -8974,6 +9152,19 @@ begin
   end
 end;
 
+class function Context.NewClass: SOMClass;
+begin
+  if Self = Context then { invoked on class name literal }
+  begin
+    Result := SOMClass(ContextClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(ContextNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   ConstantDef_MajorVersion = 2;
   ConstantDef_MinorVersion = 1;
@@ -9227,13 +9418,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function ConstantDef.Create: ConstantDef;
-var
-  cls: SOMClass;
+class function ConstantDef.Create: ConstantDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(ConstantDefNewClass);
-  Result := ConstantDef(cls.somNew);
+  Result := ConstantDef(NewClass.somNew);
 end;
 
 function ConstantDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9577,6 +9764,19 @@ begin
   end
 end;
 
+class function ConstantDef.NewClass: SOMClass;
+begin
+  if Self = ConstantDef then { invoked on class name literal }
+  begin
+    Result := SOMClass(ConstantDefClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(ConstantDefNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   Container_MajorVersion = 2;
   Container_MinorVersion = 1;
@@ -9643,13 +9843,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function Container.Create: Container;
-var
-  cls: SOMClass;
+class function Container.Create: Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(ContainerNewClass);
-  Result := Container(cls.somNew);
+  Result := Container(NewClass.somNew);
 end;
 
 (*
@@ -10025,6 +10221,19 @@ begin
   end
 end;
 
+class function Container.NewClass: SOMClass;
+begin
+  if Self = Container then { invoked on class name literal }
+  begin
+    Result := SOMClass(ContainerClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(ContainerNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMEEMan_MajorVersion = 2;
   SOMEEMan_MinorVersion = 1;
@@ -10099,13 +10308,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMEEMan.Create: SOMEEMan;
-var
-  cls: SOMClass;
+class function SOMEEMan.Create: SOMEEMan; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMEEManNewClass);
-  Result := SOMEEMan(cls.somNew);
+  Result := SOMEEMan(NewClass.somNew);
 end;
 
 (*
@@ -10633,6 +10838,19 @@ begin
   end
 end;
 
+class function SOMEEMan.NewClass: SOMClass;
+begin
+  if Self = SOMEEMan then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMEEManClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMEEManNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMEEMRegisterData_MajorVersion = 2;
   SOMEEMRegisterData_MinorVersion = 1;
@@ -10703,13 +10921,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMEEMRegisterData.Create: SOMEEMRegisterData;
-var
-  cls: SOMClass;
+class function SOMEEMRegisterData.Create: SOMEEMRegisterData; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMEEMRegisterDataNewClass);
-  Result := SOMEEMRegisterData(cls.somNew);
+  Result := SOMEEMRegisterData(NewClass.somNew);
 end;
 
 (*
@@ -11158,6 +11372,19 @@ begin
   end
 end;
 
+class function SOMEEMRegisterData.NewClass: SOMClass;
+begin
+  if Self = SOMEEMRegisterData then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMEEMRegisterDataClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMEEMRegisterDataNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   ExceptionDef_MajorVersion = 2;
   ExceptionDef_MinorVersion = 1;
@@ -11370,13 +11597,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function ExceptionDef.Create: ExceptionDef;
-var
-  cls: SOMClass;
+class function ExceptionDef.Create: ExceptionDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(ExceptionDefNewClass);
-  Result := ExceptionDef(cls.somNew);
+  Result := ExceptionDef(NewClass.somNew);
 end;
 
 function ExceptionDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11713,6 +11936,19 @@ begin
   if Self = ExceptionDef then { invoked on class name literal }
   begin
     Result := SOMClass(ExceptionDefClassData.classObject);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
+class function ExceptionDef.NewClass: SOMClass;
+begin
+  if Self = ExceptionDef then { invoked on class name literal }
+  begin
+    Result := SOMClass(ExceptionDefClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(ExceptionDefNewClass);
   end
   else { invoked on SOM object }
   begin
@@ -12116,13 +12352,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function ImplementationDef.Create: ImplementationDef;
-var
-  cls: SOMClass;
+class function ImplementationDef.Create: ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(ImplementationDefNewClass);
-  Result := ImplementationDef(cls.somNew);
+  Result := ImplementationDef(NewClass.somNew);
 end;
 
 procedure ImplementationDef.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12438,6 +12670,19 @@ begin
   end
 end;
 
+class function ImplementationDef.NewClass: SOMClass;
+begin
+  if Self = ImplementationDef then { invoked on class name literal }
+  begin
+    Result := SOMClass(ImplementationDefClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(ImplementationDefNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   ImplRepository_MajorVersion = 2;
   ImplRepository_MinorVersion = 1;
@@ -12518,13 +12763,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function ImplRepository.Create: ImplRepository;
-var
-  cls: SOMClass;
+class function ImplRepository.Create: ImplRepository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(ImplRepositoryNewClass);
-  Result := ImplRepository(cls.somNew);
+  Result := ImplRepository(NewClass.somNew);
 end;
 
 (*
@@ -13054,6 +13295,19 @@ begin
   end
 end;
 
+class function ImplRepository.NewClass: SOMClass;
+begin
+  if Self = ImplRepository then { invoked on class name literal }
+  begin
+    Result := SOMClass(ImplRepositoryClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(ImplRepositoryNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   InterfaceDef_MajorVersion = 2;
   InterfaceDef_MinorVersion = 1;
@@ -13308,13 +13562,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function InterfaceDef.Create: InterfaceDef;
-var
-  cls: SOMClass;
+class function InterfaceDef.Create: InterfaceDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(InterfaceDefNewClass);
-  Result := InterfaceDef(cls.somNew);
+  Result := InterfaceDef(NewClass.somNew);
 end;
 
 (*
@@ -13720,6 +13970,19 @@ begin
   end
 end;
 
+class function InterfaceDef.NewClass: SOMClass;
+begin
+  if Self = InterfaceDef then { invoked on class name literal }
+  begin
+    Result := SOMClass(InterfaceDefClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(InterfaceDefNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   ModuleDef_MajorVersion = 2;
   ModuleDef_MinorVersion = 1;
@@ -13891,13 +14154,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function ModuleDef.Create: ModuleDef;
-var
-  cls: SOMClass;
+class function ModuleDef.Create: ModuleDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(ModuleDefNewClass);
-  Result := ModuleDef(cls.somNew);
+  Result := ModuleDef(NewClass.somNew);
 end;
 
 function ModuleDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14283,6 +14542,19 @@ begin
   end
 end;
 
+class function ModuleDef.NewClass: SOMClass;
+begin
+  if Self = ModuleDef then { invoked on class name literal }
+  begin
+    Result := SOMClass(ModuleDefClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(ModuleDefNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   NVList_MajorVersion = 2;
   NVList_MinorVersion = 1;
@@ -14354,13 +14626,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function NVList.Create: NVList;
-var
-  cls: SOMClass;
+class function NVList.Create: NVList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(NVListNewClass);
-  Result := NVList(cls.somNew);
+  Result := NVList(NewClass.somNew);
 end;
 
 (*
@@ -14796,6 +15064,19 @@ begin
   end
 end;
 
+class function NVList.NewClass: SOMClass;
+begin
+  if Self = NVList then { invoked on class name literal }
+  begin
+    Result := SOMClass(NVListClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(NVListNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   ObjectMgr_MajorVersion = 2;
   ObjectMgr_MinorVersion = 1;
@@ -14864,13 +15145,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function ObjectMgr.Create: ObjectMgr;
-var
-  cls: SOMClass;
+class function ObjectMgr.Create: ObjectMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(ObjectMgrNewClass);
-  Result := ObjectMgr(cls.somNew);
+  Result := ObjectMgr(NewClass.somNew);
 end;
 
 (*
@@ -15284,6 +15561,19 @@ begin
   end
 end;
 
+class function ObjectMgr.NewClass: SOMClass;
+begin
+  if Self = ObjectMgr then { invoked on class name literal }
+  begin
+    Result := SOMClass(ObjectMgrClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(ObjectMgrNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   OperationDef_MajorVersion = 2;
   OperationDef_MinorVersion = 1;
@@ -15578,13 +15868,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function OperationDef.Create: OperationDef;
-var
-  cls: SOMClass;
+class function OperationDef.Create: OperationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(OperationDefNewClass);
-  Result := OperationDef(cls.somNew);
+  Result := OperationDef(NewClass.somNew);
 end;
 
 function OperationDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15970,6 +16256,19 @@ begin
   end
 end;
 
+class function OperationDef.NewClass: SOMClass;
+begin
+  if Self = OperationDef then { invoked on class name literal }
+  begin
+    Result := SOMClass(OperationDefClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(OperationDefNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   ORB_MajorVersion = 2;
   ORB_MinorVersion = 1;
@@ -16040,13 +16339,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function ORB.Create: ORB;
-var
-  cls: SOMClass;
+class function ORB.Create: ORB; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(ORBNewClass);
-  Result := ORB(cls.somNew);
+  Result := ORB(NewClass.somNew);
 end;
 
 (*
@@ -16462,6 +16757,19 @@ begin
   end
 end;
 
+class function ORB.NewClass: SOMClass;
+begin
+  if Self = ORB then { invoked on class name literal }
+  begin
+    Result := SOMClass(ORBClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(ORBNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   ParameterDef_MajorVersion = 2;
   ParameterDef_MinorVersion = 1;
@@ -16715,13 +17023,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function ParameterDef.Create: ParameterDef;
-var
-  cls: SOMClass;
+class function ParameterDef.Create: ParameterDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(ParameterDefNewClass);
-  Result := ParameterDef(cls.somNew);
+  Result := ParameterDef(NewClass.somNew);
 end;
 
 function ParameterDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17065,6 +17369,19 @@ begin
   end
 end;
 
+class function ParameterDef.NewClass: SOMClass;
+begin
+  if Self = ParameterDef then { invoked on class name literal }
+  begin
+    Result := SOMClass(ParameterDefClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(ParameterDefNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   Principal_MajorVersion = 1;
   Principal_MinorVersion = 0;
@@ -17210,13 +17527,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function Principal.Create: Principal;
-var
-  cls: SOMClass;
+class function Principal.Create: Principal; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(PrincipalNewClass);
-  Result := Principal(cls.somNew);
+  Result := Principal(NewClass.somNew);
 end;
 
 procedure Principal.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17532,6 +17845,19 @@ begin
   end
 end;
 
+class function Principal.NewClass: SOMClass;
+begin
+  if Self = Principal then { invoked on class name literal }
+  begin
+    Result := SOMClass(PrincipalClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(PrincipalNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   Repository_MajorVersion = 2;
   Repository_MinorVersion = 1;
@@ -17598,13 +17924,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function Repository.Create: Repository;
-var
-  cls: SOMClass;
+class function Repository.Create: Repository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(RepositoryNewClass);
-  Result := Repository(cls.somNew);
+  Result := Repository(NewClass.somNew);
 end;
 
 (*
@@ -18021,6 +18343,19 @@ begin
   end
 end;
 
+class function Repository.NewClass: SOMClass;
+begin
+  if Self = Repository then { invoked on class name literal }
+  begin
+    Result := SOMClass(RepositoryClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(RepositoryNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   Request_MajorVersion = 2;
   Request_MinorVersion = 1;
@@ -18103,13 +18438,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function Request.Create: Request;
-var
-  cls: SOMClass;
+class function Request.Create: Request; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(RequestNewClass);
-  Result := Request(cls.somNew);
+  Result := Request(NewClass.somNew);
 end;
 
 (*
@@ -18525,6 +18856,19 @@ begin
   end
 end;
 
+class function Request.NewClass: SOMClass;
+begin
+  if Self = Request then { invoked on class name literal }
+  begin
+    Result := SOMClass(RequestClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(RequestNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOME_DLL_Name = 'some.dll';
 
@@ -18823,13 +19167,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTEntryC.Create: SOMTEntryC;
-var
-  cls: SOMClass;
+class function SOMTEntryC.Create: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTEntryCNewClass);
-  Result := SOMTEntryC(cls.somNew);
+  Result := SOMTEntryC(NewClass.somNew);
 end;
 
 (*
@@ -19270,6 +19610,19 @@ begin
   end
 end;
 
+class function SOMTEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTAttributeEntryC_MajorVersion = 2;
   SOMTAttributeEntryC_MinorVersion = 1;
@@ -19507,13 +19860,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTAttributeEntryC.Create: SOMTAttributeEntryC;
-var
-  cls: SOMClass;
+class function SOMTAttributeEntryC.Create: SOMTAttributeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTAttributeEntryCNewClass);
-  Result := SOMTAttributeEntryC(cls.somNew);
+  Result := SOMTAttributeEntryC(NewClass.somNew);
 end;
 
 (*
@@ -20020,6 +20369,19 @@ begin
   end
 end;
 
+class function SOMTAttributeEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTAttributeEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTAttributeEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTAttributeEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTBaseClassEntryC_MajorVersion = 2;
   SOMTBaseClassEntryC_MinorVersion = 1;
@@ -20232,13 +20594,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTBaseClassEntryC.Create: SOMTBaseClassEntryC;
-var
-  cls: SOMClass;
+class function SOMTBaseClassEntryC.Create: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTBaseClassEntryCNewClass);
-  Result := SOMTBaseClassEntryC(cls.somNew);
+  Result := SOMTBaseClassEntryC(NewClass.somNew);
 end;
 
 function SOMTBaseClassEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20630,6 +20988,19 @@ begin
   if Self = SOMTBaseClassEntryC then { invoked on class name literal }
   begin
     Result := SOMClass(SOMTBaseClassEntryCClassData.classObject);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
+class function SOMTBaseClassEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTBaseClassEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTBaseClassEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTBaseClassEntryCNewClass);
   end
   else { invoked on SOM object }
   begin
@@ -21168,13 +21539,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTClassEntryC.Create: SOMTClassEntryC;
-var
-  cls: SOMClass;
+class function SOMTClassEntryC.Create: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTClassEntryCNewClass);
-  Result := SOMTClassEntryC(cls.somNew);
+  Result := SOMTClassEntryC(NewClass.somNew);
 end;
 
 (*
@@ -22185,6 +22552,19 @@ begin
   end
 end;
 
+class function SOMTClassEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTClassEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTClassEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTClassEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTCommonEntryC_MajorVersion = 2;
   SOMTCommonEntryC_MinorVersion = 1;
@@ -22497,13 +22877,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTCommonEntryC.Create: SOMTCommonEntryC;
-var
-  cls: SOMClass;
+class function SOMTCommonEntryC.Create: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTCommonEntryCNewClass);
-  Result := SOMTCommonEntryC(cls.somNew);
+  Result := SOMTCommonEntryC(NewClass.somNew);
 end;
 
 (*
@@ -22974,6 +23350,19 @@ begin
   end
 end;
 
+class function SOMTCommonEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTCommonEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTCommonEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTCommonEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTConstEntryC_MajorVersion = 2;
   SOMTConstEntryC_MinorVersion = 1;
@@ -23300,13 +23689,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTConstEntryC.Create: SOMTConstEntryC;
-var
-  cls: SOMClass;
+class function SOMTConstEntryC.Create: SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTConstEntryCNewClass);
-  Result := SOMTConstEntryC(cls.somNew);
+  Result := SOMTConstEntryC(NewClass.somNew);
 end;
 
 function SOMTConstEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23705,6 +24090,19 @@ begin
   end
 end;
 
+class function SOMTConstEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTConstEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTConstEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTConstEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTDataEntryC_MajorVersion = 2;
   SOMTDataEntryC_MinorVersion = 1;
@@ -23989,13 +24387,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTDataEntryC.Create: SOMTDataEntryC;
-var
-  cls: SOMClass;
+class function SOMTDataEntryC.Create: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTDataEntryCNewClass);
-  Result := SOMTDataEntryC(cls.somNew);
+  Result := SOMTDataEntryC(NewClass.somNew);
 end;
 
 function SOMTDataEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24442,6 +24836,19 @@ begin
   end
 end;
 
+class function SOMTDataEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTDataEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTDataEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTDataEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTEmitC_MajorVersion = 2;
   SOMTEmitC_MinorVersion = 1;
@@ -24807,13 +25214,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTEmitC.Create: SOMTEmitC;
-var
-  cls: SOMClass;
+class function SOMTEmitC.Create: SOMTEmitC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTEmitCNewClass);
-  Result := SOMTEmitC(cls.somNew);
+  Result := SOMTEmitC(NewClass.somNew);
 end;
 
 (*
@@ -26520,6 +26923,19 @@ begin
   end
 end;
 
+class function SOMTEmitC.NewClass: SOMClass;
+begin
+  if Self = SOMTEmitC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTEmitCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTEmitCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTEnumEntryC_MajorVersion = 2;
   SOMTEnumEntryC_MinorVersion = 1;
@@ -26715,13 +27131,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTEnumEntryC.Create: SOMTEnumEntryC;
-var
-  cls: SOMClass;
+class function SOMTEnumEntryC.Create: SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTEnumEntryCNewClass);
-  Result := SOMTEnumEntryC(cls.somNew);
+  Result := SOMTEnumEntryC(NewClass.somNew);
 end;
 
 (*
@@ -27156,6 +27568,19 @@ begin
   end
 end;
 
+class function SOMTEnumEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTEnumEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTEnumEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTEnumEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTEnumNameEntryC_MajorVersion = 2;
   SOMTEnumNameEntryC_MinorVersion = 1;
@@ -27387,13 +27812,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTEnumNameEntryC.Create: SOMTEnumNameEntryC;
-var
-  cls: SOMClass;
+class function SOMTEnumNameEntryC.Create: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTEnumNameEntryCNewClass);
-  Result := SOMTEnumNameEntryC(cls.somNew);
+  Result := SOMTEnumNameEntryC(NewClass.somNew);
 end;
 
 function SOMTEnumNameEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27792,6 +28213,19 @@ begin
   end
 end;
 
+class function SOMTEnumNameEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTEnumNameEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTEnumNameEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTEnumNameEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTMetaClassEntryC_MajorVersion = 2;
   SOMTMetaClassEntryC_MinorVersion = 1;
@@ -28023,13 +28457,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTMetaClassEntryC.Create: SOMTMetaClassEntryC;
-var
-  cls: SOMClass;
+class function SOMTMetaClassEntryC.Create: SOMTMetaClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTMetaClassEntryCNewClass);
-  Result := SOMTMetaClassEntryC(cls.somNew);
+  Result := SOMTMetaClassEntryC(NewClass.somNew);
 end;
 
 function SOMTMetaClassEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28421,6 +28851,19 @@ begin
   if Self = SOMTMetaClassEntryC then { invoked on class name literal }
   begin
     Result := SOMClass(SOMTMetaClassEntryCClassData.classObject);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
+class function SOMTMetaClassEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTMetaClassEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTMetaClassEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTMetaClassEntryCNewClass);
   end
   else { invoked on SOM object }
   begin
@@ -28880,13 +29323,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTMethodEntryC.Create: SOMTMethodEntryC;
-var
-  cls: SOMClass;
+class function SOMTMethodEntryC.Create: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTMethodEntryCNewClass);
-  Result := SOMTMethodEntryC(cls.somNew);
+  Result := SOMTMethodEntryC(NewClass.somNew);
 end;
 
 (*
@@ -29513,6 +29952,19 @@ begin
   end
 end;
 
+class function SOMTMethodEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTMethodEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTMethodEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTMethodEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTModuleEntryC_MajorVersion = 2;
   SOMTModuleEntryC_MinorVersion = 1;
@@ -29762,13 +30214,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTModuleEntryC.Create: SOMTModuleEntryC;
-var
-  cls: SOMClass;
+class function SOMTModuleEntryC.Create: SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTModuleEntryCNewClass);
-  Result := SOMTModuleEntryC(cls.somNew);
+  Result := SOMTModuleEntryC(NewClass.somNew);
 end;
 
 (*
@@ -30491,6 +30939,19 @@ begin
   end
 end;
 
+class function SOMTModuleEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTModuleEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTModuleEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTModuleEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTParameterEntryC_MajorVersion = 2;
   SOMTParameterEntryC_MinorVersion = 1;
@@ -30813,13 +31274,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTParameterEntryC.Create: SOMTParameterEntryC;
-var
-  cls: SOMClass;
+class function SOMTParameterEntryC.Create: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTParameterEntryCNewClass);
-  Result := SOMTParameterEntryC(cls.somNew);
+  Result := SOMTParameterEntryC(NewClass.somNew);
 end;
 
 function SOMTParameterEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31266,6 +31723,19 @@ begin
   end
 end;
 
+class function SOMTParameterEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTParameterEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTParameterEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTParameterEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTPassthruEntryC_MajorVersion = 2;
   SOMTPassthruEntryC_MinorVersion = 1;
@@ -31517,13 +31987,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTPassthruEntryC.Create: SOMTPassthruEntryC;
-var
-  cls: SOMClass;
+class function SOMTPassthruEntryC.Create: SOMTPassthruEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTPassthruEntryCNewClass);
-  Result := SOMTPassthruEntryC(cls.somNew);
+  Result := SOMTPassthruEntryC(NewClass.somNew);
 end;
 
 (*
@@ -31940,6 +32406,19 @@ begin
   end
 end;
 
+class function SOMTPassthruEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTPassthruEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTPassthruEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTPassthruEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTSequenceEntryC_MajorVersion = 2;
   SOMTSequenceEntryC_MinorVersion = 1;
@@ -32172,13 +32651,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTSequenceEntryC.Create: SOMTSequenceEntryC;
-var
-  cls: SOMClass;
+class function SOMTSequenceEntryC.Create: SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTSequenceEntryCNewClass);
-  Result := SOMTSequenceEntryC(cls.somNew);
+  Result := SOMTSequenceEntryC(NewClass.somNew);
 end;
 
 function SOMTSequenceEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32577,6 +33052,19 @@ begin
   end
 end;
 
+class function SOMTSequenceEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTSequenceEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTSequenceEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTSequenceEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTStringEntryC_MajorVersion = 2;
   SOMTStringEntryC_MinorVersion = 1;
@@ -32789,13 +33277,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTStringEntryC.Create: SOMTStringEntryC;
-var
-  cls: SOMClass;
+class function SOMTStringEntryC.Create: SOMTStringEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTStringEntryCNewClass);
-  Result := SOMTStringEntryC(cls.somNew);
+  Result := SOMTStringEntryC(NewClass.somNew);
 end;
 
 function SOMTStringEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33194,6 +33678,19 @@ begin
   end
 end;
 
+class function SOMTStringEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTStringEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTStringEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTStringEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTStructEntryC_MajorVersion = 2;
   SOMTStructEntryC_MinorVersion = 1;
@@ -33427,13 +33924,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTStructEntryC.Create: SOMTStructEntryC;
-var
-  cls: SOMClass;
+class function SOMTStructEntryC.Create: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTStructEntryCNewClass);
-  Result := SOMTStructEntryC(cls.somNew);
+  Result := SOMTStructEntryC(NewClass.somNew);
 end;
 
 (*
@@ -33868,6 +34361,19 @@ begin
   end
 end;
 
+class function SOMTStructEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTStructEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTStructEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTStructEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTTypedefEntryC_MajorVersion = 2;
   SOMTTypedefEntryC_MinorVersion = 1;
@@ -34082,13 +34588,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTTypedefEntryC.Create: SOMTTypedefEntryC;
-var
-  cls: SOMClass;
+class function SOMTTypedefEntryC.Create: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTTypedefEntryCNewClass);
-  Result := SOMTTypedefEntryC(cls.somNew);
+  Result := SOMTTypedefEntryC(NewClass.somNew);
 end;
 
 (*
@@ -34523,6 +35025,19 @@ begin
   end
 end;
 
+class function SOMTTypedefEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTTypedefEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTTypedefEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTTypedefEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTTemplateOutputC_MajorVersion = 2;
   SOMTTemplateOutputC_MinorVersion = 1;
@@ -34710,13 +35225,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTTemplateOutputC.Create: SOMTTemplateOutputC;
-var
-  cls: SOMClass;
+class function SOMTTemplateOutputC.Create: SOMTTemplateOutputC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTTemplateOutputCNewClass);
-  Result := SOMTTemplateOutputC(cls.somNew);
+  Result := SOMTTemplateOutputC(NewClass.somNew);
 end;
 
 (*
@@ -35256,6 +35767,19 @@ begin
   end
 end;
 
+class function SOMTTemplateOutputC.NewClass: SOMClass;
+begin
+  if Self = SOMTTemplateOutputC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTTemplateOutputCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTTemplateOutputCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTUnionEntryC_MajorVersion = 2;
   SOMTUnionEntryC_MinorVersion = 1;
@@ -35470,13 +35994,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTUnionEntryC.Create: SOMTUnionEntryC;
-var
-  cls: SOMClass;
+class function SOMTUnionEntryC.Create: SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTUnionEntryCNewClass);
-  Result := SOMTUnionEntryC(cls.somNew);
+  Result := SOMTUnionEntryC(NewClass.somNew);
 end;
 
 (*
@@ -35911,6 +36431,19 @@ begin
   end
 end;
 
+class function SOMTUnionEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTUnionEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTUnionEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTUnionEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMTUserDefinedTypeEntryC_MajorVersion = 2;
   SOMTUserDefinedTypeEntryC_MinorVersion = 1;
@@ -36214,13 +36747,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMTUserDefinedTypeEntryC.Create: SOMTUserDefinedTypeEntryC;
-var
-  cls: SOMClass;
+class function SOMTUserDefinedTypeEntryC.Create: SOMTUserDefinedTypeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMTUserDefinedTypeEntryCNewClass);
-  Result := SOMTUserDefinedTypeEntryC(cls.somNew);
+  Result := SOMTUserDefinedTypeEntryC(NewClass.somNew);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36667,6 +37196,19 @@ begin
   end
 end;
 
+class function SOMTUserDefinedTypeEntryC.NewClass: SOMClass;
+begin
+  if Self = SOMTUserDefinedTypeEntryC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMTUserDefinedTypeEntryCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMTUserDefinedTypeEntryCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMDServerMgr_MajorVersion = 2;
   SOMDServerMgr_MinorVersion = 1;
@@ -36737,13 +37279,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMDServerMgr.Create: SOMDServerMgr;
-var
-  cls: SOMClass;
+class function SOMDServerMgr.Create: SOMDServerMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMDServerMgrNewClass);
-  Result := SOMDServerMgr(cls.somNew);
+  Result := SOMDServerMgr(NewClass.somNew);
 end;
 
 (*
@@ -37199,6 +37737,19 @@ begin
   end
 end;
 
+class function SOMDServerMgr.NewClass: SOMClass;
+begin
+  if Self = SOMDServerMgr then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMDServerMgrClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMDServerMgrNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMESinkEvent_MajorVersion = 2;
   SOMESinkEvent_MinorVersion = 1;
@@ -37264,13 +37815,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMESinkEvent.Create: SOMESinkEvent;
-var
-  cls: SOMClass;
+class function SOMESinkEvent.Create: SOMESinkEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMESinkEventNewClass);
-  Result := SOMESinkEvent(cls.somNew);
+  Result := SOMESinkEvent(NewClass.somNew);
 end;
 
 (*
@@ -37679,6 +38226,19 @@ begin
   end
 end;
 
+class function SOMESinkEvent.NewClass: SOMClass;
+begin
+  if Self = SOMESinkEvent then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMESinkEventClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMESinkEventNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMClass_MajorVersion = 1;
   SOMClass_MinorVersion = 4;
@@ -37925,13 +38485,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMClass.Create: SOMClass;
-var
-  cls: SOMClass;
+class function SOMClass.Create: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMClassNewClass);
-  Result := SOMClass(cls.somNew);
+  Result := SOMClass(NewClass.somNew);
 end;
 
 (*
@@ -39156,6 +39712,19 @@ begin
   end
 end;
 
+class function SOMClass.NewClass: SOMClass;
+begin
+  if Self = SOMClass then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMClassClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMClassNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMMSingleInstance_MajorVersion = 2;
   SOMMSingleInstance_MinorVersion = 1;
@@ -39292,13 +39861,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMMSingleInstance.Create: SOMMSingleInstance;
-var
-  cls: SOMClass;
+class function SOMMSingleInstance.Create: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMMSingleInstanceNewClass);
-  Result := SOMMSingleInstance(cls.somNew);
+  Result := SOMMSingleInstance(NewClass.somNew);
 end;
 
 (*
@@ -40256,6 +40821,19 @@ begin
   end
 end;
 
+class function SOMMSingleInstance.NewClass: SOMClass;
+begin
+  if Self = SOMMSingleInstance then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMMSingleInstanceClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMMSingleInstanceNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMMBeforeAfter_MajorVersion = 2;
   SOMMBeforeAfter_MinorVersion = 1;
@@ -40392,13 +40970,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMMBeforeAfter.Create: SOMMBeforeAfter;
-var
-  cls: SOMClass;
+class function SOMMBeforeAfter.Create: SOMMBeforeAfter; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMMBeforeAfterNewClass);
-  Result := SOMMBeforeAfter(cls.somNew);
+  Result := SOMMBeforeAfter(NewClass.somNew);
 end;
 
 (*
@@ -41356,6 +41930,19 @@ begin
   end
 end;
 
+class function SOMMBeforeAfter.NewClass: SOMClass;
+begin
+  if Self = SOMMBeforeAfter then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMMBeforeAfterClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMMBeforeAfterNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMClassMgr_MajorVersion = 1;
   SOMClassMgr_MinorVersion = 4;
@@ -41494,13 +42081,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMClassMgr.Create: SOMClassMgr;
-var
-  cls: SOMClass;
+class function SOMClassMgr.Create: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMClassMgrNewClass);
-  Result := SOMClassMgr(cls.somNew);
+  Result := SOMClassMgr(NewClass.somNew);
 end;
 
 (*
@@ -42116,6 +42699,19 @@ begin
   end
 end;
 
+class function SOMClassMgr.NewClass: SOMClass;
+begin
+  if Self = SOMClassMgr then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMClassMgrClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMClassMgrNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMDObject_MajorVersion = 2;
   SOMDObject_MinorVersion = 1;
@@ -42199,13 +42795,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMDObject.Create: SOMDObject;
-var
-  cls: SOMClass;
+class function SOMDObject.Create: SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMDObjectNewClass);
-  Result := SOMDObject(cls.somNew);
+  Result := SOMDObject(NewClass.somNew);
 end;
 
 (*
@@ -42720,6 +43312,19 @@ begin
   end
 end;
 
+class function SOMDObject.NewClass: SOMClass;
+begin
+  if Self = SOMDObject then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMDObjectClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMDObjectNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMDClientProxy_MajorVersion = 2;
   SOMDClientProxy_MinorVersion = 1;
@@ -42796,13 +43401,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMDClientProxy.Create: SOMDClientProxy;
-var
-  cls: SOMClass;
+class function SOMDClientProxy.Create: SOMDClientProxy; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMDClientProxyNewClass);
-  Result := SOMDClientProxy(cls.somNew);
+  Result := SOMDClientProxy(NewClass.somNew);
 end;
 
 (*
@@ -43394,6 +43995,19 @@ begin
   end
 end;
 
+class function SOMDClientProxy.NewClass: SOMClass;
+begin
+  if Self = SOMDClientProxy then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMDClientProxyClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMDClientProxyNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMDMetaproxy_MajorVersion = 0;
   SOMDMetaproxy_MinorVersion = 0;
@@ -43528,13 +44142,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMDMetaproxy.Create: SOMDMetaproxy;
-var
-  cls: SOMClass;
+class function SOMDMetaproxy.Create: SOMDMetaproxy; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMDMetaproxyNewClass);
-  Result := SOMDMetaproxy(cls.somNew);
+  Result := SOMDMetaproxy(NewClass.somNew);
 end;
 
 function SOMDMetaproxy.somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44453,6 +45063,19 @@ begin
   end
 end;
 
+class function SOMDMetaproxy.NewClass: SOMClass;
+begin
+  if Self = SOMDMetaproxy then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMDMetaproxyClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMDMetaproxyNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMDObjectMgr_MajorVersion = 2;
   SOMDObjectMgr_MinorVersion = 1;
@@ -44561,13 +45184,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function SOMDObjectMgr.Create: SOMDObjectMgr;
-var
-  cls: SOMClass;
+class function SOMDObjectMgr.Create: SOMDObjectMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMDObjectMgrNewClass);
-  Result := SOMDObjectMgr(cls.somNew);
+  Result := SOMDObjectMgr(NewClass.somNew);
 end;
 
 (*
@@ -45031,6 +45650,19 @@ begin
   end
 end;
 
+class function SOMDObjectMgr.NewClass: SOMClass;
+begin
+  if Self = SOMDObjectMgr then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMDObjectMgrClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMDObjectMgrNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMDServer_MajorVersion = 2;
   SOMDServer_MinorVersion = 1;
@@ -45101,13 +45733,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMDServer.Create: SOMDServer;
-var
-  cls: SOMClass;
+class function SOMDServer.Create: SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMDServerNewClass);
-  Result := SOMDServer(cls.somNew);
+  Result := SOMDServer(NewClass.somNew);
 end;
 
 (*
@@ -45561,6 +46189,19 @@ begin
   end
 end;
 
+class function SOMDServer.NewClass: SOMClass;
+begin
+  if Self = SOMDServer then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMDServerClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMDServerNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMUTId_MajorVersion = 2;
   SOMUTId_MinorVersion = 1;
@@ -45628,13 +46269,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMUTId.Create: SOMUTId;
-var
-  cls: SOMClass;
+class function SOMUTId.Create: SOMUTId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMUTIdNewClass);
-  Result := SOMUTId(cls.somNew);
+  Result := SOMUTId(NewClass.somNew);
 end;
 
 (*
@@ -46029,6 +46666,19 @@ begin
   end
 end;
 
+class function SOMUTId.NewClass: SOMClass;
+begin
+  if Self = SOMUTId then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMUTIdClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMUTIdNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMOA_MajorVersion = 2;
   SOMOA_MinorVersion = 1;
@@ -46100,13 +46750,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMOA.Create: SOMOA;
-var
-  cls: SOMClass;
+class function SOMOA.Create: SOMOA; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMOANewClass);
-  Result := SOMOA(cls.somNew);
+  Result := SOMOA(NewClass.somNew);
 end;
 
 (*
@@ -46712,6 +47358,19 @@ begin
   end
 end;
 
+class function SOMOA.NewClass: SOMClass;
+begin
+  if Self = SOMOA then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMOAClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMOANewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMS_DLL_Name = 'soms.dll';
 
@@ -46872,13 +47531,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function Sockets.Create: Sockets;
-var
-  cls: SOMClass;
+class function Sockets.Create: Sockets; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SocketsNewClass);
-  Result := Sockets(cls.somNew);
+  Result := Sockets(NewClass.somNew);
 end;
 
 (*
@@ -47934,6 +48589,19 @@ begin
   end
 end;
 
+class function Sockets.NewClass: SOMClass;
+begin
+  if Self = Sockets then { invoked on class name literal }
+  begin
+    Result := SOMClass(SocketsClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SocketsNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMStringTableC_MajorVersion = 2;
   SOMStringTableC_MinorVersion = 1;
@@ -48061,13 +48729,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMStringTableC.Create: SOMStringTableC;
-var
-  cls: SOMClass;
+class function SOMStringTableC.Create: SOMStringTableC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMStringTableCNewClass);
-  Result := SOMStringTableC(cls.somNew);
+  Result := SOMStringTableC(NewClass.somNew);
 end;
 
 (*
@@ -48527,6 +49191,19 @@ begin
   end
 end;
 
+class function SOMStringTableC.NewClass: SOMClass;
+begin
+  if Self = SOMStringTableC then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMStringTableCClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMStringTableCNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMMTraced_MajorVersion = 2;
   SOMMTraced_MinorVersion = 1;
@@ -48702,13 +49379,9 @@ begin
   somExceptionFree(somGetGlobalEnvironment);
 end;
 
-class function SOMMTraced.Create: SOMMTraced;
-var
-  cls: SOMClass;
+class function SOMMTraced.Create: SOMMTraced; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMMTracedNewClass);
-  Result := SOMMTraced(cls.somNew);
+  Result := SOMMTraced(NewClass.somNew);
 end;
 
 function SOMMTraced.sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -49654,6 +50327,19 @@ begin
   end
 end;
 
+class function SOMMTraced.NewClass: SOMClass;
+begin
+  if Self = SOMMTraced then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMMTracedClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMMTracedNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMETimerEvent_MajorVersion = 2;
   SOMETimerEvent_MinorVersion = 1;
@@ -49719,13 +50405,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMETimerEvent.Create: SOMETimerEvent;
-var
-  cls: SOMClass;
+class function SOMETimerEvent.Create: SOMETimerEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMETimerEventNewClass);
-  Result := SOMETimerEvent(cls.somNew);
+  Result := SOMETimerEvent(NewClass.somNew);
 end;
 
 (*
@@ -50134,6 +50816,19 @@ begin
   end
 end;
 
+class function SOMETimerEvent.NewClass: SOMClass;
+begin
+  if Self = SOMETimerEvent then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMETimerEventClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMETimerEventNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   TSIdentification_MajorVersion = 2;
   TSIdentification_MinorVersion = 1;
@@ -50241,13 +50936,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function TSIdentification.Create: TSIdentification;
-var
-  cls: SOMClass;
+class function TSIdentification.Create: TSIdentification; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(TSIdentificationNewClass);
-  Result := TSIdentification(cls.somNew);
+  Result := TSIdentification(NewClass.somNew);
 end;
 
 (*
@@ -50601,6 +51292,19 @@ begin
   end
 end;
 
+class function TSIdentification.NewClass: SOMClass;
+begin
+  if Self = TSIdentification then { invoked on class name literal }
+  begin
+    Result := SOMClass(TSIdentificationClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(TSIdentificationNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   TypeDef_MajorVersion = 2;
   TypeDef_MinorVersion = 1;
@@ -50813,13 +51517,9 @@ begin
   SOM_UninitEnvironment(@LocalEnv);
 end;
 
-class function TypeDef.Create: TypeDef;
-var
-  cls: SOMClass;
+class function TypeDef.Create: TypeDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(TypeDefNewClass);
-  Result := TypeDef(cls.somNew);
+  Result := TypeDef(NewClass.somNew);
 end;
 
 function TypeDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -51163,6 +51863,19 @@ begin
   end
 end;
 
+class function TypeDef.NewClass: SOMClass;
+begin
+  if Self = TypeDef then { invoked on class name literal }
+  begin
+    Result := SOMClass(TypeDefClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(TypeDefNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 const
   SOMEWorkProcEvent_MajorVersion = 2;
   SOMEWorkProcEvent_MinorVersion = 1;
@@ -51226,13 +51939,9 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMEWorkProcEvent.Create: SOMEWorkProcEvent;
-var
-  cls: SOMClass;
+class function SOMEWorkProcEvent.Create: SOMEWorkProcEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
-  cls := ClassObject;
-  if not Assigned(cls) then cls := SOMClass(SOMEWorkProcEventNewClass);
-  Result := SOMEWorkProcEvent(cls.somNew);
+  Result := SOMEWorkProcEvent(NewClass.somNew);
 end;
 
 function SOMEWorkProcEvent.somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -51602,6 +52311,19 @@ begin
   end
 end;
 
+class function SOMEWorkProcEvent.NewClass: SOMClass;
+begin
+  if Self = SOMEWorkProcEvent then { invoked on class name literal }
+  begin
+    Result := SOMClass(SOMEWorkProcEventClassData.classObject);
+    if not Assigned(Result) then Result := SOMClass(SOMEWorkProcEventNewClass);
+  end
+  else { invoked on SOM object }
+  begin
+    Result := SOMClass(PPointer(Self)^);
+  end
+end;
+
 function somresolve_(obj: SOMObjectBase; mToken: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := somMethodProc(mToken);
@@ -51618,6 +52340,15 @@ end;
 function SOM_ResolveNoCheck(o: SOMObjectBase; oc: SOMObjectBase{SOMClass}; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := m;
+end;
+
+var
+  SOM_MainProgram_Invoked : Boolean = False;
+
+function SOM_MainProgram: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  SOM_MainProgram_Invoked := True;
+  Result := somMainProgram;
 end;
 
 function SOM_TestCls(obj: SOMObjectBase; cls: SOMObjectBase{SOMClass};
@@ -51660,6 +52391,70 @@ procedure SOM_UninitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} in
 begin
   somExceptionFree(ev);
 end;
+
+// #include <somapi.h>
+
+var
+  SOM_DLL_SOM_MajorVersion: PLongInt = nil;
+
+function Replaceable_SOM_MajorVersion: PLongInt;
+begin
+  if Assigned(SOM_DLL_SOM_MajorVersion) then
+    Result := SOM_DLL_SOM_MajorVersion
+  else
+  begin
+    SOM_DLL_Load_Variable(SOM_DLL_SOM_MajorVersion, 'SOM_MajorVersion');
+    Result := SOM_DLL_SOM_MajorVersion;
+  end;
+end;
+
+function SOM_MajorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Replaceable_SOM_MajorVersion^;
+end;
+
+var
+  SOM_DLL_SOM_MinorVersion: PLongInt = nil;
+
+function Replaceable_SOM_MinorVersion: PLongInt;
+begin
+  if Assigned(SOM_DLL_SOM_MinorVersion) then
+    Result := SOM_DLL_SOM_MinorVersion
+  else
+  begin
+    SOM_DLL_Load_Variable(SOM_DLL_SOM_MinorVersion, 'SOM_MinorVersion');
+    Result := SOM_DLL_SOM_MinorVersion;
+  end;
+end;
+
+function SOM_MinorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Replaceable_SOM_MinorVersion^;
+end;
+
+var
+  SOM_DLL_SOM_MaxThreads: PLongInt = nil;
+
+function Replaceable_SOM_MaxThreads: PLongInt;
+begin
+  if Assigned(SOM_DLL_SOM_MaxThreads) then
+    Result := SOM_DLL_SOM_MaxThreads
+  else
+  begin
+    SOM_DLL_Load_Variable(SOM_DLL_SOM_MaxThreads, 'SOM_MaxThreads');
+    Result := SOM_DLL_SOM_MaxThreads;
+  end;
+end;
+
+function SOM_MaxThreads: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Replaceable_SOM_MaxThreads^;
+end;
+
+function somEnvironmentNew; external SOM_DLL_Name;
+procedure somEnvironmentEnd; external SOM_DLL_Name;
+function somMainProgram; external SOM_DLL_Name;
+function somAbnormalEnd; external SOM_DLL_Name;
 
 var
   SOM_DLL_SOMCalloc: PsomTD_SOMCalloc = nil;
@@ -51742,5 +52537,63 @@ function somTestCls; external SOM_DLL_Name;
 initialization
   Windows.InitializeCriticalSection(DLLLoad_CriticalSection);
 finalization
+  if SOM_DLL <> 0 then
+  begin
+    Windows.EnterCriticalSection(DLLLoad_CriticalSection);
+    if SOM_DLL <> 0 then
+    begin
+      FreeLibrary(SOM_DLL);
+    end;
+    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
+  if SOMD_DLL <> 0 then
+  begin
+    Windows.EnterCriticalSection(DLLLoad_CriticalSection);
+    if SOMD_DLL <> 0 then
+    begin
+      FreeLibrary(SOMD_DLL);
+    end;
+    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
+  if SOME_DLL <> 0 then
+  begin
+    Windows.EnterCriticalSection(DLLLoad_CriticalSection);
+    if SOME_DLL <> 0 then
+    begin
+      FreeLibrary(SOME_DLL);
+    end;
+    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
+  if SOMEM_DLL <> 0 then
+  begin
+    Windows.EnterCriticalSection(DLLLoad_CriticalSection);
+    if SOMEM_DLL <> 0 then
+    begin
+      FreeLibrary(SOMEM_DLL);
+    end;
+    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
+  if SOMIR_DLL <> 0 then
+  begin
+    Windows.EnterCriticalSection(DLLLoad_CriticalSection);
+    if SOMIR_DLL <> 0 then
+    begin
+      FreeLibrary(SOMIR_DLL);
+    end;
+    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
+  if SOMS_DLL <> 0 then
+  begin
+    Windows.EnterCriticalSection(DLLLoad_CriticalSection);
+    if SOMS_DLL <> 0 then
+    begin
+      FreeLibrary(SOMS_DLL);
+    end;
+    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
+  if SOM_MainProgram_Invoked then
+  begin
+    somEnvironmentEnd;
+  end;
   Windows.DeleteCriticalSection(DLLLoad_CriticalSection);
 end.

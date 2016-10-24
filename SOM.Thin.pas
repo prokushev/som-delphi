@@ -7662,14 +7662,14 @@ end;
 initialization
 
 finalization
-  if SOM_MainProgram_Called then
-  begin
-    somEnvironmentEnd;
-  end;
   if SOM_DLL <> 0 then
   begin
     Windows.EnterCriticalSection(DLLLoad_CriticalSection);
     FreeLibrary(SOM_DLL);
     Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
+  if SOM_MainProgram_Called then
+  begin
+    somEnvironmentEnd;
   end;
 end.

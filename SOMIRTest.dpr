@@ -1170,19 +1170,15 @@ begin
       if Pass < wtpImplementation then
       begin
         WriteLn(F, '  public');
-        WriteLn(F, '    class function Create: ', ImportedType, ';');
+        WriteLn(F, '    class function Create: ', ImportedType, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
       end
       else
       begin
         ImportedType := IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace);
         WriteLn(F);
-        WriteLn(F, 'class function ', ImportedType, '.Create: ', ImportedType, ';');
-        WriteLn(F, 'var');
-        WriteLn(F, '  cls: SOMClass;');
+        WriteLn(F, 'class function ', ImportedType, '.Create: ', ImportedType, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
         WriteLn(F, 'begin');
-        WriteLn(F, '  cls := ClassObject;');
-        WriteLn(F, '  if not Assigned(cls) then cls := SOMClass(', ImportedType, 'NewClass);');
-        WriteLn(F, '  Result := ', ImportedType, '(cls.somNew);');
+        WriteLn(F, '  Result := ', ImportedType, '(NewClass.somNew);');
         WriteLn(F, 'end;');
       end;
     end;
@@ -1238,6 +1234,28 @@ begin
         WriteLn(F, '  if Self = ', ImportedType, ' then { invoked on class name literal }');
         WriteLn(F, '  begin');
         WriteLn(F, '    Result := SOMClass(', ImportedType, 'ClassData.classObject);');
+        WriteLn(F, '  end');
+        WriteLn(F, '  else { invoked on SOM object }');
+        WriteLn(F, '  begin');
+        WriteLn(F, '    Result := SOMClass(PPointer(Self)^);');
+        WriteLn(F, '  end');
+        WriteLn(F, 'end;');
+      end;
+
+      if Pass < wtpImplementation then
+      begin
+        // TODO metaclass modifier should alter result type
+        WriteLn(F, '    class function NewClass: SOMClass; // (not really new every time, but autocreated)');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.NewClass: SOMClass;');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  if Self = ', ImportedType, ' then { invoked on class name literal }');
+        WriteLn(F, '  begin');
+        WriteLn(F, '    Result := SOMClass(', ImportedType, 'ClassData.classObject);');
+        WriteLn(F, '    if not Assigned(Result) then Result := SOMClass(', ImportedType, 'NewClass);');
         WriteLn(F, '  end');
         WriteLn(F, '  else { invoked on SOM object }');
         WriteLn(F, '  begin');
@@ -2092,6 +2110,7 @@ procedure TSOMIRImporter.WriteRepository;
 var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
+  J: Integer;
   Item: Contained;
   WasForwardType: Boolean;
   Name: string;
@@ -2260,6 +2279,12 @@ begin
     WriteLn(F, '(* from oc''s mtbl, without verification of o *)');
     WriteLn(F, 'function SOM_ResolveNoCheck(o: SOMObjectBase; oc: SOMObjectBase{SOMClass}; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     WriteLn(F);
+    WriteLn(F, '  (*');
+    WriteLn(F, '   * Main programs should register for SOM cleanup at exit');
+    WriteLn(F, '   *)');
+    WriteLn(F);
+    WriteLn(F, 'function SOM_MainProgram: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F);
     WriteLn(F, '(* Check the validity of method resolution using the specified target  *)');
     WriteLn(F, '(* object.  Note: this macro makes programs bigger and slower.  After  *)');
     WriteLn(F, '(* you are confident that your program is running correctly you should *)');
@@ -2308,6 +2333,42 @@ begin
     WriteLn(F, 'procedure SOM_InitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     WriteLn(F, 'procedure SOM_UninitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     WriteLn(F);
+    WriteLn(F, '// #include <somapi.h>');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' *  SOMAPI.H');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *  This file documents the public data structures and functions');
+    WriteLn(F, ' *  of the SOM API (Application Programming Interface). Primitive data');
+    WriteLn(F, ' *  types are defined in sombtype.h, and the public methods provided by');
+    WriteLn(F, ' *  the SOM kernel are declared in somobj.idl, somcls.idl and somcm.idl.');
+    WriteLn(F, ' *  An important header file for language bindings is somdefs.h, which');
+    WriteLn(F, ' *  defines the SOMLINK symbol used in various emitter outputs.');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *  Note: typedefs & prototypes in this file explicitly show pointers');
+    WriteLn(F, ' *  to objects that support an interface described by IDL. These are');
+    WriteLn(F, ' *  C/C++ typedefs that reflect the implementation of object references');
+    WriteLn(F, ' *  in SOM as pointers to structures in memory.');
+    WriteLn(F, ' *)');
+    WriteLn(F);
+    WriteLn(F, ' (*');
+    WriteLn(F, '  * HISTORY [04/19/96] #21264 nsk Temproary ADD WIN32 Code');
+    WriteLn(F, '  *)');
+    WriteLn(F);
+    WriteLn(F, '(*  SOM Version Numbers  *)');
+    WriteLn(F, 'function Replaceable_SOM_MajorVersion: PLongInt;');
+    WriteLn(F, 'function SOM_MajorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'function Replaceable_SOM_MinorVersion: PLongInt;');
+    WriteLn(F, 'function SOM_MinorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F);
+    WriteLn(F, '(*  SOM Thread Support  *)');
+    WriteLn(F, 'function Replaceable_SOM_MaxThreads: PLongInt;');
+    WriteLn(F, 'function SOM_MaxThreads: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F);
+    WriteLn(F, '(*----------------------------------------');
+    WriteLn(F, ' * Typedefs for pointers to functions');
+    WriteLn(F, ' *----------------------------------------*)');
+    WriteLn(F);
     WriteLn(F, 'type');
     WriteLn(F, '  somTD_SOMMalloc = function(nbytes: UIntPtr): somToken; stdcall;');
     WriteLn(F, '  PsomTD_SOMMalloc = ^somTD_SOMMalloc;');
@@ -2321,6 +2382,26 @@ begin
     WriteLn(F, '  PsomTD_SOMRealloc = ^somTD_SOMRealloc;');
     WriteLn(F, '  somTD_SOMFree = procedure(memory: somToken); stdcall;');
     WriteLn(F, '  PsomTD_SOMFree = ^somTD_SOMFree;');
+    WriteLn(F);
+    WriteLn(F, '(*----------------------------------------------------------------------');
+    WriteLn(F, ' * SOM Environment Initialization Section');
+    WriteLn(F, ' *---------------------------------------------------------------------*)');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' *  Create and initialize the SOM environment.');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *  This function is idempotent (may be invoked redundantly)');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *  Will be called automatically when first object (including a class');
+    WriteLn(F, ' *  object) is created, if it has not already been done.');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *  Returns the SOMClassMgrObject');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function somEnvironmentNew: SOMClassMgr; stdcall;');
+    WriteLn(F);
+    WriteLn(F, 'procedure somEnvironmentEnd; stdcall;');
+    WriteLn(F, 'function somMainProgram: SOMClassMgr; stdcall;');
+    WriteLn(F, 'function somAbnormalEnd: ByteBool; stdcall;');
     WriteLn(F);
     WriteLn(F, '(*');
     WriteLn(F, ' *  Replaceable SOM Memory Management Interfaces');
@@ -2409,6 +2490,15 @@ begin
     WriteLn(F, '  Result := m;');
     WriteLn(F, 'end;');
     WriteLn(F);
+    WriteLn(F, 'var');
+    WriteLn(F, '  SOM_MainProgram_Invoked : Boolean = False;');
+    WriteLn(F);
+    WriteLn(F, 'function SOM_MainProgram: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  SOM_MainProgram_Invoked := True;');
+    WriteLn(F, '  Result := somMainProgram;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
     WriteLn(F, 'function SOM_TestCls(obj: SOMObjectBase; cls: SOMObjectBase{SOMClass};');
     WriteLn(F, '  fileName: PAnsiChar = nil; lineNum: Integer = 0): SOMObjectBase; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     WriteLn(F, 'begin');
@@ -2449,6 +2539,70 @@ begin
     WriteLn(F, 'begin');
     WriteLn(F, '  somExceptionFree(ev);');
     WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, '// #include <somapi.h>');
+    WriteLn(F);
+    WriteLn(F, 'var');
+    WriteLn(F, '  SOM_DLL_SOM_MajorVersion: PLongInt = nil;');
+    WriteLn(F);
+    WriteLn(F, 'function Replaceable_SOM_MajorVersion: PLongInt;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if Assigned(SOM_DLL_SOM_MajorVersion) then');
+    WriteLn(F, '    Result := SOM_DLL_SOM_MajorVersion');
+    WriteLn(F, '  else');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    SOM_DLL_Load_Variable(SOM_DLL_SOM_MajorVersion, ''SOM_MajorVersion'');');
+    WriteLn(F, '    Result := SOM_DLL_SOM_MajorVersion;');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function SOM_MajorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := Replaceable_SOM_MajorVersion^;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'var');
+    WriteLn(F, '  SOM_DLL_SOM_MinorVersion: PLongInt = nil;');
+    WriteLn(F);
+    WriteLn(F, 'function Replaceable_SOM_MinorVersion: PLongInt;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if Assigned(SOM_DLL_SOM_MinorVersion) then');
+    WriteLn(F, '    Result := SOM_DLL_SOM_MinorVersion');
+    WriteLn(F, '  else');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    SOM_DLL_Load_Variable(SOM_DLL_SOM_MinorVersion, ''SOM_MinorVersion'');');
+    WriteLn(F, '    Result := SOM_DLL_SOM_MinorVersion;');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function SOM_MinorVersion: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := Replaceable_SOM_MinorVersion^;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'var');
+    WriteLn(F, '  SOM_DLL_SOM_MaxThreads: PLongInt = nil;');
+    WriteLn(F);
+    WriteLn(F, 'function Replaceable_SOM_MaxThreads: PLongInt;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if Assigned(SOM_DLL_SOM_MaxThreads) then');
+    WriteLn(F, '    Result := SOM_DLL_SOM_MaxThreads');
+    WriteLn(F, '  else');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    SOM_DLL_Load_Variable(SOM_DLL_SOM_MaxThreads, ''SOM_MaxThreads'');');
+    WriteLn(F, '    Result := SOM_DLL_SOM_MaxThreads;');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function SOM_MaxThreads: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := Replaceable_SOM_MaxThreads^;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function somEnvironmentNew; external SOM_DLL_Name;');
+    WriteLn(F, 'procedure somEnvironmentEnd; external SOM_DLL_Name;');
+    WriteLn(F, 'function somMainProgram; external SOM_DLL_Name;');
+    WriteLn(F, 'function somAbnormalEnd; external SOM_DLL_Name;');
     WriteLn(F);
     WriteLn(F, 'var');
     WriteLn(F, '  SOM_DLL_SOMCalloc: PsomTD_SOMCalloc = nil;');
@@ -2531,6 +2685,32 @@ begin
     WriteLn(F, 'initialization');
     WriteLn(F, '  Windows.InitializeCriticalSection(DLLLoad_CriticalSection);');
     WriteLn(F, 'finalization');
+
+    if FDLLs.Count > 0 then for I := 0 to FDLLs.Count - 1 do
+    begin
+      Name := UpperCase(FDLLs[I]);
+      for J := 1 to Length(Name) do
+      begin
+        if Name[J] = '.' then
+        begin
+          Name[J] := '_';
+        end;
+      end;
+      WriteLn(F, '  if ', Name, ' <> 0 then');
+      WriteLn(F, '  begin');
+      WriteLn(F, '    Windows.EnterCriticalSection(DLLLoad_CriticalSection);');
+      WriteLn(F, '    if ', Name, ' <> 0 then');
+      WriteLn(F, '    begin');
+      WriteLn(F, '      FreeLibrary(', Name, ');');
+      WriteLn(F, '    end;');
+      WriteLn(F, '    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);');
+      WriteLn(F, '  end;');
+    end;
+
+    WriteLn(F, '  if SOM_MainProgram_Invoked then');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    somEnvironmentEnd;');
+    WriteLn(F, '  end;');
     WriteLn(F, '  Windows.DeleteCriticalSection(DLLLoad_CriticalSection);');
     WriteLn(F, 'end.');
   finally
