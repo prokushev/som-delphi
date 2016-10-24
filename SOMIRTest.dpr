@@ -139,6 +139,8 @@ begin
   FOriginalTypeIds := TStringList.Create;
   FPostponedArrayNames := TStringList.Create;
   FDLLs := TStringList.Create;
+  FReservedWords.Add('create');
+  FReservedWords.Add('destroy');
   FReservedWords.Add('file');
   FReservedWords.Add('function');
   FReservedWords.Add('label');
@@ -1119,14 +1121,14 @@ var
   Item: Contained;
   Name: Identifier;
   NameS: AnsiString;
-  WasPrivate, WasPublic: Boolean;
+  WasPrivate: Boolean;
   OriginalNamespace: string;
+  ImportedType: string;
 begin
   Contents := Container_contents(Definition, ev, 'all', Pass <= wtpOnDemand);
   if Contents._length > 0 then
   begin
     WasPrivate := False;
-    WasPublic := False;
 
     // First pass: property setters and getters
     for I := 0 to Contents._length - 1 do
@@ -1161,6 +1163,30 @@ begin
       end;
     end;
 
+    if (Pass > wtpOnDemand) then
+    begin
+      ImportedType := IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace);
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '  public');
+        WriteLn(F, '    class function Create: ', ImportedType, ';');
+      end
+      else
+      begin
+        ImportedType := IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace);
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.Create: ', ImportedType, ';');
+        WriteLn(F, 'var');
+        WriteLn(F, '  cls: SOMClass;');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  cls := ClassObject;');
+        WriteLn(F, '  if not Assigned(cls) then cls := SOMClass(', ImportedType, 'NewClass);');
+        WriteLn(F, '  Result := ', ImportedType, '(cls.somNew);');
+        WriteLn(F, 'end;');
+      end;
+    end;
+
     // Second pass: public methods except for getters/setters
     for I := 0 to Contents._length - 1 do
     begin
@@ -1173,14 +1199,6 @@ begin
           NameS := Copy(NameS, 1, 5);
           if (NameS <> '_get_') and (NameS <> '_set_') then
           begin
-            if not WasPublic then
-            begin
-              if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
-              begin
-                WriteLn(F, '  public');
-              end;
-              WasPublic := True;
-            end;
             if Pass = wtpImplementation then
             begin
               if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
@@ -1193,14 +1211,6 @@ begin
         end
         else
         begin
-          if not WasPublic then
-          begin
-            if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
-            begin
-              WriteLn(F, '  public');
-            end;
-            WasPublic := True;
-          end;
           if Pass = wtpImplementation then
           begin
             if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
@@ -1213,6 +1223,30 @@ begin
       end;
     end;
 
+    if (Pass > wtpOnDemand) then
+    begin
+      if Pass < wtpImplementation then
+      begin
+        // TODO metaclass modifier should alter result type
+        WriteLn(F, '    class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  if Self = ', ImportedType, ' then { invoked on class name literal }');
+        WriteLn(F, '  begin');
+        WriteLn(F, '    Result := SOMClass(', ImportedType, 'ClassData.classObject);');
+        WriteLn(F, '  end');
+        WriteLn(F, '  else { invoked on SOM object }');
+        WriteLn(F, '  begin');
+        WriteLn(F, '    Result := SOMClass(PPointer(Self)^);');
+        WriteLn(F, '  end');
+        WriteLn(F, 'end;');
+      end;
+    end;
+
     // Third pass: properties
     for I := 0 to Contents._length - 1 do
     begin
@@ -1221,14 +1255,6 @@ begin
       begin
         if SOMObject_somIsA(Item, _SOMCLASS_AttributeDef) then
         begin
-          if not WasPublic then
-          begin
-            if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
-            begin
-              WriteLn(F, '  public');
-            end;
-            WasPublic := True;
-          end;
           Name := Contained__get_name(Item, ev);
           if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
           begin
@@ -2029,10 +2055,12 @@ begin
     WriteLn(F, '(*');
     WriteLn(F, ' * Class Object and Method Token Macros');
     WriteLn(F, ' *)');
+    (*
     WriteLn(F, 'function _SOMCLASS_', ImportedType, ': SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     WriteLn(F, 'begin');
     WriteLn(F, '  Result := ', ImportedType, 'ClassData.classObject;');
     WriteLn(F, 'end;');
+    *)
 
     WriteClassDefinition(CurrentNamespace + Name + '::', wtpImplementation, Item);
     // there can be no sub-interfaces or modules inside of interface
