@@ -7,7 +7,7 @@ pushd
 cd %~dp0..
 set PATH=%CD%\Delphi\%2\Bin;%PATH%
 set SOMBASE=%CD%\SOM\%1
-call %SOMBASE%\bin\somenv.cmd
+call %SOMBASE%\bin\somenv
 cd %3
 chcp 1251 > nul
 shift

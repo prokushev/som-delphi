@@ -55699,7 +55699,7 @@ end;
 
 function somEnvironmentNew; external SOM_DLL_Name;
 procedure somEnvironmentEnd; external SOM_DLL_Name;
-function somMainProgram; external SOM_DLL_Name;
+function somMainProgram; external SOM_DLL_Name name 'somEnvironmentNew'; // SOM 3.0 Windows DLL has somMainProgram, SOM 2.1 from VAC 3.5.9 has not
 function somAbnormalEnd; external SOM_DLL_Name;
 
 var

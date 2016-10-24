@@ -2830,7 +2830,7 @@ begin
     WriteLn(F);
     WriteLn(F, 'function somEnvironmentNew; external SOM_DLL_Name;');
     WriteLn(F, 'procedure somEnvironmentEnd; external SOM_DLL_Name;');
-    WriteLn(F, 'function somMainProgram; external SOM_DLL_Name;');
+    WriteLn(F, 'function somMainProgram; external SOM_DLL_Name name ''somEnvironmentNew''; // SOM 3.0 Windows DLL has somMainProgram, SOM 2.1 from VAC 3.5.9 has not');
     WriteLn(F, 'function somAbnormalEnd; external SOM_DLL_Name;');
     WriteLn(F);
     WriteLn(F, 'var');

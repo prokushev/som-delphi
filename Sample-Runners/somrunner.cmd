@@ -5,7 +5,7 @@ setlocal
 pushd
 cd %~dp0..
 set SOMBASE=%CD%\SOM\%1
-call %SOMBASE%\bin\somenv.cmd
+call %SOMBASE%\bin\somenv
 cd %2
 chcp 1251 > nul
 shift
