@@ -4867,7 +4867,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 (*
@@ -4883,7 +4883,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 (*
@@ -4899,7 +4899,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 (*
@@ -4916,7 +4916,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 (*
@@ -4932,7 +4932,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 (*
@@ -4948,7 +4948,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 (*
@@ -4964,7 +4964,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 (*
@@ -4981,7 +4981,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 (*
@@ -4998,7 +4998,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 (*
@@ -5015,7 +5015,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 (*
@@ -5031,7 +5031,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -5047,7 +5047,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -5063,7 +5063,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -5080,7 +5080,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -5097,7 +5097,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -5114,7 +5114,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -5131,7 +5131,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 (*
@@ -5148,7 +5148,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 (*
@@ -5165,7 +5165,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 (*
@@ -5182,7 +5182,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 (*
@@ -5199,7 +5199,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 (*
@@ -5216,7 +5216,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 (*
@@ -5233,7 +5233,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -5250,7 +5250,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -5266,7 +5266,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 (*
@@ -5282,7 +5282,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -5545,7 +5545,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure Contained.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5555,7 +5555,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure Contained.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5565,7 +5565,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Contained.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5576,7 +5576,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Contained.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5586,7 +5586,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Contained.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5596,7 +5596,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Contained.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5606,7 +5606,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Contained.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5617,7 +5617,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Contained.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5628,7 +5628,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Contained.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5639,7 +5639,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Contained.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5649,7 +5649,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Contained.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5659,7 +5659,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Contained.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5669,7 +5669,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Contained.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5680,7 +5680,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Contained.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5691,7 +5691,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Contained.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5702,7 +5702,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Contained.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5713,7 +5713,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Contained.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5724,7 +5724,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Contained.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5735,7 +5735,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function Contained.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5746,7 +5746,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function Contained.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5757,7 +5757,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function Contained.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5768,7 +5768,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function Contained.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5779,7 +5779,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Contained.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5790,7 +5790,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Contained.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5800,7 +5800,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure Contained.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5810,7 +5810,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -6060,7 +6060,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure AttributeDef.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6070,7 +6070,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure AttributeDef.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6080,7 +6080,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function AttributeDef.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6091,7 +6091,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure AttributeDef.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6101,7 +6101,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure AttributeDef.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6111,7 +6111,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure AttributeDef.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6121,7 +6121,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function AttributeDef.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6132,7 +6132,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function AttributeDef.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6143,7 +6143,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function AttributeDef.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6154,7 +6154,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure AttributeDef.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6164,7 +6164,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure AttributeDef.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6174,7 +6174,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure AttributeDef.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6184,7 +6184,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function AttributeDef.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6195,7 +6195,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function AttributeDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6206,7 +6206,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function AttributeDef.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6217,7 +6217,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function AttributeDef.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6228,7 +6228,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function AttributeDef.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6239,7 +6239,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function AttributeDef.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6250,7 +6250,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function AttributeDef.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6261,7 +6261,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function AttributeDef.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6272,7 +6272,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function AttributeDef.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6283,7 +6283,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function AttributeDef.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6294,7 +6294,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function AttributeDef.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6305,7 +6305,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure AttributeDef.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6315,7 +6315,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure AttributeDef.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6325,7 +6325,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -6585,7 +6585,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure BOA.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6595,7 +6595,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure BOA.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6605,7 +6605,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function BOA.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6616,7 +6616,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure BOA.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6626,7 +6626,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure BOA.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6636,7 +6636,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure BOA.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6646,7 +6646,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function BOA.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6657,7 +6657,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function BOA.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6668,7 +6668,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function BOA.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6679,7 +6679,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure BOA.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6689,7 +6689,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure BOA.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6699,7 +6699,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure BOA.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6709,7 +6709,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function BOA.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6720,7 +6720,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function BOA.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6731,7 +6731,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function BOA.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6742,7 +6742,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function BOA.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6753,7 +6753,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function BOA.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6764,7 +6764,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function BOA.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6775,7 +6775,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function BOA.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6786,7 +6786,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function BOA.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6797,7 +6797,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function BOA.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6808,7 +6808,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function BOA.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6819,7 +6819,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function BOA.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6830,7 +6830,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure BOA.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6840,7 +6840,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure BOA.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6850,7 +6850,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -7013,7 +7013,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMEEvent.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7023,7 +7023,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMEEvent.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7033,7 +7033,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEvent.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7044,7 +7044,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEvent.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7054,7 +7054,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEvent.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7064,7 +7064,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEvent.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7074,7 +7074,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEvent.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7085,7 +7085,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEvent.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7096,7 +7096,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEvent.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7107,7 +7107,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEvent.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7117,7 +7117,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEEvent.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7127,7 +7127,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEEvent.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7137,7 +7137,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEvent.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7148,7 +7148,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEvent.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7159,7 +7159,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEvent.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7170,7 +7170,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEvent.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7181,7 +7181,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMEEvent.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7192,7 +7192,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMEEvent.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7203,7 +7203,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMEEvent.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7214,7 +7214,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMEEvent.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7225,7 +7225,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMEEvent.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7236,7 +7236,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMEEvent.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7247,7 +7247,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEvent.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7258,7 +7258,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEEvent.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7268,7 +7268,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMEEvent.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7278,7 +7278,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -7464,7 +7464,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMEClientEvent.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7474,7 +7474,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMEClientEvent.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7484,7 +7484,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEClientEvent.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7495,7 +7495,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEClientEvent.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7505,7 +7505,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEClientEvent.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7515,7 +7515,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEClientEvent.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7525,7 +7525,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEClientEvent.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7536,7 +7536,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEClientEvent.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7547,7 +7547,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEClientEvent.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7558,7 +7558,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEClientEvent.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7568,7 +7568,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEClientEvent.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7578,7 +7578,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEClientEvent.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7588,7 +7588,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEClientEvent.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7599,7 +7599,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEClientEvent.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7610,7 +7610,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEClientEvent.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7621,7 +7621,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEClientEvent.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7632,7 +7632,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMEClientEvent.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7643,7 +7643,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMEClientEvent.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7654,7 +7654,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMEClientEvent.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7665,7 +7665,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMEClientEvent.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7676,7 +7676,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMEClientEvent.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7687,7 +7687,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMEClientEvent.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7698,7 +7698,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEClientEvent.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7709,7 +7709,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEClientEvent.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7719,7 +7719,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMEClientEvent.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7729,7 +7729,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -7909,7 +7909,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure Context.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7919,7 +7919,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure Context.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7929,7 +7929,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Context.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7940,7 +7940,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Context.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7950,7 +7950,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Context.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7960,7 +7960,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Context.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7970,7 +7970,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Context.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7981,7 +7981,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Context.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -7992,7 +7992,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Context.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8003,7 +8003,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Context.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8013,7 +8013,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Context.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8023,7 +8023,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Context.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8033,7 +8033,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Context.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8044,7 +8044,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Context.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8055,7 +8055,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Context.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8066,7 +8066,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Context.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8077,7 +8077,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Context.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8088,7 +8088,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Context.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8099,7 +8099,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function Context.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8110,7 +8110,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function Context.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8121,7 +8121,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function Context.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8132,7 +8132,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function Context.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8143,7 +8143,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Context.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8154,7 +8154,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Context.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8164,7 +8164,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure Context.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8174,7 +8174,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -8424,7 +8424,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure ConstantDef.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8434,7 +8434,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure ConstantDef.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8444,7 +8444,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ConstantDef.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8455,7 +8455,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ConstantDef.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8465,7 +8465,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ConstantDef.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8475,7 +8475,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ConstantDef.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8485,7 +8485,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ConstantDef.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8496,7 +8496,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ConstantDef.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8507,7 +8507,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ConstantDef.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8518,7 +8518,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ConstantDef.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8528,7 +8528,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ConstantDef.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8538,7 +8538,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ConstantDef.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8548,7 +8548,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ConstantDef.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8559,7 +8559,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ConstantDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8570,7 +8570,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ConstantDef.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8581,7 +8581,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ConstantDef.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8592,7 +8592,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ConstantDef.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8603,7 +8603,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ConstantDef.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8614,7 +8614,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function ConstantDef.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8625,7 +8625,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function ConstantDef.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8636,7 +8636,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function ConstantDef.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8647,7 +8647,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function ConstantDef.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8658,7 +8658,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ConstantDef.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8669,7 +8669,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ConstantDef.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8679,7 +8679,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure ConstantDef.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8689,7 +8689,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -8818,7 +8818,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure Container.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8828,7 +8828,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure Container.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8838,7 +8838,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Container.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8849,7 +8849,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Container.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8859,7 +8859,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Container.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8869,7 +8869,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Container.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8879,7 +8879,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Container.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8890,7 +8890,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Container.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8901,7 +8901,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Container.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8912,7 +8912,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Container.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8922,7 +8922,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Container.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8932,7 +8932,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Container.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8942,7 +8942,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Container.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8953,7 +8953,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Container.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8964,7 +8964,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Container.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8975,7 +8975,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Container.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8986,7 +8986,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Container.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8997,7 +8997,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Container.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9008,7 +9008,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function Container.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9019,7 +9019,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function Container.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9030,7 +9030,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function Container.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9041,7 +9041,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function Container.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9052,7 +9052,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Container.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9063,7 +9063,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Container.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9073,7 +9073,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure Container.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9083,7 +9083,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -9340,7 +9340,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMEEMan.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9350,7 +9350,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMEEMan.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9360,7 +9360,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEMan.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9371,7 +9371,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEMan.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9381,7 +9381,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEMan.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9391,7 +9391,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEMan.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9401,7 +9401,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEMan.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9412,7 +9412,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEMan.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9423,7 +9423,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEMan.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9434,7 +9434,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEMan.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9444,7 +9444,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEEMan.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9454,7 +9454,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEEMan.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9464,7 +9464,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEMan.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9475,7 +9475,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEMan.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9486,7 +9486,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEMan.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9497,7 +9497,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEMan.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9508,7 +9508,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMEEMan.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9519,7 +9519,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMEEMan.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9530,7 +9530,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMEEMan.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9541,7 +9541,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMEEMan.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9552,7 +9552,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMEEMan.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9563,7 +9563,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMEEMan.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9574,7 +9574,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEMan.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9585,7 +9585,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEEMan.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9595,7 +9595,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMEEMan.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9605,7 +9605,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -9795,7 +9795,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMEEMRegisterData.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9805,7 +9805,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMEEMRegisterData.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9815,7 +9815,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEMRegisterData.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9826,7 +9826,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEMRegisterData.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9836,7 +9836,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEMRegisterData.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9846,7 +9846,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEMRegisterData.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9856,7 +9856,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEMRegisterData.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9867,7 +9867,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEMRegisterData.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9878,7 +9878,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEEMRegisterData.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9889,7 +9889,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEEMRegisterData.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9899,7 +9899,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEEMRegisterData.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9909,7 +9909,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEEMRegisterData.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9919,7 +9919,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEMRegisterData.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9930,7 +9930,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEMRegisterData.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9941,7 +9941,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEMRegisterData.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9952,7 +9952,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEMRegisterData.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9963,7 +9963,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMEEMRegisterData.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9974,7 +9974,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMEEMRegisterData.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9985,7 +9985,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMEEMRegisterData.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -9996,7 +9996,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMEEMRegisterData.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10007,7 +10007,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMEEMRegisterData.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10018,7 +10018,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMEEMRegisterData.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10029,7 +10029,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEEMRegisterData.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10040,7 +10040,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEEMRegisterData.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10050,7 +10050,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMEEMRegisterData.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10060,7 +10060,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -10277,7 +10277,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure ExceptionDef.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10287,7 +10287,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure ExceptionDef.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10297,7 +10297,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ExceptionDef.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10308,7 +10308,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ExceptionDef.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10318,7 +10318,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ExceptionDef.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10328,7 +10328,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ExceptionDef.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10338,7 +10338,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ExceptionDef.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10349,7 +10349,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ExceptionDef.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10360,7 +10360,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ExceptionDef.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10371,7 +10371,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ExceptionDef.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10381,7 +10381,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ExceptionDef.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10391,7 +10391,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ExceptionDef.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10401,7 +10401,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ExceptionDef.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10412,7 +10412,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ExceptionDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10423,7 +10423,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ExceptionDef.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10434,7 +10434,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ExceptionDef.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10445,7 +10445,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ExceptionDef.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10456,7 +10456,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ExceptionDef.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10467,7 +10467,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function ExceptionDef.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10478,7 +10478,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function ExceptionDef.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10489,7 +10489,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function ExceptionDef.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10500,7 +10500,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function ExceptionDef.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10511,7 +10511,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ExceptionDef.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10522,7 +10522,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ExceptionDef.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10532,7 +10532,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure ExceptionDef.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10542,7 +10542,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -10884,7 +10884,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure ImplementationDef.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10894,7 +10894,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure ImplementationDef.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10904,7 +10904,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ImplementationDef.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10915,7 +10915,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ImplementationDef.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10925,7 +10925,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ImplementationDef.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10935,7 +10935,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ImplementationDef.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10945,7 +10945,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ImplementationDef.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10956,7 +10956,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ImplementationDef.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10967,7 +10967,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ImplementationDef.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10978,7 +10978,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ImplementationDef.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10988,7 +10988,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ImplementationDef.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -10998,7 +10998,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ImplementationDef.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11008,7 +11008,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ImplementationDef.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11019,7 +11019,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ImplementationDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11030,7 +11030,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ImplementationDef.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11041,7 +11041,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ImplementationDef.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11052,7 +11052,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ImplementationDef.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11063,7 +11063,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ImplementationDef.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11074,7 +11074,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function ImplementationDef.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11085,7 +11085,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function ImplementationDef.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11096,7 +11096,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function ImplementationDef.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11107,7 +11107,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function ImplementationDef.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11118,7 +11118,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ImplementationDef.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11129,7 +11129,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ImplementationDef.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11139,7 +11139,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure ImplementationDef.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11149,7 +11149,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -11408,7 +11408,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure ImplRepository.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11418,7 +11418,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure ImplRepository.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11428,7 +11428,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ImplRepository.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11439,7 +11439,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ImplRepository.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11449,7 +11449,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ImplRepository.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11459,7 +11459,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ImplRepository.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11469,7 +11469,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ImplRepository.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11480,7 +11480,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ImplRepository.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11491,7 +11491,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ImplRepository.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11502,7 +11502,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ImplRepository.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11512,7 +11512,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ImplRepository.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11522,7 +11522,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ImplRepository.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11532,7 +11532,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ImplRepository.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11543,7 +11543,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ImplRepository.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11554,7 +11554,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ImplRepository.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11565,7 +11565,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ImplRepository.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11576,7 +11576,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ImplRepository.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11587,7 +11587,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ImplRepository.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11598,7 +11598,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function ImplRepository.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11609,7 +11609,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function ImplRepository.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11620,7 +11620,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function ImplRepository.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11631,7 +11631,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function ImplRepository.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11642,7 +11642,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ImplRepository.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11653,7 +11653,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ImplRepository.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11663,7 +11663,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure ImplRepository.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11673,7 +11673,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -11940,7 +11940,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure InterfaceDef.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11950,7 +11950,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure InterfaceDef.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11960,7 +11960,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function InterfaceDef.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11971,7 +11971,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure InterfaceDef.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11981,7 +11981,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure InterfaceDef.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11991,7 +11991,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure InterfaceDef.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12001,7 +12001,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function InterfaceDef.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12012,7 +12012,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function InterfaceDef.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12023,7 +12023,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function InterfaceDef.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12034,7 +12034,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure InterfaceDef.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12044,7 +12044,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure InterfaceDef.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12054,7 +12054,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure InterfaceDef.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12064,7 +12064,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function InterfaceDef.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12075,7 +12075,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function InterfaceDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12086,7 +12086,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function InterfaceDef.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12097,7 +12097,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function InterfaceDef.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12108,7 +12108,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function InterfaceDef.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12119,7 +12119,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function InterfaceDef.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12130,7 +12130,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function InterfaceDef.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12141,7 +12141,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function InterfaceDef.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12152,7 +12152,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function InterfaceDef.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12163,7 +12163,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function InterfaceDef.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12174,7 +12174,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function InterfaceDef.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12185,7 +12185,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure InterfaceDef.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12195,7 +12195,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure InterfaceDef.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12205,7 +12205,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 function InterfaceDef.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12422,7 +12422,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure ModuleDef.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12432,7 +12432,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure ModuleDef.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12442,7 +12442,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ModuleDef.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12453,7 +12453,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ModuleDef.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12463,7 +12463,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ModuleDef.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12473,7 +12473,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ModuleDef.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12483,7 +12483,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ModuleDef.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12494,7 +12494,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ModuleDef.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12505,7 +12505,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ModuleDef.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12516,7 +12516,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ModuleDef.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12526,7 +12526,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ModuleDef.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12536,7 +12536,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ModuleDef.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12546,7 +12546,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ModuleDef.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12557,7 +12557,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ModuleDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12568,7 +12568,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ModuleDef.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12579,7 +12579,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ModuleDef.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12590,7 +12590,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ModuleDef.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12601,7 +12601,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ModuleDef.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12612,7 +12612,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function ModuleDef.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12623,7 +12623,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function ModuleDef.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12634,7 +12634,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function ModuleDef.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12645,7 +12645,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function ModuleDef.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12656,7 +12656,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ModuleDef.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12667,7 +12667,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ModuleDef.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12677,7 +12677,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure ModuleDef.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12687,7 +12687,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 function ModuleDef.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12900,7 +12900,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure NVList.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12910,7 +12910,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure NVList.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12920,7 +12920,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function NVList.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12931,7 +12931,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure NVList.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12941,7 +12941,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure NVList.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12951,7 +12951,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure NVList.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12961,7 +12961,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function NVList.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12972,7 +12972,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function NVList.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12983,7 +12983,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function NVList.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -12994,7 +12994,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure NVList.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13004,7 +13004,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure NVList.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13014,7 +13014,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure NVList.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13024,7 +13024,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function NVList.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13035,7 +13035,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function NVList.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13046,7 +13046,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function NVList.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13057,7 +13057,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function NVList.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13068,7 +13068,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function NVList.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13079,7 +13079,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function NVList.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13090,7 +13090,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function NVList.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13101,7 +13101,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function NVList.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13112,7 +13112,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function NVList.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13123,7 +13123,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function NVList.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13134,7 +13134,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function NVList.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13145,7 +13145,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure NVList.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13155,7 +13155,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure NVList.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13165,7 +13165,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -13326,7 +13326,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure ObjectMgr.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13336,7 +13336,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure ObjectMgr.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13346,7 +13346,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ObjectMgr.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13357,7 +13357,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ObjectMgr.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13367,7 +13367,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ObjectMgr.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13377,7 +13377,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ObjectMgr.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13387,7 +13387,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ObjectMgr.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13398,7 +13398,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ObjectMgr.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13409,7 +13409,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ObjectMgr.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13420,7 +13420,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ObjectMgr.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13430,7 +13430,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ObjectMgr.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13440,7 +13440,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ObjectMgr.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13450,7 +13450,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ObjectMgr.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13461,7 +13461,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ObjectMgr.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13472,7 +13472,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ObjectMgr.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13483,7 +13483,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ObjectMgr.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13494,7 +13494,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ObjectMgr.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13505,7 +13505,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ObjectMgr.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13516,7 +13516,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function ObjectMgr.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13527,7 +13527,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function ObjectMgr.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13538,7 +13538,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function ObjectMgr.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13549,7 +13549,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function ObjectMgr.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13560,7 +13560,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ObjectMgr.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13571,7 +13571,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ObjectMgr.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13581,7 +13581,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure ObjectMgr.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13591,7 +13591,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -13874,7 +13874,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure OperationDef.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13884,7 +13884,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure OperationDef.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13894,7 +13894,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function OperationDef.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13905,7 +13905,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure OperationDef.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13915,7 +13915,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure OperationDef.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13925,7 +13925,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure OperationDef.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13935,7 +13935,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function OperationDef.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13946,7 +13946,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function OperationDef.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13957,7 +13957,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function OperationDef.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13968,7 +13968,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure OperationDef.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13978,7 +13978,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure OperationDef.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13988,7 +13988,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure OperationDef.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -13998,7 +13998,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function OperationDef.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14009,7 +14009,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function OperationDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14020,7 +14020,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function OperationDef.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14031,7 +14031,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function OperationDef.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14042,7 +14042,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function OperationDef.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14053,7 +14053,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function OperationDef.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14064,7 +14064,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function OperationDef.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14075,7 +14075,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function OperationDef.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14086,7 +14086,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function OperationDef.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14097,7 +14097,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function OperationDef.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14108,7 +14108,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function OperationDef.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14119,7 +14119,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure OperationDef.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14129,7 +14129,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure OperationDef.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14139,7 +14139,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 function OperationDef.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14335,7 +14335,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure ORB.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14345,7 +14345,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure ORB.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14355,7 +14355,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ORB.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14366,7 +14366,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ORB.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14376,7 +14376,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ORB.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14386,7 +14386,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ORB.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14396,7 +14396,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ORB.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14407,7 +14407,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ORB.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14418,7 +14418,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ORB.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14429,7 +14429,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ORB.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14439,7 +14439,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ORB.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14449,7 +14449,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ORB.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14459,7 +14459,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ORB.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14470,7 +14470,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ORB.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14481,7 +14481,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ORB.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14492,7 +14492,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ORB.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14503,7 +14503,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ORB.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14514,7 +14514,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ORB.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14525,7 +14525,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function ORB.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14536,7 +14536,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function ORB.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14547,7 +14547,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function ORB.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14558,7 +14558,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function ORB.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14569,7 +14569,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ORB.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14580,7 +14580,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ORB.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14590,7 +14590,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure ORB.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14600,7 +14600,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -14850,7 +14850,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure ParameterDef.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14860,7 +14860,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure ParameterDef.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14870,7 +14870,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ParameterDef.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14881,7 +14881,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ParameterDef.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14891,7 +14891,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ParameterDef.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14901,7 +14901,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ParameterDef.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14911,7 +14911,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ParameterDef.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14922,7 +14922,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ParameterDef.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14933,7 +14933,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function ParameterDef.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14944,7 +14944,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure ParameterDef.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14954,7 +14954,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ParameterDef.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14964,7 +14964,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ParameterDef.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14974,7 +14974,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ParameterDef.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14985,7 +14985,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ParameterDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14996,7 +14996,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ParameterDef.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15007,7 +15007,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ParameterDef.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15018,7 +15018,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ParameterDef.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15029,7 +15029,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function ParameterDef.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15040,7 +15040,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function ParameterDef.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15051,7 +15051,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function ParameterDef.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15062,7 +15062,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function ParameterDef.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15073,7 +15073,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function ParameterDef.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15084,7 +15084,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function ParameterDef.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15095,7 +15095,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure ParameterDef.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15105,7 +15105,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure ParameterDef.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15115,7 +15115,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -15259,7 +15259,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure Principal.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15269,7 +15269,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure Principal.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15279,7 +15279,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Principal.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15290,7 +15290,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Principal.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15300,7 +15300,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Principal.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15310,7 +15310,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Principal.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15320,7 +15320,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Principal.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15331,7 +15331,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Principal.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15342,7 +15342,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Principal.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15353,7 +15353,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Principal.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15363,7 +15363,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Principal.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15373,7 +15373,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Principal.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15383,7 +15383,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Principal.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15394,7 +15394,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Principal.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15405,7 +15405,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Principal.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15416,7 +15416,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Principal.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15427,7 +15427,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Principal.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15438,7 +15438,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Principal.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15449,7 +15449,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function Principal.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15460,7 +15460,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function Principal.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15471,7 +15471,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function Principal.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15482,7 +15482,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function Principal.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15493,7 +15493,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Principal.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15504,7 +15504,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Principal.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15514,7 +15514,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure Principal.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15524,7 +15524,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -15685,7 +15685,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure Repository.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15695,7 +15695,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure Repository.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15705,7 +15705,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Repository.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15716,7 +15716,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Repository.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15726,7 +15726,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Repository.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15736,7 +15736,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Repository.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15746,7 +15746,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Repository.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15757,7 +15757,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Repository.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15768,7 +15768,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Repository.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15779,7 +15779,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Repository.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15789,7 +15789,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Repository.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15799,7 +15799,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Repository.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15809,7 +15809,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Repository.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15820,7 +15820,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Repository.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15831,7 +15831,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Repository.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15842,7 +15842,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Repository.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15853,7 +15853,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Repository.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15864,7 +15864,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Repository.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15875,7 +15875,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function Repository.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15886,7 +15886,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function Repository.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15897,7 +15897,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function Repository.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15908,7 +15908,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function Repository.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15919,7 +15919,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Repository.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15930,7 +15930,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Repository.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15940,7 +15940,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure Repository.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15950,7 +15950,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -16113,7 +16113,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure Request.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16123,7 +16123,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure Request.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16133,7 +16133,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Request.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16144,7 +16144,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Request.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16154,7 +16154,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Request.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16164,7 +16164,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Request.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16174,7 +16174,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Request.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16185,7 +16185,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Request.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16196,7 +16196,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Request.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16207,7 +16207,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Request.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16217,7 +16217,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Request.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16227,7 +16227,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Request.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16237,7 +16237,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Request.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16248,7 +16248,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Request.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16259,7 +16259,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Request.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16270,7 +16270,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Request.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16281,7 +16281,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Request.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16292,7 +16292,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Request.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16303,7 +16303,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function Request.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16314,7 +16314,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function Request.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16325,7 +16325,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function Request.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16336,7 +16336,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function Request.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16347,7 +16347,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Request.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16358,7 +16358,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Request.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16368,7 +16368,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure Request.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16378,7 +16378,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -16463,7 +16463,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -16479,7 +16479,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 (*
@@ -16496,7 +16496,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -16512,7 +16512,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 (*
@@ -16529,7 +16529,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -16546,7 +16546,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -16563,7 +16563,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -16580,7 +16580,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -16597,7 +16597,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -16614,7 +16614,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -16631,7 +16631,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -16648,7 +16648,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 (*
@@ -16665,7 +16665,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 (*
@@ -16682,7 +16682,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 (*
@@ -16699,7 +16699,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 (*
@@ -16716,7 +16716,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 (*
@@ -16733,7 +16733,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 (*
@@ -16749,7 +16749,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16759,7 +16759,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16769,7 +16769,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16779,7 +16779,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16790,7 +16790,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16800,7 +16800,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16810,7 +16810,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16820,7 +16820,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16831,7 +16831,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16842,7 +16842,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16853,7 +16853,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16863,7 +16863,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16873,7 +16873,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16883,7 +16883,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16894,7 +16894,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16905,7 +16905,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16916,7 +16916,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16927,7 +16927,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16938,7 +16938,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16949,7 +16949,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16960,7 +16960,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16971,7 +16971,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16982,7 +16982,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -16993,7 +16993,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17004,7 +17004,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17014,7 +17014,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17024,7 +17024,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -17109,7 +17109,7 @@ begin
   Result :=
   somTD_SOMTAttributeEntryC__get_somtIsReadonly
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReadonly))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -17126,7 +17126,7 @@ begin
   Result :=
   somTD_SOMTAttributeEntryC__get_somtAttribType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtAttribType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17137,7 +17137,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTAttributeEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17147,7 +17147,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTAttributeEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17158,7 +17158,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTAttributeEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17168,7 +17168,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTAttributeEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17179,7 +17179,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17190,7 +17190,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17201,7 +17201,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17212,7 +17212,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17223,7 +17223,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17234,7 +17234,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17245,7 +17245,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -17262,7 +17262,7 @@ begin
   Result :=
   somTD_SOMTAttributeEntryC_somtGetFirstAttributeDeclarator
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstAttributeDeclarator))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -17279,7 +17279,7 @@ begin
   Result :=
   somTD_SOMTAttributeEntryC_somtGetNextAttributeDeclarator
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextAttributeDeclarator))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -17296,7 +17296,7 @@ begin
   Result :=
   somTD_SOMTAttributeEntryC_somtGetFirstGetMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstGetMethod))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -17313,7 +17313,7 @@ begin
   Result :=
   somTD_SOMTAttributeEntryC_somtGetNextGetMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextGetMethod))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -17330,7 +17330,7 @@ begin
   Result :=
   somTD_SOMTAttributeEntryC_somtGetFirstSetMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstSetMethod))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -17347,7 +17347,7 @@ begin
   Result :=
   somTD_SOMTAttributeEntryC_somtGetNextSetMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextSetMethod))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17358,7 +17358,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTAttributeEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17369,7 +17369,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTAttributeEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17380,7 +17380,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTAttributeEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17391,7 +17391,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTAttributeEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17402,7 +17402,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTAttributeEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17413,7 +17413,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTAttributeEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17423,7 +17423,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTAttributeEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17433,7 +17433,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTAttributeEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17443,7 +17443,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTAttributeEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17453,7 +17453,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTAttributeEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17464,7 +17464,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTAttributeEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17474,7 +17474,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTAttributeEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17484,7 +17484,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTAttributeEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17494,7 +17494,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTAttributeEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17505,7 +17505,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTAttributeEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17516,7 +17516,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTAttributeEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17527,7 +17527,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTAttributeEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17537,7 +17537,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTAttributeEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17547,7 +17547,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTAttributeEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17557,7 +17557,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17568,7 +17568,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17579,7 +17579,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17590,7 +17590,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17601,7 +17601,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTAttributeEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17612,7 +17612,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTAttributeEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17623,7 +17623,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTAttributeEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17634,7 +17634,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTAttributeEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17645,7 +17645,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTAttributeEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17656,7 +17656,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTAttributeEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17667,7 +17667,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTAttributeEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17678,7 +17678,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTAttributeEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17688,7 +17688,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTAttributeEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17698,7 +17698,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -17783,7 +17783,7 @@ begin
   Result :=
   somTD_SOMTBaseClassEntryC__get_somtBaseClassDef
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtBaseClassDef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17794,7 +17794,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTBaseClassEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17804,7 +17804,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTBaseClassEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17815,7 +17815,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTBaseClassEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17825,7 +17825,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTBaseClassEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17836,7 +17836,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17847,7 +17847,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17858,7 +17858,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17869,7 +17869,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17880,7 +17880,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17891,7 +17891,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17902,7 +17902,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17913,7 +17913,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTBaseClassEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17924,7 +17924,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTBaseClassEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17935,7 +17935,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTBaseClassEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17946,7 +17946,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTBaseClassEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17957,7 +17957,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTBaseClassEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17968,7 +17968,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTBaseClassEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17978,7 +17978,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTBaseClassEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17988,7 +17988,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTBaseClassEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17998,7 +17998,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTBaseClassEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18008,7 +18008,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTBaseClassEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18019,7 +18019,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTBaseClassEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18029,7 +18029,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTBaseClassEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18039,7 +18039,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTBaseClassEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18049,7 +18049,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTBaseClassEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18060,7 +18060,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTBaseClassEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18071,7 +18071,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTBaseClassEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18082,7 +18082,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTBaseClassEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18092,7 +18092,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTBaseClassEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18102,7 +18102,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTBaseClassEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18112,7 +18112,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18123,7 +18123,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18134,7 +18134,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18145,7 +18145,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18156,7 +18156,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTBaseClassEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18167,7 +18167,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTBaseClassEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18178,7 +18178,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTBaseClassEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18189,7 +18189,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTBaseClassEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18200,7 +18200,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTBaseClassEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18211,7 +18211,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTBaseClassEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18222,7 +18222,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTBaseClassEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18233,7 +18233,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTBaseClassEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18243,7 +18243,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTBaseClassEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18253,7 +18253,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -18338,7 +18338,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtSourceFileName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceFileName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18355,7 +18355,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtMetaClassEntry
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtMetaClassEntry))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18372,7 +18372,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtClassModule
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtClassModule))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18389,7 +18389,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtNewMethodCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtNewMethodCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18406,7 +18406,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtLocalInclude
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtLocalInclude))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18423,7 +18423,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtPrivateMethodCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPrivateMethodCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18440,7 +18440,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtStaticMethodCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtStaticMethodCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18457,7 +18457,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtOverrideMethodCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtOverrideMethodCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18474,7 +18474,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtProcMethodCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtProcMethodCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18491,7 +18491,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtVAMethodCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtVAMethodCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18508,7 +18508,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtBaseCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtBaseCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18525,7 +18525,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtExternalDataCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtExternalDataCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18542,7 +18542,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtPublicDataCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPublicDataCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18559,7 +18559,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtPrivateDataCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPrivateDataCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18576,7 +18576,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtMetaclassFor
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtMetaclassFor))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18593,7 +18593,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC__get_somtForwardRef
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtForwardRef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18604,7 +18604,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTClassEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18614,7 +18614,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTClassEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18625,7 +18625,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTClassEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18635,7 +18635,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTClassEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18646,7 +18646,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18657,7 +18657,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18668,7 +18668,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18679,7 +18679,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18690,7 +18690,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18701,7 +18701,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -18712,7 +18712,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18729,7 +18729,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstBaseClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstBaseClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18746,7 +18746,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextBaseClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextBaseClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18763,7 +18763,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstReleaseName
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstReleaseName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18780,7 +18780,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextReleaseName
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextReleaseName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18797,7 +18797,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetReleaseNameList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetReleaseNameList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 (*
@@ -18814,7 +18814,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstPassthru
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstPassthru))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18831,7 +18831,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextPassthru
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextPassthru))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18848,7 +18848,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstData
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstData))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18865,7 +18865,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextData
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextData))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18882,7 +18882,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstStaticData
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstStaticData))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18899,7 +18899,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextStaticData
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextStaticData))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18916,7 +18916,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstMethod))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18933,7 +18933,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextMethod))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18950,7 +18950,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstInheritedMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstInheritedMethod))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18967,7 +18967,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextInheritedMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextInheritedMethod))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -18984,7 +18984,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstAttribute
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstAttribute))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19001,7 +19001,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextAttribute
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextAttribute))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19018,7 +19018,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstStruct))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19035,7 +19035,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextStruct))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19052,7 +19052,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstTypedef
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstTypedef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19069,7 +19069,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextTypedef
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextTypedef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19086,7 +19086,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstUnion
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstUnion))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19103,7 +19103,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextUnion
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextUnion))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19120,7 +19120,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstEnum
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstEnum))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19137,7 +19137,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextEnum
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextEnum))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19154,7 +19154,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstConstant
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstConstant))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19171,7 +19171,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextConstant
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextConstant))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19188,7 +19188,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstSequence
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstSequence))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19205,7 +19205,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextSequence
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextSequence))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19222,7 +19222,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetFirstPubdef
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstPubdef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19239,7 +19239,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtGetNextPubdef
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextPubdef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19256,7 +19256,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtFilterNew
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFilterNew))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -19273,7 +19273,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtFilterOverridden
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFilterOverridden))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -19290,7 +19290,7 @@ begin
   Result :=
   somTD_SOMTClassEntryC_somtFilterPrivOrPub
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFilterPrivOrPub))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 function SOMTClassEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19301,7 +19301,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTClassEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19312,7 +19312,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTClassEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19323,7 +19323,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTClassEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19334,7 +19334,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTClassEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19345,7 +19345,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTClassEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19356,7 +19356,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTClassEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19366,7 +19366,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTClassEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19376,7 +19376,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTClassEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19386,7 +19386,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTClassEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19396,7 +19396,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTClassEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19407,7 +19407,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTClassEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19417,7 +19417,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTClassEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19427,7 +19427,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTClassEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19437,7 +19437,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTClassEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19448,7 +19448,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTClassEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19459,7 +19459,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTClassEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19470,7 +19470,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTClassEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19480,7 +19480,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTClassEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19490,7 +19490,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTClassEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19500,7 +19500,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19511,7 +19511,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19522,7 +19522,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19533,7 +19533,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19544,7 +19544,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTClassEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19555,7 +19555,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTClassEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19566,7 +19566,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTClassEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19577,7 +19577,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTClassEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19588,7 +19588,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTClassEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19599,7 +19599,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTClassEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19610,7 +19610,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTClassEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19621,7 +19621,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTClassEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19631,7 +19631,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTClassEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19641,7 +19641,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -19726,7 +19726,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtTypeObj
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19743,7 +19743,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtPtrs
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPtrs))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19760,7 +19760,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtArrayDimsString
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtArrayDimsString))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19777,7 +19777,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtSourceText
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceText))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19794,7 +19794,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19811,7 +19811,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtVisibility
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtVisibility))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19822,7 +19822,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTCommonEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19832,7 +19832,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTCommonEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19843,7 +19843,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTCommonEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19853,7 +19853,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTCommonEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19864,7 +19864,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19875,7 +19875,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19886,7 +19886,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19897,7 +19897,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19908,7 +19908,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19919,7 +19919,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19930,7 +19930,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19947,7 +19947,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtGetFirstArrayDimension
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstArrayDimension))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19964,7 +19964,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtGetNextArrayDimension
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextArrayDimension))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -19981,7 +19981,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtIsArray
    (SOM_Resolve(somSelf, cd.classObject, cd.somtIsArray))
-     (somSelf, ev, size);
+     (somSelf, size);
 end;
 
 (*
@@ -19998,7 +19998,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtIsPointer
    (SOM_Resolve(somSelf, cd.classObject, cd.somtIsPointer))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20009,7 +20009,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTCommonEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20020,7 +20020,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTCommonEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20031,7 +20031,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTCommonEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20042,7 +20042,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTCommonEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20053,7 +20053,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTCommonEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20064,7 +20064,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTCommonEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20074,7 +20074,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTCommonEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20084,7 +20084,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTCommonEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20094,7 +20094,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTCommonEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20104,7 +20104,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTCommonEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20115,7 +20115,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTCommonEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20125,7 +20125,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTCommonEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20135,7 +20135,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTCommonEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20145,7 +20145,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTCommonEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20156,7 +20156,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTCommonEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20167,7 +20167,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTCommonEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20178,7 +20178,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTCommonEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20188,7 +20188,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTCommonEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20198,7 +20198,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTCommonEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20208,7 +20208,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20219,7 +20219,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20230,7 +20230,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20241,7 +20241,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20252,7 +20252,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTCommonEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20263,7 +20263,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTCommonEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20274,7 +20274,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTCommonEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20285,7 +20285,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTCommonEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20296,7 +20296,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTCommonEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20307,7 +20307,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTCommonEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20318,7 +20318,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTCommonEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20329,7 +20329,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTCommonEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20339,7 +20339,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTCommonEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20349,7 +20349,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -20434,7 +20434,7 @@ begin
   Result :=
   somTD_SOMTConstEntryC__get_somtConstTypeObj
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstTypeObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -20451,7 +20451,7 @@ begin
   Result :=
   somTD_SOMTConstEntryC__get_somtConstType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -20468,7 +20468,7 @@ begin
   Result :=
   somTD_SOMTConstEntryC__get_somtConstStringVal
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstStringVal))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -20485,7 +20485,7 @@ begin
   Result :=
   somTD_SOMTConstEntryC__get_somtConstNumVal
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstNumVal))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -20502,7 +20502,7 @@ begin
   Result :=
   somTD_SOMTConstEntryC__get_somtConstNumNegVal
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstNumNegVal))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -20519,7 +20519,7 @@ begin
   Result :=
   somTD_SOMTConstEntryC__get_somtConstIsNegative
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstIsNegative))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -20536,7 +20536,7 @@ begin
   Result :=
   somTD_SOMTConstEntryC__get_somtConstVal
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtConstVal))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20547,7 +20547,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTConstEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20557,7 +20557,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTConstEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20568,7 +20568,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTConstEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20578,7 +20578,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTConstEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20589,7 +20589,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20600,7 +20600,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20611,7 +20611,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20622,7 +20622,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20633,7 +20633,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20644,7 +20644,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20655,7 +20655,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20666,7 +20666,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTConstEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20677,7 +20677,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTConstEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20688,7 +20688,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTConstEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20699,7 +20699,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTConstEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20710,7 +20710,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTConstEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20721,7 +20721,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTConstEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20731,7 +20731,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTConstEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20741,7 +20741,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTConstEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20751,7 +20751,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTConstEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20761,7 +20761,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTConstEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20772,7 +20772,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTConstEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20782,7 +20782,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTConstEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20792,7 +20792,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTConstEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20802,7 +20802,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTConstEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20813,7 +20813,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTConstEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20824,7 +20824,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTConstEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20835,7 +20835,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTConstEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20845,7 +20845,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTConstEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20855,7 +20855,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTConstEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20865,7 +20865,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20876,7 +20876,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20887,7 +20887,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20898,7 +20898,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20909,7 +20909,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTConstEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20920,7 +20920,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTConstEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20931,7 +20931,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTConstEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20942,7 +20942,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTConstEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20953,7 +20953,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTConstEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20964,7 +20964,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTConstEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20975,7 +20975,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTConstEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20986,7 +20986,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTConstEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20996,7 +20996,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTConstEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21006,7 +21006,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -21091,7 +21091,7 @@ begin
   Result :=
   somTD_SOMTDataEntryC__get_somtIsSelfRef
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsSelfRef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtTypeObj: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21102,7 +21102,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtTypeObj
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtPtrs: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21113,7 +21113,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtPtrs
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPtrs))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtArrayDimsString: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21124,7 +21124,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtArrayDimsString
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtArrayDimsString))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtSourceText: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21135,7 +21135,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtSourceText
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceText))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtType: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21146,7 +21146,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtVisibility: somtVisibilityT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21157,7 +21157,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtVisibility
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtVisibility))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21168,7 +21168,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTDataEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21178,7 +21178,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTDataEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21189,7 +21189,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTDataEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21199,7 +21199,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTDataEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21210,7 +21210,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21221,7 +21221,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21232,7 +21232,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21243,7 +21243,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21254,7 +21254,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21265,7 +21265,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21276,7 +21276,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21287,7 +21287,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtGetFirstArrayDimension
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstArrayDimension))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC.somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21298,7 +21298,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtGetNextArrayDimension
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextArrayDimension))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC.somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21309,7 +21309,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtIsArray
    (SOM_Resolve(somSelf, cd.classObject, cd.somtIsArray))
-     (somSelf, ev, size);
+     (somSelf, size);
 end;
 
 function SOMTDataEntryC.somtIsPointer: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21320,7 +21320,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtIsPointer
    (SOM_Resolve(somSelf, cd.classObject, cd.somtIsPointer))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21331,7 +21331,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTDataEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21342,7 +21342,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTDataEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21353,7 +21353,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTDataEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21364,7 +21364,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTDataEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21375,7 +21375,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTDataEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21386,7 +21386,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTDataEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21396,7 +21396,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTDataEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21406,7 +21406,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTDataEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21416,7 +21416,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTDataEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21426,7 +21426,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTDataEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21437,7 +21437,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTDataEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21447,7 +21447,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTDataEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21457,7 +21457,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTDataEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21467,7 +21467,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTDataEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21478,7 +21478,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTDataEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21489,7 +21489,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTDataEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21500,7 +21500,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTDataEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21510,7 +21510,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTDataEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21520,7 +21520,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTDataEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21530,7 +21530,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21541,7 +21541,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21552,7 +21552,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21563,7 +21563,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21574,7 +21574,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTDataEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21585,7 +21585,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTDataEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21596,7 +21596,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTDataEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21607,7 +21607,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTDataEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21618,7 +21618,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTDataEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21629,7 +21629,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTDataEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21640,7 +21640,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTDataEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21651,7 +21651,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTDataEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21661,7 +21661,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTDataEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -21671,7 +21671,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -21756,7 +21756,7 @@ begin
   Result :=
   somTD_SOMTEmitC__get_somtTemplate
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTemplate))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -21772,7 +21772,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC__set_somtTemplate
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtTemplate))
-     (somSelf, ev, somtTemplate);
+     (somSelf, somtTemplate);
 end;
 
 (*
@@ -21789,7 +21789,7 @@ begin
   Result :=
   somTD_SOMTEmitC__get_somtTargetFile
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTargetFile))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -21805,7 +21805,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC__set_somtTargetFile
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtTargetFile))
-     (somSelf, ev, somtTargetFile);
+     (somSelf, somtTargetFile);
 end;
 
 (*
@@ -21822,7 +21822,7 @@ begin
   Result :=
   somTD_SOMTEmitC__get_somtTargetClass
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTargetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -21838,7 +21838,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC__set_somtTargetClass
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtTargetClass))
-     (somSelf, ev, somtTargetClass);
+     (somSelf, somtTargetClass);
 end;
 
 (*
@@ -21855,7 +21855,7 @@ begin
   Result :=
   somTD_SOMTEmitC__get_somtTargetModule
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTargetModule))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -21871,7 +21871,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC__set_somtTargetModule
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtTargetModule))
-     (somSelf, ev, somtTargetModule);
+     (somSelf, somtTargetModule);
 end;
 
 (*
@@ -21888,7 +21888,7 @@ begin
   Result :=
   somTD_SOMTEmitC__get_somtTargetType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTargetType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -21904,7 +21904,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC__set_somtTargetType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtTargetType))
-     (somSelf, ev, somtTargetType);
+     (somSelf, somtTargetType);
 end;
 
 (*
@@ -21921,7 +21921,7 @@ begin
   Result :=
   somTD_SOMTEmitC__get_somtEmitterName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEmitterName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -21937,7 +21937,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC__set_somtEmitterName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEmitterName))
-     (somSelf, ev, somtEmitterName);
+     (somSelf, somtEmitterName);
 end;
 
 (*
@@ -21954,7 +21954,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtGenerateSections
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGenerateSections))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -21971,7 +21971,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtOpenSymbolsFile
    (SOM_Resolve(somSelf, cd.classObject, cd.somtOpenSymbolsFile))
-     (somSelf, ev, SOM_file, mode);
+     (somSelf, SOM_file, mode);
 end;
 
 (*
@@ -21987,7 +21987,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtSetPredefinedSymbols
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetPredefinedSymbols))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22003,7 +22003,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtFileSymbols
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFileSymbols))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22019,7 +22019,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22035,7 +22035,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitBaseIncludesProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBaseIncludesProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22051,7 +22051,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitBaseIncludes
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBaseIncludes))
-     (somSelf, ev, base);
+     (somSelf, base);
 end;
 
 (*
@@ -22067,7 +22067,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitBaseIncludesEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBaseIncludesEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22083,7 +22083,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitMetaInclude
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMetaInclude))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22099,7 +22099,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22115,7 +22115,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitMeta
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMeta))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22131,7 +22131,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitBaseProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBaseProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22147,7 +22147,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitBase
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBase))
-     (somSelf, ev, base);
+     (somSelf, base);
 end;
 
 (*
@@ -22163,7 +22163,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitBaseEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitBaseEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22179,7 +22179,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitPassthruProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitPassthruProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22195,7 +22195,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitPassthru
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitPassthru))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22211,7 +22211,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitPassthruEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitPassthruEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22227,7 +22227,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitRelease
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitRelease))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22243,7 +22243,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitDataProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitDataProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22259,7 +22259,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitData
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitData))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22275,7 +22275,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitDataEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitDataEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22291,7 +22291,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitAttributeProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitAttributeProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22307,7 +22307,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitAttribute
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitAttribute))
-     (somSelf, ev, att);
+     (somSelf, att);
 end;
 
 (*
@@ -22323,7 +22323,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitAttributeEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitAttributeEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22339,7 +22339,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitConstantProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitConstantProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22355,7 +22355,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitConstant
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitConstant))
-     (somSelf, ev, con);
+     (somSelf, con);
 end;
 
 (*
@@ -22371,7 +22371,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitConstantEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitConstantEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22387,7 +22387,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitTypedefProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitTypedefProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22403,7 +22403,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitTypedef
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitTypedef))
-     (somSelf, ev, td);
+     (somSelf, td);
 end;
 
 (*
@@ -22419,7 +22419,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitTypedefEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitTypedefEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22435,7 +22435,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitStructProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitStructProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22451,7 +22451,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitStruct))
-     (somSelf, ev, struc);
+     (somSelf, struc);
 end;
 
 (*
@@ -22467,7 +22467,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitStructEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitStructEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22483,7 +22483,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitUnionProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitUnionProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22499,7 +22499,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitUnion
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitUnion))
-     (somSelf, ev, un);
+     (somSelf, un);
 end;
 
 (*
@@ -22515,7 +22515,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitUnionEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitUnionEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22531,7 +22531,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitEnumProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitEnumProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22547,7 +22547,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitEnum
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitEnum))
-     (somSelf, ev, en);
+     (somSelf, en);
 end;
 
 (*
@@ -22563,7 +22563,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitEnumEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitEnumEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22579,7 +22579,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitInterfaceProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitInterfaceProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22595,7 +22595,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitInterface
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitInterface))
-     (somSelf, ev, intfc);
+     (somSelf, intfc);
 end;
 
 (*
@@ -22611,7 +22611,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitInterfaceEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitInterfaceEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22627,7 +22627,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitModuleProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitModuleProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22643,7 +22643,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitModule
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitModule))
-     (somSelf, ev, SOM_mod);
+     (somSelf, SOM_mod);
 end;
 
 (*
@@ -22659,7 +22659,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitModuleEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitModuleEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22675,7 +22675,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitMethodsProlog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMethodsProlog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22691,7 +22691,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMethods))
-     (somSelf, ev, method);
+     (somSelf, method);
 end;
 
 (*
@@ -22707,7 +22707,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitMethodsEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMethodsEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22723,7 +22723,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitMethod))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22739,7 +22739,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitEpilog
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitEpilog))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -22756,7 +22756,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanBases
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanBases))
-     (somSelf, ev, prolog, each, epilog);
+     (somSelf, prolog, each, epilog);
 end;
 
 (*
@@ -22773,7 +22773,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtCheckVisibility
    (SOM_Resolve(somSelf, cd.classObject, cd.somtCheckVisibility))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22790,7 +22790,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtNew
    (SOM_Resolve(somSelf, cd.classObject, cd.somtNew))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22807,7 +22807,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtImplemented
    (SOM_Resolve(somSelf, cd.classObject, cd.somtImplemented))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22824,7 +22824,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtOverridden
    (SOM_Resolve(somSelf, cd.classObject, cd.somtOverridden))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22841,7 +22841,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtInherited
    (SOM_Resolve(somSelf, cd.classObject, cd.somtInherited))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22858,7 +22858,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtAllVisible
    (SOM_Resolve(somSelf, cd.classObject, cd.somtAllVisible))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22875,7 +22875,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtAll
    (SOM_Resolve(somSelf, cd.classObject, cd.somtAll))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22892,7 +22892,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtNewNoProc
    (SOM_Resolve(somSelf, cd.classObject, cd.somtNewNoProc))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22909,7 +22909,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtPrivOrPub
    (SOM_Resolve(somSelf, cd.classObject, cd.somtPrivOrPub))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22926,7 +22926,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtNewProc
    (SOM_Resolve(somSelf, cd.classObject, cd.somtNewProc))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22943,7 +22943,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtLink
    (SOM_Resolve(somSelf, cd.classObject, cd.somtLink))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22960,7 +22960,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtVA
    (SOM_Resolve(somSelf, cd.classObject, cd.somtVA))
-     (somSelf, ev, entry);
+     (somSelf, entry);
 end;
 
 (*
@@ -22977,7 +22977,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanMethods))
-     (somSelf, ev, filter, prolog, each, epilog, forceProlog);
+     (somSelf, filter, prolog, each, epilog, forceProlog);
 end;
 
 (*
@@ -22994,7 +22994,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanConstants
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanConstants))
-     (somSelf, ev, prolog, each, epilog);
+     (somSelf, prolog, each, epilog);
 end;
 
 (*
@@ -23011,7 +23011,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanTypedefs
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanTypedefs))
-     (somSelf, ev, prolog, each, epilog);
+     (somSelf, prolog, each, epilog);
 end;
 
 (*
@@ -23028,7 +23028,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanStructs
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanStructs))
-     (somSelf, ev, prolog, each, epilog);
+     (somSelf, prolog, each, epilog);
 end;
 
 (*
@@ -23045,7 +23045,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanUnions
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanUnions))
-     (somSelf, ev, prolog, each, epilog);
+     (somSelf, prolog, each, epilog);
 end;
 
 (*
@@ -23062,7 +23062,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanEnums
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanEnums))
-     (somSelf, ev, prolog, each, epilog);
+     (somSelf, prolog, each, epilog);
 end;
 
 (*
@@ -23079,7 +23079,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanData
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanData))
-     (somSelf, ev, prolog, each, epilog);
+     (somSelf, prolog, each, epilog);
 end;
 
 (*
@@ -23096,7 +23096,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanAttributes
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanAttributes))
-     (somSelf, ev, prolog, each, epilog);
+     (somSelf, prolog, each, epilog);
 end;
 
 (*
@@ -23113,7 +23113,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanInterfaces
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanInterfaces))
-     (somSelf, ev, prolog, each, epilog);
+     (somSelf, prolog, each, epilog);
 end;
 
 (*
@@ -23130,7 +23130,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanModules
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanModules))
-     (somSelf, ev, prolog, each, epilog);
+     (somSelf, prolog, each, epilog);
 end;
 
 (*
@@ -23147,7 +23147,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanPassthru
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanPassthru))
-     (somSelf, ev, before, prolog, each, epilog);
+     (somSelf, before, prolog, each, epilog);
 end;
 
 (*
@@ -23163,7 +23163,7 @@ begin
   cd := SOMTEmitCClassData;
   somTD_SOMTEmitC_somtEmitFullPassthru
    (SOM_Resolve(somSelf, cd.classObject, cd.somtEmitFullPassthru))
-     (somSelf, ev, before, language);
+     (somSelf, before, language);
 end;
 
 (*
@@ -23180,7 +23180,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanDataF
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanDataF))
-     (somSelf, ev, filter, prolog, each, epilog, forceProlog);
+     (somSelf, filter, prolog, each, epilog, forceProlog);
 end;
 
 (*
@@ -23197,7 +23197,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtScanBasesF
    (SOM_Resolve(somSelf, cd.classObject, cd.somtScanBasesF))
-     (somSelf, ev, filter, prolog, each, epilog, forceProlog);
+     (somSelf, filter, prolog, each, epilog, forceProlog);
 end;
 
 (*
@@ -23214,7 +23214,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtGetGlobalModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetGlobalModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 (*
@@ -23231,7 +23231,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtGetFirstGlobalDefinition
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstGlobalDefinition))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -23248,7 +23248,7 @@ begin
   Result :=
   somTD_SOMTEmitC_somtGetNextGlobalDefinition
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextGlobalDefinition))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEmitC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23258,7 +23258,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTEmitC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23268,7 +23268,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTEmitC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23278,7 +23278,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEmitC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23289,7 +23289,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEmitC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23299,7 +23299,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEmitC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23309,7 +23309,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEmitC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23319,7 +23319,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEmitC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23330,7 +23330,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEmitC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23341,7 +23341,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEmitC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23352,7 +23352,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEmitC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23362,7 +23362,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEmitC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23372,7 +23372,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEmitC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23382,7 +23382,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEmitC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23393,7 +23393,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEmitC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23404,7 +23404,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEmitC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23415,7 +23415,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEmitC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23426,7 +23426,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTEmitC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23437,7 +23437,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTEmitC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23448,7 +23448,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTEmitC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23459,7 +23459,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTEmitC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23470,7 +23470,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTEmitC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23481,7 +23481,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTEmitC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23492,7 +23492,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEmitC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23503,7 +23503,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEmitC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23513,7 +23513,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTEmitC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23523,7 +23523,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -23602,7 +23602,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEnumEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23612,7 +23612,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTEnumEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23623,7 +23623,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEnumEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23633,7 +23633,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTEnumEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23644,7 +23644,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23655,7 +23655,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23666,7 +23666,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23677,7 +23677,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23688,7 +23688,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23699,7 +23699,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23710,7 +23710,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -23727,7 +23727,7 @@ begin
   Result :=
   somTD_SOMTEnumEntryC_somtGetFirstEnumName
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstEnumName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -23744,7 +23744,7 @@ begin
   Result :=
   somTD_SOMTEnumEntryC_somtGetNextEnumName
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextEnumName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23755,7 +23755,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTEnumEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23766,7 +23766,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTEnumEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23777,7 +23777,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTEnumEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23788,7 +23788,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTEnumEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23799,7 +23799,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTEnumEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23810,7 +23810,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTEnumEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23820,7 +23820,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTEnumEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23830,7 +23830,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTEnumEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23840,7 +23840,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTEnumEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23850,7 +23850,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEnumEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23861,7 +23861,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEnumEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23871,7 +23871,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEnumEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23881,7 +23881,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEnumEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23891,7 +23891,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEnumEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23902,7 +23902,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEnumEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23913,7 +23913,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEnumEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23924,7 +23924,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEnumEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23934,7 +23934,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEnumEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23944,7 +23944,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEnumEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23954,7 +23954,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23965,7 +23965,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23976,7 +23976,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23987,7 +23987,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -23998,7 +23998,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTEnumEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24009,7 +24009,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTEnumEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24020,7 +24020,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTEnumEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24031,7 +24031,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTEnumEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24042,7 +24042,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTEnumEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24053,7 +24053,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTEnumEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24064,7 +24064,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24075,7 +24075,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEnumEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24085,7 +24085,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTEnumEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24095,7 +24095,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -24180,7 +24180,7 @@ begin
   Result :=
   somTD_SOMTEnumNameEntryC__get_somtEnumPtr
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEnumPtr))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -24197,7 +24197,7 @@ begin
   Result :=
   somTD_SOMTEnumNameEntryC__get_somtEnumVal
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEnumVal))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24208,7 +24208,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEnumNameEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24218,7 +24218,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTEnumNameEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24229,7 +24229,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEnumNameEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24239,7 +24239,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTEnumNameEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24250,7 +24250,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24261,7 +24261,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24272,7 +24272,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24283,7 +24283,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24294,7 +24294,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24305,7 +24305,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24316,7 +24316,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24327,7 +24327,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTEnumNameEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24338,7 +24338,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTEnumNameEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24349,7 +24349,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTEnumNameEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24360,7 +24360,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTEnumNameEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24371,7 +24371,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTEnumNameEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24382,7 +24382,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTEnumNameEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24392,7 +24392,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTEnumNameEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24402,7 +24402,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTEnumNameEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24412,7 +24412,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTEnumNameEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24422,7 +24422,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEnumNameEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24433,7 +24433,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEnumNameEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24443,7 +24443,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEnumNameEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24453,7 +24453,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEnumNameEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24463,7 +24463,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEnumNameEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24474,7 +24474,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEnumNameEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24485,7 +24485,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTEnumNameEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24496,7 +24496,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTEnumNameEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24506,7 +24506,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEnumNameEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24516,7 +24516,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEnumNameEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24526,7 +24526,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24537,7 +24537,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24548,7 +24548,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24559,7 +24559,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24570,7 +24570,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTEnumNameEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24581,7 +24581,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTEnumNameEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24592,7 +24592,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTEnumNameEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24603,7 +24603,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTEnumNameEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24614,7 +24614,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTEnumNameEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24625,7 +24625,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTEnumNameEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24636,7 +24636,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTEnumNameEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24647,7 +24647,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTEnumNameEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24657,7 +24657,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTEnumNameEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24667,7 +24667,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -24752,7 +24752,7 @@ begin
   Result :=
   somTD_SOMTMetaClassEntryC__get_somtMetaFile
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtMetaFile))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -24769,7 +24769,7 @@ begin
   Result :=
   somTD_SOMTMetaClassEntryC__get_somtMetaClassDef
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtMetaClassDef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24780,7 +24780,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTMetaClassEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24790,7 +24790,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTMetaClassEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24801,7 +24801,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTMetaClassEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24811,7 +24811,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTMetaClassEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24822,7 +24822,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24833,7 +24833,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24844,7 +24844,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24855,7 +24855,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24866,7 +24866,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24877,7 +24877,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24888,7 +24888,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24899,7 +24899,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTMetaClassEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24910,7 +24910,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTMetaClassEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24921,7 +24921,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTMetaClassEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24932,7 +24932,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTMetaClassEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24943,7 +24943,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTMetaClassEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24954,7 +24954,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTMetaClassEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24964,7 +24964,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTMetaClassEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24974,7 +24974,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTMetaClassEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24984,7 +24984,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTMetaClassEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24994,7 +24994,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTMetaClassEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25005,7 +25005,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTMetaClassEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25015,7 +25015,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTMetaClassEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25025,7 +25025,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTMetaClassEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25035,7 +25035,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTMetaClassEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25046,7 +25046,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTMetaClassEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25057,7 +25057,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTMetaClassEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25068,7 +25068,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTMetaClassEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25078,7 +25078,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTMetaClassEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25088,7 +25088,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTMetaClassEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25098,7 +25098,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25109,7 +25109,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25120,7 +25120,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25131,7 +25131,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25142,7 +25142,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTMetaClassEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25153,7 +25153,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTMetaClassEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25164,7 +25164,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTMetaClassEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25175,7 +25175,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTMetaClassEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25186,7 +25186,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTMetaClassEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25197,7 +25197,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTMetaClassEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25208,7 +25208,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMetaClassEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25219,7 +25219,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTMetaClassEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25229,7 +25229,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTMetaClassEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25239,7 +25239,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -25324,7 +25324,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC__get_somtIsVarargs
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsVarargs))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25341,7 +25341,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC__get_somtOriginalMethod
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtOriginalMethod))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25358,7 +25358,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC__get_somtOriginalClass
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtOriginalClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25375,7 +25375,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC__get_somtMethodGroup
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtMethodGroup))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25392,7 +25392,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC__get_somtIsPrivateMethod
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsPrivateMethod))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25409,7 +25409,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC__get_somtIsOneway
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsOneway))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25426,7 +25426,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC__get_somtArgCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtArgCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25443,7 +25443,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC__get_somtContextArray
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtContextArray))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25460,7 +25460,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC__get_somtCReturnType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCReturnType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtTypeObj: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25471,7 +25471,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtTypeObj
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtPtrs: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25482,7 +25482,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtPtrs
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPtrs))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtArrayDimsString: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25493,7 +25493,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtArrayDimsString
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtArrayDimsString))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtSourceText: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25504,7 +25504,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtSourceText
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceText))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtType: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25515,7 +25515,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtVisibility: somtVisibilityT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25526,7 +25526,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtVisibility
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtVisibility))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25537,7 +25537,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTMethodEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25547,7 +25547,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTMethodEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25558,7 +25558,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTMethodEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25568,7 +25568,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTMethodEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25579,7 +25579,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25590,7 +25590,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25601,7 +25601,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25612,7 +25612,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25623,7 +25623,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25634,7 +25634,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25645,7 +25645,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25662,7 +25662,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC_somtGetFirstParameter
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstParameter))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25679,7 +25679,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC_somtGetNextParameter
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextParameter))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25696,7 +25696,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC_somtGetIDLParamList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetIDLParamList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 (*
@@ -25713,7 +25713,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC_somtGetShortCParamList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetShortCParamList))
-     (somSelf, ev, buffer, selfParm, varargsParm);
+     (somSelf, buffer, selfParm, varargsParm);
 end;
 
 (*
@@ -25730,7 +25730,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC_somtGetFullCParamList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFullCParamList))
-     (somSelf, ev, buffer, varargsParm);
+     (somSelf, buffer, varargsParm);
 end;
 
 (*
@@ -25747,7 +25747,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC_somtGetShortParamNameList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetShortParamNameList))
-     (somSelf, ev, buffer, selfParm, varargsParm);
+     (somSelf, buffer, selfParm, varargsParm);
 end;
 
 (*
@@ -25764,7 +25764,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC_somtGetFullParamNameList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFullParamNameList))
-     (somSelf, ev, buffer, varargsParm);
+     (somSelf, buffer, varargsParm);
 end;
 
 (*
@@ -25781,7 +25781,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC_somtGetNthParameter
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNthParameter))
-     (somSelf, ev, n);
+     (somSelf, n);
 end;
 
 (*
@@ -25798,7 +25798,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC_somtGetFirstException
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstException))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -25815,7 +25815,7 @@ begin
   Result :=
   somTD_SOMTMethodEntryC_somtGetNextException
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextException))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25826,7 +25826,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtGetFirstArrayDimension
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstArrayDimension))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC.somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25837,7 +25837,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtGetNextArrayDimension
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextArrayDimension))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC.somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25848,7 +25848,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtIsArray
    (SOM_Resolve(somSelf, cd.classObject, cd.somtIsArray))
-     (somSelf, ev, size);
+     (somSelf, size);
 end;
 
 function SOMTMethodEntryC.somtIsPointer: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25859,7 +25859,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtIsPointer
    (SOM_Resolve(somSelf, cd.classObject, cd.somtIsPointer))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25870,7 +25870,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTMethodEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25881,7 +25881,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTMethodEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25892,7 +25892,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTMethodEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25903,7 +25903,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTMethodEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25914,7 +25914,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTMethodEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25925,7 +25925,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTMethodEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25935,7 +25935,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTMethodEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25945,7 +25945,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTMethodEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25955,7 +25955,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTMethodEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25965,7 +25965,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTMethodEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25976,7 +25976,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTMethodEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25986,7 +25986,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTMethodEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -25996,7 +25996,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTMethodEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26006,7 +26006,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTMethodEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26017,7 +26017,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTMethodEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26028,7 +26028,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTMethodEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26039,7 +26039,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTMethodEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26049,7 +26049,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTMethodEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26059,7 +26059,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTMethodEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26069,7 +26069,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26080,7 +26080,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26091,7 +26091,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26102,7 +26102,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26113,7 +26113,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTMethodEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26124,7 +26124,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTMethodEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26135,7 +26135,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTMethodEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26146,7 +26146,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTMethodEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26157,7 +26157,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTMethodEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26168,7 +26168,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTMethodEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26179,7 +26179,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTMethodEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26190,7 +26190,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTMethodEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26200,7 +26200,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTMethodEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26210,7 +26210,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -26295,7 +26295,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC__get_somtOuterModule
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtOuterModule))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26312,7 +26312,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC__get_somtModuleFile
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtModuleFile))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26323,7 +26323,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTModuleEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26333,7 +26333,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTModuleEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26344,7 +26344,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTModuleEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26354,7 +26354,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTModuleEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26365,7 +26365,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26376,7 +26376,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26387,7 +26387,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26398,7 +26398,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26409,7 +26409,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26420,7 +26420,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26431,7 +26431,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26448,7 +26448,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetFirstModuleStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleStruct))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26465,7 +26465,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetNextModuleStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleStruct))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26482,7 +26482,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetFirstModuleTypedef
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleTypedef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26499,7 +26499,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetNextModuleTypedef
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleTypedef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26516,7 +26516,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetFirstModuleUnion
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleUnion))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26533,7 +26533,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetNextModuleUnion
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleUnion))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26550,7 +26550,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetFirstModuleEnum
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleEnum))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26567,7 +26567,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetNextModuleEnum
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleEnum))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26584,7 +26584,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetFirstModuleConstant
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleConstant))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26601,7 +26601,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetNextModuleConstant
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleConstant))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26618,7 +26618,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetFirstModuleSequence
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleSequence))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26635,7 +26635,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetNextModuleSequence
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleSequence))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26652,7 +26652,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetFirstInterface
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstInterface))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26669,7 +26669,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetNextInterface
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextInterface))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26686,7 +26686,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetFirstModule
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModule))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26703,7 +26703,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetNextModule
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModule))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26720,7 +26720,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetFirstModuleDef
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModuleDef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -26737,7 +26737,7 @@ begin
   Result :=
   somTD_SOMTModuleEntryC_somtGetNextModuleDef
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModuleDef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26748,7 +26748,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTModuleEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26759,7 +26759,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTModuleEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26770,7 +26770,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTModuleEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26781,7 +26781,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTModuleEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26792,7 +26792,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTModuleEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26803,7 +26803,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTModuleEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26813,7 +26813,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTModuleEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26823,7 +26823,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTModuleEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26833,7 +26833,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTModuleEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26843,7 +26843,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTModuleEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26854,7 +26854,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTModuleEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26864,7 +26864,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTModuleEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26874,7 +26874,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTModuleEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26884,7 +26884,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTModuleEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26895,7 +26895,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTModuleEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26906,7 +26906,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTModuleEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26917,7 +26917,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTModuleEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26927,7 +26927,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTModuleEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26937,7 +26937,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTModuleEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26947,7 +26947,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26958,7 +26958,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26969,7 +26969,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26980,7 +26980,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -26991,7 +26991,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTModuleEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27002,7 +27002,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTModuleEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27013,7 +27013,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTModuleEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27024,7 +27024,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTModuleEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27035,7 +27035,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTModuleEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27046,7 +27046,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTModuleEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27057,7 +27057,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTModuleEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27068,7 +27068,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTModuleEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27078,7 +27078,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTModuleEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27088,7 +27088,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -27173,7 +27173,7 @@ begin
   Result :=
   somTD_SOMTParameterEntryC__get_somtParameterDirection
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtParameterDirection))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -27190,7 +27190,7 @@ begin
   Result :=
   somTD_SOMTParameterEntryC__get_somtIDLParameterDeclaration
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLParameterDeclaration))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -27207,7 +27207,7 @@ begin
   Result :=
   somTD_SOMTParameterEntryC__get_somtCParameterDeclaration
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCParameterDeclaration))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtTypeObj: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27218,7 +27218,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtTypeObj
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtPtrs: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27229,7 +27229,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtPtrs
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPtrs))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtArrayDimsString: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27240,7 +27240,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtArrayDimsString
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtArrayDimsString))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtSourceText: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27251,7 +27251,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtSourceText
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceText))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtType: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27262,7 +27262,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtVisibility: somtVisibilityT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27273,7 +27273,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtVisibility
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtVisibility))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27284,7 +27284,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTParameterEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27294,7 +27294,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTParameterEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27305,7 +27305,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTParameterEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27315,7 +27315,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTParameterEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27326,7 +27326,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27337,7 +27337,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27348,7 +27348,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27359,7 +27359,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27370,7 +27370,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27381,7 +27381,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27392,7 +27392,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27403,7 +27403,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtGetFirstArrayDimension
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstArrayDimension))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC.somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27414,7 +27414,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtGetNextArrayDimension
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextArrayDimension))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC.somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27425,7 +27425,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtIsArray
    (SOM_Resolve(somSelf, cd.classObject, cd.somtIsArray))
-     (somSelf, ev, size);
+     (somSelf, size);
 end;
 
 function SOMTParameterEntryC.somtIsPointer: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27436,7 +27436,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtIsPointer
    (SOM_Resolve(somSelf, cd.classObject, cd.somtIsPointer))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27447,7 +27447,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTParameterEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27458,7 +27458,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTParameterEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27469,7 +27469,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTParameterEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27480,7 +27480,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTParameterEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27491,7 +27491,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTParameterEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27502,7 +27502,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTParameterEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27512,7 +27512,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTParameterEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27522,7 +27522,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTParameterEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27532,7 +27532,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTParameterEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27542,7 +27542,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTParameterEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27553,7 +27553,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTParameterEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27563,7 +27563,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTParameterEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27573,7 +27573,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTParameterEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27583,7 +27583,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTParameterEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27594,7 +27594,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTParameterEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27605,7 +27605,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTParameterEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27616,7 +27616,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTParameterEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27626,7 +27626,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTParameterEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27636,7 +27636,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTParameterEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27646,7 +27646,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27657,7 +27657,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27668,7 +27668,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27679,7 +27679,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27690,7 +27690,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTParameterEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27701,7 +27701,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTParameterEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27712,7 +27712,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTParameterEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27723,7 +27723,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTParameterEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27734,7 +27734,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTParameterEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27745,7 +27745,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTParameterEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27756,7 +27756,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTParameterEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27767,7 +27767,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTParameterEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27777,7 +27777,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTParameterEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27787,7 +27787,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -27872,7 +27872,7 @@ begin
   Result :=
   somTD_SOMTPassthruEntryC__get_somtPassthruBody
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPassthruBody))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -27889,7 +27889,7 @@ begin
   Result :=
   somTD_SOMTPassthruEntryC__get_somtPassthruLanguage
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPassthruLanguage))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -27906,7 +27906,7 @@ begin
   Result :=
   somTD_SOMTPassthruEntryC__get_somtPassthruTarget
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPassthruTarget))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27917,7 +27917,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTPassthruEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27927,7 +27927,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTPassthruEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27938,7 +27938,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTPassthruEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27948,7 +27948,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTPassthruEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27959,7 +27959,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27970,7 +27970,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27981,7 +27981,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27992,7 +27992,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28003,7 +28003,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28014,7 +28014,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28025,7 +28025,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -28042,7 +28042,7 @@ begin
   Result :=
   somTD_SOMTPassthruEntryC_somtIsBeforePassthru
    (SOM_Resolve(somSelf, cd.classObject, cd.somtIsBeforePassthru))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28053,7 +28053,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTPassthruEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28064,7 +28064,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTPassthruEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28075,7 +28075,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTPassthruEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28086,7 +28086,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTPassthruEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28097,7 +28097,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTPassthruEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28108,7 +28108,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTPassthruEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28118,7 +28118,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTPassthruEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28128,7 +28128,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTPassthruEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28138,7 +28138,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTPassthruEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28148,7 +28148,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTPassthruEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28159,7 +28159,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTPassthruEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28169,7 +28169,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTPassthruEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28179,7 +28179,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTPassthruEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28189,7 +28189,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTPassthruEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28200,7 +28200,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTPassthruEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28211,7 +28211,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTPassthruEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28222,7 +28222,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTPassthruEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28232,7 +28232,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTPassthruEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28242,7 +28242,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTPassthruEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28252,7 +28252,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28263,7 +28263,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28274,7 +28274,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28285,7 +28285,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28296,7 +28296,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTPassthruEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28307,7 +28307,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTPassthruEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28318,7 +28318,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTPassthruEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28329,7 +28329,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTPassthruEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28340,7 +28340,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTPassthruEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28351,7 +28351,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTPassthruEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28362,7 +28362,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTPassthruEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28373,7 +28373,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTPassthruEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28383,7 +28383,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTPassthruEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28393,7 +28393,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -28478,7 +28478,7 @@ begin
   Result :=
   somTD_SOMTSequenceEntryC__get_somtSeqLength
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSeqLength))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -28495,7 +28495,7 @@ begin
   Result :=
   somTD_SOMTSequenceEntryC__get_somtSeqType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSeqType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28506,7 +28506,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTSequenceEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28516,7 +28516,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTSequenceEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28527,7 +28527,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTSequenceEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28537,7 +28537,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTSequenceEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28548,7 +28548,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28559,7 +28559,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28570,7 +28570,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28581,7 +28581,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28592,7 +28592,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28603,7 +28603,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28614,7 +28614,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28625,7 +28625,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTSequenceEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28636,7 +28636,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTSequenceEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28647,7 +28647,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTSequenceEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28658,7 +28658,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTSequenceEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28669,7 +28669,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTSequenceEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28680,7 +28680,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTSequenceEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28690,7 +28690,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTSequenceEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28700,7 +28700,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTSequenceEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28710,7 +28710,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTSequenceEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28720,7 +28720,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTSequenceEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28731,7 +28731,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTSequenceEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28741,7 +28741,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTSequenceEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28751,7 +28751,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTSequenceEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28761,7 +28761,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTSequenceEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28772,7 +28772,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTSequenceEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28783,7 +28783,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTSequenceEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28794,7 +28794,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTSequenceEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28804,7 +28804,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTSequenceEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28814,7 +28814,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTSequenceEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28824,7 +28824,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28835,7 +28835,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28846,7 +28846,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28857,7 +28857,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28868,7 +28868,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTSequenceEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28879,7 +28879,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTSequenceEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28890,7 +28890,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTSequenceEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28901,7 +28901,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTSequenceEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28912,7 +28912,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTSequenceEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28923,7 +28923,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTSequenceEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28934,7 +28934,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTSequenceEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28945,7 +28945,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTSequenceEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28955,7 +28955,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTSequenceEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28965,7 +28965,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -29050,7 +29050,7 @@ begin
   Result :=
   somTD_SOMTStringEntryC__get_somtStringLength
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtStringLength))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29061,7 +29061,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTStringEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29071,7 +29071,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTStringEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29082,7 +29082,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTStringEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29092,7 +29092,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTStringEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29103,7 +29103,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29114,7 +29114,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29125,7 +29125,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29136,7 +29136,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29147,7 +29147,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29158,7 +29158,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29169,7 +29169,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29180,7 +29180,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTStringEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29191,7 +29191,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTStringEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29202,7 +29202,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTStringEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29213,7 +29213,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTStringEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29224,7 +29224,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTStringEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29235,7 +29235,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTStringEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29245,7 +29245,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTStringEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29255,7 +29255,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTStringEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29265,7 +29265,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTStringEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29275,7 +29275,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTStringEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29286,7 +29286,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTStringEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29296,7 +29296,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTStringEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29306,7 +29306,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTStringEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29316,7 +29316,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTStringEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29327,7 +29327,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTStringEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29338,7 +29338,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTStringEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29349,7 +29349,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTStringEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29359,7 +29359,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTStringEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29369,7 +29369,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTStringEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29379,7 +29379,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29390,7 +29390,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29401,7 +29401,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29412,7 +29412,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29423,7 +29423,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTStringEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29434,7 +29434,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTStringEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29445,7 +29445,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTStringEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29456,7 +29456,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTStringEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29467,7 +29467,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTStringEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29478,7 +29478,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTStringEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29489,7 +29489,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStringEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29500,7 +29500,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTStringEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29510,7 +29510,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTStringEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29520,7 +29520,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -29605,7 +29605,7 @@ begin
   Result :=
   somTD_SOMTStructEntryC__get_somtStructClass
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtStructClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -29622,7 +29622,7 @@ begin
   Result :=
   somTD_SOMTStructEntryC__get_somtIsException
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsException))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29633,7 +29633,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTStructEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29643,7 +29643,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTStructEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29654,7 +29654,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTStructEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29664,7 +29664,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTStructEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29675,7 +29675,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29686,7 +29686,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29697,7 +29697,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29708,7 +29708,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29719,7 +29719,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29730,7 +29730,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29741,7 +29741,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -29758,7 +29758,7 @@ begin
   Result :=
   somTD_SOMTStructEntryC_somtGetFirstMember
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstMember))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -29775,7 +29775,7 @@ begin
   Result :=
   somTD_SOMTStructEntryC_somtGetNextMember
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextMember))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29786,7 +29786,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTStructEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29797,7 +29797,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTStructEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29808,7 +29808,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTStructEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29819,7 +29819,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTStructEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29830,7 +29830,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTStructEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29841,7 +29841,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTStructEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29851,7 +29851,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTStructEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29861,7 +29861,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTStructEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29871,7 +29871,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTStructEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29881,7 +29881,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTStructEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29892,7 +29892,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTStructEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29902,7 +29902,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTStructEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29912,7 +29912,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTStructEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29922,7 +29922,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTStructEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29933,7 +29933,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTStructEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29944,7 +29944,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTStructEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29955,7 +29955,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTStructEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29965,7 +29965,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTStructEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29975,7 +29975,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTStructEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29985,7 +29985,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -29996,7 +29996,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30007,7 +30007,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30018,7 +30018,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30029,7 +30029,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTStructEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30040,7 +30040,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTStructEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30051,7 +30051,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTStructEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30062,7 +30062,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTStructEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30073,7 +30073,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTStructEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30084,7 +30084,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTStructEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30095,7 +30095,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTStructEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30106,7 +30106,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTStructEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30116,7 +30116,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTStructEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30126,7 +30126,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -30211,7 +30211,7 @@ begin
   Result :=
   somTD_SOMTTypedefEntryC__get_somtTypedefType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypedefType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30222,7 +30222,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTTypedefEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30232,7 +30232,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTTypedefEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30243,7 +30243,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTTypedefEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30253,7 +30253,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTTypedefEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30264,7 +30264,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30275,7 +30275,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30286,7 +30286,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30297,7 +30297,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30308,7 +30308,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30319,7 +30319,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30330,7 +30330,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -30347,7 +30347,7 @@ begin
   Result :=
   somTD_SOMTTypedefEntryC_somtGetFirstDeclarator
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstDeclarator))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -30364,7 +30364,7 @@ begin
   Result :=
   somTD_SOMTTypedefEntryC_somtGetNextDeclarator
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextDeclarator))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30375,7 +30375,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTTypedefEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30386,7 +30386,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTTypedefEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30397,7 +30397,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTTypedefEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30408,7 +30408,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTTypedefEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30419,7 +30419,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTTypedefEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30430,7 +30430,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTTypedefEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30440,7 +30440,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTTypedefEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30450,7 +30450,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTTypedefEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30460,7 +30460,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTTypedefEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30470,7 +30470,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTTypedefEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30481,7 +30481,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTTypedefEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30491,7 +30491,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTTypedefEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30501,7 +30501,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTTypedefEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30511,7 +30511,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTTypedefEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30522,7 +30522,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTTypedefEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30533,7 +30533,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTTypedefEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30544,7 +30544,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTTypedefEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30554,7 +30554,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTTypedefEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30564,7 +30564,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTTypedefEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30574,7 +30574,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30585,7 +30585,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30596,7 +30596,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30607,7 +30607,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30618,7 +30618,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTTypedefEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30629,7 +30629,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTTypedefEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30640,7 +30640,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTTypedefEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30651,7 +30651,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTTypedefEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30662,7 +30662,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTTypedefEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30673,7 +30673,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTTypedefEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30684,7 +30684,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTypedefEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30695,7 +30695,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTTypedefEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30705,7 +30705,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTTypedefEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -30715,7 +30715,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -30800,7 +30800,7 @@ begin
   Result :=
   somTD_SOMTTemplateOutputC__get_somtCommentStyle
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCommentStyle))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -30816,7 +30816,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC__set_somtCommentStyle
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtCommentStyle))
-     (somSelf, ev, somtCommentStyle);
+     (somSelf, somtCommentStyle);
 end;
 
 (*
@@ -30833,7 +30833,7 @@ begin
   Result :=
   somTD_SOMTTemplateOutputC__get_somtLineLength
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtLineLength))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -30849,7 +30849,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC__set_somtLineLength
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtLineLength))
-     (somSelf, ev, somtLineLength);
+     (somSelf, somtLineLength);
 end;
 
 (*
@@ -30866,7 +30866,7 @@ begin
   Result :=
   somTD_SOMTTemplateOutputC__get_somtCommentNewline
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCommentNewline))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -30882,7 +30882,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC__set_somtCommentNewline
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtCommentNewline))
-     (somSelf, ev, somtCommentNewline);
+     (somSelf, somtCommentNewline);
 end;
 
 (*
@@ -30899,7 +30899,7 @@ begin
   Result :=
   somTD_SOMTTemplateOutputC_somtGetSymbol
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetSymbol))
-     (somSelf, ev, name);
+     (somSelf, name);
 end;
 
 (*
@@ -30915,7 +30915,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC_somtSetSymbol
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbol))
-     (somSelf, ev, name, value);
+     (somSelf, name, value);
 end;
 
 (*
@@ -30931,7 +30931,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC_somtSetSymbolCopyName
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolCopyName))
-     (somSelf, ev, name, value);
+     (somSelf, name, value);
 end;
 
 (*
@@ -30947,7 +30947,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC_somtSetSymbolCopyValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolCopyValue))
-     (somSelf, ev, name, value);
+     (somSelf, name, value);
 end;
 
 (*
@@ -30963,7 +30963,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC_somtSetSymbolCopyBoth
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolCopyBoth))
-     (somSelf, ev, name, value);
+     (somSelf, name, value);
 end;
 
 (*
@@ -30980,7 +30980,7 @@ begin
   Result :=
   somTD_SOMTTemplateOutputC_somtCheckSymbol
    (SOM_Resolve(somSelf, cd.classObject, cd.somtCheckSymbol))
-     (somSelf, ev, name);
+     (somSelf, name);
 end;
 
 (*
@@ -30996,7 +30996,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC_somtSetOutputFile
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetOutputFile))
-     (somSelf, ev, fp);
+     (somSelf, fp);
 end;
 
 (*
@@ -31012,7 +31012,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC_somto
    (SOM_Resolve(somSelf, cd.classObject, cd.somto))
-     (somSelf, ev, tmplt);
+     (somSelf, tmplt);
 end;
 
 (*
@@ -31028,7 +31028,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC_somtOutputComment
    (SOM_Resolve(somSelf, cd.classObject, cd.somtOutputComment))
-     (somSelf, ev, comment);
+     (somSelf, comment);
 end;
 
 (*
@@ -31044,7 +31044,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC_somtOutputSection
    (SOM_Resolve(somSelf, cd.classObject, cd.somtOutputSection))
-     (somSelf, ev, sectionName);
+     (somSelf, sectionName);
 end;
 
 (*
@@ -31060,7 +31060,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC_somtAddSectionDefinitions
    (SOM_Resolve(somSelf, cd.classObject, cd.somtAddSectionDefinitions))
-     (somSelf, ev, defString);
+     (somSelf, defString);
 end;
 
 (*
@@ -31076,7 +31076,7 @@ begin
   cd := SOMTTemplateOutputCClassData;
   somTD_SOMTTemplateOutputC_somtReadSectionDefinitions
    (SOM_Resolve(somSelf, cd.classObject, cd.somtReadSectionDefinitions))
-     (somSelf, ev, fp);
+     (somSelf, fp);
 end;
 
 (*
@@ -31093,7 +31093,7 @@ begin
   Result :=
   somTD_SOMTTemplateOutputC_somtExpandSymbol
    (SOM_Resolve(somSelf, cd.classObject, cd.somtExpandSymbol))
-     (somSelf, ev, s, buf);
+     (somSelf, s, buf);
 end;
 
 procedure SOMTTemplateOutputC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31103,7 +31103,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTTemplateOutputC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31113,7 +31113,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTTemplateOutputC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31123,7 +31123,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTTemplateOutputC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31134,7 +31134,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTTemplateOutputC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31144,7 +31144,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTTemplateOutputC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31154,7 +31154,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTTemplateOutputC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31164,7 +31164,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTTemplateOutputC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31175,7 +31175,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTTemplateOutputC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31186,7 +31186,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTTemplateOutputC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31197,7 +31197,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTTemplateOutputC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31207,7 +31207,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTTemplateOutputC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31217,7 +31217,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTTemplateOutputC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31227,7 +31227,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTemplateOutputC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31238,7 +31238,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTemplateOutputC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31249,7 +31249,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTemplateOutputC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31260,7 +31260,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTemplateOutputC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31271,7 +31271,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTTemplateOutputC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31282,7 +31282,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTTemplateOutputC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31293,7 +31293,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTTemplateOutputC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31304,7 +31304,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTTemplateOutputC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31315,7 +31315,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTTemplateOutputC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31326,7 +31326,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTTemplateOutputC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31337,7 +31337,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTTemplateOutputC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31348,7 +31348,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTTemplateOutputC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31358,7 +31358,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTTemplateOutputC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31368,7 +31368,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -31453,7 +31453,7 @@ begin
   Result :=
   somTD_SOMTUnionEntryC__get_somtSwitchType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSwitchType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31464,7 +31464,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTUnionEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31474,7 +31474,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTUnionEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31485,7 +31485,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTUnionEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31495,7 +31495,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTUnionEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31506,7 +31506,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31517,7 +31517,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31528,7 +31528,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31539,7 +31539,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31550,7 +31550,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31561,7 +31561,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31572,7 +31572,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -31589,7 +31589,7 @@ begin
   Result :=
   somTD_SOMTUnionEntryC_somtGetFirstCaseEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstCaseEntry))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -31606,7 +31606,7 @@ begin
   Result :=
   somTD_SOMTUnionEntryC_somtGetNextCaseEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextCaseEntry))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31617,7 +31617,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTUnionEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31628,7 +31628,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTUnionEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31639,7 +31639,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTUnionEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31650,7 +31650,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTUnionEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31661,7 +31661,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTUnionEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31672,7 +31672,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTUnionEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31682,7 +31682,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTUnionEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31692,7 +31692,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTUnionEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31702,7 +31702,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTUnionEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31712,7 +31712,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTUnionEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31723,7 +31723,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTUnionEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31733,7 +31733,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTUnionEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31743,7 +31743,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTUnionEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31753,7 +31753,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTUnionEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31764,7 +31764,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTUnionEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31775,7 +31775,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTUnionEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31786,7 +31786,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTUnionEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31796,7 +31796,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTUnionEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31806,7 +31806,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTUnionEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31816,7 +31816,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31827,7 +31827,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31838,7 +31838,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31849,7 +31849,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31860,7 +31860,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTUnionEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31871,7 +31871,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTUnionEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31882,7 +31882,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTUnionEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31893,7 +31893,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTUnionEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31904,7 +31904,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTUnionEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31915,7 +31915,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTUnionEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31926,7 +31926,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUnionEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31937,7 +31937,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTUnionEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31947,7 +31947,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTUnionEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -31957,7 +31957,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -32042,7 +32042,7 @@ begin
   Result :=
   somTD_SOMTUserDefinedTypeEntryC__get_somtOriginalTypedef
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtOriginalTypedef))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -32059,7 +32059,7 @@ begin
   Result :=
   somTD_SOMTUserDefinedTypeEntryC__get_somtBaseTypeObj
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtBaseTypeObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtTypeObj: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32070,7 +32070,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtTypeObj
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtPtrs: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32081,7 +32081,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtPtrs
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtPtrs))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtArrayDimsString: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32092,7 +32092,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtArrayDimsString
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtArrayDimsString))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtSourceText: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32103,7 +32103,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtSourceText
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceText))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtType: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32114,7 +32114,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtVisibility: somtVisibilityT; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32125,7 +32125,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC__get_somtVisibility
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtVisibility))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtEntryName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32136,7 +32136,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTUserDefinedTypeEntryC._set_somtEntryName(somtEntryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32146,7 +32146,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtEntryName
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtEntryName))
-     (somSelf, ev, somtEntryName);
+     (somSelf, somtEntryName);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtElementType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32157,7 +32157,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementType))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTUserDefinedTypeEntryC._set_somtElementType(somtElementType: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32167,7 +32167,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC__set_somtElementType
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somtElementType))
-     (somSelf, ev, somtElementType);
+     (somSelf, somtElementType);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtElementTypeName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32178,7 +32178,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtElementTypeName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtElementTypeName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtEntryComment: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32189,7 +32189,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtEntryComment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtEntryComment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtSourceLineNumber: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32200,7 +32200,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtSourceLineNumber
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtSourceLineNumber))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtTypeCode: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32211,7 +32211,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtTypeCode
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtTypeCode))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtIsReference: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32222,7 +32222,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIsReference
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIsReference))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32233,7 +32233,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtIDLScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtIDLScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC._get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32244,7 +32244,7 @@ begin
   Result :=
   somTD_SOMTEntryC__get_somtCScopedName
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somtCScopedName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32255,7 +32255,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtGetFirstArrayDimension
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstArrayDimension))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32266,7 +32266,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtGetNextArrayDimension
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextArrayDimension))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32277,7 +32277,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtIsArray
    (SOM_Resolve(somSelf, cd.classObject, cd.somtIsArray))
-     (somSelf, ev, size);
+     (somSelf, size);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtIsPointer: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32288,7 +32288,7 @@ begin
   Result :=
   somTD_SOMTCommonEntryC_somtIsPointer
    (SOM_Resolve(somSelf, cd.classObject, cd.somtIsPointer))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32299,7 +32299,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierValue))
-     (somSelf, ev, modifierName);
+     (somSelf, modifierName);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32310,7 +32310,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetFirstModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetFirstModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32321,7 +32321,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetNextModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetNextModifier))
-     (somSelf, ev, modifierName, modifierValue);
+     (somSelf, modifierName, modifierValue);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtFormatModifier(buffer: CORBAString; name: CORBAString; value: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32332,7 +32332,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtFormatModifier
    (SOM_Resolve(somSelf, cd.classObject, cd.somtFormatModifier))
-     (somSelf, ev, buffer, name, value);
+     (somSelf, buffer, name, value);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtGetModifierList(buffer: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32343,7 +32343,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtGetModifierList
    (SOM_Resolve(somSelf, cd.classObject, cd.somtGetModifierList))
-     (somSelf, ev, buffer);
+     (somSelf, buffer);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtSetSymbolsOnEntry(emitter: SOMTEmitC; prefix: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32354,7 +32354,7 @@ begin
   Result :=
   somTD_SOMTEntryC_somtSetSymbolsOnEntry
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetSymbolsOnEntry))
-     (somSelf, ev, emitter, prefix);
+     (somSelf, emitter, prefix);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somtSetEntryStruct(var es: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32364,7 +32364,7 @@ begin
   cd := SOMTEntryCClassData;
   somTD_SOMTEntryC_somtSetEntryStruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somtSetEntryStruct))
-     (somSelf, ev, es);
+     (somSelf, es);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32374,7 +32374,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32384,7 +32384,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32394,7 +32394,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTUserDefinedTypeEntryC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32405,7 +32405,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32415,7 +32415,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32425,7 +32425,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32435,7 +32435,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTUserDefinedTypeEntryC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32446,7 +32446,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTUserDefinedTypeEntryC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32457,7 +32457,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMTUserDefinedTypeEntryC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32468,7 +32468,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32478,7 +32478,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32488,7 +32488,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32498,7 +32498,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32509,7 +32509,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32520,7 +32520,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32531,7 +32531,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32542,7 +32542,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTUserDefinedTypeEntryC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32553,7 +32553,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMTUserDefinedTypeEntryC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32564,7 +32564,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMTUserDefinedTypeEntryC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32575,7 +32575,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMTUserDefinedTypeEntryC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32586,7 +32586,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMTUserDefinedTypeEntryC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32597,7 +32597,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMTUserDefinedTypeEntryC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32608,7 +32608,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMTUserDefinedTypeEntryC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32619,7 +32619,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32629,7 +32629,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMTUserDefinedTypeEntryC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32639,7 +32639,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -32836,7 +32836,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMDServerMgr.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32846,7 +32846,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMDServerMgr.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32856,7 +32856,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDServerMgr.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32867,7 +32867,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDServerMgr.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32877,7 +32877,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDServerMgr.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32887,7 +32887,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDServerMgr.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32897,7 +32897,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDServerMgr.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32908,7 +32908,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDServerMgr.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32919,7 +32919,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDServerMgr.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32930,7 +32930,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDServerMgr.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32940,7 +32940,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDServerMgr.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32950,7 +32950,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDServerMgr.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32960,7 +32960,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDServerMgr.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32971,7 +32971,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDServerMgr.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32982,7 +32982,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDServerMgr.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32993,7 +32993,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDServerMgr.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33004,7 +33004,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDServerMgr.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33015,7 +33015,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDServerMgr.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33026,7 +33026,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMDServerMgr.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33037,7 +33037,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMDServerMgr.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33048,7 +33048,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMDServerMgr.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33059,7 +33059,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMDServerMgr.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33070,7 +33070,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDServerMgr.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33081,7 +33081,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDServerMgr.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33091,7 +33091,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMDServerMgr.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33101,7 +33101,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -33254,7 +33254,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMESinkEvent.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33264,7 +33264,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMESinkEvent.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33274,7 +33274,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMESinkEvent.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33285,7 +33285,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMESinkEvent.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33295,7 +33295,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMESinkEvent.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33305,7 +33305,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMESinkEvent.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33315,7 +33315,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMESinkEvent.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33326,7 +33326,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMESinkEvent.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33337,7 +33337,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMESinkEvent.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33348,7 +33348,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMESinkEvent.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33358,7 +33358,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMESinkEvent.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33368,7 +33368,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMESinkEvent.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33378,7 +33378,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMESinkEvent.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33389,7 +33389,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMESinkEvent.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33400,7 +33400,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMESinkEvent.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33411,7 +33411,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMESinkEvent.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33422,7 +33422,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMESinkEvent.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33433,7 +33433,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMESinkEvent.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33444,7 +33444,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMESinkEvent.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33455,7 +33455,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMESinkEvent.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33466,7 +33466,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMESinkEvent.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33477,7 +33477,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMESinkEvent.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33488,7 +33488,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMESinkEvent.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33499,7 +33499,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMESinkEvent.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33509,7 +33509,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMESinkEvent.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33519,7 +33519,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -33604,7 +33604,7 @@ begin
   Result :=
   somTD_SOMClass__get_somDataAlignment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somDataAlignment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -33621,7 +33621,7 @@ begin
   Result :=
   somTD_SOMClass__get_somInstanceDataOffsets
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somInstanceDataOffsets))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -33638,7 +33638,7 @@ begin
   Result :=
   somTD_SOMClass__get_somDirectInitClasses
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somDirectInitClasses))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -33654,7 +33654,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass__set_somDirectInitClasses
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somDirectInitClasses))
-     (somSelf, ev, somDirectInitClasses);
+     (somSelf, somDirectInitClasses);
 end;
 
 (*
@@ -33671,7 +33671,7 @@ begin
   Result :=
   somTD_SOMClass__get_somClassAllocate
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somClassAllocate))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -33688,7 +33688,7 @@ begin
   Result :=
   somTD_SOMClass__get_somClassDeallocate
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somClassDeallocate))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -33705,7 +33705,7 @@ begin
   Result :=
   somTD_SOMClass_somNew
    (SOM_Resolve(somSelf, cd.classObject, cd.somNew))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -33722,7 +33722,7 @@ begin
   Result :=
   somTD_SOMClass_somNewNoInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somNewNoInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -33739,7 +33739,7 @@ begin
   Result :=
   somTD_SOMClass_somRenew
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenew))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 (*
@@ -33756,7 +33756,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInit))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 (*
@@ -33773,7 +33773,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoZero
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoZero))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 (*
@@ -33790,7 +33790,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoInitNoZero
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInitNoZero))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 (*
@@ -33807,7 +33807,7 @@ begin
   Result :=
   somTD_SOMClass_somAllocate
    (SOM_Resolve(somSelf, cd.classObject, cd.somAllocate))
-     (somSelf, ev, size);
+     (somSelf, size);
 end;
 
 (*
@@ -33823,7 +33823,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somDeallocate
    (SOM_Resolve(somSelf, cd.classObject, cd.somDeallocate))
-     (somSelf, ev, memptr);
+     (somSelf, memptr);
 end;
 
 (*
@@ -33840,7 +33840,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceInitMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceInitMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 (*
@@ -33857,7 +33857,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceDestructionMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceDestructionMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 (*
@@ -33874,7 +33874,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceAssignmentMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceAssignmentMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 (*
@@ -33890,7 +33890,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somInitClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somInitClass))
-     (somSelf, ev, className, parentClass, dataSize, maxStaticMethods, majorVersion, minorVersion);
+     (somSelf, className, parentClass, dataSize, maxStaticMethods, majorVersion, minorVersion);
 end;
 
 (*
@@ -33906,7 +33906,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somInitMIClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somInitMIClass))
-     (somSelf, ev, inherit_vars, className, parentClasses, dataSize, dataAlignment, maxStaticMethods, majorVersion, minorVersion);
+     (somSelf, inherit_vars, className, parentClasses, dataSize, dataAlignment, maxStaticMethods, majorVersion, minorVersion);
 end;
 
 (*
@@ -33923,7 +33923,7 @@ begin
   Result :=
   somTD_SOMClass_somAddStaticMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somAddStaticMethod))
-     (somSelf, ev, methodId, methodDescriptor, method, redispatchStub, applyStub);
+     (somSelf, methodId, methodDescriptor, method, redispatchStub, applyStub);
 end;
 
 (*
@@ -33939,7 +33939,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somAddDynamicMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somAddDynamicMethod))
-     (somSelf, ev, methodId, methodDescriptor, method, applyStub);
+     (somSelf, methodId, methodDescriptor, method, applyStub);
 end;
 
 (*
@@ -33955,7 +33955,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somOverrideSMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideSMethod))
-     (somSelf, ev, methodId, method);
+     (somSelf, methodId, method);
 end;
 
 (*
@@ -33971,7 +33971,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somClassReady
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassReady))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -33988,7 +33988,7 @@ begin
   Result :=
   somTD_SOMClass_somGetClassData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassData))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34004,7 +34004,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somSetClassData
    (SOM_Resolve(somSelf, cd.classObject, cd.somSetClassData))
-     (somSelf, ev, cds);
+     (somSelf, cds);
 end;
 
 (*
@@ -34021,7 +34021,7 @@ begin
   Result :=
   somTD_SOMClass_somGetClassMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34038,7 +34038,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceOffset
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceOffset))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34055,7 +34055,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstancePartSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstancePartSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34072,7 +34072,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34089,7 +34089,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceToken))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34106,7 +34106,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMemberToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMemberToken))
-     (somSelf, ev, memberOffset, instanceToken);
+     (somSelf, memberOffset, instanceToken);
 end;
 
 (*
@@ -34123,7 +34123,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodData))
-     (somSelf, ev, methodId, md);
+     (somSelf, methodId, md);
 end;
 
 (*
@@ -34140,7 +34140,7 @@ begin
   Result :=
   somTD_SOMClass_somGetRdStub
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetRdStub))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 (*
@@ -34157,7 +34157,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodDescriptor
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodDescriptor))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 (*
@@ -34174,7 +34174,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodIndex
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodIndex))
-     (somSelf, ev, id);
+     (somSelf, id);
 end;
 
 (*
@@ -34191,7 +34191,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodToken))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 (*
@@ -34208,7 +34208,7 @@ begin
   Result :=
   somTD_SOMClass_somGetName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34225,7 +34225,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNthMethodData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodData))
-     (somSelf, ev, n, md);
+     (somSelf, n, md);
 end;
 
 (*
@@ -34242,7 +34242,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNthMethodInfo
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodInfo))
-     (somSelf, ev, n, descriptor);
+     (somSelf, n, descriptor);
 end;
 
 (*
@@ -34259,7 +34259,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNumMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumMethods))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34276,7 +34276,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNumStaticMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumStaticMethods))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34293,7 +34293,7 @@ begin
   Result :=
   somTD_SOMClass_somGetParent
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetParent))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34310,7 +34310,7 @@ begin
   Result :=
   somTD_SOMClass_somGetParents
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetParents))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34327,7 +34327,7 @@ begin
   Result :=
   somTD_SOMClass_somGetPClsMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetPClsMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34344,7 +34344,7 @@ begin
   Result :=
   somTD_SOMClass_somGetPClsMtabs
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetPClsMtabs))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34360,7 +34360,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somGetVersionNumbers
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetVersionNumbers))
-     (somSelf, ev, majorVersion, minorVersion);
+     (somSelf, majorVersion, minorVersion);
 end;
 
 (*
@@ -34377,7 +34377,7 @@ begin
   Result :=
   somTD_SOMClass_somSetMethodDescriptor
    (SOM_Resolve(somSelf, cd.classObject, cd.somSetMethodDescriptor))
-     (somSelf, ev, methodId, descriptor);
+     (somSelf, methodId, descriptor);
 end;
 
 (*
@@ -34394,7 +34394,7 @@ begin
   Result :=
   somTD_SOMClass_somFindMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethod))
-     (somSelf, ev, methodId, m);
+     (somSelf, methodId, m);
 end;
 
 (*
@@ -34411,7 +34411,7 @@ begin
   Result :=
   somTD_SOMClass_somFindMethodOk
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethodOk))
-     (somSelf, ev, methodId, m);
+     (somSelf, methodId, m);
 end;
 
 (*
@@ -34428,7 +34428,7 @@ begin
   Result :=
   somTD_SOMClass_somFindSMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethod))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 (*
@@ -34445,7 +34445,7 @@ begin
   Result :=
   somTD_SOMClass_somFindSMethodOk
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethodOk))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 (*
@@ -34462,7 +34462,7 @@ begin
   Result :=
   somTD_SOMClass_somLookupMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somLookupMethod))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 (*
@@ -34479,7 +34479,7 @@ begin
   Result :=
   somTD_SOMClass_somCheckVersion
    (SOM_Resolve(somSelf, cd.classObject, cd.somCheckVersion))
-     (somSelf, ev, majorVersion, minorVersion);
+     (somSelf, majorVersion, minorVersion);
 end;
 
 (*
@@ -34496,7 +34496,7 @@ begin
   Result :=
   somTD_SOMClass_somDescendedFrom
    (SOM_Resolve(somSelf, cd.classObject, cd.somDescendedFrom))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 (*
@@ -34513,7 +34513,7 @@ begin
   Result :=
   somTD_SOMClass_somSupportsMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somSupportsMethod))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 (*
@@ -34530,7 +34530,7 @@ begin
   Result :=
   somTD_SOMClass_somDefinedMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefinedMethod))
-     (somSelf, ev, method);
+     (somSelf, method);
 end;
 
 (*
@@ -34546,7 +34546,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somOverrideMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMClass.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34556,7 +34556,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMClass.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34566,7 +34566,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMClass.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34576,7 +34576,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMClass.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34587,7 +34587,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMClass.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34597,7 +34597,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMClass.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34607,7 +34607,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMClass.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34617,7 +34617,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMClass.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34628,7 +34628,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMClass.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34639,7 +34639,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMClass.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34650,7 +34650,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMClass.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34660,7 +34660,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMClass.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34670,7 +34670,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMClass.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34680,7 +34680,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMClass.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34691,7 +34691,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMClass.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34702,7 +34702,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMClass.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34713,7 +34713,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMClass.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34724,7 +34724,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMClass.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34735,7 +34735,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMClass.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34746,7 +34746,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMClass.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34757,7 +34757,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMClass.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34768,7 +34768,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMClass.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34779,7 +34779,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMClass.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34790,7 +34790,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMClass.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34801,7 +34801,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMClass.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34811,7 +34811,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMClass.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34821,7 +34821,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -34900,7 +34900,7 @@ begin
   Result :=
   somTD_SOMClass__get_somDataAlignment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somDataAlignment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance._get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34911,7 +34911,7 @@ begin
   Result :=
   somTD_SOMClass__get_somInstanceDataOffsets
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somInstanceDataOffsets))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance._get_somDirectInitClasses: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34922,7 +34922,7 @@ begin
   Result :=
   somTD_SOMClass__get_somDirectInitClasses
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somDirectInitClasses))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMSingleInstance._set_somDirectInitClasses(const somDirectInitClasses: _IDL_Sequence_SOMClass); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34932,7 +34932,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass__set_somDirectInitClasses
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somDirectInitClasses))
-     (somSelf, ev, somDirectInitClasses);
+     (somSelf, somDirectInitClasses);
 end;
 
 function SOMMSingleInstance._get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34943,7 +34943,7 @@ begin
   Result :=
   somTD_SOMClass__get_somClassAllocate
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somClassAllocate))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance._get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -34954,7 +34954,7 @@ begin
   Result :=
   somTD_SOMClass__get_somClassDeallocate
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somClassDeallocate))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -34998,7 +34998,7 @@ begin
   Result :=
   somTD_SOMClass_somNew
    (SOM_Resolve(somSelf, cd.classObject, cd.somNew))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somNewNoInit: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35009,7 +35009,7 @@ begin
   Result :=
   somTD_SOMClass_somNewNoInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somNewNoInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somRenew(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35020,7 +35020,7 @@ begin
   Result :=
   somTD_SOMClass_somRenew
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenew))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMSingleInstance.somRenewNoInit(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35031,7 +35031,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInit))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMSingleInstance.somRenewNoZero(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35042,7 +35042,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoZero
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoZero))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMSingleInstance.somRenewNoInitNoZero(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35053,7 +35053,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoInitNoZero
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInitNoZero))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMSingleInstance.somAllocate(size: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35064,7 +35064,7 @@ begin
   Result :=
   somTD_SOMClass_somAllocate
    (SOM_Resolve(somSelf, cd.classObject, cd.somAllocate))
-     (somSelf, ev, size);
+     (somSelf, size);
 end;
 
 procedure SOMMSingleInstance.somDeallocate(memptr: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35074,7 +35074,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somDeallocate
    (SOM_Resolve(somSelf, cd.classObject, cd.somDeallocate))
-     (somSelf, ev, memptr);
+     (somSelf, memptr);
 end;
 
 function SOMMSingleInstance.somGetInstanceInitMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35085,7 +35085,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceInitMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceInitMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 function SOMMSingleInstance.somGetInstanceDestructionMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35096,7 +35096,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceDestructionMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceDestructionMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 function SOMMSingleInstance.somGetInstanceAssignmentMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35107,7 +35107,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceAssignmentMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceAssignmentMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMMSingleInstance.somInitClass(className: CORBAString; parentClass: SOMClass; dataSize: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35117,7 +35117,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somInitClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somInitClass))
-     (somSelf, ev, className, parentClass, dataSize, maxStaticMethods, majorVersion, minorVersion);
+     (somSelf, className, parentClass, dataSize, maxStaticMethods, majorVersion, minorVersion);
 end;
 
 procedure SOMMSingleInstance.somInitMIClass(inherit_vars: LongInt; className: CORBAString; const parentClasses: _IDL_Sequence_SOMClass; dataSize: LongInt; dataAlignment: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35127,7 +35127,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somInitMIClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somInitMIClass))
-     (somSelf, ev, inherit_vars, className, parentClasses, dataSize, dataAlignment, maxStaticMethods, majorVersion, minorVersion);
+     (somSelf, inherit_vars, className, parentClasses, dataSize, dataAlignment, maxStaticMethods, majorVersion, minorVersion);
 end;
 
 function SOMMSingleInstance.somAddStaticMethod(methodId: somId; methodDescriptor: somId; method: Pointer; redispatchStub: Pointer; applyStub: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35138,7 +35138,7 @@ begin
   Result :=
   somTD_SOMClass_somAddStaticMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somAddStaticMethod))
-     (somSelf, ev, methodId, methodDescriptor, method, redispatchStub, applyStub);
+     (somSelf, methodId, methodDescriptor, method, redispatchStub, applyStub);
 end;
 
 procedure SOMMSingleInstance.somAddDynamicMethod(methodId: somId; methodDescriptor: somId; method: Pointer; applyStub: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35148,7 +35148,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somAddDynamicMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somAddDynamicMethod))
-     (somSelf, ev, methodId, methodDescriptor, method, applyStub);
+     (somSelf, methodId, methodDescriptor, method, applyStub);
 end;
 
 procedure SOMMSingleInstance.somOverrideSMethod(methodId: somId; method: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35158,7 +35158,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somOverrideSMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideSMethod))
-     (somSelf, ev, methodId, method);
+     (somSelf, methodId, method);
 end;
 
 procedure SOMMSingleInstance.somClassReady; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35168,7 +35168,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somClassReady
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassReady))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetClassData: PsomClassDataStructure; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35179,7 +35179,7 @@ begin
   Result :=
   somTD_SOMClass_somGetClassData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassData))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMSingleInstance.somSetClassData(const cds: somClassDataStructure); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35189,7 +35189,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somSetClassData
    (SOM_Resolve(somSelf, cd.classObject, cd.somSetClassData))
-     (somSelf, ev, cds);
+     (somSelf, cds);
 end;
 
 function SOMMSingleInstance.somGetClassMtab: PsomMethodTab; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35200,7 +35200,7 @@ begin
   Result :=
   somTD_SOMClass_somGetClassMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetInstanceOffset: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35211,7 +35211,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceOffset
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceOffset))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetInstancePartSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35222,7 +35222,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstancePartSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstancePartSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetInstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35233,7 +35233,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetInstanceToken: Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35244,7 +35244,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceToken))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetMemberToken(memberOffset: LongInt; instanceToken: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35255,7 +35255,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMemberToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMemberToken))
-     (somSelf, ev, memberOffset, instanceToken);
+     (somSelf, memberOffset, instanceToken);
 end;
 
 function SOMMSingleInstance.somGetMethodData(methodId: somId; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35266,7 +35266,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodData))
-     (somSelf, ev, methodId, md);
+     (somSelf, methodId, md);
 end;
 
 function SOMMSingleInstance.somGetRdStub(methodId: somId): PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35277,7 +35277,7 @@ begin
   Result :=
   somTD_SOMClass_somGetRdStub
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetRdStub))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMSingleInstance.somGetMethodDescriptor(methodId: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35288,7 +35288,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodDescriptor
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodDescriptor))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMSingleInstance.somGetMethodIndex(id: somId): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35299,7 +35299,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodIndex
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodIndex))
-     (somSelf, ev, id);
+     (somSelf, id);
 end;
 
 function SOMMSingleInstance.somGetMethodToken(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35310,7 +35310,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodToken))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMSingleInstance.somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35321,7 +35321,7 @@ begin
   Result :=
   somTD_SOMClass_somGetName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetNthMethodData(n: LongInt; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35332,7 +35332,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNthMethodData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodData))
-     (somSelf, ev, n, md);
+     (somSelf, n, md);
 end;
 
 function SOMMSingleInstance.somGetNthMethodInfo(n: LongInt; out descriptor: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35343,7 +35343,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNthMethodInfo
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodInfo))
-     (somSelf, ev, n, descriptor);
+     (somSelf, n, descriptor);
 end;
 
 function SOMMSingleInstance.somGetNumMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35354,7 +35354,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNumMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumMethods))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetNumStaticMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35365,7 +35365,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNumStaticMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumStaticMethods))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetParent: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35376,7 +35376,7 @@ begin
   Result :=
   somTD_SOMClass_somGetParent
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetParent))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35387,7 +35387,7 @@ begin
   Result :=
   somTD_SOMClass_somGetParents
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetParents))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetPClsMtab: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35398,7 +35398,7 @@ begin
   Result :=
   somTD_SOMClass_somGetPClsMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetPClsMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetPClsMtabs: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35409,7 +35409,7 @@ begin
   Result :=
   somTD_SOMClass_somGetPClsMtabs
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetPClsMtabs))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMSingleInstance.somGetVersionNumbers(out majorVersion: LongInt; out minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35419,7 +35419,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somGetVersionNumbers
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetVersionNumbers))
-     (somSelf, ev, majorVersion, minorVersion);
+     (somSelf, majorVersion, minorVersion);
 end;
 
 function SOMMSingleInstance.somSetMethodDescriptor(methodId: somId; descriptor: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35430,7 +35430,7 @@ begin
   Result :=
   somTD_SOMClass_somSetMethodDescriptor
    (SOM_Resolve(somSelf, cd.classObject, cd.somSetMethodDescriptor))
-     (somSelf, ev, methodId, descriptor);
+     (somSelf, methodId, descriptor);
 end;
 
 function SOMMSingleInstance.somFindMethod(methodId: somId; out m: Pointer): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35441,7 +35441,7 @@ begin
   Result :=
   somTD_SOMClass_somFindMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethod))
-     (somSelf, ev, methodId, m);
+     (somSelf, methodId, m);
 end;
 
 function SOMMSingleInstance.somFindMethodOk(methodId: somId; out m: Pointer): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35452,7 +35452,7 @@ begin
   Result :=
   somTD_SOMClass_somFindMethodOk
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethodOk))
-     (somSelf, ev, methodId, m);
+     (somSelf, methodId, m);
 end;
 
 function SOMMSingleInstance.somFindSMethod(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35463,7 +35463,7 @@ begin
   Result :=
   somTD_SOMClass_somFindSMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethod))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMSingleInstance.somFindSMethodOk(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35474,7 +35474,7 @@ begin
   Result :=
   somTD_SOMClass_somFindSMethodOk
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethodOk))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMSingleInstance.somLookupMethod(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35485,7 +35485,7 @@ begin
   Result :=
   somTD_SOMClass_somLookupMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somLookupMethod))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMSingleInstance.somCheckVersion(majorVersion: LongInt; minorVersion: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35496,7 +35496,7 @@ begin
   Result :=
   somTD_SOMClass_somCheckVersion
    (SOM_Resolve(somSelf, cd.classObject, cd.somCheckVersion))
-     (somSelf, ev, majorVersion, minorVersion);
+     (somSelf, majorVersion, minorVersion);
 end;
 
 function SOMMSingleInstance.somDescendedFrom(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35507,7 +35507,7 @@ begin
   Result :=
   somTD_SOMClass_somDescendedFrom
    (SOM_Resolve(somSelf, cd.classObject, cd.somDescendedFrom))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMMSingleInstance.somSupportsMethod(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35518,7 +35518,7 @@ begin
   Result :=
   somTD_SOMClass_somSupportsMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somSupportsMethod))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMMSingleInstance.somDefinedMethod(method: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35529,7 +35529,7 @@ begin
   Result :=
   somTD_SOMClass_somDefinedMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefinedMethod))
-     (somSelf, ev, method);
+     (somSelf, method);
 end;
 
 procedure SOMMSingleInstance.somOverrideMtab; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35539,7 +35539,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somOverrideMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMSingleInstance.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35549,7 +35549,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMMSingleInstance.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35559,7 +35559,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMMSingleInstance.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35569,7 +35569,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMSingleInstance.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35580,7 +35580,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMSingleInstance.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35590,7 +35590,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMSingleInstance.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35600,7 +35600,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMSingleInstance.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35610,7 +35610,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMSingleInstance.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35621,7 +35621,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMSingleInstance.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35632,7 +35632,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMSingleInstance.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35643,7 +35643,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMSingleInstance.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35653,7 +35653,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMSingleInstance.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35663,7 +35663,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMSingleInstance.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35673,7 +35673,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35684,7 +35684,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35695,7 +35695,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35706,7 +35706,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35717,7 +35717,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMMSingleInstance.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35728,7 +35728,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMMSingleInstance.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35739,7 +35739,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMMSingleInstance.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35750,7 +35750,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMMSingleInstance.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35761,7 +35761,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMMSingleInstance.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35772,7 +35772,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMMSingleInstance.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35783,7 +35783,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMSingleInstance.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35794,7 +35794,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMSingleInstance.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35804,7 +35804,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMMSingleInstance.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35814,7 +35814,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -35893,7 +35893,7 @@ begin
   Result :=
   somTD_SOMClass__get_somDataAlignment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somDataAlignment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter._get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35904,7 +35904,7 @@ begin
   Result :=
   somTD_SOMClass__get_somInstanceDataOffsets
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somInstanceDataOffsets))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter._get_somDirectInitClasses: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35915,7 +35915,7 @@ begin
   Result :=
   somTD_SOMClass__get_somDirectInitClasses
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somDirectInitClasses))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMBeforeAfter._set_somDirectInitClasses(const somDirectInitClasses: _IDL_Sequence_SOMClass); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35925,7 +35925,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass__set_somDirectInitClasses
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somDirectInitClasses))
-     (somSelf, ev, somDirectInitClasses);
+     (somSelf, somDirectInitClasses);
 end;
 
 function SOMMBeforeAfter._get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35936,7 +35936,7 @@ begin
   Result :=
   somTD_SOMClass__get_somClassAllocate
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somClassAllocate))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter._get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35947,7 +35947,7 @@ begin
   Result :=
   somTD_SOMClass__get_somClassDeallocate
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somClassDeallocate))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -35991,7 +35991,7 @@ begin
   Result :=
   somTD_SOMClass_somNew
    (SOM_Resolve(somSelf, cd.classObject, cd.somNew))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somNewNoInit: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36002,7 +36002,7 @@ begin
   Result :=
   somTD_SOMClass_somNewNoInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somNewNoInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somRenew(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36013,7 +36013,7 @@ begin
   Result :=
   somTD_SOMClass_somRenew
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenew))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMBeforeAfter.somRenewNoInit(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36024,7 +36024,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInit))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMBeforeAfter.somRenewNoZero(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36035,7 +36035,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoZero
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoZero))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMBeforeAfter.somRenewNoInitNoZero(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36046,7 +36046,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoInitNoZero
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInitNoZero))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMBeforeAfter.somAllocate(size: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36057,7 +36057,7 @@ begin
   Result :=
   somTD_SOMClass_somAllocate
    (SOM_Resolve(somSelf, cd.classObject, cd.somAllocate))
-     (somSelf, ev, size);
+     (somSelf, size);
 end;
 
 procedure SOMMBeforeAfter.somDeallocate(memptr: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36067,7 +36067,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somDeallocate
    (SOM_Resolve(somSelf, cd.classObject, cd.somDeallocate))
-     (somSelf, ev, memptr);
+     (somSelf, memptr);
 end;
 
 function SOMMBeforeAfter.somGetInstanceInitMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36078,7 +36078,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceInitMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceInitMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 function SOMMBeforeAfter.somGetInstanceDestructionMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36089,7 +36089,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceDestructionMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceDestructionMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 function SOMMBeforeAfter.somGetInstanceAssignmentMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36100,7 +36100,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceAssignmentMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceAssignmentMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMMBeforeAfter.somInitClass(className: CORBAString; parentClass: SOMClass; dataSize: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36110,7 +36110,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somInitClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somInitClass))
-     (somSelf, ev, className, parentClass, dataSize, maxStaticMethods, majorVersion, minorVersion);
+     (somSelf, className, parentClass, dataSize, maxStaticMethods, majorVersion, minorVersion);
 end;
 
 procedure SOMMBeforeAfter.somInitMIClass(inherit_vars: LongInt; className: CORBAString; const parentClasses: _IDL_Sequence_SOMClass; dataSize: LongInt; dataAlignment: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36120,7 +36120,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somInitMIClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somInitMIClass))
-     (somSelf, ev, inherit_vars, className, parentClasses, dataSize, dataAlignment, maxStaticMethods, majorVersion, minorVersion);
+     (somSelf, inherit_vars, className, parentClasses, dataSize, dataAlignment, maxStaticMethods, majorVersion, minorVersion);
 end;
 
 function SOMMBeforeAfter.somAddStaticMethod(methodId: somId; methodDescriptor: somId; method: Pointer; redispatchStub: Pointer; applyStub: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36131,7 +36131,7 @@ begin
   Result :=
   somTD_SOMClass_somAddStaticMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somAddStaticMethod))
-     (somSelf, ev, methodId, methodDescriptor, method, redispatchStub, applyStub);
+     (somSelf, methodId, methodDescriptor, method, redispatchStub, applyStub);
 end;
 
 procedure SOMMBeforeAfter.somAddDynamicMethod(methodId: somId; methodDescriptor: somId; method: Pointer; applyStub: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36141,7 +36141,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somAddDynamicMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somAddDynamicMethod))
-     (somSelf, ev, methodId, methodDescriptor, method, applyStub);
+     (somSelf, methodId, methodDescriptor, method, applyStub);
 end;
 
 procedure SOMMBeforeAfter.somOverrideSMethod(methodId: somId; method: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36151,7 +36151,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somOverrideSMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideSMethod))
-     (somSelf, ev, methodId, method);
+     (somSelf, methodId, method);
 end;
 
 procedure SOMMBeforeAfter.somClassReady; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36161,7 +36161,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somClassReady
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassReady))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetClassData: PsomClassDataStructure; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36172,7 +36172,7 @@ begin
   Result :=
   somTD_SOMClass_somGetClassData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassData))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMBeforeAfter.somSetClassData(const cds: somClassDataStructure); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36182,7 +36182,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somSetClassData
    (SOM_Resolve(somSelf, cd.classObject, cd.somSetClassData))
-     (somSelf, ev, cds);
+     (somSelf, cds);
 end;
 
 function SOMMBeforeAfter.somGetClassMtab: PsomMethodTab; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36193,7 +36193,7 @@ begin
   Result :=
   somTD_SOMClass_somGetClassMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetInstanceOffset: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36204,7 +36204,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceOffset
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceOffset))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetInstancePartSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36215,7 +36215,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstancePartSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstancePartSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetInstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36226,7 +36226,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetInstanceToken: Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36237,7 +36237,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceToken))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetMemberToken(memberOffset: LongInt; instanceToken: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36248,7 +36248,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMemberToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMemberToken))
-     (somSelf, ev, memberOffset, instanceToken);
+     (somSelf, memberOffset, instanceToken);
 end;
 
 function SOMMBeforeAfter.somGetMethodData(methodId: somId; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36259,7 +36259,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodData))
-     (somSelf, ev, methodId, md);
+     (somSelf, methodId, md);
 end;
 
 function SOMMBeforeAfter.somGetRdStub(methodId: somId): PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36270,7 +36270,7 @@ begin
   Result :=
   somTD_SOMClass_somGetRdStub
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetRdStub))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMBeforeAfter.somGetMethodDescriptor(methodId: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36281,7 +36281,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodDescriptor
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodDescriptor))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMBeforeAfter.somGetMethodIndex(id: somId): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36292,7 +36292,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodIndex
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodIndex))
-     (somSelf, ev, id);
+     (somSelf, id);
 end;
 
 function SOMMBeforeAfter.somGetMethodToken(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36303,7 +36303,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodToken))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMBeforeAfter.somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36314,7 +36314,7 @@ begin
   Result :=
   somTD_SOMClass_somGetName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetNthMethodData(n: LongInt; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36325,7 +36325,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNthMethodData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodData))
-     (somSelf, ev, n, md);
+     (somSelf, n, md);
 end;
 
 function SOMMBeforeAfter.somGetNthMethodInfo(n: LongInt; out descriptor: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36336,7 +36336,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNthMethodInfo
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodInfo))
-     (somSelf, ev, n, descriptor);
+     (somSelf, n, descriptor);
 end;
 
 function SOMMBeforeAfter.somGetNumMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36347,7 +36347,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNumMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumMethods))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetNumStaticMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36358,7 +36358,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNumStaticMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumStaticMethods))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetParent: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36369,7 +36369,7 @@ begin
   Result :=
   somTD_SOMClass_somGetParent
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetParent))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36380,7 +36380,7 @@ begin
   Result :=
   somTD_SOMClass_somGetParents
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetParents))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetPClsMtab: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36391,7 +36391,7 @@ begin
   Result :=
   somTD_SOMClass_somGetPClsMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetPClsMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetPClsMtabs: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36402,7 +36402,7 @@ begin
   Result :=
   somTD_SOMClass_somGetPClsMtabs
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetPClsMtabs))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMBeforeAfter.somGetVersionNumbers(out majorVersion: LongInt; out minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36412,7 +36412,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somGetVersionNumbers
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetVersionNumbers))
-     (somSelf, ev, majorVersion, minorVersion);
+     (somSelf, majorVersion, minorVersion);
 end;
 
 function SOMMBeforeAfter.somSetMethodDescriptor(methodId: somId; descriptor: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36423,7 +36423,7 @@ begin
   Result :=
   somTD_SOMClass_somSetMethodDescriptor
    (SOM_Resolve(somSelf, cd.classObject, cd.somSetMethodDescriptor))
-     (somSelf, ev, methodId, descriptor);
+     (somSelf, methodId, descriptor);
 end;
 
 function SOMMBeforeAfter.somFindMethod(methodId: somId; out m: Pointer): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36434,7 +36434,7 @@ begin
   Result :=
   somTD_SOMClass_somFindMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethod))
-     (somSelf, ev, methodId, m);
+     (somSelf, methodId, m);
 end;
 
 function SOMMBeforeAfter.somFindMethodOk(methodId: somId; out m: Pointer): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36445,7 +36445,7 @@ begin
   Result :=
   somTD_SOMClass_somFindMethodOk
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethodOk))
-     (somSelf, ev, methodId, m);
+     (somSelf, methodId, m);
 end;
 
 function SOMMBeforeAfter.somFindSMethod(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36456,7 +36456,7 @@ begin
   Result :=
   somTD_SOMClass_somFindSMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethod))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMBeforeAfter.somFindSMethodOk(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36467,7 +36467,7 @@ begin
   Result :=
   somTD_SOMClass_somFindSMethodOk
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethodOk))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMBeforeAfter.somLookupMethod(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36478,7 +36478,7 @@ begin
   Result :=
   somTD_SOMClass_somLookupMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somLookupMethod))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMBeforeAfter.somCheckVersion(majorVersion: LongInt; minorVersion: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36489,7 +36489,7 @@ begin
   Result :=
   somTD_SOMClass_somCheckVersion
    (SOM_Resolve(somSelf, cd.classObject, cd.somCheckVersion))
-     (somSelf, ev, majorVersion, minorVersion);
+     (somSelf, majorVersion, minorVersion);
 end;
 
 function SOMMBeforeAfter.somDescendedFrom(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36500,7 +36500,7 @@ begin
   Result :=
   somTD_SOMClass_somDescendedFrom
    (SOM_Resolve(somSelf, cd.classObject, cd.somDescendedFrom))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMMBeforeAfter.somSupportsMethod(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36511,7 +36511,7 @@ begin
   Result :=
   somTD_SOMClass_somSupportsMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somSupportsMethod))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMMBeforeAfter.somDefinedMethod(method: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36522,7 +36522,7 @@ begin
   Result :=
   somTD_SOMClass_somDefinedMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefinedMethod))
-     (somSelf, ev, method);
+     (somSelf, method);
 end;
 
 procedure SOMMBeforeAfter.somOverrideMtab; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36532,7 +36532,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somOverrideMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMBeforeAfter.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36542,7 +36542,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMMBeforeAfter.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36552,7 +36552,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMMBeforeAfter.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36562,7 +36562,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMBeforeAfter.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36573,7 +36573,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMBeforeAfter.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36583,7 +36583,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMBeforeAfter.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36593,7 +36593,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMBeforeAfter.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36603,7 +36603,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMBeforeAfter.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36614,7 +36614,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMBeforeAfter.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36625,7 +36625,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMBeforeAfter.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36636,7 +36636,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMBeforeAfter.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36646,7 +36646,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMBeforeAfter.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36656,7 +36656,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMBeforeAfter.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36666,7 +36666,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36677,7 +36677,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36688,7 +36688,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36699,7 +36699,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36710,7 +36710,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMMBeforeAfter.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36721,7 +36721,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMMBeforeAfter.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36732,7 +36732,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMMBeforeAfter.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36743,7 +36743,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMMBeforeAfter.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36754,7 +36754,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMMBeforeAfter.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36765,7 +36765,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMMBeforeAfter.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36776,7 +36776,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMBeforeAfter.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36787,7 +36787,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMBeforeAfter.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36797,7 +36797,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMMBeforeAfter.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -36807,7 +36807,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -36892,7 +36892,7 @@ begin
   Result :=
   somTD_SOMClassMgr__get_somInterfaceRepository
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somInterfaceRepository))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -36908,7 +36908,7 @@ begin
   cd := SOMClassMgrClassData;
   somTD_SOMClassMgr__set_somInterfaceRepository
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somInterfaceRepository))
-     (somSelf, ev, somInterfaceRepository);
+     (somSelf, somInterfaceRepository);
 end;
 
 (*
@@ -36925,7 +36925,7 @@ begin
   Result :=
   somTD_SOMClassMgr__get_somRegisteredClasses
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somRegisteredClasses))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -36942,7 +36942,7 @@ begin
   Result :=
   somTD_SOMClassMgr_somLoadClassFile
    (SOM_Resolve(somSelf, cd.classObject, cd.somLoadClassFile))
-     (somSelf, ev, classId, majorVersion, minorVersion, SOM_file);
+     (somSelf, classId, majorVersion, minorVersion, SOM_file);
 end;
 
 (*
@@ -36959,7 +36959,7 @@ begin
   Result :=
   somTD_SOMClassMgr_somLocateClassFile
    (SOM_Resolve(somSelf, cd.classObject, cd.somLocateClassFile))
-     (somSelf, ev, classId, majorVersion, minorVersion);
+     (somSelf, classId, majorVersion, minorVersion);
 end;
 
 (*
@@ -36975,7 +36975,7 @@ begin
   cd := SOMClassMgrClassData;
   somTD_SOMClassMgr_somRegisterClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somRegisterClass))
-     (somSelf, ev, classObj);
+     (somSelf, classObj);
 end;
 
 (*
@@ -36991,7 +36991,7 @@ begin
   cd := SOMClassMgrClassData;
   somTD_SOMClassMgr_somRegisterClassLibrary
    (SOM_Resolve(somSelf, cd.classObject, cd.somRegisterClassLibrary))
-     (somSelf, ev, libraryName, libraryInitRtn);
+     (somSelf, libraryName, libraryInitRtn);
 end;
 
 (*
@@ -37007,7 +37007,7 @@ begin
   cd := SOMClassMgrClassData;
   somTD_SOMClassMgr_somUnregisterClassLibrary
    (SOM_Resolve(somSelf, cd.classObject, cd.somUnregisterClassLibrary))
-     (somSelf, ev, libraryName);
+     (somSelf, libraryName);
 end;
 
 (*
@@ -37024,7 +37024,7 @@ begin
   Result :=
   somTD_SOMClassMgr_somUnloadClassFile
    (SOM_Resolve(somSelf, cd.classObject, cd.somUnloadClassFile))
-     (somSelf, ev, classObj);
+     (somSelf, classObj);
 end;
 
 (*
@@ -37041,7 +37041,7 @@ begin
   Result :=
   somTD_SOMClassMgr_somUnregisterClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somUnregisterClass))
-     (somSelf, ev, classObj);
+     (somSelf, classObj);
 end;
 
 (*
@@ -37057,7 +37057,7 @@ begin
   cd := SOMClassMgrClassData;
   somTD_SOMClassMgr_somBeginPersistentClasses
    (SOM_Resolve(somSelf, cd.classObject, cd.somBeginPersistentClasses))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -37073,7 +37073,7 @@ begin
   cd := SOMClassMgrClassData;
   somTD_SOMClassMgr_somEndPersistentClasses
    (SOM_Resolve(somSelf, cd.classObject, cd.somEndPersistentClasses))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -37090,7 +37090,7 @@ begin
   Result :=
   somTD_SOMClassMgr_somJoinAffinityGroup
    (SOM_Resolve(somSelf, cd.classObject, cd.somJoinAffinityGroup))
-     (somSelf, ev, newClass, affClass);
+     (somSelf, newClass, affClass);
 end;
 
 (*
@@ -37107,7 +37107,7 @@ begin
   Result :=
   somTD_SOMClassMgr_somGetInitFunction
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInitFunction))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -37124,7 +37124,7 @@ begin
   Result :=
   somTD_SOMClassMgr_somGetRelatedClasses
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetRelatedClasses))
-     (somSelf, ev, classObj);
+     (somSelf, classObj);
 end;
 
 (*
@@ -37141,7 +37141,7 @@ begin
   Result :=
   somTD_SOMClassMgr_somClassFromId
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassFromId))
-     (somSelf, ev, classId);
+     (somSelf, classId);
 end;
 
 (*
@@ -37158,7 +37158,7 @@ begin
   Result :=
   somTD_SOMClassMgr_somFindClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindClass))
-     (somSelf, ev, classId, majorVersion, minorVersion);
+     (somSelf, classId, majorVersion, minorVersion);
 end;
 
 (*
@@ -37175,7 +37175,7 @@ begin
   Result :=
   somTD_SOMClassMgr_somFindClsInFile
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindClsInFile))
-     (somSelf, ev, classId, majorVersion, minorVersion, SOM_file);
+     (somSelf, classId, majorVersion, minorVersion, SOM_file);
 end;
 
 (*
@@ -37191,7 +37191,7 @@ begin
   cd := SOMClassMgrClassData;
   somTD_SOMClassMgr_somMergeInto
    (SOM_Resolve(somSelf, cd.classObject, cd.somMergeInto))
-     (somSelf, ev, targetObj);
+     (somSelf, targetObj);
 end;
 
 (*
@@ -37208,7 +37208,7 @@ begin
   Result :=
   somTD_SOMClassMgr_somSubstituteClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somSubstituteClass))
-     (somSelf, ev, origClassName, newClassName);
+     (somSelf, origClassName, newClassName);
 end;
 
 procedure SOMClassMgr.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37218,7 +37218,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMClassMgr.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37228,7 +37228,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMClassMgr.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37238,7 +37238,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMClassMgr.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37249,7 +37249,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMClassMgr.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37259,7 +37259,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMClassMgr.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37269,7 +37269,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMClassMgr.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37279,7 +37279,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMClassMgr.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37290,7 +37290,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMClassMgr.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37301,7 +37301,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMClassMgr.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37312,7 +37312,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMClassMgr.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37322,7 +37322,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMClassMgr.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37332,7 +37332,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMClassMgr.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37342,7 +37342,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMClassMgr.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37353,7 +37353,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMClassMgr.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37364,7 +37364,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMClassMgr.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37375,7 +37375,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMClassMgr.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37386,7 +37386,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMClassMgr.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37397,7 +37397,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMClassMgr.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37408,7 +37408,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMClassMgr.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37419,7 +37419,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMClassMgr.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37430,7 +37430,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMClassMgr.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37441,7 +37441,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMClassMgr.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37452,7 +37452,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMClassMgr.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37463,7 +37463,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMClassMgr.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37473,7 +37473,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMClassMgr.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37483,7 +37483,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -37730,7 +37730,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMDObject.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37740,7 +37740,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMDObject.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37750,7 +37750,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDObject.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37761,7 +37761,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDObject.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37771,7 +37771,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDObject.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37781,7 +37781,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDObject.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37791,7 +37791,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDObject.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37802,7 +37802,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDObject.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37813,7 +37813,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDObject.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37824,7 +37824,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDObject.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37834,7 +37834,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDObject.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37844,7 +37844,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDObject.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37854,7 +37854,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDObject.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37865,7 +37865,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDObject.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37876,7 +37876,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDObject.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37887,7 +37887,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDObject.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37898,7 +37898,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDObject.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37909,7 +37909,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDObject.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37920,7 +37920,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMDObject.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37931,7 +37931,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMDObject.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37942,7 +37942,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMDObject.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37953,7 +37953,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMDObject.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37964,7 +37964,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDObject.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37975,7 +37975,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDObject.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37985,7 +37985,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMDObject.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37995,7 +37995,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -38298,7 +38298,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMDClientProxy.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38308,7 +38308,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMDClientProxy.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38318,7 +38318,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDClientProxy.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38329,7 +38329,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDClientProxy.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38339,7 +38339,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDClientProxy.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38349,7 +38349,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDClientProxy.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38359,7 +38359,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDClientProxy.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38370,7 +38370,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDClientProxy.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38381,7 +38381,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDClientProxy.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38392,7 +38392,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDClientProxy.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38402,7 +38402,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDClientProxy.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38412,7 +38412,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDClientProxy.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38422,7 +38422,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDClientProxy.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38433,7 +38433,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDClientProxy.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38444,7 +38444,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDClientProxy.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38455,7 +38455,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDClientProxy.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38466,7 +38466,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDClientProxy.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38477,7 +38477,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDClientProxy.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38488,7 +38488,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMDClientProxy.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38499,7 +38499,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMDClientProxy.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38510,7 +38510,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMDClientProxy.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38521,7 +38521,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMDClientProxy.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38532,7 +38532,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDClientProxy.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38543,7 +38543,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDClientProxy.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38553,7 +38553,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMDClientProxy.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38563,7 +38563,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -38642,7 +38642,7 @@ begin
   Result :=
   somTD_SOMClass__get_somDataAlignment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somDataAlignment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy._get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38653,7 +38653,7 @@ begin
   Result :=
   somTD_SOMClass__get_somInstanceDataOffsets
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somInstanceDataOffsets))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy._get_somDirectInitClasses: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38664,7 +38664,7 @@ begin
   Result :=
   somTD_SOMClass__get_somDirectInitClasses
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somDirectInitClasses))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDMetaproxy._set_somDirectInitClasses(const somDirectInitClasses: _IDL_Sequence_SOMClass); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38674,7 +38674,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass__set_somDirectInitClasses
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somDirectInitClasses))
-     (somSelf, ev, somDirectInitClasses);
+     (somSelf, somDirectInitClasses);
 end;
 
 function SOMDMetaproxy._get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38685,7 +38685,7 @@ begin
   Result :=
   somTD_SOMClass__get_somClassAllocate
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somClassAllocate))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy._get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38696,7 +38696,7 @@ begin
   Result :=
   somTD_SOMClass__get_somClassDeallocate
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somClassDeallocate))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38707,7 +38707,7 @@ begin
   Result :=
   somTD_SOMClass_somNew
    (SOM_Resolve(somSelf, cd.classObject, cd.somNew))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somNewNoInit: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38718,7 +38718,7 @@ begin
   Result :=
   somTD_SOMClass_somNewNoInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somNewNoInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somRenew(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38729,7 +38729,7 @@ begin
   Result :=
   somTD_SOMClass_somRenew
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenew))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMDMetaproxy.somRenewNoInit(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38740,7 +38740,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInit))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMDMetaproxy.somRenewNoZero(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38751,7 +38751,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoZero
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoZero))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMDMetaproxy.somRenewNoInitNoZero(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38762,7 +38762,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoInitNoZero
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInitNoZero))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMDMetaproxy.somAllocate(size: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38773,7 +38773,7 @@ begin
   Result :=
   somTD_SOMClass_somAllocate
    (SOM_Resolve(somSelf, cd.classObject, cd.somAllocate))
-     (somSelf, ev, size);
+     (somSelf, size);
 end;
 
 procedure SOMDMetaproxy.somDeallocate(memptr: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38783,7 +38783,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somDeallocate
    (SOM_Resolve(somSelf, cd.classObject, cd.somDeallocate))
-     (somSelf, ev, memptr);
+     (somSelf, memptr);
 end;
 
 function SOMDMetaproxy.somGetInstanceInitMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38794,7 +38794,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceInitMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceInitMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 function SOMDMetaproxy.somGetInstanceDestructionMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38805,7 +38805,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceDestructionMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceDestructionMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 function SOMDMetaproxy.somGetInstanceAssignmentMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38816,7 +38816,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceAssignmentMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceAssignmentMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMDMetaproxy.somInitClass(className: CORBAString; parentClass: SOMClass; dataSize: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38826,7 +38826,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somInitClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somInitClass))
-     (somSelf, ev, className, parentClass, dataSize, maxStaticMethods, majorVersion, minorVersion);
+     (somSelf, className, parentClass, dataSize, maxStaticMethods, majorVersion, minorVersion);
 end;
 
 procedure SOMDMetaproxy.somInitMIClass(inherit_vars: LongInt; className: CORBAString; const parentClasses: _IDL_Sequence_SOMClass; dataSize: LongInt; dataAlignment: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38836,7 +38836,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somInitMIClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somInitMIClass))
-     (somSelf, ev, inherit_vars, className, parentClasses, dataSize, dataAlignment, maxStaticMethods, majorVersion, minorVersion);
+     (somSelf, inherit_vars, className, parentClasses, dataSize, dataAlignment, maxStaticMethods, majorVersion, minorVersion);
 end;
 
 function SOMDMetaproxy.somAddStaticMethod(methodId: somId; methodDescriptor: somId; method: Pointer; redispatchStub: Pointer; applyStub: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38847,7 +38847,7 @@ begin
   Result :=
   somTD_SOMClass_somAddStaticMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somAddStaticMethod))
-     (somSelf, ev, methodId, methodDescriptor, method, redispatchStub, applyStub);
+     (somSelf, methodId, methodDescriptor, method, redispatchStub, applyStub);
 end;
 
 procedure SOMDMetaproxy.somAddDynamicMethod(methodId: somId; methodDescriptor: somId; method: Pointer; applyStub: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38857,7 +38857,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somAddDynamicMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somAddDynamicMethod))
-     (somSelf, ev, methodId, methodDescriptor, method, applyStub);
+     (somSelf, methodId, methodDescriptor, method, applyStub);
 end;
 
 procedure SOMDMetaproxy.somOverrideSMethod(methodId: somId; method: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38867,7 +38867,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somOverrideSMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideSMethod))
-     (somSelf, ev, methodId, method);
+     (somSelf, methodId, method);
 end;
 
 procedure SOMDMetaproxy.somClassReady; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38877,7 +38877,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somClassReady
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassReady))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetClassData: PsomClassDataStructure; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38888,7 +38888,7 @@ begin
   Result :=
   somTD_SOMClass_somGetClassData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassData))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDMetaproxy.somSetClassData(const cds: somClassDataStructure); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38898,7 +38898,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somSetClassData
    (SOM_Resolve(somSelf, cd.classObject, cd.somSetClassData))
-     (somSelf, ev, cds);
+     (somSelf, cds);
 end;
 
 function SOMDMetaproxy.somGetClassMtab: PsomMethodTab; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38909,7 +38909,7 @@ begin
   Result :=
   somTD_SOMClass_somGetClassMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetInstanceOffset: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38920,7 +38920,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceOffset
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceOffset))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetInstancePartSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38931,7 +38931,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstancePartSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstancePartSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetInstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38942,7 +38942,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetInstanceToken: Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38953,7 +38953,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceToken))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetMemberToken(memberOffset: LongInt; instanceToken: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38964,7 +38964,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMemberToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMemberToken))
-     (somSelf, ev, memberOffset, instanceToken);
+     (somSelf, memberOffset, instanceToken);
 end;
 
 function SOMDMetaproxy.somGetMethodData(methodId: somId; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38975,7 +38975,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodData))
-     (somSelf, ev, methodId, md);
+     (somSelf, methodId, md);
 end;
 
 function SOMDMetaproxy.somGetRdStub(methodId: somId): PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38986,7 +38986,7 @@ begin
   Result :=
   somTD_SOMClass_somGetRdStub
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetRdStub))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMDMetaproxy.somGetMethodDescriptor(methodId: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38997,7 +38997,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodDescriptor
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodDescriptor))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMDMetaproxy.somGetMethodIndex(id: somId): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39008,7 +39008,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodIndex
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodIndex))
-     (somSelf, ev, id);
+     (somSelf, id);
 end;
 
 function SOMDMetaproxy.somGetMethodToken(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39019,7 +39019,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodToken))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMDMetaproxy.somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39030,7 +39030,7 @@ begin
   Result :=
   somTD_SOMClass_somGetName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetNthMethodData(n: LongInt; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39041,7 +39041,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNthMethodData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodData))
-     (somSelf, ev, n, md);
+     (somSelf, n, md);
 end;
 
 function SOMDMetaproxy.somGetNthMethodInfo(n: LongInt; out descriptor: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39052,7 +39052,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNthMethodInfo
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodInfo))
-     (somSelf, ev, n, descriptor);
+     (somSelf, n, descriptor);
 end;
 
 function SOMDMetaproxy.somGetNumMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39063,7 +39063,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNumMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumMethods))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetNumStaticMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39074,7 +39074,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNumStaticMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumStaticMethods))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetParent: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39085,7 +39085,7 @@ begin
   Result :=
   somTD_SOMClass_somGetParent
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetParent))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39096,7 +39096,7 @@ begin
   Result :=
   somTD_SOMClass_somGetParents
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetParents))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetPClsMtab: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39107,7 +39107,7 @@ begin
   Result :=
   somTD_SOMClass_somGetPClsMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetPClsMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetPClsMtabs: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39118,7 +39118,7 @@ begin
   Result :=
   somTD_SOMClass_somGetPClsMtabs
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetPClsMtabs))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDMetaproxy.somGetVersionNumbers(out majorVersion: LongInt; out minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39128,7 +39128,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somGetVersionNumbers
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetVersionNumbers))
-     (somSelf, ev, majorVersion, minorVersion);
+     (somSelf, majorVersion, minorVersion);
 end;
 
 function SOMDMetaproxy.somSetMethodDescriptor(methodId: somId; descriptor: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39139,7 +39139,7 @@ begin
   Result :=
   somTD_SOMClass_somSetMethodDescriptor
    (SOM_Resolve(somSelf, cd.classObject, cd.somSetMethodDescriptor))
-     (somSelf, ev, methodId, descriptor);
+     (somSelf, methodId, descriptor);
 end;
 
 function SOMDMetaproxy.somFindMethod(methodId: somId; out m: Pointer): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39150,7 +39150,7 @@ begin
   Result :=
   somTD_SOMClass_somFindMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethod))
-     (somSelf, ev, methodId, m);
+     (somSelf, methodId, m);
 end;
 
 function SOMDMetaproxy.somFindMethodOk(methodId: somId; out m: Pointer): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39161,7 +39161,7 @@ begin
   Result :=
   somTD_SOMClass_somFindMethodOk
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethodOk))
-     (somSelf, ev, methodId, m);
+     (somSelf, methodId, m);
 end;
 
 function SOMDMetaproxy.somFindSMethod(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39172,7 +39172,7 @@ begin
   Result :=
   somTD_SOMClass_somFindSMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethod))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMDMetaproxy.somFindSMethodOk(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39183,7 +39183,7 @@ begin
   Result :=
   somTD_SOMClass_somFindSMethodOk
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethodOk))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMDMetaproxy.somLookupMethod(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39194,7 +39194,7 @@ begin
   Result :=
   somTD_SOMClass_somLookupMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somLookupMethod))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMDMetaproxy.somCheckVersion(majorVersion: LongInt; minorVersion: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39205,7 +39205,7 @@ begin
   Result :=
   somTD_SOMClass_somCheckVersion
    (SOM_Resolve(somSelf, cd.classObject, cd.somCheckVersion))
-     (somSelf, ev, majorVersion, minorVersion);
+     (somSelf, majorVersion, minorVersion);
 end;
 
 function SOMDMetaproxy.somDescendedFrom(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39216,7 +39216,7 @@ begin
   Result :=
   somTD_SOMClass_somDescendedFrom
    (SOM_Resolve(somSelf, cd.classObject, cd.somDescendedFrom))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDMetaproxy.somSupportsMethod(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39227,7 +39227,7 @@ begin
   Result :=
   somTD_SOMClass_somSupportsMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somSupportsMethod))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMDMetaproxy.somDefinedMethod(method: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39238,7 +39238,7 @@ begin
   Result :=
   somTD_SOMClass_somDefinedMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefinedMethod))
-     (somSelf, ev, method);
+     (somSelf, method);
 end;
 
 procedure SOMDMetaproxy.somOverrideMtab; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39248,7 +39248,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somOverrideMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDMetaproxy.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39258,7 +39258,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMDMetaproxy.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39268,7 +39268,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMDMetaproxy.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39278,7 +39278,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDMetaproxy.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39289,7 +39289,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDMetaproxy.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39299,7 +39299,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDMetaproxy.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39309,7 +39309,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDMetaproxy.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39319,7 +39319,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDMetaproxy.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39330,7 +39330,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDMetaproxy.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39341,7 +39341,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDMetaproxy.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39352,7 +39352,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDMetaproxy.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39362,7 +39362,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDMetaproxy.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39372,7 +39372,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDMetaproxy.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39382,7 +39382,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39393,7 +39393,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39404,7 +39404,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39415,7 +39415,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39426,7 +39426,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDMetaproxy.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39437,7 +39437,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDMetaproxy.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39448,7 +39448,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMDMetaproxy.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39459,7 +39459,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMDMetaproxy.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39470,7 +39470,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMDMetaproxy.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39481,7 +39481,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMDMetaproxy.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39492,7 +39492,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDMetaproxy.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39503,7 +39503,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDMetaproxy.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39513,7 +39513,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMDMetaproxy.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39523,7 +39523,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -39755,7 +39755,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMDObjectMgr.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39765,7 +39765,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMDObjectMgr.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39775,7 +39775,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDObjectMgr.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39786,7 +39786,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDObjectMgr.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39796,7 +39796,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDObjectMgr.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39806,7 +39806,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDObjectMgr.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39816,7 +39816,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDObjectMgr.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39827,7 +39827,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDObjectMgr.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39838,7 +39838,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDObjectMgr.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39849,7 +39849,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDObjectMgr.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39859,7 +39859,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDObjectMgr.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39869,7 +39869,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDObjectMgr.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39879,7 +39879,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDObjectMgr.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39890,7 +39890,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDObjectMgr.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39901,7 +39901,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDObjectMgr.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39912,7 +39912,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDObjectMgr.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39923,7 +39923,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDObjectMgr.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39934,7 +39934,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDObjectMgr.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39945,7 +39945,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMDObjectMgr.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39956,7 +39956,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMDObjectMgr.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39967,7 +39967,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMDObjectMgr.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39978,7 +39978,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMDObjectMgr.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -39989,7 +39989,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDObjectMgr.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40000,7 +40000,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDObjectMgr.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40010,7 +40010,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMDObjectMgr.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40020,7 +40020,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -40215,7 +40215,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMDServer.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40225,7 +40225,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMDServer.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40235,7 +40235,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDServer.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40246,7 +40246,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDServer.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40256,7 +40256,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDServer.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40266,7 +40266,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDServer.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40276,7 +40276,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDServer.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40287,7 +40287,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDServer.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40298,7 +40298,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMDServer.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40309,7 +40309,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMDServer.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40319,7 +40319,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDServer.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40329,7 +40329,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDServer.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40339,7 +40339,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDServer.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40350,7 +40350,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDServer.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40361,7 +40361,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDServer.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40372,7 +40372,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDServer.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40383,7 +40383,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDServer.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40394,7 +40394,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMDServer.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40405,7 +40405,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMDServer.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40416,7 +40416,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMDServer.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40427,7 +40427,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMDServer.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40438,7 +40438,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMDServer.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40449,7 +40449,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMDServer.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40460,7 +40460,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMDServer.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40470,7 +40470,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMDServer.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40480,7 +40480,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -40625,7 +40625,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMUTId.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40635,7 +40635,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMUTId.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40645,7 +40645,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMUTId.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40656,7 +40656,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMUTId.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40666,7 +40666,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMUTId.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40676,7 +40676,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMUTId.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40686,7 +40686,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMUTId.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40697,7 +40697,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMUTId.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40708,7 +40708,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMUTId.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40719,7 +40719,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMUTId.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40729,7 +40729,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMUTId.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40739,7 +40739,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMUTId.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40749,7 +40749,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMUTId.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40760,7 +40760,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMUTId.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40771,7 +40771,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMUTId.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40782,7 +40782,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMUTId.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40793,7 +40793,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMUTId.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40804,7 +40804,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMUTId.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40815,7 +40815,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMUTId.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40826,7 +40826,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMUTId.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40837,7 +40837,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMUTId.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40848,7 +40848,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMUTId.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40859,7 +40859,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMUTId.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40870,7 +40870,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMUTId.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40880,7 +40880,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMUTId.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -40890,7 +40890,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -41204,7 +41204,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMOA.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41214,7 +41214,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMOA.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41224,7 +41224,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMOA.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41235,7 +41235,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMOA.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41245,7 +41245,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMOA.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41255,7 +41255,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMOA.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41265,7 +41265,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMOA.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41276,7 +41276,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMOA.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41287,7 +41287,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMOA.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41298,7 +41298,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMOA.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41308,7 +41308,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMOA.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41318,7 +41318,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMOA.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41328,7 +41328,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMOA.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41339,7 +41339,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMOA.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41350,7 +41350,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMOA.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41361,7 +41361,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMOA.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41372,7 +41372,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMOA.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41383,7 +41383,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMOA.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41394,7 +41394,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMOA.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41405,7 +41405,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMOA.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41416,7 +41416,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMOA.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41427,7 +41427,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMOA.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41438,7 +41438,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMOA.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41449,7 +41449,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMOA.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41459,7 +41459,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMOA.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41469,7 +41469,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -42209,7 +42209,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure Sockets.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42219,7 +42219,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure Sockets.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42229,7 +42229,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Sockets.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42240,7 +42240,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Sockets.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42250,7 +42250,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Sockets.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42260,7 +42260,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Sockets.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42270,7 +42270,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Sockets.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42281,7 +42281,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Sockets.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42292,7 +42292,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function Sockets.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42303,7 +42303,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure Sockets.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42313,7 +42313,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Sockets.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42323,7 +42323,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Sockets.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42333,7 +42333,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Sockets.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42344,7 +42344,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Sockets.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42355,7 +42355,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Sockets.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42366,7 +42366,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Sockets.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42377,7 +42377,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Sockets.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42388,7 +42388,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function Sockets.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42399,7 +42399,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function Sockets.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42410,7 +42410,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function Sockets.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42421,7 +42421,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function Sockets.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42432,7 +42432,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function Sockets.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42443,7 +42443,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function Sockets.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42454,7 +42454,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure Sockets.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42464,7 +42464,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure Sockets.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42474,7 +42474,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -42559,7 +42559,7 @@ begin
   Result :=
   somTD_SOMStringTableC__get_somstTargetCapacity
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somstTargetCapacity))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -42575,7 +42575,7 @@ begin
   cd := SOMStringTableCClassData;
   somTD_SOMStringTableC__set_somstTargetCapacity
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somstTargetCapacity))
-     (somSelf, ev, somstTargetCapacity);
+     (somSelf, somstTargetCapacity);
 end;
 
 (*
@@ -42592,7 +42592,7 @@ begin
   Result :=
   somTD_SOMStringTableC__get_somstAssociationsCount
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somstAssociationsCount))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 (*
@@ -42609,7 +42609,7 @@ begin
   Result :=
   somTD_SOMStringTableC_somstAssociate
    (SOM_Resolve(somSelf, cd.classObject, cd.somstAssociate))
-     (somSelf, ev, key, value);
+     (somSelf, key, value);
 end;
 
 (*
@@ -42626,7 +42626,7 @@ begin
   Result :=
   somTD_SOMStringTableC_somstAssociateCopyKey
    (SOM_Resolve(somSelf, cd.classObject, cd.somstAssociateCopyKey))
-     (somSelf, ev, key, value);
+     (somSelf, key, value);
 end;
 
 (*
@@ -42643,7 +42643,7 @@ begin
   Result :=
   somTD_SOMStringTableC_somstAssociateCopyValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somstAssociateCopyValue))
-     (somSelf, ev, key, value);
+     (somSelf, key, value);
 end;
 
 (*
@@ -42660,7 +42660,7 @@ begin
   Result :=
   somTD_SOMStringTableC_somstAssociateCopyBoth
    (SOM_Resolve(somSelf, cd.classObject, cd.somstAssociateCopyBoth))
-     (somSelf, ev, key, value);
+     (somSelf, key, value);
 end;
 
 (*
@@ -42677,7 +42677,7 @@ begin
   Result :=
   somTD_SOMStringTableC_somstGetAssociation
    (SOM_Resolve(somSelf, cd.classObject, cd.somstGetAssociation))
-     (somSelf, ev, key);
+     (somSelf, key);
 end;
 
 (*
@@ -42694,7 +42694,7 @@ begin
   Result :=
   somTD_SOMStringTableC_somstClearAssociation
    (SOM_Resolve(somSelf, cd.classObject, cd.somstClearAssociation))
-     (somSelf, ev, key);
+     (somSelf, key);
 end;
 
 (*
@@ -42711,7 +42711,7 @@ begin
   Result :=
   somTD_SOMStringTableC_somstGetIthKey
    (SOM_Resolve(somSelf, cd.classObject, cd.somstGetIthKey))
-     (somSelf, ev, i);
+     (somSelf, i);
 end;
 
 (*
@@ -42728,7 +42728,7 @@ begin
   Result :=
   somTD_SOMStringTableC_somstGetIthValue
    (SOM_Resolve(somSelf, cd.classObject, cd.somstGetIthValue))
-     (somSelf, ev, i);
+     (somSelf, i);
 end;
 
 procedure SOMStringTableC.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42738,7 +42738,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMStringTableC.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42748,7 +42748,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMStringTableC.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42758,7 +42758,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMStringTableC.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42769,7 +42769,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMStringTableC.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42779,7 +42779,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMStringTableC.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42789,7 +42789,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMStringTableC.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42799,7 +42799,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMStringTableC.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42810,7 +42810,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMStringTableC.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42821,7 +42821,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMStringTableC.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42832,7 +42832,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMStringTableC.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42842,7 +42842,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMStringTableC.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42852,7 +42852,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMStringTableC.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42862,7 +42862,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMStringTableC.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42873,7 +42873,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMStringTableC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42884,7 +42884,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMStringTableC.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42895,7 +42895,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMStringTableC.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42906,7 +42906,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMStringTableC.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42917,7 +42917,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMStringTableC.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42928,7 +42928,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMStringTableC.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42939,7 +42939,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMStringTableC.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42950,7 +42950,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMStringTableC.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42961,7 +42961,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMStringTableC.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42972,7 +42972,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMStringTableC.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42983,7 +42983,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMStringTableC.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -42993,7 +42993,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMStringTableC.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43003,7 +43003,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -43115,7 +43115,7 @@ begin
   Result :=
   somTD_SOMClass__get_somDataAlignment
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somDataAlignment))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced._get_somInstanceDataOffsets: _IDL_Sequence_SOMClass_somOffsetInfo; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43126,7 +43126,7 @@ begin
   Result :=
   somTD_SOMClass__get_somInstanceDataOffsets
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somInstanceDataOffsets))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced._get_somDirectInitClasses: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43137,7 +43137,7 @@ begin
   Result :=
   somTD_SOMClass__get_somDirectInitClasses
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somDirectInitClasses))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMTraced._set_somDirectInitClasses(const somDirectInitClasses: _IDL_Sequence_SOMClass); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43147,7 +43147,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass__set_somDirectInitClasses
    (SOM_Resolve(somSelf, cd.classObject, cd._set_somDirectInitClasses))
-     (somSelf, ev, somDirectInitClasses);
+     (somSelf, somDirectInitClasses);
 end;
 
 function SOMMTraced._get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43158,7 +43158,7 @@ begin
   Result :=
   somTD_SOMClass__get_somClassAllocate
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somClassAllocate))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced._get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43169,7 +43169,7 @@ begin
   Result :=
   somTD_SOMClass__get_somClassDeallocate
    (SOM_Resolve(somSelf, cd.classObject, cd._get_somClassDeallocate))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43201,7 +43201,7 @@ begin
   Result :=
   somTD_SOMClass_somNew
    (SOM_Resolve(somSelf, cd.classObject, cd.somNew))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somNewNoInit: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43212,7 +43212,7 @@ begin
   Result :=
   somTD_SOMClass_somNewNoInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somNewNoInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somRenew(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43223,7 +43223,7 @@ begin
   Result :=
   somTD_SOMClass_somRenew
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenew))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMTraced.somRenewNoInit(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43234,7 +43234,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInit))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMTraced.somRenewNoZero(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43245,7 +43245,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoZero
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoZero))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMTraced.somRenewNoInitNoZero(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43256,7 +43256,7 @@ begin
   Result :=
   somTD_SOMClass_somRenewNoInitNoZero
    (SOM_Resolve(somSelf, cd.classObject, cd.somRenewNoInitNoZero))
-     (somSelf, ev, obj);
+     (somSelf, obj);
 end;
 
 function SOMMTraced.somAllocate(size: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43267,7 +43267,7 @@ begin
   Result :=
   somTD_SOMClass_somAllocate
    (SOM_Resolve(somSelf, cd.classObject, cd.somAllocate))
-     (somSelf, ev, size);
+     (somSelf, size);
 end;
 
 procedure SOMMTraced.somDeallocate(memptr: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43277,7 +43277,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somDeallocate
    (SOM_Resolve(somSelf, cd.classObject, cd.somDeallocate))
-     (somSelf, ev, memptr);
+     (somSelf, memptr);
 end;
 
 function SOMMTraced.somGetInstanceInitMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43288,7 +43288,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceInitMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceInitMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 function SOMMTraced.somGetInstanceDestructionMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43299,7 +43299,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceDestructionMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceDestructionMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 function SOMMTraced.somGetInstanceAssignmentMask(out ctrl: Pointer): PByte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43310,7 +43310,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceAssignmentMask
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceAssignmentMask))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMMTraced.somInitClass(className: CORBAString; parentClass: SOMClass; dataSize: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43320,7 +43320,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somInitClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somInitClass))
-     (somSelf, ev, className, parentClass, dataSize, maxStaticMethods, majorVersion, minorVersion);
+     (somSelf, className, parentClass, dataSize, maxStaticMethods, majorVersion, minorVersion);
 end;
 
 procedure SOMMTraced.somInitMIClass(inherit_vars: LongInt; className: CORBAString; const parentClasses: _IDL_Sequence_SOMClass; dataSize: LongInt; dataAlignment: LongInt; maxStaticMethods: LongInt; majorVersion: LongInt; minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43330,7 +43330,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somInitMIClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somInitMIClass))
-     (somSelf, ev, inherit_vars, className, parentClasses, dataSize, dataAlignment, maxStaticMethods, majorVersion, minorVersion);
+     (somSelf, inherit_vars, className, parentClasses, dataSize, dataAlignment, maxStaticMethods, majorVersion, minorVersion);
 end;
 
 function SOMMTraced.somAddStaticMethod(methodId: somId; methodDescriptor: somId; method: Pointer; redispatchStub: Pointer; applyStub: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43341,7 +43341,7 @@ begin
   Result :=
   somTD_SOMClass_somAddStaticMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somAddStaticMethod))
-     (somSelf, ev, methodId, methodDescriptor, method, redispatchStub, applyStub);
+     (somSelf, methodId, methodDescriptor, method, redispatchStub, applyStub);
 end;
 
 procedure SOMMTraced.somAddDynamicMethod(methodId: somId; methodDescriptor: somId; method: Pointer; applyStub: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43351,7 +43351,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somAddDynamicMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somAddDynamicMethod))
-     (somSelf, ev, methodId, methodDescriptor, method, applyStub);
+     (somSelf, methodId, methodDescriptor, method, applyStub);
 end;
 
 procedure SOMMTraced.somOverrideSMethod(methodId: somId; method: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43361,7 +43361,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somOverrideSMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideSMethod))
-     (somSelf, ev, methodId, method);
+     (somSelf, methodId, method);
 end;
 
 procedure SOMMTraced.somClassReady; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43371,7 +43371,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somClassReady
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassReady))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetClassData: PsomClassDataStructure; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43382,7 +43382,7 @@ begin
   Result :=
   somTD_SOMClass_somGetClassData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassData))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMTraced.somSetClassData(const cds: somClassDataStructure); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43392,7 +43392,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somSetClassData
    (SOM_Resolve(somSelf, cd.classObject, cd.somSetClassData))
-     (somSelf, ev, cds);
+     (somSelf, cds);
 end;
 
 function SOMMTraced.somGetClassMtab: PsomMethodTab; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43403,7 +43403,7 @@ begin
   Result :=
   somTD_SOMClass_somGetClassMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetInstanceOffset: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43414,7 +43414,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceOffset
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceOffset))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetInstancePartSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43425,7 +43425,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstancePartSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstancePartSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetInstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43436,7 +43436,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetInstanceToken: Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43447,7 +43447,7 @@ begin
   Result :=
   somTD_SOMClass_somGetInstanceToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetInstanceToken))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetMemberToken(memberOffset: LongInt; instanceToken: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43458,7 +43458,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMemberToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMemberToken))
-     (somSelf, ev, memberOffset, instanceToken);
+     (somSelf, memberOffset, instanceToken);
 end;
 
 function SOMMTraced.somGetMethodData(methodId: somId; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43469,7 +43469,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodData))
-     (somSelf, ev, methodId, md);
+     (somSelf, methodId, md);
 end;
 
 function SOMMTraced.somGetRdStub(methodId: somId): PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43480,7 +43480,7 @@ begin
   Result :=
   somTD_SOMClass_somGetRdStub
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetRdStub))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMTraced.somGetMethodDescriptor(methodId: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43491,7 +43491,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodDescriptor
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodDescriptor))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMTraced.somGetMethodIndex(id: somId): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43502,7 +43502,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodIndex
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodIndex))
-     (somSelf, ev, id);
+     (somSelf, id);
 end;
 
 function SOMMTraced.somGetMethodToken(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43513,7 +43513,7 @@ begin
   Result :=
   somTD_SOMClass_somGetMethodToken
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetMethodToken))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMTraced.somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43524,7 +43524,7 @@ begin
   Result :=
   somTD_SOMClass_somGetName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetNthMethodData(n: LongInt; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43535,7 +43535,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNthMethodData
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodData))
-     (somSelf, ev, n, md);
+     (somSelf, n, md);
 end;
 
 function SOMMTraced.somGetNthMethodInfo(n: LongInt; out descriptor: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43546,7 +43546,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNthMethodInfo
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNthMethodInfo))
-     (somSelf, ev, n, descriptor);
+     (somSelf, n, descriptor);
 end;
 
 function SOMMTraced.somGetNumMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43557,7 +43557,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNumMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumMethods))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetNumStaticMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43568,7 +43568,7 @@ begin
   Result :=
   somTD_SOMClass_somGetNumStaticMethods
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetNumStaticMethods))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetParent: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43579,7 +43579,7 @@ begin
   Result :=
   somTD_SOMClass_somGetParent
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetParent))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43590,7 +43590,7 @@ begin
   Result :=
   somTD_SOMClass_somGetParents
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetParents))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetPClsMtab: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43601,7 +43601,7 @@ begin
   Result :=
   somTD_SOMClass_somGetPClsMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetPClsMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetPClsMtabs: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43612,7 +43612,7 @@ begin
   Result :=
   somTD_SOMClass_somGetPClsMtabs
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetPClsMtabs))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMTraced.somGetVersionNumbers(out majorVersion: LongInt; out minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43622,7 +43622,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somGetVersionNumbers
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetVersionNumbers))
-     (somSelf, ev, majorVersion, minorVersion);
+     (somSelf, majorVersion, minorVersion);
 end;
 
 function SOMMTraced.somSetMethodDescriptor(methodId: somId; descriptor: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43633,7 +43633,7 @@ begin
   Result :=
   somTD_SOMClass_somSetMethodDescriptor
    (SOM_Resolve(somSelf, cd.classObject, cd.somSetMethodDescriptor))
-     (somSelf, ev, methodId, descriptor);
+     (somSelf, methodId, descriptor);
 end;
 
 function SOMMTraced.somFindMethod(methodId: somId; out m: Pointer): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43644,7 +43644,7 @@ begin
   Result :=
   somTD_SOMClass_somFindMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethod))
-     (somSelf, ev, methodId, m);
+     (somSelf, methodId, m);
 end;
 
 function SOMMTraced.somFindMethodOk(methodId: somId; out m: Pointer): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43655,7 +43655,7 @@ begin
   Result :=
   somTD_SOMClass_somFindMethodOk
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindMethodOk))
-     (somSelf, ev, methodId, m);
+     (somSelf, methodId, m);
 end;
 
 function SOMMTraced.somFindSMethod(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43666,7 +43666,7 @@ begin
   Result :=
   somTD_SOMClass_somFindSMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethod))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMTraced.somFindSMethodOk(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43677,7 +43677,7 @@ begin
   Result :=
   somTD_SOMClass_somFindSMethodOk
    (SOM_Resolve(somSelf, cd.classObject, cd.somFindSMethodOk))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMTraced.somLookupMethod(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43688,7 +43688,7 @@ begin
   Result :=
   somTD_SOMClass_somLookupMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somLookupMethod))
-     (somSelf, ev, methodId);
+     (somSelf, methodId);
 end;
 
 function SOMMTraced.somCheckVersion(majorVersion: LongInt; minorVersion: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43699,7 +43699,7 @@ begin
   Result :=
   somTD_SOMClass_somCheckVersion
    (SOM_Resolve(somSelf, cd.classObject, cd.somCheckVersion))
-     (somSelf, ev, majorVersion, minorVersion);
+     (somSelf, majorVersion, minorVersion);
 end;
 
 function SOMMTraced.somDescendedFrom(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43710,7 +43710,7 @@ begin
   Result :=
   somTD_SOMClass_somDescendedFrom
    (SOM_Resolve(somSelf, cd.classObject, cd.somDescendedFrom))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMMTraced.somSupportsMethod(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43721,7 +43721,7 @@ begin
   Result :=
   somTD_SOMClass_somSupportsMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somSupportsMethod))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMMTraced.somDefinedMethod(method: Pointer): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43732,7 +43732,7 @@ begin
   Result :=
   somTD_SOMClass_somDefinedMethod
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefinedMethod))
-     (somSelf, ev, method);
+     (somSelf, method);
 end;
 
 procedure SOMMTraced.somOverrideMtab; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43742,7 +43742,7 @@ begin
   cd := SOMClassClassData;
   somTD_SOMClass_somOverrideMtab
    (SOM_Resolve(somSelf, cd.classObject, cd.somOverrideMtab))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMTraced.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43752,7 +43752,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMMTraced.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43762,7 +43762,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMMTraced.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43772,7 +43772,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMTraced.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43783,7 +43783,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMTraced.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43793,7 +43793,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMTraced.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43803,7 +43803,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMTraced.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43813,7 +43813,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMTraced.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43824,7 +43824,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMTraced.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43835,7 +43835,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMMTraced.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43846,7 +43846,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMMTraced.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43856,7 +43856,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMTraced.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43866,7 +43866,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMTraced.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43876,7 +43876,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43887,7 +43887,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43898,7 +43898,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43909,7 +43909,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43920,7 +43920,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMMTraced.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43931,7 +43931,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMMTraced.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43942,7 +43942,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMMTraced.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43953,7 +43953,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMMTraced.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43964,7 +43964,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMMTraced.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43975,7 +43975,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMMTraced.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43986,7 +43986,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMMTraced.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -43997,7 +43997,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMMTraced.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44007,7 +44007,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMMTraced.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44017,7 +44017,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -44170,7 +44170,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMETimerEvent.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44180,7 +44180,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMETimerEvent.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44190,7 +44190,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMETimerEvent.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44201,7 +44201,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMETimerEvent.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44211,7 +44211,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMETimerEvent.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44221,7 +44221,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMETimerEvent.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44231,7 +44231,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMETimerEvent.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44242,7 +44242,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMETimerEvent.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44253,7 +44253,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMETimerEvent.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44264,7 +44264,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMETimerEvent.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44274,7 +44274,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMETimerEvent.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44284,7 +44284,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMETimerEvent.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44294,7 +44294,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMETimerEvent.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44305,7 +44305,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMETimerEvent.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44316,7 +44316,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMETimerEvent.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44327,7 +44327,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMETimerEvent.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44338,7 +44338,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMETimerEvent.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44349,7 +44349,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMETimerEvent.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44360,7 +44360,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMETimerEvent.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44371,7 +44371,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMETimerEvent.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44382,7 +44382,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMETimerEvent.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44393,7 +44393,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMETimerEvent.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44404,7 +44404,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMETimerEvent.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44415,7 +44415,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMETimerEvent.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44425,7 +44425,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMETimerEvent.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44435,7 +44435,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -44579,7 +44579,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure TSIdentification.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44589,7 +44589,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure TSIdentification.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44599,7 +44599,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function TSIdentification.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44610,7 +44610,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure TSIdentification.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44620,7 +44620,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure TSIdentification.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44630,7 +44630,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure TSIdentification.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44640,7 +44640,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function TSIdentification.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44651,7 +44651,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function TSIdentification.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44662,7 +44662,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function TSIdentification.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44673,7 +44673,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure TSIdentification.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44683,7 +44683,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure TSIdentification.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44693,7 +44693,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure TSIdentification.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44703,7 +44703,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function TSIdentification.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44714,7 +44714,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function TSIdentification.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44725,7 +44725,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function TSIdentification.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44736,7 +44736,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function TSIdentification.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44747,7 +44747,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function TSIdentification.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44758,7 +44758,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function TSIdentification.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44769,7 +44769,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function TSIdentification.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44780,7 +44780,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function TSIdentification.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44791,7 +44791,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function TSIdentification.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44802,7 +44802,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function TSIdentification.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44813,7 +44813,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function TSIdentification.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44824,7 +44824,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure TSIdentification.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44834,7 +44834,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure TSIdentification.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -44844,7 +44844,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -45061,7 +45061,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure TypeDef.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45071,7 +45071,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure TypeDef.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45081,7 +45081,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function TypeDef.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45092,7 +45092,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure TypeDef.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45102,7 +45102,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure TypeDef.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45112,7 +45112,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure TypeDef.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45122,7 +45122,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function TypeDef.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45133,7 +45133,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function TypeDef.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45144,7 +45144,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function TypeDef.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45155,7 +45155,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure TypeDef.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45165,7 +45165,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure TypeDef.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45175,7 +45175,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure TypeDef.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45185,7 +45185,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function TypeDef.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45196,7 +45196,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function TypeDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45207,7 +45207,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function TypeDef.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45218,7 +45218,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function TypeDef.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45229,7 +45229,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function TypeDef.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45240,7 +45240,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function TypeDef.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45251,7 +45251,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function TypeDef.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45262,7 +45262,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function TypeDef.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45273,7 +45273,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function TypeDef.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45284,7 +45284,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function TypeDef.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45295,7 +45295,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function TypeDef.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45306,7 +45306,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure TypeDef.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45316,7 +45316,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure TypeDef.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45326,7 +45326,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 const
@@ -45446,7 +45446,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultInit))
-     (somSelf, ev, ctrl);
+     (somSelf, ctrl);
 end;
 
 procedure SOMEWorkProcEvent.somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45456,7 +45456,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDestruct
    (SOM_Resolve(somSelf, cd.classObject, cd.somDestruct))
-     (somSelf, ev, doFree, ctrl);
+     (somSelf, doFree, ctrl);
 end;
 
 procedure SOMEWorkProcEvent.somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45466,7 +45466,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEWorkProcEvent.somDefaultAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45477,7 +45477,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEWorkProcEvent.somDefaultConstCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45487,7 +45487,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEWorkProcEvent.somDefaultVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45497,7 +45497,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEWorkProcEvent.somDefaultConstVCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45507,7 +45507,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDefaultConstVCopyInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVCopyInit))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEWorkProcEvent.somDefaultConstAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45518,7 +45518,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEWorkProcEvent.somDefaultVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45529,7 +45529,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 function SOMEWorkProcEvent.somDefaultConstVAssign(var ctrl: Pointer; fromObj: SOMObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45540,7 +45540,7 @@ begin
   Result :=
   somTD_SOMObject_somDefaultConstVAssign
    (SOM_Resolve(somSelf, cd.classObject, cd.somDefaultConstVAssign))
-     (somSelf, ev, ctrl, fromObj);
+     (somSelf, ctrl, fromObj);
 end;
 
 procedure SOMEWorkProcEvent.somInit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45550,7 +45550,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somInit
    (SOM_Resolve(somSelf, cd.classObject, cd.somInit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEWorkProcEvent.somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45560,7 +45560,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somFree
    (SOM_Resolve(somSelf, cd.classObject, cd.somFree))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEWorkProcEvent.somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45570,7 +45570,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somUninit
    (SOM_Resolve(somSelf, cd.classObject, cd.somUninit))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEWorkProcEvent.somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45581,7 +45581,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClass
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClass))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEWorkProcEvent.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45592,7 +45592,7 @@ begin
   Result :=
   somTD_SOMObject_somGetClassName
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetClassName))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEWorkProcEvent.somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45603,7 +45603,7 @@ begin
   Result :=
   somTD_SOMObject_somGetSize
    (SOM_Resolve(somSelf, cd.classObject, cd.somGetSize))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEWorkProcEvent.somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45614,7 +45614,7 @@ begin
   Result :=
   somTD_SOMObject_somIsA
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsA))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMEWorkProcEvent.somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45625,7 +45625,7 @@ begin
   Result :=
   somTD_SOMObject_somIsInstanceOf
    (SOM_Resolve(somSelf, cd.classObject, cd.somIsInstanceOf))
-     (somSelf, ev, aClassObj);
+     (somSelf, aClassObj);
 end;
 
 function SOMEWorkProcEvent.somRespondsTo(mId: somId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45636,7 +45636,7 @@ begin
   Result :=
   somTD_SOMObject_somRespondsTo
    (SOM_Resolve(somSelf, cd.classObject, cd.somRespondsTo))
-     (somSelf, ev, mId);
+     (somSelf, mId);
 end;
 
 function SOMEWorkProcEvent.somDispatch(out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45647,7 +45647,7 @@ begin
   Result :=
   somTD_SOMObject_somDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somDispatch))
-     (somSelf, ev, retValue, methodId, ap);
+     (somSelf, retValue, methodId, ap);
 end;
 
 function SOMEWorkProcEvent.somClassDispatch(clsObj: SOMClass; out retValue: Pointer; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45658,7 +45658,7 @@ begin
   Result :=
   somTD_SOMObject_somClassDispatch
    (SOM_Resolve(somSelf, cd.classObject, cd.somClassDispatch))
-     (somSelf, ev, clsObj, retValue, methodId, ap);
+     (somSelf, clsObj, retValue, methodId, ap);
 end;
 
 function SOMEWorkProcEvent.somCastObj(cls: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45669,7 +45669,7 @@ begin
   Result :=
   somTD_SOMObject_somCastObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somCastObj))
-     (somSelf, ev, cls);
+     (somSelf, cls);
 end;
 
 function SOMEWorkProcEvent.somResetObj: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45680,7 +45680,7 @@ begin
   Result :=
   somTD_SOMObject_somResetObj
    (SOM_Resolve(somSelf, cd.classObject, cd.somResetObj))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 function SOMEWorkProcEvent.somPrintSelf: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45691,7 +45691,7 @@ begin
   Result :=
   somTD_SOMObject_somPrintSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somPrintSelf))
-     (somSelf, ev);
+     (somSelf);
 end;
 
 procedure SOMEWorkProcEvent.somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45701,7 +45701,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelf
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelf))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 procedure SOMEWorkProcEvent.somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -45711,7 +45711,7 @@ begin
   cd := SOMObjectClassData;
   somTD_SOMObject_somDumpSelfInt
    (SOM_Resolve(somSelf, cd.classObject, cd.somDumpSelfInt))
-     (somSelf, ev, level);
+     (somSelf, level);
 end;
 
 initialization

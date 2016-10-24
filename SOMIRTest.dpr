@@ -46,6 +46,14 @@ type
 
   // wtpFinal is not used for WriteRecordType; TCToImportedType should return string instead
 
+  TSOMIRQuickLookupForClass = class
+  protected
+    FOIDL: Boolean;
+  public
+    constructor Create(Definition: InterfaceDef);
+    property OIDL: Boolean read FOIDL;
+  end;
+
   TSOMIRImporter = class
   private
     FRootNamespace: string;
@@ -80,9 +88,9 @@ type
     function ExtractInteger(TC: TypeCode; Index: LongInt): LongInt;
     function TCToImportedType(TC: TypeCode; const CurrentNamespace: string): string;
 
-    procedure WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef; OIDL: Boolean = False);
-    procedure WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef; OIDL: Boolean = False);
-    procedure WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef; OIDL: Boolean = False);
+    procedure WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
+    procedure WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
+    procedure WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef);
 
     procedure WriteRepositoryFirstPass(Item: Contained; const CurrentNamespace: string; var WasForwardType: Boolean);
     procedure WriteRepositorySecondPass(Item: Contained; const CurrentNamespace: string);
@@ -96,6 +104,28 @@ type
     property RootNamespace: string read FRootNamespace;
     property Repo: Repository read FRepo;
   end;
+
+constructor TSOMIRQuickLookupForClass.Create(Definition: InterfaceDef);
+var
+  I: LongWord;
+  Modifiers: _IDL_SEQUENCE_somModifier;
+  Modifier: somModifier;
+begin
+  inherited Create;
+
+  Modifiers := Contained__get_somModifiers(Definition, ev);
+  if Modifiers._length > 0 then
+  begin
+    for I := 0 to Modifiers._length - 1 do
+    begin
+      Modifier := PsomModifier(PAnsiChar(Modifiers._buffer) + I * SizeOf(somModifier))^;
+      if Modifier.name = 'callstyle' then
+      begin
+        FOIDL := Modifier.value = 'oidl';
+      end;
+    end;
+  end;
+end;
 
 constructor TSOMIRImporter.Create(const ARootNamespace: string; ARepo: Repository);
 begin
@@ -136,8 +166,17 @@ begin
 end;
 
 destructor TSOMIRImporter.Destroy;
+var
+  I: Integer;
+  O: TObject;
 begin
   // Close(F);
+
+  for I := 0 to FExistingTypeIds.Count - 1 do
+  begin
+    O := FExistingTypeIds.Objects[I];
+    FreeAndNil(O);
+  end;
   FreeAndNil(FDLLs);
   FreeAndNil(FPostponedArrayNames);
   FreeAndNil(FOriginalTypeIds);
@@ -753,7 +792,7 @@ begin
   end;
 end;
 
-procedure TSOMIRImporter.WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef; OIDL: Boolean = False);
+procedure TSOMIRImporter.WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
 var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
@@ -764,7 +803,8 @@ var
   Kind: TCKind;
   Name: string;
   Index: Integer;
-  OriginalClass: string;
+  OriginalClassId, OriginalClass: string;
+  QL: TSOMIRQuickLookupForClass;
 begin
   if Pass = wtpTypeDef then Exit;
   Contents := Container_contents(Definition, ev, 'all', False);
@@ -780,9 +820,19 @@ begin
     if Pass = wtpLowLevelImplementation then
     begin
       WasArgument := True;
-      OriginalClass := IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace);
+      OriginalClassId := Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2);
+      OriginalClass := IdToImportedType(OriginalClassId, CurrentNamespace);
       Write(F, 'somSelf: ', OriginalClass);
-      if not OIDL then
+      QL := nil;
+      if not FExistingTypeIds.Find(OriginalClassId, Index) then
+      begin
+        Write(F, '; Quick lookup failed!!!');
+      end
+      else
+      begin
+        QL := FExistingTypeIds.Objects[Index] as TSOMIRQuickLookupForClass;
+      end;
+      if not QL.OIDL then
       begin
         Write(F, '; ev: PEnvironment');
       end;
@@ -872,16 +922,18 @@ begin
   end;
 end;
 
-procedure TSOMIRImporter.WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef; OIDL: Boolean = False);
+procedure TSOMIRImporter.WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
 var
   Result_TC: TypeCode;
   Result_Kind: TCKind;
   OriginalNamespace: string;
-  OriginalClass: string;
+  OriginalClass, OriginalClassId: string;
   MethodName: string;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
   Item: Contained;
+  QL: TSOMIRQuickLookupForClass;
+  Index: Integer;
 begin
   if Pass = wtpTypeDef then Exit;
 
@@ -930,7 +982,7 @@ begin
         Write(F, MethodName);
       end;
     end;
-    WriteMethodArguments(OriginalNamespace, Pass, Definition, OIDL);
+    WriteMethodArguments(OriginalNamespace, Pass, Definition);
   end
   else
   begin
@@ -946,7 +998,7 @@ begin
         Write(F, MethodName);
       end;
     end;
-    WriteMethodArguments(OriginalNamespace, Pass, Definition, OIDL);
+    WriteMethodArguments(OriginalNamespace, Pass, Definition);
     if Pass > wtpOnDemand then
     begin
       Write(F, ': ');
@@ -975,7 +1027,8 @@ begin
 
   if Pass = wtpImplementation then
   begin
-    OriginalClass := IdToImportedType(Copy(OriginalNamespace, 1, Length(OriginalNamespace) - 2), OriginalNamespace);
+    OriginalClassId := Copy(OriginalNamespace, 1, Length(OriginalNamespace) - 2);
+    OriginalClass := IdToImportedType(OriginalClassId, OriginalNamespace);
     WriteLn(F, 'var');
     WriteLn(F, '  cd: P', OriginalClass, 'ClassDataStructure;');
     WriteLn(F, 'begin');
@@ -993,7 +1046,16 @@ begin
     WriteLn(F, '   (SOM_Resolve(somSelf, cd.classObject, cd.', MethodName, '))');
     Write(F, '     (somSelf');
 
-    if not OIDL then
+    QL := nil;
+    if not FExistingTypeIds.Find(OriginalClassId, Index) then
+    begin
+      Write(F, ', Quick lookup failed!!!');
+    end
+    else
+    begin
+      QL := FExistingTypeIds.Objects[Index] as TSOMIRQuickLookupForClass;
+    end;
+    if not QL.OIDL then
     begin
       Write(F, ', ev');
     end;
@@ -1023,7 +1085,7 @@ begin
   end;
 end;
 
-procedure TSOMIRImporter.WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef; OIDL: Boolean = False);
+procedure TSOMIRImporter.WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef);
 var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
@@ -1063,7 +1125,7 @@ begin
             begin
               if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
               begin
-                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item, OIDL);
+                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
               end;
             end;
             WriteMethodDefinition(CurrentNamespace, Pass, Item);
@@ -1096,7 +1158,7 @@ begin
             begin
               if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
               begin
-                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item, OIDL);
+                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
               end;
             end;
             WriteMethodDefinition(CurrentNamespace, Pass, Item);
@@ -1116,7 +1178,7 @@ begin
           begin
             if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
             begin
-              WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item, OIDL);
+              WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
             end;
           end;
           WriteMethodDefinition(CurrentNamespace, Pass, Item);
@@ -1183,6 +1245,7 @@ var
   I: LongWord;
   OriginalNamespace: string;
   NewNamespace: string;
+  QL: TSOMIRQuickLookupForClass;
 begin
   Recurse := False;
   if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
@@ -1193,7 +1256,8 @@ begin
       WasForwardType := True;
     end;
     Name := Contained__get_name(Item, ev);
-    FExistingTypeIds.Add(CurrentNamespace + Name);
+    QL := TSOMIRQuickLookupForClass.Create(Item);
+    FExistingTypeIds.AddObject(CurrentNamespace + Name, QL);
     FResolutionAid.Values[Name] := CurrentNamespace + Name;
     WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = class;');
     Recurse := True;
@@ -1747,7 +1811,6 @@ var
   I: LongWord;
   Index: Integer;
   ImportedType, NewNamespace, DllName_Id: string;
-  OIDL: Boolean;
   Modifiers: _IDL_SEQUENCE_somModifier;
   Modifier: somModifier;
 begin
@@ -1761,7 +1824,6 @@ begin
     MajorVersion := '0';
     MinorVersion := '0';
     ReleaseOrder := '';
-    OIDL := False;
     Modifiers := Contained__get_somModifiers(Item, ev);
     if Modifiers._length > 0 then
     begin
@@ -1783,10 +1845,6 @@ begin
         else if Modifier.name = 'dllname' then
         begin
           DllName := Modifier.value;
-        end
-        else if Modifier.name = 'callstyle' then
-        begin
-          OIDL := Modifier.value = 'oidl';
         end;
       end;
     end;
@@ -1895,7 +1953,7 @@ begin
     WriteLn(F, '  Result := ', ImportedType, 'ClassData.classObject;');
     WriteLn(F, 'end;');
 
-    WriteClassDefinition(CurrentNamespace + Name + '::', wtpImplementation, Item, OIDL);
+    WriteClassDefinition(CurrentNamespace + Name + '::', wtpImplementation, Item);
     // there can be no sub-interfaces or modules inside of interface
   end
   else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
@@ -1965,7 +2023,8 @@ begin
     begin
       WasForwardType := False;
 
-      // First pass: write forward type references, populate existing types for resolution
+      // First pass: write forward type references, populate existing types for resolution,
+      // fetch quick lookup data
       for I := 0 to Contents._length - 1 do
       begin
         Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
