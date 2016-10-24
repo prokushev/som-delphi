@@ -822,7 +822,14 @@ begin
       WasArgument := True;
       OriginalClassId := Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2);
       OriginalClass := IdToImportedType(OriginalClassId, CurrentNamespace);
-      Write(F, 'somSelf: ', OriginalClass);
+      if OriginalClass = 'SOMObject' then
+      begin
+        Write(F, 'somSelf: SOMObjectBase');
+      end
+      else
+      begin
+        Write(F, 'somSelf: SOMObjectBase{', OriginalClass, '}');
+      end;
       QL := nil;
       if not FExistingTypeIds.Find(OriginalClassId, Index) then
       begin
@@ -1031,21 +1038,6 @@ begin
     OriginalClass := IdToImportedType(OriginalClassId, OriginalNamespace);
     WriteLn(F, 'var');
     WriteLn(F, '  cd: P', OriginalClass, 'ClassDataStructure;');
-    WriteLn(F, 'begin');
-    WriteLn(F, '  cd := ', OriginalClass, 'ClassData;');
-
-    if Result_Kind = TypeCode_tk_any then
-    begin
-      WriteLn(F, '  Result := any(');
-    end
-    else if Result_Kind <> TypeCode_tk_void then
-    begin
-      WriteLn(F, '  Result :=');
-    end;
-    WriteLn(F, '  somTD_', OriginalClass, '_', MethodName);
-    WriteLn(F, '   (SOM_Resolve(somSelf, cd.classObject, cd.', MethodName, '))');
-    Write(F, '     (somSelf');
-
     QL := nil;
     if not FExistingTypeIds.Find(OriginalClassId, Index) then
     begin
@@ -1057,7 +1049,30 @@ begin
     end;
     if not QL.OIDL then
     begin
-      Write(F, ', ev');
+      WriteLn(F, '  LocalEnv: Environment;');
+    end;
+    WriteLn(F, 'begin');
+    WriteLn(F, '  cd := ', OriginalClass, 'ClassData;');
+
+    if not QL.OIDL then
+    begin
+      WriteLn(F, '  SOM_InitEnvironment(@LocalEnv);');
+    end;
+
+    if Result_Kind = TypeCode_tk_any then
+    begin
+      WriteLn(F, '  Result := any(');
+    end
+    else if Result_Kind <> TypeCode_tk_void then
+    begin
+      WriteLn(F, '  Result :=');
+    end;
+    WriteLn(F, '  somTD_', OriginalClass, '_', MethodName);
+    WriteLn(F, '   (SOM_Resolve(Self, cd.classObject, cd.', MethodName, '))');
+    Write(F, '     (Self');
+    if not QL.OIDL then
+    begin
+      Write(F, ', @LocalEnv');
     end;
 
     Contents := Container_contents(Definition, ev, 'all', False);
@@ -1081,6 +1096,18 @@ begin
       Write(F, ')');
     end;
     WriteLn(F, ';');
+
+    // TODO check exception
+
+    if not QL.OIDL then
+    begin
+      WriteLn(F, '  SOM_UninitEnvironment(@LocalEnv);');
+    end
+    else
+    begin
+      WriteLn(F, '  somExceptionFree(somGetGlobalEnvironment);');
+    end;
+
     WriteLn(F, 'end;');
   end;
 end;
@@ -1499,18 +1526,18 @@ begin
         OriginalNamespace := OriginalNamespace + '::';
       end;
 
+      Name := Contained__get_name(Item, ev);
       if OriginalNamespace <> CurrentNamespace then
       begin
-        Name := Contained__get_name(Item, ev);
         if not FOriginalTypeIds.Find(CurrentNamespace + Name, Index) then // if inherited type was not replaced by new one
         begin
           WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
         end;
       end
-      else
+      else if (CurrentNamespace <> '::') or (Name <> 'Environment') then // suppress Environment record definition
       begin
         WriteType(CurrentNamespace, wtpOnDemandBeforeTypeDef, TC);
-        Write(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = ');
+        Write(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = ');
         WriteType(CurrentNamespace, wtpTypeDef, TC);
         WriteLn(F, ';');
       end;
@@ -1804,13 +1831,13 @@ end;
 
 procedure TSOMIRImporter.WriteRepositoryEighthPass(Item: Contained; const CurrentNamespace: string);
 var
-  Name, ReleaseOrder, MajorVersion, MinorVersion, DllName: PAnsiChar;
+  Name, MajorVersion, MinorVersion, DllName: PAnsiChar;
   Recurse: Boolean;
   SubItem: Contained;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
   Index: Integer;
-  ImportedType, NewNamespace, DllName_Id: string;
+  ImportedType, NewNamespace, DllName_Id, ReleaseOrder: string;
   Modifiers: _IDL_SEQUENCE_somModifier;
   Modifier: somModifier;
 begin
@@ -1824,6 +1851,7 @@ begin
     MajorVersion := '0';
     MinorVersion := '0';
     ReleaseOrder := '';
+    DllName := '';
     Modifiers := Contained__get_somModifiers(Item, ev);
     if Modifiers._length > 0 then
     begin
@@ -1848,6 +1876,49 @@ begin
         end;
       end;
     end;
+
+    if (Length(DllName) = 0) and (CurrentNamespace = '::') then
+    begin
+      if (Name = 'SOMEEvent') or (Name = 'SOMEClientEvent') or (Name = 'SOMEEMan') or
+        (Name = 'SOMEEMRegisterData') or (Name = 'SOMETimerEvent') or (Name = 'SOMEWorkProcEvent') or
+        (Name = 'SOMESinkEvent') then
+      begin
+        DllName := 'somem.dll';
+      end
+      else if (Name = 'SOMTEntryC') or (Name = 'SOMTAttributeEntryC') or (Name = 'SOMTBaseClassEntryC') or
+        (Name = 'SOMTClassEntryC') or (Name = 'SOMTCommonEntryC') or (Name = 'SOMTConstEntryC') or
+        (Name = 'SOMTDataEntryC') or (Name = 'SOMTEmitC') or (Name = 'SOMTEnumEntryC') or
+        (Name = 'SOMTEnumNameEntryC') or (Name = 'SOMTMetaClassEntryC') or (Name = 'SOMTMethodEntryC') or
+        (Name = 'SOMTModuleEntryC') or (Name = 'SOMTParameterEntryC') or (Name = 'SOMTPassthruEntryC') or
+        (Name = 'SOMTSequenceEntryC') or (Name = 'SOMTStringEntryC') or (Name = 'SOMTStructEntryC') or
+        (Name = 'SOMTTypedefEntryC') or (Name = 'SOMTTemplateOutputC') or (Name = 'SOMTUnionEntryC') or
+        (Name = 'SOMTUserDefinedTypeEntryC') or (Name = 'SOMStringTableC') then
+      begin
+        DllName := 'some.dll';
+      end
+      else if (Name = 'SOMMSingleInstance') or (Name = 'SOMMBeforeAfter') or (Name = 'SOMMTraced') or
+        (Name = 'SOMUTId') then
+      begin
+        DllName := 'some.dll';
+      end
+      else if (Name = 'SOMDMetaproxy') then
+      begin
+        DllName := 'some.dll';
+      end
+      else if (Name = 'Sockets') then
+      begin
+        DllName := 'soms.dll';
+      end
+      else if (Name = 'ModuleDef') then
+      begin
+        DllName := 'somir.dll';
+      end
+      else
+      begin
+        Write(' no dllname for ', Name, '!'); // lazy guys
+      end;
+    end;
+
     DllName_Id := UpperCase(DllName);
     for I := 1 to Length(DllName_Id) do
     begin
@@ -1900,9 +1971,19 @@ begin
     WriteLn(F, 'type');
     WriteLn(F, '  ', ImportedType, 'ClassDataStructure = record');
     WriteLn(F, '    classObject: SOMClass;');
-    if ReleaseOrder <> '' then
+    while Length(ReleaseOrder) > 0 do
     begin
-      WriteLn(F, '    ', ReleaseOrder, ': somMToken;');
+      Index := Pos(',', ReleaseOrder);
+      if Index <= 0 then
+      begin
+        WriteLn(F, '    ', UnreserveIdentifier(ReleaseOrder), ': somMToken;');
+        ReleaseOrder := '';
+      end
+      else
+      begin
+        WriteLn(F, '    ', UnreserveIdentifier(Copy(ReleaseOrder, 1, Index - 1)), ',');
+        ReleaseOrder := Copy(ReleaseOrder, Index + 1, Length(ReleaseOrder) - Index);
+      end;
     end;
     WriteLn(F, '  end;');
     WriteLn(F, '  P', ImportedType, 'ClassDataStructure = ^', ImportedType, 'ClassDataStructure;');
@@ -1999,6 +2080,10 @@ begin
     WriteLn(F, '  {$DEFINE DELPHI_HAS_INLINE}');
     WriteLn(F, '{$IFEND}');
     WriteLn(F);
+    WriteLn(F, '{$IF CompilerVersion >= 23.0}');
+    WriteLn(F, '  {$DEFINE DELPHI_HAS_INTPTR}');
+    WriteLn(F, '{$IFEND}');
+    WriteLn(F);
     WriteLn(F, 'interface');
     WriteLn(F);
     WriteLn(F, 'uses');
@@ -2015,131 +2100,405 @@ begin
     WriteLn(F, '  end;');
     WriteLn(F, '  TAnyResult = type Int64; { returned in edx:eax by vanilla IBM SOM, but passed via hidden pointer by Delphi when record }');
     WriteLn(F, '  PEnvironment = ^Environment;');
+    WriteLn(F, '  {$IFNDEF DELPHI_HAS_INTPTR}');
+    WriteLn(F, '  IntPtr = type LongInt;');
+    WriteLn(F, '  UIntPtr = type LongWord;');
+    WriteLn(F, '  {$ENDIF}');
     WriteLn(F);
 
     Contents := Container_contents(Repo, ev, 'all', False);
     // WriteLn(F, '{ Amount of items: ', Contents._length, ' }');
+    
+    WasForwardType := False;
+
+    // First pass: write forward type references, populate existing types for resolution,
+    // fetch quick lookup data
+    if Contents._length > 0 then for I := 0 to Contents._length - 1 do
+    begin
+      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      WriteRepositoryFirstPass(Item, '::', WasForwardType);
+    end;
+    FExistingTypeIds.Sorted := True;
+    FOriginalTypeIds.Sorted := True;
+    Write(' 1');
+    WriteLn(F);
+    WriteLn(F, '  { Foreign types }');
+
+    // Second pass: find foreign types that can't go into opaque pointers
+    if Contents._length > 0 then for I := 0 to Contents._length - 1 do
+    begin
+      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      WriteRepositorySecondPass(Item, '::');
+    end;
+    Write(' 2');
+    WriteLn(F);
+    WriteLn(F, '  { Data types }');
+
+    // Third pass: build non-class types
+    if Contents._length > 0 then for I := 0 to Contents._length - 1 do
+    begin
+      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      WriteRepositoryThirdPass(Item, '::');
+    end;
+    Write(' 3');
+    WriteLn(F);
+    WriteLn(F, '  { Records }');
+    // Fourth pass: build non-class types (deferred records)
+    WriteLn(F, '  Environment = record'); // fixup for Environment
+    WriteLn(F, '    _major: exception_type;');
+    WriteLn(F, '    exception_exception_name: PAnsiChar;');
+    WriteLn(F, '    exception_params: Pointer;');
+    WriteLn(F, '    _somdAnchor: Pointer;');
+    WriteLn(F, '  end;');
+    if Contents._length > 0 then for I := 0 to Contents._length - 1 do
+    begin
+      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      WriteRepositoryFourthPass(Item, '::');
+    end;
+    Write(' 4');
+    WriteLn(F);
+    WriteLn(F, '  { Classes }');
+    WriteLn(F, '  SOMObjectBase = class');
+    WriteLn(F, '  private');
+    WriteLn(F, '    { hide TObject methods }');
+    WriteLn(F, '    procedure Create; reintroduce;');
+    WriteLn(F, '    procedure Destroy; reintroduce;');
+    WriteLn(F, '  public');
+    WriteLn(F, '    function As_SOMObject: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, '  end;');
+
+    // Fifth pass: satisfy forward type references with classes
+    if WasForwardType then
+    begin
+      for I := 0 to Contents._length - 1 do
+      begin
+        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        WriteRepositoryFifthPass(Item, '::');
+      end;
+    end;
+    Write(' 5');
+    WriteLn(F);
+    WriteLn(F, '  { Arrays }');
+
+    // Sixth pass: print deferred arrays (for sequences)
+    if Contents._length > 0 then for I := 0 to FPostponedArrayNames.Count - 1 do
+    begin
+      Name := FPostponedArrayNames[I];
+      WriteLn(F, '  _IDL_ArrayOf_', Name, ' = array[0 .. (MaxLongInt div (Abs(SizeOf(', Name,') - 1) + 1)) - 1] of ', Name, ';');
+    end;
+    Write(' 6');
+    WriteLn(F);
+    WriteLn(F, '{ Constants }');
+
+    // Seventh pass: constants from TypeDef tk_enum, ConstDef and ExceptionDef
+    if Contents._length > 0 then for I := 0 to Contents._length - 1 do
+    begin
+      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      WriteRepositorySeventhPass(Item, '::');
+    end;
+    Write(' 7');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' *  Method and Data Resolution macros');
+    WriteLn(F, ' *)');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Default definition of somresolve_ to call the procedure, somResolve.');
+    WriteLn(F, ' * This may be be changed by emitters on systems for which method');
+    WriteLn(F, ' * tokens are thunks.');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function somresolve_(obj: SOMObjectBase; mToken: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' *  Method Resolution. Methods are invoked on an object o of some');
+    WriteLn(F, ' *  object class oc, where oc has immediate ancestor classes');
+    WriteLn(F, ' *  called parent classes. Macro arguments include method names');
+    WriteLn(F, ' *  (e.g., mn), object class and parent class names (e.g., ocn, pcn)');
+    WriteLn(F, ' *  and parent class positions (e.g., pcp), expressed in terms of the');
+    WriteLn(F, ' *  left-to-right ordering (beginning with 1, for the first parent)');
+    WriteLn(F, ' *  used when declaring oc''s parents. The choice of resolution');
+    WriteLn(F, ' *  macro determines the method table from which methods are selected.');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *  Macros are available to select a method from ...');
+    WriteLn(F, ' *)');
+    WriteLn(F);
+    WriteLn(F, '(* from oc''s mtbl, with verification of o *)');
+    WriteLn(F, '   (*  call somresolve_ but test that the object is well formed and an');
+    WriteLn(F, '       instance of the specified class or a class derived from that class *)');
+    WriteLn(F);
+    WriteLn(F, 'function SOM_Resolve(o: SOMObjectBase; oc: SOMObjectBase{SOMClass}; m: somMToken;');
+    WriteLn(F, '  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F);
+    WriteLn(F, '(* from oc''s mtbl, without verification of o *)');
+    WriteLn(F, 'function SOM_ResolveNoCheck(o: SOMObjectBase; oc: SOMObjectBase{SOMClass}; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F);
+    WriteLn(F, '(* Check the validity of method resolution using the specified target  *)');
+    WriteLn(F, '(* object.  Note: this macro makes programs bigger and slower.  After  *)');
+    WriteLn(F, '(* you are confident that your program is running correctly you should *)');
+    WriteLn(F, '(* turn off this macro by defining SOM_NoTest, or adding -DSOM_NoTest  *)');
+    WriteLn(F, '(* to your makefile.                                                   *)');
+    WriteLn(F);
+    WriteLn(F, 'function SOM_TestCls(obj: SOMObjectBase; cls: SOMObjectBase{SOMClass};');
+    WriteLn(F, '  fileName: PAnsiChar = nil; lineNum: Integer = 0): SOMObjectBase; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F);
+    WriteLn(F, 'function somExceptionId(ev: PEnvironment): PAnsiChar; stdcall;');
+    WriteLn(F, 'function somExceptionValue(ev: PEnvironment): Pointer; stdcall;');
+    WriteLn(F, 'procedure somExceptionFree(ev: PEnvironment); stdcall;');
+    WriteLn(F, 'procedure somSetException(ev: PEnvironment;');
+    WriteLn(F, '    major: exception_type; exception_name: PAnsiChar; params: Pointer); stdcall;');
+    WriteLn(F, 'function somGetGlobalEnvironment: PEnvironment; stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(* Exception function names per CORBA 5.19, p.99 *)');
+    WriteLn(F, 'function exception_id(ev: PEnvironment): PAnsiChar; stdcall;');
+    WriteLn(F, 'function exception_value(ev: PEnvironment): Pointer; stdcall;');
+    WriteLn(F, 'procedure exception_free(ev: PEnvironment); stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(*  Convenience macros for manipulating environment structures');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *  SOM_CreateLocalEnvironment returns a pointer to an Environment.');
+    WriteLn(F, ' *  The other 3 macros all expect a single argument that is also');
+    WriteLn(F, ' *  a pointer to an Environment.  Use the create/destroy forms for');
+    WriteLn(F, ' *  a dynamic local environment and the init/uninit forms for a stack-based');
+    WriteLn(F, ' *  local environment.');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *  For example');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *      Environment *ev;');
+    WriteLn(F, ' *      ev = SOM_CreateLocalEnvironment ();');
+    WriteLn(F, ' *      ... Use ev in methods');
+    WriteLn(F, ' *      SOM_DestroyLocalEnvironment (ev);');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *  or');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *      Environment ev;');
+    WriteLn(F, ' *      SOM_InitEnvironment (&ev);');
+    WriteLn(F, ' *      ... Use &ev in methods');
+    WriteLn(F, ' *      SOM_UninitEnvironment (&ev);');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function SOM_CreateLocalEnvironment: PEnvironment; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'procedure SOM_DestroyLocalEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'procedure SOM_InitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'procedure SOM_UninitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F);
+    WriteLn(F, 'type');
+    WriteLn(F, '  somTD_SOMMalloc = function(nbytes: UIntPtr): somToken; stdcall;');
+    WriteLn(F, '  PsomTD_SOMMalloc = ^somTD_SOMMalloc;');
+    WriteLn(F, '  somTD_SOMCalloc = function(');
+    WriteLn(F, '    element_count: UIntPtr;');
+    WriteLn(F, '    element_size: UIntPtr): somToken; stdcall;');
+    WriteLn(F, '  PsomTD_SOMCalloc = ^somTD_SOMCalloc;');
+    WriteLn(F, '  somTD_SOMRealloc = function(');
+    WriteLn(F, '    memory: somToken;');
+    WriteLn(F, '    nbytes: UIntPtr): somToken; stdcall;');
+    WriteLn(F, '  PsomTD_SOMRealloc = ^somTD_SOMRealloc;');
+    WriteLn(F, '  somTD_SOMFree = procedure(memory: somToken); stdcall;');
+    WriteLn(F, '  PsomTD_SOMFree = ^somTD_SOMFree;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' *  Replaceable SOM Memory Management Interfaces');
+    WriteLn(F, ' *');
+    WriteLn(F, ' *  External procedure variables SOMCalloc, SOMFree, SOMMalloc, SOMRealloc');
+    WriteLn(F, ' *  have the same interface as their standard C-library analogs.');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function Replaceable_SOMCalloc: PsomTD_SOMCalloc;');
+    WriteLn(F, 'function SOMCalloc(element_count, element_size: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'function Replaceable_SOMFree: PsomTD_SOMFree;');
+    WriteLn(F, 'procedure SOMFree(memory: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'function Replaceable_SOMMalloc: PsomTD_SOMMalloc;');
+    WriteLn(F, 'function SOMMalloc(nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'function Replaceable_SOMRealloc: PsomTD_SOMRealloc;');
+    WriteLn(F, 'function SOMRealloc(memory: somToken; nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Verifies that the passed object is a valid instance of the passed');
+    WriteLn(F, ' * class.  A detected failure generates an error message and causes');
+    WriteLn(F, ' * program termination.  This call is automatically employed as part');
+    WriteLn(F, ' * of the C method resolution macros if the preprocessor variable');
+    WriteLn(F, ' * SOM_TestOn is defined.');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function somTestCls(');
+    WriteLn(F, '    obj: SOMObjectBase;');
+    WriteLn(F, '    classObj: SOMObjectBase{SOMClass};');
+    WriteLn(F, '    fileName: CORBAString;');
+    WriteLn(F, '    lineNumber: Integer): SOMObjectBase; stdcall;');
+    WriteLn(F);
+    WriteLn(F, 'implementation');
+    WriteLn(F);
+    WriteLn(F, 'uses');
+    WriteLn(F, '  Windows;');
+    WriteLn(F);
+    WriteLn(F, 'const');
+    WriteLn(F, '  Unknown_Source = ''<unknown>.pas''; // no __FILE__ and __LINE__ macros in Delphi');
+    WriteLn(F);
+    WriteLn(F, 'var');
+    WriteLn(F, '  DLLLoad_CriticalSection : Windows.TRTLCriticalSection;');
+    WriteLn(F);
+    WriteLn(F, 'procedure SOMObjectBase.Create;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  { hide this method }');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'procedure SOMObjectBase.Destroy;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  { hide this method }');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function SOMObjectBase.As_SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := SOMObject(Self); { upcast }');
+    WriteLn(F, 'end;');
+
+    // Eighth pass: class and method implementation
+    if Contents._length > 0 then for I := 0 to Contents._length - 1 do
+    begin
+      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      WriteRepositoryEighthPass(Item, '::');
+
+      SOMFreeAndNil(Item);
+    end;
+
     if Contents._length > 0 then
     begin
-      WasForwardType := False;
-
-      // First pass: write forward type references, populate existing types for resolution,
-      // fetch quick lookup data
-      for I := 0 to Contents._length - 1 do
-      begin
-        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        WriteRepositoryFirstPass(Item, '::', WasForwardType);
-      end;
-      FExistingTypeIds.Sorted := True;
-      FOriginalTypeIds.Sorted := True;
-      Write(' 1');
-      WriteLn(F);
-      WriteLn(F, '  { Foreign types }');
-
-      // Second pass: find foreign types that can't go into opaque pointers
-      for I := 0 to Contents._length - 1 do
-      begin
-        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        WriteRepositorySecondPass(Item, '::');
-      end;
-      Write(' 2');
-      WriteLn(F);
-      WriteLn(F, '  { Data types }');
-
-      // Third pass: build non-class types
-      for I := 0 to Contents._length - 1 do
-      begin
-        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        WriteRepositoryThirdPass(Item, '::');
-      end;
-      Write(' 3');
-      WriteLn(F);
-      WriteLn(F, '  { Records }');
-
-      // Fourth pass: build non-class types (deferred records)
-      for I := 0 to Contents._length - 1 do
-      begin
-        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        WriteRepositoryFourthPass(Item, '::');
-      end;
-      Write(' 4');
-      WriteLn(F);
-      WriteLn(F, '  { Classes }');
-      WriteLn(F, '  SOMObjectBase = class');
-      WriteLn(F, '  private');
-      WriteLn(F, '    { hide TObject methods }');
-      WriteLn(F, '    procedure Create; reintroduce;');
-      WriteLn(F, '    procedure Destroy; reintroduce;');
-      WriteLn(F, '  public');
-      WriteLn(F, '    function As_SOMObject: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
-      WriteLn(F, '  end;');
-
-      // Fifth pass: satisfy forward type references with classes
-      if WasForwardType then
-      begin
-        for I := 0 to Contents._length - 1 do
-        begin
-          Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-          WriteRepositoryFifthPass(Item, '::');
-        end;
-      end;
-      Write(' 5');
-      WriteLn(F);
-      WriteLn(F, '  { Arrays }');
-
-      // Sixth pass: print deferred arrays (for sequences)
-      for I := 0 to FPostponedArrayNames.Count - 1 do
-      begin
-        Name := FPostponedArrayNames[I];
-        WriteLn(F, '  _IDL_ArrayOf_', Name, ' = array[0 .. (MaxLongInt div (Abs(SizeOf(', Name,') - 1) + 1)) - 1] of ', Name, ';');
-      end;
-      Write(' 6');
-      WriteLn(F);
-      WriteLn(F, '{ Constants }');
-
-      // Seventh pass: constants from TypeDef tk_enum, ConstDef and ExceptionDef
-      for I := 0 to Contents._length - 1 do
-      begin
-        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        WriteRepositorySeventhPass(Item, '::');
-      end;
-      Write(' 7');
-      WriteLn(F);
-      WriteLn(F, 'implementation');
-      WriteLn(F);
-      WriteLn(F, 'uses');
-      WriteLn(F, '  Windows;');
-      WriteLn(F);
-      WriteLn(F, 'var');
-      WriteLn(F, '  DLLLoad_CriticalSection : Windows.TRTLCriticalSection;');
-      WriteLn(F);
-      WriteLn(F, 'procedure SOMObjectBase.Create;');
-      WriteLn(F, 'begin');
-      WriteLn(F, '  { hide this method }');
-      WriteLn(F, 'end;');
-      WriteLn(F);
-      WriteLn(F, 'procedure SOMObjectBase.Destroy;');
-      WriteLn(F, 'begin');
-      WriteLn(F, '  { hide this method }');
-      WriteLn(F, 'end;');
-      WriteLn(F);
-      WriteLn(F, 'function SOMObjectBase.As_SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
-      WriteLn(F, 'begin');
-      WriteLn(F, '  Result := SOMObject(Self); { upcast }');
-      WriteLn(F, 'end;');
-
-      // Eighth pass: class and method implementation
-      for I := 0 to Contents._length - 1 do
-      begin
-        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        WriteRepositoryEighthPass(Item, '::');
-
-        SOMFreeAndNil(Item);
-      end;
-
       SOMFree(Contents._buffer);
     end;
 
+    WriteLn(F);
+    WriteLn(F, 'function somresolve_(obj: SOMObjectBase; mToken: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := somMethodProc(mToken);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function SOM_Resolve(o: SOMObjectBase; oc: SOMObjectBase{SOMClass}; m: somMToken;');
+    WriteLn(F, '  fileName: PAnsiChar = nil; lineNum: Integer = 0): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if not Assigned(fileName) then fileName := Unknown_Source;');
+    WriteLn(F, '  SOM_TestCls(o, oc, fileName, lineNum);');
+    WriteLn(F, '  Result := m;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function SOM_ResolveNoCheck(o: SOMObjectBase; oc: SOMObjectBase{SOMClass}; m: somMToken): somMethodProc; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := m;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function SOM_TestCls(obj: SOMObjectBase; cls: SOMObjectBase{SOMClass};');
+    WriteLn(F, '  fileName: PAnsiChar = nil; lineNum: Integer = 0): SOMObjectBase; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if not Assigned(fileName) then fileName := Unknown_Source;');
+    WriteLn(F, '  Result := somTestCls(obj, cls, fileName, lineNum);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function somExceptionId; external SOM_DLL_Name;');
+    WriteLn(F, 'function somExceptionValue; external SOM_DLL_Name;');
+    WriteLn(F, 'procedure somExceptionFree; external SOM_DLL_Name;');
+    WriteLn(F, 'procedure somSetException; external SOM_DLL_Name;');
+    WriteLn(F, 'function somGetGlobalEnvironment; external SOM_DLL_Name;');
+    WriteLn(F, 'function exception_id; external SOM_DLL_Name name ''somExceptionId'';');
+    WriteLn(F, 'function exception_value; external SOM_DLL_Name name ''somExceptionValue'';');
+    WriteLn(F, 'procedure exception_free; external SOM_DLL_Name name ''somExceptionFree'';');
+    WriteLn(F);
+    WriteLn(F, 'function SOM_CreateLocalEnvironment: PEnvironment; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := PEnvironment(SOMCalloc(1, SizeOf(Environment)));');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'procedure SOM_DestroyLocalEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  somExceptionFree(ev);');
+    WriteLn(F, '  if somGetGlobalEnvironment <> ev then');
+    WriteLn(F, '    SOMFree(ev);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'procedure SOM_InitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if somGetGlobalEnvironment <> ev then');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    FillChar(ev^, SizeOf(Environment), 0);');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'procedure SOM_UninitEnvironment(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  somExceptionFree(ev);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'var');
+    WriteLn(F, '  SOM_DLL_SOMCalloc: PsomTD_SOMCalloc = nil;');
+    WriteLn(F);
+    WriteLn(F, 'function Replaceable_SOMCalloc: PsomTD_SOMCalloc;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if Assigned(SOM_DLL_SOMCalloc) then');
+    WriteLn(F, '    Result := SOM_DLL_SOMCalloc');
+    WriteLn(F, '  else');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    SOM_DLL_Load_Variable(SOM_DLL_SOMCalloc, ''SOMCalloc'');');
+    WriteLn(F, '    Result := SOM_DLL_SOMCalloc;');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function SOMCalloc(element_count, element_size: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := Replaceable_SOMCalloc^(element_count, element_size);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'var');
+    WriteLn(F, '  SOM_DLL_SOMFree: PsomTD_SOMFree = nil;');
+    WriteLn(F);
+    WriteLn(F, 'function Replaceable_SOMFree: PsomTD_SOMFree;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if Assigned(SOM_DLL_SOMFree) then');
+    WriteLn(F, '    Result := SOM_DLL_SOMFree');
+    WriteLn(F, '  else');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    SOM_DLL_Load_Variable(SOM_DLL_SOMFree, ''SOMFree'');');
+    WriteLn(F, '    Result := SOM_DLL_SOMFree;');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'procedure SOMFree(memory: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Replaceable_SOMFree^(memory);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'var');
+    WriteLn(F, '  SOM_DLL_SOMMalloc: PsomTD_SOMMalloc = nil;');
+    WriteLn(F);
+    WriteLn(F, 'function Replaceable_SOMMalloc: PsomTD_SOMMalloc;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if Assigned(SOM_DLL_SOMMalloc) then');
+    WriteLn(F, '    Result := SOM_DLL_SOMMalloc');
+    WriteLn(F, '  else');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    SOM_DLL_Load_Variable(SOM_DLL_SOMMalloc, ''SOMMalloc'');');
+    WriteLn(F, '    Result := SOM_DLL_SOMMalloc;');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function SOMMalloc(nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := Replaceable_SOMMalloc^(nbytes);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'var');
+    WriteLn(F, '  SOM_DLL_SOMRealloc: PsomTD_SOMRealloc = nil;');
+    WriteLn(F);
+    WriteLn(F, 'function Replaceable_SOMRealloc: PsomTD_SOMRealloc;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if Assigned(SOM_DLL_SOMRealloc) then');
+    WriteLn(F, '    Result := SOM_DLL_SOMRealloc');
+    WriteLn(F, '  else');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    SOM_DLL_Load_Variable(SOM_DLL_SOMRealloc, ''SOMRealloc'');');
+    WriteLn(F, '    Result := SOM_DLL_SOMRealloc;');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function SOMRealloc(memory: somToken; nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := Replaceable_SOMRealloc^(memory, nbytes);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function somTestCls; external SOM_DLL_Name;');
     WriteLn(F);
     WriteLn(F, 'initialization');
     WriteLn(F, '  Windows.InitializeCriticalSection(DLLLoad_CriticalSection);');
