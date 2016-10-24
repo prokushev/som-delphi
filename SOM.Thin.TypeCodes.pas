@@ -146,14 +146,6 @@ const
 
 function tcSequenceNew(t: TypeCode; max: LongWord): PGENERIC_SEQUENCE; stdcall;
 
-type
-  _IDL_SEQUENCE_string = record
-    _maximum: LongWord;
-    _length: LongWord;
-    _buffer: PCORBAString;
-  end;
-  P_IDL_SEQUENCE_string = ^_IDL_SEQUENCE_string;
-
 function tcSeqFromListString(s: CORBAString): _IDL_SEQUENCE_string; stdcall;
 
 (* CORBA function names for TypeCodes, per CORBA 7.6.1, p.139 *)

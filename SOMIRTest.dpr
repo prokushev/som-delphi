@@ -33,6 +33,27 @@ begin
 end;
 
 type
+  TSOMIRImporter = class;
+  TSOMIRQuickLookupForClass = class
+  protected
+    FOIDL: Boolean;
+    FId: string; // "::Module::Class"
+    FMetaclass: string; // "SOMMSingleInstance" before SaturateAndResolve, then "::SOMMSingleInstance"
+    FParents: TStringList; // "::SOMClass", "::SOMObject", ...
+    FAncestors: TStringList; // "::SOMClass", "::SOMObject", ... (saturated)
+    FSaturated: Boolean;
+  public
+    constructor Create(Definition: InterfaceDef);
+    destructor Destroy; override;
+    procedure SaturateAndResolve(Importer: TSOMIRImporter);
+    property OIDL: Boolean read FOIDL;
+    property Id: string read FId;
+    property Metaclass: string read FMetaclass;
+    property Parents: TStringList read FParents;
+    property Ancestors: TStringList read FAncestors;
+    property Saturated: Boolean read FSaturated;
+  end;
+
   TWriteTypePass = (wtpOnDemandForeignOnly, wtpOnDemandBeforeTypeDef, wtpOnDemand, wtpTypeDef, wtpFinal, wtpImplementation, wtpLowLevelImplementation);
   // wtpOnDemandForeignOnly: the write position is at the beginning of line, and if required, importer can write xxx = yyy lines
   //                         only foreign types can be output at this moment (this is to make as much opaque pointers as possible)
@@ -45,14 +66,6 @@ type
   // wtpLowLevelImplementation: write typedef for methods; add "self" and "ev"; turn "any" result into TAnyResult
 
   // wtpFinal is not used for WriteRecordType; TCToImportedType should return string instead
-
-  TSOMIRQuickLookupForClass = class
-  protected
-    FOIDL: Boolean;
-  public
-    constructor Create(Definition: InterfaceDef);
-    property OIDL: Boolean read FOIDL;
-  end;
 
   TSOMIRImporter = class
   private
@@ -103,6 +116,7 @@ type
 
     property RootNamespace: string read FRootNamespace;
     property Repo: Repository read FRepo;
+    property ExistingTypeIds: TStringList read FExistingTypeIds;
   end;
 
 constructor TSOMIRQuickLookupForClass.Create(Definition: InterfaceDef);
@@ -110,8 +124,17 @@ var
   I: LongWord;
   Modifiers: _IDL_SEQUENCE_somModifier;
   Modifier: somModifier;
+  Parents: _IDL_SEQUENCE_string;
+  Parent: string;
+  Index: Integer;
 begin
   inherited Create;
+  FAncestors := TStringList.Create;
+  FParents := TStringList.Create;
+  FAncestors.Sorted := True;
+  FParents.Sorted := True;
+
+  FId := Contained__get_id(Definition, ev);
 
   Modifiers := Contained__get_somModifiers(Definition, ev);
   if Modifiers._length > 0 then
@@ -122,9 +145,79 @@ begin
       if Modifier.name = 'callstyle' then
       begin
         FOIDL := Modifier.value = 'oidl';
+      end
+      else if Modifier.name = 'metaclass' then
+      begin
+        FMetaclass := Modifier.value;
       end;
     end;
   end;
+
+  Parents := InterfaceDef__get_base_interfaces(Definition, ev);
+  if Parents._length > 0 then
+  begin
+    for I := 0 to Parents._length - 1 do
+    begin
+      Parent := PCORBAString(PAnsiChar(Parents._buffer) + I * SizeOf(CORBAString))^;
+      if not FParents.Find(Parent, Index) then
+      begin
+        FParents.Add(Parent);
+      end;
+    end;
+  end;
+end;
+
+procedure TSOMIRQuickLookupForClass.SaturateAndResolve(Importer: TSOMIRImporter);
+var
+  I, J, Index: Integer;
+  ParentId, AncestorId: string;
+  QLOfParent: TSOMIRQuickLookupForClass;
+  AncestorsOfParent: TStringList;
+begin
+  if FSaturated then Exit;
+  if Length(Metaclass) > 0 then
+  begin
+    FMetaclass := Importer.ResolveTypeId(FMetaclass, FId + '::');
+  end
+  else
+  begin
+    FMetaclass := '::SOMClass';
+  end;
+  for I := 0 to FParents.Count - 1 do
+  begin
+    ParentId := FParents[I];
+
+    if Importer.ExistingTypeIds.Find(ParentId, Index) then
+    begin
+      QLOfParent := Importer.ExistingTypeIds.Objects[Index] as TSOMIRQuickLookupForClass;
+      if Assigned(QLOfParent) then
+      begin
+        QLOfParent.SaturateAndResolve(Importer);
+        AncestorsOfParent := QLOfParent.Ancestors;
+        for J := 0 to AncestorsOfParent.Count - 1 do
+        begin
+          AncestorId := AncestorsOfParent[J];
+          if not FAncestors.Find(AncestorId, Index) then
+          begin
+            FAncestors.Add(AncestorId);
+          end;
+        end;
+      end;
+    end;
+
+    if not FAncestors.Find(ParentId, Index) then
+    begin
+      FAncestors.Add(ParentId);
+    end;
+  end;
+  FSaturated := True;
+end;
+
+destructor TSOMIRQuickLookupForClass.Destroy;
+begin
+  FreeAndNil(FAncestors);
+  FreeAndNil(FParents);
+  inherited;
 end;
 
 constructor TSOMIRImporter.Create(const ARootNamespace: string; ARepo: Repository);
@@ -139,14 +232,17 @@ begin
   FOriginalTypeIds := TStringList.Create;
   FPostponedArrayNames := TStringList.Create;
   FDLLs := TStringList.Create;
+  FReservedWords.Add('classobject');
   FReservedWords.Add('create');
   FReservedWords.Add('destroy');
   FReservedWords.Add('file');
   FReservedWords.Add('function');
   FReservedWords.Add('label');
   FReservedWords.Add('mod');
+  FReservedWords.Add('newclass');
   FReservedWords.Add('object');
   FReservedWords.Add('result');
+  FReservedWords.Add('supports');
   FReservedWords.Add('to');
   FReservedWords.Add('type');
   FReservedWords.Sorted := True;
@@ -936,8 +1032,8 @@ var
   Result_TC: TypeCode;
   Result_Kind: TCKind;
   OriginalNamespace: string;
-  OriginalClass, OriginalClassId: string;
-  MethodName: string;
+  OriginalClass, OriginalClassId, MetaclassResult: string;
+  MethodName, SourceMethodName: string;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
   Item: Contained;
@@ -958,7 +1054,8 @@ begin
   end;
   Result_TC := OperationDef__get_result(Definition, ev);
   Result_Kind := TypeCode_kind(Result_TC, ev);
-  MethodName := UnreserveIdentifier(Contained__get_name(Definition, ev));
+  SourceMethodName := Contained__get_name(Definition, ev);
+  MethodName := UnreserveIdentifier(SourceMethodName);
   if Pass > wtpOnDemand then
   begin
     if Pass < wtpImplementation then
@@ -1016,6 +1113,20 @@ begin
     begin
       Write(F, 'TAnyResult');
     end
+    else if (Pass > wtpOnDemand) and (OriginalNamespace = '::SOMObject::') and (SourceMethodName = 'somGetClass') then
+    begin
+      QL := nil; // QL for current class, not for original one
+      if not FExistingTypeIds.Find(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), Index) then
+      begin
+        Write(F, ', Quick lookup failed!!!');
+      end
+      else
+      begin
+        QL := FExistingTypeIds.Objects[Index] as TSOMIRQuickLookupForClass;
+      end;
+      MetaclassResult := IdToImportedType(QL.Metaclass, QL.Metaclass + '::');
+      Write(F, MetaclassResult);
+    end
     else
     begin
       WriteType(OriginalNamespace, Pass, Result_TC);
@@ -1040,7 +1151,7 @@ begin
     OriginalClass := IdToImportedType(OriginalClassId, OriginalNamespace);
     WriteLn(F, 'var');
     WriteLn(F, '  cd: P', OriginalClass, 'ClassDataStructure;');
-    QL := nil;
+    QL := nil; // QL for original class, not current one
     if not FExistingTypeIds.Find(OriginalClassId, Index) then
     begin
       Write(F, ', Quick lookup failed!!!');
@@ -1064,6 +1175,10 @@ begin
     if Result_Kind = TypeCode_tk_any then
     begin
       WriteLn(F, '  Result := any(');
+    end
+    else if MetaclassResult <> '' then
+    begin
+      WriteLn(F, '  Result := ', MetaclassResult, '(');
     end
     else if Result_Kind <> TypeCode_tk_void then
     begin
@@ -1093,13 +1208,13 @@ begin
     end;
 
     Write(F, ')');
-    if Result_Kind = TypeCode_tk_any then
+    if (Result_Kind = TypeCode_tk_any) or (MetaclassResult <> '') then
     begin
       Write(F, ')');
     end;
     WriteLn(F, ';');
 
-    // TODO check exception
+    // TODO check exception!!!!!!!!!!
 
     if not QL.OIDL then
     begin
@@ -1120,12 +1235,15 @@ var
   I: LongWord;
   Item: Contained;
   Name: Identifier;
-  NameS: AnsiString;
+  NameS: string;
   WasPrivate: Boolean;
   OriginalNamespace: string;
-  ImportedType: string;
+  ClassId, ImportedType: string;
+  QL: TSOMIRQuickLookupForClass;
+  Index: Integer;
 begin
   Contents := Container_contents(Definition, ev, 'all', Pass <= wtpOnDemand);
+  QL := nil;
   if Contents._length > 0 then
   begin
     WasPrivate := False;
@@ -1165,7 +1283,18 @@ begin
 
     if (Pass > wtpOnDemand) then
     begin
-      ImportedType := IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace);
+      ClassId := Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2);
+      ImportedType := IdToImportedType(ClassId, CurrentNamespace);
+
+      QL := nil;
+      if not FExistingTypeIds.Find(ClassId, Index) then
+      begin
+        WriteLn(F, '{ Quick lookup failed!!! }');
+      end
+      else
+      begin
+        QL := FExistingTypeIds.Objects[Index] as TSOMIRQuickLookupForClass;
+      end;
 
       if Pass < wtpImplementation then
       begin
@@ -1174,11 +1303,10 @@ begin
       end
       else
       begin
-        ImportedType := IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace);
         WriteLn(F);
         WriteLn(F, 'class function ', ImportedType, '.Create: ', ImportedType, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
         WriteLn(F, 'begin');
-        WriteLn(F, '  Result := ', ImportedType, '(NewClass.somNew);');
+        WriteLn(F, '  Result := ', ImportedType, '(SOMClass(NewClass).somNew);');
         WriteLn(F, 'end;');
       end;
     end;
@@ -1221,46 +1349,138 @@ begin
 
     if (Pass > wtpOnDemand) then
     begin
+      NameS := QL.Metaclass;
+      NameS := IdToImportedType(NameS, NameS + '::');
+
       if Pass < wtpImplementation then
       begin
-        // TODO metaclass modifier should alter result type
-        WriteLn(F, '    class function ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created');
+        WriteLn(F);
+        WriteLn(F, '    { Class object access and initialization }');
+        WriteLn(F, '    class function ClassObject: ', NameS, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF} // may be nil before class is created');
       end
       else
       begin
         WriteLn(F);
-        WriteLn(F, 'class function ', ImportedType, '.ClassObject: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'class function ', ImportedType, '.ClassObject: ', NameS, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
         WriteLn(F, 'begin');
         WriteLn(F, '  if Self = ', ImportedType, ' then { invoked on class name literal }');
         WriteLn(F, '  begin');
-        WriteLn(F, '    Result := SOMClass(', ImportedType, 'ClassData.classObject);');
+        WriteLn(F, '    Result := ', NameS, '(', ImportedType, 'ClassData.classObject);');
         WriteLn(F, '  end');
         WriteLn(F, '  else { invoked on SOM object }');
         WriteLn(F, '  begin');
-        WriteLn(F, '    Result := SOMClass(PPointer(Self)^);');
+        WriteLn(F, '    Result := ', NameS, '(PPointer(Self)^);');
         WriteLn(F, '  end');
         WriteLn(F, 'end;');
       end;
 
       if Pass < wtpImplementation then
       begin
-        // TODO metaclass modifier should alter result type
-        WriteLn(F, '    class function NewClass: SOMClass; // (not really new every time, but autocreated)');
+        WriteLn(F, '    class function NewClass: ', NameS, '; // (not really new every time, but autocreated)');
+        WriteLn(F);
+        WriteLn(F, '    { Upcasting }');
       end
       else
       begin
         WriteLn(F);
-        WriteLn(F, 'class function ', ImportedType, '.NewClass: SOMClass;');
+        WriteLn(F, 'class function ', ImportedType, '.NewClass: ', NameS, ';');
         WriteLn(F, 'begin');
         WriteLn(F, '  if Self = ', ImportedType, ' then { invoked on class name literal }');
         WriteLn(F, '  begin');
-        WriteLn(F, '    Result := SOMClass(', ImportedType, 'ClassData.classObject);');
-        WriteLn(F, '    if not Assigned(Result) then Result := SOMClass(', ImportedType, 'NewClass);');
+        WriteLn(F, '    Result := ', NameS, '(', ImportedType, 'ClassData.classObject);');
+        WriteLn(F, '    if not Assigned(Result) then Result := ', NameS, '(', ImportedType, 'NewClass);');
         WriteLn(F, '  end');
         WriteLn(F, '  else { invoked on SOM object }');
         WriteLn(F, '  begin');
-        WriteLn(F, '    Result := SOMClass(PPointer(Self)^);');
+        WriteLn(F, '    Result := ', NameS, '(PPointer(Self)^);');
         WriteLn(F, '  end');
+        WriteLn(F, 'end;');
+      end;
+
+      if QL.Ancestors.Count > 0 then for I := 0 to QL.Ancestors.Count - 1 do
+      begin
+        NameS := QL.Ancestors[I];
+        if NameS <> '::SOMObject' then // already present in SOMObjectBase
+        begin
+          NameS := IdToImportedType(NameS, NameS + '::');
+
+          if Pass < wtpImplementation then
+          begin
+            WriteLn(F, '    function As_', NameS, ': ', NameS, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+          end
+          else
+          begin
+            WriteLn(F);
+            WriteLn(F, 'function ', ImportedType, '.As_', NameS, ': ', NameS, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+            WriteLn(F, 'begin');
+            WriteLn(F, '  Result := ', NameS, '(Self);');
+            WriteLn(F, 'end;');
+          end;
+        end;
+      end;
+
+      if ClassId <> '::SOMObject' then // already present in SOMObjectBase
+      begin // prevent the stupid situation where we can write As_ClassName for ancestors, but not for the class itself
+        if Pass < wtpImplementation then
+        begin
+          WriteLn(F, '    function As_', ImportedType, ': ', ImportedType, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        end
+        else
+        begin
+          WriteLn(F);
+          WriteLn(F, 'function ', ImportedType, '.As_', ImportedType, ': ', ImportedType, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+          WriteLn(F, 'begin');
+          WriteLn(F, '  Result := Self;');
+          WriteLn(F, 'end;');
+        end;
+      end;
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F);
+        WriteLn(F, '    { Downcasting }');
+        WriteLn(F, '    class function Supports(Instance: SOMObjectBase): Boolean; overload; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.Supports(Instance: SOMObjectBase): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  if not Assigned(Instance) then');
+        WriteLn(F, '  begin');
+        WriteLn(F, '    Result := False;');
+        WriteLn(F, '  end');
+        WriteLn(F, '  else');
+        WriteLn(F, '  begin');
+        WriteLn(F, '    Result := SOMObject(Instance).somIsA(SOMClass(NewClass));');
+        WriteLn(F, '  end;');
+        WriteLn(F, 'end;');
+      end;
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '    class function Supports(Instance: SOMObjectBase; out Obj: ', ImportedType, '): Boolean; overload; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.Supports(Instance: SOMObjectBase; out Obj: ', ImportedType, '): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  if not Assigned(Instance) then');
+        WriteLn(F, '  begin');
+        WriteLn(F, '    Result := False;');
+        WriteLn(F, '    Obj := nil;');
+        WriteLn(F, '  end');
+        WriteLn(F, '  else if SOMObject(Instance).somIsA(SOMClass(NewClass)) then');
+        WriteLn(F, '  begin');
+        WriteLn(F, '    Result := True;');
+        WriteLn(F, '    Obj := ', ImportedType, '(Instance);');
+        WriteLn(F, '  end');
+        WriteLn(F, '  else');
+        WriteLn(F, '  begin');
+        WriteLn(F, '    Result := False;');
+        WriteLn(F, '    Obj := nil;');
+        WriteLn(F, '  end;');
         WriteLn(F, 'end;');
       end;
     end;
@@ -2114,6 +2334,7 @@ var
   Item: Contained;
   WasForwardType: Boolean;
   Name: string;
+  QL: TSOMIRQuickLookupForClass;
 begin
   Assign(F, RootNamespace + '.pas');
   Rewrite(F);
@@ -2167,6 +2388,14 @@ begin
     end;
     FExistingTypeIds.Sorted := True;
     FOriginalTypeIds.Sorted := True;
+    if FExistingTypeIds.Count > 0 then for I := 0 to FExistingTypeIds.Count - 1 do
+    begin
+      QL := FExistingTypeIds.Objects[I] as TSOMIRQuickLookupForClass;
+      if Assigned(QL) then
+      begin
+        QL.SaturateAndResolve(Self);
+      end;
+    end;
     Write(' 1');
     WriteLn(F);
     WriteLn(F, '  { Foreign types }');
