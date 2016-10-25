@@ -1975,16 +1975,23 @@ begin
               end
               else
               begin
-                Write(F, I - 1);
+                Write(F, I);
               end;
               WriteLn(F, ');');
             end;
           end
-          else
+          else if (CurrentNamespace = '::') and ((Name = 'exception_type') or (Name = 'completion_status')) then
           begin
             for I := 1 to ParamCount - 1 do
             begin
               WriteLn(F, '  ', IdToImportedType(CurrentNamespace + ExtractName(TC, I), CurrentNamespace), ' = ', ImportedType, '(', I - 1, ');');
+            end;
+          end // TODO also check emitter framework enums!!!!!!!!!!!!!!! they are 0-based and byte (not LongWord) sometimes
+          else
+          begin
+            for I := 1 to ParamCount - 1 do
+            begin
+              WriteLn(F, '  ', IdToImportedType(CurrentNamespace + ExtractName(TC, I), CurrentNamespace), ' = ', ImportedType, '(', I, ');');
             end;
           end;
         end
