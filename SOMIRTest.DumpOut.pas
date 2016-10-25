@@ -16,7 +16,7 @@ uses
   SysUtils;
 
 type
-  { Hardwired definitions (more hardwired ones go in records section below) }
+  { Hardwired definitions }
   CORBAString = PAnsiChar;
   CORBABoolean = ByteBool;
   TypeCode = Pointer;
@@ -446,6 +446,7 @@ type
     minor: LongWord;
     completed: completion_status;
   end;
+  PStExcep = ^StExcep;
 
   Environment = record
     _major: exception_type;
@@ -789,6 +790,24 @@ type
     procedure Destroy; reintroduce;
   public
     function As_SOMObject: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  end;
+
+  ESOMException = class(Exception)
+  protected
+    FMajor: exception_type;
+    FExceptionId: string;
+    FExceptionValue: Pointer;
+    FNestedEnvironment: Environment;
+    function GetNestedEnvironment: PEnvironment; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  public
+    constructor Create(ev: PEnvironment); overload; // copies ev inside and clears ev argument
+    constructor Create(AMajor: exception_type; const AExceptionId: string; AExceptionValue: Pointer); overload; // from user code
+    destructor Destroy; override;
+    procedure ResetNestedEnvironment; // clears the internal env and thus won't destroy it
+    property Major: exception_type read FMajor;
+    property ExceptionId: string read FExceptionId;
+    property ExceptionValue: Pointer read FExceptionValue;
+    property NestedEnvironment: PEnvironment read GetNestedEnvironment;
   end;
 
   SOMObject = class(SOMObjectBase)
@@ -5744,6 +5763,64 @@ end;
 function SOMObjectBase.As_SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMObject(Self); { upcast }
+end;
+
+function ESOMException.GetNestedEnvironment: PEnvironment; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := @FNestedEnvironment;
+end;
+
+constructor ESOMException.Create(ev: PEnvironment); // clears ev
+var
+  Msg: string;
+begin
+  if ev <> @FNestedEnvironment then // not from parent constructor
+  begin
+    Move(ev^, FNestedEnvironment, SizeOf(Environment));
+    FillChar(ev^, SizeOf(Environment), 0);
+  end;
+  FMajor := FNestedEnvironment._major;
+  case FMajor of
+    SYSTEM_EXCEPTION: begin
+      FExceptionId := somExceptionId(@FNestedEnvironment);
+      FExceptionValue := somExceptionValue(@FNestedEnvironment);
+      Msg := 'Error occured; exception string: ' + FExceptionId + '; ' +
+        'minor error code: ' + IntToStr(PStExcep(FExceptionValue).minor) + '; ' +
+        'completion code: ';
+      case PStExcep(FExceptionValue).completed of
+        YES: Msg := Msg + 'YES';
+        NO: Msg := Msg + 'YES';
+      else Msg := Msg + 'MAYBE';
+      end;
+    end;
+    USER_EXCEPTION: begin
+      FExceptionId := somExceptionId(@FNestedEnvironment);
+      FExceptionValue := somExceptionValue(@FNestedEnvironment);
+      Msg := 'Error occured; exception string: ' + FExceptionId;
+    end;
+  else Msg := 'Exception created from empty environment';
+  end;
+  inherited Create(Msg);
+end;
+
+constructor ESOMException.Create(AMajor: exception_type; const AExceptionId: string; AExceptionValue: Pointer); // from user code
+var
+  S: AnsiString;
+begin
+  S := AExceptionId;
+  somSetException(@FNestedEnvironment, AMajor, PAnsiChar(S), AExceptionValue);
+  Create(@FNestedEnvironment);
+end;
+
+destructor ESOMException.Destroy;
+begin
+  SOM_UninitEnvironment(@FNestedEnvironment);
+  inherited;
+end;
+
+procedure ESOMException.ResetNestedEnvironment;
+begin
+  FillChar(FNestedEnvironment, SizeOf(Environment), 0);
 end;
 
 const
@@ -55726,8 +55803,8 @@ function somTestCls; external SOM_DLL_Name;
 
 procedure SOM_RaiseEnvironment(ev: PEnvironment);
 begin
-  // TODO raise Delphi exception using info from ev
-  somExceptionFree(ev); // TODO remove this line
+  // TODO raise proper Delphi exception using info from ev
+  ESOMException.Create(ev);
 end;
 
 procedure SOM_UninitEnvironmentOrRaise(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}

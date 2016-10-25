@@ -2365,7 +2365,7 @@ begin
     WriteLn(F, '  SysUtils;');
     WriteLn(F);
     WriteLn(F, 'type');
-    WriteLn(F, '  { Hardwired definitions (more hardwired ones go in records section below) }');
+    WriteLn(F, '  { Hardwired definitions }');
     WriteLn(F, '  CORBAString = PAnsiChar;');
     WriteLn(F, '  CORBABoolean = ByteBool;');
     WriteLn(F, '  TypeCode = Pointer;'); // TODO convert to object
@@ -2431,6 +2431,7 @@ begin
     WriteLn(F, '    minor: LongWord;');
     WriteLn(F, '    completed: completion_status;');
     WriteLn(F, '  end;');
+    WriteLn(F, '  PStExcep = ^StExcep;');
     WriteLn(F);
     WriteLn(F, '  Environment = record'); // fixup for Environment
     WriteLn(F, '    _major: exception_type;');
@@ -2453,6 +2454,24 @@ begin
     WriteLn(F, '    procedure Destroy; reintroduce;');
     WriteLn(F, '  public');
     WriteLn(F, '    function As_SOMObject: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, '  end;');
+    WriteLn(F);
+    WriteLn(F, '  ESOMException = class(Exception)');
+    WriteLn(F, '  protected');
+    WriteLn(F, '    FMajor: exception_type;');
+    WriteLn(F, '    FExceptionId: string;');
+    WriteLn(F, '    FExceptionValue: Pointer;');
+    WriteLn(F, '    FNestedEnvironment: Environment;');
+    WriteLn(F, '    function GetNestedEnvironment: PEnvironment; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, '  public');
+    WriteLn(F, '    constructor Create(ev: PEnvironment); overload; // copies ev inside and clears ev argument');
+    WriteLn(F, '    constructor Create(AMajor: exception_type; const AExceptionId: string; AExceptionValue: Pointer); overload; // from user code');
+    WriteLn(F, '    destructor Destroy; override;');
+    WriteLn(F, '    procedure ResetNestedEnvironment; // clears the internal env and thus won''t destroy it');
+    WriteLn(F, '    property Major: exception_type read FMajor;');
+    WriteLn(F, '    property ExceptionId: string read FExceptionId;');
+    WriteLn(F, '    property ExceptionValue: Pointer read FExceptionValue;');
+    WriteLn(F, '    property NestedEnvironment: PEnvironment read GetNestedEnvironment;');
     WriteLn(F, '  end;');
 
     // Fifth pass: satisfy forward type references with classes
@@ -2701,6 +2720,64 @@ begin
     WriteLn(F, 'begin');
     WriteLn(F, '  Result := SOMObject(Self); { upcast }');
     WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function ESOMException.GetNestedEnvironment: PEnvironment; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := @FNestedEnvironment;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'constructor ESOMException.Create(ev: PEnvironment); // clears ev');
+    WriteLn(F, 'var');
+    WriteLn(F, '  Msg: string;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if ev <> @FNestedEnvironment then // not from parent constructor');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    Move(ev^, FNestedEnvironment, SizeOf(Environment));');
+    WriteLn(F, '    FillChar(ev^, SizeOf(Environment), 0);');
+    WriteLn(F, '  end;');
+    WriteLn(F, '  FMajor := FNestedEnvironment._major;');
+    WriteLn(F, '  case FMajor of');
+    WriteLn(F, '    SYSTEM_EXCEPTION: begin');
+    WriteLn(F, '      FExceptionId := somExceptionId(@FNestedEnvironment);');
+    WriteLn(F, '      FExceptionValue := somExceptionValue(@FNestedEnvironment);');
+    WriteLn(F, '      Msg := ''Error occured; exception string: '' + FExceptionId + ''; '' +');
+    WriteLn(F, '        ''minor error code: '' + IntToStr(PStExcep(FExceptionValue).minor) + ''; '' +');
+    WriteLn(F, '        ''completion code: '';');
+    WriteLn(F, '      case PStExcep(FExceptionValue).completed of');
+    WriteLn(F, '        YES: Msg := Msg + ''YES'';');
+    WriteLn(F, '        NO: Msg := Msg + ''YES'';');
+    WriteLn(F, '      else Msg := Msg + ''MAYBE'';');
+    WriteLn(F, '      end;');
+    WriteLn(F, '    end;');
+    WriteLn(F, '    USER_EXCEPTION: begin');
+    WriteLn(F, '      FExceptionId := somExceptionId(@FNestedEnvironment);');
+    WriteLn(F, '      FExceptionValue := somExceptionValue(@FNestedEnvironment);');
+    WriteLn(F, '      Msg := ''Error occured; exception string: '' + FExceptionId;');
+    WriteLn(F, '    end;');
+    WriteLn(F, '  else Msg := ''Exception created from empty environment'';');
+    WriteLn(F, '  end;');
+    WriteLn(F, '  inherited Create(Msg);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'constructor ESOMException.Create(AMajor: exception_type; const AExceptionId: string; AExceptionValue: Pointer); // from user code');
+    WriteLn(F, 'var');
+    WriteLn(F, '  S: AnsiString;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  S := AExceptionId;');
+    WriteLn(F, '  somSetException(@FNestedEnvironment, AMajor, PAnsiChar(S), AExceptionValue);');
+    WriteLn(F, '  Create(@FNestedEnvironment);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'destructor ESOMException.Destroy;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  SOM_UninitEnvironment(@FNestedEnvironment);');
+    WriteLn(F, '  inherited;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'procedure ESOMException.ResetNestedEnvironment;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  FillChar(FNestedEnvironment, SizeOf(Environment), 0);');
+    WriteLn(F, 'end;');
 
     // Eighth pass: class and method implementation
     if Contents._length > 0 then for I := 0 to Contents._length - 1 do
@@ -2931,8 +3008,8 @@ begin
     WriteLn(F);
     WriteLn(F, 'procedure SOM_RaiseEnvironment(ev: PEnvironment);');
     WriteLn(F, 'begin');
-    WriteLn(F, '  // TODO raise Delphi exception using info from ev'); // TODO
-    WriteLn(F, '  somExceptionFree(ev); // TODO remove this line');
+    WriteLn(F, '  // TODO raise proper Delphi exception using info from ev'); // TODO
+    WriteLn(F, '  ESOMException.Create(ev);');
     WriteLn(F, 'end;');
     WriteLn(F);
     WriteLn(F, 'procedure SOM_UninitEnvironmentOrRaise(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
