@@ -19,7 +19,7 @@ type
   { Hardwired definitions }
   CORBAString = PAnsiChar;
   CORBABoolean = ByteBool;
-  TypeCode = Pointer;
+  TypeCode = class;
   any = record
     _type: TypeCode;
     _value: Pointer;
@@ -790,6 +790,58 @@ type
     procedure Destroy; reintroduce;
   public
     function As_SOMObject: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+  end;
+
+  TypeCode = class
+  private
+    { hide TObject methods }
+    procedure Destroy; reintroduce;
+  public
+    class function TC_null: TypeCode;
+    class function TC_void: TypeCode;
+    class function TC_short: TypeCode;
+    class function TC_long: TypeCode;
+    class function TC_ushort: TypeCode;
+    class function TC_ulong: TypeCode;
+    class function TC_float: TypeCode;
+    class function TC_double: TypeCode;
+    class function TC_boolean: TypeCode;
+    class function TC_char: TypeCode;
+    class function TC_octet: TypeCode;
+    class function TC_any: TypeCode;
+    class function TC_TypeCode: TypeCode;
+    class function TC_Principal: TypeCode;
+    class function TC_Object: TypeCode;
+    class function TC_string: TypeCode;
+    class function TC_NamedValue: TypeCode;
+    class function TC_InterfaceDescription: TypeCode;
+    class function TC_OperationDescription: TypeCode;
+    class function TC_AttributeDescription: TypeCode;
+    class function TC_ParameterDescription: TypeCode;
+    class function TC_RepositoryDescription: TypeCode;
+    class function TC_ModuleDescription: TypeCode;
+    class function TC_ConstDescription: TypeCode;
+    class function TC_ConstantDescription: TypeCode;
+    class function TC_ExceptionDescription: TypeCode;
+    class function TC_TypeDescription: TypeCode;
+    class function TC_FullInterfaceDescription: TypeCode;
+
+    (* CORBA function names for TypeCodes, per CORBA 7.6.1, p.139 *)
+    function kind: TCKind;
+    function equal(y: TypeCode): CORBABoolean;
+    function param_count: LongInt;
+    function parameter(index: LongInt): any;
+    (*
+     *  The following are IBM TypeCode extensions
+     *)
+    function alignment: SmallInt;
+    function copy: TypeCode;
+    procedure free;
+    procedure print;
+    procedure setAlignment(a: SmallInt);
+    function size: LongInt;
+
+    class function Create(tag: TCKind; ap: va_list): TypeCode;
   end;
 
   ESOMException = class(Exception)
@@ -5735,6 +5787,16 @@ function somTestCls(
     fileName: CORBAString;
     lineNumber: Integer): SOMObjectBase; stdcall;
 
+// #include <somtc.h>
+
+(*
+ *  Following constants used with tcNew to create union TypeCodes.
+ *  See calling sequences above.
+ *)
+const
+  TCREGULAR_CASE = LongInt(1);
+  TCDEFAULT_CASE = LongInt(2);
+
 // not in SOM headers
 
 procedure SOM_UninitEnvironmentOrRaise(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5763,6 +5825,540 @@ end;
 function SOMObjectBase.As_SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMObject(Self); { upcast }
+end;
+
+const
+  SOMTC_DLL_Name = 'somtc.dll';
+
+var
+  SOMTC_DLL: System.HMODULE = 0;
+
+procedure SOMTC_DLL_Load_Variable(var V_Pointer; const Var_Name: AnsiString);
+begin
+  if SOMTC_DLL = 0 then
+  begin
+    Windows.EnterCriticalSection(DLLLoad_CriticalSection);
+    if SOMTC_DLL = 0 then
+      SOMTC_DLL := Windows.LoadLibraryW(SOMTC_DLL_Name);
+    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
+  if SOMTC_DLL <> 0 then
+    Pointer(V_Pointer) := Windows.GetProcAddress(SOMTC_DLL, PAnsiChar(Var_Name));
+end;
+
+procedure TypeCode.Destroy;
+begin
+  { hide this method }
+end;
+
+var
+  SOMTC_DLL_TC__null: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_null: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__null) then
+    Result := SOMTC_DLL_TC__null
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__null, 'TC__null');
+    Result := SOMTC_DLL_TC__null;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__void: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_void: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__void) then
+    Result := SOMTC_DLL_TC__void
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__void, 'TC__void');
+    Result := SOMTC_DLL_TC__void;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__short: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_short: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__short) then
+    Result := SOMTC_DLL_TC__short
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__short, 'TC__short');
+    Result := SOMTC_DLL_TC__short;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__long: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_long: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__long) then
+    Result := SOMTC_DLL_TC__long
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__long, 'TC__long');
+    Result := SOMTC_DLL_TC__long;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__ushort: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_ushort: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__ushort) then
+    Result := SOMTC_DLL_TC__ushort
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__ushort, 'TC__ushort');
+    Result := SOMTC_DLL_TC__ushort;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__ulong: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_ulong: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__ulong) then
+    Result := SOMTC_DLL_TC__ulong
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__ulong, 'TC__ulong');
+    Result := SOMTC_DLL_TC__ulong;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__float: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_float: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__float) then
+    Result := SOMTC_DLL_TC__float
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__float, 'TC__float');
+    Result := SOMTC_DLL_TC__float;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__double: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_double: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__double) then
+    Result := SOMTC_DLL_TC__double
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__double, 'TC__double');
+    Result := SOMTC_DLL_TC__double;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__boolean: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_boolean: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__boolean) then
+    Result := SOMTC_DLL_TC__boolean
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__boolean, 'TC__boolean');
+    Result := SOMTC_DLL_TC__boolean;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__char: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_char: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__char) then
+    Result := SOMTC_DLL_TC__char
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__char, 'TC__char');
+    Result := SOMTC_DLL_TC__char;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__octet: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_octet: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__octet) then
+    Result := SOMTC_DLL_TC__octet
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__octet, 'TC__octet');
+    Result := SOMTC_DLL_TC__octet;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__any: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_any: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__any) then
+    Result := SOMTC_DLL_TC__any
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__any, 'TC__any');
+    Result := SOMTC_DLL_TC__any;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__TypeCode: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_TypeCode: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__TypeCode) then
+    Result := SOMTC_DLL_TC__TypeCode
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__TypeCode, 'TC__TypeCode');
+    Result := SOMTC_DLL_TC__TypeCode;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__Principal: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_Principal: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__Principal) then
+    Result := SOMTC_DLL_TC__Principal
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__Principal, 'TC__Principal');
+    Result := SOMTC_DLL_TC__Principal;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__Object: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_Object: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__Object) then
+    Result := SOMTC_DLL_TC__Object
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__Object, 'TC__Object');
+    Result := SOMTC_DLL_TC__Object;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__string: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_string: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__string) then
+    Result := SOMTC_DLL_TC__string
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__string, 'TC__string');
+    Result := SOMTC_DLL_TC__string;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__NamedValue: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_NamedValue: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__NamedValue) then
+    Result := SOMTC_DLL_TC__NamedValue
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__NamedValue, 'TC__NamedValue');
+    Result := SOMTC_DLL_TC__NamedValue;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__InterfaceDescription: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_InterfaceDescription: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__InterfaceDescription) then
+    Result := SOMTC_DLL_TC__InterfaceDescription
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__InterfaceDescription, 'TC__InterfaceDescription');
+    Result := SOMTC_DLL_TC__InterfaceDescription;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__OperationDescription: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_OperationDescription: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__OperationDescription) then
+    Result := SOMTC_DLL_TC__OperationDescription
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__OperationDescription, 'TC__OperationDescription');
+    Result := SOMTC_DLL_TC__OperationDescription;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__AttributeDescription: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_AttributeDescription: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__AttributeDescription) then
+    Result := SOMTC_DLL_TC__AttributeDescription
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__AttributeDescription, 'TC__AttributeDescription');
+    Result := SOMTC_DLL_TC__AttributeDescription;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__ParameterDescription: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_ParameterDescription: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__ParameterDescription) then
+    Result := SOMTC_DLL_TC__ParameterDescription
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__ParameterDescription, 'TC__ParameterDescription');
+    Result := SOMTC_DLL_TC__ParameterDescription;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__RepositoryDescription: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_RepositoryDescription: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__RepositoryDescription) then
+    Result := SOMTC_DLL_TC__RepositoryDescription
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__RepositoryDescription, 'TC__RepositoryDescription');
+    Result := SOMTC_DLL_TC__RepositoryDescription;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__ModuleDescription: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_ModuleDescription: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__ModuleDescription) then
+    Result := SOMTC_DLL_TC__ModuleDescription
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__ModuleDescription, 'TC__ModuleDescription');
+    Result := SOMTC_DLL_TC__ModuleDescription;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__ConstDescription: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_ConstDescription: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__ConstDescription) then
+    Result := SOMTC_DLL_TC__ConstDescription
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__ConstDescription, 'TC__ConstDescription');
+    Result := SOMTC_DLL_TC__ConstDescription;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__ConstantDescription: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_ConstantDescription: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__ConstantDescription) then
+    Result := SOMTC_DLL_TC__ConstantDescription
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__ConstantDescription, 'TC__ConstantDescription');
+    Result := SOMTC_DLL_TC__ConstantDescription;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__ExceptionDescription: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_ExceptionDescription: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__ExceptionDescription) then
+    Result := SOMTC_DLL_TC__ExceptionDescription
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__ExceptionDescription, 'TC__ExceptionDescription');
+    Result := SOMTC_DLL_TC__ExceptionDescription;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__TypeDescription: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_TypeDescription: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__TypeDescription) then
+    Result := SOMTC_DLL_TC__TypeDescription
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__TypeDescription, 'TC__TypeDescription');
+    Result := SOMTC_DLL_TC__TypeDescription;
+  end;
+end;
+
+var
+  SOMTC_DLL_TC__FullInterfaceDescription: TypeCode = TypeCode(nil);
+
+class function TypeCode.TC_FullInterfaceDescription: TypeCode;
+begin
+  if Assigned(SOMTC_DLL_TC__FullInterfaceDescription) then
+    Result := SOMTC_DLL_TC__FullInterfaceDescription
+  else
+  begin
+    SOMTC_DLL_Load_Variable(SOMTC_DLL_TC__FullInterfaceDescription, 'TC__FullInterfaceDescription');
+    Result := SOMTC_DLL_TC__FullInterfaceDescription;
+  end;
+end;
+
+function TypeCode_kind(t: TypeCode; ev: PEnvironment): TCKind; stdcall; external SOMTC_DLL_Name name 'tcKind';
+
+function TypeCode.kind: TCKind;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := TypeCode_kind(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+function TypeCode_equal(x: TypeCode; ev: PEnvironment; y: TypeCode): CORBABoolean; stdcall; external SOMTC_DLL_Name name 'tcEqual';
+
+function TypeCode.equal(y: TypeCode): CORBABoolean;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := TypeCode_equal(Self, @LocalEnv, y);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+function TypeCode_param_count(t: TypeCode; ev: PEnvironment): LongInt; stdcall; external SOMTC_DLL_Name name 'tcParmCount';
+
+function TypeCode.param_count: LongInt;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := TypeCode_param_count(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+function TypeCode_parameter(t: TypeCode; ev: PEnvironment; index: LongInt): TAnyResult; stdcall; external SOMTC_DLL_Name name 'tcParameter';
+
+function TypeCode.parameter(index: LongInt): any;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := any(TypeCode_parameter(Self, @LocalEnv, index));
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+function TypeCode_alignment(t: TypeCode; ev: PEnvironment): SmallInt; stdcall; external SOMTC_DLL_Name name 'tcAlignment';
+
+function TypeCode.alignment: SmallInt;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := TypeCode_alignment(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+function TypeCode_copy(t: TypeCode; ev: PEnvironment): TypeCode; stdcall; external SOMTC_DLL_Name name 'tcCopy';
+
+function TypeCode.copy: TypeCode;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := TypeCode_copy(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+procedure TypeCode_free(t: TypeCode; ev: PEnvironment); stdcall; external SOMTC_DLL_Name name 'tcFree';
+
+procedure TypeCode.free;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  TypeCode_free(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+procedure TypeCode_print(t: TypeCode; ev: PEnvironment); stdcall; external SOMTC_DLL_Name name 'tcPrint';
+
+procedure TypeCode.print;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  TypeCode_print(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+procedure TypeCode_setAlignment(t: TypeCode; ev: PEnvironment; a: SmallInt); stdcall; external SOMTC_DLL_Name name 'tcSetAlignment';
+
+procedure TypeCode.setAlignment(a: SmallInt);
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  TypeCode_setAlignment(Self, @LocalEnv, a);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+function TypeCode_size(t: TypeCode; ev: PEnvironment): LongInt; stdcall; external SOMTC_DLL_Name name 'tcSize';
+
+function TypeCode.size: LongInt;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := TypeCode_size(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+function TypeCodeNewVL(tag: TCKind; ap: va_list): TypeCode; stdcall; external SOMTC_DLL_Name name 'tcNewVL';
+
+class function TypeCode.Create(tag: TCKind; ap: va_list): TypeCode;
+begin
+  Result := TypeCodeNewVL(tag, ap);
+  // if not Assigned(Result) then raise something;
 end;
 
 function ESOMException.GetNestedEnvironment: PEnvironment; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -55873,6 +56469,15 @@ finalization
     if SOMS_DLL <> 0 then
     begin
       FreeLibrary(SOMS_DLL);
+    end;
+    Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
+  end;
+  if SOMTC_DLL <> 0 then
+  begin
+    Windows.EnterCriticalSection(DLLLoad_CriticalSection);
+    if SOMTC_DLL <> 0 then
+    begin
+      FreeLibrary(SOMTC_DLL);
     end;
     Windows.LeaveCriticalSection(DLLLoad_CriticalSection);
   end;
