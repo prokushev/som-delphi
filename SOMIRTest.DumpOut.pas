@@ -796,6 +796,13 @@ type
   private
     { hide TObject methods }
     procedure Destroy; reintroduce;
+  protected
+    function GetKind: TCKind;
+    function GetParamCount: LongInt;
+    function GetParameter(Index: LongInt): any;
+    function GetAlignment: SmallInt;
+    procedure SetAlignment(a: SmallInt);
+    function GetSize: LongInt;
   public
     class function TC_null: TypeCode;
     class function TC_void: TypeCode;
@@ -825,23 +832,16 @@ type
     class function TC_ExceptionDescription: TypeCode;
     class function TC_TypeDescription: TypeCode;
     class function TC_FullInterfaceDescription: TypeCode;
-
-    (* CORBA function names for TypeCodes, per CORBA 7.6.1, p.139 *)
-    function kind: TCKind;
-    function equal(y: TypeCode): CORBABoolean;
-    function param_count: LongInt;
-    function parameter(index: LongInt): any;
-    (*
-     *  The following are IBM TypeCode extensions
-     *)
-    function alignment: SmallInt;
-    function copy: TypeCode;
-    procedure free;
-    procedure print;
-    procedure setAlignment(a: SmallInt);
-    function size: LongInt;
-
+    function Equal(y: TypeCode): CORBABoolean;
+    function Copy: TypeCode;
+    procedure Free;
+    procedure Print;
     class function Create(tag: TCKind; ap: va_list): TypeCode;
+    property Kind: TCKind read GetKind;
+    property ParamCount: LongInt read GetParamCount;
+    property Parameter[Index: LongInt]: any read GetParameter; default;
+    property Alignment: SmallInt read GetAlignment write SetAlignment;
+    property Size: LongInt read GetSize;
   end;
 
   ESOMException = class(Exception)
@@ -5851,6 +5851,72 @@ begin
   { hide this method }
 end;
 
+function TypeCode_kind(t: TypeCode; ev: PEnvironment): TCKind; stdcall; external SOMTC_DLL_Name name 'tcKind';
+
+function TypeCode.GetKind: TCKind;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := TypeCode_kind(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+function TypeCode_param_count(t: TypeCode; ev: PEnvironment): LongInt; stdcall; external SOMTC_DLL_Name name 'tcParmCount';
+
+function TypeCode.GetParamCount: LongInt;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := TypeCode_param_count(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+function TypeCode_parameter(t: TypeCode; ev: PEnvironment; index: LongInt): TAnyResult; stdcall; external SOMTC_DLL_Name name 'tcParameter';
+
+function TypeCode.GetParameter(index: LongInt): any;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := any(TypeCode_parameter(Self, @LocalEnv, index));
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+function TypeCode_alignment(t: TypeCode; ev: PEnvironment): SmallInt; stdcall; external SOMTC_DLL_Name name 'tcAlignment';
+
+function TypeCode.GetAlignment: SmallInt;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := TypeCode_alignment(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+procedure TypeCode_setAlignment(t: TypeCode; ev: PEnvironment; a: SmallInt); stdcall; external SOMTC_DLL_Name name 'tcSetAlignment';
+
+procedure TypeCode.SetAlignment(a: SmallInt);
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  TypeCode_setAlignment(Self, @LocalEnv, a);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+function TypeCode_size(t: TypeCode; ev: PEnvironment): LongInt; stdcall; external SOMTC_DLL_Name name 'tcSize';
+
+function TypeCode.GetSize: LongInt;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  Result := TypeCode_size(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
 var
   SOMTC_DLL_TC__null: TypeCode = TypeCode(nil);
 
@@ -6243,20 +6309,9 @@ begin
   end;
 end;
 
-function TypeCode_kind(t: TypeCode; ev: PEnvironment): TCKind; stdcall; external SOMTC_DLL_Name name 'tcKind';
-
-function TypeCode.kind: TCKind;
-var
-  LocalEnv: Environment;
-begin
-  SOM_InitEnvironment(@LocalEnv);
-  Result := TypeCode_kind(Self, @LocalEnv);
-  SOM_UninitEnvironmentOrRaise(@LocalEnv);
-end;
-
 function TypeCode_equal(x: TypeCode; ev: PEnvironment; y: TypeCode): CORBABoolean; stdcall; external SOMTC_DLL_Name name 'tcEqual';
 
-function TypeCode.equal(y: TypeCode): CORBABoolean;
+function TypeCode.Equal(y: TypeCode): CORBABoolean;
 var
   LocalEnv: Environment;
 begin
@@ -6265,42 +6320,9 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-function TypeCode_param_count(t: TypeCode; ev: PEnvironment): LongInt; stdcall; external SOMTC_DLL_Name name 'tcParmCount';
-
-function TypeCode.param_count: LongInt;
-var
-  LocalEnv: Environment;
-begin
-  SOM_InitEnvironment(@LocalEnv);
-  Result := TypeCode_param_count(Self, @LocalEnv);
-  SOM_UninitEnvironmentOrRaise(@LocalEnv);
-end;
-
-function TypeCode_parameter(t: TypeCode; ev: PEnvironment; index: LongInt): TAnyResult; stdcall; external SOMTC_DLL_Name name 'tcParameter';
-
-function TypeCode.parameter(index: LongInt): any;
-var
-  LocalEnv: Environment;
-begin
-  SOM_InitEnvironment(@LocalEnv);
-  Result := any(TypeCode_parameter(Self, @LocalEnv, index));
-  SOM_UninitEnvironmentOrRaise(@LocalEnv);
-end;
-
-function TypeCode_alignment(t: TypeCode; ev: PEnvironment): SmallInt; stdcall; external SOMTC_DLL_Name name 'tcAlignment';
-
-function TypeCode.alignment: SmallInt;
-var
-  LocalEnv: Environment;
-begin
-  SOM_InitEnvironment(@LocalEnv);
-  Result := TypeCode_alignment(Self, @LocalEnv);
-  SOM_UninitEnvironmentOrRaise(@LocalEnv);
-end;
-
 function TypeCode_copy(t: TypeCode; ev: PEnvironment): TypeCode; stdcall; external SOMTC_DLL_Name name 'tcCopy';
 
-function TypeCode.copy: TypeCode;
+function TypeCode.Copy: TypeCode;
 var
   LocalEnv: Environment;
 begin
@@ -6311,7 +6333,7 @@ end;
 
 procedure TypeCode_free(t: TypeCode; ev: PEnvironment); stdcall; external SOMTC_DLL_Name name 'tcFree';
 
-procedure TypeCode.free;
+procedure TypeCode.Free;
 var
   LocalEnv: Environment;
 begin
@@ -6322,34 +6344,12 @@ end;
 
 procedure TypeCode_print(t: TypeCode; ev: PEnvironment); stdcall; external SOMTC_DLL_Name name 'tcPrint';
 
-procedure TypeCode.print;
+procedure TypeCode.Print;
 var
   LocalEnv: Environment;
 begin
   SOM_InitEnvironment(@LocalEnv);
   TypeCode_print(Self, @LocalEnv);
-  SOM_UninitEnvironmentOrRaise(@LocalEnv);
-end;
-
-procedure TypeCode_setAlignment(t: TypeCode; ev: PEnvironment; a: SmallInt); stdcall; external SOMTC_DLL_Name name 'tcSetAlignment';
-
-procedure TypeCode.setAlignment(a: SmallInt);
-var
-  LocalEnv: Environment;
-begin
-  SOM_InitEnvironment(@LocalEnv);
-  TypeCode_setAlignment(Self, @LocalEnv, a);
-  SOM_UninitEnvironmentOrRaise(@LocalEnv);
-end;
-
-function TypeCode_size(t: TypeCode; ev: PEnvironment): LongInt; stdcall; external SOMTC_DLL_Name name 'tcSize';
-
-function TypeCode.size: LongInt;
-var
-  LocalEnv: Environment;
-begin
-  SOM_InitEnvironment(@LocalEnv);
-  Result := TypeCode_size(Self, @LocalEnv);
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
