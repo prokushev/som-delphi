@@ -1309,23 +1309,6 @@ begin
         WriteLn(F, '  Result := ', ImportedType, '(SOMClass(NewClass).somNew);');
         WriteLn(F, 'end;');
       end;
-
-      if Pass < wtpImplementation then
-      begin
-        WriteLn(F, '    class procedure SOMFreeAndNil(var Obj: ', ImportedType, ');');
-      end
-      else
-      begin
-        WriteLn(F);
-        WriteLn(F, 'class procedure ', ImportedType, '.SOMFreeAndNil(var Obj: ', ImportedType, ');');
-        WriteLn(F, 'begin');
-        WriteLn(F, '  if Assigned(Obj) then');
-        WriteLn(F, '  begin');
-        WriteLn(F, '    SOMObject(Obj).somFree;');
-        WriteLn(F, '    Obj := nil;');
-        WriteLn(F, '  end;');
-        WriteLn(F, 'end;');
-      end;
     end;
 
     // Second pass: public methods except for getters/setters
@@ -2774,6 +2757,7 @@ begin
     WriteLn(F, '// not in SOM headers');
     WriteLn(F);
     WriteLn(F, 'procedure SOM_UninitEnvironmentOrRaise(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'procedure SOMFreeAndNil(var Obj);');
     WriteLn(F);
     WriteLn(F, 'implementation');
     WriteLn(F);
@@ -3636,6 +3620,15 @@ begin
     WriteLn(F, '  else');
     WriteLn(F, '  begin');
     WriteLn(F, '    somExceptionFree(ev);');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'procedure SOMFreeAndNil(var Obj);');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if Assigned(SOMObject(Obj)) then');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    SOMObject(Obj).somFree;');
+    WriteLn(F, '    SOMObject(Obj) := nil;');
     WriteLn(F, '  end;');
     WriteLn(F, 'end;');
     WriteLn(F);

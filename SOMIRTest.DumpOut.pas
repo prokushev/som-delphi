@@ -865,7 +865,6 @@ type
   SOMObject = class(SOMObjectBase)
   public
     class function Create: SOMObject;
-    class procedure SOMFreeAndNil(var Obj: SOMObject);
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -929,7 +928,6 @@ type
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: Contained;
-    class procedure SOMFreeAndNil(var Obj: Contained);
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -992,7 +990,6 @@ type
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: AttributeDef;
-    class procedure SOMFreeAndNil(var Obj: AttributeDef);
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1046,7 +1043,6 @@ type
   BOA = class(SOMObjectBase)
   public
     class function Create: BOA;
-    class procedure SOMFreeAndNil(var Obj: BOA);
     function SOM_create(const id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure dispose(obj: SOMDObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function get_id(obj: SOMDObject): _IDL_Sequence_Byte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1100,7 +1096,6 @@ type
   SOMEEvent = class(SOMObjectBase)
   public
     class function Create: SOMEEvent;
-    class procedure SOMFreeAndNil(var Obj: SOMEEvent);
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventTime(time: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1148,7 +1143,6 @@ type
   SOMEClientEvent = class(SOMObjectBase)
   public
     class function Create: SOMEClientEvent;
-    class procedure SOMFreeAndNil(var Obj: SOMEClientEvent);
     function somevGetEventClientData: Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventClientType: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventClientData(clientData: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1201,7 +1195,6 @@ type
   Context = class(SOMObjectBase)
   public
     class function Create: Context;
-    class procedure SOMFreeAndNil(var Obj: Context);
     function set_one_value(prop_name: CORBAString; value: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function set_values(values: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function get_values(start_scope: CORBAString; op_flags: LongWord; prop_name: CORBAString; out values: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1264,7 +1257,6 @@ type
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: ConstantDef;
-    class procedure SOMFreeAndNil(var Obj: ConstantDef);
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1329,7 +1321,6 @@ type
   Container = class(SOMObjectBase)
   public
     class function Create: Container;
-    class procedure SOMFreeAndNil(var Obj: Container);
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1376,7 +1367,6 @@ type
   SOMEEMan = class(SOMObjectBase)
   public
     class function Create: SOMEEMan;
-    class procedure SOMFreeAndNil(var Obj: SOMEEMan);
     procedure someGetEManSem; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someReleaseEManSem; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someChangeRegData(registrationId: LongInt; registerData: SOMEEMRegisterData); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1431,7 +1421,6 @@ type
   SOMEEMRegisterData = class(SOMObjectBase)
   public
     class function Create: SOMEEMRegisterData;
-    class procedure SOMFreeAndNil(var Obj: SOMEEMRegisterData);
     procedure someClearRegData; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someSetRegDataClientType(clientType: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someSetRegDataEventMask(eventType: LongInt; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1493,7 +1482,6 @@ type
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: ExceptionDef;
-    class procedure SOMFreeAndNil(var Obj: ExceptionDef);
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1562,7 +1550,6 @@ type
     procedure _set_impl_hostname(impl_hostname: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: ImplementationDef;
-    class procedure SOMFreeAndNil(var Obj: ImplementationDef);
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1620,7 +1607,6 @@ type
   ImplRepository = class(SOMObjectBase)
   public
     class function Create: ImplRepository;
-    class procedure SOMFreeAndNil(var Obj: ImplRepository);
     function find_impldef(implid: CORBAString): ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function find_impldef_by_alias(alias_name: CORBAString): ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function find_all_impldefs(out outimpldefs: _IDL_Sequence_ImplementationDef): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1688,7 +1674,6 @@ type
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: InterfaceDef;
-    class procedure SOMFreeAndNil(var Obj: InterfaceDef);
     function describe_interface: InterfaceDef_FullInterfaceDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1755,7 +1740,6 @@ type
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: ModuleDef;
-    class procedure SOMFreeAndNil(var Obj: ModuleDef);
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1810,7 +1794,6 @@ type
   NVList = class(SOMObjectBase)
   public
     class function Create: NVList;
-    class procedure SOMFreeAndNil(var Obj: NVList);
     function add_item(item_name: CORBAString; item_type: TypeCode; value: Pointer; value_len: LongInt; item_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function free: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function free_memory: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1860,7 +1843,6 @@ type
   ObjectMgr = class(SOMObjectBase)
   public
     class function Create: ObjectMgr;
-    class procedure SOMFreeAndNil(var Obj: ObjectMgr);
     function somdNewObject(objclass: CORBAString; hints: CORBAString): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdGetIdFromObject(obj: SOMObject): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdGetObjectFromId(id: CORBAString): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1924,7 +1906,6 @@ type
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: OperationDef;
-    class procedure SOMFreeAndNil(var Obj: OperationDef);
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1982,7 +1963,6 @@ type
   ORB = class(SOMObjectBase)
   public
     class function Create: ORB;
-    class procedure SOMFreeAndNil(var Obj: ORB);
     function object_to_string(obj: SOMDObject): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function string_to_object(str: CORBAString): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function create_list(count: LongInt; out new_list: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2044,7 +2024,6 @@ type
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: ParameterDef;
-    class procedure SOMFreeAndNil(var Obj: ParameterDef);
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2102,7 +2081,6 @@ type
     procedure _set_hostName(hostName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: Principal;
-    class procedure SOMFreeAndNil(var Obj: Principal);
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2148,7 +2126,6 @@ type
   Repository = class(SOMObjectBase)
   public
     class function Create: Repository;
-    class procedure SOMFreeAndNil(var Obj: Repository);
     function lookup_id(search_id: CORBAString): Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function lookup_modifier(name: CORBAString; modifier: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure release_cache; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2199,7 +2176,6 @@ type
   Request = class(SOMObjectBase)
   public
     class function Create: Request;
-    class procedure SOMFreeAndNil(var Obj: Request);
     function add_arg(name: CORBAString; arg_type: TypeCode; value: Pointer; len: LongInt; arg_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function invoke(invoke_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function send(invoke_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2260,7 +2236,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTEntryC);
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2334,7 +2309,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTAttributeEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTAttributeEntryC);
     function somtGetFirstAttributeDeclarator: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextAttributeDeclarator: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstGetMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2416,7 +2390,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTBaseClassEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTBaseClassEntryC);
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2506,7 +2479,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTClassEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTClassEntryC);
     function somtGetFirstBaseClass: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextBaseClass: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstReleaseName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2635,7 +2607,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTCommonEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTCommonEntryC);
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2725,7 +2696,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTConstEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTConstEntryC);
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2812,7 +2782,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTDataEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTDataEntryC);
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2899,7 +2868,6 @@ type
     procedure _set_somtEmitterName(somtEmitterName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTEmitC;
-    class procedure SOMFreeAndNil(var Obj: SOMTEmitC);
     function somtGenerateSections: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtOpenSymbolsFile(SOM_file: CORBAString; mode: CORBAString): PSOM_FILE; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somtSetPredefinedSymbols; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3041,7 +3009,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTEnumEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTEnumEntryC);
     function somtGetFirstEnumName: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextEnumName: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3118,7 +3085,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTEnumNameEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTEnumNameEntryC);
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3195,7 +3161,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTMetaClassEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTMetaClassEntryC);
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3286,7 +3251,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTMethodEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTMethodEntryC);
     function somtGetFirstParameter: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextParameter: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetIDLParamList(buffer: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3391,7 +3355,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTModuleEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTModuleEntryC);
     function somtGetFirstModuleStruct: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModuleStruct: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModuleTypedef: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3493,7 +3456,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTParameterEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTParameterEntryC);
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3583,7 +3545,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTPassthruEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTPassthruEntryC);
     function somtIsBeforePassthru: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3662,7 +3623,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTSequenceEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTSequenceEntryC);
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3738,7 +3698,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTStringEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTStringEntryC);
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3814,7 +3773,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTStructEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTStructEntryC);
     function somtGetFirstMember: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextMember: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3892,7 +3850,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTTypedefEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTTypedefEntryC);
     function somtGetFirstDeclarator: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextDeclarator: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3963,7 +3920,6 @@ type
     procedure _set_somtCommentNewline(somtCommentNewline: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTTemplateOutputC;
-    class procedure SOMFreeAndNil(var Obj: SOMTTemplateOutputC);
     function somtGetSymbol(name: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somtSetSymbol(name: CORBAString; value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somtSetSymbolCopyName(name: CORBAString; value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4037,7 +3993,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTUnionEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTUnionEntryC);
     function somtGetFirstCaseEntry: PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextCaseEntry: PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4121,7 +4076,6 @@ type
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMTUserDefinedTypeEntryC;
-    class procedure SOMFreeAndNil(var Obj: SOMTUserDefinedTypeEntryC);
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4195,7 +4149,6 @@ type
   SOMDServerMgr = class(SOMObjectBase)
   public
     class function Create: SOMDServerMgr;
-    class procedure SOMFreeAndNil(var Obj: SOMDServerMgr);
     function somdShutdownServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdStartServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdRestartServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4246,7 +4199,6 @@ type
   SOMESinkEvent = class(SOMObjectBase)
   public
     class function Create: SOMESinkEvent;
-    class procedure SOMFreeAndNil(var Obj: SOMESinkEvent);
     function somevGetEventSink: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventSink(sink: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4305,7 +4257,6 @@ type
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMClass;
-    class procedure SOMFreeAndNil(var Obj: SOMClass);
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNewNoInit: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somRenew(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4412,7 +4363,6 @@ type
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMMSingleInstance;
-    class procedure SOMFreeAndNil(var Obj: SOMMSingleInstance);
     function sommGetSingleInstance: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure sommFreeSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4522,7 +4472,6 @@ type
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMMBeforeAfter;
-    class procedure SOMFreeAndNil(var Obj: SOMMBeforeAfter);
     function sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure sommAfterMethod(SOM_object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4630,7 +4579,6 @@ type
     function _get_somRegisteredClasses: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMClassMgr;
-    class procedure SOMFreeAndNil(var Obj: SOMClassMgr);
     function somLoadClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somLocateClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somRegisterClass(classObj: SOMClass); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4693,7 +4641,6 @@ type
   SOMDObject = class(SOMObjectBase)
   public
     class function Create: SOMDObject;
-    class procedure SOMFreeAndNil(var Obj: SOMDObject);
     function get_implementation: ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function get_interface: InterfaceDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function is_nil: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4747,7 +4694,6 @@ type
   SOMDClientProxy = class(SOMObjectBase)
   public
     class function Create: SOMDClientProxy;
-    class procedure SOMFreeAndNil(var Obj: SOMDClientProxy);
     procedure somdTargetFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdTargetGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdTargetGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4816,7 +4762,6 @@ type
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMDMetaproxy;
-    class procedure SOMFreeAndNil(var Obj: SOMDMetaproxy);
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNewNoInit: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somRenew(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4926,7 +4871,6 @@ type
     procedure _set_somd21somFree(somd21somFree: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMDObjectMgr;
-    class procedure SOMFreeAndNil(var Obj: SOMDObjectMgr);
     function somdFindServer(serverid: CORBAString): SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdFindServerByName(servername: CORBAString): SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdFindServersByClass(objclass: CORBAString): _IDL_Sequence_SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4981,7 +4925,6 @@ type
   SOMDServer = class(SOMObjectBase)
   public
     class function Create: SOMDServer;
-    class procedure SOMFreeAndNil(var Obj: SOMDServer);
     function somdRefFromSOMObj(somobj: SOMObject): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdSOMObjFromRef(objref: SOMDObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somdDispatchMethod(somobj: SOMObject; out retValue: Pointer; methodId: somId; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5032,7 +4975,6 @@ type
   SOMUTId = class(SOMObjectBase)
   public
     class function Create: SOMUTId;
-    class procedure SOMFreeAndNil(var Obj: SOMUTId);
     procedure somutSetIdId(otherId: SOMUTId); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somutEqualsId(otherId: SOMUTId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somutCompareId(otherId: SOMUTId): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5080,7 +5022,6 @@ type
   SOMOA = class(SOMObjectBase)
   public
     class function Create: SOMOA;
-    class procedure SOMFreeAndNil(var Obj: SOMOA);
     function execute_next_request(waitFlag: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function execute_request_loop(waitFlag: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure change_id(objref: SOMDObject; const id: _IDL_Sequence_Byte); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5148,7 +5089,6 @@ type
     procedure _set_serrno(serrno: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: Sockets;
-    class procedure SOMFreeAndNil(var Obj: Sockets);
     function somsAccept(s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somsBind(s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somsConnect(s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5234,7 +5174,6 @@ type
     function _get_somstAssociationsCount: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMStringTableC;
-    class procedure SOMFreeAndNil(var Obj: SOMStringTableC);
     function somstAssociate(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somstAssociateCopyKey(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somstAssociateCopyValue(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5297,7 +5236,6 @@ type
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMMTraced;
-    class procedure SOMFreeAndNil(var Obj: SOMMTraced);
     function sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure sommAfterMethod(SOM_object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5402,7 +5340,6 @@ type
   SOMETimerEvent = class(SOMObjectBase)
   public
     class function Create: SOMETimerEvent;
-    class procedure SOMFreeAndNil(var Obj: SOMETimerEvent);
     function somevGetEventInterval: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventInterval(interval: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5458,7 +5395,6 @@ type
     function _get_receiver: TSPortability_Receiver; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: TSIdentification;
-    class procedure SOMFreeAndNil(var Obj: TSIdentification);
     procedure identify_sender(sender: TSPortability_Sender); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure identify_receiver(receiver: TSPortability_Receiver); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5517,7 +5453,6 @@ type
     procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: TypeDef;
-    class procedure SOMFreeAndNil(var Obj: TypeDef);
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5569,7 +5504,6 @@ type
   SOMEWorkProcEvent = class(SOMObjectBase)
   public
     class function Create: SOMEWorkProcEvent;
-    class procedure SOMFreeAndNil(var Obj: SOMEWorkProcEvent);
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventTime(time: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5932,6 +5866,7 @@ const
 // not in SOM headers
 
 procedure SOM_UninitEnvironmentOrRaise(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure SOMFreeAndNil(var Obj);
 
 implementation
 
@@ -6668,15 +6603,6 @@ end;
 class function SOMObject.Create: SOMObject;
 begin
   Result := SOMObject(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMObject.SOMFreeAndNil(var Obj: SOMObject);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -7445,15 +7371,6 @@ begin
   Result := Contained(SOMClass(NewClass).somNew);
 end;
 
-class procedure Contained.SOMFreeAndNil(var Obj: Contained);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: within
  *)
@@ -8114,15 +8031,6 @@ begin
   Result := AttributeDef(SOMClass(NewClass).somNew);
 end;
 
-class procedure AttributeDef.SOMFreeAndNil(var Obj: AttributeDef);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 function AttributeDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
@@ -8615,15 +8523,6 @@ end;
 class function BOA.Create: BOA;
 begin
   Result := BOA(SOMClass(NewClass).somNew);
-end;
-
-class procedure BOA.SOMFreeAndNil(var Obj: BOA);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -9272,15 +9171,6 @@ begin
   Result := SOMEEvent(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMEEvent.SOMFreeAndNil(var Obj: SOMEEvent);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somevGetEventTime
  *)
@@ -9791,15 +9681,6 @@ end;
 class function SOMEClientEvent.Create: SOMEClientEvent;
 begin
   Result := SOMEClientEvent(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMEClientEvent.SOMFreeAndNil(var Obj: SOMEClientEvent);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -10379,15 +10260,6 @@ end;
 class function Context.Create: Context;
 begin
   Result := Context(SOMClass(NewClass).somNew);
-end;
-
-class procedure Context.SOMFreeAndNil(var Obj: Context);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -11130,15 +11002,6 @@ begin
   Result := ConstantDef(SOMClass(NewClass).somNew);
 end;
 
-class procedure ConstantDef.SOMFreeAndNil(var Obj: ConstantDef);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 function ConstantDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
@@ -11603,15 +11466,6 @@ end;
 class function Container.Create: Container;
 begin
   Result := Container(SOMClass(NewClass).somNew);
-end;
-
-class procedure Container.SOMFreeAndNil(var Obj: Container);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -12113,15 +11967,6 @@ end;
 class function SOMEEMan.Create: SOMEEMan;
 begin
   Result := SOMEEMan(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMEEMan.SOMFreeAndNil(var Obj: SOMEEMan);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -12771,15 +12616,6 @@ end;
 class function SOMEEMRegisterData.Create: SOMEEMRegisterData;
 begin
   Result := SOMEEMRegisterData(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMEEMRegisterData.SOMFreeAndNil(var Obj: SOMEEMRegisterData);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -13492,15 +13328,6 @@ end;
 class function ExceptionDef.Create: ExceptionDef;
 begin
   Result := ExceptionDef(SOMClass(NewClass).somNew);
-end;
-
-class procedure ExceptionDef.SOMFreeAndNil(var Obj: ExceptionDef);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 function ExceptionDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14299,15 +14126,6 @@ begin
   Result := ImplementationDef(SOMClass(NewClass).somNew);
 end;
 
-class procedure ImplementationDef.SOMFreeAndNil(var Obj: ImplementationDef);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 procedure ImplementationDef.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
@@ -14753,15 +14571,6 @@ end;
 class function ImplRepository.Create: ImplRepository;
 begin
   Result := ImplRepository(SOMClass(NewClass).somNew);
-end;
-
-class procedure ImplRepository.SOMFreeAndNil(var Obj: ImplRepository);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -15599,15 +15408,6 @@ begin
   Result := InterfaceDef(SOMClass(NewClass).somNew);
 end;
 
-class procedure InterfaceDef.SOMFreeAndNil(var Obj: InterfaceDef);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: describe_interface
  *)
@@ -16246,15 +16046,6 @@ begin
   Result := ModuleDef(SOMClass(NewClass).somNew);
 end;
 
-class procedure ModuleDef.SOMFreeAndNil(var Obj: ModuleDef);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 function ModuleDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
@@ -16771,15 +16562,6 @@ end;
 class function NVList.Create: NVList;
 begin
   Result := NVList(SOMClass(NewClass).somNew);
-end;
-
-class procedure NVList.SOMFreeAndNil(var Obj: NVList);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -17335,15 +17117,6 @@ end;
 class function ObjectMgr.Create: ObjectMgr;
 begin
   Result := ObjectMgr(SOMClass(NewClass).somNew);
-end;
-
-class procedure ObjectMgr.SOMFreeAndNil(var Obj: ObjectMgr);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -18105,15 +17878,6 @@ begin
   Result := OperationDef(SOMClass(NewClass).somNew);
 end;
 
-class procedure OperationDef.SOMFreeAndNil(var Obj: OperationDef);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 function OperationDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
@@ -18629,15 +18393,6 @@ end;
 class function ORB.Create: ORB;
 begin
   Result := ORB(SOMClass(NewClass).somNew);
-end;
-
-class procedure ORB.SOMFreeAndNil(var Obj: ORB);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -19360,15 +19115,6 @@ begin
   Result := ParameterDef(SOMClass(NewClass).somNew);
 end;
 
-class procedure ParameterDef.SOMFreeAndNil(var Obj: ParameterDef);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 function ParameterDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
@@ -19914,15 +19660,6 @@ begin
   Result := Principal(SOMClass(NewClass).somNew);
 end;
 
-class procedure Principal.SOMFreeAndNil(var Obj: Principal);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 procedure Principal.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
@@ -20354,15 +20091,6 @@ end;
 class function Repository.Create: Repository;
 begin
   Result := Repository(SOMClass(NewClass).somNew);
-end;
-
-class procedure Repository.SOMFreeAndNil(var Obj: Repository);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -20918,15 +20646,6 @@ end;
 class function Request.Create: Request;
 begin
   Result := Request(SOMClass(NewClass).somNew);
-end;
-
-class procedure Request.SOMFreeAndNil(var Obj: Request);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -21694,15 +21413,6 @@ begin
   Result := SOMTEntryC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMTEntryC.SOMFreeAndNil(var Obj: SOMTEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somtGetModifierValue
  *)
@@ -22430,15 +22140,6 @@ end;
 class function SOMTAttributeEntryC.Create: SOMTAttributeEntryC;
 begin
   Result := SOMTAttributeEntryC(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMTAttributeEntryC.SOMFreeAndNil(var Obj: SOMTAttributeEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -23214,15 +22915,6 @@ end;
 class function SOMTBaseClassEntryC.Create: SOMTBaseClassEntryC;
 begin
   Result := SOMTBaseClassEntryC(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMTBaseClassEntryC.SOMFreeAndNil(var Obj: SOMTBaseClassEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 function SOMTBaseClassEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24209,15 +23901,6 @@ end;
 class function SOMTClassEntryC.Create: SOMTClassEntryC;
 begin
   Result := SOMTClassEntryC(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMTClassEntryC.SOMFreeAndNil(var Obj: SOMTClassEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -25599,15 +25282,6 @@ begin
   Result := SOMTCommonEntryC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMTCommonEntryC.SOMFreeAndNil(var Obj: SOMTCommonEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somtGetFirstArrayDimension
  *)
@@ -26461,15 +26135,6 @@ begin
   Result := SOMTConstEntryC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMTConstEntryC.SOMFreeAndNil(var Obj: SOMTConstEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 function SOMTConstEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTEntryCClassDataStructure;
@@ -27207,15 +26872,6 @@ end;
 class function SOMTDataEntryC.Create: SOMTDataEntryC;
 begin
   Result := SOMTDataEntryC(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMTDataEntryC.SOMFreeAndNil(var Obj: SOMTDataEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 function SOMTDataEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28089,15 +27745,6 @@ end;
 class function SOMTEmitC.Create: SOMTEmitC;
 begin
   Result := SOMTEmitC(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMTEmitC.SOMFreeAndNil(var Obj: SOMTEmitC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -30053,15 +29700,6 @@ begin
   Result := SOMTEnumEntryC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMTEnumEntryC.SOMFreeAndNil(var Obj: SOMTEnumEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somtGetFirstEnumName
  *)
@@ -30784,15 +30422,6 @@ begin
   Result := SOMTEnumNameEntryC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMTEnumNameEntryC.SOMFreeAndNil(var Obj: SOMTEnumNameEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 function SOMTEnumNameEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTEntryCClassDataStructure;
@@ -31477,15 +31106,6 @@ end;
 class function SOMTMetaClassEntryC.Create: SOMTMetaClassEntryC;
 begin
   Result := SOMTMetaClassEntryC(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMTMetaClassEntryC.SOMFreeAndNil(var Obj: SOMTMetaClassEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 function SOMTMetaClassEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32393,15 +32013,6 @@ end;
 class function SOMTMethodEntryC.Create: SOMTMethodEntryC;
 begin
   Result := SOMTMethodEntryC(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMTMethodEntryC.SOMFreeAndNil(var Obj: SOMTMethodEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -33339,15 +32950,6 @@ end;
 class function SOMTModuleEntryC.Create: SOMTModuleEntryC;
 begin
   Result := SOMTModuleEntryC(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMTModuleEntryC.SOMFreeAndNil(var Obj: SOMTModuleEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -34451,15 +34053,6 @@ begin
   Result := SOMTParameterEntryC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMTParameterEntryC.SOMFreeAndNil(var Obj: SOMTParameterEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 function SOMTParameterEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTCommonEntryCClassDataStructure;
@@ -35219,15 +34812,6 @@ begin
   Result := SOMTPassthruEntryC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMTPassthruEntryC.SOMFreeAndNil(var Obj: SOMTPassthruEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somtIsBeforePassthru
  *)
@@ -35933,15 +35517,6 @@ begin
   Result := SOMTSequenceEntryC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMTSequenceEntryC.SOMFreeAndNil(var Obj: SOMTSequenceEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 function SOMTSequenceEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTEntryCClassDataStructure;
@@ -36607,15 +36182,6 @@ end;
 class function SOMTStringEntryC.Create: SOMTStringEntryC;
 begin
   Result := SOMTStringEntryC(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMTStringEntryC.SOMFreeAndNil(var Obj: SOMTStringEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 function SOMTStringEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37304,15 +36870,6 @@ end;
 class function SOMTStructEntryC.Create: SOMTStructEntryC;
 begin
   Result := SOMTStructEntryC(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMTStructEntryC.SOMFreeAndNil(var Obj: SOMTStructEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -38020,15 +37577,6 @@ begin
   Result := SOMTTypedefEntryC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMTTypedefEntryC.SOMFreeAndNil(var Obj: SOMTTypedefEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somtGetFirstDeclarator
  *)
@@ -38705,15 +38253,6 @@ end;
 class function SOMTTemplateOutputC.Create: SOMTTemplateOutputC;
 begin
   Result := SOMTTemplateOutputC(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMTTemplateOutputC.SOMFreeAndNil(var Obj: SOMTTemplateOutputC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -39521,15 +39060,6 @@ begin
   Result := SOMTUnionEntryC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMTUnionEntryC.SOMFreeAndNil(var Obj: SOMTUnionEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somtGetFirstCaseEntry
  *)
@@ -40324,15 +39854,6 @@ begin
   Result := SOMTUserDefinedTypeEntryC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMTUserDefinedTypeEntryC.SOMFreeAndNil(var Obj: SOMTUserDefinedTypeEntryC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 function SOMTUserDefinedTypeEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMTCommonEntryCClassDataStructure;
@@ -40911,15 +40432,6 @@ begin
   Result := SOMDServerMgr(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMDServerMgr.SOMFreeAndNil(var Obj: SOMDServerMgr);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somdShutdownServer
  *)
@@ -41490,15 +41002,6 @@ end;
 class function SOMESinkEvent.Create: SOMESinkEvent;
 begin
   Result := SOMESinkEvent(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMESinkEvent.SOMFreeAndNil(var Obj: SOMESinkEvent);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -42210,15 +41713,6 @@ end;
 class function SOMClass.Create: SOMClass;
 begin
   Result := SOMClass(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMClass.SOMFreeAndNil(var Obj: SOMClass);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -43633,15 +43127,6 @@ begin
   Result := SOMMSingleInstance(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMMSingleInstance.SOMFreeAndNil(var Obj: SOMMSingleInstance);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: sommGetSingleInstance
  *)
@@ -44790,15 +44275,6 @@ end;
 class function SOMMBeforeAfter.Create: SOMMBeforeAfter;
 begin
   Result := SOMMBeforeAfter(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMMBeforeAfter.SOMFreeAndNil(var Obj: SOMMBeforeAfter);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -45953,15 +45429,6 @@ begin
   Result := SOMClassMgr(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMClassMgr.SOMFreeAndNil(var Obj: SOMClassMgr);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somLoadClassFile
  *)
@@ -46712,15 +46179,6 @@ begin
   Result := SOMDObject(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMDObject.SOMFreeAndNil(var Obj: SOMDObject);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: get_implementation
  *)
@@ -47361,15 +46819,6 @@ end;
 class function SOMDClientProxy.Create: SOMDClientProxy;
 begin
   Result := SOMDClientProxy(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMDClientProxy.SOMFreeAndNil(var Obj: SOMDClientProxy);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -48152,15 +47601,6 @@ end;
 class function SOMDMetaproxy.Create: SOMDMetaproxy;
 begin
   Result := SOMDMetaproxy(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMDMetaproxy.SOMFreeAndNil(var Obj: SOMDMetaproxy);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 function SOMDMetaproxy.somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -49246,15 +48686,6 @@ begin
   Result := SOMDObjectMgr(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMDObjectMgr.SOMFreeAndNil(var Obj: SOMDObjectMgr);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somdFindServer
  *)
@@ -49845,15 +49276,6 @@ begin
   Result := SOMDServer(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMDServer.SOMFreeAndNil(var Obj: SOMDServer);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somdRefFromSOMObj
  *)
@@ -50426,15 +49848,6 @@ begin
   Result := SOMUTId(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMUTId.SOMFreeAndNil(var Obj: SOMUTId);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somutSetIdId
  *)
@@ -50950,15 +50363,6 @@ end;
 class function SOMOA.Create: SOMOA;
 begin
   Result := SOMOA(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMOA.SOMFreeAndNil(var Obj: SOMOA);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -51781,15 +51185,6 @@ end;
 class function Sockets.Create: Sockets;
 begin
   Result := Sockets(SOMClass(NewClass).somNew);
-end;
-
-class procedure Sockets.SOMFreeAndNil(var Obj: Sockets);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -53026,15 +52421,6 @@ begin
   Result := SOMStringTableC(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMStringTableC.SOMFreeAndNil(var Obj: SOMStringTableC);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somstAssociate
  *)
@@ -53719,15 +53105,6 @@ end;
 class function SOMMTraced.Create: SOMMTraced;
 begin
   Result := SOMMTraced(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMMTraced.SOMFreeAndNil(var Obj: SOMMTraced);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 function SOMMTraced.sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -54802,15 +54179,6 @@ begin
   Result := SOMETimerEvent(SOMClass(NewClass).somNew);
 end;
 
-class procedure SOMETimerEvent.SOMFreeAndNil(var Obj: SOMETimerEvent);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 (*
  * New Method: somevGetEventInterval
  *)
@@ -55381,15 +54749,6 @@ end;
 class function TSIdentification.Create: TSIdentification;
 begin
   Result := TSIdentification(SOMClass(NewClass).somNew);
-end;
-
-class procedure TSIdentification.SOMFreeAndNil(var Obj: TSIdentification);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 (*
@@ -56009,15 +55368,6 @@ begin
   Result := TypeDef(SOMClass(NewClass).somNew);
 end;
 
-class procedure TypeDef.SOMFreeAndNil(var Obj: TypeDef);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
-end;
-
 function TypeDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
@@ -56479,15 +55829,6 @@ end;
 class function SOMEWorkProcEvent.Create: SOMEWorkProcEvent;
 begin
   Result := SOMEWorkProcEvent(SOMClass(NewClass).somNew);
-end;
-
-class procedure SOMEWorkProcEvent.SOMFreeAndNil(var Obj: SOMEWorkProcEvent);
-begin
-  if Assigned(Obj) then
-  begin
-    SOMObject(Obj).somFree;
-    Obj := nil;
-  end;
 end;
 
 function SOMEWorkProcEvent.somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -57138,6 +56479,15 @@ begin
   else
   begin
     somExceptionFree(ev);
+  end;
+end;
+
+procedure SOMFreeAndNil(var Obj);
+begin
+  if Assigned(SOMObject(Obj)) then
+  begin
+    SOMObject(Obj).somFree;
+    SOMObject(Obj) := nil;
   end;
 end;
 
