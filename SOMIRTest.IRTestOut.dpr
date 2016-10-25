@@ -467,12 +467,12 @@ var
   I: Integer;
   Name: string;
 begin
-  ParamCount := TC.param_count;
+  ParamCount := TC.ParamCount;
   if ParamCount >= 1 then
   begin
-    Parameter := TC.parameter(0);
+    Parameter := TC[0];
     Parameter_TC := Parameter._type;
-    Parameter_Kind := Parameter_TC.kind;
+    Parameter_Kind := Parameter_TC.Kind;
     if Parameter_Kind = tk_string then
     begin
       Name := TCToImportedType(TC, CurrentNamespace);
@@ -487,14 +487,14 @@ begin
         begin
           Write(F, '    ');
         end;
-        Parameter := TC.parameter(I * 2 - 1);
+        Parameter := TC[I * 2 - 1];
         Parameter_TC := Parameter._type;
-        Parameter_Kind := Parameter_TC.kind;
+        Parameter_Kind := Parameter_TC.Kind;
         if Pass > wtpOnDemand then
         begin
-          if Parameter_Kind = TypeCode_tk_string then
+          if Parameter_Kind = tk_string then
           begin
-            Write(F, UnreserveIdentifier(PAnsiChar(TAnyRecord(Parameter)._value^)), ': ');
+            Write(F, UnreserveIdentifier(PAnsiChar(Parameter._value^)), ': ');
           end
           else
           begin
@@ -559,8 +559,8 @@ var
   Name: string;
 begin
   TC2 := ExtractSubTC(TC, 0);
-  Parameter_Kind := TypeCode_kind(TC2, ev);
-  if Parameter_Kind = TypeCode_tk_void then
+  Parameter_Kind := TC2.Kind;
+  if Parameter_Kind = tk_void then
   begin
     if Pass > wtpOnDemand then
     begin
@@ -574,7 +574,7 @@ begin
     begin
       if Pass = wtpOnDemandForeignOnly then
       begin
-        if Parameter_Kind <> TypeCode_tk_foreign then
+        if Parameter_Kind <> tk_foreign then
         begin
           WriteType(CurrentNamespace, wtpOnDemandForeignOnly, TC2);
         end;
@@ -582,7 +582,7 @@ begin
       else
       if Pass = wtpOnDemandBeforeTypedef then
       begin
-        if Parameter_Kind <> TypeCode_tk_foreign then
+        if Parameter_Kind <> tk_foreign then
         begin
           WriteType(CurrentNamespace, wtpOnDemand, TC2);
         end;
@@ -592,7 +592,7 @@ begin
         if not FGeneratedOnDemand.Find('P' + Name, Index) then
         begin
           FGeneratedOnDemand.Add('P' + Name); // support self-referential types
-          if Parameter_Kind <> TypeCode_tk_foreign then
+          if Parameter_Kind <> tk_foreign then
           begin
             WriteType(CurrentNamespace, wtpOnDemand, TC2);
             WriteLn(F, '  P', Name, ' = ^', Name, ';');
@@ -610,7 +610,7 @@ begin
     end
     else
     begin
-      if Parameter_Kind <> TypeCode_tk_foreign then
+      if Parameter_Kind <> tk_foreign then
       begin
         Write(F, '^', Name);
       end
@@ -718,33 +718,33 @@ begin
     Exit;
   end;
 
-  Kind := TypeCode_kind(TC, ev);
+  Kind := TC.Kind;
   case Kind of
-  TypeCode_tk_null: if Pass > wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_null}');
-  TypeCode_tk_void: if Pass > wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_void}');
-  TypeCode_tk_short: if Pass > wtpOnDemand then Write(F, 'SmallInt');
-  TypeCode_tk_long: if Pass > wtpOnDemand then Write(F, 'LongInt');
-  TypeCode_tk_ushort: if Pass > wtpOnDemand then Write(F, 'Word');
-  TypeCode_tk_ulong: if Pass > wtpOnDemand then Write(F, 'LongWord');
-  TypeCode_tk_float: if Pass > wtpOnDemand then Write(F, 'Single');
-  TypeCode_tk_double: if Pass > wtpOnDemand then Write(F, 'Double');
-  TypeCode_tk_boolean: if Pass > wtpOnDemand then Write(F, 'CORBABoolean');
-  TypeCode_tk_char: if Pass > wtpOnDemand then Write(F, 'ShortInt');
-  TypeCode_tk_octet: if Pass > wtpOnDemand then Write(F, 'Byte');
-  TypeCode_tk_any: if Pass > wtpOnDemand then Write(F, 'any');
-  TypeCode_tk_TypeCode: if Pass > wtpOnDemand then Write(F, 'TypeCode');
-  TypeCode_tk_Principal: if Pass > wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = TypeCode_tk_Principal}');
-  TypeCode_tk_objref: WriteObjRefType(CurrentNamespace, Pass, TC);
-  TypeCode_tk_struct: WriteRecordType(CurrentNamespace, Pass, TC);
-  TypeCode_tk_union: if Pass > wtpOnDemand then Write(F, 'record case Integer of {...} end');
-  TypeCode_tk_enum: WriteEnumType(CurrentNamespace, Pass, TC);
-  TypeCode_tk_string: if Pass > wtpOnDemand then Write(F, 'CORBAString');
-  TypeCode_tk_sequence: WriteSequenceType(CurrentNamespace, Pass, TC);
-  TypeCode_tk_array: WriteArrayType(CurrentNamespace, Pass, TC);
+  tk_null: if Pass > wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = tk_null}');
+  tk_void: if Pass > wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = tk_void}');
+  tk_short: if Pass > wtpOnDemand then Write(F, 'SmallInt');
+  tk_long: if Pass > wtpOnDemand then Write(F, 'LongInt');
+  tk_ushort: if Pass > wtpOnDemand then Write(F, 'Word');
+  tk_ulong: if Pass > wtpOnDemand then Write(F, 'LongWord');
+  tk_float: if Pass > wtpOnDemand then Write(F, 'Single');
+  tk_double: if Pass > wtpOnDemand then Write(F, 'Double');
+  tk_boolean: if Pass > wtpOnDemand then Write(F, 'CORBABoolean');
+  tk_char: if Pass > wtpOnDemand then Write(F, 'ShortInt');
+  tk_octet: if Pass > wtpOnDemand then Write(F, 'Byte');
+  tk_any: if Pass > wtpOnDemand then Write(F, 'any');
+  tk_TypeCode: if Pass > wtpOnDemand then Write(F, 'TypeCode');
+  tk_Principal: if Pass > wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = tk_Principal}');
+  tk_objref: WriteObjRefType(CurrentNamespace, Pass, TC);
+  tk_struct: WriteRecordType(CurrentNamespace, Pass, TC);
+  tk_union: if Pass > wtpOnDemand then Write(F, 'record case Integer of {...} end');
+  tk_enum: WriteEnumType(CurrentNamespace, Pass, TC);
+  tk_string: if Pass > wtpOnDemand then Write(F, 'CORBAString');
+  tk_sequence: WriteSequenceType(CurrentNamespace, Pass, TC);
+  tk_array: WriteArrayType(CurrentNamespace, Pass, TC);
                        
-  TypeCode_tk_pointer: WritePointerType(CurrentNamespace, Pass, TC);
-  TypeCode_tk_self: if Pass > wtpOnDemand then Write(F, IdToImportedType(ExtractName(TC), CurrentNamespace));
-  TypeCode_tk_foreign: WriteForeignType(CurrentNamespace, Pass, TC);
+  tk_pointer: WritePointerType(CurrentNamespace, Pass, TC);
+  tk_self: if Pass > wtpOnDemand then Write(F, IdToImportedType(ExtractName(TC), CurrentNamespace));
+  tk_foreign: WriteForeignType(CurrentNamespace, Pass, TC);
   else if Pass <> wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = ', LongWord(Kind), '}');
   end;
 end;
@@ -756,15 +756,15 @@ var
   Parameter_TC: TypeCode;
   Parameter_Kind: TCKind;
 begin
-  ParamCount := TypeCode_param_count(TC, ev);
+  ParamCount := TC.ParamCount;
   if ParamCount >= Index + 1 then
   begin
-    Parameter := TypeCode_parameter(TC, ev, Index);
-    Parameter_TC := TAnyRecord(Parameter)._type;
-    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
-    if Parameter_Kind = TypeCode_tk_string then
+    Parameter := TC[Index];
+    Parameter_TC := Parameter._type;
+    Parameter_Kind := Parameter_TC.Kind;
+    if Parameter_Kind = tk_string then
     begin
-      Result := PAnsiChar(TAnyRecord(Parameter)._value^);
+      Result := PAnsiChar(Parameter._value^);
     end
     else
     begin
@@ -784,24 +784,24 @@ var
   Parameter_TC: TypeCode;
   Parameter_Kind: TCKind;
 begin
-  ParamCount := TypeCode_param_count(TC, ev);
+  ParamCount := TC.ParamCount;
   if ParamCount >= Index + 1 then
   begin
-    Parameter := TypeCode_parameter(TC, ev, Index);
-    Parameter_TC := TAnyRecord(Parameter)._type;
-    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
-    if Parameter_Kind = TypeCode_tk_TypeCode then
+    Parameter := TC[Index];
+    Parameter_TC := Parameter._type;
+    Parameter_Kind := Parameter_TC.Kind;
+    if Parameter_Kind = tk_TypeCode then
     begin
-      Result := TypeCode(TAnyRecord(Parameter)._value^);
+      Result := TypeCode(Parameter._value^);
     end
     else
     begin
-      Result := TC_null;
+      Result := TypeCode.TC_null;
     end;
   end
   else
   begin
-    Result := TC_null;
+    Result := TypeCode.TC_null;
   end;
 end;
 
@@ -812,15 +812,15 @@ var
   Parameter_TC: TypeCode;
   Parameter_Kind: TCKind;
 begin
-  ParamCount := TypeCode_param_count(TC, ev);
+  ParamCount := TC.ParamCount;
   if ParamCount >= Index + 1 then
   begin
-    Parameter := TypeCode_parameter(TC, ev, Index);
-    Parameter_TC := TAnyRecord(Parameter)._type;
-    Parameter_Kind := TypeCode_kind(Parameter_TC, ev);
-    if Parameter_Kind = TypeCode_tk_long then
+    Parameter := TC[Index];
+    Parameter_TC := Parameter._type;
+    Parameter_Kind := Parameter_TC.Kind;
+    if Parameter_Kind = tk_long then
     begin
-      Result := LongInt(TAnyRecord(Parameter)._value^);
+      Result := LongInt(Parameter._value^);
     end
     else
     begin
@@ -838,34 +838,34 @@ var
   Kind: TCKind;
   TC2: TypeCode;
 begin
-  Kind := TypeCode_kind(TC, ev);
+  Kind := TC.Kind;
   case Kind of
-  TypeCode_tk_null: Result := '{unknown type with TypeCode_kind = TypeCode_tk_null}';
-  TypeCode_tk_void: Result := '{unknown type with TypeCode_kind = TypeCode_tk_void}';
-  TypeCode_tk_short: Result := 'SmallInt';
-  TypeCode_tk_long: Result := 'LongInt';
-  TypeCode_tk_ushort: Result := 'Word';
-  TypeCode_tk_ulong: Result := 'LongWord';
-  TypeCode_tk_float: Result := 'Single';
-  TypeCode_tk_double: Result := 'Double';
-  TypeCode_tk_boolean: Result := 'CORBABoolean';
-  TypeCode_tk_char: Result := 'ShortInt';
-  TypeCode_tk_octet: Result := 'Byte';
-  TypeCode_tk_any: Result := 'any';
-  TypeCode_tk_TypeCode: Result := 'TypeCode';
-  TypeCode_tk_Principal: Result := '{unknown type with TypeCode_kind = TypeCode_tk_Principal}';
-  TypeCode_tk_objref: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
-  TypeCode_tk_struct: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
-  TypeCode_tk_union: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
-  TypeCode_tk_enum: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
-  TypeCode_tk_string: Result := 'CORBAString';
-  TypeCode_tk_sequence: Result := '_IDL_Sequence_' + TCToImportedType(ExtractSubTC(TC, 0), CurrentNamespace);
-  TypeCode_tk_array: Result := '_IDL_Array' + IntToStr(ExtractInteger(TC, 1)) + 'Of_' + TCToImportedType(ExtractSubTC(TC, 0), CurrentNamespace);
+  tk_null: Result := '{unknown type with TypeCode_kind = tk_null}';
+  tk_void: Result := '{unknown type with TypeCode_kind = tk_void}';
+  tk_short: Result := 'SmallInt';
+  tk_long: Result := 'LongInt';
+  tk_ushort: Result := 'Word';
+  tk_ulong: Result := 'LongWord';
+  tk_float: Result := 'Single';
+  tk_double: Result := 'Double';
+  tk_boolean: Result := 'CORBABoolean';
+  tk_char: Result := 'ShortInt';
+  tk_octet: Result := 'Byte';
+  tk_any: Result := 'any';
+  tk_TypeCode: Result := 'TypeCode';
+  tk_Principal: Result := '{unknown type with TypeCode_kind = tk_Principal}';
+  tk_objref: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
+  tk_struct: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
+  tk_union: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
+  tk_enum: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
+  tk_string: Result := 'CORBAString';
+  tk_sequence: Result := '_IDL_Sequence_' + TCToImportedType(ExtractSubTC(TC, 0), CurrentNamespace);
+  tk_array: Result := '_IDL_Array' + IntToStr(ExtractInteger(TC, 1)) + 'Of_' + TCToImportedType(ExtractSubTC(TC, 0), CurrentNamespace);
                        
-  TypeCode_tk_pointer:
+  tk_pointer:
   begin
     TC2 := ExtractSubTC(TC, 0);
-    if TypeCode_kind(TC2, ev) = TypeCode_tk_void then
+    if TC2.Kind = tk_void then
     begin
       Result := 'Pointer';
     end
@@ -874,8 +874,8 @@ begin
       Result := 'P' + TCToImportedType(TC2, CurrentNamespace);
     end;
   end;
-  TypeCode_tk_self: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
-  TypeCode_tk_foreign: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
+  tk_self: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
+  tk_foreign: Result := IdToImportedType(ExtractName(TC), CurrentNamespace);
   else Result := '{unknown type with TypeCode_kind = ' + IntToStr(Integer(Kind)) + '}';
   end;
 end;
@@ -885,6 +885,7 @@ var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
   Item: Contained;
+  ItemPD: ParameterDef;
   Mode: ParameterDef_ParameterMode;
   WasArgument: Boolean;
   TC: TypeCode;
@@ -895,7 +896,7 @@ var
   QL: TSOMIRQuickLookupForClass;
 begin
   if Pass = wtpTypeDef then Exit;
-  Contents := Container_contents(Definition, ev, 'all', False);
+  Contents := Definition.contents('all', False);
   if (Contents._length > 0) or (Pass = wtpLowLevelImplementation) then
   begin
     WasArgument := False;
@@ -935,12 +936,12 @@ begin
 
     if Contents._length > 0 then for I := 0 to Contents._length - 1 do
     begin
-      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-      if SOMObject_somIsA(Item, _SOMCLASS_ParameterDef) then
+      Item := Contents._buffer[I];
+      if ParameterDef.Supports(Item, ItemPD) then
       begin
-        Mode := ParameterDef__get_mode(Item, ev);
-        TC := ParameterDef__get_type(Item, ev);
-        Kind := TypeCode_kind(TC, ev);
+        Mode := ItemPD.mode;
+        TC := ItemPD.SOM_type;
+        Kind := TC.Kind;
         if Pass > wtpOnDemand then
         begin
           if not WasArgument then
@@ -958,7 +959,7 @@ begin
           else Write(F, '{unknown mode ', LongWord(Mode), '}');
           end;
 
-          Write(F, UnreserveIdentifier(Contained__get_name(Item, ev)));
+          Write(F, UnreserveIdentifier(ItemPD.name));
         end;
 
         if Mode = ParameterDef_IN then
@@ -969,7 +970,7 @@ begin
           end;
           WriteType(CurrentNamespace, Pass, TC);
         end
-        else if Kind <> TypeCode_tk_foreign then
+        else if Kind <> tk_foreign then
         begin
           if Pass > wtpOnDemand then
           begin
@@ -1002,7 +1003,7 @@ begin
       begin
         if Pass > wtpOnDemand then
         begin
-          Write(F, '{ Found item: ', Contained__get_name(Item, ev), ' }');
+          Write(F, '{ Found item: ', Item.name, ' }');
         end;
       end;
 
@@ -1032,7 +1033,7 @@ var
 begin
   if Pass = wtpTypeDef then Exit;
 
-  OriginalNamespace := Contained__get_defined_in(Definition, ev);
+  OriginalNamespace := Definition.defined_in;
   if Length(OriginalNamespace) > 2 then
   begin
     OriginalNamespace := OriginalNamespace + '::';
@@ -1042,9 +1043,9 @@ begin
   begin
     WriteLn(F);
   end;
-  Result_TC := OperationDef__get_result(Definition, ev);
-  Result_Kind := TypeCode_kind(Result_TC, ev);
-  SourceMethodName := Contained__get_name(Definition, ev);
+  Result_TC := Definition.SOM_result;
+  Result_Kind := Result_TC.Kind;
+  SourceMethodName := Definition.name;
   MethodName := UnreserveIdentifier(SourceMethodName);
   if Pass > wtpOnDemand then
   begin
@@ -1063,7 +1064,7 @@ begin
     end;
   end;
 
-  if Result_Kind = TypeCode_tk_void then
+  if Result_Kind = tk_void then
   begin
     if Pass > wtpOnDemand then
     begin
@@ -1072,7 +1073,7 @@ begin
       begin
         if Pass >= wtpImplementation then
         begin
-          // IdToImportedType(Contained__get_defined_in(Definition, ev)
+          // IdToImportedType(Definition.defined_in
           Write(F, IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace), '.');
         end;
         Write(F, MethodName);
@@ -1162,7 +1163,7 @@ begin
       WriteLn(F, '  SOM_InitEnvironment(@LocalEnv);');
     end;
 
-    if Result_Kind = TypeCode_tk_any then
+    if Result_Kind = tk_any then
     begin
       WriteLn(F, '  Result := any(');
     end
@@ -1170,7 +1171,7 @@ begin
     begin
       WriteLn(F, '  Result := ', MetaclassResult, '(');
     end
-    else if Result_Kind <> TypeCode_tk_void then
+    else if Result_Kind <> tk_void then
     begin
       WriteLn(F, '  Result :=');
     end;
@@ -1182,15 +1183,15 @@ begin
       Write(F, ', @LocalEnv');
     end;
 
-    Contents := Container_contents(Definition, ev, 'all', False);
+    Contents := Definition.contents('all', False);
     if Contents._length > 0 then
     begin
       for I := 0 to Contents._length - 1 do
       begin
-        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-        if SOMObject_somIsA(Item, _SOMCLASS_ParameterDef) then
+        Item := Contents._buffer[I];
+        if ParameterDef.Supports(Item) then
         begin
-          Write(F, ', ', UnreserveIdentifier(Contained__get_name(Item, ev)));
+          Write(F, ', ', UnreserveIdentifier(Item.name));
         end;
         SOMFreeAndNil(Item);
       end;
@@ -1198,7 +1199,7 @@ begin
     end;
 
     Write(F, ')');
-    if (Result_Kind = TypeCode_tk_any) or (MetaclassResult <> '') then
+    if (Result_Kind = tk_any) or (MetaclassResult <> '') then
     begin
       Write(F, ')');
     end;
@@ -1224,6 +1225,8 @@ var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
   Item: Contained;
+  ItemOD: OperationDef;
+  ItemAD: AttributeDef;
   Name: Identifier;
   NameS: string;
   WasPrivate: Boolean;
@@ -1232,7 +1235,7 @@ var
   QL: TSOMIRQuickLookupForClass;
   Index: Integer;
 begin
-  Contents := Container_contents(Definition, ev, 'all', Pass <= wtpOnDemand);
+  Contents := Definition.contents('all', Pass <= wtpOnDemand);
   QL := nil;
   if Contents._length > 0 then
   begin
@@ -1241,10 +1244,10 @@ begin
     // First pass: property setters and getters
     for I := 0 to Contents._length - 1 do
     begin
-      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-      if SOMObject_somIsA(Item, _SOMCLASS_OperationDef) then
+      Item := Contents._buffer[I];
+      if OperationDef.Supports(Item, ItemOD) then
       begin
-        NameS := Contained__get_name(Item, ev);
+        NameS := ItemOD.name;
         if Length(NameS) > 5 then
         begin
           NameS := Copy(NameS, 1, 5);
@@ -1260,12 +1263,12 @@ begin
             end;
             if Pass = wtpImplementation then
             begin
-              if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
+              if Item.defined_in + '::' = CurrentNamespace then
               begin
-                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
+                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, ItemOD);
               end;
             end;
-            WriteMethodDefinition(CurrentNamespace, Pass, Item);
+            WriteMethodDefinition(CurrentNamespace, Pass, ItemOD);
           end;
         end;
       end;
@@ -1304,10 +1307,10 @@ begin
     // Second pass: public methods except for getters/setters
     for I := 0 to Contents._length - 1 do
     begin
-      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
-      if SOMObject_somIsA(Item, _SOMCLASS_OperationDef) then
+      Item := Contents._buffer[I];
+      if OperationDef.Supports(Item, ItemOD) then
       begin
-        NameS := Contained__get_name(Item, ev);
+        NameS := ItemOD.name;
         if Length(NameS) > 5 then
         begin
           NameS := Copy(NameS, 1, 5);
@@ -1315,24 +1318,24 @@ begin
           begin
             if Pass = wtpImplementation then
             begin
-              if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
+              if Item.defined_in + '::' = CurrentNamespace then
               begin
-                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
+                WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, ItemOD);
               end;
             end;
-            WriteMethodDefinition(CurrentNamespace, Pass, Item);
+            WriteMethodDefinition(CurrentNamespace, Pass, ItemOD);
           end;
         end
         else
         begin
           if Pass = wtpImplementation then
           begin
-            if Contained__get_defined_in(Item, ev) + '::' = CurrentNamespace then
+            if Item.defined_in + '::' = CurrentNamespace then
             begin
-              WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, Item);
+              WriteMethodDefinition(CurrentNamespace, wtpLowLevelImplementation, ItemOD);
             end;
           end;
-          WriteMethodDefinition(CurrentNamespace, Pass, Item);
+          WriteMethodDefinition(CurrentNamespace, Pass, ItemOD);
         end;
       end;
     end;
@@ -1478,27 +1481,27 @@ begin
     // Third pass: properties
     for I := 0 to Contents._length - 1 do
     begin
-      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      Item := Contents._buffer[I];
       if Pass < wtpImplementation then
       begin
-        if SOMObject_somIsA(Item, _SOMCLASS_AttributeDef) then
+        if AttributeDef.Supports(Item, ItemAD) then
         begin
-          Name := Contained__get_name(Item, ev);
+          Name := ItemAD.name;
           if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
           begin
             Write(F, '    property ', UnreserveIdentifier(Name), ': ');
           end;
 
-          OriginalNamespace := Contained__get_defined_in(Item, ev);
+          OriginalNamespace := ItemAD.defined_in;
           if Length(OriginalNamespace) > 2 then
           begin
             OriginalNamespace := OriginalNamespace + '::';
           end;
 
-          WriteType(OriginalNamespace, Pass, AttributeDef__get_type(Item, ev));
+          WriteType(OriginalNamespace, Pass, ItemAD.SOM_type);
           if (Pass > wtpOnDemand) and (Pass < wtpImplementation) then
           begin
-            if AttributeDef__get_mode(Item, ev) = AttributeDef_READONLY then
+            if ItemAD.mode = AttributeDef_READONLY then
             begin
               WriteLn(F, ' read _get_', Name, ';');
             end
@@ -1527,28 +1530,31 @@ var
   OriginalNamespace: string;
   NewNamespace: string;
   QL: TSOMIRQuickLookupForClass;
+  ItemID: InterfaceDef;
+  ItemMD: ModuleDef;
+  ItemCr: Container; // recurse if assigned
 begin
-  Recurse := False;
-  if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  ItemCr := nil;
+  if InterfaceDef.Supports(Item, ItemID) then
   begin
     if not WasForwardType then
     begin
       WriteLn(F, '  { Forward definitions }');
       WasForwardType := True;
     end;
-    Name := Contained__get_name(Item, ev);
-    QL := TSOMIRQuickLookupForClass.Create(Item);
+    Name := ItemID.name;
+    QL := TSOMIRQuickLookupForClass.Create(ItemID);
     FExistingTypeIds.AddObject(CurrentNamespace + Name, QL);
     FResolutionAid.Values[Name] := CurrentNamespace + Name;
     WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = class;');
-    Recurse := True;
+    ItemCr := ItemID.As_Container;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+  else if TypeDef.Supports(Item) then
   begin
-    Name := Contained__get_name(Item, ev);
+    Name := Item.name;
     FExistingTypeIds.Add(CurrentNamespace + Name);
 
-    OriginalNamespace := Contained__get_defined_in(Item, ev);
+    OriginalNamespace := Item.defined_in;
     if Length(OriginalNamespace) > 2 then
     begin
       OriginalNamespace := OriginalNamespace + '::';
@@ -1560,12 +1566,12 @@ begin
       FResolutionAid.Values[Name] := CurrentNamespace + Name;
     end;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then
+  else if ExceptionDef.Supports(Item) then
   begin
-    Name := Contained__get_name(Item, ev);
+    Name := Item.name;
     FExistingTypeIds.Add(CurrentNamespace + Name);
 
-    OriginalNamespace := Contained__get_defined_in(Item, ev);
+    OriginalNamespace := Item.defined_in;
     if Length(OriginalNamespace) > 2 then
     begin
       OriginalNamespace := OriginalNamespace + '::';
@@ -1577,21 +1583,21 @@ begin
       FResolutionAid.Values[Name] := CurrentNamespace + Name;
     end;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  else if ModuleDef.Supports(Item, ItemMD) then
   begin
-    Name := Contained__get_name(Item, ev);
-    Recurse := True;
+    Name := ItemMD.name;
+    ItemCr := ItemMD.As_Container;
   end;
 
-  if Recurse then
+  if Assigned(ItemCr) then
   begin
     NewNamespace := CurrentNamespace + Name + '::';
-    Contents := Container_contents(Item, ev, 'all', False);
+    Contents := ItemCr.contents('all', False);
     if Contents._length > 0 then
     begin
       for I := 0 to Contents._length - 1 do
       begin
-        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        SubItem := Contents._buffer[I];
         WriteRepositoryFirstPass(SubItem, NewNamespace, WasForwardType);
         SOMFreeAndNil(SubItem);
       end;
@@ -1609,45 +1615,50 @@ var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
   NewNamespace: string;
+  ItemTD: TypeDef;
+  ItemED: ExceptionDef;
+  ItemID: InterfaceDef;
+  ItemMD: ModuleDef;
+  ItemCr: Container; // recurse if assigned
 begin
-  Recurse := False;
-  if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+  ItemCr := nil;
+  if TypeDef.Supports(Item, ItemTD) then
   begin
-    TC := TypeDef__get_type(Item, ev);
-    if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
+    TC := ItemTD.SOM_type;
+    if TC.Kind <> tk_foreign then
     begin
       WriteType(CurrentNamespace, wtpOnDemandForeignOnly, TC);
     end;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then
+  else if ExceptionDef.Supports(Item, ItemED) then
   begin
-    TC := ExceptionDef__get_type(Item, ev);
-    if TypeCode_kind(TC, ev) <> TypeCode_tk_foreign then
+    TC := ItemED.SOM_type;
+    if TC.Kind <> tk_foreign then
     begin
       WriteType(CurrentNamespace, wtpOnDemandForeignOnly, TC);
     end;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  else if InterfaceDef.Supports(Item, ItemID) then
   begin
-    Name := Contained__get_name(Item, ev);
-    WriteClassDefinition(CurrentNamespace + Name + '::' {CurrentNamespace}, wtpOnDemandForeignOnly, Item);
-    Recurse := True;
+    Name := ItemID.name;
+    WriteClassDefinition(CurrentNamespace + Name + '::' {CurrentNamespace}, wtpOnDemandForeignOnly, ItemID);
+    ItemCr := ItemID.As_Container;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  else if ModuleDef.Supports(Item, ItemMD) then
   begin
-    Name := Contained__get_name(Item, ev);
-    Recurse := True;
+    Name := ItemMD.name;
+    ItemCr := ItemMD.As_Container;
   end;
 
-  if Recurse then
+  if Assigned(ItemCr) then
   begin
     NewNamespace := CurrentNamespace + Name + '::';
-    Contents := Container_contents(Item, ev, 'all', True);
+    Contents := ItemCr.contents('all', True);
     if Contents._length > 0 then
     begin
       for I := 0 to Contents._length - 1 do
       begin
-        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        SubItem := Contents._buffer[I];
         WriteRepositorySecondPass(SubItem, NewNamespace);
         SOMFreeAndNil(SubItem);
       end;
@@ -1665,18 +1676,23 @@ var
   SubItem: Contained;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
+  Index: Integer;
   OriginalNamespace: string;
   NewNamespace: string;
-  Index: Integer;
+  ItemTD: TypeDef;
+  ItemED: ExceptionDef;
+  ItemID: InterfaceDef;
+  ItemMD: ModuleDef;
+  ItemCr: Container; // recurse if assigned
 begin
-  Recurse := False;
-  if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+  ItemCr := nil;
+  if TypeDef.Supports(Item, ItemTD) then
   begin
-    TC := TypeDef__get_type(Item, ev);
-    Kind := TypeCode_kind(TC, ev);
-    if (Kind <> TypeCode_tk_foreign) and (Kind <> TypeCode_tk_struct) then
+    TC := ItemTD.SOM_type;
+    Kind := TC.Kind;
+    if (Kind <> tk_foreign) and (Kind <> tk_struct) then
     begin
-      OriginalNamespace := Contained__get_defined_in(Item, ev);
+      OriginalNamespace := ItemTD.defined_in;
       if Length(OriginalNamespace) > 2 then
       begin
         OriginalNamespace := OriginalNamespace + '::';
@@ -1684,7 +1700,7 @@ begin
 
       if OriginalNamespace <> CurrentNamespace then
       begin
-        Name := Contained__get_name(Item, ev);
+        Name := ItemTD.name;
         if not FOriginalTypeIds.Find(CurrentNamespace + Name, Index) then // if inherited type was not replaced by new one
         begin
           WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
@@ -1693,19 +1709,19 @@ begin
       else
       begin
         WriteType(CurrentNamespace, wtpOnDemandBeforeTypeDef, TC);
-        Write(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = ');
+        Write(F, '  ', IdToImportedType(CurrentNamespace + ItemTD.name, CurrentNamespace), ' = ');
         WriteType(CurrentNamespace, wtpTypeDef, TC);
         WriteLn(F, ';');
       end;
     end;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then
+  else if ExceptionDef.Supports(Item, ItemED) then
   begin
-    TC := ExceptionDef__get_type(Item, ev);
-    Kind := TypeCode_kind(TC, ev);
-    if (Kind <> TypeCode_tk_foreign) and (Kind <> TypeCode_tk_null) and (Kind <> TypeCode_tk_struct) then
+    TC := ItemED.SOM_type;
+    Kind := TC.Kind;
+    if (Kind <> tk_foreign) and (Kind <> tk_null) and (Kind <> tk_struct) then
     begin
-      OriginalNamespace := Contained__get_defined_in(Item, ev);
+      OriginalNamespace := ItemED.defined_in;
       if Length(OriginalNamespace) > 2 then
       begin
         OriginalNamespace := OriginalNamespace + '::';
@@ -1713,7 +1729,7 @@ begin
 
       if OriginalNamespace <> CurrentNamespace then
       begin
-        Name := Contained__get_name(Item, ev);
+        Name := ItemED.name;
         if not FOriginalTypeIds.Find(CurrentNamespace + Name, Index) then // if inherited type was not replaced by new one
         begin
           WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited exception } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
@@ -1722,32 +1738,32 @@ begin
       else
       begin
         WriteType(CurrentNamespace, wtpOnDemandBeforeTypeDef, TC);
-        Write(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = { exception } ');
+        Write(F, '  ', IdToImportedType(CurrentNamespace + ItemED.name, CurrentNamespace), ' = { exception } ');
         WriteType(CurrentNamespace, wtpTypeDef, TC);
         WriteLn(F, ';');
       end;
     end;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  else if InterfaceDef.Supports(Item, ItemID) then
   begin
-    Name := Contained__get_name(Item, ev);
-    Recurse := True;
+    Name := ItemID.name;
+    ItemCr := ItemID.As_Container;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  else if ModuleDef.Supports(Item, ItemMD) then
   begin
-    Name := Contained__get_name(Item, ev);
-    Recurse := True;
+    Name := ItemMD.name;
+    ItemCr := ItemMD.As_Container;
   end;
 
-  if Recurse then
+  if Assigned(ItemCr) then
   begin
     NewNamespace := CurrentNamespace + Name + '::';
-    Contents := Container_contents(Item, ev, 'all', False);
+    Contents := ItemCr.contents('all', False);
     if Contents._length > 0 then
     begin
       for I := 0 to Contents._length - 1 do
       begin
-        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        SubItem := Contents._buffer[I];
         WriteRepositoryThirdPass(SubItem, NewNamespace);
         SOMFreeAndNil(SubItem);
       end;
@@ -1760,27 +1776,31 @@ procedure TSOMIRImporter.WriteRepositoryFourthPass(Item: Contained; const Curren
 var
   TC: TypeCode;
   Name: PAnsiChar;
-  Recurse: Boolean;
   SubItem: Contained;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
   OriginalNamespace: string;
   NewNamespace: string;
   Index: Integer;
+  ItemTD: TypeDef;
+  ItemED: ExceptionDef;
+  ItemID: InterfaceDef;
+  ItemMD: ModuleDef;
+  ItemCr: Container; // recurse if assigned
 begin
-  Recurse := False;
-  if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+  ItemCr := nil;
+  if TypeDef.Supports(Item, ItemTD) then
   begin
-    TC := TypeDef__get_type(Item, ev);
-    if TypeCode_kind(TC, ev) = TypeCode_tk_struct then
+    TC := ItemTD.SOM_type;
+    if TC.Kind = tk_struct then
     begin
-      OriginalNamespace := Contained__get_defined_in(Item, ev);
+      OriginalNamespace := ItemTD.defined_in;
       if Length(OriginalNamespace) > 2 then
       begin
         OriginalNamespace := OriginalNamespace + '::';
       end;
 
-      Name := Contained__get_name(Item, ev);
+      Name := ItemTD.name;
       if OriginalNamespace <> CurrentNamespace then
       begin
         if not FOriginalTypeIds.Find(CurrentNamespace + Name, Index) then // if inherited type was not replaced by new one
@@ -1798,12 +1818,12 @@ begin
       end;
     end;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then
+  else if ExceptionDef.Supports(Item, ItemED) then
   begin
-    TC := ExceptionDef__get_type(Item, ev);
-    if TypeCode_kind(TC, ev) = TypeCode_tk_struct then
+    TC := ItemED.SOM_type;
+    if TC.Kind = tk_struct then
     begin
-      OriginalNamespace := Contained__get_defined_in(Item, ev);
+      OriginalNamespace := ItemED.defined_in;
       if Length(OriginalNamespace) > 2 then
       begin
         OriginalNamespace := OriginalNamespace + '::';
@@ -1811,7 +1831,7 @@ begin
 
       if OriginalNamespace <> CurrentNamespace then
       begin
-        Name := Contained__get_name(Item, ev);
+        Name := ItemED.name;
         if not FOriginalTypeIds.Find(CurrentNamespace + Name, Index) then // if inherited type was not replaced by new one
         begin
           WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited user exception } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
@@ -1820,38 +1840,38 @@ begin
       else
       if CurrentNamespace = '::StExcep::' then
       begin
-        WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = { system exception } StExcep;');
+        WriteLn(F, '  ', IdToImportedType(CurrentNamespace + ItemED.name, CurrentNamespace), ' = { system exception } StExcep;');
       end
       else
       begin
         WriteLn(F);
         WriteType(CurrentNamespace, wtpOnDemandBeforeTypeDef, TC);
-        Write(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = { user exception } ');
+        Write(F, '  ', IdToImportedType(CurrentNamespace + ItemED.name, CurrentNamespace), ' = { user exception } ');
         WriteType(CurrentNamespace, wtpTypeDef, TC);
         WriteLn(F, ';');
       end;
     end;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  else if InterfaceDef.Supports(Item, ItemID) then
   begin
-    Name := Contained__get_name(Item, ev);
-    Recurse := True;
+    Name := ItemID.name;
+    ItemCr := ItemID.As_Container;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  else if ModuleDef.Supports(Item, ItemMD) then
   begin
-    Name := Contained__get_name(Item, ev);
-    Recurse := True;
+    Name := ItemMD.name;
+    ItemCr := ItemMD.As_Container;
   end;
 
-  if Recurse then
+  if Assigned(ItemCr) then
   begin
     NewNamespace := CurrentNamespace + Name + '::';
-    Contents := Container_contents(Item, ev, 'all', False);
+    Contents := ItemCr.contents('all', False);
     if Contents._length > 0 then
     begin
       for I := 0 to Contents._length - 1 do
       begin
-        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        SubItem := Contents._buffer[I];
         WriteRepositoryFourthPass(SubItem, NewNamespace);
         SOMFreeAndNil(SubItem);
       end;
@@ -1863,38 +1883,40 @@ end;
 procedure TSOMIRImporter.WriteRepositoryFifthPass(Item: Contained; const CurrentNamespace: string);
 var
   Name: PAnsiChar;
-  Recurse: Boolean;
   SubItem: Contained;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
   NewNamespace: string;
+  ItemID: InterfaceDef;
+  ItemMD: ModuleDef;
+  ItemCr: Container; // recurse if assigned
 begin
-  Recurse := False;
-  if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  ItemCr := nil;
+  if InterfaceDef.Supports(Item, ItemID) then
   begin
     WriteLn(F);
-    Name := Contained__get_name(Item, ev);
-    WriteClassDefinition(CurrentNamespace + Name + '::', wtpOnDemand, Item);
+    Name := ItemID.name;
+    WriteClassDefinition(CurrentNamespace + Name + '::', wtpOnDemand, ItemID);
     WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = class(SOMObjectBase)');
-    WriteClassDefinition(CurrentNamespace + Name + '::', wtpFinal, Item);
+    WriteClassDefinition(CurrentNamespace + Name + '::', wtpFinal, ItemID);
     WriteLn(F, '  end;');
-    // there can be no sub-interfaces or modules inside of interface
+    // there can be no sub-interfaces or modules inside of interface, thus no recursion
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  else if ModuleDef.Supports(Item, ItemMD) then
   begin
-    Name := Contained__get_name(Item, ev);
-    Recurse := True;
+    Name := ItemMD.name;
+    ItemCr := ItemMD.As_Container;
   end;
 
-  if Recurse then
+  if Assigned(ItemCr) then
   begin
     NewNamespace := CurrentNamespace + Name + '::';
-    Contents := Container_contents(Item, ev, 'all', True);
+    Contents := ItemCr.contents('all', True);
     if Contents._length > 0 then
     begin
       for I := 0 to Contents._length - 1 do
       begin
-        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        SubItem := Contents._buffer[I];
         WriteRepositoryFifthPass(SubItem, NewNamespace);
         SOMFreeAndNil(SubItem);
       end;
@@ -1907,7 +1929,6 @@ procedure TSOMIRImporter.WriteRepositorySeventhPass(Item: Contained; const Curre
 var
   TC: TypeCode;
   Name: PAnsiChar;
-  Recurse: Boolean;
   SubItem: Contained;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
@@ -1916,20 +1937,26 @@ var
   ParamCount: LongInt;
   ConstantValue: any;
   ConstantStringValue: string;
+  ItemTD: TypeDef;
+  ItemCD: ConstantDef;
+  ItemED: ExceptionDef;
+  ItemID: InterfaceDef;
+  ItemMD: ModuleDef;
+  ItemCr: Container; // recurse if assigned
 begin
-  Recurse := False;
-  if SOMObject_somIsA(Item, _SOMCLASS_TypeDef) then
+  ItemCr := nil;
+  if TypeDef.Supports(Item, ItemTD) then
   begin
-    TC := TypeDef__get_type(Item, ev);
-    if TypeCode_kind(TC, ev) = TypeCode_tk_enum then
+    TC := ItemTD.SOM_type;
+    if TC.Kind = tk_enum then
     begin
-      ParamCount := TypeCode_param_count(TC, ev);
+      ParamCount := TC.ParamCount;
 
       if ParamCount > 1 then
       begin
-        Name := Contained__get_name(Item, ev);
+        Name := ItemTD.name;
         ImportedType := IdToImportedType(CurrentNamespace + Name, CurrentNamespace);
-        OriginalNamespace := Contained__get_defined_in(Item, ev);
+        OriginalNamespace := ItemTD.defined_in;
         if Length(OriginalNamespace) > 2 then
         begin
           OriginalNamespace := OriginalNamespace + '::';
@@ -1988,13 +2015,13 @@ begin
       end;
     end;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ConstantDef) then
+  else if ConstantDef.Supports(Item, ItemCD) then
   begin
-    Name := Contained__get_name(Item, ev);
+    Name := ItemCD.name;
     ImportedType := IdToImportedType(CurrentNamespace + Name, CurrentNamespace);
 
-    ConstantValue := ConstantDef__get_value(Item, ev);
-    if TypeCode_kind(TAnyRecord(ConstantValue)._type, ev) <> tk_string then
+    ConstantValue := ItemCD.value;
+    if ConstantValue._type.Kind <> tk_string then
     begin
       if not FWasConst then
       begin
@@ -2006,7 +2033,7 @@ begin
     end
     else
     begin
-      OriginalNamespace := Contained__get_defined_in(Item, ev);
+      OriginalNamespace := ItemCD.defined_in;
       if Length(OriginalNamespace) > 2 then
       begin
         OriginalNamespace := OriginalNamespace + '::';
@@ -2021,7 +2048,7 @@ begin
       if CurrentNamespace = OriginalNamespace then
       begin
         // TODO better parsing of integer and string literals
-        ConstantStringValue := PAnsiChar(TAnyRecord(ConstantValue)._value^);
+        ConstantStringValue := PAnsiChar(ConstantValue._value^);
         if Length(ConstantStringValue) >= 2 then
         begin
           if (ConstantStringValue[1] = '"') and (ConstantStringValue[Length(ConstantStringValue)] = '"') then
@@ -2037,11 +2064,11 @@ begin
       end;
     end;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ExceptionDef) then
+  else if ExceptionDef.Supports(Item, ItemED) then
   begin
-    Name := Contained__get_name(Item, ev);
+    Name := ItemED.name;
 
-    OriginalNamespace := Contained__get_defined_in(Item, ev);
+    OriginalNamespace := ItemED.defined_in;
     if Length(OriginalNamespace) > 2 then
     begin
       OriginalNamespace := OriginalNamespace + '::';
@@ -2062,26 +2089,26 @@ begin
       WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace));
     end;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  else if InterfaceDef.Supports(Item, ItemID) then
   begin
-    Name := Contained__get_name(Item, ev);
-    Recurse := True;
+    Name := ItemID.name;
+    ItemCr := ItemID.As_Container;
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  else if ModuleDef.Supports(Item, ItemMD) then
   begin
-    Name := Contained__get_name(Item, ev);
-    Recurse := True;
+    Name := ItemMD.name;
+    ItemCr := ItemMD.As_Container;
   end;
 
-  if Recurse then
+  if Assigned(ItemCr) then
   begin
     NewNamespace := CurrentNamespace + Name + '::';
-    Contents := Container_contents(Item, ev, 'all', False);
+    Contents := ItemCr.contents('all', False);
     if Contents._length > 0 then
     begin
       for I := 0 to Contents._length - 1 do
       begin
-        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        SubItem := Contents._buffer[I];
         WriteRepositorySeventhPass(SubItem, NewNamespace);
         SOMFreeAndNil(SubItem);
       end;
@@ -2093,7 +2120,6 @@ end;
 procedure TSOMIRImporter.WriteRepositoryEighthPass(Item: Contained; const CurrentNamespace: string);
 var
   Name, MajorVersion, MinorVersion, DllName: PAnsiChar;
-  Recurse: Boolean;
   SubItem: Contained;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
@@ -2101,11 +2127,14 @@ var
   ImportedType, NewNamespace, DllName_Id, ReleaseOrder: string;
   Modifiers: _IDL_SEQUENCE_somModifier;
   Modifier: somModifier;
+  ItemID: InterfaceDef;
+  ItemMD: ModuleDef;
+  ItemCr: Container; // recurse if assigned
 begin
-  Recurse := False;
-  if SOMObject_somIsA(Item, _SOMCLASS_InterfaceDef) then
+  ItemCr := nil;
+  if InterfaceDef.Supports(Item, ItemID) then
   begin
-    Name := Contained__get_name(Item, ev);
+    Name := ItemID.name;
     ImportedType := IdToImportedType(CurrentNamespace + Name, CurrentNamespace);
     // TODO name should not be unreserved in dll entry names
 
@@ -2113,12 +2142,12 @@ begin
     MinorVersion := '0';
     ReleaseOrder := '';
     DllName := '';
-    Modifiers := Contained__get_somModifiers(Item, ev);
+    Modifiers := ItemID.somModifiers;
     if Modifiers._length > 0 then
     begin
       for I := 0 to Modifiers._length - 1 do
       begin
-        Modifier := PsomModifier(PAnsiChar(Modifiers._buffer) + I * SizeOf(somModifier))^;
+        Modifier := Modifiers._buffer[I];
         if Modifier.name = 'releaseorder' then
         begin
           ReleaseOrder := Modifier.value;
@@ -2290,31 +2319,25 @@ begin
     WriteLn(F, '(*');
     WriteLn(F, ' * Class Object and Method Token Macros');
     WriteLn(F, ' *)');
-    (*
-    WriteLn(F, 'function _SOMCLASS_', ImportedType, ': SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
-    WriteLn(F, 'begin');
-    WriteLn(F, '  Result := ', ImportedType, 'ClassData.classObject;');
-    WriteLn(F, 'end;');
-    *)
 
-    WriteClassDefinition(CurrentNamespace + Name + '::', wtpImplementation, Item);
-    // there can be no sub-interfaces or modules inside of interface
+    WriteClassDefinition(CurrentNamespace + Name + '::', wtpImplementation, ItemID);
+    // there can be no sub-interfaces or modules inside of interface, so no recursion
   end
-  else if SOMObject_somIsA(Item, _SOMCLASS_ModuleDef) then
+  else if ModuleDef.Supports(Item, ItemMD) then
   begin
-    Name := Contained__get_name(Item, ev);
-    Recurse := True;
+    Name := ItemMD.name;
+    ItemCr := ItemMD.As_Container;
   end;
 
-  if Recurse then
+  if Assigned(ItemCr) then
   begin
     NewNamespace := CurrentNamespace + Name + '::';
-    Contents := Container_contents(Item, ev, 'all', True);
+    Contents := ItemCr.contents('all', True);
     if Contents._length > 0 then
     begin
       for I := 0 to Contents._length - 1 do
       begin
-        SubItem := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        SubItem := Contents._buffer[I];
         WriteRepositoryEighthPass(SubItem, NewNamespace);
         SOMFreeAndNil(SubItem);
       end;
@@ -2371,7 +2394,7 @@ begin
     WriteLn(F, '  {$ENDIF}');
     WriteLn(F);
 
-    Contents := Container_contents(Repo, ev, 'all', False);
+    Contents := Repo.contents('all', False);
     // WriteLn(F, '{ Amount of items: ', Contents._length, ' }');
     
     WasForwardType := False;
@@ -2380,7 +2403,7 @@ begin
     // fetch quick lookup data
     if Contents._length > 0 then for I := 0 to Contents._length - 1 do
     begin
-      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      Item := Contents._buffer[I];
       WriteRepositoryFirstPass(Item, '::', WasForwardType);
     end;
     FExistingTypeIds.Sorted := True;
@@ -2400,7 +2423,7 @@ begin
     // Second pass: find foreign types that can't go into opaque pointers
     if Contents._length > 0 then for I := 0 to Contents._length - 1 do
     begin
-      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      Item := Contents._buffer[I];
       WriteRepositorySecondPass(Item, '::');
     end;
     Write(' 2');
@@ -2410,7 +2433,7 @@ begin
     // Third pass: build non-class types
     if Contents._length > 0 then for I := 0 to Contents._length - 1 do
     begin
-      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      Item := Contents._buffer[I];
       WriteRepositoryThirdPass(Item, '::');
     end;
     Write(' 3');
@@ -2431,7 +2454,7 @@ begin
     WriteLn(F, '  end;');
     if Contents._length > 0 then for I := 0 to Contents._length - 1 do
     begin
-      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      Item := Contents._buffer[I];
       WriteRepositoryFourthPass(Item, '::');
     end;
     Write(' 4');
@@ -2521,7 +2544,7 @@ begin
     begin
       for I := 0 to Contents._length - 1 do
       begin
-        Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+        Item := Contents._buffer[I];
         WriteRepositoryFifthPass(Item, '::');
       end;
     end;
@@ -2542,7 +2565,7 @@ begin
     // Seventh pass: constants from TypeDef tk_enum, ConstDef and ExceptionDef
     if Contents._length > 0 then for I := 0 to Contents._length - 1 do
     begin
-      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      Item := Contents._buffer[I];
       WriteRepositorySeventhPass(Item, '::');
     end;
     Write(' 7');
@@ -3369,7 +3392,7 @@ begin
     // Eighth pass: class and method implementation
     if Contents._length > 0 then for I := 0 to Contents._length - 1 do
     begin
-      Item := PContained(PAnsiChar(Contents._buffer) + I * SizeOf(Contained))^;
+      Item := Contents._buffer[I];
       WriteRepositoryEighthPass(Item, '::');
 
       SOMFreeAndNil(Item);
@@ -3651,13 +3674,14 @@ end;
 procedure TestSOM_IR;
 var
   repo: Repository;
-  exname: CORBAString;
-  oep: PRepository_irOpenError;
+//  exname: CORBAString;
+//  oep: PRepository_irOpenError;
   imp: TSOMIRImporter;
 begin
-  repo := RepositoryNew;
+  repo := Repository.Create;
   try
-    if not Assigned(repo) then
+    // TODO different exception handling
+    { if not Assigned(repo) then
     begin
       exname := somExceptionId(ev);
       oep := PRepository_irOpenError(somExceptionValue(ev));
@@ -3672,7 +3696,7 @@ begin
       end;
 
       Exit;
-    end;
+    end; }
 
     WriteLn('IR opened');
     imp := TSOMIRImporter.Create('SOMIRTest.IRTestOut.DumpOut', repo);
