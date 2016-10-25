@@ -8,12 +8,9 @@ There are two methods to handle changning environment:
 
 == New method: using runners ==
 
-Grab som30nt.zip and som301nt.7z.
+Grab som21nt.zip
 
-Unpack som30nt.zip somewhere, e. g. C:\home\OCTAGRAM\SOM_AND_OD\SOM\3.0.
-
-som30nt.zip is suffering from DEP, so replace bin\somwm35i.dll and 
-bin\somws35i.dll with those ones from som301nt.7z.
+Unpack som21nt.zip somewhere, e. g. C:\home\OCTAGRAM\SOM_AND_OD\SOM\2.1
 
 Put (or install) portable Delphi 7 into C:\home\OCTAGRAM\SOM_AND_OD\Delphi\7
 
@@ -24,9 +21,14 @@ Add C:\home\OCTAGRAM\SOM_AND_OD\Runner to your PATH
 
 Now you can run SOM and Delphi stuff this way:
 
-call delphirunner.cmd 7 %~dp0 dcc32 emitdelphi.dpr
-call somrunner.cmd 3.0 %~dp0 sc -v -sdelphi -m"namespace=TestEmit" emit2.idl
-call somdelphirunner.cmd 3.0 7 %~dp0 delphi7 emitdelphi.dpr
+call delphirunner.cmd 7 %~dp0 dcc32 SOMIRIMP.dpr
+call somrunner.cmd 2.1 %~dp0 SOMIRIMP.exe
+call delphirunner.cmd 7 %~dp0 dcc32 SOMIRTest.TestOut.dpr
+call somrunner.cmd 2.1 %~dp0 SOMIRTest.TestOut.exe
+call delphirunner.cmd 7 %~dp0 dcc32 SOMIRTest.IRTestOut.dpr
+call somrunner.cmd 2.1 %~dp0 SOMIRTest.IRTestOut.exe
+
+call somdelphirunner.cmd 2.1 7 %~dp0 delphi7 SOMIRIMP.dpr
 
 This way we can run different combinations of Delphi and SOM version.
 
@@ -40,61 +42,87 @@ discovered:
 So it makes sense to downgrade project from SOM 3.0 to SOM 2.1 eventually. 
 We'll get DirectToSOM C++ and OLE Automation this way.
 
+The project is in transition. It runs SOM 2.1 and use SOM 2.1 bindings, but 
+they are less complete compared to 3.0 ones, so old stuff is continued to be 
+borrowed from old bindings into the new ones.
+
+== Command explanation ==
+
+compilei.cmd:
+  rem Compile SOM Interface Repository importer
+  rem Use SOMIRIMP.SOM.pas bindings
+  rem Produce SOMIRIMP.exe executable
+  call delphirunner.cmd 7 %~dp0 dcc32 SOMIRIMP.dpr
+
+runi.cmd
+  rem Run SOM Interface Repository importer
+  rem Use SOM.IR database
+  rem Produce SOMIRTest.DumpOut.pas bindings
+  call somrunner.cmd 2.1 %~dp0 SOMIRIMP.exe
+
+compileo.cmd
+  rem Compile simple tester of generated bindings (often to check for syntax errors)
+  rem Use SOMIRTest.DumpOut.pas bindings
+  rem Produce SOMIRTest.TestOut.dpr executable
+  call delphirunner.cmd 7 %~dp0 dcc32 SOMIRTest.TestOut.dpr
+
+runo.cmd
+  rem Run simple tester of generated bindings
+  call somrunner.cmd 2.1 %~dp0 SOMIRTest.TestOut.exe
+
+compileoi.cmd
+  rem Compile copy of SOM Interface Repository importer with new bindings
+  rem Use SOMIRTest.DumpOut.pas bindings
+  rem Produce SOMIRTest.IRTestOut.exe executable
+  call delphirunner.cmd 7 %~dp0 dcc32 SOMIRTest.IRTestOut.dpr
+
+runoi.cmd
+  rem Run copy of SOM Interface Repository importer compiled with the new bindings
+  rem Use SOM.IR database
+  rem Produce SOMIRTest.IRTestOut.DumpOut.pas bindings
+  call somrunner.cmd 2.1 %~dp0 SOMIRTest.IRTestOut.exe
+
+From time to time new bindings get copied (manually) from 
+SOMIRTest.DumpOut.pas to SOMIRIMP.SOM.pas, and SOM IR importer gets copied 
+from SOMIRIMP.dpr to SOMIRTest.IRTestOut.dpr (with input and output unit names 
+replaced).
+
 == Old method: opening separate command line prompt ==
 
-Grab som30nt.zip and som301nt.7z.
+Grab som21nt.zip and som21nt.7z.
 
-Unpack som30nt.zip somewhere, e. g. C:\Programs\IBM\SOM.
+Unpack som21nt.zip somewhere, e. g. C:\Programs\IBM\SOM.
 
-som30nt.zip is suffering from DEP, so replace bin\somwm35i.dll and 
-bin\somws35i.dll with those ones from som301nt.7z.
-
-Edit bin\somenv.cmd, set SOMBASE variable. E. g. it will look like 
+Edit bin\somenv.bat, set SOMBASE variable. E. g. it will look like 
 this:
 
 rem -- Uncomment and customize the following line for your file system.
 set SOMBASE=C:\Programs\IBM\SOM
 rem -- Once you have set SOMBASE you can delete the following line:
 
-Open a new window with command line and run somenv.cmd inside of it. 
+Open a new window with command line and run somenv.bat inside of it. 
 Don't close the window, you will run everything else inside of it.
 
 Run somcorba to generate C bindings (without stars).
 It will generate .h files that I use for referencing purposes.
 Run somxh to generate C++ bindings if you need them.
 
-Copy delphi.efw to SOM\include.
-
-Now run Delphi IDE from command line window. If it was opened, you have 
-to close it. SOM Compiler does not work without environment variables. 
+Now run Delphi IDE from command line window. If it was already opened, you 
+have to close it. SOM Compiler does not work without environment variables. 
 You can change environment variables on a global (or user) level if you 
 know how to do it.
 
-SOMClientTest.dpr is only for client testing. It does creation, outputs 
-SOMObject instance size, which is 4 on Win32, outputs it's class name, 
-which is 'SOMObject', of course.
+== SOM 3.0 ==
 
-emitdelphi.dpr is supposed to be Delphi emitter in Delphi, but now it is 
-stub emitter in Delphi. It outputs .pas, but this output is meaningless. 
-It is just dump.
+The project downgraded to SOM 2.1 and is not activelly tested against SOM 3.0,
+but here are the steps:
 
-If you want to run this from Delphi, open Run > Parameters...
-specify Host application: C:\Programs\IBM\SOM\bin\sc.exe
-Parameters: -sdelphi C:\Programs\IBM\SOM\include\somobj.idl
-Fix pathes for your case.
+Grab som30nt.zip and som301nt.7z.
 
-Debug is not possible because sc.exe launches yet another process which 
-actually loads emitter.dll. It is preferred to run from command line:
+Unpack som30nt.zip somewhere, e. g. C:\home\OCTAGRAM\SOM_AND_OD\SOM\3.0.
 
-sc -sdelphi C:\Programs\IBM\SOM\include\somobj.idl
+som30nt.zip is suffering from DEP, so replace bin\somwm35i.dll and 
+bin\somws35i.dll with those ones from som301nt.7z.
 
-It outputs to C:\Programs\IBM\SOM\include\somobj.pas
-
-
-Note: SOM DTK supports 2 ways of naming classes. CORBA style don't 
-have stars, and C++ style has. There is also somstars for generating C
-headers with stars. They can't mix for obvious reasons. C samples use 
-CORBA style only. newemit code assumes stars mode only. Delphi bindings 
-are made after CORBA style starless headers, so newemit output was 
-reinterpreted in mind.
-
+Edit any of run*.cmd to change SOM version from 2.1 to 3.0 or run against SOM 
+3.0 in some different way.

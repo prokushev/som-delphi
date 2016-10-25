@@ -25,6 +25,14 @@ For more information, please refer to <http://unlicense.org/>
 
 Appendix.
 
+The license above does not impose any obligations. The license above 
+does not prevent one from relicensing public domain software under different 
+terms. However laws in some jurisdictions might require one to prove license 
+correctness somehow, and thus forcing one to get back to the original license 
+containing this appendix. These obligations (if any) do not come from this 
+license, but from laws only. This appendix is is present here only to be 
+distributed with the license.
+
 Software development cannot stand apart from other other sides of life.
 It is a quest towards better society where developers do not have to
 put paywalls around their code to be able to eat tomorrow, and other
@@ -34,7 +42,7 @@ tomorrow.
 Everything is interconnected, so a problem that is connected with other
 sides of life needs a solution that is also connected with other sides
 of life. That is why this appendix is essential in really solving the
-problem. With all the regards to FSF and other international
+problem. With all the regards to the FSF and other international
 organisations like this they are making a mistake by limiting
 theirselves to one side of life. They are doomed to be always
 defending.
@@ -43,11 +51,13 @@ For more information about building better society, please refer to:
 English links:
 <http://youtube.com/playlist?list=PLA030912772460EE7>
 <http://www.old.vodaspb.ru/english/index.html>
+<http://www.conceptualpower.com/en/>
 <http://sutr.org/>
 <http://newyouthpolicy.org/en/>
 <http://dotu.ru/lang/en/>
 <http://zakonvremeni.ru/films.html>
 <http://youtube.com/playlist?list=PLEpD0QTry-lpfJYaZvqNJ7cNViMHbLfOb>
+<http://what-is-good.com/>
 
 Russian websites:
 <http://www.vodaspb.ru/>
