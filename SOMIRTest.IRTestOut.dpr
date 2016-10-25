@@ -1292,14 +1292,31 @@ begin
       if Pass < wtpImplementation then
       begin
         WriteLn(F, '  public');
-        WriteLn(F, '    class function Create: ', ImportedType, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, '    class function Create: ', ImportedType, ';');
       end
       else
       begin
         WriteLn(F);
-        WriteLn(F, 'class function ', ImportedType, '.Create: ', ImportedType, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'class function ', ImportedType, '.Create: ', ImportedType, ';');
         WriteLn(F, 'begin');
         WriteLn(F, '  Result := ', ImportedType, '(SOMClass(NewClass).somNew);');
+        WriteLn(F, 'end;');
+      end;
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '    class procedure SOMFreeAndNil(var Obj: ', ImportedType, ');');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class procedure ', ImportedType, '.SOMFreeAndNil(var Obj: ', ImportedType, ');');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  if Assigned(Obj) then');
+        WriteLn(F, '  begin');
+        WriteLn(F, '    SOMObject(Obj).somFree;');
+        WriteLn(F, '    Obj := nil;');
+        WriteLn(F, '  end;');
         WriteLn(F, 'end;');
       end;
     end;
@@ -1453,6 +1470,7 @@ begin
       if Pass < wtpImplementation then
       begin
         WriteLn(F, '    class function Supports(Instance: SOMObjectBase; out Obj: ', ImportedType, '): Boolean; overload; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F);
       end
       else
       begin
