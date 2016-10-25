@@ -1,4 +1,4 @@
-program SOMIRTest;
+program SOMIRTest.IRTestOut;
 
 {$APPTYPE CONSOLE}
 {$WARN UNSAFE_TYPE OFF}
@@ -8,17 +8,7 @@ uses
   SysUtils,
   Classes,
   TypInfo,
-  SOM in 'SOM.pas',
-  SOM.Thin in 'SOM.Thin.pas',
-  SOM.DelphiFeatures in 'SOM.DelphiFeatures.pas',
-  SOM.Thin.Emitter in 'SOM.Thin.Emitter.pas',
-  SOM.Thin.DLL in 'SOM.Thin.DLL.pas',
-  SOM.Thin.RTL in 'SOM.Thin.RTL.pas',
-  SOM.Thin.TypeCodes in 'SOM.Thin.TypeCodes.pas',
-  SOM.Thin.InterfaceRepository in 'SOM.Thin.InterfaceRepository.pas';
-
-var
-  ev: PEnvironment;
+  SOMIRTest.DumpOut in 'SOMIRTest.DumpOut.pas';
 
 function getErrorType(ec: Repository_irOpenErrorCodes): string;
 begin
@@ -124,7 +114,7 @@ var
   I: LongWord;
   Modifiers: _IDL_SEQUENCE_somModifier;
   Modifier: somModifier;
-  Parents: _IDL_SEQUENCE_string;
+  Parents: _IDL_SEQUENCE_CORBAString;
   Parent: string;
   Index: Integer;
 begin
@@ -134,14 +124,14 @@ begin
   FAncestors.Sorted := True;
   FParents.Sorted := True;
 
-  FId := Contained__get_id(Definition, ev);
+  FId := Definition.id;
 
-  Modifiers := Contained__get_somModifiers(Definition, ev);
+  Modifiers := Definition.somModifiers;
   if Modifiers._length > 0 then
   begin
     for I := 0 to Modifiers._length - 1 do
     begin
-      Modifier := PsomModifier(PAnsiChar(Modifiers._buffer) + I * SizeOf(somModifier))^;
+      Modifier := Modifiers._buffer[I];
       if Modifier.name = 'callstyle' then
       begin
         FOIDL := Modifier.value = 'oidl';
@@ -153,12 +143,12 @@ begin
     end;
   end;
 
-  Parents := InterfaceDef__get_base_interfaces(Definition, ev);
+  Parents := Definition.base_interfaces;
   if Parents._length > 0 then
   begin
     for I := 0 to Parents._length - 1 do
     begin
-      Parent := PCORBAString(PAnsiChar(Parents._buffer) + I * SizeOf(CORBAString))^;
+      Parent := Parents._buffer[I];
       if not FParents.Find(Parent, Index) then
       begin
         FParents.Add(Parent);
@@ -3088,7 +3078,7 @@ begin
     end;
 
     WriteLn('IR opened');
-    imp := TSOMIRImporter.Create('SOMIRTest.DumpOut', repo);
+    imp := TSOMIRImporter.Create('SOMIRTest.IRTestOut.DumpOut', repo);
     try
       imp.WriteRepository;
     finally
@@ -3103,7 +3093,6 @@ begin
   try
     WriteLn('Testing SOMObject v', SOM_MajorVersion, '.', SOM_MinorVersion);
     SOM_MainProgram;
-    ev := somGetGlobalEnvironment;
     TestSOM_IR;
   except
     on e: Exception do
