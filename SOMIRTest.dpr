@@ -1218,11 +1218,11 @@ begin
 
     if not QL.OIDL then
     begin
-      WriteLn(F, '  SOM_UninitEnvironment(@LocalEnv);');
+      WriteLn(F, '  SOM_UninitEnvironmentOrRaise(@LocalEnv);');
     end
     else
     begin
-      WriteLn(F, '  somExceptionFree(somGetGlobalEnvironment);');
+      WriteLn(F, '  SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);');
     end;
 
     WriteLn(F, 'end;');
@@ -1800,6 +1800,7 @@ begin
       end
       else if (CurrentNamespace <> '::') or (Name <> 'Environment') then // suppress Environment record definition
       begin
+        WriteLn(F);
         WriteType(CurrentNamespace, wtpOnDemandBeforeTypeDef, TC);
         Write(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = ');
         WriteType(CurrentNamespace, wtpTypeDef, TC);
@@ -1823,13 +1824,19 @@ begin
         Name := Contained__get_name(Item, ev);
         if not FOriginalTypeIds.Find(CurrentNamespace + Name, Index) then // if inherited type was not replaced by new one
         begin
-          WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited exception } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
+          WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Name, CurrentNamespace), ' = { inherited user exception } ', IdToImportedType(OriginalNamespace + Name, OriginalNamespace), ';');
         end;
       end
       else
+      if CurrentNamespace = '::StExcep::' then
       begin
+        WriteLn(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = { system exception } StExcep;');
+      end
+      else
+      begin
+        WriteLn(F);
         WriteType(CurrentNamespace, wtpOnDemandBeforeTypeDef, TC);
-        Write(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = { exception } ');
+        Write(F, '  ', IdToImportedType(CurrentNamespace + Contained__get_name(Item, ev), CurrentNamespace), ' = { user exception } ');
         WriteType(CurrentNamespace, wtpTypeDef, TC);
         WriteLn(F, ';');
       end;
@@ -2358,7 +2365,7 @@ begin
     WriteLn(F, '  SysUtils;');
     WriteLn(F);
     WriteLn(F, 'type');
-    WriteLn(F, '  { Hardwired definitions }');
+    WriteLn(F, '  { Hardwired definitions (more hardwired ones go in records section below) }');
     WriteLn(F, '  CORBAString = PAnsiChar;');
     WriteLn(F, '  CORBABoolean = ByteBool;');
     WriteLn(F, '  TypeCode = Pointer;'); // TODO convert to object
@@ -2420,6 +2427,11 @@ begin
     WriteLn(F);
     WriteLn(F, '  { Records }');
     // Fourth pass: build non-class types (deferred records)
+    WriteLn(F, '  StExcep = record');
+    WriteLn(F, '    minor: LongWord;');
+    WriteLn(F, '    completed: completion_status;');
+    WriteLn(F, '  end;');
+    WriteLn(F);
     WriteLn(F, '  Environment = record'); // fixup for Environment
     WriteLn(F, '    _major: exception_type;');
     WriteLn(F, '    exception_exception_name: PAnsiChar;');
@@ -2659,6 +2671,10 @@ begin
     WriteLn(F, '    classObj: SOMObjectBase{SOMClass};');
     WriteLn(F, '    fileName: CORBAString;');
     WriteLn(F, '    lineNumber: Integer): SOMObjectBase; stdcall;');
+    WriteLn(F);
+    WriteLn(F, '// not in SOM headers');
+    WriteLn(F);
+    WriteLn(F, 'procedure SOM_UninitEnvironmentOrRaise(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     WriteLn(F);
     WriteLn(F, 'implementation');
     WriteLn(F);
@@ -2910,6 +2926,26 @@ begin
     WriteLn(F, 'end;');
     WriteLn(F);
     WriteLn(F, 'function somTestCls; external SOM_DLL_Name;');
+    WriteLn(F);
+    WriteLn(F, '// not in SOM headers');
+    WriteLn(F);
+    WriteLn(F, 'procedure SOM_RaiseEnvironment(ev: PEnvironment);');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  // TODO raise Delphi exception using info from ev'); // TODO
+    WriteLn(F, '  somExceptionFree(ev); // TODO remove this line');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'procedure SOM_UninitEnvironmentOrRaise(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if ev._major <> NO_EXCEPTION then');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    SOM_RaiseEnvironment(ev);');
+    WriteLn(F, '  end');
+    WriteLn(F, '  else');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    somExceptionFree(ev);');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
     WriteLn(F);
     WriteLn(F, 'initialization');
     WriteLn(F, '  Windows.InitializeCriticalSection(DLLLoad_CriticalSection);');
