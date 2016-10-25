@@ -1,4 +1,4 @@
-unit SOMIRTest.DumpOut;
+unit SOMIRTest.IRTestOut.DumpOut;
 
 {$WARN UNSAFE_TYPE OFF}
 
