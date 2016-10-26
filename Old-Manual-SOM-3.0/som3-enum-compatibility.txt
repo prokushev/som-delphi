@@ -6,6 +6,36 @@ hacked enums start from 0, and what is worse, they seem to 1 byte, as this is
 the default enum size in VAC. Also, some difference is found between SOM 2.1 
 and SOM 3.0. This needs to be sorted out.
 
+SOMTTypes is the usual enum, so checking on it.
+
+Open EMITDEF.DLL from SOM 2.1 (bundled with VAC++ 3.5 for Windows) in the IDA:
+.text:100010EA                 mov     eax, [ebp+arg_4]
+.text:100010ED                 cmp     dword ptr [eax+4], 0Ah  ;   SOMTClassE = SOMTTypes(10);
+.text:100010F1                 jnz     loc_1000149F
+...
+.text:1000149F                 mov     eax, [ebp+arg_4]
+.text:100014A2                 cmp     dword ptr [eax+4], 1Ah  ;   SOMTModuleE = SOMTTypes(26);
+.text:100014A6                 jnz     loc_1000152D
+
+So clearly the enum seems to be 4-byte (note the "dword ptr").
+
+Now open emitdef.dll from SOM 3.0 (generally available standalone package) in the IDA:
+txt0:00410D47                 mov     eax, [ebp+arg_4]
+txt0:00410D4A                 movzx   eax, byte ptr [eax+4]
+txt0:00410D4E                 cmp     eax, 34h                 ;   SOMTEmitterBeginE = SOMTTypes(52);
+txt0:00410D51                 jz      short loc_410D68
+txt0:00410D53                 cmp     eax, 0Ah                 ;   SOMTClassE = SOMTTypes(10);
+txt0:00410D56                 jz      short loc_410D78
+txt0:00410D58                 cmp     eax, 35h                 ;   SOMTEmitterEndE = SOMTTypes(53);
+txt0:00410D5B                 jz      loc_410DE8
+txt0:00410D61                 jmp     loc_410E08
+
+And this time the enum is 1-byte (note the "byte ptr").
+
+So it seems to be correct to map enums to 4 bytes when using SOM 2.1, but they might be 1 byte in SOM 3.0
+
+At the moment all enums are mapped to 4-byte "type LongWord", and that is correct for SOM 2.1.
+
 2.1:
 typedef enum exception_type {NO_EXCEPTION, USER_EXCEPTION, SYSTEM_EXCEPTION}
     exception_type;
@@ -58,7 +88,7 @@ typedef enum somtParameterDirectionT {somtInE,somtOutE,somtInOutE} somtParameter
   somtOutE = somtParameterDirectionT(1);
   somtInOutE = somtParameterDirectionT(2);
 
-
+SOMTTypes is not present in the IR
 
 Safe to use enums:
 
