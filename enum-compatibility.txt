@@ -1,0 +1,103 @@
+Some enumeration types from SOM.IR are not accurate. They are suppresed in 
+headers when using SOM emitters and being reinserted via "passthru" for C and 
+C++. So when we import these enums from SOM.IR, we get incorrect results. The 
+default enum size in SOM is 4 bytes and the count starts from 1. But these 
+hacked enums start from 0, and what is worse, they seem to 1 byte, as this is 
+the default enum size in VAC. Also, some difference is found between SOM 2.1 
+and SOM 3.0. This needs to be sorted out.
+
+2.1:
+typedef enum exception_type {NO_EXCEPTION, USER_EXCEPTION, SYSTEM_EXCEPTION}
+    exception_type;
+3.0:
+typedef enum exception_type {NO_EXCEPTION, USER_EXCEPTION, SYSTEM_EXCEPTION,
+    exception_type_MAX = 2147483647       /* ensure mapped as 4 bytes */
+} exception_type;
+  NO_EXCEPTION = exception_type(0);
+  USER_EXCEPTION = exception_type(1);
+  SYSTEM_EXCEPTION = exception_type(2);
+
+2.1:
+typedef enum completion_status {YES, NO, MAYBE} completion_status;
+3.0:
+typedef enum completion_status {YES, NO, MAYBE,
+    completion_status_MAX = 2147483647    /* ensure mapped as 4 bytes */
+} completion_status;
+  YES = completion_status(0);
+  NO = completion_status(1);
+  MAYBE = completion_status(2);
+
+2.1+3.0:
+enum SOMTTargetTypeT {
+    somtPrivateE,
+    somtPublicE,
+    somtImplementationE,
+    somtAllE
+};
+  somtPrivateE = SOMTTargetTypeT(0);
+  somtPublicE = SOMTTargetTypeT(1);
+  somtImplementationE = SOMTTargetTypeT(2);
+  somtAllE = SOMTTargetTypeT(3);
+
+2.1+3.0:
+typedef enum somtVisibilityT { somtInternalVE, somtPublicVE, somtPrivateVE } somtVisibilityT;
+  somtInternalVE = somtVisibilityT(0);
+  somtPublicVE = somtVisibilityT(1);
+  somtPrivateVE = somtVisibilityT(2);
+
+2.1+3.0:
+typedef enum somtCommentStyleT { somtDashesE, somtCPPE, somtCSimpleE, somtCBlockE } somtCommentStyleT;
+  somtDashesE = somtCommentStyleT(0);
+  somtCPPE = somtCommentStyleT(1);
+  somtCSimpleE = somtCommentStyleT(2);
+  somtCBlockE = somtCommentStyleT(3);
+
+2.1+3.0:
+typedef enum somtParameterDirectionT {somtInE,somtOutE,somtInOutE} somtParameterDirectionT;
+  somtInE = somtParameterDirectionT(0);
+  somtOutE = somtParameterDirectionT(1);
+  somtInOutE = somtParameterDirectionT(2);
+
+
+
+Safe to use enums:
+
+TCKind (4 byte in both 2.1 and 3.0; starts with 1;
+has different meaning for tk_pointer, tk_foreign and tk_self)
+These fixups are already applied in the current importer.
+
+2.1+3.0:
+typedef unsigned long AttributeDef_AttributeMode;
+#define AttributeDef_NORMAL 1UL
+#define AttributeDef_READONLY 2UL
+  AttributeDef_NORMAL = AttributeDef_AttributeMode(1);
+  AttributeDef_READONLY = AttributeDef_AttributeMode(2);
+
+2.1+3.0:
+typedef unsigned long OperationDef_OperationMode;
+#define OperationDef_NORMAL 1UL
+#define OperationDef_ONEWAY 2UL
+  OperationDef_NORMAL = OperationDef_OperationMode(1);
+  OperationDef_ONEWAY = OperationDef_OperationMode(2);
+
+2.1+3.0:
+typedef unsigned long Repository_irOpenErrorCodes;
+#define Repository_NOACCESS 1UL
+#define Repository_BADMAGICNUMBER 2UL
+#define Repository_MISSINGVERSIONINFO 3UL
+#define Repository_IOERROR 4UL
+#define Repository_VERSIONMISMATCH 5UL
+  Repository_NOACCESS = Repository_irOpenErrorCodes(1);
+  Repository_BADMAGICNUMBER = Repository_irOpenErrorCodes(2);
+  Repository_MISSINGVERSIONINFO = Repository_irOpenErrorCodes(3);
+  Repository_IOERROR = Repository_irOpenErrorCodes(4);
+  Repository_VERSIONMISMATCH = Repository_irOpenErrorCodes(5);
+
+2.1+3.0:
+typedef unsigned long ParameterDef_ParameterMode;
+#define ParameterDef_IN 1UL
+#define ParameterDef_OUT 2UL
+#define ParameterDef_INOUT 3UL
+  ParameterDef_IN = ParameterDef_ParameterMode(1);
+  ParameterDef_OUT = ParameterDef_ParameterMode(2);
+  ParameterDef_INOUT = ParameterDef_ParameterMode(3);

@@ -1994,7 +1994,9 @@ begin
               WriteLn(F, ');');
             end;
           end
-          else if (CurrentNamespace = '::') and ((Name = 'exception_type') or (Name = 'completion_status')) then
+          else if (CurrentNamespace = '::') and ((Name = 'exception_type') or (Name = 'completion_status') or
+            (Name = 'SOMTTargetTypeT') or (Name = 'somtVisibilityT') or (Name = 'somtCommentStyleT') or
+            (Name = 'somtParameterDirectionT')) then
           begin
             for I := 1 to ParamCount - 1 do
             begin
