@@ -2,9 +2,9 @@ Some enumeration types from SOM.IR are not accurate. They are suppresed in
 headers when using SOM emitters and being reinserted via "passthru" for C and 
 C++. So when we import these enums from SOM.IR, we get incorrect results. The 
 default enum size in SOM is 4 bytes and the count starts from 1. But these 
-hacked enums start from 0, and what is worse, they seem to 1 byte, as this is 
-the default enum size in VAC. Also, some difference is found between SOM 2.1 
-and SOM 3.0. This needs to be sorted out.
+hacked enums start from 0, and what is worse, they seem to be 1 byte, as this 
+is the default enum size in VAC. Also, some difference is found between SOM 
+2.1 and SOM 3.0. This needs to be sorted out.
 
 SOMTTypes is the usual enum, so checking on it.
 
