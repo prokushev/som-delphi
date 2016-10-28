@@ -1084,6 +1084,12 @@ begin
   end;
 end;
 
+function IsTroublesomeSize(S: LongInt): Boolean;
+begin
+  // http://docwiki.embarcadero.com/RADStudio/Berlin/en/Program_Control#Handling_Function_Results
+  Result := (S > 4) and (S <= 8); // EDX:EAX in other compilers, implicit pointer in Delphi
+end;
+
 procedure TSOMIRImporter.WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
 var
   Result_TC: TypeCode;
@@ -1096,8 +1102,10 @@ var
   Item: Contained;
   QL: TSOMIRQuickLookupForClass;
   Index: Integer;
+  Fix_EAX_EDX: Boolean;
 begin
   if Pass = wtpTypeDef then Exit;
+  Fix_EAX_EDX := False;
 
   OriginalNamespace := Definition.defined_in;
   if Length(OriginalNamespace) > 2 then
@@ -1198,9 +1206,11 @@ begin
     begin
       Write(F, ': ');
     end;
-    if (Pass = wtpLowLevelImplementation) and (Result_Kind = tk_any) then
+    if (Pass = wtpLowLevelImplementation) and ((Result_Kind = tk_any) or
+                                               (((Result_Kind = tk_struct) or (Result_Kind = tk_array) or (Result_Kind = tk_union)) and IsTroublesomeSize(Result_TC.Size))) then
     begin
       Write(F, 'TAnyResult');
+      Fix_EAX_EDX := True;
     end
     else if (Pass > wtpOnDemand) and (OriginalNamespace = '::SOMObject::') and (SourceMethodName = 'somGetClass') then
     begin
@@ -1273,6 +1283,12 @@ begin
     begin
       WriteLn(F, '  Result := ', OverrideResult, '(');
     end
+    else if Fix_EAX_EDX then
+    begin
+      WriteLn(F, '  Result := ');
+      WriteType(OriginalNamespace, Pass, Result_TC);
+      WriteLn(F, '(');
+    end
     else if Result_Kind <> tk_void then
     begin
       WriteLn(F, '  Result :=');
@@ -1301,7 +1317,7 @@ begin
     end;
 
     Write(F, ')');
-    if (Result_Kind = tk_any) or (OverrideResult <> '') then
+    if (Result_Kind = tk_any) or (OverrideResult <> '') or Fix_EAX_EDX then
     begin
       Write(F, ')');
     end;

@@ -11001,7 +11001,7 @@ end;
  * New Method: _get_value
  *)
 type
-  somTD_ConstantDef__get_value = function(somSelf: SOMObjectBase{ConstantDef}; ev: PEnvironment): TAnyResult; stdcall;
+  somTD_ConstantDef__get_value = function(somSelf: SOMObjectBase{ConstantDef}; ev: PEnvironment): TAnyResult {8}; stdcall;
 
 function ConstantDef._get_value: any; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
