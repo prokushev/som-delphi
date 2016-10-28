@@ -1,5 +1,6 @@
-packed records and arrays to match SOM 2.1 ABI
 InstanceSize, InitInstance and convert Create from class function to constructor
-fix argument type in default assignment and copying constructor (implement Clone?)
-make Supports return False if class is not created yet
+implement Clone
 memory management hints in arguments
+map exceptions to proper types
+fix for other record result types
+array of const to vabuf and va_list

@@ -149,7 +149,7 @@ type
     function ExtractInteger(TC: TypeCode; Index: LongInt): LongInt;
     function TCToImportedType(TC: TypeCode; const CurrentNamespace: string): string;
 
-    procedure WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
+    procedure WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef; const OverrideFromObj: string = '');
     procedure WriteMethodDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
     procedure WriteClassDefinition(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: InterfaceDef);
 
@@ -536,7 +536,7 @@ begin
       Name := TCToImportedType(TC, CurrentNamespace);
       if Pass > wtpOnDemand then
       begin
-        WriteLn(F, 'record');
+        WriteLn(F, 'packed record');
       end;
 
       for I := 1 to ParamCount div 2 do
@@ -588,7 +588,7 @@ begin
     begin
       if Pass > wtpOnDemand then
       begin
-        Write(F, 'record { TypeCode_kind = ', Parameter_Kind, '} end');
+        Write(F, 'packed record { TypeCode_kind = ', Parameter_Kind, '} end');
       end;
     end;
   end
@@ -596,7 +596,7 @@ begin
   begin
     if Pass > wtpOnDemand then
     begin
-      Write(F, 'record { TypeCode_param_count = ', ParamCount, '} end');
+      Write(F, 'packed record { TypeCode_param_count = ', ParamCount, '} end');
     end;
   end;
 end;
@@ -752,7 +752,7 @@ begin
         FGeneratedOnDemand.Add('P_IDL_ArrayOf_' + Name);
       end;
 
-      WriteLn(F, '  _IDL_Sequence_', Name, ' = record');
+      WriteLn(F, '  _IDL_Sequence_', Name, ' = packed record');
       WriteLn(F, '    _maximum: LongWord;');
       WriteLn(F, '    _length: LongWord;');
       WriteLn(F, '    _buffer: P_IDL_ArrayOf_', Name, ';');
@@ -794,7 +794,7 @@ begin
   tk_Principal: if Pass > wtpOnDemand then Write(F, '{unknown type with TypeCode_kind = tk_Principal}');
   tk_objref: WriteObjRefType(CurrentNamespace, Pass, TC);
   tk_struct: WriteRecordType(CurrentNamespace, Pass, TC);
-  tk_union: if Pass > wtpOnDemand then Write(F, 'record case Integer of {...} end');
+  tk_union: if Pass > wtpOnDemand then Write(F, 'packed record case Integer of {...} end');
   tk_enum: WriteEnumType(CurrentNamespace, Pass, TC);
   tk_string: if Pass > wtpOnDemand then Write(F, 'CORBAString');
   tk_sequence: WriteSequenceType(CurrentNamespace, Pass, TC);
@@ -938,7 +938,7 @@ begin
   end;
 end;
 
-procedure TSOMIRImporter.WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef);
+procedure TSOMIRImporter.WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef; const OverrideFromObj: string = '');
 var
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
@@ -1017,10 +1017,18 @@ begin
           else Write(F, '{unknown mode ', LongWord(Mode), '}');
           end;
 
-          Write(F, UnreserveIdentifier(ItemPD.name));
+          Name := ItemPD.name;
+          Write(F, UnreserveIdentifier(Name));
         end;
 
-        if Mode = ParameterDef_IN then
+        if (OverrideFromObj <> '') and (Name = 'fromObj') then
+        begin
+          if Pass > wtpOnDemand then
+          begin
+            Write(F, ': ', OverrideFromObj);
+          end;
+        end
+        else if Mode = ParameterDef_IN then
         begin
           if Pass > wtpOnDemand then
           begin
@@ -1081,7 +1089,7 @@ var
   Result_TC: TypeCode;
   Result_Kind: TCKind;
   OriginalNamespace: string;
-  OriginalClass, OriginalClassId, MetaclassResult: string;
+  OriginalClass, OriginalClassId, OverrideResult, OverrideFromObj: string;
   MethodName, SourceMethodName: string;
   Contents: _IDL_SEQUENCE_Contained;
   I: LongWord;
@@ -1126,9 +1134,10 @@ begin
   begin
     if Pass > wtpOnDemand then
     begin
-      Write(F, 'procedure ');
+      Write(F, 'procedure');
       if Pass < wtpLowLevelImplementation then
       begin
+        Write(F, ' ');
         if Pass >= wtpImplementation then
         begin
           // IdToImportedType(Definition.defined_in
@@ -1136,24 +1145,55 @@ begin
         end;
         Write(F, MethodName);
       end;
+
+      if (OriginalNamespace = '::SOMObject::') and
+        ((SourceMethodName = 'somDefaultCopyInit') or (SourceMethodName = 'somDefaultConstCopyInit') or
+         (SourceMethodName = 'somDefaultVCopyInit') or (SourceMethodName = 'somDefaultConstVCopyInit')) then
+      begin
+        if Pass < wtpLowLevelImplementation then
+        begin
+          OverrideFromObj := IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace);
+        end
+        else
+        begin
+          OverrideFromObj := 'SOMObjectBase';
+        end;
+      end;
     end;
-    WriteMethodArguments(OriginalNamespace, Pass, Definition);
+    WriteMethodArguments(OriginalNamespace, Pass, Definition, OverrideFromObj);
   end
   else
   begin
     if Pass > wtpOnDemand then
     begin
-      Write(F, 'function ');
+      Write(F, 'function');
       if Pass < wtpLowLevelImplementation then
       begin
+        Write(F, ' ');
         if Pass >= wtpImplementation then
         begin
           Write(F, IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace), '.');
         end;
         Write(F, MethodName);
       end;
+
+      if (OriginalNamespace = '::SOMObject::') and
+        ((SourceMethodName = 'somDefaultAssign') or (SourceMethodName = 'somDefaultConstAssign') or
+         (SourceMethodName = 'somDefaultVAssign') or (SourceMethodName = 'somDefaultConstVAssign') or
+         (SourceMethodName = 'somPrintSelf')) then
+      begin
+        OverrideResult := IdToImportedType(Copy(CurrentNamespace, 1, Length(CurrentNamespace) - 2), CurrentNamespace);
+        if Pass < wtpLowLevelImplementation then
+        begin
+          OverrideFromObj := OverrideResult;
+        end
+        else
+        begin
+          OverrideFromObj := 'SOMObjectBase';
+        end;
+      end;
     end;
-    WriteMethodArguments(OriginalNamespace, Pass, Definition);
+    WriteMethodArguments(OriginalNamespace, Pass, Definition, OverrideFromObj);
     if Pass > wtpOnDemand then
     begin
       Write(F, ': ');
@@ -1173,8 +1213,12 @@ begin
       begin
         QL := FExistingTypeIds.Objects[Index] as TSOMIRQuickLookupForClass;
       end;
-      MetaclassResult := IdToImportedType(QL.Metaclass, QL.Metaclass + '::');
-      Write(F, MetaclassResult);
+      OverrideResult := IdToImportedType(QL.Metaclass, QL.Metaclass + '::');
+      Write(F, OverrideResult);
+    end
+    else if (Pass > wtpOnDemand) and (OverrideResult <> '') then
+    begin
+      Write(F, OverrideResult);
     end
     else
     begin
@@ -1225,9 +1269,9 @@ begin
     begin
       WriteLn(F, '  Result := any(');
     end
-    else if MetaclassResult <> '' then
+    else if OverrideResult <> '' then
     begin
-      WriteLn(F, '  Result := ', MetaclassResult, '(');
+      WriteLn(F, '  Result := ', OverrideResult, '(');
     end
     else if Result_Kind <> tk_void then
     begin
@@ -1257,7 +1301,7 @@ begin
     end;
 
     Write(F, ')');
-    if (Result_Kind = tk_any) or (MetaclassResult <> '') then
+    if (Result_Kind = tk_any) or (OverrideResult <> '') then
     begin
       Write(F, ')');
     end;
@@ -1490,12 +1534,14 @@ begin
       begin
         WriteLn(F);
         WriteLn(F, '    { Downcasting }');
-        WriteLn(F, '    class function Supports(Instance: SOMObjectBase): Boolean; overload; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, '    class function Supports(Instance: SOMObjectBase): Boolean; overload;');
       end
       else
       begin
         WriteLn(F);
-        WriteLn(F, 'class function ', ImportedType, '.Supports(Instance: SOMObjectBase): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'class function ', ImportedType, '.Supports(Instance: SOMObjectBase): Boolean;');
+        WriteLn(F, 'var');
+        WriteLn(F, '  cls: SOMClass;');
         WriteLn(F, 'begin');
         WriteLn(F, '  if not Assigned(Instance) then');
         WriteLn(F, '  begin');
@@ -1503,35 +1549,54 @@ begin
         WriteLn(F, '  end');
         WriteLn(F, '  else');
         WriteLn(F, '  begin');
-        WriteLn(F, '    Result := SOMObject(Instance).somIsA(SOMClass(NewClass));');
+        WriteLn(F, '    cls := SOMClass(ClassObject);');
+        WriteLn(F, '    if not Assigned(cls) then');
+        WriteLn(F, '    begin');
+        WriteLn(F, '      Result := False;');
+        WriteLn(F, '    end');
+        WriteLn(F, '    else');
+        WriteLn(F, '    begin');
+        WriteLn(F, '      Result := SOMObject(Instance).somIsA(cls);');
+        WriteLn(F, '    end;');
         WriteLn(F, '  end;');
         WriteLn(F, 'end;');
       end;
 
       if Pass < wtpImplementation then
       begin
-        WriteLn(F, '    class function Supports(Instance: SOMObjectBase; out Obj: ', ImportedType, '): Boolean; overload; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, '    class function Supports(Instance: SOMObjectBase; out Obj: ', ImportedType, '): Boolean; overload;');
         WriteLn(F);
       end
       else
       begin
         WriteLn(F);
-        WriteLn(F, 'class function ', ImportedType, '.Supports(Instance: SOMObjectBase; out Obj: ', ImportedType, '): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'class function ', ImportedType, '.Supports(Instance: SOMObjectBase; out Obj: ', ImportedType, '): Boolean;');
+        WriteLn(F, 'var');
+        WriteLn(F, '  cls: SOMClass;');
         WriteLn(F, 'begin');
         WriteLn(F, '  if not Assigned(Instance) then');
         WriteLn(F, '  begin');
         WriteLn(F, '    Result := False;');
         WriteLn(F, '    Obj := nil;');
         WriteLn(F, '  end');
-        WriteLn(F, '  else if SOMObject(Instance).somIsA(SOMClass(NewClass)) then');
-        WriteLn(F, '  begin');
-        WriteLn(F, '    Result := True;');
-        WriteLn(F, '    Obj := ', ImportedType, '(Instance);');
-        WriteLn(F, '  end');
         WriteLn(F, '  else');
         WriteLn(F, '  begin');
-        WriteLn(F, '    Result := False;');
-        WriteLn(F, '    Obj := nil;');
+        WriteLn(F, '    cls := SOMClass(ClassObject);');
+        WriteLn(F, '    if not Assigned(cls) then');
+        WriteLn(F, '    begin');
+        WriteLn(F, '      Result := False;');
+        WriteLn(F, '      Obj := nil;');
+        WriteLn(F, '    end');
+        WriteLn(F, '    else if SOMObject(Instance).somIsA(cls) then');
+        WriteLn(F, '    begin');
+        WriteLn(F, '      Result := True;');
+        WriteLn(F, '      Obj := ', ImportedType, '(Instance);');
+        WriteLn(F, '    end');
+        WriteLn(F, '    else');
+        WriteLn(F, '    begin');
+        WriteLn(F, '      Result := False;');
+        WriteLn(F, '      Obj := nil;');
+        WriteLn(F, '    end;');
         WriteLn(F, '  end;');
         WriteLn(F, 'end;');
       end;
@@ -2324,7 +2389,7 @@ begin
     WriteLn(F, ' * Declare the ABI 2 ClassData structure');
     WriteLn(F, ' *)');
     WriteLn(F, 'type');
-    WriteLn(F, '  ', ImportedType, 'ClassDataStructure = record');
+    WriteLn(F, '  ', ImportedType, 'ClassDataStructure = packed record');
     WriteLn(F, '    classObject: SOMClass;');
     while Length(ReleaseOrder) > 0 do
     begin
@@ -2361,7 +2426,7 @@ begin
     WriteLn(F, ' * Declare the ABI 2 CClassData structure');
     WriteLn(F, ' *)');
     WriteLn(F, 'type');
-    WriteLn(F, '  ', ImportedType, 'CClassDataStructure = record');
+    WriteLn(F, '  ', ImportedType, 'CClassDataStructure = packed record');
     WriteLn(F, '    parentMtab: somMethodTabs;');
     WriteLn(F, '    instanceDataToken: somDToken;');
     WriteLn(F, '  end;');
@@ -2447,7 +2512,7 @@ begin
     WriteLn(F, '  CORBAString = PAnsiChar;');
     WriteLn(F, '  CORBABoolean = ByteBool;');
     WriteLn(F, '  TypeCode = class;');
-    WriteLn(F, '  any = record');
+    WriteLn(F, '  any = packed record');
     WriteLn(F, '    _type: TypeCode;');
     WriteLn(F, '    _value: Pointer;');
     WriteLn(F, '  end;');
@@ -2505,13 +2570,13 @@ begin
     WriteLn(F);
     WriteLn(F, '  { Records }');
     // Fourth pass: build non-class types (deferred records)
-    WriteLn(F, '  StExcep = record');
+    WriteLn(F, '  StExcep = packed record');
     WriteLn(F, '    minor: LongWord;');
     WriteLn(F, '    completed: completion_status;');
     WriteLn(F, '  end;');
     WriteLn(F, '  PStExcep = ^StExcep;');
     WriteLn(F);
-    WriteLn(F, '  Environment = record'); // fixup for Environment
+    WriteLn(F, '  Environment = packed record'); // fixup for Environment
     WriteLn(F, '    _major: exception_type;');
     WriteLn(F, '    exception_exception_name: PAnsiChar;');
     WriteLn(F, '    exception_params: Pointer;');
