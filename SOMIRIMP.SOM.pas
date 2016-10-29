@@ -784,17 +784,79 @@ type
 
   { Classes }
   SOMObjectBase = class
-  private
-    { hide TObject methods }
-    procedure Create; reintroduce;
-    procedure Destroy; reintroduce;
+    { hide or reimplement TObject methods }
+  protected
+    class procedure Create; reintroduce;
   public
+    procedure Free; reintroduce;
+  protected
+    class procedure InitInstance; reintroduce;
+  public
+    procedure CleanupInstance; reintroduce;
+    function ClassType: SOMClass; reintroduce;
+  protected
+    class procedure ClassName; reintroduce;
+    class procedure ClassNameIs; reintroduce;
+    class procedure ClassParent; reintroduce;
+    class procedure ClassInfo; reintroduce;
+    class procedure InstanceSize; reintroduce;
+    class procedure InheritsFrom; reintroduce;
+    class procedure MethodAddress; reintroduce;
+    class procedure MethodName; reintroduce;
+    procedure FieldAddress; reintroduce;
+    procedure GetInterface; reintroduce;
+    class procedure GetInterfaceEntry; reintroduce;
+    class procedure GetInterfaceTable; reintroduce;
+    procedure SafeCallException; reintroduce;
+  public
+    procedure AfterConstruction; reintroduce;
+    procedure BeforeDestruction; reintroduce;
+  protected
+    procedure Dispatch; reintroduce;
+    procedure DefaultHandler; reintroduce;
+    class procedure NewInstance; reintroduce;
+  public
+    procedure FreeInstance; reintroduce;
+    procedure Destroy; reintroduce;
+
+    { Upcasting }
     function As_SOMObject: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   end;
 
   TypeCode = class
-  private
-    { hide TObject methods }
+    { hide or reimplement TObject methods }
+  public
+    procedure Free; reintroduce;
+  protected
+    class procedure InitInstance; reintroduce;
+  public
+    procedure CleanupInstance; reintroduce;
+  protected
+    procedure ClassType; reintroduce;
+  public
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+  protected
+    class procedure ClassParent; reintroduce;
+    class procedure ClassInfo; reintroduce;
+    class procedure InstanceSize; reintroduce;
+    class procedure InheritsFrom; reintroduce;
+    class procedure MethodAddress; reintroduce;
+    class procedure MethodName; reintroduce;
+    procedure FieldAddress; reintroduce;
+    procedure GetInterface; reintroduce;
+    class procedure GetInterfaceEntry; reintroduce;
+    class procedure GetInterfaceTable; reintroduce;
+    procedure SafeCallException; reintroduce;
+  public
+    procedure AfterConstruction; reintroduce;
+    procedure BeforeDestruction; reintroduce;
+  protected
+    procedure Dispatch; reintroduce;
+    procedure DefaultHandler; reintroduce;
+    class procedure NewInstance; reintroduce;
+  public
+    procedure FreeInstance; reintroduce;
     procedure Destroy; reintroduce;
   protected
     function GetKind: TCKind;
@@ -834,7 +896,6 @@ type
     class function TC_FullInterfaceDescription: TypeCode;
     function Equal(y: TypeCode): CORBABoolean;
     function Copy: TypeCode;
-    procedure Free;
     procedure Print;
     class function Create(tag: TCKind): TypeCode; overload;
     class function Create(tag: TCKind; const Arguments: array of const): TypeCode; overload;
@@ -5897,14 +5958,129 @@ const
 var
   DLLLoad_CriticalSection : Windows.TRTLCriticalSection;
 
-procedure SOMObjectBase.Create;
+class procedure SOMObjectBase.Create;
 begin
   { hide this method }
 end;
 
-procedure SOMObjectBase.Destroy;
+procedure SOMObjectBase.Free;
+begin
+  if Assigned(Self) then SOMObject(Self).somFree;
+end;
+
+class procedure SOMObjectBase.InitInstance;
 begin
   { hide this method }
+end;
+
+procedure SOMObjectBase.CleanupInstance;
+begin
+  { in SOM, everything is being cleaned up by destructors }
+end;
+
+function SOMObjectBase.ClassType: SOMClass;
+begin
+  Result := SOMObject(Self).somGetClass;
+end;
+
+class procedure SOMObjectBase.ClassName;
+begin
+  { hide this method }
+end;
+
+class procedure SOMObjectBase.ClassNameIs;
+begin
+  { hide this method }
+end;
+
+class procedure SOMObjectBase.ClassParent;
+begin
+  { hide this method }
+end;
+
+class procedure SOMObjectBase.ClassInfo;
+begin
+  { hide this method }
+end;
+
+class procedure SOMObjectBase.InstanceSize;
+begin
+  { hide this method }
+end;
+
+class procedure SOMObjectBase.InheritsFrom;
+begin
+  { hide this method }
+end;
+
+class procedure SOMObjectBase.MethodAddress;
+begin
+  { hide this method }
+end;
+
+class procedure SOMObjectBase.MethodName;
+begin
+  { hide this method }
+end;
+
+procedure SOMObjectBase.FieldAddress;
+begin
+  { hide this method }
+end;
+
+procedure SOMObjectBase.GetInterface;
+begin
+  { hide this method }
+end;
+
+class procedure SOMObjectBase.GetInterfaceEntry;
+begin
+  { hide this method }
+end;
+
+class procedure SOMObjectBase.GetInterfaceTable;
+begin
+  { hide this method }
+end;
+
+procedure SOMObjectBase.SafeCallException;
+begin
+  { hide this method }
+end;
+
+procedure SOMObjectBase.AfterConstruction;
+begin
+  { in SOM that is being done by cooperative metaclass }
+end;
+
+procedure SOMObjectBase.BeforeDestruction;
+begin
+  { in SOM that is being done by cooperative metaclass }
+end;
+
+procedure SOMObjectBase.Dispatch;
+begin
+  { hide this method }
+end;
+
+procedure SOMObjectBase.DefaultHandler;
+begin
+  { hide this method }
+end;
+
+class procedure SOMObjectBase.NewInstance;
+begin
+  { hide this method }
+end;
+
+procedure SOMObjectBase.FreeInstance;
+begin
+  SOMObject(Self).somGetClass.somDeallocate(PAnsiChar(Pointer(Self)));
+end;
+
+procedure SOMObjectBase.Destroy;
+begin
+  SOMObject(Self).somFree;
 end;
 
 function SOMObjectBase.As_SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5931,9 +6107,133 @@ begin
     Pointer(V_Pointer) := Windows.GetProcAddress(SOMTC_DLL, PAnsiChar(Var_Name));
 end;
 
-procedure TypeCode.Destroy;
+procedure TypeCode.Free;
+begin
+  if Assigned(Self) then
+  begin
+    FreeInstance;
+  end;
+end;
+
+class procedure TypeCode.InitInstance;
 begin
   { hide this method }
+end;
+
+procedure TypeCode.CleanupInstance;
+begin
+  { TypeCode_free does everything at the same time, so no separate Cleanup }
+end;
+
+procedure TypeCode.ClassType;
+begin
+  { hide this method }
+end;
+
+class function TypeCode.ClassName: string;
+begin
+  Result := 'TypeCode';
+end;
+
+class function TypeCode.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := Name = 'TypeCode';
+end;
+
+class procedure TypeCode.ClassParent;
+begin
+  { hide this method }
+end;
+
+class procedure TypeCode.ClassInfo;
+begin
+  { hide this method }
+end;
+
+class procedure TypeCode.InstanceSize;
+begin
+  { hide this method }
+end;
+
+class procedure TypeCode.InheritsFrom;
+begin
+  { hide this method }
+end;
+
+class procedure TypeCode.MethodAddress;
+begin
+  { hide this method }
+end;
+
+class procedure TypeCode.MethodName;
+begin
+  { hide this method }
+end;
+
+procedure TypeCode.FieldAddress;
+begin
+  { hide this method }
+end;
+
+procedure TypeCode.GetInterface;
+begin
+  { hide this method }
+end;
+
+class procedure TypeCode.GetInterfaceEntry;
+begin
+  { hide this method }
+end;
+
+class procedure TypeCode.GetInterfaceTable;
+begin
+  { hide this method }
+end;
+
+procedure TypeCode.SafeCallException;
+begin
+  { hide this method }
+end;
+
+procedure TypeCode.AfterConstruction;
+begin
+  { nothing to do }
+end;
+
+procedure TypeCode.BeforeDestruction;
+begin
+  { nothing to do }
+end;
+
+procedure TypeCode.Dispatch;
+begin
+  { hide this method }
+end;
+
+procedure TypeCode.DefaultHandler;
+begin
+  { hide this method }
+end;
+
+class procedure TypeCode.NewInstance;
+begin
+  { hide this method }
+end;
+
+procedure TypeCode_free(t: TypeCode; ev: PEnvironment); stdcall; external SOMTC_DLL_Name name 'tcFree';
+
+procedure TypeCode.FreeInstance;
+var
+  LocalEnv: Environment;
+begin
+  SOM_InitEnvironment(@LocalEnv);
+  TypeCode_free(Self, @LocalEnv);
+  SOM_UninitEnvironmentOrRaise(@LocalEnv);
+end;
+
+procedure TypeCode.Destroy;
+begin
+  FreeInstance;
 end;
 
 function TypeCode_kind(t: TypeCode; ev: PEnvironment): TCKind; stdcall; external SOMTC_DLL_Name name 'tcKind';
@@ -6413,17 +6713,6 @@ var
 begin
   SOM_InitEnvironment(@LocalEnv);
   Result := TypeCode_copy(Self, @LocalEnv);
-  SOM_UninitEnvironmentOrRaise(@LocalEnv);
-end;
-
-procedure TypeCode_free(t: TypeCode; ev: PEnvironment); stdcall; external SOMTC_DLL_Name name 'tcFree';
-
-procedure TypeCode.Free;
-var
-  LocalEnv: Environment;
-begin
-  SOM_InitEnvironment(@LocalEnv);
-  TypeCode_free(Self, @LocalEnv);
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 

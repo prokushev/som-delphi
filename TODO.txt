@@ -1,4 +1,4 @@
-InstanceSize, InitInstance and convert Create from class function to constructor
+InstanceSize, InitInstance and others (conversion of Create to constructor is impossible due to AfterConstruction)
 implement Clone
 map exceptions to proper types
 array of const to vabuf and va_list in somDispatch
