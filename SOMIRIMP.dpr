@@ -1489,14 +1489,136 @@ begin
       if Pass < wtpImplementation then
       begin
         WriteLn(F, '  public');
-        WriteLn(F, '    class function Create: ', ImportedType, ';');
+        WriteLn(F, '    class function Create: ', ImportedType, '; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
       end
       else
       begin
         WriteLn(F);
-        WriteLn(F, 'class function ', ImportedType, '.Create: ', ImportedType, ';');
+        WriteLn(F, 'class function ', ImportedType, '.Create: ', ImportedType, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
         WriteLn(F, 'begin');
         WriteLn(F, '  Result := ', ImportedType, '(SOMClass(NewClass).somNew);');
+        WriteLn(F, 'end;');
+      end;
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '    class function InitInstance(Instance: Pointer): ', ImportedType, '; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.InitInstance(Instance: Pointer): ', ImportedType, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  Result := ', ImportedType, '(SOMClass(NewClass).somRenewNoInit(Instance));');
+        WriteLn(F, 'end;');
+      end;
+
+      NameS := QL.Metaclass;
+      NameS := IdToImportedType(NameS, NameS + '::');
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '    function ClassType: ', NameS, '; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'function ', ImportedType, '.ClassType: ', NameS, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  Result := ', NameS, '(SOMObject(Self).somGetClass);');
+        WriteLn(F, 'end;');
+      end;
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '    class function ClassName: string; reintroduce;');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.ClassName: string;');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  Result := AnsiString(SOMClass(NewClass).somGetName);');
+        WriteLn(F, 'end;');
+      end;
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '    class function ClassNameIs(const Name: string): Boolean; reintroduce;');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.ClassNameIs(const Name: string): Boolean;');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;');
+        WriteLn(F, 'end;');
+      end;
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  Result := SOMClass(NewClass).somGetInstanceSize;');
+        WriteLn(F, 'end;');
+      end;
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  Result := SOMClass(NewClass).somDescendedFrom(AClass);');
+        WriteLn(F, 'end;');
+      end;
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '    class function MethodAddress(const Name: string): Pointer; reintroduce;');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.MethodAddress(const Name: string): Pointer;');
+        WriteLn(F, 'var');
+        WriteLn(F, '  NameAsAnsiString: AnsiString;');
+        WriteLn(F, '  NameAsSomId: somId;');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  NameAsAnsiString := AnsiString(Name);');
+        WriteLn(F, '  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));');
+        WriteLn(F, '  try');
+        WriteLn(F, '    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);');
+        WriteLn(F, '  finally');
+        WriteLn(F, '    SOMMemFree(NameAsSomId);');
+        WriteLn(F, '  end;');
+        WriteLn(F, 'end;');
+      end;
+
+      // function FieldAddress(const Name: ShortString): Pointer;
+      // actually possible to open IR at run-time, find InstanceData for every class and this way find field
+      // Burdensome, breaks Release-to-Release Binary Compatibility (unless everyone are forced to have a perfect
+      // match between SOM.IR and DLL; or also we might check for precise match between class major and minor version)
+      // Not worth the trouble
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '    class function NewInstance: ', ImportedType, '; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'class function ', ImportedType, '.NewInstance: ', ImportedType, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  Result := ', ImportedType, '(SOMClass(NewClass).somNewNoInit);');
         WriteLn(F, 'end;');
       end;
     end;
@@ -3026,6 +3148,7 @@ begin
     WriteLn(F, 'function SOMCalloc(element_count, element_size: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     WriteLn(F, 'function Replaceable_SOMFree: PsomTD_SOMFree;');
     WriteLn(F, 'procedure SOMFree(memory: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'procedure SOMMemFree(memory: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     WriteLn(F, 'function Replaceable_SOMMalloc: PsomTD_SOMMalloc;');
     WriteLn(F, 'function SOMMalloc(nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     WriteLn(F, 'function Replaceable_SOMRealloc: PsomTD_SOMRealloc;');
@@ -3043,6 +3166,121 @@ begin
     WriteLn(F, '    classObj: SOMObjectBase{SOMClass};');
     WriteLn(F, '    fileName: CORBAString;');
     WriteLn(F, '    lineNumber: Integer): SOMObjectBase; stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Return the class that introduced the method represented by a given');
+    WriteLn(F, ' * method token.');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function somGetClassFromMToken(mToken: somMToken): SOMClass; stdcall;');
+    WriteLn(F);
+    WriteLn(F);
+    WriteLn(F, '(*----------------------------------------------------------------------');
+    WriteLn(F, ' *  SOM Id Manager Section');
+    WriteLn(F, ' *---------------------------------------------------------------------*)');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * typedef char* somId; // the "public" somId type (in sombtype.h)');
+    WriteLn(F, ' *');
+    WriteLn(F, ' * This above definition prevents users from building assumptions about');
+    WriteLn(F, ' * how somIds are implemented into their programs. However, a little more');
+    WriteLn(F, ' * information is useful to understand the different alternatives for');
+    WriteLn(F, ' * creating somIds.');
+    WriteLn(F, ' *');
+    WriteLn(F, ' * All somIds point to something called an idKey. The content of the');
+    WriteLn(F, ' * idKey for a somId depends on whether the somId has been registered.');
+    WriteLn(F, ' *');
+    WriteLn(F, ' * The idKey for an unregistered somId is a char* that points to a');
+    WriteLn(F, ' * null-terminated array of chars that is called the id name.');
+    WriteLn(F, ' *');
+    WriteLn(F, ' * When a somId is registered, the idKey it points to is changed to');
+    WriteLn(F, ' * point to a special structure whose representation is not made public.');
+    WriteLn(F, ' * Among other things, of course, this structure contains the address of');
+    WriteLn(F, ' * the id name. Normally the id name for a registered somId will be a copy');
+    WriteLn(F, ' * of the originally indicated name, but copying strings is expensive');
+    WriteLn(F, ' * because it requires dynamic memory allocation. As an alternative, to');
+    WriteLn(F, ' * speed up creation of somIds and minimize memory use, you can use');
+    WriteLn(F, ' * somBeginPersistentIds and somEndPersistentIds to bracket registration');
+    WriteLn(F, ' * of somIds. If you do this, you must use somRelocateIds before the');
+    WriteLn(F, ' * names for any of the "persistent" somIds that you create are changed');
+    WriteLn(F, ' * (or perhaps destroyed as a result of program termination).');
+    WriteLn(F, ' *');
+    WriteLn(F, ' * There are basically two different ways to create registered somIds:');
+    WriteLn(F, ' * from unregistered somIds, or from id names. To create registered');
+    WriteLn(F, ' * somIds from unregistered somIds, you pass the address of an idKey');
+    WriteLn(F, ' * to either somRegisterId or somCheckId; or, to register multiple');
+    WriteLn(F, ' * somIds in one step, you can pass the address of an array of idKeys');
+    WriteLn(F, ' * to somRegisterIds. To create registered somIds from id names, you');
+    WriteLn(F, ' * pass the address of the id name to either somIdFromString or');
+    WriteLn(F, ' * somIdFromStringNoFree. These routines are declared below.');
+    WriteLn(F, ' *)');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Register a somId. Returns 1 (true) if the id is a new one, and');
+    WriteLn(F, ' * 0 (false) otherwise. An id is new if no previously-registered id');
+    WriteLn(F, ' * has the same name (where name comparison is case-insensitive).');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function somRegisterId(id: somId): LongBool; stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Like somRegisterId, but it returns the somId as its result.');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function somCheckId(id: somId): somId; stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Return a somId that must be freed (using SOMFree) when the user');
+    WriteLn(F, ' * has finished with it.');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function somIdFromString(aString: CORBAString): somId; stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Return a string that must never be freed or modified.');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function somStringFromId(id: somId): CORBAString; stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Returns true (1) if the two ids are equal, else false (0).');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function somCompareIds(id1, id2: somId): LongBool; stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Return the total number of ids that have been registered so far, you');
+    WriteLn(F, ' * can use this to advise the SOM runtime concerning expected number of');
+    WriteLn(F, ' * ids in later executions of your program, via a call to');
+    WriteLn(F, ' * somSetExpectedIds defined below');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function somTotalRegIds: LongWord; stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Tell the SOM runtime how many unique ids you expect to use during');
+    WriteLn(F, ' * the execution of your program, this can improve space and time');
+    WriteLn(F, ' * utilization slightly, this routine must be called before the SOM');
+    WriteLn(F, ' * environment is created to have any effect');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'procedure somSetExpectedIds(numIds: LongWord); stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Return the unique key for this id. This is the key used for');
+    WriteLn(F, ' * comparing somIds.');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'function somUniqueKey(id: somId): LongWord; stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * Signal the beginning of an interval during which the id manager');
+    WriteLn(F, ' * need not copy strings when registering new ids (because the caller');
+    WriteLn(F, ' * knows that these strings will not be destroyed or modified without');
+    WriteLn(F, ' * first calling somRelocateIds for each "persistent" id registered');
+    WriteLn(F, ' * during the interval).');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'procedure somBeginPersistentIds; stdcall;');
+    WriteLn(F);
+    WriteLn(F, '(*');
+    WriteLn(F, ' * End the interval started with somBeginPersistentIds. Tells the');
+    WriteLn(F, ' * id manager that strings for any new ids subsequently registered');
+    WriteLn(F, ' * may be freed or otherwise modified without first calling somRelocateIds.');
+    WriteLn(F, ' * Therefore the id manager must copy the strings remember the name of an');
+    WriteLn(F, ' * id.');
+    WriteLn(F, ' *)');
+    WriteLn(F, 'procedure somEndPersistentIds; stdcall;');
     WriteLn(F);
     WriteLn(F, '// #include <somtc.h>');
     WriteLn(F);
@@ -3202,8 +3440,8 @@ begin
     WriteLn(F, 'end;');
     WriteLn(F);
     WriteLn(F, 'procedure SOMObjectBase.FreeInstance;');
-    WriteLn(F, 'begin');
-    WriteLn(F, '  SOMObject(Self).somGetClass.somDeallocate(PAnsiChar(Pointer(Self)));');
+    WriteLn(F, 'begin // somGetClass on almost destroyed object might crash, so we use double dereference');
+    WriteLn(F, '  SOMClass(PPointer(Self)^^).somDeallocate(PAnsiChar(Pointer(Self)));');
     WriteLn(F, 'end;');
     WriteLn(F);
     WriteLn(F, 'procedure SOMObjectBase.Destroy;');
@@ -4126,6 +4364,11 @@ begin
     WriteLn(F, '  Replaceable_SOMFree^(memory);');
     WriteLn(F, 'end;');
     WriteLn(F);
+    WriteLn(F, 'procedure SOMMemFree(memory: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Replaceable_SOMFree^(memory);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
     WriteLn(F, 'var');
     WriteLn(F, '  SOM_DLL_SOMMalloc: PsomTD_SOMMalloc = nil;');
     WriteLn(F);
@@ -4165,6 +4408,17 @@ begin
     WriteLn(F, 'end;');
     WriteLn(F);
     WriteLn(F, 'function somTestCls; external SOM_DLL_Name;');
+    WriteLn(F, 'function somGetClassFromMToken; external SOM_DLL_Name;');
+    WriteLn(F, 'function somRegisterId; external SOM_DLL_Name;');
+    WriteLn(F, 'function somCheckId; external SOM_DLL_Name;');
+    WriteLn(F, 'function somIdFromString; external SOM_DLL_Name;');
+    WriteLn(F, 'function somStringFromId; external SOM_DLL_Name;');
+    WriteLn(F, 'function somCompareIds; external SOM_DLL_Name;');
+    WriteLn(F, 'function somTotalRegIds; external SOM_DLL_Name;');
+    WriteLn(F, 'procedure somSetExpectedIds; external SOM_DLL_Name;');
+    WriteLn(F, 'function somUniqueKey; external SOM_DLL_Name;');
+    WriteLn(F, 'procedure somBeginPersistentIds; external SOM_DLL_Name;');
+    WriteLn(F, 'procedure somEndPersistentIds; external SOM_DLL_Name;');
     WriteLn(F, 'function somVaBuf_create; external SOMTC_DLL_Name;');
     WriteLn(F, 'procedure somVaBuf_get_valist; external SOMTC_DLL_Name;');
     WriteLn(F, 'procedure somVaBuf_destroy; external SOMTC_DLL_Name;');

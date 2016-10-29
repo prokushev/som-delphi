@@ -927,7 +927,15 @@ type
 
   SOMObject = class(SOMObjectBase)
   public
-    class function Create: SOMObject;
+    class function Create: SOMObject; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMObject; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMObject; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -990,7 +998,15 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: Contained;
+    class function Create: Contained; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): Contained; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: Contained; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1052,7 +1068,15 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: AttributeDef;
+    class function Create: AttributeDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): AttributeDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: AttributeDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1105,7 +1129,15 @@ type
   _IDL_Array12Of_Byte = array[0 .. 11] of Byte;
   BOA = class(SOMObjectBase)
   public
-    class function Create: BOA;
+    class function Create: BOA; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): BOA; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMMSingleInstance; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: BOA; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function SOM_create(const id: _IDL_Sequence_Byte; intf: InterfaceDef; impl: ImplementationDef): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure dispose(obj: SOMDObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function get_id(obj: SOMDObject): _IDL_Sequence_Byte; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1158,7 +1190,15 @@ type
 
   SOMEEvent = class(SOMObjectBase)
   public
-    class function Create: SOMEEvent;
+    class function Create: SOMEEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMEEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMEEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventTime(time: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1205,7 +1245,15 @@ type
 
   SOMEClientEvent = class(SOMObjectBase)
   public
-    class function Create: SOMEClientEvent;
+    class function Create: SOMEClientEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMEClientEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMEClientEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventClientData: Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventClientType: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventClientData(clientData: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1257,7 +1305,15 @@ type
 
   Context = class(SOMObjectBase)
   public
-    class function Create: Context;
+    class function Create: Context; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): Context; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: Context; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function set_one_value(prop_name: CORBAString; value: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function set_values(values: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function get_values(start_scope: CORBAString; op_flags: LongWord; prop_name: CORBAString; out values: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1319,7 +1375,15 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: ConstantDef;
+    class function Create: ConstantDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): ConstantDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: ConstantDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1383,7 +1447,15 @@ type
   end;
   Container = class(SOMObjectBase)
   public
-    class function Create: Container;
+    class function Create: Container; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): Container; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: Container; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function lookup_name(search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1429,7 +1501,15 @@ type
 
   SOMEEMan = class(SOMObjectBase)
   public
-    class function Create: SOMEEMan;
+    class function Create: SOMEEMan; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMEEMan; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMMSingleInstance; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMEEMan; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someGetEManSem; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someReleaseEManSem; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someChangeRegData(registrationId: LongInt; registerData: SOMEEMRegisterData); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1483,7 +1563,15 @@ type
 
   SOMEEMRegisterData = class(SOMObjectBase)
   public
-    class function Create: SOMEEMRegisterData;
+    class function Create: SOMEEMRegisterData; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMEEMRegisterData; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMEEMRegisterData; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someClearRegData; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someSetRegDataClientType(clientType: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure someSetRegDataEventMask(eventType: LongInt; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1544,7 +1632,15 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: ExceptionDef;
+    class function Create: ExceptionDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): ExceptionDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: ExceptionDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1612,7 +1708,15 @@ type
     function _get_impl_hostname: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_impl_hostname(impl_hostname: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: ImplementationDef;
+    class function Create: ImplementationDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): ImplementationDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: ImplementationDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultCopyInit(var ctrl: Pointer; fromObj: ImplementationDef); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1669,7 +1773,15 @@ type
   end;
   ImplRepository = class(SOMObjectBase)
   public
-    class function Create: ImplRepository;
+    class function Create: ImplRepository; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): ImplRepository; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMMSingleInstance; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: ImplRepository; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function find_impldef(implid: CORBAString): ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function find_impldef_by_alias(alias_name: CORBAString): ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function find_all_impldefs(out outimpldefs: _IDL_Sequence_ImplementationDef): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1736,7 +1848,15 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: InterfaceDef;
+    class function Create: InterfaceDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): InterfaceDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: InterfaceDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_interface: InterfaceDef_FullInterfaceDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1802,7 +1922,15 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: ModuleDef;
+    class function Create: ModuleDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): ModuleDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: ModuleDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1856,7 +1984,15 @@ type
 
   NVList = class(SOMObjectBase)
   public
-    class function Create: NVList;
+    class function Create: NVList; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): NVList; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: NVList; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function add_item(item_name: CORBAString; item_type: TypeCode; value: Pointer; value_len: LongInt; item_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function free: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function free_memory: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1905,7 +2041,15 @@ type
 
   ObjectMgr = class(SOMObjectBase)
   public
-    class function Create: ObjectMgr;
+    class function Create: ObjectMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): ObjectMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMMSingleInstance; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: ObjectMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdNewObject(objclass: CORBAString; hints: CORBAString): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdGetIdFromObject(obj: SOMObject): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdGetObjectFromId(id: CORBAString): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1968,7 +2112,15 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: OperationDef;
+    class function Create: OperationDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): OperationDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: OperationDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2025,7 +2177,15 @@ type
 
   ORB = class(SOMObjectBase)
   public
-    class function Create: ORB;
+    class function Create: ORB; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): ORB; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMMSingleInstance; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: ORB; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function object_to_string(obj: SOMDObject): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function string_to_object(str: CORBAString): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function create_list(count: LongInt; out new_list: NVList): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2086,7 +2246,15 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: ParameterDef;
+    class function Create: ParameterDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): ParameterDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: ParameterDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2143,7 +2311,15 @@ type
     function _get_hostName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_hostName(hostName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: Principal;
+    class function Create: Principal; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): Principal; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: Principal; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultCopyInit(var ctrl: Pointer; fromObj: Principal); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2188,7 +2364,15 @@ type
 
   Repository = class(SOMObjectBase)
   public
-    class function Create: Repository;
+    class function Create: Repository; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): Repository; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: Repository; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function lookup_id(search_id: CORBAString): Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function lookup_modifier(name: CORBAString; modifier: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure release_cache; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2238,7 +2422,15 @@ type
 
   Request = class(SOMObjectBase)
   public
-    class function Create: Request;
+    class function Create: Request; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): Request; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: Request; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function add_arg(name: CORBAString; arg_type: TypeCode; value: Pointer; len: LongInt; arg_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function invoke(invoke_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function send(invoke_flags: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2298,7 +2490,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTEntryC;
+    class function Create: SOMTEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2371,7 +2571,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTAttributeEntryC;
+    class function Create: SOMTAttributeEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTAttributeEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTAttributeEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstAttributeDeclarator: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextAttributeDeclarator: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstGetMethod: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2452,7 +2660,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTBaseClassEntryC;
+    class function Create: SOMTBaseClassEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTBaseClassEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTBaseClassEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2541,7 +2757,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTClassEntryC;
+    class function Create: SOMTClassEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTClassEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTClassEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstBaseClass: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextBaseClass: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstReleaseName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2669,7 +2893,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTCommonEntryC;
+    class function Create: SOMTCommonEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTCommonEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTCommonEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2758,7 +2990,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTConstEntryC;
+    class function Create: SOMTConstEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTConstEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTConstEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2844,7 +3084,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTDataEntryC;
+    class function Create: SOMTDataEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTDataEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTDataEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2930,7 +3178,15 @@ type
     function _get_somtEmitterName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somtEmitterName(somtEmitterName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTEmitC;
+    class function Create: SOMTEmitC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTEmitC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTEmitC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGenerateSections: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtOpenSymbolsFile(SOM_file: CORBAString; mode: CORBAString): PSOM_FILE; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somtSetPredefinedSymbols; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3071,7 +3327,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTEnumEntryC;
+    class function Create: SOMTEnumEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTEnumEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTEnumEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstEnumName: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextEnumName: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3147,7 +3411,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTEnumNameEntryC;
+    class function Create: SOMTEnumNameEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTEnumNameEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTEnumNameEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3223,7 +3495,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTMetaClassEntryC;
+    class function Create: SOMTMetaClassEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTMetaClassEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTMetaClassEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3313,7 +3593,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTMethodEntryC;
+    class function Create: SOMTMethodEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTMethodEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTMethodEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstParameter: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextParameter: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetIDLParamList(buffer: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3417,7 +3705,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTModuleEntryC;
+    class function Create: SOMTModuleEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTModuleEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTModuleEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModuleStruct: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModuleStruct: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModuleTypedef: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3518,7 +3814,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTParameterEntryC;
+    class function Create: SOMTParameterEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTParameterEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTParameterEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3607,7 +3911,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTPassthruEntryC;
+    class function Create: SOMTPassthruEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTPassthruEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTPassthruEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsBeforePassthru: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3685,7 +3997,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTSequenceEntryC;
+    class function Create: SOMTSequenceEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTSequenceEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTSequenceEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3760,7 +4080,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTStringEntryC;
+    class function Create: SOMTStringEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTStringEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTStringEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextModifier(var modifierName: CORBAString; var modifierValue: CORBAString): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3835,7 +4163,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTStructEntryC;
+    class function Create: SOMTStructEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTStructEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTStructEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstMember: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextMember: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3912,7 +4248,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTTypedefEntryC;
+    class function Create: SOMTTypedefEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTTypedefEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTTypedefEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstDeclarator: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextDeclarator: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3982,7 +4326,15 @@ type
     function _get_somtCommentNewline: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somtCommentNewline(somtCommentNewline: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTTemplateOutputC;
+    class function Create: SOMTTemplateOutputC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTTemplateOutputC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTTemplateOutputC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetSymbol(name: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somtSetSymbol(name: CORBAString; value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somtSetSymbolCopyName(name: CORBAString; value: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4055,7 +4407,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTUnionEntryC;
+    class function Create: SOMTUnionEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTUnionEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTUnionEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstCaseEntry: PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextCaseEntry: PSOMTUnionEntryC_somtCaseEntry; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4138,7 +4498,15 @@ type
     function _get_somtIDLScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somtCScopedName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMTUserDefinedTypeEntryC;
+    class function Create: SOMTUserDefinedTypeEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMTUserDefinedTypeEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMTUserDefinedTypeEntryC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtGetNextArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somtIsArray(out size: LongInt): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4211,7 +4579,15 @@ type
 
   SOMDServerMgr = class(SOMObjectBase)
   public
-    class function Create: SOMDServerMgr;
+    class function Create: SOMDServerMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMDServerMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMDServerMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdShutdownServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdStartServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdRestartServer(server_alias: CORBAString): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4261,7 +4637,15 @@ type
 
   SOMESinkEvent = class(SOMObjectBase)
   public
-    class function Create: SOMESinkEvent;
+    class function Create: SOMESinkEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMESinkEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMESinkEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventSink: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventSink(sink: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4319,7 +4703,15 @@ type
     function _get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMClass;
+    class function Create: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNewNoInit: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somRenew(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4425,7 +4817,15 @@ type
     function _get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMMSingleInstance;
+    class function Create: SOMMSingleInstance; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMMSingleInstance; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMMSingleInstance; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function sommGetSingleInstance: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure sommFreeSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4534,7 +4934,15 @@ type
     function _get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMMBeforeAfter;
+    class function Create: SOMMBeforeAfter; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMMBeforeAfter; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMMBeforeAfter; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure sommAfterMethod(SOM_object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4641,7 +5049,15 @@ type
     procedure _set_somInterfaceRepository(somInterfaceRepository: Repository); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somRegisteredClasses: {caller_owns} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMClassMgr;
+    class function Create: SOMClassMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMClassMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMClassMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somLoadClassFile(classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: {caller_owns} CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somLocateClassFile(classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somRegisterClass(classObj: SOMClass); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4703,7 +5119,15 @@ type
 
   SOMDObject = class(SOMObjectBase)
   public
-    class function Create: SOMDObject;
+    class function Create: SOMDObject; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMDObject; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMDObject; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function get_implementation: ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function get_interface: InterfaceDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function is_nil: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4756,7 +5180,15 @@ type
 
   SOMDClientProxy = class(SOMObjectBase)
   public
-    class function Create: SOMDClientProxy;
+    class function Create: SOMDClientProxy; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMDClientProxy; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMDClientProxy; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somdTargetFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdTargetGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdTargetGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4824,7 +5256,15 @@ type
     function _get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMDMetaproxy;
+    class function Create: SOMDMetaproxy; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMDMetaproxy; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMDMetaproxy; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNewNoInit: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somRenew(obj: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4933,7 +5373,15 @@ type
     function _get_somd21somFree: CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somd21somFree(somd21somFree: CORBABoolean); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMDObjectMgr;
+    class function Create: SOMDObjectMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMDObjectMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMDObjectMgr; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdFindServer(serverid: CORBAString): SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdFindServerByName(servername: CORBAString): SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdFindServersByClass(objclass: CORBAString): _IDL_Sequence_SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4987,7 +5435,15 @@ type
 
   SOMDServer = class(SOMObjectBase)
   public
-    class function Create: SOMDServer;
+    class function Create: SOMDServer; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMDServer; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMMSingleInstance; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMDServer; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdRefFromSOMObj(somobj: SOMObject): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somdSOMObjFromRef(objref: SOMDObject): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somdDispatchMethod(somobj: SOMObject; out retValue: Pointer; methodId: somId; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5037,7 +5493,15 @@ type
 
   SOMUTId = class(SOMObjectBase)
   public
-    class function Create: SOMUTId;
+    class function Create: SOMUTId; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMUTId; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMUTId; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somutSetIdId(otherId: SOMUTId); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somutEqualsId(otherId: SOMUTId): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somutCompareId(otherId: SOMUTId): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5084,7 +5548,15 @@ type
 
   SOMOA = class(SOMObjectBase)
   public
-    class function Create: SOMOA;
+    class function Create: SOMOA; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMOA; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMOA; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function execute_next_request(waitFlag: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function execute_request_loop(waitFlag: LongWord): LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure change_id(objref: SOMDObject; const id: _IDL_Sequence_Byte); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5151,7 +5623,15 @@ type
     function _get_serrno: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_serrno(serrno: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: Sockets;
+    class function Create: Sockets; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): Sockets; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMMSingleInstance; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: Sockets; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somsAccept(s: LongInt; out name{: opaque Sockets_sockaddr}; out namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somsBind(s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somsConnect(s: LongInt; var name{: opaque Sockets_sockaddr}; namelen: LongInt): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5236,7 +5716,15 @@ type
     procedure _set_somstTargetCapacity(somstTargetCapacity: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somstAssociationsCount: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMStringTableC;
+    class function Create: SOMStringTableC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMStringTableC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMStringTableC; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somstAssociate(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somstAssociateCopyKey(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somstAssociateCopyValue(key: CORBAString; value: CORBAString): SmallInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5298,7 +5786,15 @@ type
     function _get_somClassAllocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somClassDeallocate: PPointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: SOMMTraced;
+    class function Create: SOMMTraced; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMMTraced; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMMTraced; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure sommAfterMethod(SOM_object: SOMObject; methodId: somId; returnedvalue: Pointer; ap: va_list); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5402,7 +5898,15 @@ type
 
   SOMETimerEvent = class(SOMObjectBase)
   public
-    class function Create: SOMETimerEvent;
+    class function Create: SOMETimerEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMETimerEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMETimerEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventInterval: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventInterval(interval: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5457,7 +5961,15 @@ type
     function _get_sender: TSPortability_Sender; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_receiver: TSPortability_Receiver; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: TSIdentification;
+    class function Create: TSIdentification; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): TSIdentification; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMMSingleInstance; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: TSIdentification; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure identify_sender(sender: TSPortability_Sender); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure identify_receiver(receiver: TSPortability_Receiver); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5515,7 +6027,15 @@ type
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
-    class function Create: TypeDef;
+    class function Create: TypeDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): TypeDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: TypeDef; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe: Contained_Description; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5566,7 +6086,15 @@ type
 
   SOMEWorkProcEvent = class(SOMObjectBase)
   public
-    class function Create: SOMEWorkProcEvent;
+    class function Create: SOMEWorkProcEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InitInstance(Instance: Pointer): SOMEWorkProcEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function ClassType: SOMClass; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function ClassName: string; reintroduce;
+    class function ClassNameIs(const Name: string): Boolean; reintroduce;
+    class function InstanceSize: LongInt; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function InheritsFrom(AClass: SOMClass): Boolean; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    class function MethodAddress(const Name: string): Pointer; reintroduce;
+    class function NewInstance: SOMEWorkProcEvent; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somevGetEventType: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somevSetEventTime(time: LongWord); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5898,6 +6426,7 @@ function Replaceable_SOMCalloc: PsomTD_SOMCalloc;
 function SOMCalloc(element_count, element_size: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOMFree: PsomTD_SOMFree;
 procedure SOMFree(memory: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure SOMMemFree(memory: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOMMalloc: PsomTD_SOMMalloc;
 function SOMMalloc(nbytes: UIntPtr): somToken; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 function Replaceable_SOMRealloc: PsomTD_SOMRealloc;
@@ -5915,6 +6444,121 @@ function somTestCls(
     classObj: SOMObjectBase{SOMClass};
     fileName: CORBAString;
     lineNumber: Integer): SOMObjectBase; stdcall;
+
+(*
+ * Return the class that introduced the method represented by a given
+ * method token.
+ *)
+function somGetClassFromMToken(mToken: somMToken): SOMClass; stdcall;
+
+
+(*----------------------------------------------------------------------
+ *  SOM Id Manager Section
+ *---------------------------------------------------------------------*)
+
+(*
+ * typedef char* somId; // the "public" somId type (in sombtype.h)
+ *
+ * This above definition prevents users from building assumptions about
+ * how somIds are implemented into their programs. However, a little more
+ * information is useful to understand the different alternatives for
+ * creating somIds.
+ *
+ * All somIds point to something called an idKey. The content of the
+ * idKey for a somId depends on whether the somId has been registered.
+ *
+ * The idKey for an unregistered somId is a char* that points to a
+ * null-terminated array of chars that is called the id name.
+ *
+ * When a somId is registered, the idKey it points to is changed to
+ * point to a special structure whose representation is not made public.
+ * Among other things, of course, this structure contains the address of
+ * the id name. Normally the id name for a registered somId will be a copy
+ * of the originally indicated name, but copying strings is expensive
+ * because it requires dynamic memory allocation. As an alternative, to
+ * speed up creation of somIds and minimize memory use, you can use
+ * somBeginPersistentIds and somEndPersistentIds to bracket registration
+ * of somIds. If you do this, you must use somRelocateIds before the
+ * names for any of the "persistent" somIds that you create are changed
+ * (or perhaps destroyed as a result of program termination).
+ *
+ * There are basically two different ways to create registered somIds:
+ * from unregistered somIds, or from id names. To create registered
+ * somIds from unregistered somIds, you pass the address of an idKey
+ * to either somRegisterId or somCheckId; or, to register multiple
+ * somIds in one step, you can pass the address of an array of idKeys
+ * to somRegisterIds. To create registered somIds from id names, you
+ * pass the address of the id name to either somIdFromString or
+ * somIdFromStringNoFree. These routines are declared below.
+ *)
+
+(*
+ * Register a somId. Returns 1 (true) if the id is a new one, and
+ * 0 (false) otherwise. An id is new if no previously-registered id
+ * has the same name (where name comparison is case-insensitive).
+ *)
+function somRegisterId(id: somId): LongBool; stdcall;
+
+(*
+ * Like somRegisterId, but it returns the somId as its result.
+ *)
+function somCheckId(id: somId): somId; stdcall;
+
+(*
+ * Return a somId that must be freed (using SOMFree) when the user
+ * has finished with it.
+ *)
+function somIdFromString(aString: CORBAString): somId; stdcall;
+
+(*
+ * Return a string that must never be freed or modified.
+ *)
+function somStringFromId(id: somId): CORBAString; stdcall;
+
+(*
+ * Returns true (1) if the two ids are equal, else false (0).
+ *)
+function somCompareIds(id1, id2: somId): LongBool; stdcall;
+
+(*
+ * Return the total number of ids that have been registered so far, you
+ * can use this to advise the SOM runtime concerning expected number of
+ * ids in later executions of your program, via a call to
+ * somSetExpectedIds defined below
+ *)
+function somTotalRegIds: LongWord; stdcall;
+
+(*
+ * Tell the SOM runtime how many unique ids you expect to use during
+ * the execution of your program, this can improve space and time
+ * utilization slightly, this routine must be called before the SOM
+ * environment is created to have any effect
+ *)
+procedure somSetExpectedIds(numIds: LongWord); stdcall;
+
+(*
+ * Return the unique key for this id. This is the key used for
+ * comparing somIds.
+ *)
+function somUniqueKey(id: somId): LongWord; stdcall;
+
+(*
+ * Signal the beginning of an interval during which the id manager
+ * need not copy strings when registering new ids (because the caller
+ * knows that these strings will not be destroyed or modified without
+ * first calling somRelocateIds for each "persistent" id registered
+ * during the interval).
+ *)
+procedure somBeginPersistentIds; stdcall;
+
+(*
+ * End the interval started with somBeginPersistentIds. Tells the
+ * id manager that strings for any new ids subsequently registered
+ * may be freed or otherwise modified without first calling somRelocateIds.
+ * Therefore the id manager must copy the strings remember the name of an
+ * id.
+ *)
+procedure somEndPersistentIds; stdcall;
 
 // #include <somtc.h>
 
@@ -6074,8 +6718,8 @@ begin
 end;
 
 procedure SOMObjectBase.FreeInstance;
-begin
-  SOMObject(Self).somGetClass.somDeallocate(PAnsiChar(Pointer(Self)));
+begin // somGetClass on almost destroyed object might crash, so we use double dereference
+  SOMClass(PPointer(Self)^^).somDeallocate(PAnsiChar(Pointer(Self)));
 end;
 
 procedure SOMObjectBase.Destroy;
@@ -6926,9 +7570,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMObject.Create: SOMObject;
+class function SOMObject.Create: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMObject(SOMClass(NewClass).somNew);
+end;
+
+class function SOMObject.InitInstance(Instance: Pointer): SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMObject(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMObject.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMObject.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMObject.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMObject.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMObject.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMObject.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMObject.NewInstance: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMObject(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -7713,9 +8406,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function Contained.Create: Contained;
+class function Contained.Create: Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Contained(SOMClass(NewClass).somNew);
+end;
+
+class function Contained.InitInstance(Instance: Pointer): Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Contained(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function Contained.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function Contained.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function Contained.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function Contained.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function Contained.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function Contained.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function Contained.NewInstance: Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Contained(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -8394,9 +9136,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function AttributeDef.Create: AttributeDef;
+class function AttributeDef.Create: AttributeDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := AttributeDef(SOMClass(NewClass).somNew);
+end;
+
+class function AttributeDef.InitInstance(Instance: Pointer): AttributeDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := AttributeDef(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function AttributeDef.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function AttributeDef.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function AttributeDef.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function AttributeDef.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function AttributeDef.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function AttributeDef.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function AttributeDef.NewInstance: AttributeDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := AttributeDef(SOMClass(NewClass).somNewNoInit);
 end;
 
 function AttributeDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -8909,9 +9700,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function BOA.Create: BOA;
+class function BOA.Create: BOA; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := BOA(SOMClass(NewClass).somNew);
+end;
+
+class function BOA.InitInstance(Instance: Pointer): BOA; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := BOA(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function BOA.ClassType: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMSingleInstance(SOMObject(Self).somGetClass);
+end;
+
+class function BOA.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function BOA.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function BOA.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function BOA.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function BOA.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function BOA.NewInstance: BOA; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := BOA(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -9576,9 +10416,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMEEvent.Create: SOMEEvent;
+class function SOMEEvent.Create: SOMEEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMEEvent(SOMClass(NewClass).somNew);
+end;
+
+class function SOMEEvent.InitInstance(Instance: Pointer): SOMEEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMEEvent(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMEEvent.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMEEvent.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMEEvent.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMEEvent.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMEEvent.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMEEvent.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMEEvent.NewInstance: SOMEEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMEEvent(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -10109,9 +10998,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMEClientEvent.Create: SOMEClientEvent;
+class function SOMEClientEvent.Create: SOMEClientEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMEClientEvent(SOMClass(NewClass).somNew);
+end;
+
+class function SOMEClientEvent.InitInstance(Instance: Pointer): SOMEClientEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMEClientEvent(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMEClientEvent.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMEClientEvent.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMEClientEvent.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMEClientEvent.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMEClientEvent.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMEClientEvent.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMEClientEvent.NewInstance: SOMEClientEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMEClientEvent(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -10709,9 +11647,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function Context.Create: Context;
+class function Context.Create: Context; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Context(SOMClass(NewClass).somNew);
+end;
+
+class function Context.InitInstance(Instance: Pointer): Context; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Context(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function Context.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function Context.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function Context.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function Context.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function Context.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function Context.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function Context.NewInstance: Context; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Context(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -11470,9 +12457,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function ConstantDef.Create: ConstantDef;
+class function ConstantDef.Create: ConstantDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := ConstantDef(SOMClass(NewClass).somNew);
+end;
+
+class function ConstantDef.InitInstance(Instance: Pointer): ConstantDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ConstantDef(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function ConstantDef.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function ConstantDef.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function ConstantDef.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function ConstantDef.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function ConstantDef.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function ConstantDef.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function ConstantDef.NewInstance: ConstantDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ConstantDef(SOMClass(NewClass).somNewNoInit);
 end;
 
 function ConstantDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -11957,9 +12993,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function Container.Create: Container;
+class function Container.Create: Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Container(SOMClass(NewClass).somNew);
+end;
+
+class function Container.InitInstance(Instance: Pointer): Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Container(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function Container.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function Container.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function Container.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function Container.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function Container.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function Container.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function Container.NewInstance: Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Container(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -12479,9 +13564,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMEEMan.Create: SOMEEMan;
+class function SOMEEMan.Create: SOMEEMan; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMEEMan(SOMClass(NewClass).somNew);
+end;
+
+class function SOMEEMan.InitInstance(Instance: Pointer): SOMEEMan; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMEEMan(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMEEMan.ClassType: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMSingleInstance(SOMObject(Self).somGetClass);
+end;
+
+class function SOMEEMan.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMEEMan.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMEEMan.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMEEMan.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMEEMan.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMEEMan.NewInstance: SOMEEMan; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMEEMan(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -13149,9 +14283,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMEEMRegisterData.Create: SOMEEMRegisterData;
+class function SOMEEMRegisterData.Create: SOMEEMRegisterData; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMEEMRegisterData(SOMClass(NewClass).somNew);
+end;
+
+class function SOMEEMRegisterData.InitInstance(Instance: Pointer): SOMEEMRegisterData; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMEEMRegisterData(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMEEMRegisterData.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMEEMRegisterData.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMEEMRegisterData.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMEEMRegisterData.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMEEMRegisterData.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMEEMRegisterData.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMEEMRegisterData.NewInstance: SOMEEMRegisterData; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMEEMRegisterData(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -13882,9 +15065,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function ExceptionDef.Create: ExceptionDef;
+class function ExceptionDef.Create: ExceptionDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := ExceptionDef(SOMClass(NewClass).somNew);
+end;
+
+class function ExceptionDef.InitInstance(Instance: Pointer): ExceptionDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ExceptionDef(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function ExceptionDef.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function ExceptionDef.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function ExceptionDef.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function ExceptionDef.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function ExceptionDef.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function ExceptionDef.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function ExceptionDef.NewInstance: ExceptionDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ExceptionDef(SOMClass(NewClass).somNewNoInit);
 end;
 
 function ExceptionDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -14699,9 +15931,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function ImplementationDef.Create: ImplementationDef;
+class function ImplementationDef.Create: ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := ImplementationDef(SOMClass(NewClass).somNew);
+end;
+
+class function ImplementationDef.InitInstance(Instance: Pointer): ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ImplementationDef(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function ImplementationDef.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function ImplementationDef.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function ImplementationDef.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function ImplementationDef.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function ImplementationDef.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function ImplementationDef.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function ImplementationDef.NewInstance: ImplementationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ImplementationDef(SOMClass(NewClass).somNewNoInit);
 end;
 
 procedure ImplementationDef.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -15167,9 +16448,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function ImplRepository.Create: ImplRepository;
+class function ImplRepository.Create: ImplRepository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := ImplRepository(SOMClass(NewClass).somNew);
+end;
+
+class function ImplRepository.InitInstance(Instance: Pointer): ImplRepository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ImplRepository(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function ImplRepository.ClassType: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMSingleInstance(SOMObject(Self).somGetClass);
+end;
+
+class function ImplRepository.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function ImplRepository.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function ImplRepository.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function ImplRepository.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function ImplRepository.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function ImplRepository.NewInstance: ImplRepository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ImplRepository(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -16023,9 +17353,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function InterfaceDef.Create: InterfaceDef;
+class function InterfaceDef.Create: InterfaceDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := InterfaceDef(SOMClass(NewClass).somNew);
+end;
+
+class function InterfaceDef.InitInstance(Instance: Pointer): InterfaceDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := InterfaceDef(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function InterfaceDef.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function InterfaceDef.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function InterfaceDef.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function InterfaceDef.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function InterfaceDef.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function InterfaceDef.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function InterfaceDef.NewInstance: InterfaceDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := InterfaceDef(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -16682,9 +18061,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function ModuleDef.Create: ModuleDef;
+class function ModuleDef.Create: ModuleDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := ModuleDef(SOMClass(NewClass).somNew);
+end;
+
+class function ModuleDef.InitInstance(Instance: Pointer): ModuleDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ModuleDef(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function ModuleDef.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function ModuleDef.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function ModuleDef.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function ModuleDef.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function ModuleDef.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function ModuleDef.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function ModuleDef.NewInstance: ModuleDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ModuleDef(SOMClass(NewClass).somNewNoInit);
 end;
 
 function ModuleDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -17221,9 +18649,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function NVList.Create: NVList;
+class function NVList.Create: NVList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := NVList(SOMClass(NewClass).somNew);
+end;
+
+class function NVList.InitInstance(Instance: Pointer): NVList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := NVList(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function NVList.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function NVList.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function NVList.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function NVList.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function NVList.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function NVList.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function NVList.NewInstance: NVList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := NVList(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -17797,9 +19274,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function ObjectMgr.Create: ObjectMgr;
+class function ObjectMgr.Create: ObjectMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := ObjectMgr(SOMClass(NewClass).somNew);
+end;
+
+class function ObjectMgr.InitInstance(Instance: Pointer): ObjectMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ObjectMgr(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function ObjectMgr.ClassType: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMSingleInstance(SOMObject(Self).somGetClass);
+end;
+
+class function ObjectMgr.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function ObjectMgr.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function ObjectMgr.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function ObjectMgr.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function ObjectMgr.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function ObjectMgr.NewInstance: ObjectMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ObjectMgr(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -18577,9 +20103,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function OperationDef.Create: OperationDef;
+class function OperationDef.Create: OperationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := OperationDef(SOMClass(NewClass).somNew);
+end;
+
+class function OperationDef.InitInstance(Instance: Pointer): OperationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := OperationDef(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function OperationDef.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function OperationDef.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function OperationDef.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function OperationDef.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function OperationDef.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function OperationDef.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function OperationDef.NewInstance: OperationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := OperationDef(SOMClass(NewClass).somNewNoInit);
 end;
 
 function OperationDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -19115,9 +20690,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function ORB.Create: ORB;
+class function ORB.Create: ORB; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := ORB(SOMClass(NewClass).somNew);
+end;
+
+class function ORB.InitInstance(Instance: Pointer): ORB; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ORB(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function ORB.ClassType: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMSingleInstance(SOMObject(Self).somGetClass);
+end;
+
+class function ORB.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function ORB.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function ORB.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function ORB.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function ORB.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function ORB.NewInstance: ORB; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ORB(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -19856,9 +21480,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function ParameterDef.Create: ParameterDef;
+class function ParameterDef.Create: ParameterDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := ParameterDef(SOMClass(NewClass).somNew);
+end;
+
+class function ParameterDef.InitInstance(Instance: Pointer): ParameterDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ParameterDef(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function ParameterDef.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function ParameterDef.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function ParameterDef.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function ParameterDef.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function ParameterDef.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function ParameterDef.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function ParameterDef.NewInstance: ParameterDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := ParameterDef(SOMClass(NewClass).somNewNoInit);
 end;
 
 function ParameterDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20422,9 +22095,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function Principal.Create: Principal;
+class function Principal.Create: Principal; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Principal(SOMClass(NewClass).somNew);
+end;
+
+class function Principal.InitInstance(Instance: Pointer): Principal; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Principal(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function Principal.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function Principal.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function Principal.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function Principal.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function Principal.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function Principal.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function Principal.NewInstance: Principal; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Principal(SOMClass(NewClass).somNewNoInit);
 end;
 
 procedure Principal.somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -20876,9 +22598,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function Repository.Create: Repository;
+class function Repository.Create: Repository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Repository(SOMClass(NewClass).somNew);
+end;
+
+class function Repository.InitInstance(Instance: Pointer): Repository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Repository(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function Repository.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function Repository.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function Repository.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function Repository.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function Repository.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function Repository.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function Repository.NewInstance: Repository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Repository(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -21452,9 +23223,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function Request.Create: Request;
+class function Request.Create: Request; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Request(SOMClass(NewClass).somNew);
+end;
+
+class function Request.InitInstance(Instance: Pointer): Request; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Request(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function Request.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function Request.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function Request.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function Request.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function Request.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function Request.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function Request.NewInstance: Request; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Request(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -22238,9 +24058,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTEntryC.Create: SOMTEntryC;
+class function SOMTEntryC.Create: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTEntryC.InitInstance(Instance: Pointer): SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTEntryC.NewInstance: SOMTEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -22988,9 +24857,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTAttributeEntryC.Create: SOMTAttributeEntryC;
+class function SOMTAttributeEntryC.Create: SOMTAttributeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTAttributeEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTAttributeEntryC.InitInstance(Instance: Pointer): SOMTAttributeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTAttributeEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTAttributeEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTAttributeEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTAttributeEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTAttributeEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTAttributeEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTAttributeEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTAttributeEntryC.NewInstance: SOMTAttributeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTAttributeEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -23784,9 +25702,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTBaseClassEntryC.Create: SOMTBaseClassEntryC;
+class function SOMTBaseClassEntryC.Create: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTBaseClassEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTBaseClassEntryC.InitInstance(Instance: Pointer): SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTBaseClassEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTBaseClassEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTBaseClassEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTBaseClassEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTBaseClassEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTBaseClassEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTBaseClassEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTBaseClassEntryC.NewInstance: SOMTBaseClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTBaseClassEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMTBaseClassEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -24791,9 +26758,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTClassEntryC.Create: SOMTClassEntryC;
+class function SOMTClassEntryC.Create: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTClassEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTClassEntryC.InitInstance(Instance: Pointer): SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTClassEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTClassEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTClassEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTClassEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTClassEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTClassEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTClassEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTClassEntryC.NewInstance: SOMTClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTClassEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -26191,9 +28207,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTCommonEntryC.Create: SOMTCommonEntryC;
+class function SOMTCommonEntryC.Create: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTCommonEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTCommonEntryC.InitInstance(Instance: Pointer): SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTCommonEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTCommonEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTCommonEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTCommonEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTCommonEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTCommonEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTCommonEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTCommonEntryC.NewInstance: SOMTCommonEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTCommonEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -27065,9 +29130,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTConstEntryC.Create: SOMTConstEntryC;
+class function SOMTConstEntryC.Create: SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTConstEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTConstEntryC.InitInstance(Instance: Pointer): SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTConstEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTConstEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTConstEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTConstEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTConstEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTConstEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTConstEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTConstEntryC.NewInstance: SOMTConstEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTConstEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMTConstEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -27825,9 +29939,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTDataEntryC.Create: SOMTDataEntryC;
+class function SOMTDataEntryC.Create: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTDataEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTDataEntryC.InitInstance(Instance: Pointer): SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTDataEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTDataEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTDataEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTDataEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTDataEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTDataEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTDataEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTDataEntryC.NewInstance: SOMTDataEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTDataEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMTDataEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -28719,9 +30882,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTEmitC.Create: SOMTEmitC;
+class function SOMTEmitC.Create: SOMTEmitC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTEmitC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTEmitC.InitInstance(Instance: Pointer): SOMTEmitC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTEmitC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTEmitC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTEmitC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTEmitC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTEmitC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTEmitC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTEmitC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTEmitC.NewInstance: SOMTEmitC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTEmitC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -30693,9 +32905,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTEnumEntryC.Create: SOMTEnumEntryC;
+class function SOMTEnumEntryC.Create: SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTEnumEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTEnumEntryC.InitInstance(Instance: Pointer): SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTEnumEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTEnumEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTEnumEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTEnumEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTEnumEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTEnumEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTEnumEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTEnumEntryC.NewInstance: SOMTEnumEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTEnumEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -31436,9 +33697,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTEnumNameEntryC.Create: SOMTEnumNameEntryC;
+class function SOMTEnumNameEntryC.Create: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTEnumNameEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTEnumNameEntryC.InitInstance(Instance: Pointer): SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTEnumNameEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTEnumNameEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTEnumNameEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTEnumNameEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTEnumNameEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTEnumNameEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTEnumNameEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTEnumNameEntryC.NewInstance: SOMTEnumNameEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTEnumNameEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMTEnumNameEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -32143,9 +34453,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTMetaClassEntryC.Create: SOMTMetaClassEntryC;
+class function SOMTMetaClassEntryC.Create: SOMTMetaClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTMetaClassEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTMetaClassEntryC.InitInstance(Instance: Pointer): SOMTMetaClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTMetaClassEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTMetaClassEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTMetaClassEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTMetaClassEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTMetaClassEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTMetaClassEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTMetaClassEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTMetaClassEntryC.NewInstance: SOMTMetaClassEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTMetaClassEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMTMetaClassEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -33071,9 +35430,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTMethodEntryC.Create: SOMTMethodEntryC;
+class function SOMTMethodEntryC.Create: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTMethodEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTMethodEntryC.InitInstance(Instance: Pointer): SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTMethodEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTMethodEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTMethodEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTMethodEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTMethodEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTMethodEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTMethodEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTMethodEntryC.NewInstance: SOMTMethodEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTMethodEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -34029,9 +36437,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTModuleEntryC.Create: SOMTModuleEntryC;
+class function SOMTModuleEntryC.Create: SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTModuleEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTModuleEntryC.InitInstance(Instance: Pointer): SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTModuleEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTModuleEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTModuleEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTModuleEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTModuleEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTModuleEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTModuleEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTModuleEntryC.NewInstance: SOMTModuleEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTModuleEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -35151,9 +37608,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTParameterEntryC.Create: SOMTParameterEntryC;
+class function SOMTParameterEntryC.Create: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTParameterEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTParameterEntryC.InitInstance(Instance: Pointer): SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTParameterEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTParameterEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTParameterEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTParameterEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTParameterEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTParameterEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTParameterEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTParameterEntryC.NewInstance: SOMTParameterEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTParameterEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMTParameterEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -35931,9 +38437,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTPassthruEntryC.Create: SOMTPassthruEntryC;
+class function SOMTPassthruEntryC.Create: SOMTPassthruEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTPassthruEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTPassthruEntryC.InitInstance(Instance: Pointer): SOMTPassthruEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTPassthruEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTPassthruEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTPassthruEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTPassthruEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTPassthruEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTPassthruEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTPassthruEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTPassthruEntryC.NewInstance: SOMTPassthruEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTPassthruEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -36657,9 +39212,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTSequenceEntryC.Create: SOMTSequenceEntryC;
+class function SOMTSequenceEntryC.Create: SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTSequenceEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTSequenceEntryC.InitInstance(Instance: Pointer): SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTSequenceEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTSequenceEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTSequenceEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTSequenceEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTSequenceEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTSequenceEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTSequenceEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTSequenceEntryC.NewInstance: SOMTSequenceEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTSequenceEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMTSequenceEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -37345,9 +39949,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTStringEntryC.Create: SOMTStringEntryC;
+class function SOMTStringEntryC.Create: SOMTStringEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTStringEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTStringEntryC.InitInstance(Instance: Pointer): SOMTStringEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTStringEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTStringEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTStringEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTStringEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTStringEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTStringEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTStringEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTStringEntryC.NewInstance: SOMTStringEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTStringEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMTStringEntryC.somtGetModifierValue(modifierName: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -38054,9 +40707,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTStructEntryC.Create: SOMTStructEntryC;
+class function SOMTStructEntryC.Create: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTStructEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTStructEntryC.InitInstance(Instance: Pointer): SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTStructEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTStructEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTStructEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTStructEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTStructEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTStructEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTStructEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTStructEntryC.NewInstance: SOMTStructEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTStructEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -38780,9 +41482,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTTypedefEntryC.Create: SOMTTypedefEntryC;
+class function SOMTTypedefEntryC.Create: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTTypedefEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTTypedefEntryC.InitInstance(Instance: Pointer): SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTTypedefEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTTypedefEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTTypedefEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTTypedefEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTTypedefEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTTypedefEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTTypedefEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTTypedefEntryC.NewInstance: SOMTTypedefEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTTypedefEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -39479,9 +42230,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTTemplateOutputC.Create: SOMTTemplateOutputC;
+class function SOMTTemplateOutputC.Create: SOMTTemplateOutputC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTTemplateOutputC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTTemplateOutputC.InitInstance(Instance: Pointer): SOMTTemplateOutputC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTTemplateOutputC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTTemplateOutputC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTTemplateOutputC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTTemplateOutputC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTTemplateOutputC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTTemplateOutputC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTTemplateOutputC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTTemplateOutputC.NewInstance: SOMTTemplateOutputC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTTemplateOutputC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -40305,9 +43105,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTUnionEntryC.Create: SOMTUnionEntryC;
+class function SOMTUnionEntryC.Create: SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTUnionEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTUnionEntryC.InitInstance(Instance: Pointer): SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTUnionEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTUnionEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTUnionEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTUnionEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTUnionEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTUnionEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTUnionEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTUnionEntryC.NewInstance: SOMTUnionEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTUnionEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -41120,9 +43969,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMTUserDefinedTypeEntryC.Create: SOMTUserDefinedTypeEntryC;
+class function SOMTUserDefinedTypeEntryC.Create: SOMTUserDefinedTypeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMTUserDefinedTypeEntryC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMTUserDefinedTypeEntryC.InitInstance(Instance: Pointer): SOMTUserDefinedTypeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTUserDefinedTypeEntryC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMTUserDefinedTypeEntryC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMTUserDefinedTypeEntryC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMTUserDefinedTypeEntryC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMTUserDefinedTypeEntryC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMTUserDefinedTypeEntryC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMTUserDefinedTypeEntryC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMTUserDefinedTypeEntryC.NewInstance: SOMTUserDefinedTypeEntryC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMTUserDefinedTypeEntryC(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMTUserDefinedTypeEntryC.somtGetFirstArrayDimension: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -41719,9 +44617,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMDServerMgr.Create: SOMDServerMgr;
+class function SOMDServerMgr.Create: SOMDServerMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMDServerMgr(SOMClass(NewClass).somNew);
+end;
+
+class function SOMDServerMgr.InitInstance(Instance: Pointer): SOMDServerMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDServerMgr(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMDServerMgr.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMDServerMgr.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMDServerMgr.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMDServerMgr.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMDServerMgr.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMDServerMgr.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMDServerMgr.NewInstance: SOMDServerMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDServerMgr(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -42312,9 +45259,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMESinkEvent.Create: SOMESinkEvent;
+class function SOMESinkEvent.Create: SOMESinkEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMESinkEvent(SOMClass(NewClass).somNew);
+end;
+
+class function SOMESinkEvent.InitInstance(Instance: Pointer): SOMESinkEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMESinkEvent(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMESinkEvent.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMESinkEvent.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMESinkEvent.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMESinkEvent.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMESinkEvent.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMESinkEvent.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMESinkEvent.NewInstance: SOMESinkEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMESinkEvent(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -43044,9 +46040,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMClass.Create: SOMClass;
+class function SOMClass.Create: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMClass(SOMClass(NewClass).somNew);
+end;
+
+class function SOMClass.InitInstance(Instance: Pointer): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMClass.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMClass.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMClass.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMClass.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMClass.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMClass.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMClass.NewInstance: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -44477,9 +47522,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMMSingleInstance.Create: SOMMSingleInstance;
+class function SOMMSingleInstance.Create: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMMSingleInstance(SOMClass(NewClass).somNew);
+end;
+
+class function SOMMSingleInstance.InitInstance(Instance: Pointer): SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMSingleInstance(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMMSingleInstance.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMMSingleInstance.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMMSingleInstance.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMMSingleInstance.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMMSingleInstance.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMMSingleInstance.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMMSingleInstance.NewInstance: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMSingleInstance(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -45648,9 +48742,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMMBeforeAfter.Create: SOMMBeforeAfter;
+class function SOMMBeforeAfter.Create: SOMMBeforeAfter; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMMBeforeAfter(SOMClass(NewClass).somNew);
+end;
+
+class function SOMMBeforeAfter.InitInstance(Instance: Pointer): SOMMBeforeAfter; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMBeforeAfter(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMMBeforeAfter.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMMBeforeAfter.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMMBeforeAfter.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMMBeforeAfter.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMMBeforeAfter.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMMBeforeAfter.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMMBeforeAfter.NewInstance: SOMMBeforeAfter; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMBeforeAfter(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -46821,9 +49964,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMClassMgr.Create: SOMClassMgr;
+class function SOMClassMgr.Create: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMClassMgr(SOMClass(NewClass).somNew);
+end;
+
+class function SOMClassMgr.InitInstance(Instance: Pointer): SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClassMgr(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMClassMgr.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMClassMgr.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMClassMgr.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMClassMgr.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMClassMgr.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMClassMgr.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMClassMgr.NewInstance: SOMClassMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClassMgr(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -47592,9 +50784,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMDObject.Create: SOMDObject;
+class function SOMDObject.Create: SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMDObject(SOMClass(NewClass).somNew);
+end;
+
+class function SOMDObject.InitInstance(Instance: Pointer): SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDObject(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMDObject.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMDObject.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMDObject.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMDObject.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMDObject.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMDObject.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMDObject.NewInstance: SOMDObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDObject(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -48255,9 +51496,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMDClientProxy.Create: SOMDClientProxy;
+class function SOMDClientProxy.Create: SOMDClientProxy; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMDClientProxy(SOMClass(NewClass).somNew);
+end;
+
+class function SOMDClientProxy.InitInstance(Instance: Pointer): SOMDClientProxy; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDClientProxy(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMDClientProxy.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMDClientProxy.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMDClientProxy.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMDClientProxy.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMDClientProxy.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMDClientProxy.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMDClientProxy.NewInstance: SOMDClientProxy; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDClientProxy(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -49058,9 +52348,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMDMetaproxy.Create: SOMDMetaproxy;
+class function SOMDMetaproxy.Create: SOMDMetaproxy; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMDMetaproxy(SOMClass(NewClass).somNew);
+end;
+
+class function SOMDMetaproxy.InitInstance(Instance: Pointer): SOMDMetaproxy; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDMetaproxy(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMDMetaproxy.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMDMetaproxy.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMDMetaproxy.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMDMetaproxy.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMDMetaproxy.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMDMetaproxy.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMDMetaproxy.NewInstance: SOMDMetaproxy; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDMetaproxy(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMDMetaproxy.somNew: SOMObject; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -50162,9 +53501,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function SOMDObjectMgr.Create: SOMDObjectMgr;
+class function SOMDObjectMgr.Create: SOMDObjectMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMDObjectMgr(SOMClass(NewClass).somNew);
+end;
+
+class function SOMDObjectMgr.InitInstance(Instance: Pointer): SOMDObjectMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDObjectMgr(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMDObjectMgr.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMDObjectMgr.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMDObjectMgr.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMDObjectMgr.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMDObjectMgr.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMDObjectMgr.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMDObjectMgr.NewInstance: SOMDObjectMgr; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDObjectMgr(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -50773,9 +54161,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMDServer.Create: SOMDServer;
+class function SOMDServer.Create: SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMDServer(SOMClass(NewClass).somNew);
+end;
+
+class function SOMDServer.InitInstance(Instance: Pointer): SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDServer(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMDServer.ClassType: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMSingleInstance(SOMObject(Self).somGetClass);
+end;
+
+class function SOMDServer.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMDServer.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMDServer.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMDServer.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMDServer.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMDServer.NewInstance: SOMDServer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMDServer(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -51366,9 +54803,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMUTId.Create: SOMUTId;
+class function SOMUTId.Create: SOMUTId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMUTId(SOMClass(NewClass).somNew);
+end;
+
+class function SOMUTId.InitInstance(Instance: Pointer): SOMUTId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMUTId(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMUTId.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMUTId.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMUTId.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMUTId.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMUTId.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMUTId.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMUTId.NewInstance: SOMUTId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMUTId(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -51904,9 +55390,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMOA.Create: SOMOA;
+class function SOMOA.Create: SOMOA; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMOA(SOMClass(NewClass).somNew);
+end;
+
+class function SOMOA.InitInstance(Instance: Pointer): SOMOA; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMOA(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMOA.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMOA.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMOA.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMOA.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMOA.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMOA.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMOA.NewInstance: SOMOA; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMOA(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -52747,9 +56282,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function Sockets.Create: Sockets;
+class function Sockets.Create: Sockets; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := Sockets(SOMClass(NewClass).somNew);
+end;
+
+class function Sockets.InitInstance(Instance: Pointer): Sockets; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Sockets(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function Sockets.ClassType: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMSingleInstance(SOMObject(Self).somGetClass);
+end;
+
+class function Sockets.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function Sockets.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function Sockets.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function Sockets.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function Sockets.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function Sockets.NewInstance: Sockets; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := Sockets(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -54002,9 +57586,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMStringTableC.Create: SOMStringTableC;
+class function SOMStringTableC.Create: SOMStringTableC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMStringTableC(SOMClass(NewClass).somNew);
+end;
+
+class function SOMStringTableC.InitInstance(Instance: Pointer): SOMStringTableC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMStringTableC(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMStringTableC.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMStringTableC.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMStringTableC.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMStringTableC.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMStringTableC.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMStringTableC.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMStringTableC.NewInstance: SOMStringTableC; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMStringTableC(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -54709,9 +58342,58 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-class function SOMMTraced.Create: SOMMTraced;
+class function SOMMTraced.Create: SOMMTraced; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMMTraced(SOMClass(NewClass).somNew);
+end;
+
+class function SOMMTraced.InitInstance(Instance: Pointer): SOMMTraced; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMTraced(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMMTraced.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMMTraced.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMMTraced.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMMTraced.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMMTraced.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMMTraced.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMMTraced.NewInstance: SOMMTraced; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMTraced(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMMTraced.sommBeforeMethod(SOM_object: SOMObject; methodId: somId; ap: va_list): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -55802,9 +59484,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMETimerEvent.Create: SOMETimerEvent;
+class function SOMETimerEvent.Create: SOMETimerEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMETimerEvent(SOMClass(NewClass).somNew);
+end;
+
+class function SOMETimerEvent.InitInstance(Instance: Pointer): SOMETimerEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMETimerEvent(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMETimerEvent.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMETimerEvent.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMETimerEvent.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMETimerEvent.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMETimerEvent.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMETimerEvent.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMETimerEvent.NewInstance: SOMETimerEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMETimerEvent(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -56395,9 +60126,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function TSIdentification.Create: TSIdentification;
+class function TSIdentification.Create: TSIdentification; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := TSIdentification(SOMClass(NewClass).somNew);
+end;
+
+class function TSIdentification.InitInstance(Instance: Pointer): TSIdentification; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := TSIdentification(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function TSIdentification.ClassType: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMMSingleInstance(SOMObject(Self).somGetClass);
+end;
+
+class function TSIdentification.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function TSIdentification.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function TSIdentification.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function TSIdentification.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function TSIdentification.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function TSIdentification.NewInstance: TSIdentification; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := TSIdentification(SOMClass(NewClass).somNewNoInit);
 end;
 
 (*
@@ -57033,9 +60813,58 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-class function TypeDef.Create: TypeDef;
+class function TypeDef.Create: TypeDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := TypeDef(SOMClass(NewClass).somNew);
+end;
+
+class function TypeDef.InitInstance(Instance: Pointer): TypeDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := TypeDef(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function TypeDef.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function TypeDef.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function TypeDef.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function TypeDef.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function TypeDef.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function TypeDef.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function TypeDef.NewInstance: TypeDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := TypeDef(SOMClass(NewClass).somNewNoInit);
 end;
 
 function TypeDef.within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -57517,9 +61346,58 @@ end;
  * Class Object and Method Token Macros
  *)
 
-class function SOMEWorkProcEvent.Create: SOMEWorkProcEvent;
+class function SOMEWorkProcEvent.Create: SOMEWorkProcEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 begin
   Result := SOMEWorkProcEvent(SOMClass(NewClass).somNew);
+end;
+
+class function SOMEWorkProcEvent.InitInstance(Instance: Pointer): SOMEWorkProcEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMEWorkProcEvent(SOMClass(NewClass).somRenewNoInit(Instance));
+end;
+
+function SOMEWorkProcEvent.ClassType: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(SOMObject(Self).somGetClass);
+end;
+
+class function SOMEWorkProcEvent.ClassName: string;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName);
+end;
+
+class function SOMEWorkProcEvent.ClassNameIs(const Name: string): Boolean;
+begin
+  Result := AnsiString(SOMClass(NewClass).somGetName) = Name;
+end;
+
+class function SOMEWorkProcEvent.InstanceSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somGetInstanceSize;
+end;
+
+class function SOMEWorkProcEvent.InheritsFrom(AClass: SOMClass): Boolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMClass(NewClass).somDescendedFrom(AClass);
+end;
+
+class function SOMEWorkProcEvent.MethodAddress(const Name: string): Pointer;
+var
+  NameAsAnsiString: AnsiString;
+  NameAsSomId: somId;
+begin
+  NameAsAnsiString := AnsiString(Name);
+  NameAsSomId := somIdFromString(PAnsiChar(NameAsAnsiString));
+  try
+    SOMClass(NewClass).somFindMethod(NameAsSomId, Result);
+  finally
+    SOMMemFree(NameAsSomId);
+  end;
+end;
+
+class function SOMEWorkProcEvent.NewInstance: SOMEWorkProcEvent; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Result := SOMEWorkProcEvent(SOMClass(NewClass).somNewNoInit);
 end;
 
 function SOMEWorkProcEvent.somevGetEventTime: LongWord; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -58134,6 +62012,11 @@ begin
   Replaceable_SOMFree^(memory);
 end;
 
+procedure SOMMemFree(memory: somToken); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+begin
+  Replaceable_SOMFree^(memory);
+end;
+
 var
   SOM_DLL_SOMMalloc: PsomTD_SOMMalloc = nil;
 
@@ -58173,6 +62056,17 @@ begin
 end;
 
 function somTestCls; external SOM_DLL_Name;
+function somGetClassFromMToken; external SOM_DLL_Name;
+function somRegisterId; external SOM_DLL_Name;
+function somCheckId; external SOM_DLL_Name;
+function somIdFromString; external SOM_DLL_Name;
+function somStringFromId; external SOM_DLL_Name;
+function somCompareIds; external SOM_DLL_Name;
+function somTotalRegIds; external SOM_DLL_Name;
+procedure somSetExpectedIds; external SOM_DLL_Name;
+function somUniqueKey; external SOM_DLL_Name;
+procedure somBeginPersistentIds; external SOM_DLL_Name;
+procedure somEndPersistentIds; external SOM_DLL_Name;
 function somVaBuf_create; external SOMTC_DLL_Name;
 procedure somVaBuf_get_valist; external SOMTC_DLL_Name;
 procedure somVaBuf_destroy; external SOMTC_DLL_Name;

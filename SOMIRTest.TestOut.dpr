@@ -12,11 +12,10 @@ uses
 procedure TestSOM_Basic;
 var
   o: SOMObject;
-  s: CORBAString;
 begin
   o := SOMObject.Create;
-  s := o.somGetClassName;
-  WriteLn('Object''s class name is ', s);
+  WriteLn('Object''s class name is ', o.somGetClassName);
+  WriteLn('Object''s class name is ', o.ClassName);
   o.somFree;
 end;
 
@@ -25,22 +24,18 @@ var
   a: array of Byte;
   Size: LongInt;
   o: SOMObject;
-  s: CORBAString;
 begin
-  Size := SOMObject.ClassObject.somGetInstanceSize;
+  Size := SOMObject.InstanceSize;
   WriteLn('SOMObject''s size is ', Size);
   SetLength(a, Size);
-  o := SOMObject.ClassObject.somRenew(@(a[0]));
-  s := o.somGetClassName;
-  WriteLn('Object''s class name is ', s);
-  s := o.ClassObject.somGetClassName;
-  WriteLn('Object''s class''s class name is ', s);
-  s := o.somGetClass.somGetClassName;
-  WriteLn('Object''s class''s class name is ', s);
-  s := SOMClassMgr.NewClass.somGetName;
-  WriteLn('SOMClassMgr''s name is ', s);
-  s := SOMClassMgr.NewClass.somGetClassName;
-  WriteLn('SOMClassMgr''s class object''s name is ', s);
+  o := SOMObject.InitInstance(@(a[0]));
+  o.somInit;
+  WriteLn('Object''s class name is ', o.somGetClassName);
+  WriteLn('Object''s class''s class name is ', o.ClassObject.somGetClassName);
+  WriteLn('Object''s class''s class name is ', o.somGetClass.somGetClassName);
+  WriteLn('SOMClassMgr''s name is ', SOMClassMgr.NewClass.somGetName);
+  WriteLn('SOMClassMgr''s name is ', SOMClassMgr.ClassName);
+  WriteLn('SOMClassMgr''s class object''s name is ', SOMClassMgr.NewClass.somGetClassName);
   o.somUninit;
 end;
 
