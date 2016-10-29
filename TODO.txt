@@ -1,5 +1,5 @@
 InstanceSize, InitInstance and convert Create from class function to constructor
 implement Clone
-memory management hints in arguments
 map exceptions to proper types
 array of const to vabuf and va_list in somDispatch
+support implementation

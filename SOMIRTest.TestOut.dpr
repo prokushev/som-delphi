@@ -17,7 +17,6 @@ begin
   o := SOMObject.Create;
   s := o.somGetClassName;
   WriteLn('Object''s class name is ', s);
-  SOMFree(s);
   o.somFree;
 end;
 
@@ -34,19 +33,14 @@ begin
   o := SOMObject.ClassObject.somRenew(@(a[0]));
   s := o.somGetClassName;
   WriteLn('Object''s class name is ', s);
-  SOMFree(s);
   s := o.ClassObject.somGetClassName;
   WriteLn('Object''s class''s class name is ', s);
-  SOMFree(s);
   s := o.somGetClass.somGetClassName;
   WriteLn('Object''s class''s class name is ', s);
-  SOMFree(s);
   s := SOMClassMgr.NewClass.somGetName;
   WriteLn('SOMClassMgr''s name is ', s);
-  SOMFree(s);
   s := SOMClassMgr.NewClass.somGetClassName;
   WriteLn('SOMClassMgr''s class object''s name is ', s);
-  SOMFree(s);
   o.somUninit;
 end;
 

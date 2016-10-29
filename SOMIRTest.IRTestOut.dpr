@@ -938,6 +938,30 @@ begin
   end;
 end;
 
+function GetOwnerHints(const Name, caller_owns_parameters, object_owns_parameters, dual_owned_parameters, suppress_inout_free: string): string;
+var
+  Commas_Name: string;
+begin
+  Result := '';
+  Commas_Name := ', ' + Name + ',';
+  if Pos(Commas_Name, caller_owns_parameters) > 0 then
+  begin
+    Result := Result + '{caller_owns} ';
+  end;
+  if Pos(Commas_Name, object_owns_parameters) > 0 then
+  begin
+    Result := Result + '{object_owns} ';
+  end;
+  if Pos(Commas_Name, dual_owned_parameters) > 0 then
+  begin
+    Result := Result + '{dual_owned} ';
+  end;
+  if Pos(Commas_Name, suppress_inout_free) > 0 then
+  begin
+    Result := Result + '{suppress_inout_free} ';
+  end;
+end;
+
 procedure TSOMIRImporter.WriteMethodArguments(const CurrentNamespace: string; Pass: TWriteTypePass; Definition: OperationDef; const OverrideFromObj: string = '');
 var
   Contents: _IDL_SEQUENCE_Contained;
@@ -948,10 +972,13 @@ var
   WasArgument: Boolean;
   TC: TypeCode;
   Kind: TCKind;
-  Name: string;
+  Name, NameOwnerHints: string;
   Index: Integer;
   OriginalClassId, OriginalClass: string;
   QL: TSOMIRQuickLookupForClass;
+  Modifiers: _IDL_SEQUENCE_somModifier;
+  Modifier: somModifier;
+  caller_owns_parameters, object_owns_parameters, dual_owned_parameters, suppress_inout_free: string;
 begin
   if Pass = wtpTypeDef then Exit;
   Contents := Definition.contents('all', False);
@@ -962,6 +989,30 @@ begin
     if Pass > wtpOnDemand then
     begin
       Write(F, '(');
+      Modifiers := Definition.somModifiers;
+      if Modifiers._length > 0 then
+      begin
+        for I := 0 to Modifiers._length - 1 do
+        begin
+          Modifier := Modifiers._buffer[I];
+          if Modifier.name = 'caller_owns_parameters' then
+          begin
+            caller_owns_parameters := ', ' + Modifier.value + ',';
+          end
+          else if Modifier.name = 'caller_owns_parameters' then
+          begin
+            caller_owns_parameters := ', ' + Modifier.value + ',';
+          end
+          else if Modifier.name = 'dual_owned_parameters' then
+          begin
+            dual_owned_parameters := ', ' + Modifier.value + ',';
+          end
+          else if Modifier.name = 'suppress_inout_free' then
+          begin
+            suppress_inout_free := ', ' + Modifier.value + ',';
+          end;
+        end;
+      end;
     end;
 
     if Pass = wtpLowLevelImplementation then
@@ -1011,7 +1062,13 @@ begin
             Write(F, '; ');
           end;
           case Mode of
-          ParameterDef_IN: if (Kind = tk_struct) or (Kind = tk_union) or (Kind = tk_self) or (Kind = tk_any) or (Kind = tk_sequence) or (Kind = tk_array) then Write(F, 'const ');
+          ParameterDef_IN:
+            // http://octagram.name/pub/somobjects/3.0beta/pdf/som/sdclient.pdf page 12 (250)
+            // Introduced Pointers: When passed as parameters, some data types in some directions
+            // have a required pointer introduced by the mapping from IDL to C or C++. The following
+            // table shows when these pointers are introduced:
+            if (Kind = tk_struct) or (Kind = tk_union) or (Kind = tk_self) or (Kind = tk_any) or
+               (Kind = tk_sequence) or (Kind = tk_array) then Write(F, 'const ');
           ParameterDef_OUT: Write(F, 'out ');
           ParameterDef_INOUT: Write(F, 'var ');
           else Write(F, '{unknown mode ', LongWord(Mode), '}');
@@ -1019,20 +1076,21 @@ begin
 
           Name := ItemPD.name;
           Write(F, UnreserveIdentifier(Name));
+          NameOwnerHints := GetOwnerHints(Name, caller_owns_parameters, object_owns_parameters, dual_owned_parameters, suppress_inout_free);
         end;
 
         if (OverrideFromObj <> '') and (Name = 'fromObj') then
         begin
           if Pass > wtpOnDemand then
           begin
-            Write(F, ': ', OverrideFromObj);
+            Write(F, ': ', NameOwnerHints, OverrideFromObj);
           end;
         end
         else if Mode = ParameterDef_IN then
         begin
           if Pass > wtpOnDemand then
           begin
-            Write(F, ': ');
+            Write(F, ': ', NameOwnerHints);
           end;
           WriteType(CurrentNamespace, Pass, TC);
         end
@@ -1040,7 +1098,7 @@ begin
         begin
           if Pass > wtpOnDemand then
           begin
-            Write(F, ': ');
+            Write(F, ': ', NameOwnerHints);
           end;
           WriteType(CurrentNamespace, Pass, TC);
         end
@@ -1052,7 +1110,7 @@ begin
             // tried to avoid this foreign type, but failed
             if Pass > wtpOnDemand then
             begin
-              Write(F, ': ', Name);
+              Write(F, ': ', NameOwnerHints, Name);
             end;
           end
           else
@@ -1060,7 +1118,7 @@ begin
             // managed to avoid this foreign type by writing "var X" and "out X" arguments
             if Pass > wtpOnDemand then
             begin
-              Write(F, '{: opaque ', Name, '}');
+              Write(F, '{: opaque ', NameOwnerHints, Name, '}');
             end;
           end;
         end;
@@ -1069,6 +1127,7 @@ begin
       begin
         if Pass > wtpOnDemand then
         begin
+          // should not happen
           Write(F, '{ Found item: ', Item.name, ' }');
         end;
       end;
@@ -1103,6 +1162,8 @@ var
   QL: TSOMIRQuickLookupForClass;
   Index: Integer;
   Fix_EAX_EDX: Boolean;
+  Modifiers: _IDL_SEQUENCE_somModifier;
+  Modifier: somModifier;
 begin
   if Pass = wtpTypeDef then Exit;
   Fix_EAX_EDX := False;
@@ -1205,6 +1266,26 @@ begin
     if Pass > wtpOnDemand then
     begin
       Write(F, ': ');
+      Modifiers := Definition.somModifiers;
+      if Modifiers._length > 0 then
+      begin
+        for I := 0 to Modifiers._length - 1 do
+        begin
+          Modifier := Modifiers._buffer[I];
+          if Modifier.name = 'dual_owned_result' then
+          begin
+            Write(F, '{dual_owned} ');
+          end
+          else if Modifier.name = 'caller_owns_result' then
+          begin
+            Write(F, '{caller_owns} ');
+          end
+          else if Modifier.name = 'object_owns_result' then
+          begin
+            Write(F, '{object_owns} ');
+          end;
+        end;
+      end;
     end;
     if (Pass = wtpLowLevelImplementation) and ((Result_Kind = tk_any) or
                                                (((Result_Kind = tk_struct) or (Result_Kind = tk_array) or (Result_Kind = tk_union)) and IsTroublesomeSize(Result_TC.Size))) then
@@ -1322,8 +1403,6 @@ begin
       Write(F, ')');
     end;
     WriteLn(F, ';');
-
-    // TODO check exception!!!!!!!!!!
 
     if not QL.OIDL then
     begin
@@ -2141,7 +2220,7 @@ begin
             begin
               WriteLn(F, '  ', IdToImportedType(CurrentNamespace + ExtractName(TC, I), CurrentNamespace), ' = ', ImportedType, '(', I - 1, ');');
             end;
-          end // TODO also check emitter framework enums!!!!!!!!!!!!!!! they are 0-based and byte (not LongWord) sometimes
+          end
           else
           begin
             for I := 1 to ParamCount - 1 do

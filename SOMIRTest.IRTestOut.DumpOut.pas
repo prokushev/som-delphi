@@ -881,7 +881,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -921,13 +921,13 @@ type
   Contained = class(SOMObjectBase)
   private
     function _get_name: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_id: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_defined_in: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: Contained;
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -946,7 +946,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -979,17 +979,17 @@ type
   AttributeDef = class(SOMObjectBase)
   private
     function _get_type: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_type(SOM_type: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_mode: AttributeDef_AttributeMode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_mode(mode: AttributeDef_AttributeMode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_name: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_id: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_defined_in: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: AttributeDef;
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1008,7 +1008,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1069,7 +1069,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1116,7 +1116,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1167,7 +1167,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1217,7 +1217,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1246,17 +1246,17 @@ type
   ConstantDef = class(SOMObjectBase)
   private
     function _get_type: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_type(SOM_type: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_value: any; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_value(const value: any); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_value(const value: {caller_owns} any); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_name: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_id: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_defined_in: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: ConstantDef;
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1275,7 +1275,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1323,8 +1323,8 @@ type
   Container = class(SOMObjectBase)
   public
     class function Create: Container;
-    function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function lookup_name(search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1340,7 +1340,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1394,7 +1394,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1444,7 +1444,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1473,15 +1473,15 @@ type
   ExceptionDef = class(SOMObjectBase)
   private
     function _get_type: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_type(SOM_type: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_name: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_id: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_defined_in: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: ExceptionDef;
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1500,7 +1500,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1566,7 +1566,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1634,7 +1634,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1663,17 +1663,17 @@ type
   InterfaceDef = class(SOMObjectBase)
   private
     function _get_base_interfaces: _IDL_Sequence_CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_base_interfaces(const base_interfaces: _IDL_Sequence_CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_base_interfaces(const base_interfaces: {caller_owns} _IDL_Sequence_CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_instanceData: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_instanceData(instanceData: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_instanceData(instanceData: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_name: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_id: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_defined_in: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: InterfaceDef;
     function describe_interface: InterfaceDef_FullInterfaceDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1693,7 +1693,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1705,8 +1705,8 @@ type
     function somPrintSelf: InterfaceDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function lookup_name(search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
     { Class object access and initialization }
@@ -1733,13 +1733,13 @@ type
   ModuleDef = class(SOMObjectBase)
   private
     function _get_name: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_id: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_defined_in: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: ModuleDef;
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1758,7 +1758,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1770,8 +1770,8 @@ type
     function somPrintSelf: ModuleDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function lookup_name(search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
     { Class object access and initialization }
@@ -1816,7 +1816,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1864,7 +1864,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1899,13 +1899,13 @@ type
     function _get_contexts: _IDL_Sequence_CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_contexts(const contexts: _IDL_Sequence_CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_name: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_id: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_defined_in: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: OperationDef;
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1924,7 +1924,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -1936,8 +1936,8 @@ type
     function somPrintSelf: OperationDef; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelf(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDumpSelfInt(level: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function lookup_name(search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 
     { Class object access and initialization }
@@ -1984,7 +1984,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2013,17 +2013,17 @@ type
   ParameterDef = class(SOMObjectBase)
   private
     function _get_type: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_type(SOM_type: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_mode: ParameterDef_ParameterMode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_mode(mode: ParameterDef_ParameterMode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_name: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_id: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_defined_in: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: ParameterDef;
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2042,7 +2042,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2097,7 +2097,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2131,8 +2131,8 @@ type
     function lookup_id(search_id: CORBAString): Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function lookup_modifier(name: CORBAString; modifier: CORBAString): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure release_cache; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function lookup_name(search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function describe_contents(limit_type: CORBAString; exclude_inherited: CORBABoolean; max_returned_objs: LongInt): _IDL_Sequence_Container_ContainerDescription; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2148,7 +2148,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2197,7 +2197,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2259,7 +2259,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2338,7 +2338,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2413,7 +2413,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2536,7 +2536,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2634,7 +2634,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2719,7 +2719,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2809,7 +2809,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -2964,7 +2964,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3034,7 +3034,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3108,7 +3108,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3184,7 +3184,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3288,7 +3288,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3396,7 +3396,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3483,7 +3483,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3569,7 +3569,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3646,7 +3646,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3721,7 +3721,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3798,7 +3798,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3875,7 +3875,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -3949,7 +3949,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4018,7 +4018,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4103,7 +4103,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4172,7 +4172,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4221,7 +4221,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4289,13 +4289,13 @@ type
     function somGetMethodDescriptor(methodId: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetMethodIndex(id: somId): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetMethodToken(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNthMethodData(n: LongInt; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNthMethodInfo(n: LongInt; out descriptor: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNumMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNumStaticMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetParent: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetParents: {dual_owned} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetPClsMtab: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetPClsMtabs: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somGetVersionNumbers(out majorVersion: LongInt; out minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4324,7 +4324,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4397,13 +4397,13 @@ type
     function somGetMethodDescriptor(methodId: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetMethodIndex(id: somId): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetMethodToken(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNthMethodData(n: LongInt; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNthMethodInfo(n: LongInt; out descriptor: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNumMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNumStaticMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetParent: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetParents: {dual_owned} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetPClsMtab: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetPClsMtabs: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somGetVersionNumbers(out majorVersion: LongInt; out minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4432,7 +4432,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4506,13 +4506,13 @@ type
     function somGetMethodDescriptor(methodId: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetMethodIndex(id: somId): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetMethodToken(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNthMethodData(n: LongInt; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNthMethodInfo(n: LongInt; out descriptor: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNumMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNumStaticMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetParent: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetParents: {dual_owned} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetPClsMtab: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetPClsMtabs: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somGetVersionNumbers(out majorVersion: LongInt; out minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4541,7 +4541,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4578,26 +4578,26 @@ type
   private
     function _get_somInterfaceRepository: Repository; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure _set_somInterfaceRepository(somInterfaceRepository: Repository); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function _get_somRegisteredClasses: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function _get_somRegisteredClasses: {caller_owns} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: SOMClassMgr;
-    function somLoadClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somLocateClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somLoadClassFile(classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: {caller_owns} CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somLocateClassFile(classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somRegisterClass(classObj: SOMClass); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure somRegisterClassLibrary(libraryName: CORBAString; libraryInitRtn: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure somUnregisterClassLibrary(libraryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure somRegisterClassLibrary(libraryName: {caller_owns} CORBAString; libraryInitRtn: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure somUnregisterClassLibrary(libraryName: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somUnloadClassFile(classObj: SOMClass): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somUnregisterClass(classObj: SOMClass): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somBeginPersistentClasses; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somEndPersistentClasses; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somJoinAffinityGroup(SOM_newClass: SOMClass; affClass: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetInitFunction: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetRelatedClasses(classObj: SOMClass): PSOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somClassFromId(classId: somId): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somFindClass(classId: somId; majorVersion: LongInt; minorVersion: LongInt): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somFindClsInFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetRelatedClasses(classObj: SOMClass): {caller_owns} PSOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somClassFromId(classId: {caller_owns} somId): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somFindClass(classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somFindClsInFile(classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: {caller_owns} CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somMergeInto(targetObj: SOMObject); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somSubstituteClass(origClassName: CORBAString; newClassName: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somSubstituteClass(origClassName: {caller_owns} CORBAString; newClassName: {caller_owns} CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultInit(var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDestruct(doFree: Byte; var ctrl: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somDefaultCopyInit(var ctrl: Pointer; fromObj: SOMClassMgr); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4612,7 +4612,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4667,7 +4667,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4727,7 +4727,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4794,13 +4794,13 @@ type
     function somGetMethodDescriptor(methodId: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetMethodIndex(id: somId): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetMethodToken(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNthMethodData(n: LongInt; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNthMethodInfo(n: LongInt; out descriptor: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNumMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNumStaticMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetParent: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetParents: {dual_owned} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetPClsMtab: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetPClsMtabs: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somGetVersionNumbers(out majorVersion: LongInt; out minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4829,7 +4829,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4896,7 +4896,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4948,7 +4948,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -4995,7 +4995,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5056,7 +5056,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5142,7 +5142,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5198,7 +5198,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5270,13 +5270,13 @@ type
     function somGetMethodDescriptor(methodId: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetMethodIndex(id: somId): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetMethodToken(methodId: somId): Pointer; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNthMethodData(n: LongInt; out md: somMethodDataStruct): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNthMethodInfo(n: LongInt; out descriptor: somId): somId; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNumMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetNumStaticMethods: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetParent: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetParents: {dual_owned} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetPClsMtab: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetPClsMtabs: PsomMethodTabList; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somGetVersionNumbers(out majorVersion: LongInt; out minorVersion: LongInt); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5305,7 +5305,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5362,7 +5362,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5413,7 +5413,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMMSingleInstance; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5444,15 +5444,15 @@ type
   TypeDef = class(SOMObjectBase)
   private
     function _get_type: TypeCode; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_type(SOM_type: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_name: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_id: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_defined_in: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function _get_somModifiers: _IDL_Sequence_somModifier; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    procedure _set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    procedure _set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
   public
     class function Create: TypeDef;
     function within: _IDL_Sequence_Container; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5471,7 +5471,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -5524,7 +5524,7 @@ type
     procedure somFree; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     procedure somUninit; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetClass: SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
-    function somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+    function somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somGetSize: LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsA(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
     function somIsInstanceOf(aClassObj: SOMClass): CORBABoolean; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
@@ -6889,9 +6889,9 @@ end;
  * New Method: somGetClassName
  *)
 type
-  somTD_SOMObject_somGetClassName = function(somSelf: SOMObjectBase): CORBAString; stdcall;
+  somTD_SOMObject_somGetClassName = function(somSelf: SOMObjectBase): {dual_owned} CORBAString; stdcall;
 
-function SOMObject.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMObject.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -7292,9 +7292,9 @@ end;
  * New Method: _set_name
  *)
 type
-  somTD_Contained__set_name = procedure(somSelf: SOMObjectBase{Contained}; ev: PEnvironment; name: CORBAString); stdcall;
+  somTD_Contained__set_name = procedure(somSelf: SOMObjectBase{Contained}; ev: PEnvironment; name: {caller_owns} CORBAString); stdcall;
 
-procedure Contained._set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure Contained._set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -7331,9 +7331,9 @@ end;
  * New Method: _set_id
  *)
 type
-  somTD_Contained__set_id = procedure(somSelf: SOMObjectBase{Contained}; ev: PEnvironment; id: CORBAString); stdcall;
+  somTD_Contained__set_id = procedure(somSelf: SOMObjectBase{Contained}; ev: PEnvironment; id: {caller_owns} CORBAString); stdcall;
 
-procedure Contained._set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure Contained._set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -7370,9 +7370,9 @@ end;
  * New Method: _set_defined_in
  *)
 type
-  somTD_Contained__set_defined_in = procedure(somSelf: SOMObjectBase{Contained}; ev: PEnvironment; defined_in: CORBAString); stdcall;
+  somTD_Contained__set_defined_in = procedure(somSelf: SOMObjectBase{Contained}; ev: PEnvironment; defined_in: {caller_owns} CORBAString); stdcall;
 
-procedure Contained._set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure Contained._set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -7409,9 +7409,9 @@ end;
  * New Method: _set_somModifiers
  *)
 type
-  somTD_Contained__set_somModifiers = procedure(somSelf: SOMObjectBase{Contained}; ev: PEnvironment; const somModifiers: _IDL_Sequence_somModifier); stdcall;
+  somTD_Contained__set_somModifiers = procedure(somSelf: SOMObjectBase{Contained}; ev: PEnvironment; const somModifiers: {caller_owns} _IDL_Sequence_somModifier); stdcall;
 
-procedure Contained._set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure Contained._set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -7628,7 +7628,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function Contained.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Contained.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -7943,9 +7943,9 @@ end;
  * New Method: _set_type
  *)
 type
-  somTD_AttributeDef__set_type = procedure(somSelf: SOMObjectBase{AttributeDef}; ev: PEnvironment; SOM_type: TypeCode); stdcall;
+  somTD_AttributeDef__set_type = procedure(somSelf: SOMObjectBase{AttributeDef}; ev: PEnvironment; SOM_type: {caller_owns} TypeCode); stdcall;
 
-procedure AttributeDef._set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure AttributeDef._set_type(SOM_type: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PAttributeDefClassDataStructure;
   LocalEnv: Environment;
@@ -8011,7 +8011,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure AttributeDef._set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure AttributeDef._set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -8038,7 +8038,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure AttributeDef._set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure AttributeDef._set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -8065,7 +8065,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure AttributeDef._set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure AttributeDef._set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -8092,7 +8092,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure AttributeDef._set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure AttributeDef._set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -8297,7 +8297,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function AttributeDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function AttributeDef.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -8977,7 +8977,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function BOA.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function BOA.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -9529,7 +9529,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMEEvent.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMEEvent.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -10116,7 +10116,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMEClientEvent.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMEClientEvent.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -10704,7 +10704,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function Context.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Context.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -11019,9 +11019,9 @@ end;
  * New Method: _set_type
  *)
 type
-  somTD_ConstantDef__set_type = procedure(somSelf: SOMObjectBase{ConstantDef}; ev: PEnvironment; SOM_type: TypeCode); stdcall;
+  somTD_ConstantDef__set_type = procedure(somSelf: SOMObjectBase{ConstantDef}; ev: PEnvironment; SOM_type: {caller_owns} TypeCode); stdcall;
 
-procedure ConstantDef._set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ConstantDef._set_type(SOM_type: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PConstantDefClassDataStructure;
   LocalEnv: Environment;
@@ -11058,9 +11058,9 @@ end;
  * New Method: _set_value
  *)
 type
-  somTD_ConstantDef__set_value = procedure(somSelf: SOMObjectBase{ConstantDef}; ev: PEnvironment; const value: any); stdcall;
+  somTD_ConstantDef__set_value = procedure(somSelf: SOMObjectBase{ConstantDef}; ev: PEnvironment; const value: {caller_owns} any); stdcall;
 
-procedure ConstantDef._set_value(const value: any); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ConstantDef._set_value(const value: {caller_owns} any); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PConstantDefClassDataStructure;
   LocalEnv: Environment;
@@ -11087,7 +11087,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ConstantDef._set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ConstantDef._set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -11114,7 +11114,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ConstantDef._set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ConstantDef._set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -11141,7 +11141,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ConstantDef._set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ConstantDef._set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -11168,7 +11168,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ConstantDef._set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ConstantDef._set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -11373,7 +11373,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function ConstantDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function ConstantDef.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -11677,9 +11677,9 @@ end;
  * New Method: contents
  *)
 type
-  somTD_Container_contents = function(somSelf: SOMObjectBase{Container}; ev: PEnvironment; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; stdcall;
+  somTD_Container_contents = function(somSelf: SOMObjectBase{Container}; ev: PEnvironment; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; stdcall;
 
-function Container.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Container.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainerClassDataStructure;
   LocalEnv: Environment;
@@ -11697,9 +11697,9 @@ end;
  * New Method: lookup_name
  *)
 type
-  somTD_Container_lookup_name = function(somSelf: SOMObjectBase{Container}; ev: PEnvironment; search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; stdcall;
+  somTD_Container_lookup_name = function(somSelf: SOMObjectBase{Container}; ev: PEnvironment; search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; stdcall;
 
-function Container.lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Container.lookup_name(search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainerClassDataStructure;
   LocalEnv: Environment;
@@ -11892,7 +11892,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function Container.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Container.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -12566,7 +12566,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMEEMan.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMEEMan.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -13157,7 +13157,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMEEMRegisterData.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMEEMRegisterData.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -13470,9 +13470,9 @@ end;
  * New Method: _set_type
  *)
 type
-  somTD_ExceptionDef__set_type = procedure(somSelf: SOMObjectBase{ExceptionDef}; ev: PEnvironment; SOM_type: TypeCode); stdcall;
+  somTD_ExceptionDef__set_type = procedure(somSelf: SOMObjectBase{ExceptionDef}; ev: PEnvironment; SOM_type: {caller_owns} TypeCode); stdcall;
 
-procedure ExceptionDef._set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ExceptionDef._set_type(SOM_type: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PExceptionDefClassDataStructure;
   LocalEnv: Environment;
@@ -13499,7 +13499,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ExceptionDef._set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ExceptionDef._set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -13526,7 +13526,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ExceptionDef._set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ExceptionDef._set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -13553,7 +13553,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ExceptionDef._set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ExceptionDef._set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -13580,7 +13580,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ExceptionDef._set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ExceptionDef._set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -13785,7 +13785,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function ExceptionDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function ExceptionDef.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -14574,7 +14574,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function ImplementationDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function ImplementationDef.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -15256,7 +15256,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function ImplRepository.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function ImplRepository.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -15572,9 +15572,9 @@ end;
  * New Method: _set_base_interfaces
  *)
 type
-  somTD_InterfaceDef__set_base_interfaces = procedure(somSelf: SOMObjectBase{InterfaceDef}; ev: PEnvironment; const base_interfaces: _IDL_Sequence_CORBAString); stdcall;
+  somTD_InterfaceDef__set_base_interfaces = procedure(somSelf: SOMObjectBase{InterfaceDef}; ev: PEnvironment; const base_interfaces: {caller_owns} _IDL_Sequence_CORBAString); stdcall;
 
-procedure InterfaceDef._set_base_interfaces(const base_interfaces: _IDL_Sequence_CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure InterfaceDef._set_base_interfaces(const base_interfaces: {caller_owns} _IDL_Sequence_CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PInterfaceDefClassDataStructure;
   LocalEnv: Environment;
@@ -15611,9 +15611,9 @@ end;
  * New Method: _set_instanceData
  *)
 type
-  somTD_InterfaceDef__set_instanceData = procedure(somSelf: SOMObjectBase{InterfaceDef}; ev: PEnvironment; instanceData: TypeCode); stdcall;
+  somTD_InterfaceDef__set_instanceData = procedure(somSelf: SOMObjectBase{InterfaceDef}; ev: PEnvironment; instanceData: {caller_owns} TypeCode); stdcall;
 
-procedure InterfaceDef._set_instanceData(instanceData: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure InterfaceDef._set_instanceData(instanceData: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PInterfaceDefClassDataStructure;
   LocalEnv: Environment;
@@ -15640,7 +15640,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure InterfaceDef._set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure InterfaceDef._set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -15667,7 +15667,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure InterfaceDef._set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure InterfaceDef._set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -15694,7 +15694,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure InterfaceDef._set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure InterfaceDef._set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -15721,7 +15721,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure InterfaceDef._set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure InterfaceDef._set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -15946,7 +15946,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function InterfaceDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function InterfaceDef.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -16088,7 +16088,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function InterfaceDef.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function InterfaceDef.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainerClassDataStructure;
   LocalEnv: Environment;
@@ -16102,7 +16102,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-function InterfaceDef.lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function InterfaceDef.lookup_name(search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainerClassDataStructure;
   LocalEnv: Environment;
@@ -16299,7 +16299,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ModuleDef._set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ModuleDef._set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -16326,7 +16326,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ModuleDef._set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ModuleDef._set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -16353,7 +16353,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ModuleDef._set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ModuleDef._set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -16380,7 +16380,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ModuleDef._set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ModuleDef._set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -16585,7 +16585,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function ModuleDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function ModuleDef.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -16727,7 +16727,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function ModuleDef.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function ModuleDef.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainerClassDataStructure;
   LocalEnv: Environment;
@@ -16741,7 +16741,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-function ModuleDef.lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function ModuleDef.lookup_name(search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainerClassDataStructure;
   LocalEnv: Environment;
@@ -17216,7 +17216,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function NVList.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function NVList.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -17770,7 +17770,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function ObjectMgr.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function ObjectMgr.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -18194,7 +18194,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure OperationDef._set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure OperationDef._set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -18221,7 +18221,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure OperationDef._set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure OperationDef._set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -18248,7 +18248,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure OperationDef._set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure OperationDef._set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -18275,7 +18275,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure OperationDef._set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure OperationDef._set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -18480,7 +18480,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function OperationDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function OperationDef.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -18622,7 +18622,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function OperationDef.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function OperationDef.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainerClassDataStructure;
   LocalEnv: Environment;
@@ -18636,7 +18636,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-function OperationDef.lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function OperationDef.lookup_name(search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainerClassDataStructure;
   LocalEnv: Environment;
@@ -19090,7 +19090,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function ORB.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function ORB.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -19405,9 +19405,9 @@ end;
  * New Method: _set_type
  *)
 type
-  somTD_ParameterDef__set_type = procedure(somSelf: SOMObjectBase{ParameterDef}; ev: PEnvironment; SOM_type: TypeCode); stdcall;
+  somTD_ParameterDef__set_type = procedure(somSelf: SOMObjectBase{ParameterDef}; ev: PEnvironment; SOM_type: {caller_owns} TypeCode); stdcall;
 
-procedure ParameterDef._set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ParameterDef._set_type(SOM_type: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PParameterDefClassDataStructure;
   LocalEnv: Environment;
@@ -19473,7 +19473,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ParameterDef._set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ParameterDef._set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -19500,7 +19500,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ParameterDef._set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ParameterDef._set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -19527,7 +19527,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ParameterDef._set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ParameterDef._set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -19554,7 +19554,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure ParameterDef._set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure ParameterDef._set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -19759,7 +19759,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function ParameterDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function ParameterDef.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -20297,7 +20297,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function Principal.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Principal.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -20651,7 +20651,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-function Repository.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Repository.contents(limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainerClassDataStructure;
   LocalEnv: Environment;
@@ -20665,7 +20665,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-function Repository.lookup_name(search_name: CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Repository.lookup_name(search_name: {caller_owns} CORBAString; levels_to_search: LongInt; limit_type: CORBAString; exclude_inherited: CORBABoolean): {caller_owns} _IDL_Sequence_Contained; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainerClassDataStructure;
   LocalEnv: Environment;
@@ -20852,7 +20852,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function Repository.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Repository.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -21427,7 +21427,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function Request.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Request.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -22238,7 +22238,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -23054,7 +23054,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTAttributeEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTAttributeEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -23742,7 +23742,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTBaseClassEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTBaseClassEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -25361,7 +25361,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTClassEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTClassEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -26221,7 +26221,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTCommonEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTCommonEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -27023,7 +27023,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTConstEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTConstEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -27831,7 +27831,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTDataEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTDataEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -29985,7 +29985,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTEmitC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTEmitC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -30687,7 +30687,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTEnumEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTEnumEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -31394,7 +31394,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTEnumNameEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTEnumNameEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -32101,7 +32101,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTMetaClassEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTMetaClassEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -33257,7 +33257,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTMethodEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTMethodEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -34311,7 +34311,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTModuleEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTModuleEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -35157,7 +35157,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTParameterEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTParameterEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -35907,7 +35907,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTPassthruEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTPassthruEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -36615,7 +36615,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTSequenceEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTSequenceEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -37303,7 +37303,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTStringEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTStringEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -38048,7 +38048,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTStructEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTStructEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -38774,7 +38774,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTTypedefEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTTypedefEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -39578,7 +39578,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTTemplateOutputC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTTemplateOutputC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -40299,7 +40299,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTUnionEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTUnionEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -41126,7 +41126,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMTUserDefinedTypeEntryC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMTUserDefinedTypeEntryC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -41734,7 +41734,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMDServerMgr.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMDServerMgr.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -42280,7 +42280,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMESinkEvent.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMESinkEvent.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -43297,9 +43297,9 @@ end;
  * New Method: somGetName
  *)
 type
-  somTD_SOMClass_somGetName = function(somSelf: SOMObjectBase{SOMClass}): CORBAString; stdcall;
+  somTD_SOMClass_somGetName = function(somSelf: SOMObjectBase{SOMClass}): {dual_owned} CORBAString; stdcall;
 
-function SOMClass.somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClass.somGetName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -43405,9 +43405,9 @@ end;
  * New Method: somGetParents
  *)
 type
-  somTD_SOMClass_somGetParents = function(somSelf: SOMObjectBase{SOMClass}): _IDL_Sequence_SOMClass; stdcall;
+  somTD_SOMClass_somGetParents = function(somSelf: SOMObjectBase{SOMClass}): {dual_owned} _IDL_Sequence_SOMClass; stdcall;
 
-function SOMClass.somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClass.somGetParents: {dual_owned} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -43828,7 +43828,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMClass.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClass.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -44585,7 +44585,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMMSingleInstance.somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMMSingleInstance.somGetName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -44657,7 +44657,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMMSingleInstance.somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMMSingleInstance.somGetParents: {dual_owned} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -44994,7 +44994,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMMSingleInstance.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMMSingleInstance.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -45756,7 +45756,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMMBeforeAfter.somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMMBeforeAfter.somGetName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -45828,7 +45828,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMMBeforeAfter.somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMMBeforeAfter.somGetParents: {dual_owned} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -46165,7 +46165,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMMBeforeAfter.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMMBeforeAfter.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -46518,9 +46518,9 @@ end;
  * New Method: _get_somRegisteredClasses
  *)
 type
-  somTD_SOMClassMgr__get_somRegisteredClasses = function(somSelf: SOMObjectBase{SOMClassMgr}): _IDL_Sequence_SOMClass; stdcall;
+  somTD_SOMClassMgr__get_somRegisteredClasses = function(somSelf: SOMObjectBase{SOMClassMgr}): {caller_owns} _IDL_Sequence_SOMClass; stdcall;
 
-function SOMClassMgr._get_somRegisteredClasses: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClassMgr._get_somRegisteredClasses: {caller_owns} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassMgrClassDataStructure;
 begin
@@ -46541,9 +46541,9 @@ end;
  * New Method: somLoadClassFile
  *)
 type
-  somTD_SOMClassMgr_somLoadClassFile = function(somSelf: SOMObjectBase{SOMClassMgr}; classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; stdcall;
+  somTD_SOMClassMgr_somLoadClassFile = function(somSelf: SOMObjectBase{SOMClassMgr}; classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: {caller_owns} CORBAString): SOMClass; stdcall;
 
-function SOMClassMgr.somLoadClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClassMgr.somLoadClassFile(classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: {caller_owns} CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassMgrClassDataStructure;
 begin
@@ -46559,9 +46559,9 @@ end;
  * New Method: somLocateClassFile
  *)
 type
-  somTD_SOMClassMgr_somLocateClassFile = function(somSelf: SOMObjectBase{SOMClassMgr}; classId: somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; stdcall;
+  somTD_SOMClassMgr_somLocateClassFile = function(somSelf: SOMObjectBase{SOMClassMgr}; classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; stdcall;
 
-function SOMClassMgr.somLocateClassFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClassMgr.somLocateClassFile(classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt): CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassMgrClassDataStructure;
 begin
@@ -46594,9 +46594,9 @@ end;
  * New Method: somRegisterClassLibrary
  *)
 type
-  somTD_SOMClassMgr_somRegisterClassLibrary = procedure(somSelf: SOMObjectBase{SOMClassMgr}; libraryName: CORBAString; libraryInitRtn: Pointer); stdcall;
+  somTD_SOMClassMgr_somRegisterClassLibrary = procedure(somSelf: SOMObjectBase{SOMClassMgr}; libraryName: {caller_owns} CORBAString; libraryInitRtn: Pointer); stdcall;
 
-procedure SOMClassMgr.somRegisterClassLibrary(libraryName: CORBAString; libraryInitRtn: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure SOMClassMgr.somRegisterClassLibrary(libraryName: {caller_owns} CORBAString; libraryInitRtn: Pointer); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassMgrClassDataStructure;
 begin
@@ -46611,9 +46611,9 @@ end;
  * New Method: somUnregisterClassLibrary
  *)
 type
-  somTD_SOMClassMgr_somUnregisterClassLibrary = procedure(somSelf: SOMObjectBase{SOMClassMgr}; libraryName: CORBAString); stdcall;
+  somTD_SOMClassMgr_somUnregisterClassLibrary = procedure(somSelf: SOMObjectBase{SOMClassMgr}; libraryName: {caller_owns} CORBAString); stdcall;
 
-procedure SOMClassMgr.somUnregisterClassLibrary(libraryName: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure SOMClassMgr.somUnregisterClassLibrary(libraryName: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassMgrClassDataStructure;
 begin
@@ -46734,9 +46734,9 @@ end;
  * New Method: somGetRelatedClasses
  *)
 type
-  somTD_SOMClassMgr_somGetRelatedClasses = function(somSelf: SOMObjectBase{SOMClassMgr}; classObj: SOMClass): PSOMClass; stdcall;
+  somTD_SOMClassMgr_somGetRelatedClasses = function(somSelf: SOMObjectBase{SOMClassMgr}; classObj: SOMClass): {caller_owns} PSOMClass; stdcall;
 
-function SOMClassMgr.somGetRelatedClasses(classObj: SOMClass): PSOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClassMgr.somGetRelatedClasses(classObj: SOMClass): {caller_owns} PSOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassMgrClassDataStructure;
 begin
@@ -46752,9 +46752,9 @@ end;
  * New Method: somClassFromId
  *)
 type
-  somTD_SOMClassMgr_somClassFromId = function(somSelf: SOMObjectBase{SOMClassMgr}; classId: somId): SOMClass; stdcall;
+  somTD_SOMClassMgr_somClassFromId = function(somSelf: SOMObjectBase{SOMClassMgr}; classId: {caller_owns} somId): SOMClass; stdcall;
 
-function SOMClassMgr.somClassFromId(classId: somId): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClassMgr.somClassFromId(classId: {caller_owns} somId): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassMgrClassDataStructure;
 begin
@@ -46770,9 +46770,9 @@ end;
  * New Method: somFindClass
  *)
 type
-  somTD_SOMClassMgr_somFindClass = function(somSelf: SOMObjectBase{SOMClassMgr}; classId: somId; majorVersion: LongInt; minorVersion: LongInt): SOMClass; stdcall;
+  somTD_SOMClassMgr_somFindClass = function(somSelf: SOMObjectBase{SOMClassMgr}; classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt): SOMClass; stdcall;
 
-function SOMClassMgr.somFindClass(classId: somId; majorVersion: LongInt; minorVersion: LongInt): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClassMgr.somFindClass(classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassMgrClassDataStructure;
 begin
@@ -46788,9 +46788,9 @@ end;
  * New Method: somFindClsInFile
  *)
 type
-  somTD_SOMClassMgr_somFindClsInFile = function(somSelf: SOMObjectBase{SOMClassMgr}; classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; stdcall;
+  somTD_SOMClassMgr_somFindClsInFile = function(somSelf: SOMObjectBase{SOMClassMgr}; classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: {caller_owns} CORBAString): SOMClass; stdcall;
 
-function SOMClassMgr.somFindClsInFile(classId: somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClassMgr.somFindClsInFile(classId: {caller_owns} somId; majorVersion: LongInt; minorVersion: LongInt; SOM_file: {caller_owns} CORBAString): SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassMgrClassDataStructure;
 begin
@@ -46823,9 +46823,9 @@ end;
  * New Method: somSubstituteClass
  *)
 type
-  somTD_SOMClassMgr_somSubstituteClass = function(somSelf: SOMObjectBase{SOMClassMgr}; origClassName: CORBAString; newClassName: CORBAString): LongInt; stdcall;
+  somTD_SOMClassMgr_somSubstituteClass = function(somSelf: SOMObjectBase{SOMClassMgr}; origClassName: {caller_owns} CORBAString; newClassName: {caller_owns} CORBAString): LongInt; stdcall;
 
-function SOMClassMgr.somSubstituteClass(origClassName: CORBAString; newClassName: CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClassMgr.somSubstituteClass(origClassName: {caller_owns} CORBAString; newClassName: {caller_owns} CORBAString): LongInt; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassMgrClassDataStructure;
 begin
@@ -46996,7 +46996,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMClassMgr.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMClassMgr.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -47666,7 +47666,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMDObject.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMDObject.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -48406,7 +48406,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMDClientProxy.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMDClientProxy.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -49127,7 +49127,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMDMetaproxy.somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMDMetaproxy.somGetName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -49199,7 +49199,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMDMetaproxy.somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMDMetaproxy.somGetParents: {dual_owned} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -49536,7 +49536,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMDMetaproxy.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMDMetaproxy.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -50185,7 +50185,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMDObjectMgr.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMDObjectMgr.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -50786,7 +50786,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMDServer.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMDServer.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -51320,7 +51320,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMUTId.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMUTId.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -52069,7 +52069,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMOA.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMOA.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -53362,7 +53362,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function Sockets.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function Sockets.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -54021,7 +54021,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMStringTableC.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMStringTableC.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -54805,7 +54805,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMMTraced.somGetName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMMTraced.somGetName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -54877,7 +54877,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMMTraced.somGetParents: _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMMTraced.somGetParents: {dual_owned} _IDL_Sequence_SOMClass; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMClassClassDataStructure;
 begin
@@ -55214,7 +55214,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMMTraced.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMMTraced.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -55770,7 +55770,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMETimerEvent.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMETimerEvent.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -56308,7 +56308,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function TSIdentification.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function TSIdentification.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -56621,9 +56621,9 @@ end;
  * New Method: _set_type
  *)
 type
-  somTD_TypeDef__set_type = procedure(somSelf: SOMObjectBase{TypeDef}; ev: PEnvironment; SOM_type: TypeCode); stdcall;
+  somTD_TypeDef__set_type = procedure(somSelf: SOMObjectBase{TypeDef}; ev: PEnvironment; SOM_type: {caller_owns} TypeCode); stdcall;
 
-procedure TypeDef._set_type(SOM_type: TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure TypeDef._set_type(SOM_type: {caller_owns} TypeCode); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PTypeDefClassDataStructure;
   LocalEnv: Environment;
@@ -56650,7 +56650,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure TypeDef._set_name(name: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure TypeDef._set_name(name: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -56677,7 +56677,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure TypeDef._set_id(id: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure TypeDef._set_id(id: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -56704,7 +56704,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure TypeDef._set_defined_in(defined_in: CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure TypeDef._set_defined_in(defined_in: {caller_owns} CORBAString); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -56731,7 +56731,7 @@ begin
   SOM_UninitEnvironmentOrRaise(@LocalEnv);
 end;
 
-procedure TypeDef._set_somModifiers(const somModifiers: _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+procedure TypeDef._set_somModifiers(const somModifiers: {caller_owns} _IDL_Sequence_somModifier); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PContainedClassDataStructure;
   LocalEnv: Environment;
@@ -56936,7 +56936,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function TypeDef.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function TypeDef.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
@@ -57446,7 +57446,7 @@ begin
   SOM_UninitEnvironmentOrRaise(somGetGlobalEnvironment);
 end;
 
-function SOMEWorkProcEvent.somGetClassName: CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
+function SOMEWorkProcEvent.somGetClassName: {dual_owned} CORBAString; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 var
   cd: PSOMObjectClassDataStructure;
 begin
