@@ -66,7 +66,7 @@ uses
   SysUtils,
   Classes,
   TypInfo,
-  SOMIRIMP.SOM in 'SOMIRIMP.SOM.pas';
+  SOMIRTest.DumpOut in 'SOMIRTest.DumpOut.pas';
 
 function getErrorType(ec: Repository_irOpenErrorCodes): string;
 begin
@@ -2659,7 +2659,9 @@ begin
     WriteLn(F, '    function Copy: TypeCode;');
     WriteLn(F, '    procedure Free;');
     WriteLn(F, '    procedure Print;');
-    WriteLn(F, '    class function Create(tag: TCKind; ap: va_list): TypeCode;');
+    WriteLn(F, '    class function Create(tag: TCKind): TypeCode; overload;');
+    WriteLn(F, '    class function Create(tag: TCKind; const Arguments: array of const): TypeCode; overload;');
+    WriteLn(F, '    class function Create(tag: TCKind; ap: va_list): TypeCode; overload;');
     WriteLn(F, '    property Kind: TCKind read GetKind;');
     WriteLn(F, '    property ParamCount: LongInt read GetParamCount;');
     WriteLn(F, '    property Parameter[Index: LongInt]: any read GetParameter; default;');
@@ -2912,10 +2914,26 @@ begin
     WriteLn(F, '  TCREGULAR_CASE = LongInt(1);');
     WriteLn(F, '  TCDEFAULT_CASE = LongInt(2);');
     WriteLn(F);
+    WriteLn(F, '(* somVaBuf support *)');
+    WriteLn(F);
+    WriteLn(F, 'type');
+    WriteLn(F, '  somVaBuf = type somToken;');
+    WriteLn(F);
+    WriteLn(F, 'function somVaBuf_create(vb: PAnsiChar; size: Integer): somVaBuf; stdcall;');
+    WriteLn(F, 'procedure somVaBuf_get_valist(vb: somVaBuf; out ap: va_list); stdcall;');
+    WriteLn(F, 'procedure somVaBuf_destroy(vb: somVaBuf); stdcall;');
+    WriteLn(F, 'function somVaBuf_add(vb: somVaBuf; arg: Pointer; argType: TCKind): LongInt; stdcall;');
+    WriteLn(F, 'function somvalistGetTarget(ap: va_list): LongWord; stdcall;');
+    WriteLn(F, 'procedure somvalistSetTarget(ap: va_list; val: LongWord); stdcall;');
+    WriteLn(F);
     WriteLn(F, '// not in SOM headers');
     WriteLn(F);
     WriteLn(F, 'procedure SOM_UninitEnvironmentOrRaise(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
     WriteLn(F, 'procedure SOMFreeAndNil(var Obj);');
+    WriteLn(F, 'type');
+    WriteLn(F, '  TAnsiStringArray = array of AnsiString;');
+    WriteLn(F, '// init Buf with nil before; use somVaBuf_destroy on Buf after!');
+    WriteLn(F, 'function ArrayOfConstToVaList(var Buf: somVaBuf; var StringBuf: TAnsiStringArray; const Arguments: array of const; AppendNil: Boolean): va_list;');
     WriteLn(F);
     WriteLn(F, 'implementation');
     WriteLn(F);
@@ -3472,6 +3490,25 @@ begin
     WriteLn(F);
     WriteLn(F, 'function TypeCodeNewVL(tag: TCKind; ap: va_list): TypeCode; stdcall; external SOMTC_DLL_Name name ''tcNewVL'';');
     WriteLn(F);
+    WriteLn(F, 'class function TypeCode.Create(tag: TCKind): TypeCode;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Result := TypeCode.Create(tag, []);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'class function TypeCode.Create(tag: TCKind; const Arguments: array of const): TypeCode;');
+    WriteLn(F, 'var');
+    WriteLn(F, '  Buf: somVaBuf;');
+    WriteLn(F, '  StringBuf: TAnsiStringArray;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  Buf := nil;');
+    WriteLn(F, '  try');
+    WriteLn(F, '    Result := TypeCodeNewVL(tag, ArrayOfConstToVaList(Buf, StringBuf, Arguments, True));');
+    WriteLn(F, '    // if not Assigned(Result) then raise something;');  // TODO raise something
+    WriteLn(F, '  finally');
+    WriteLn(F, '    somVaBuf_destroy(Buf);');
+    WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
     WriteLn(F, 'class function TypeCode.Create(tag: TCKind; ap: va_list): TypeCode;');
     WriteLn(F, 'begin');
     WriteLn(F, '  Result := TypeCodeNewVL(tag, ap);');
@@ -3760,6 +3797,12 @@ begin
     WriteLn(F, 'end;');
     WriteLn(F);
     WriteLn(F, 'function somTestCls; external SOM_DLL_Name;');
+    WriteLn(F, 'function somVaBuf_create; external SOMTC_DLL_Name;');
+    WriteLn(F, 'procedure somVaBuf_get_valist; external SOMTC_DLL_Name;');
+    WriteLn(F, 'procedure somVaBuf_destroy; external SOMTC_DLL_Name;');
+    WriteLn(F, 'function somVaBuf_add; external SOMTC_DLL_Name;');
+    WriteLn(F, 'function somvalistGetTarget; external SOMTC_DLL_Name;');
+    WriteLn(F, 'procedure somvalistSetTarget; external SOMTC_DLL_Name;');
     WriteLn(F);
     WriteLn(F, '// not in SOM headers');
     WriteLn(F);
@@ -3788,6 +3831,61 @@ begin
     WriteLn(F, '    SOMObject(Obj).somFree;');
     WriteLn(F, '    SOMObject(Obj) := nil;');
     WriteLn(F, '  end;');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'procedure AddStringToVaBuf(var Buf: somVaBuf; var StringBuf: TAnsiStringArray; const NewStr: AnsiString);');
+    WriteLn(F, 'var');
+    WriteLn(F, '  I: Integer;');
+    WriteLn(F, '  NewPointer: PAnsiChar;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  I := Length(StringBuf);');
+    WriteLn(F, '  SetLength(StringBuf, I + 1);');
+    WriteLn(F, '  StringBuf[I] := NewStr;');
+    WriteLn(F, '  NewPointer := PAnsiChar(StringBuf[I]);');
+    WriteLn(F, '  somVaBuf_add(Buf, PAnsiChar(@NewPointer), tk_pointer);');
+    WriteLn(F, 'end;');
+    WriteLn(F);
+    WriteLn(F, 'function ArrayOfConstToVaList(var Buf: somVaBuf; var StringBuf: TAnsiStringArray; const Arguments: array of const; AppendNil: Boolean): va_list;');
+    WriteLn(F, 'var');
+    WriteLn(F, '  I: Integer;');
+    WriteLn(F, '  Temp: Single;');
+    WriteLn(F, '  Temp2: Pointer;');
+    WriteLn(F, 'begin');
+    WriteLn(F, '  if not Assigned(Buf) then');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    Buf := somVaBuf_create(nil, 0);');
+    WriteLn(F, '  end;');
+    WriteLn(F, '  for I := 0 to Length(Arguments) - 1 do');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    case Arguments[I].VType of');
+    WriteLn(F, '      vtInteger: somVaBuf_add(Buf, PAnsiChar(Pointer(@Arguments[I].VInteger)), tk_long);');
+    WriteLn(F, '      vtBoolean: somVaBuf_add(Buf, PAnsiChar(Pointer(@Arguments[I].VBoolean)), tk_boolean);');
+    WriteLn(F, '      vtChar: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VChar));');
+    WriteLn(F, '      vtExtended: begin Temp := Arguments[I].VExtended^; somVaBuf_add(Buf, PAnsiChar(Pointer(@Temp)), tk_float); end;');
+    WriteLn(F, '      vtString: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VString^));');
+    WriteLn(F, '      vtPChar: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VPChar));');
+    WriteLn(F, '      vtObject: somVaBuf_add(Buf, PAnsiChar(Pointer(@Arguments[I].VObject)), tk_pointer);');
+    WriteLn(F, '      vtClass: somVaBuf_add(Buf, PAnsiChar(Pointer(@Arguments[I].VClass)), tk_pointer); // TODO maybe convert Delphi 2 SOM here'); // TODO maybe convert Delphi 2 SOM here
+    WriteLn(F, '      vtWideChar: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VWideChar));');
+    WriteLn(F, '      vtPWideChar: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VPWideChar));');
+    WriteLn(F, '      vtAnsiString: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VAnsiString));');
+    WriteLn(F, '      vtCurrency: begin { not supported Arguments[I].VCurrency^ } end;');
+    WriteLn(F, '      vtVariant: begin { not supported Arguments[I].VVariant^ } end;');
+    WriteLn(F, '      vtInterface: begin { not supported IUnknown(Arguments[I].VInterface) } end;');
+    WriteLn(F, '      vtWideString: AddStringToVaBuf(Buf, StringBuf, AnsiString(WideString(Arguments[I].VWideString)));');
+    WriteLn(F, '      vtInt64: begin { not supported Arguments[I].VInt64^ } end;');
+    WriteLn(F, '      vtPointer: somVaBuf_add(Buf, PAnsiChar(Pointer(@Arguments[I].VPointer)), tk_pointer);');
+    WriteLn(F, '      {$IFDEF DELPHI_IS_UNICODE}');
+    WriteLn(F, '      vtUnicodeString: AddStringToVaBuf(Buf, StringBuf, AnsiString(UnicodeString(Arguments[I].VUnicodeString)));');
+    WriteLn(F, '      {$ENDIF}');
+    WriteLn(F, '    end;');
+    WriteLn(F, '  end;');
+    WriteLn(F, '  if AppendNil then');
+    WriteLn(F, '  begin');
+    WriteLn(F, '    Temp2 := nil;');
+    WriteLn(F, '    somVaBuf_add(Buf, PAnsiChar(Pointer(@Temp)), tk_pointer);');
+    WriteLn(F, '  end;');
+    WriteLn(F, '  somVaBuf_get_valist(Buf, Result);');
     WriteLn(F, 'end;');
     WriteLn(F);
     WriteLn(F, 'initialization');
@@ -3855,7 +3953,7 @@ begin
     end; }
 
     WriteLn('IR opened');
-    imp := TSOMIRImporter.Create('SOMIRTest.DumpOut', repo);
+    imp := TSOMIRImporter.Create('SOMIRTest.IRTestOut.DumpOut', repo);
     try
       imp.WriteRepository;
     finally

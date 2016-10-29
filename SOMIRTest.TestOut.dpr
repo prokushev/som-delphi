@@ -50,40 +50,36 @@ begin
   o.somUninit;
 end;
 
-(*
-function TypeCodeNew(tag: TCKind): TypeCode; cdecl; varargs; external 'somtc.dll' name 'tcNew';
-
 procedure TestAlignmentAndSize;
 var
   MyTC: TypeCode;
 begin
-  MyTC := TypeCodeNew(tk_struct, 'Test_1',
-                        'Byte', TypeCodeNew(tk_octet),
-                        'Integer', TypeCodeNew(tk_long),
-                      nil);
+  MyTC := TypeCode.Create(tk_struct, ['Test_1',
+                            'VByte', TypeCode.Create(tk_octet),
+                            'VInteger', TypeCode.Create(tk_long)
+                          ]);
   WriteLn('Test_1 size: ', MyTC.Size);
   MyTC.Free;
-  MyTC := TypeCodeNew(tk_struct, 'Test_2',
-                        'Byte', TypeCodeNew(tk_octet),
-                        'Subrecord', TypeCodeNew(tk_struct, 'Test_1',
-                          'Byte', TypeCodeNew(tk_octet),
-                          'Integer', TypeCodeNew(tk_long),
-                        nil),
-                      nil);
+  MyTC := TypeCode.Create(tk_struct, ['Test_2',
+                            'VByte', TypeCode.Create(tk_octet),
+                            'VSubrecord', TypeCode.Create(tk_struct, ['Test_1',
+                              'VByte', TypeCode.Create(tk_octet),
+                              'VInteger', TypeCode.Create(tk_long)
+                            ])
+                          ]);
   WriteLn('Test_2 size: ', MyTC.Size);
   MyTC.Free;
-  MyTC := TypeCodeNew(tk_struct, 'Test_3',
-                        'Byte', TypeCodeNew(tk_octet),
-                        'Subrecord', TypeCodeNew(tk_struct, 'Test_4',
-                          'Byte', TypeCodeNew(tk_octet),
-                          'Byte', TypeCodeNew(tk_octet),
-                          'Integer', TypeCodeNew(tk_long),
-                        nil),
-                      nil);
+  MyTC := TypeCode.Create(tk_struct, ['Test_3',
+                            'VByte', TypeCode.Create(tk_octet),
+                            'VSubrecord', TypeCode.Create(tk_struct, ['Test_4',
+                              'VByte', TypeCode.Create(tk_octet),
+                              'VByte', TypeCode.Create(tk_octet),
+                              'VDouble', TypeCode.Create(tk_double)
+                            ])
+                          ]);
   WriteLn('Test_3 size: ', MyTC.Size);
   MyTC.Free;
 end;
-*)
 
 begin
   try
@@ -92,7 +88,7 @@ begin
     SOMObject.NewClass;
     TestSOM_Basic;
     TestSOM_Renew;
-    // TestAlignmentAndSize;
+    TestAlignmentAndSize;
   except
     on e: Exception do
       WriteLn(GetTypeData(e.ClassInfo).UnitName + '.' + e.ClassName + ':' + e.Message);

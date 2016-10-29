@@ -836,7 +836,9 @@ type
     function Copy: TypeCode;
     procedure Free;
     procedure Print;
-    class function Create(tag: TCKind; ap: va_list): TypeCode;
+    class function Create(tag: TCKind): TypeCode; overload;
+    class function Create(tag: TCKind; const Arguments: array of const): TypeCode; overload;
+    class function Create(tag: TCKind; ap: va_list): TypeCode; overload;
     property Kind: TCKind read GetKind;
     property ParamCount: LongInt read GetParamCount;
     property Parameter[Index: LongInt]: any read GetParameter; default;
@@ -5863,10 +5865,26 @@ const
   TCREGULAR_CASE = LongInt(1);
   TCDEFAULT_CASE = LongInt(2);
 
+(* somVaBuf support *)
+
+type
+  somVaBuf = type somToken;
+
+function somVaBuf_create(vb: PAnsiChar; size: Integer): somVaBuf; stdcall;
+procedure somVaBuf_get_valist(vb: somVaBuf; out ap: va_list); stdcall;
+procedure somVaBuf_destroy(vb: somVaBuf); stdcall;
+function somVaBuf_add(vb: somVaBuf; arg: Pointer; argType: TCKind): LongInt; stdcall;
+function somvalistGetTarget(ap: va_list): LongWord; stdcall;
+procedure somvalistSetTarget(ap: va_list; val: LongWord); stdcall;
+
 // not in SOM headers
 
 procedure SOM_UninitEnvironmentOrRaise(ev: PEnvironment); {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}
 procedure SOMFreeAndNil(var Obj);
+type
+  TAnsiStringArray = array of AnsiString;
+// init Buf with nil before; use somVaBuf_destroy on Buf after!
+function ArrayOfConstToVaList(var Buf: somVaBuf; var StringBuf: TAnsiStringArray; const Arguments: array of const; AppendNil: Boolean): va_list;
 
 implementation
 
@@ -6421,6 +6439,25 @@ begin
 end;
 
 function TypeCodeNewVL(tag: TCKind; ap: va_list): TypeCode; stdcall; external SOMTC_DLL_Name name 'tcNewVL';
+
+class function TypeCode.Create(tag: TCKind): TypeCode;
+begin
+  Result := TypeCode.Create(tag, []);
+end;
+
+class function TypeCode.Create(tag: TCKind; const Arguments: array of const): TypeCode;
+var
+  Buf: somVaBuf;
+  StringBuf: TAnsiStringArray;
+begin
+  Buf := nil;
+  try
+    Result := TypeCodeNewVL(tag, ArrayOfConstToVaList(Buf, StringBuf, Arguments, True));
+    // if not Assigned(Result) then raise something;
+  finally
+    somVaBuf_destroy(Buf);
+  end;
+end;
 
 class function TypeCode.Create(tag: TCKind; ap: va_list): TypeCode;
 begin
@@ -57847,6 +57884,12 @@ begin
 end;
 
 function somTestCls; external SOM_DLL_Name;
+function somVaBuf_create; external SOMTC_DLL_Name;
+procedure somVaBuf_get_valist; external SOMTC_DLL_Name;
+procedure somVaBuf_destroy; external SOMTC_DLL_Name;
+function somVaBuf_add; external SOMTC_DLL_Name;
+function somvalistGetTarget; external SOMTC_DLL_Name;
+procedure somvalistSetTarget; external SOMTC_DLL_Name;
 
 // not in SOM headers
 
@@ -57875,6 +57918,61 @@ begin
     SOMObject(Obj).somFree;
     SOMObject(Obj) := nil;
   end;
+end;
+
+procedure AddStringToVaBuf(var Buf: somVaBuf; var StringBuf: TAnsiStringArray; const NewStr: AnsiString);
+var
+  I: Integer;
+  NewPointer: PAnsiChar;
+begin
+  I := Length(StringBuf);
+  SetLength(StringBuf, I + 1);
+  StringBuf[I] := NewStr;
+  NewPointer := PAnsiChar(StringBuf[I]);
+  somVaBuf_add(Buf, PAnsiChar(@NewPointer), tk_pointer);
+end;
+
+function ArrayOfConstToVaList(var Buf: somVaBuf; var StringBuf: TAnsiStringArray; const Arguments: array of const; AppendNil: Boolean): va_list;
+var
+  I: Integer;
+  Temp: Single;
+  Temp2: Pointer;
+begin
+  if not Assigned(Buf) then
+  begin
+    Buf := somVaBuf_create(nil, 0);
+  end;
+  for I := 0 to Length(Arguments) - 1 do
+  begin
+    case Arguments[I].VType of
+      vtInteger: somVaBuf_add(Buf, PAnsiChar(Pointer(@Arguments[I].VInteger)), tk_long);
+      vtBoolean: somVaBuf_add(Buf, PAnsiChar(Pointer(@Arguments[I].VBoolean)), tk_boolean);
+      vtChar: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VChar));
+      vtExtended: begin Temp := Arguments[I].VExtended^; somVaBuf_add(Buf, PAnsiChar(Pointer(@Temp)), tk_float); end;
+      vtString: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VString^));
+      vtPChar: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VPChar));
+      vtObject: somVaBuf_add(Buf, PAnsiChar(Pointer(@Arguments[I].VObject)), tk_pointer);
+      vtClass: somVaBuf_add(Buf, PAnsiChar(Pointer(@Arguments[I].VClass)), tk_pointer); // TODO maybe convert Delphi 2 SOM here
+      vtWideChar: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VWideChar));
+      vtPWideChar: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VPWideChar));
+      vtAnsiString: AddStringToVaBuf(Buf, StringBuf, AnsiString(Arguments[I].VAnsiString));
+      vtCurrency: begin { not supported Arguments[I].VCurrency^ } end;
+      vtVariant: begin { not supported Arguments[I].VVariant^ } end;
+      vtInterface: begin { not supported IUnknown(Arguments[I].VInterface) } end;
+      vtWideString: AddStringToVaBuf(Buf, StringBuf, AnsiString(WideString(Arguments[I].VWideString)));
+      vtInt64: begin { not supported Arguments[I].VInt64^ } end;
+      vtPointer: somVaBuf_add(Buf, PAnsiChar(Pointer(@Arguments[I].VPointer)), tk_pointer);
+      {$IFDEF DELPHI_IS_UNICODE}
+      vtUnicodeString: AddStringToVaBuf(Buf, StringBuf, AnsiString(UnicodeString(Arguments[I].VUnicodeString)));
+      {$ENDIF}
+    end;
+  end;
+  if AppendNil then
+  begin
+    Temp2 := nil;
+    somVaBuf_add(Buf, PAnsiChar(Pointer(@Temp)), tk_pointer);
+  end;
+  somVaBuf_get_valist(Buf, Result);
 end;
 
 initialization
