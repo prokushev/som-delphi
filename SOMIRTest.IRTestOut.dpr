@@ -1621,6 +1621,20 @@ begin
         WriteLn(F, '  Result := ', ImportedType, '(SOMClass(NewClass).somNewNoInit);');
         WriteLn(F, 'end;');
       end;
+
+      if Pass < wtpImplementation then
+      begin
+        WriteLn(F, '    function Clone: ', ImportedType, '; reintroduce; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+      end
+      else
+      begin
+        WriteLn(F);
+        WriteLn(F, 'function ', ImportedType, '.Clone: ', ImportedType, '; {$IFDEF DELPHI_HAS_INLINE} inline; {$ENDIF}');
+        WriteLn(F, 'begin');
+        WriteLn(F, '  Result := ', ImportedType, '(SOMClass(somGetClass).somNewNoInit);');
+        WriteLn(F, '  SOMObject(Result).somDefaultCopyInit(somInitCtrl(nil^), SOMObject(Self));');
+        WriteLn(F, 'end;');
+      end;
     end;
 
     // Second pass: public methods except for getters/setters
@@ -3341,7 +3355,7 @@ begin
     WriteLn(F);
     WriteLn(F, 'procedure SOMObjectBase.CleanupInstance;');
     WriteLn(F, 'begin');
-    WriteLn(F, '  { in SOM, everything is being cleaned up by destructors }');
+    WriteLn(F, '  { hard to separate from SOM destructors }');
     WriteLn(F, 'end;');
     WriteLn(F);
     WriteLn(F, 'function SOMObjectBase.ClassType: SOMClass;');

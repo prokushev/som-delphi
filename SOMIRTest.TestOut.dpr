@@ -11,12 +11,21 @@ uses
 
 procedure TestSOM_Basic;
 var
-  o: SOMObject;
+  o, o2: SOMObject;
 begin
   o := SOMObject.Create;
-  WriteLn('Object''s class name is ', o.somGetClassName);
-  WriteLn('Object''s class name is ', o.ClassName);
-  o.somFree;
+  try
+    WriteLn('Object''s class name is ', o.somGetClassName);
+    WriteLn('Object''s class name is ', o.ClassName);
+    o2 := o.Clone;
+    try
+      WriteLn('Second object''s class name is ', o2.ClassName);
+    finally
+      SOMFreeAndNil(o2);
+    end;
+  finally
+    SOMFreeAndNil(o);
+  end;
 end;
 
 procedure TestSOM_Renew;
@@ -30,13 +39,16 @@ begin
   SetLength(a, Size);
   o := SOMObject.InitInstance(@(a[0]));
   o.somInit;
-  WriteLn('Object''s class name is ', o.somGetClassName);
-  WriteLn('Object''s class''s class name is ', o.ClassObject.somGetClassName);
-  WriteLn('Object''s class''s class name is ', o.somGetClass.somGetClassName);
-  WriteLn('SOMClassMgr''s name is ', SOMClassMgr.NewClass.somGetName);
-  WriteLn('SOMClassMgr''s name is ', SOMClassMgr.ClassName);
-  WriteLn('SOMClassMgr''s class object''s name is ', SOMClassMgr.NewClass.somGetClassName);
-  o.somUninit;
+  try
+    WriteLn('Object''s class name is ', o.somGetClassName);
+    WriteLn('Object''s class''s class name is ', o.ClassObject.somGetClassName);
+    WriteLn('Object''s class''s class name is ', o.somGetClass.somGetClassName);
+    WriteLn('SOMClassMgr''s name is ', SOMClassMgr.NewClass.somGetName);
+    WriteLn('SOMClassMgr''s name is ', SOMClassMgr.ClassName);
+    WriteLn('SOMClassMgr''s class object''s name is ', SOMClassMgr.NewClass.somGetClassName);
+  finally
+    o.somUninit;
+  end;
 end;
 
 procedure TestAlignmentAndSize;
